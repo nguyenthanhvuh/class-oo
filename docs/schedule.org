@@ -1,0 +1,32 @@
+#+TITLE: OO Software Specification and Construction (SWE 619 Course Schedule - Spring 2021)
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+
+* Schedule
+  - *Notes*: Except for the first class, I expect students to have completed the reading *prior to class* on listed meeting. Quizzes may occasionally take advantage of this expectation.
+
+    Homework assignments are *due* on the date listed. Quizzes are posted, with solutions, on Piazza following the class in which the quiz is given.
+
+| Meeting | Topic                                     | Reading                                     | Assignment/Oral Assessment Guide                           | In-Class Exercise                                                                 | Video Link |
+|---------+-------------------------------------------+---------------------------------------------+------------------------------------------------------------+-----------------------------------------------------------------------------------+------------|
+|       1 | Class Overview                            | Liskov 1--2                                 |                                                            | IC [[./inclass00.html][0]]                                                        |            |
+|       2 | Procedural Abstraction; Exceptions        | Liskov 3--4, Bloch 10                       | [[./assign01.html][A1 Due]]; [[./guide01.html][Guide 1]]   | IC 1 [[./inclass01A.html][A]] [[./inclass01B.html][B]]                            |            |
+|       3 | Data Abstraction; Mutability              | Liskov 5.1--5.4, LiskovSet.java,  Poly.java | [[./assign02.html][A2 Due]]; [[./guide02.html][Guide 2]]   | IC 2 [[./inclass02A.html][A]] [[./inclass02B.html][B]]                            |            |
+|       4 | Reasoning About Data Abstraction          | Liskov 5.5-5.10 More Liskov 5.5-5.10        | [[./assign03.html][A3 Due]]; [[./guide03.html][Guide 3]]   | IC 3 [[./inclass03A.html][A]] [[./inclass03B.html][B]]                            |            |
+|       5 | Interation Abstraction; Method Guidelines | Liskov 6 Bloch 8                            | [[./assign04.html][A4 Due]]; [[./guide04.html][Guide 4]]   | IC 4 [[./inclass04A.html][A]] [[./inclass04B.html][B]]                            |            |
+|       6 | Type Abstraction                          | Liskov 7                                    | [[./assign05.html][A5 Due]]; [[./guide01.html][Guide 5]]   | IC 5 [[./inclass05A.html][A]] [[./inclass05B.html][B]] [[./inclass05C.html][C]]   |            |
+|       7 | Mid-semester Recap                        | /No New Material/                           | [[./guide06.html][Guide 6]]                                | IC 6 [[./inclass06A.html][A]] [[./inclass06B.html][B]]                            |            |
+|       8 | Polymorphic Abstract; Lambdas             | Liskov 8, Bloch 7(Item 42)                  | [[./assign06.html][A6 Due]]; [[./guide03.html][Guide 7]]   | IC 7 [[./inclass07A.html][A]] [[./inclass07B.html][B]]                            |            |
+|       9 | Generics                                  | Bloch 5                                     | [[./assign07.html][A7 Due]]; [[./guide04.html][Guide 8]]   | IC 8 [[./inclass08A.html][A]] [[./inclass08B.html][B]]                            |            |
+|      10 | Common Java Contracts                     | Bloch 3                                     | [[./assign08.html][A8 Due]]; [[./guide01.html][Guide 9]]   | IC 9 [[./inclass09A.html][A]] [[./inclass09B.html][B]]                            |            |
+|      11 | Classes and Inheritance                   | Bloch 4                                     | [[./assign09.html][A9 Due]]; [[./guide02.html][Guide 10]]  | IC 10 [[./inclass10A.html][A]] [[./inclass10B.html][B]]  [[./inclass10C.html][C]] |            |
+|      12 | Contract Model in Testing                 | Advanced JUnit (slides 22-24)               | [[./assign10.html][A10 Due]]; [[./guide03.html][Guide 11]] | IC [[./inclass11.html][11]]                                                       |            |
+|      13 | Enums and Annotations                     | Bloch 6                                     | [[./assign11.html][A11 Due]]; [[./guide04.html][Guide 12]] | IC 12 [[./inclass12A.html][A]] [[./inclass12B.html][B]]                           |            |
+|      14 | Course Wrap Up                            | Final Exam Notes; Code for final            |                                                            | IC [[./inclass13.html][13]]                                                       |            |
+|      15 | Final Exam @ 4:30                         | /Online/                                    |                                                            |                                                                                   |            |
+|---------+-------------------------------------------+---------------------------------------------+------------------------------------------------------------+-----------------------------------------------------------------------------------+------------|
+|         |                                           |                                             |                                                            |                                                                                   |            |
+
+* Links
+  - [[./index.html][Syllabus]]
+  - [[./schedule.html][Schedule]]

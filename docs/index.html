@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-07-03 Sat 22:08 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OO Software Specification and Construction (SWE 619 Course Syllabus - Spring 2021)</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="ThanhVu (Vu) Nguyen" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+<link rel="stylesheet" href="files/org.css">
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">OO Software Specification and Construction (SWE 619 Course Syllabus - Spring 2021)</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org0d46f43">1. SCHEDULE</a></li>
+<li><a href="#orgaa56219">2. Information and Contact</a></li>
+<li><a href="#org6cae430">3. Course Description</a></li>
+<li><a href="#org200dc4d">4. Course Materials</a></li>
+<li><a href="#orgeba1583">5. Weekly schedule</a></li>
+<li><a href="#org957d388">6. Grading</a>
+<ul>
+<li><a href="#org986685f">6.1. Group Functioning</a></li>
+<li><a href="#org0e090fb">6.2. Reading Reflections</a></li>
+<li><a href="#org4c2bd58">6.3. Homework Assignments</a></li>
+<li><a href="#org64afff1">6.4. Oral Assessments</a></li>
+<li><a href="#org3498017">6.5. Final Exam</a></li>
+</ul>
+</li>
+<li><a href="#org14b1eeb">7. Class Attendance</a></li>
+<li><a href="#org7ef177e">8. In-Class Exercises</a></li>
+<li><a href="#orgd550269">9. ShowMe Videos/Other videos</a></li>
+<li><a href="#org02eb517">10. Record Keeping</a></li>
+<li><a href="#org7660309">11. Email</a>
+<ul>
+<li><a href="#org0f046c9">11.1. Virginia Privacy Laws</a></li>
+<li><a href="#org514a643">11.2. Piazza</a></li>
+</ul>
+</li>
+<li><a href="#org546fb4c">12. Links</a></li>
+<li><a href="#org83096c0">13. Honor Code</a></li>
+<li><a href="#org61a74bf">14. Learning Disabilities</a></li>
+<li><a href="#org3dbd325">15. Acknowledgement</a></li>
+</ul>
+</div>
+</div>
+<hr />
+<div id="outline-container-org0d46f43" class="outline-2">
+<h2 id="org0d46f43"><span class="section-number-2">1</span> <a href="./schedule.html">SCHEDULE</a></h2>
+</div>
+
+<div id="outline-container-orgaa56219" class="outline-2">
+<h2 id="orgaa56219"><span class="section-number-2">2</span> Information and Contact</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-center">
+<address>
+Professor: 	<a href="https://nguyenthanhvuh.github.io">ThanhVu Nguyen</a><br>
+Office: 	Zoom<br>
+Course Location: 	Blackboard Collaborate (join the "course room")<br>
+Email: 	<a href="mailto:tnguyen@unl.edu">tnguyen@unl.edu</a><br>
+URL: 	<a href="https://github.com/nguyenthanhvuh/class-oo">https://github.com/nguyenthanhvuh/class-oo</a><br>
+Class Hours: 	Mondays 4:30 to 7:10, Online (Blackboard)<br>
+Office Hour Zoom: 	TBA<br>
+GTA	Mahfuz Alam: TBA<br>
+GTA Office hours:	TBA
+</address>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org6cae430" class="outline-2">
+<h2 id="org6cae430"><span class="section-number-2">3</span> Course Description</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+To give the students a solid understanding of modern software construction. To prepare students to construct sequential and concurrent programs. To encourage the construction of software systems of high quality. In-depth study of software construction in a modern language including control structuring and packaging. Concepts such as information hiding, data abstraction, and object-based and object-oriented software construction are discussed and illustrated. This course is part of the core of the SWE program. This section of 619 uses Java.
+</p>
+
+<p>
+<b><b>Prerequisite</b></b>: SWE Foundation Courses or equivalent
+</p>
+</div>
+</div>
+
+<div id="outline-container-org200dc4d" class="outline-2">
+<h2 id="org200dc4d"><span class="section-number-2">4</span> Course Materials</h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li>Joshua Bloch. <i>Effective Java</i>. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1. <b>Required</b>. 
+<ul class="org-ul">
+<li><a href="http://proquest.safaribooksonline.com/book/programming/java/9780134686097">Direct Safari Link</a></li>
+<li><a href="https://learning-oreilly-com.mutex.gmu.edu/library/view/effective-java-3rd/9780134686097/cover.xhtml">General Safari Link (off campus)</a></li>
+</ul></li>
+<li>Barbara Liskov with John Guttag. <i>Program Development in Java</i> . Addison Wesley, 2001, ISBN 0-201-65768-6. <b>Required</b>. 
+<ul class="org-ul">
+<li><a href="http://proquest.safaribooksonline.com/book/programming/java/9780768685299">Direct Safari Link</a></li>
+<li><a href="https://learning-oreilly-com.mutex.gmu.edu/library/view/program-development-in/9780768685299/ch1.html">General Safari Link (off campus)</a></li>
+</ul></li>
+</ul>
+
+<p>
+<b><b>Note on the course materials</b></b>: We'll start with Liskov. Don't worry about the publication date; Liskov is basically a math book, and hence ages remarkably well. We're interested in contracts, mutability, data abstraction, and type abstraction. Bloch is concerned about the same things, but explores them in more detail and in more up-to-date Java. Bloch also corrects some important points that weren't well understood when Liskov's text came out.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgeba1583" class="outline-2">
+<h2 id="orgeba1583"><span class="section-number-2">5</span> Weekly schedule</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+This class is a group-based, hybrid synchronous, online offering. That means you need to be present in class at class time. You will also need to schedule regular meetings with your group and with me (and possibly the GTA) outside of class.
+This is my second offering of this class in a full-time online format. Mostly, we'll do what I did last fall, but there are some updates and tweaks.
+</p>
+
+<p>
+Each week will cover a small number of related technical issues (see course schedule). Let's call this small number of technical issues a "topic". Each topic will follow roughly the same sequence of preparation, in-class learning activities, homework completion and (possibly) presentation, and knowledge assessment. To make this scale in an online environment, many of these activities will be group based. The sequence is:
+</p>
+
+<ul class="org-ul">
+<li>Preparation: Complete assigned readings and watch relevant videos, if any.</li>
+<li>Reading Reflection: This is a formal opportunity for each group to reflect on the reading.</li>
+<li>Synchronous Class Meeting (BB Collaborate):
+<ul class="org-ul">
+<li>Prior week's homework solution presentation and discussion. This is typically a randomly selected group, but occasionally, I'll do the presentation.</li>
+<li>Reading reflection summary</li>
+<li>Combined session on the day's topic, followed by in-class exercises (group breakouts)</li>
+<li>Break</li>
+<li>Combined session on the day's topic, followed by in-class exercises (group breakouts)</li>
+<li>Wrap up</li>
+</ul></li>
+<li>Homework (group-based).</li>
+<li>Individual oral assessments.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org957d388" class="outline-2">
+<h2 id="org957d388"><span class="section-number-2">6</span> Grading</h2>
+<div class="outline-text-2" id="text-6">
+<ul class="org-ul">
+<li>Group Functioning (group-based) :10%</li>
+<li>Reading Reflections (group-based) :10%</li>
+<li>Homework assignments (group-based): 15%</li>
+<li>Oral Assessments (individual): 35%</li>
+<li>Final exam (individual): 30%</li>
+</ul>
+
+<p>
+Each of these grade components is discussed below.
+</p>
+</div>
+
+<div id="outline-container-org986685f" class="outline-3">
+<h3 id="org986685f"><span class="section-number-3">6.1</span> Group Functioning</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Every student needs to be part of a group. I would prefer that groups stay stable throughout the semester, but if there is a good rationale to reconfigure a group or two, we'll do that.
+Group size: 2 to 4 students.
+</p>
+
+<p>
+Group creation mechanism: As a default, we'll drop students into groups at random. If you are happy with your random group, great! If you prefer a different group, during the first week you will have the option to re-group. If your group dwindles to just yourself, you'll need to join another group.
+</p>
+
+<p>
+At the end of the semester, each individual will provide an assessment of the rest of their group. This assessment will determine the "Group Functioning" part of the grade.
+</p>
+
+<p>
+Groups can communicate internally through any mechanism they choose: zoom, discord, google docs, whatever.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0e090fb" class="outline-3">
+<h3 id="org0e090fb"><span class="section-number-3">6.2</span> Reading Reflections</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Each week, each group must complete a "reading reflection" the day before class. (That means midnight Sunday, in the case of this class, since class meetings are Monday afternoon.) I will review these assessments before class, compile the overall responses, and use them to tune the in-class activities. Reading reflections are available on Blackboard. These reflections are part of the learning process rather than the assessment process. That is, they don't assess whether you have achieved mastery of the new material, rather they check whether you have done the necessary preparation.
+Important: There are no make-ups.
+</p>
+
+<p>
+Note: The reading reflections work really well. I plan to keep those when classes return to F2F - hopefully, in Fall 2021.
+</p>
+
+<p>
+Note: Please! Only one submission per group. Everyone in the group gets the same credit.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4c2bd58" class="outline-3">
+<h3 id="org4c2bd58"><span class="section-number-3">6.3</span> Homework Assignments</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+There are weekly group homework assighments. I post homework assignments on the class web site. Generally, your group should submit assignments via Blackboard.
+Because of the way in which this class is taught, it is important to stay on pace. Homeworks are due before class. Late submissions are not accepted except in truly exceptional circumstances.
+</p>
+
+<p>
+Important: Each group should be prepared to present their homework solution in class.
+</p>
+
+<p>
+Important: Statement of who did what. Homeworks are group exercises. Each submission must contain a specific statement of who did what.
+</p>
+
+<p>
+Important: Solutions and solution checking. The group must split their roles on each exercise. Part of the group creates the solution. A separate part of the group checks the solution, certifies that it is correct, and explains why it is correct. If you can't formulate this explanation, it's time for your group to see me or the GTA in office hours. Note that this model is common in engineering, where engineers sometimes create solutions and other times certify solutions. You should rotate roles within your group from week to week.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org64afff1" class="outline-3">
+<h3 id="org64afff1"><span class="section-number-3">6.4</span> Oral Assessments</h3>
+<div class="outline-text-3" id="text-6-4">
+<p>
+Ideally, oral assessments should happen every week. But I don't have the bandwidth to make that happen. Instead, every student will schedule an oral assessment once every <b>two</b> weeks.
+Process:
+</p>
+
+<ul class="org-ul">
+<li>Scheduling: While each student will complete each assessment individually, we will schedule assessments by group. Students in odd numbered gropus should schedule themselves for an assessment in weeks with odd-numbered oral assessment guides. Students in even numbered gropus should schedule themselves for an assessment in weeks with even-numbered oral assessment guides.</li>
+<li>Duration: Each assessment lasts 10 minutes. This is a little tight, but generally works.</li>
+<li>I will be forthcoming and concrete about the content for each assessment. I'll do this in the form of "Oral Assessment Guides" posted to the course schedule. That is, you shouldn't be surprised by any of the questions. Often, they will be closely related to the prior week's homework. The questions will typically look like, "What would Liskov (or Bloch) think of the following variation(s) of this snippet of code we studied last week? And why would they think that?"</li>
+<li>Not every student will get the same quiz, even if the quiz is on the same day. I promise to be fair about this.</li>
+<li>The evaluation scale is as follows:
+<ul class="org-ul">
+<li>Awesome == You demonstrate mastery of the material. Scores 10/10.</li>
+<li>Strong performance, but perhaps a slight wobble: Scores 9/10.</li>
+<li>Acceptable, but some significant errors: Scores 8/10.</li>
+<li>Weak: Scores 5/10 to 7/10.</li>
+<li>Unacceptable: Scores 0/10.</li>
+</ul></li>
+</ul>
+
+<p>
+Make-ups. The goal is to get you to understand the material. So, if you score as "Weak" or "Unacceptable", I'll give you an opportunity for a make-up. The maximum score on a make-up is 8/10. Before I'll admit you for a make-up, you will have to practice with the GTA. If the GTA gives me the green light, I'll schedule a make-up.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3498017" class="outline-3">
+<h3 id="org3498017"><span class="section-number-3">6.5</span> Final Exam</h3>
+<div class="outline-text-3" id="text-6-5">
+<p>
+There will be a final exam appropriate for the online, unproctored nature of this class offering. I plan to offer an oral option as well as a written option. The last class of the semester will include a detailed discussion of the exam structure and contents.
+</p>
+
+<hr />
+</div>
+</div>
+</div>
+
+<div id="outline-container-org14b1eeb" class="outline-2">
+<h2 id="org14b1eeb"><span class="section-number-2">7</span> Class Attendance</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+I place great emphasis on peer learning and interactive engagement. Here's why. I have structured the class to leverage group interactions to the largest extent possible for the purpose of maximizing learning gain through out the semester.
+Bottome line: It's important to be in class.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7ef177e" class="outline-2">
+<h2 id="org7ef177e"><span class="section-number-2">8</span> In-Class Exercises</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+I plan an in-class exercise for every class. Students will work in their designated group. Some of these exercises need a Java development environment. Very often, the in-class exercises will be closely related to an upcoming homework assignment.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd550269" class="outline-2">
+<h2 id="orgd550269"><span class="section-number-2">9</span> ShowMe Videos/Other videos</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+The course schedule page links to a number of short videos created with the ShowMe service. Some students find these helpful for grasping key points from various lectures. Several items of note:
+Each ShowMe captures an interaction a student has with me. Such interactions can help students master the material more effectively than having me drone on solo.
+I am interested in creating more ShowMe videos for other topics in the course. Contact me if you would like to help me do this.
+I am open to redoing existing topics if there is something you think could be done better.
+Other videos are just me.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org02eb517" class="outline-2">
+<h2 id="org02eb517"><span class="section-number-2">10</span> Record Keeping</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+We'll use Blackboard to maintain RAW scores and attendance data. Grades are computed according to this syllabus. There is a column in BB labeled "TOTAL": Ignore it; it's meaningless for this class. (BB, in typical BB arrogance, does not give me the option of disabling or hiding this column.)
+It's the student's responsibility to ensure that Blackboard records are correct. (I'm happy to correct errors.)
+</p>
+
+<p>
+Every semester, I get email from students wondering why there grade doesn't correspond to the TOTAL column in BB. Please don't be the student who sends me this message.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7660309" class="outline-2">
+<h2 id="org7660309"><span class="section-number-2">11</span> Email</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+Please note that questions of general interest should not be emailed to me. Post on Piazza instead.
+</p>
+</div>
+
+<div id="outline-container-org0f046c9" class="outline-3">
+<h3 id="org0f046c9"><span class="section-number-3">11.1</span> Virginia Privacy Laws</h3>
+<div class="outline-text-3" id="text-11-1">
+<p>
+The state of Virginia now has laws that require the University (including me) not to disclose student email addresses, phone numbers, and addresses. This will impact communications in this class as follows:
+Communicating via email with groups of students is problematic. (Bcc is a partial but not very good, solution.) As far as I have been able to determine, Piazza does not make student emails visible to other students, even though instructors can see email addresses. Hence, this is another reason to favor the Piazza forum.
+You can choose to disclose your email whenever and wherever you wish. That's up to you.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org514a643" class="outline-3">
+<h3 id="org514a643"><span class="section-number-3">11.2</span> Piazza</h3>
+<div class="outline-text-3" id="text-11-2">
+<p>
+I find anonymous discussions unhelpful in this class; here learning is predicated on interactions. Plus, part of your education is to learn to stand behind your questions and ideas. That's how employees function in the working world. Piazza allows partial, but not complete, control of anonymous posts. Should someone post anonymously, I will ask the poster to change the visibility and ask the class not to respond to the anonymous version.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org546fb4c" class="outline-2">
+<h2 id="org546fb4c"><span class="section-number-2">12</span> Links</h2>
+<div class="outline-text-2" id="text-12">
+<ul class="org-ul">
+<li><a href="./index.html">Syllabus</a></li>
+<li><a href="./schedule.html">Schedule</a></li>
+</ul>
+
+<hr />
+</div>
+</div>
+
+<div id="outline-container-org83096c0" class="outline-2">
+<h2 id="org83096c0"><span class="section-number-2">13</span> Honor Code</h2>
+<div class="outline-text-2" id="text-13">
+<p>
+As with all GMU courses, SWE 619 is governed by the <a href="http://oai.gmu.edu/the-mason-honor-code/">GMU Honor Code</a>. In this course, all oral assessments and the final exam carry with them an implicit statement that it is the sole work of the author. Further, all group submissions require a statement of participation from each member of the group.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org61a74bf" class="outline-2">
+<h2 id="org61a74bf"><span class="section-number-2">14</span> Learning Disabilities</h2>
+<div class="outline-text-2" id="text-14">
+<p>
+Students with learning disabilities (or other conditions documented with GMU Office of Disability Services) who need academic accommodations should see me and contact the <a href="http://ods.gmu.edu/">Disability Resource Center</a> (DRC) at (703)993-2474. I am more than happy to assist you, but all academic accommodations must be arranged through the DRC.
+</p>
+
+<hr />
+</div>
+</div>
+<div id="outline-container-org3dbd325" class="outline-2">
+<h2 id="org3dbd325"><span class="section-number-2">15</span> Acknowledgement</h2>
+<div class="outline-text-2" id="text-15">
+<p>
+This class is heavily modeled after <a href="https://cs.gmu.edu/~pammann/">Paul Ammann</a>'s <a href="https://cs.gmu.edu/~pammann/619.html">SWE619 course</a>.
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>

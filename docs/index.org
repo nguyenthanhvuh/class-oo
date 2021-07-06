@@ -2,18 +2,20 @@
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 #+HTML_HEAD: <link rel="stylesheet" href="files/org.css">
-   
-* Contact
+
+-----
+* [[./schedule.html][SCHEDULE]]
+  
+* Information and Contact
 #+begin_center
 #+begin_export html
     <address>
-    Professor: 	ThanhVu Nguyen<br>
+    Professor: 	<a href="https://nguyenthanhvuh.github.io">ThanhVu Nguyen</a><br>
     Office: 	Zoom<br>
     Course Location: 	Blackboard Collaborate (join the "course room")<br>
     Email: 	<a href="mailto:tnguyen@unl.edu">tnguyen@unl.edu</a><br>
-    URL: 	http://nguyenthanhvuh.github.io/class-oo/<br>
+    URL: 	<a href="https://github.com/nguyenthanhvuh/class-oo">https://github.com/nguyenthanhvuh/class-oo</a><br>
     Class Hours: 	Mondays 4:30 to 7:10, Online (Blackboard)<br>
-    Prerequisite: 	SWE Foundation Courses or equivalent<br>
     Office Hour Zoom: 	TBA<br>
     GTA	Mahfuz Alam: TBA<br>
     GTA Office hours:	TBA
@@ -22,40 +24,43 @@
 #+end_center
 
 
+
 * Course Description
 
-To give the students a solid understanding of modern software construction. To prepare students to construct sequential and concurrent programs. To encourage the construction of software systems of high quality. In-depth study of software construction in a modern language including control structuring and packaging. Concepts such as information hiding, data abstraction, and object-based and object-oriented software construction are discussed and illustrated. This course is part of the core of the SWE program. This section of 619 uses Java.
+  To give the students a solid understanding of modern software construction. To prepare students to construct sequential and concurrent programs. To encourage the construction of software systems of high quality. In-depth study of software construction in a modern language including control structuring and packaging. Concepts such as information hiding, data abstraction, and object-based and object-oriented software construction are discussed and illustrated. This course is part of the core of the SWE program. This section of 619 uses Java.
+
+  **Prerequisite**: SWE Foundation Courses or equivalent
 
 * Course Materials
 
-- Joshua Bloch. Effective Java. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1. *Required*. 
-  - Direct Safari Link 
-  - General Safari Link (off campus)
-- Barbara Liskov with John Guttag. Program Development in Java . Addison Wesley, 2001, ISBN 0-201-65768-6. *Required*. 
-  - Direct Safari Link 
-  - General Safari Link (off campus)
-- Note that you can access the Java 8 APIs at the Oracle site.
+- Joshua Bloch. /Effective Java/. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1. *Required*. 
+  - [[http://proquest.safaribooksonline.com/book/programming/java/9780134686097][Direct Safari Link]]
+  - [[https://learning-oreilly-com.mutex.gmu.edu/library/view/effective-java-3rd/9780134686097/cover.xhtml][General Safari Link (off campus)]]
+- Barbara Liskov with John Guttag. /Program Development in Java/ . Addison Wesley, 2001, ISBN 0-201-65768-6. *Required*. 
+  - [[http://proquest.safaribooksonline.com/book/programming/java/9780768685299][Direct Safari Link]]
+  - [[https://learning-oreilly-com.mutex.gmu.edu/library/view/program-development-in/9780768685299/ch1.html][General Safari Link (off campus)]]
+    # - Note that you can access the Java 8 APIs at the Oracle site.
   
-Note on the course materials: We'll start with Liskov. Don't worry about the publication date; Liskov is basically a math book, and hence ages remarkably well. We're interested in contracts, mutability, data abstraction, and type abstraction. Bloch is concerned about the same things, but explores them in more detail and in more up-to-date Java. Bloch also corrects some important points that weren't well understood when Liskov's text came out.
+**Note on the course materials**: We'll start with Liskov. Don't worry about the publication date; Liskov is basically a math book, and hence ages remarkably well. We're interested in contracts, mutability, data abstraction, and type abstraction. Bloch is concerned about the same things, but explores them in more detail and in more up-to-date Java. Bloch also corrects some important points that weren't well understood when Liskov's text came out.
 
 * Weekly schedule
 
 This class is a group-based, hybrid synchronous, online offering. That means you need to be present in class at class time. You will also need to schedule regular meetings with your group and with me (and possibly the GTA) outside of class.
 This is my second offering of this class in a full-time online format. Mostly, we'll do what I did last fall, but there are some updates and tweaks.
 
-Each week will cover a small number of related technical issues (see course schedule). Let's call this small number of technical issues a "topic". Each topic will follow roughly the same sequence of preparation, in-class learning activities, homework completion and (possibly) presentation, and knowledge assessment. To make this scale in an online environment, many of these activities will be group based. (See a later section in the syllabus on my view of the importance of interactive learning.) The sequence is:
+Each week will cover a small number of related technical issues (see course schedule). Let's call this small number of technical issues a "topic". Each topic will follow roughly the same sequence of preparation, in-class learning activities, homework completion and (possibly) presentation, and knowledge assessment. To make this scale in an online environment, many of these activities will be group based. The sequence is:
 
-Preparation: Complete assigned readings and watch relevant videos, if any.
-Reading Reflection: This is a formal opportunity for each group to reflect on the reading.
-Synchronous Class Meeting (BB Collaborate):
-Prior week's homework solution presentation and discussion. This is typically a randomly selected group, but occasionally, I'll do the presentation.
-Reading reflection summary
-Combined session on the day's topic, followed by in-class exercises (group breakouts)
-Break
-Combined session on the day's topic, followed by in-class exercises (group breakouts)
-Wrap up
-Homework (group-based).
-Individual oral assessments.
+- Preparation: Complete assigned readings and watch relevant videos, if any.
+- Reading Reflection: This is a formal opportunity for each group to reflect on the reading.
+- Synchronous Class Meeting (BB Collaborate):
+  - Prior week's homework solution presentation and discussion. This is typically a randomly selected group, but occasionally, I'll do the presentation.
+  - Reading reflection summary
+  - Combined session on the day's topic, followed by in-class exercises (group breakouts)
+  - Break
+  - Combined session on the day's topic, followed by in-class exercises (group breakouts)
+  - Wrap up
+- Homework (group-based).
+- Individual oral assessments.
 
 * Grading
 - Group Functioning (group-based) :10%
@@ -159,12 +164,23 @@ You can choose to disclose your email whenever and wherever you wish. That's up 
 
 I find anonymous discussions unhelpful in this class; here learning is predicated on interactions. Plus, part of your education is to learn to stand behind your questions and ideas. That's how employees function in the working world. Piazza allows partial, but not complete, control of anonymous posts. Should someone post anonymously, I will ask the poster to change the visibility and ask the class not to respond to the anonymous version.
 
+
+* Links
+  - [[./index.html][Syllabus]]
+  - [[./schedule.html][Schedule]]
+
 -----
 
 * Honor Code
 
-As with all GMU courses, SWE 619 is governed by the GMU Honor Code. In this course, all oral assessments and the final exam carry with them an implicit statement that it is the sole work of the author. Further, all group submissions require a statement of participation from each member of the group.
+As with all GMU courses, SWE 619 is governed by the [[http://oai.gmu.edu/the-mason-honor-code/][GMU Honor Code]]. In this course, all oral assessments and the final exam carry with them an implicit statement that it is the sole work of the author. Further, all group submissions require a statement of participation from each member of the group.
 
 * Learning Disabilities
 
-Students with learning disabilities (or other conditions documented with GMU Office of Disability Services) who need academic accommodations should see me and contact the Disability Resource Center (DRC) at (703)993-2474. I am more than happy to assist you, but all academic accommodations must be arranged through the DRC.
+Students with learning disabilities (or other conditions documented with GMU Office of Disability Services) who need academic accommodations should see me and contact the [[http://ods.gmu.edu/][Disability Resource Center]] (DRC) at (703)993-2474. I am more than happy to assist you, but all academic accommodations must be arranged through the DRC.
+
+-----
+* Acknowledgement
+  This class is heavily modeled after [[https://cs.gmu.edu/~pammann/][Paul Ammann]]'s [[https://cs.gmu.edu/~pammann/619.html][SWE619 course]].
+
+  

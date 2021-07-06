@@ -1,0 +1,49 @@
+#+TITLE: SWE 619 In Class Exercise Number 0 
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+#+HTML_HEAD: <link rel="stylesheet" href="files/org.css">
+
+
+* Instructions
+
+  Work with your group. Your group assignment is on Piazza. (You might decide to change groups later, but for today, stick with this group.) When we invoke the BB break-out function, nagivate to your assigned group. 
+1. Your group should spend a few minutes getting acquainted. Explain a bit about yourself: full-time student?, working in software development?, why are you taking this class?, favorite/least favorite thing about writing software?, etc.
+2. Decide on a mechanism for joint communication. Google docs? IDE with screen share? Something else?
+
+Now address a technical topic. This exercise touches on some of the thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don't worry if it seems confusing today. We'll revisit this example several times over the course of the semester.
+
+Consider the following (textbook) code:
+
+
+#+begin_src java
+public class User {
+    private String name;
+    public User (String name) { this.name = name; }
+    @Override public boolean equals (Object obj) {
+       if (!(obj instanceof User)) return false;
+       return ((User) obj).name.equals(this.name);
+    }
+    // other methods omitted
+}
+public class SpecialUser extends User {
+    private int id;
+    public SpecialUser (String name, int id) { super(name); this.id = id; }
+    @Override public boolean equals (Object obj) {
+       if (!(obj instanceof SpecialUser)) return false;
+       return super.equals(obj) && ((SpecialUser) obj).id == this.id;
+    }
+    // other methods omitted
+}
+#+end_src
+
+1. Walk though the execution of the =equals()= method in class =User= for a few well-chosen objects as the parameter. What happens at each point in the execution? 
+2. What does it mean for an =equals()= implementation to be *correct*? How do you know? Be as concrete as you can. 
+3. Is the given implementation of =equals()= in class =User= correct? Again, be concrete. If there is a problem, find a specific object (test case!) that demonstrates the problem. 
+4. How does inheritance complicate the correctness discussion for =equals()= in class =SpecialUser=? 
+5. What is your assessment of the =equals()= method in the =SpecialUser= class?
+
+
+* Links
+  - [[./index.html][Syllabus]]
+  - [[./schedule.html][Schedule]]
+
