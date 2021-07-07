@@ -1,7 +1,7 @@
 #+TITLE: SWE 619 Oral Assessment Guide 1
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
-#+HTML_HEAD: <link rel="stylesheet" href="files/org.css">
+
 
 
 * Instructions
