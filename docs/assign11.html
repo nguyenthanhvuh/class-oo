@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-07-07 Wed 14:34 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SWE 619 Assignment 11</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="ThanhVu (Vu) Nguyen" />
+<link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+</head>
+<body>
+<div id="content">
+<h1 class="title">SWE 619 Assignment 11</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org679e084">1. Goals: Applying lessons learned.</a></li>
+<li><a href="#orgc844f75">2. Grading Criteria</a></li>
+<li><a href="#org0df6908">3. Links</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org679e084" class="outline-2">
+<h2 id="org679e084"><span class="section-number-2">1</span> Goals: Applying lessons learned.</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+You have a choice of possible assignments:
+</p>
+
+<ol class="org-ol">
+<li>Consider one of the <code>copyOf()</code> methods in the Java <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html">Arrays</a> utility class. Bloch uses this method in his <code>Stack</code> example. Code a corresponding method in C++, changing the argument list as necessary. Provide a specification for the C++ code by translating the JavaDoc and adding preconditions as necessary. Explain what this exercise demonstrates about C++ type safety.</li>
+
+<li><p>
+For most of the semester, we have focused on design considerations for constructing software that does something we want it to do. For this last assignment, I would like students to appreciate just how vulnerable software is to malicious parties intent on attacking their software.
+</p>
+
+<p>
+There are two attacks documented in Bloch's Item 88: <i>Write <code>readObject()</code> methods defensively</i>. One is called <code>BogusPeriod</code>, and the other is called <code>MutablePeriod</code>. Implement either (your choice) of these attacks (basically involves typing in code from Bloch) and verify that the attack takes place.
+</p></li>
+
+<li>A different source of security vulnerabilities in Java also involve serialization. Bloch (and others) recommend "cross-platform structured data representations" (e.g. JSON or Protocol Buffers) as safe alternatives. Develop a simple serialization example in Java and convert it into a safe alternative (probably, JSON is easier to use, since it is text-based). To make the example more interesting, use some objects types that are not directly supported.</li>
+
+<li>Find some existing (Java) code that uses the "int enum pattern" and refactor it to use Java <code>Enums</code> instead. Identify any type-safety issue you uncover in the existing code. To make the exercise interesting, extend your enums beyond simple named-constants in one of the ways discussed by Bloch in Item 34.</li>
+
+<li>Where appropriate, code up, as JUnit theories, constraints for classes that implement the Java <code>Comparable</code> interface. Note that there is significant overlap with the in-class exercise. Note also that the Comparable interface is generic; hence, you should use generics in your JUnit test class.</li>
+
+<li>Gain experience with one of the property-based testing tools. I suggest a Java-based one (such as <a href="https://jqwik.net">jqwik</a>). One way to do this is work through one of the articles linked on the jqwik site.</li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgc844f75" class="outline-2">
+<h2 id="orgc844f75"><span class="section-number-2">2</span> Grading Criteria</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+In each case, the deliverable is a story. Write a brief report, and include enough evidence (output, screen shots, etc.) that the GTA can figure out that you actually completed the assignment.
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org0df6908" class="outline-2">
+<h2 id="org0df6908"><span class="section-number-2">3</span> Links</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li><a href="./index.html">Syllabus</a></li>
+<li><a href="./schedule.html">Schedule</a></li>
+</ul>
+</div>
+</div>
+</div>
+</body>
+</html>

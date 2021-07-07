@@ -1,0 +1,17 @@
+#+TITLE: SWE 619 Assignment 7 
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+
+* Goals: Polymorphic Abstraction.
+
+A =Comparator= based on absolute values is problematic. Code up the comparator and then write client code that illustrates the problem. Use a /lambda function/ to implement the comparator. Explain what is wrong in a brief summary statement. Your explanation of the problem must be phrased in terms of a violation of the contract for =Comparator=.
+
+To emphasize that this contract problem is real, your code should create two Java sets, one a =HashSet=, and the other a =TreeSet=. The =TreeSet= should order items with your absolute value comparator. Your example should add the same integers to both sets, yet still end up with sets that are different. Your summary statement should explain why.
+
+* Grading Criteria
+  As for other recent assignments, your deliverable is a clear, concise story that demonstrates completion of the assignment.
+
+* Links
+  - [[./index.html][Syllabus]]
+  - [[./schedule.html][Schedule]]
+

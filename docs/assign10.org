@@ -1,0 +1,23 @@
+#+TITLE: SWE 619 Assignment 10
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+
+* Goals: Favoring composition over inheritance. Bloch, Item 18.
+
+  Consider the =InstrumentedSet= example from Bloch Item 18 (as well as in-class exercise [[./inclass10A.html][#10A]]).
+    1. Replace =Set= with =List=. There is no problem with =equals()=. Why not?
+    1. Replace =Set= with =Collection=. Now =equals()= does not satisfy its contract.
+      - Explain why there is a problem.
+      - Demonstrate the problem with a suitable JUnit test.
+
+
+
+  
+* Grading Criteria
+  The GTA will look for correct responses, appropriate JUnit tests, and plausible explanations when doing the grading.
+
+
+* Links
+  - [[./index.html][Syllabus]]
+  - [[./schedule.html][Schedule]]
+

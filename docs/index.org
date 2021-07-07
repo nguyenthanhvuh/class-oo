@@ -1,4 +1,4 @@
-#+TITLE: OO Software Specification and Construction (SWE 619 Course Syllabus -  Spring 2021)
+#+TITLE: OO Software Specification and Construction (SWE 619 Course Syllabus -  Fall 2021)
 #+OPTIONS: ^:nil toc:nil 
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 
@@ -12,7 +12,7 @@
     Office: 	Zoom<br>
     Course Location: 	Blackboard Collaborate (join the "course room")<br>
     Email: 	<a href="mailto:tnguyen@unl.edu">tnguyen@unl.edu</a><br>
-    URL: 	<a href="https://github.com/nguyenthanhvuh/class-oo">https://github.com/nguyenthanhvuh/class-oo</a><br>
+    URL: 	<a href="https://nguyenthanhvuh.github.io/class-oo">https://nguyenthanhvuh.github.io/class-oo</a><br>
     Class Hours: 	Mondays 4:30 to 7:10, Online (Blackboard)<br>
     Office Hour Zoom: 	TBA<br>
     </address>

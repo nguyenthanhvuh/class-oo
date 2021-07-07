@@ -1,14 +1,13 @@
 #+TITLE: SWE 619 Assignment 2 
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
-#+HTML_HEAD: <link rel="stylesheet" href="files/org.css">
 
 * Goals: Contracts
 
-  
 For the second assignment, you'll build a /very/ small piece of Java for a contract with preconditions, transform the contract so that all preconditions become postconditions, and then re-implement appropriately.
 
 Consider a method that calculates the number of months needed to pay off a loan of a given size at a fixed /annual/ interest rate and a fixed /monthly/ payment. For instance, a $100,000 loan at an 8% annual rate would take 166 months to discharge at a monthly payment of $1,000, and 141 months to discharge at a monthly payment of $1,100. (In both of these cases, the final payment is smaller than the others; I rounded 165.34 up to 166 and 140.20 up to 141.) Continuing the example, the loan would never be paid off at a monthly payment of $100, since the principal would grow rather than shrink.
+
 Define a Java class called =Loan=. In that class, write a method that satisfies the following specification:
 
 #+begin_src java

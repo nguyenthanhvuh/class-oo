@@ -1,0 +1,25 @@
+#+TITLE: SWE 619 Assignment 3 
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+
+* Goals: Data Abstraction / Mutability
+
+Rewrite [[./files/MapPoly.java][MapPoly]], my map-based version Liskov's Poly so that it is /mutable/. Keep the same representation.
+
+Rewrite the overview, the method signatures, the method specifications, and the methods themselves. You do not need to rewrite the abstraction function and representation invariant for this exercise.
+
+Turn in a *story*. This means that it is possible to grade your assignment simply by reading it, as if it were part of a textbook. In particular, every place you make a decision to change something in the code (or not), you should have a description of what you did (or didn't do) and why you did (or didn't do) it.
+
+Remember that part of your group is responsible for synthesizing a solution, and part of your group is responsible for checking the result.
+
+
+* Grading Criteria
+- Correct transformation of Poly
+- Clarity of your story.
+- Reasonable division of synthesis vs. checking.  
+
+
+* Links
+  - [[./index.html][Syllabus]]
+  - [[./schedule.html][Schedule]]
+
