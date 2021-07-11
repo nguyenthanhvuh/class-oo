@@ -165,10 +165,6 @@ The state of Virginia now has laws that require the University (including me) no
 I find anonymous discussions unhelpful in this class; here learning is predicated on interactions. Plus, part of your education is to learn to stand behind your questions and ideas. That's how employees function in the working world. Piazza allows partial, but not complete, control of anonymous posts. Should someone post anonymously, I will ask the poster to change the visibility and ask the class not to respond to the anonymous version.
 
 
-* Links
-  - [[./index.html][Syllabus]]
-  - [[./schedule.html][Schedule]]
-
 -----
 
 * Honor Code
@@ -184,3 +180,8 @@ Students with learning disabilities (or other conditions documented with GMU Off
   This class is heavily modeled after [[https://cs.gmu.edu/~pammann/][Paul Ammann]]'s [[https://cs.gmu.edu/~pammann/619.html][SWE619 course]].
 
   
+-----
+* Links
+  - [[./index.html][Syllabus]]
+  - [[./schedule.html][Schedule]]
+
