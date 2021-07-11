@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-07-10 Sat 19:50 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SWE 619 In Class Exercise Number 3B</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="ThanhVu (Vu) Nguyen" />
+<link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+<link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+</head>
+<body>
+<div id="content">
+<h1 class="title">SWE 619 In Class Exercise Number 3B</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgd7783ee">1. Instructions</a></li>
+<li><a href="#org95d0f82">2. Links</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd7783ee" class="outline-2">
+<h2 id="orgd7783ee"><span class="section-number-2">1</span> Instructions</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Consider the code:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java">
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Members</span> {
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Members is a mutable record of organization membership</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">AF: Collect the list as a set</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">rep-inv1: members != null</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">rep-inv2: members != null &amp;&amp; no duplicates in members</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">for simplicity, assume null can be a member...</span>
+
+<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Person</span>&gt; <span style="color: #6a1868;">members</span>;   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">the representation</span>
+
+<span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">Post: person becomes a member</span>
+<span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">join</span> (<span style="color: #986801;">Person</span> <span style="color: #6a1868;">person</span>) { members.add   (person);}
+
+<span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">Post: person is no longer a member</span>
+<span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">leave</span>(<span style="color: #986801;">Person</span> <span style="color: #6a1868;">person</span>) { members.remove(person);}
+
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li>Analyze these 4 questions for rep-inv 1.
+<ol class="org-ol">
+<li>Does <code>join()</code> maintain rep-inv?</li>
+<li>Does <code>join()</code> satisfy contract?</li>
+<li>Does <code>leave()</code> maintain rep-inv?</li>
+<li>Does <code>leave()</code> satisfy contract?</li>
+</ol></li>
+<li>Repeat for rep-inv 2.</li>
+<li>Recode <code>join()</code> to make the verification go through. Which rep-invariant do you use?</li>
+<li>Recode <code>leave()</code> to make the verification go through. Which rep-invariant do you use?</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org95d0f82" class="outline-2">
+<h2 id="org95d0f82"><span class="section-number-2">2</span> Links</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li><a href="./index.html">Syllabus</a></li>
+<li><a href="./schedule.html">Schedule</a></li>
+</ul>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+#+TITLE: SWE 619 In Class Exercise Number 5C
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+
+* Instructions
+
+  Consider the following:
+  #+begin_src java
+
+    public class Counter{   // Liskov 7.8
+        public Counter()     //EFF: Makes this contain 0
+            public int get()     //EFF: Returns the value of this
+            public void incr()   //MOD: this //EFF: makes this larger
+            }
+    public class Counter2 extends Counter { // Liskov 7.9
+        public Counter2()         //EFF: Makes this contain 0
+            public void incr()       // MOD: this //EFF: double this
+            }
+    public class Counter3 extends Counter {  // Liskov 7.10
+        public Counter3(int n)   //EFF: Makes this contain n
+            public void incr(int n)  // MOD: this //EFF: if n>0 add n to this
+            }
+  #+end_src
+
+  1. What role do constructors play in analyzing the Liskov Substitition Principle?
+  1. Is there a constraint about negative/zero values for this? How do we know?
+  1. What methods are in the =Counter2= API?
+  1. Is =Counter2= a valid subtype of Counter?
+  1. What methods are in the =Counter3= API?
+  1. Is =Counter3= a valid subtype of =Counter=? In particular, does =incr(int n)= have to be consistent with =incr()=? 
+
+
+* Links
+  - [[./index.html][Syllabus]]
+  - [[./schedule.html][Schedule]]
+

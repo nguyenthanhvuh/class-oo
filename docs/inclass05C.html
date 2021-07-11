@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-07-10 Sat 21:10 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SWE 619 In Class Exercise Number 5C</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="ThanhVu (Vu) Nguyen" />
+<link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+<link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+</head>
+<body>
+<div id="content">
+<h1 class="title">SWE 619 In Class Exercise Number 5C</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org9668339">1. Instructions</a></li>
+<li><a href="#orgc7b5a84">2. Links</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9668339" class="outline-2">
+<h2 id="org9668339"><span class="section-number-2">1</span> Instructions</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Consider the following:
+</p>
+<div class="org-src-container">
+<pre class="src src-java">
+<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Counter</span>{   <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Liskov 7.8</span>
+    <span style="color: #51afef;">public</span> <span style="color: #c678dd;">Counter</span>()     <span style="color: #5B6268;">//</span><span style="color: #5B6268;">EFF: Makes this contain 0</span>
+        <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">int</span> get()     <span style="color: #5B6268;">//</span><span style="color: #5B6268;">EFF: Returns the value of this</span>
+        <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> incr()   <span style="color: #5B6268;">//</span><span style="color: #5B6268;">MOD: this //EFF: makes this larger</span>
+        }
+<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Counter2</span> <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">Counter</span> { <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Liskov 7.9</span>
+    <span style="color: #51afef;">public</span> <span style="color: #c678dd;">Counter2</span>()         <span style="color: #5B6268;">//</span><span style="color: #5B6268;">EFF: Makes this contain 0</span>
+        <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> incr()       <span style="color: #5B6268;">// </span><span style="color: #5B6268;">MOD: this //EFF: double this</span>
+        }
+<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Counter3</span> <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">Counter</span> {  <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Liskov 7.10</span>
+    <span style="color: #51afef;">public</span> <span style="color: #c678dd;">Counter3</span>(<span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">n</span>)   <span style="color: #5B6268;">//</span><span style="color: #5B6268;">EFF: Makes this contain n</span>
+        <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> incr(<span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">n</span>)  <span style="color: #5B6268;">// </span><span style="color: #5B6268;">MOD: this //EFF: if n&gt;0 add n to this</span>
+        }
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>What role do constructors play in analyzing the Liskov Substitition Principle?</li>
+<li>Is there a constraint about negative/zero values for this? How do we know?</li>
+<li>What methods are in the <code>Counter2</code> API?</li>
+<li>Is <code>Counter2</code> a valid subtype of Counter?</li>
+<li>What methods are in the <code>Counter3</code> API?</li>
+<li>Is <code>Counter3</code> a valid subtype of <code>Counter</code>? In particular, does <code>incr(int n)</code> have to be consistent with <code>incr()</code>?</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgc7b5a84" class="outline-2">
+<h2 id="orgc7b5a84"><span class="section-number-2">2</span> Links</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li><a href="./index.html">Syllabus</a></li>
+<li><a href="./schedule.html">Schedule</a></li>
+</ul>
+</div>
+</div>
+</div>
+</body>
+</html>

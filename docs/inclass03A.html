@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-07-10 Sat 19:46 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SWE 619 In Class Exercise Number 3A</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="ThanhVu (Vu) Nguyen" />
+<link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+<link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">SWE 619 In Class Exercise Number 3A</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org235bff2">1. Instructions</a></li>
+<li><a href="#org337cd6a">2. Links</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org235bff2" class="outline-2">
+<h2 id="org235bff2"><span class="section-number-2">1</span> Instructions</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Consider Liskov's immutable <code>Poly</code> example, where an abstract <code>Poly</code> is defined as \(c_0 + c_1x + c_2x^2 + \dots\), and is implemented with one variable:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">private</span> <span style="color: #986801;">Map</span>&lt;<span style="color: #986801;">Integer</span>, <span style="color: #986801;">Integer</span>&gt; <span style="color: #6a1868;">map</span>;
+</pre>
+</div>
+
+
+<p>
+Fill in example values that are mapped by the abstraction function.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">
+Abstract State: Poly
+
+AF
+/|\
+ |
+ |
+ |
+ |----------------------------------------------------------
+ |
+ |
+ |
+ |
+
+
+
+Representation State: map
+
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>Identify representation states that should not be mapped.</li>
+<li>Try to capture these states with a rule (that is, a rep-invariant).</li>
+<li>Consider implementing the <code>degree()</code> method. What code would do the job? What more specific type of map would make the implementation simpler?</li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-org337cd6a" class="outline-2">
+<h2 id="org337cd6a"><span class="section-number-2">2</span> Links</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li><a href="./index.html">Syllabus</a></li>
+<li><a href="./schedule.html">Schedule</a></li>
+</ul>
+</div>
+</div>
+</div>
+</body>
+</html>

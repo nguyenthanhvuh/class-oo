@@ -1,0 +1,43 @@
+#+TITLE: SWE 619 In Class Exercise Number 3B
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+
+* Instructions
+
+  Consider the code:
+
+  #+begin_src java
+
+    public class Members {
+    // Members is a mutable record of organization membership
+    // AF: Collect the list as a set
+    // rep-inv1: members != null
+    // rep-inv2: members != null && no duplicates in members
+    // for simplicity, assume null can be a member...
+
+    List<Person> members;   // the representation
+
+    //  Post: person becomes a member
+    public void join (Person person) { members.add   (person);}
+
+    //  Post: person is no longer a member
+    public void leave(Person person) { members.remove(person);}
+
+  #+end_src
+
+
+  1. Analyze these 4 questions for rep-inv 1.
+     1. Does =join()= maintain rep-inv?
+     1. Does =join()= satisfy contract?
+     1. Does =leave()= maintain rep-inv?
+     1. Does =leave()= satisfy contract? 
+  1. Repeat for rep-inv 2.
+  1. Recode =join()= to make the verification go through. Which rep-invariant do you use?
+  1. Recode =leave()= to make the verification go through. Which rep-invariant do you use? 
+
+
+* Links
+  - [[./index.html][Syllabus]]
+  - [[./schedule.html][Schedule]]
+

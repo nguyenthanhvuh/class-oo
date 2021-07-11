@@ -1,7 +1,7 @@
 #+TITLE: SWE 619 In Class Exercise Number 1A 
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
-
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
 
 * Instructions
 

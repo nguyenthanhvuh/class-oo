@@ -108,7 +108,7 @@ Process:
 - Scheduling: While each student will complete each assessment individually, we will schedule assessments by group. Students in odd numbered gropus should schedule themselves for an assessment in weeks with odd-numbered oral assessment guides. Students in even numbered gropus should schedule themselves for an assessment in weeks with even-numbered oral assessment guides.
 - Duration: Each assessment lasts 10 minutes. This is a little tight, but generally works.
 - I will be forthcoming and concrete about the content for each assessment. I'll do this in the form of "Oral Assessment Guides" posted to the course schedule. That is, you shouldn't be surprised by any of the questions. Often, they will be closely related to the prior week's homework. The questions will typically look like, "What would Liskov (or Bloch) think of the following variation(s) of this snippet of code we studied last week? And why would they think that?"
-- Not every student will get the same quiz, even if the quiz is on the same day. I promise to be fair about this.
+- Not every student will get the same quiz, even if the quiz is on the same day. 
 - The evaluation scale is as follows:
   - Awesome means you demonstrate mastery of the material. Scores 10/10.
   - Strong performance, but perhaps a slight wobble: Scores 9/10.

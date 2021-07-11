@@ -37,7 +37,7 @@
      #+end_src
      Is =Low_Bid_Market= a valid subtype of =Market=? Appeal to the methods rule to back up your answer.
      
-  1. Suppose that the buy() method always chooses the lowest price on an item.
+  1. Suppose that the =buy()= method always chooses the lowest price on an item.
      #+begin_src java
        class Low_Offer_Market extends Market {
               public Money buy(Item item)
