@@ -1,0 +1,290 @@
+#+TITLE: SWE 619 Assignments
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+#+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+
+#+OPTIONS: ^:nil num:nil
+
+
+
+* Assignment 1 
+
+
+
+** Goals
+- Getting started on Piazza.
+- Getting your group together. 
+
+There are two parts to this assignment:
+
+- Post a brief intro about yourself on the course Piazza page. For any credit, the posting must:
+  - be a follow-up to my introduction. In other words, all intros need to be in the same thread.
+  - Include a photo appropriate in size, content, and orientation. 
+- Your *group* should communicate the composition of your group to me (and the GTA) on Piazza. If you group is sticking with the random assignment, just confirm that. If you have a new group, tell us the composition, and we'll edit the post to reflect the change. 
+
+
+** Grading Criteria
+- Your individual Piazza post adhers to my instructions. (That is, no sideways pictures, no oversize pictures, etc.)
+- You are in a group.
+
+* Assignment 2 
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+
+** Goals: Contracts
+
+For the second assignment, you'll build a /very/ small piece of Java for a contract with preconditions, transform the contract so that all preconditions become postconditions, and then re-implement appropriately.
+
+Consider a method that calculates the number of months needed to pay off a loan of a given size at a fixed /annual/ interest rate and a fixed /monthly/ payment. For instance, a $100,000 loan at an 8% annual rate would take 166 months to discharge at a monthly payment of $1,000, and 141 months to discharge at a monthly payment of $1,100. (In both of these cases, the final payment is smaller than the others; I rounded 165.34 up to 166 and 140.20 up to 141.) Continuing the example, the loan would never be paid off at a monthly payment of $100, since the principal would grow rather than shrink.
+
+Define a Java class called =Loan=. In that class, write a method that satisfies the following specification:
+
+#+begin_src java
+   @param principal:  Amount of the initial principal
+   @param rate:       Annual interest rate  (8% rate expressed as rate = 0.08)
+   @param payment:    Amount of the monthly payment
+
+   public static int months (int principal, double rate, int payment)
+   
+   Requires: principal, rate, and payment all positive 
+            and payment is sufficiently large to drive the principal to zero.
+   Effects:  return the number of months required to pay off the principal
+#+end_src
+
+
+Note that the precondition is quite strong, which makes implementing the method easy. You should use double precision arithmetic internally, but the final result is an integer, not a floating point value. The key step in your calculation is to change the principal on each iteration with the following formula (which amounts to monthly compounding):
+
+#+begin_src java
+    newPrincipal = oldPrincipal * (1 + monthlyInterestRate) - payment;
+#+end_src
+
+
+The variable names here are explanatory, not required. You may want to use different variables, which is fine.
+
+*To make sure you understand the point about preconditions, your code is required to be minimal. Specifically, if it possible to delete parts of your implementation and still have it satisfy the requirements, you'll earn less than full credit.*
+
+Now modify =months= so that it handles *all* of its preconditions with exceptions. Use the standard exceptions recommended by Bloch. Document this with a revised contract. You can use JavaDoc or you can simply identify the postconditions.
+
+
+** Grading Criteria
+
+- Adherence to instructions.
+- Minimal implementation.
+- Preconditions are correctly converted to exceptions.
+- Syntax: Java compiles and runs.
+
+* Assignment 3 
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+
+** Goals: Data Abstraction / Mutability
+
+Rewrite [[./files/MapPoly.java][MapPoly]], my map-based version Liskov's Poly so that it is /mutable/. Keep the same representation.
+
+Rewrite the overview, the method signatures, the method specifications, and the methods themselves. You do not need to rewrite the abstraction function and representation invariant for this exercise.
+
+Turn in a *story*. This means that it is possible to grade your assignment simply by reading it, as if it were part of a textbook. In particular, every place you make a decision to change something in the code (or not), you should have a description of what you did (or didn't do) and why you did (or didn't do) it.
+
+Remember that part of your group is responsible for synthesizing a solution, and part of your group is responsible for checking the result.
+
+
+** Grading Criteria
+- Correct transformation of Poly
+- Clarity of your story.
+- Reasonable division of synthesis vs. checking.  
+
+
+* Assignment 4 
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+
+** Goals: Rep-Invariants, contracts, tests
+  
+  Revisit the mutable Poly example from [[./assign03.html][assignment 3]]. That is, use the one based on a map, not an array.
+  
+  1. Implement =repOk()=.
+  1. Introduce a fault (i.e. "bug") that breaks the rep-invariant. Try to do this with a small (conceptual) change to the code. Show that the rep-invariant is broken with a JUnit test.
+  1. Analyzed your bug with respect to the various contracts/methods in Poly. Are all/some/none of the contracts violated?
+  1. Do you think your fault is realistic? Why or why not?
+
+  As in assignment 3, your deliverable is a *story*, with exactly the same rationale. Take screenshots (e.g. of failing JUnit tests) as necessary to make your case.
+
+** Grading Criteria
+  
+  - Correctness of solution
+  - Clarity of story
+Note: If your group had trouble with the previous assignment, feel free to appeal to your classmates to post a sample solution on Piazza.
+
+
+* Assignment 5 
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+
+** Goals: Immutablity via Bloch Item 50
+
+  Revisit the Period example [[./inclass04B.html][In-Class 4B]].
+
+  Implement a satisfying solution to question 3. That is, you should not only break the immutability of the =Period= class by writing a suitable sublcass, but you should also develop a plausible case where a client ends up "in trouble" due to the loss of immutability.
+
+  Turn in a *story*.
+
+** Grading Criteria
+
+  Grading is in part the technical aspect of breaking immutability, and in part that your client case is plausible.
+
+
+* Assignment 6 
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+
+** Goals: Type Abstraction
+
+  Consider the following =Market= class.
+  
+  #+begin_src java
+
+    class Market {
+       private Set<Item> wanted;           // items for which prices are of interest
+       private Bag<Item, Money> offers;    // offers to sell items at specific prices
+       // Note:  Bag isn't a Java data type.  Here, the bag entries are pairs.
+
+       public void offer (Item item, Money price)
+          // Requires: item is an element of wanted
+          // Effects:  add (item, price) to offers
+   
+       public Money buy(Item item)
+          // Requires: item is an element of the domain of offers
+          // Effects: choose and remove some (arbitrary) pair (item, price) from
+          //          offers and return the chosen price
+    }
+
+  #+end_src
+
+  1. Suppose that offers are only accepted if they are lower than previous offers.
+     #+begin_src java
+       class Low_Bid_Market extends Market {
+          public void offer (Item item, Money price)
+             // Requires: item is an element of wanted
+             // Effects:  if (item, price) is not cheaper than any existing pair
+             //           (item, existing_price) in offers do nothing
+             //           else add (item, price) to offers
+
+     #+end_src
+     Is =Low_Bid_Market= a valid subtype of =Market=? Appeal to the methods rule to back up your answer.
+     
+  1. Suppose that the =buy()= method always chooses the lowest price on an item.
+     #+begin_src java
+       class Low_Offer_Market extends Market {
+              public Money buy(Item item)
+                 // Requires: item is an element the domain of offers
+                 // Effects: choose and remove pair (item, price) with the 
+                 //          lowest price from offers and return the chosen price
+     #+end_src
+     Is =Low_Offer_Market= a valid subtype of =Market=? Appeal to the methods rule to back up your answer. 
+
+
+** Grading Criteria
+
+  This is purely a "paper and pencil" exercise. No code is required. Write your answer so that it is easily understandable by someone with only a passing knowledge of Liskov's rules for subtypes.
+
+
+* Assignment 7 
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+
+** Goals: Polymorphic Abstraction.
+
+A =Comparator= based on absolute values is problematic. Code up the comparator and then write client code that illustrates the problem. Use a /lambda function/ to implement the comparator. Explain what is wrong in a brief summary statement. Your explanation of the problem must be phrased in terms of a violation of the contract for =Comparator=.
+
+To emphasize that this contract problem is real, your code should create two Java sets, one a =HashSet=, and the other a =TreeSet=. The =TreeSet= should order items with your absolute value comparator. Your example should add the same integers to both sets, yet still end up with sets that are different. Your summary statement should explain why.
+
+** Grading Criteria
+  As for other recent assignments, your deliverable is a clear, concise story that demonstrates completion of the assignment.
+
+* Assignment 8 
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+
+** Goals: Generics
+
+Consider the [[./files/BoundedQueue.java][BoundedQueue]] example from in-class exercise [[./inclass08C.html][#8C]].
+
+Complete the generic part of the exercise: The result should be fully generic, and there should not be any compiler warnings. You should adopt Bloch's advice about lists vs. arrays; doing so will eliminate the need for many of the instance variables.
+
+Keep the same methods, but update the behavior (and document with contracts!) to include exception handling for all cases not on the happy path.
+
+Include the constructor in your considerations. In particular, consider whether you think a zero-sized buffer is a reasonable possibility. Document your reasoning. This is less about a right vs. wrong answer than a careful consideration of the consequences of the decision.
+
+Add =putAll()= and =getAll()=. Define the method signatures carefully. Use exception-handling consistent with that for =get()= and =put()=. Use bounded wildcards as appropriate. Note that =putAll()= has a special case where there isn't sufficient space in the bounded queue. Adopt a solution you think Bloch and/or Liskov would approve of. In particular, Bloch prefers that when methods throw exceptions, there is no change to the state of the object.
+
+
+** Grading Criteria
+  As before, turn in a clear, concise story demonstrating completion of the assignment.
+
+* Assignment 9
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+
+** Goals: =Object= class contracts.
+
+  As it happens, Liskov's implementation of =clone()= for the =IntSet= class (see figure 5.10, page 97) is wrong.
+
+  1. Use the [[./files/IntSet.java][version]] of =IntSet= from the in-class exercise. Implement a subtype of =IntSet= to demonstrate the problem. Your solution should include appropiate executable code in the form of JUnit tests.
+  1. Provide a correct implementation of =clone()= for =IntSet=. Again, give appropriate JUnit tests.
+  1. Correctly override =hashCode()= and =equals()=. As discussed in the class exercise, the standard recipe is not appropriate in this (unusual) case.
+  
+** Grading Criteria
+  In addititon to code and tests, your deliverable is a story. Explain what is going on at each stage of the exercise. The GTA will primarily grade your story.
+
+
+* Assignment 10
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+
+** Goals: Favoring composition over inheritance. Bloch, Item 18.
+
+  Consider the =InstrumentedSet= example from Bloch Item 18 (as well as in-class exercise [[./inclass10A.html][#10A]]).
+    1. Replace =Set= with =List=. There is no problem with =equals()=. Why not?
+    1. Replace =Set= with =Collection=. Now =equals()= does not satisfy its contract.
+      - Explain why there is a problem.
+      - Demonstrate the problem with a suitable JUnit test.
+
+
+
+  
+** Grading Criteria
+  The GTA will look for correct responses, appropriate JUnit tests, and plausible explanations when doing the grading.
+
+
+* Assignment 11
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+
+** Goals: Applying lessons learned. 
+
+  You have a choice of possible assignments:
+
+  1. Consider one of the =copyOf()= methods in the Java [[https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html][Arrays]] utility class. Bloch uses this method in his =Stack= example. Code a corresponding method in C++, changing the argument list as necessary. Provide a specification for the C++ code by translating the JavaDoc and adding preconditions as necessary. Explain what this exercise demonstrates about C++ type safety.
+
+  1. For most of the semester, we have focused on design considerations for constructing software that does something we want it to do. For this last assignment, I would like students to appreciate just how vulnerable software is to malicious parties intent on attacking their software.
+     # Students who find this assignment amusing might wish to take ISA/SWE 681: Secure Software Design and Programming.
+     
+     There are two attacks documented in Bloch's Item 88: /Write =readObject()= methods defensively/. One is called =BogusPeriod=, and the other is called =MutablePeriod=. Implement either (your choice) of these attacks (basically involves typing in code from Bloch) and verify that the attack takes place.
+
+  1. A different source of security vulnerabilities in Java also involve serialization. Bloch (and others) recommend "cross-platform structured data representations" (e.g. JSON or Protocol Buffers) as safe alternatives. Develop a simple serialization example in Java and convert it into a safe alternative (probably, JSON is easier to use, since it is text-based). To make the example more interesting, use some objects types that are not directly supported.
+
+  1. Find some existing (Java) code that uses the "int enum pattern" and refactor it to use Java =Enums= instead. Identify any type-safety issue you uncover in the existing code. To make the exercise interesting, extend your enums beyond simple named-constants in one of the ways discussed by Bloch in Item 34. 
+
+  1. Where appropriate, code up, as JUnit theories, constraints for classes that implement the Java =Comparable= interface. Note that there is significant overlap with the in-class exercise. Note also that the Comparable interface is generic; hence, you should use generics in your JUnit test class.
+
+  1. Gain experience with one of the property-based testing tools. I suggest a Java-based one (such as [[https://jqwik.net][jqwik]]). One way to do this is work through one of the articles linked on the jqwik site.
+
+
+  
+** Grading Criteria
+  In each case, the deliverable is a story. Write a brief report, and include enough evidence (output, screen shots, etc.) that the GTA can figure out that you actually completed the assignment.
+
+* Links
+  - [[./index.html][Syllabus]]
+  - [[./schedule.html][Schedule]]
+

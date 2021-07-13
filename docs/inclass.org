@@ -1,14 +1,19 @@
 #+TITLE: SWE 619 In Class Exercises
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
-#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+#+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+
 #+OPTIONS: ^:nil num:nil
 
 * In Class Exercises
 
 ** In class 0
+   :PROPERTIES:
+   :CUSTOM_ID: ic0
+   :END:
+   
    Work with your group. Your group assignment is on Piazza. (You might decide to change groups later, but for today, stick with this group.) When we invoke the BB break-out function, nagivate to your assigned group.
-  
+
    1. Your group should spend a few minutes getting acquainted. Explain a bit about yourself: full-time student?, working in  software development?, why are you taking this class?, favorite/least favorite thing about writing software?, etc.
    1. Decide on a mechanism for joint communication. Google docs? IDE with screen share? Something else?
 
@@ -43,9 +48,11 @@
    4. How does inheritance complicate the correctness discussion for =equals()= in class =SpecialUser=? 
    5. What is your assessment of the =equals()= method in the =SpecialUser= class?
 
-
 ** In class 1A
-
+   :PROPERTIES:
+   :CUSTOM_ID: ic1A
+   :END:
+   
    Consider the following specification and implementation:
 
    #+begin_src java
@@ -71,9 +78,11 @@
    1. The resulting specification has a problem. What is it? 
    1. Rewrite the specification to address this problem. Rewrite the code to match the new specification. 
 
-
 ** In class 1B
-
+   :PROPERTIES:
+   :CUSTOM_ID: ic1B
+   :END:
+   
    *Goal*: Understanding Contracts 
 
    Consider the Java [[https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html][Iterator]] interface.
@@ -81,8 +90,10 @@
    - For each precondition, identify a specific input that violates the precondition.
    - For each postcondition, identify an input specific to that postcondition.
 
-
 ** In class 2A
+   :PROPERTIES:
+   :CUSTOM_ID: ic2A
+   :END:
    
    Consider a simple generic =Queue= implementation.
    #+begin_src java
@@ -123,8 +134,11 @@
 
 
 
-
 ** In class 2B
+   :PROPERTIES:
+   :CUSTOM_ID: ic2B
+   :END:
+   
   
    Consider Liskov's Poly example, where an abstract Poly is defined as $c_0 + c_1x + c_2x^2 + \dots$, and is implemented with two variables:
    #+begin_src java
@@ -176,9 +190,10 @@
    1. Develop a rep-invariant for that representation.
 
 ** In class 3A
+   :PROPERTIES:
+   :CUSTOM_ID: ic3A
+   :END:
 
-   #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
-   #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
 
    Consider Liskov's immutable =Poly= example, where an abstract =Poly= is defined as $c_0 + c_1x + c_2x^2 + \dots$, and is implemented with one variable:
 
@@ -215,6 +230,9 @@
    1. Consider implementing the =degree()= method. What code would do the job? What more specific type of map would make the implementation simpler? 
 
 ** In class 3B
+   :PROPERTIES:
+   :CUSTOM_ID: ic3B
+   :END:
 
    Consider the code:
 
@@ -247,8 +265,10 @@
    1. Recode =join()= to make the verification go through. Which rep-invariant do you use?
    1. Recode =leave()= to make the verification go through. Which rep-invariant do you use? 
 
-
 ** In class 4A
+   :PROPERTIES:
+   :CUSTOM_ID: ic4A
+   :END:
 
    Consider the Java =Iterator<E>= interface:
 
@@ -269,6 +289,9 @@
    1. Exercise the immutable iterator with some sample client code. 
 
 ** In class 4B
+   :PROPERTIES:
+   :CUSTOM_ID: ic4B
+   :END:
 
    Consider the example in Bloch's Item 50 (3rd Edition):
 
@@ -314,8 +337,10 @@
       1. Bloch states that =clone()= would be inappropriate for copying the dates. Write code that shows the problem.
       1. Bloch defers the exception check until the end, which seems to violate normal practice. What's the problem with checking early? 
 
-
 ** In class 5A
+   :PROPERTIES:
+   :CUSTOM_ID: ic5A
+   :END:
 
    *Goal*: Understanding dynamic dispatching
 
@@ -343,6 +368,9 @@
    1. What is the abstract state of a =MaxIntSet=? There are two options. What are they, and what are the consequences of each choice? 
 
 ** In class 5B
+   :PROPERTIES:
+   :CUSTOM_ID: ic5B
+   :END:
 
    Consider the following:
 
@@ -394,6 +422,9 @@
    #+end_src
 
 ** In class 5C
+   :PROPERTIES:
+   :CUSTOM_ID: ic5C
+   :END:
 
    Consider the following:
    #+begin_src java
@@ -420,8 +451,10 @@
    1. What methods are in the =Counter3= API?
    1. Is =Counter3= a valid subtype of =Counter=? In particular, does =incr(int n)= have to be consistent with =incr()=? 
 
-
 ** In class 6
+   :PROPERTIES:
+   :CUSTOM_ID: ic6
+   :END:
 
    This is a recap exercise.
 
@@ -502,8 +535,10 @@
    1. Could this data structure be made immutable? If so, what would change in the contracts and method headers? What would likely change in the implementation? 
 
 
-
 ** In class 8A
+   :PROPERTIES:
+   :CUSTOM_ID: ic8A
+   :END:
 
    Given the following variable declarations, independently consider the given 6 sequences of Java instructions.
    #+begin_src java
@@ -562,8 +597,10 @@
       #+end_src
 
 
-
 ** In class 8B
+   :PROPERTIES:
+   :CUSTOM_ID: ic8B
+   :END:
 
    #+begin_src java
      // Chooser - a class badly in need of generics!
@@ -591,8 +628,11 @@
    - How can you adopt Bloch's advice about arrays and lists to get a typesafe Chooser class without doing anything else that is complicated?
    - What would Liskov have to say about this class? How should it evolve to address her concerns? What is the appropriate place to deal with the problem? Does an invariant help? Is that a rep-invariant, or some other kind of invariant?
 
-
 ** In class 8C
+   :PROPERTIES:
+   :CUSTOM_ID: ic8C
+   :END:
+   
    #+begin_src java
      public class BoundedQueue {
 
@@ -646,6 +686,10 @@
    - Recall that we used this same example in in-class 6 as a vehicle for applying Liskov's ideas to make code easier to understand.
 
 ** In class 9A
+   :PROPERTIES:
+   :CUSTOM_ID: ic9A
+   :END:
+   
    Consider Bloch's =Point/ColorPoint= example. For today, ignore the =hashCode()= issue.
 
    #+begin_src java
@@ -717,8 +761,11 @@
 
         #+end_src
 
-
 ** In class 9B
+   :PROPERTIES:
+   :CUSTOM_ID: ic9B
+   :END:
+   
    Consider a variation of Liskov's =IntSet= example (Figure 5.10, page 97)
 
    #+begin_src java
@@ -756,11 +803,14 @@
       1. not overridden at all
       1. return 42;
       1. return =els.hashCode()=;
-      1. =int sum = 0; for (Integer i : els) sum += i.hashCode(); return sum;= 
+      1. ~int sum = 0; for (Integer i : els) sum += i.hashCode(); return sum;~ 
    1. What's the problem with =clone()= here? Give a test case that shows the problem.
    1. Fix =clone()= in two very different ways. 
 
 ** In class 10A
+   :PROPERTIES:
+   :CUSTOM_ID: ic10A
+   :END:
 
    Consider Bloch's =InstrumentedHashSet=, =InstrumentedSet=, and =ForwardingSet= examples:
 
@@ -833,6 +883,9 @@
    *Note*: There is a lot going on in this example. I highly recommend that you play with the code until you understand it.    
 
 ** In class 10B
+   :PROPERTIES:
+   :CUSTOM_ID: ic10B
+   :END:
 
    #+begin_src java
      public class Super {
@@ -869,6 +922,9 @@
    1. To what extent does this rule generalize to producer methods?
 
 ** In class 10C
+   :PROPERTIES:
+   :CUSTOM_ID: ic10C
+   :END:
 
    Consider a mutable complex number class:
 
@@ -943,6 +999,9 @@
    1. Ensure exclusive access to any mutable components.
 
 ** In class 11
+   :PROPERTIES:
+   :CUSTOM_ID: ic11
+   :END:
 
    This is a JUnit theory exercise.
 
@@ -959,6 +1018,9 @@
    1. Consider the =Comparable= interface: what properties should be checked with theories? 
 
 ** In class 12A
+   :PROPERTIES:
+   :CUSTOM_ID: ic12A
+   :END:
 
    Consider the following (bad) Java, implementing the "C style" enum pattern:
 
@@ -996,6 +1058,9 @@
    Explain why it's wrong, fix it, and add another enum with an overlapping number of musicians.
 
 ** In class 12B
+   :PROPERTIES:
+   :CUSTOM_ID: ic12B
+   :END:
 
    This is a recap exercise based on the map-based implementation of Liskov's polynomial example: [[./files/MapPoly.java][MapPoly]]
 
@@ -1014,7 +1079,9 @@
    1. See if you can come up with a theory about Polys and implement it in JUnit. (Polys are math objects, so there should be theories!) Here's a suggestion: Think about the relationship between the degrees of two Polys being multiplied and the resulting degree.
     
 ** In class 13
-
+   :PROPERTIES:
+   :CUSTOM_ID: ic13
+   :END:
 
    How well are you prepared for the final? This exercise should help you find out. Piazza discussions encouraged!
 
@@ -1067,8 +1134,8 @@
 
 
 * Links
-  - [[./index.html][Syllabus]]
-  - [[./schedule.html][Schedule]]
+  - [[./index.org][Syllabus]]
+  - [[./schedule.org][Schedule]]
 
   
 

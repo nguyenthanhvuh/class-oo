@@ -1,7 +1,7 @@
 #+TITLE: OO Software Specification and Construction (SWE 619 Course Syllabus -  Fall 2021)
 #+OPTIONS: ^:nil toc:nil 
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
-
+#+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-org.css">
 -----
   
 * Information and Contact
