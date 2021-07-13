@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-07-12 Mon 20:26 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>SWE 619 Assignments</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="ThanhVu (Vu) Nguyen" />
+<link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+<link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+</head>
+<body>
+<div id="content">
+<h1 class="title">SWE 619 Assignments</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#a1">Assignment 1</a>
+<ul>
+<li><a href="#org0f448f8">Goals</a></li>
+<li><a href="#org47e2b80">Grading Criteria</a></li>
+</ul>
+</li>
+<li><a href="#a2">Assignment 2</a>
+<ul>
+<li><a href="#org303052c">Goals: Contracts</a></li>
+<li><a href="#org201521d">Grading Criteria</a></li>
+</ul>
+</li>
+<li><a href="#a3">Assignment 3</a>
+<ul>
+<li><a href="#org3cb8eaf">Goals: Data Abstraction / Mutability</a></li>
+<li><a href="#orgeeffa73">Grading Criteria</a></li>
+</ul>
+</li>
+<li><a href="#a4">Assignment 4</a>
+<ul>
+<li><a href="#orgd34f288">Goals: Rep-Invariants, contracts, tests</a></li>
+<li><a href="#org0b92426">Grading Criteria</a></li>
+</ul>
+</li>
+<li><a href="#a5">Assignment 5</a>
+<ul>
+<li><a href="#org4ef9198">Goals: Immutablity via Bloch Item 50</a></li>
+<li><a href="#org53baa66">Grading Criteria</a></li>
+</ul>
+</li>
+<li><a href="#a6">Assignment 6</a>
+<ul>
+<li><a href="#org8a79c17">Goals: Type Abstraction</a></li>
+<li><a href="#orgb31c57c">Grading Criteria</a></li>
+</ul>
+</li>
+<li><a href="#a7">Assignment 7</a>
+<ul>
+<li><a href="#org9f3d9f0">Goals: Polymorphic Abstraction.</a></li>
+<li><a href="#org28fab95">Grading Criteria</a></li>
+</ul>
+</li>
+<li><a href="#a8">Assignment 8</a>
+<ul>
+<li><a href="#orgd9288f0">Goals: Generics</a></li>
+<li><a href="#org7edc45f">Grading Criteria</a></li>
+</ul>
+</li>
+<li><a href="#a9">Assignment 9</a>
+<ul>
+<li><a href="#org611a8ef">Goals: <code>Object</code> class contracts.</a></li>
+<li><a href="#orgfdc4296">Grading Criteria</a></li>
+</ul>
+</li>
+<li><a href="#a10">Assignment 10</a>
+<ul>
+<li><a href="#orgc03e9b4">Goals: Favoring composition over inheritance. Bloch, Item 18.</a></li>
+<li><a href="#org639e151">Grading Criteria</a></li>
+</ul>
+</li>
+<li><a href="#a11">Assignment 11</a>
+<ul>
+<li><a href="#org0207d9c">Goals: Applying lessons learned.</a></li>
+<li><a href="#org8894ee2">Grading Criteria</a></li>
+</ul>
+</li>
+<li><a href="#org047bf8c">Links</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org3aa382d" class="outline-2">
+<h2 id="a1">Assignment 1</h2>
+<div class="outline-text-2" id="text-a1">
+</div>
+
+<div id="outline-container-org0f448f8" class="outline-3">
+<h3 id="org0f448f8">Goals</h3>
+<div class="outline-text-3" id="text-org0f448f8">
+<ul class="org-ul">
+<li>Getting started on Piazza.</li>
+<li>Getting your group together.</li>
+</ul>
+
+<p>
+There are two parts to this assignment:
+</p>
+
+<ul class="org-ul">
+<li>Post a brief intro about yourself on the course Piazza page. For any credit, the posting must:
+<ul class="org-ul">
+<li>be a follow-up to my introduction. In other words, all intros need to be in the same thread.</li>
+<li>Include a photo appropriate in size, content, and orientation.</li>
+</ul></li>
+<li>Your <b>group</b> should communicate the composition of your group to me (and the GTA) on Piazza. If you group is sticking with the random assignment, just confirm that. If you have a new group, tell us the composition, and we'll edit the post to reflect the change.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org47e2b80" class="outline-3">
+<h3 id="org47e2b80">Grading Criteria</h3>
+<div class="outline-text-3" id="text-org47e2b80">
+<ul class="org-ul">
+<li>Your individual Piazza post adhers to my instructions. (That is, no sideways pictures, no oversize pictures, etc.)</li>
+<li>You are in a group.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org3adbec1" class="outline-2">
+<h2 id="a2">Assignment 2</h2>
+<div class="outline-text-2" id="text-a2">
+</div>
+
+<div id="outline-container-org303052c" class="outline-3">
+<h3 id="org303052c">Goals: Contracts</h3>
+<div class="outline-text-3" id="text-org303052c">
+<p>
+For the second assignment, you'll build a <i>very</i> small piece of Java for a contract with preconditions, transform the contract so that all preconditions become postconditions, and then re-implement appropriately.
+</p>
+
+<p>
+Consider a method that calculates the number of months needed to pay off a loan of a given size at a fixed <i>annual</i> interest rate and a fixed <i>monthly</i> payment. For instance, a $100,000 loan at an 8% annual rate would take 166 months to discharge at a monthly payment of $1,000, and 141 months to discharge at a monthly payment of $1,100. (In both of these cases, the final payment is smaller than the others; I rounded 165.34 up to 166 and 140.20 up to 141.) Continuing the example, the loan would never be paid off at a monthly payment of $100, since the principal would grow rather than shrink.
+</p>
+
+<p>
+Define a Java class called <code>Loan</code>. In that class, write a method that satisfies the following specification:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #6c71c4; font-weight: bold;">@param</span> principal:  Amount of the initial principal
+<span style="color: #6c71c4; font-weight: bold;">@param</span> rate:       Annual interest rate  (8% rate expressed as rate = 0.08)
+<span style="color: #6c71c4; font-weight: bold;">@param</span> payment:    Amount of the monthly payment
+
+<span style="color: #859900; font-weight: bold;">public</span> <span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900; font-style: italic;">int</span> months (<span style="color: #b58900; font-style: italic;">int</span> <span style="color: #268bd2;">principal</span>, <span style="color: #b58900; font-style: italic;">double</span> <span style="color: #268bd2;">rate</span>, <span style="color: #b58900; font-style: italic;">int</span> <span style="color: #268bd2;">payment</span>)
+
+Requires: principal, rate, and payment all positive 
+         and payment is sufficiently large to drive the principal <span style="color: #b58900; font-style: italic;">to</span> <span style="color: #6c71c4; font-weight: bold;">zero</span>.
+<span style="color: #268bd2;">Effects</span>:  <span style="color: #859900; font-weight: bold;">return</span> the number of months required to pay off the principal
+</pre>
+</div>
+
+
+<p>
+Note that the precondition is quite strong, which makes implementing the method easy. You should use double precision arithmetic internally, but the final result is an integer, not a floating point value. The key step in your calculation is to change the principal on each iteration with the following formula (which amounts to monthly compounding):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java">newPrincipal = oldPrincipal * (1 + monthlyInterestRate) - payment;
+</pre>
+</div>
+
+
+<p>
+The variable names here are explanatory, not required. You may want to use different variables, which is fine.
+</p>
+
+<p>
+<b>To make sure you understand the point about preconditions, your code is required to be minimal. Specifically, if it possible to delete parts of your implementation and still have it satisfy the requirements, you'll earn less than full credit.</b>
+</p>
+
+<p>
+Now modify <code>months</code> so that it handles <b>all</b> of its preconditions with exceptions. Use the standard exceptions recommended by Bloch. Document this with a revised contract. You can use JavaDoc or you can simply identify the postconditions.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org201521d" class="outline-3">
+<h3 id="org201521d">Grading Criteria</h3>
+<div class="outline-text-3" id="text-org201521d">
+<ul class="org-ul">
+<li>Adherence to instructions.</li>
+<li>Minimal implementation.</li>
+<li>Preconditions are correctly converted to exceptions.</li>
+<li>Syntax: Java compiles and runs.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org10dad50" class="outline-2">
+<h2 id="a3">Assignment 3</h2>
+<div class="outline-text-2" id="text-a3">
+</div>
+<div id="outline-container-org3cb8eaf" class="outline-3">
+<h3 id="org3cb8eaf">Goals: Data Abstraction / Mutability</h3>
+<div class="outline-text-3" id="text-org3cb8eaf">
+<p>
+Rewrite <a href="./files/MapPoly.java">MapPoly</a>, my map-based version Liskov's Poly so that it is <i>mutable</i>. Keep the same representation.
+</p>
+
+<p>
+Rewrite the overview, the method signatures, the method specifications, and the methods themselves. You do not need to rewrite the abstraction function and representation invariant for this exercise.
+</p>
+
+<p>
+Turn in a <b>story</b>. This means that it is possible to grade your assignment simply by reading it, as if it were part of a textbook. In particular, every place you make a decision to change something in the code (or not), you should have a description of what you did (or didn't do) and why you did (or didn't do) it.
+</p>
+
+<p>
+Remember that part of your group is responsible for synthesizing a solution, and part of your group is responsible for checking the result.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgeeffa73" class="outline-3">
+<h3 id="orgeeffa73">Grading Criteria</h3>
+<div class="outline-text-3" id="text-orgeeffa73">
+<ul class="org-ul">
+<li>Correct transformation of Poly</li>
+<li>Clarity of your story.</li>
+<li>Reasonable division of synthesis vs. checking.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgd5c0473" class="outline-2">
+<h2 id="a4">Assignment 4</h2>
+<div class="outline-text-2" id="text-a4">
+</div>
+<div id="outline-container-orgd34f288" class="outline-3">
+<h3 id="orgd34f288">Goals: Rep-Invariants, contracts, tests</h3>
+<div class="outline-text-3" id="text-orgd34f288">
+<p>
+Revisit the mutable Poly example from <a href="./assign03.html">assignment 3</a>. That is, use the one based on a map, not an array.
+</p>
+
+<ol class="org-ol">
+<li>Implement <code>repOk()</code>.</li>
+<li>Introduce a fault (i.e. "bug") that breaks the rep-invariant. Try to do this with a small (conceptual) change to the code. Show that the rep-invariant is broken with a JUnit test.</li>
+<li>Analyzed your bug with respect to the various contracts/methods in Poly. Are all/some/none of the contracts violated?</li>
+<li>Do you think your fault is realistic? Why or why not?</li>
+</ol>
+
+<p>
+As in assignment 3, your deliverable is a <b>story</b>, with exactly the same rationale. Take screenshots (e.g. of failing JUnit tests) as necessary to make your case.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0b92426" class="outline-3">
+<h3 id="org0b92426">Grading Criteria</h3>
+<div class="outline-text-3" id="text-org0b92426">
+<ul class="org-ul">
+<li>Correctness of solution</li>
+<li>Clarity of story</li>
+</ul>
+<p>
+Note: If your group had trouble with the previous assignment, feel free to appeal to your classmates to post a sample solution on Piazza.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgb3a66fc" class="outline-2">
+<h2 id="a5">Assignment 5</h2>
+<div class="outline-text-2" id="text-a5">
+</div>
+<div id="outline-container-org4ef9198" class="outline-3">
+<h3 id="org4ef9198">Goals: Immutablity via Bloch Item 50</h3>
+<div class="outline-text-3" id="text-org4ef9198">
+<p>
+Revisit the Period example <a href="./inclass04B.html">In-Class 4B</a>.
+</p>
+
+<p>
+Implement a satisfying solution to question 3. That is, you should not only break the immutability of the <code>Period</code> class by writing a suitable sublcass, but you should also develop a plausible case where a client ends up "in trouble" due to the loss of immutability.
+</p>
+
+<p>
+Turn in a <b>story</b>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org53baa66" class="outline-3">
+<h3 id="org53baa66">Grading Criteria</h3>
+<div class="outline-text-3" id="text-org53baa66">
+<p>
+Grading is in part the technical aspect of breaking immutability, and in part that your client case is plausible.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgfcec486" class="outline-2">
+<h2 id="a6">Assignment 6</h2>
+<div class="outline-text-2" id="text-a6">
+</div>
+
+<div id="outline-container-org8a79c17" class="outline-3">
+<h3 id="org8a79c17">Goals: Type Abstraction</h3>
+<div class="outline-text-3" id="text-org8a79c17">
+<p>
+Consider the following <code>Market</code> class.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java">
+<span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900; font-style: italic;">Market</span> {
+   <span style="color: #859900; font-weight: bold;">private</span> <span style="color: #b58900; font-style: italic;">Set</span>&lt;<span style="color: #b58900; font-style: italic;">Item</span>&gt; <span style="color: #268bd2;">wanted</span>;           <span style="color: #96A7A9; font-style: italic;">// </span><span style="color: #96A7A9; font-style: italic;">items for which prices are of interest</span>
+   <span style="color: #859900; font-weight: bold;">private</span> <span style="color: #b58900; font-style: italic;">Bag</span>&lt;<span style="color: #b58900; font-style: italic;">Item</span>, <span style="color: #b58900; font-style: italic;">Money</span>&gt; <span style="color: #268bd2;">offers</span>;    <span style="color: #96A7A9; font-style: italic;">// </span><span style="color: #96A7A9; font-style: italic;">offers to sell items at specific prices</span>
+   <span style="color: #96A7A9; font-style: italic;">// </span><span style="color: #96A7A9; font-style: italic;">Note:  Bag isn't a Java data type.  Here, the bag entries are pairs.</span>
+
+   <span style="color: #859900; font-weight: bold;">public</span> <span style="color: #b58900; font-style: italic;">void</span> <span style="color: #b58900;">offer</span> (<span style="color: #b58900; font-style: italic;">Item</span> <span style="color: #268bd2;">item</span>, <span style="color: #b58900; font-style: italic;">Money</span> <span style="color: #268bd2;">price</span>)
+      <span style="color: #96A7A9; font-style: italic;">// </span><span style="color: #96A7A9; font-style: italic;">Requires: item is an element of wanted</span>
+      <span style="color: #96A7A9; font-style: italic;">// </span><span style="color: #96A7A9; font-style: italic;">Effects:  add (item, price) to offers</span>
+
+   <span style="color: #859900; font-weight: bold;">public</span> Money buy(<span style="color: #b58900; font-style: italic;">Item</span> <span style="color: #268bd2;">item</span>)
+      <span style="color: #96A7A9; font-style: italic;">// </span><span style="color: #96A7A9; font-style: italic;">Requires: item is an element of the domain of offers</span>
+      <span style="color: #96A7A9; font-style: italic;">// </span><span style="color: #96A7A9; font-style: italic;">Effects: choose and remove some (arbitrary) pair (item, price) from</span>
+      <span style="color: #96A7A9; font-style: italic;">//          </span><span style="color: #96A7A9; font-style: italic;">offers and return the chosen price</span>
+}
+
+</pre>
+</div>
+
+<ol class="org-ol">
+<li><p>
+Suppose that offers are only accepted if they are lower than previous offers.
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900; font-style: italic;">Low_Bid_Market</span> <span style="color: #859900; font-weight: bold;">extends</span> <span style="color: #b58900; font-style: italic;">Market</span> {
+   <span style="color: #859900; font-weight: bold;">public</span> <span style="color: #b58900; font-style: italic;">void</span> <span style="color: #b58900;">offer</span> (<span style="color: #b58900; font-style: italic;">Item</span> <span style="color: #268bd2;">item</span>, <span style="color: #b58900; font-style: italic;">Money</span> <span style="color: #268bd2;">price</span>)
+      <span style="color: #96A7A9; font-style: italic;">// </span><span style="color: #96A7A9; font-style: italic;">Requires: item is an element of wanted</span>
+      <span style="color: #96A7A9; font-style: italic;">// </span><span style="color: #96A7A9; font-style: italic;">Effects:  if (item, price) is not cheaper than any existing pair</span>
+      <span style="color: #96A7A9; font-style: italic;">//           </span><span style="color: #96A7A9; font-style: italic;">(item, existing_price) in offers do nothing</span>
+      <span style="color: #96A7A9; font-style: italic;">//           </span><span style="color: #96A7A9; font-style: italic;">else add (item, price) to offers</span>
+
+</pre>
+</div>
+<p>
+Is <code>Low_Bid_Market</code> a valid subtype of <code>Market</code>? Appeal to the methods rule to back up your answer.
+</p></li>
+
+<li><p>
+Suppose that the <code>buy()</code> method always chooses the lowest price on an item.
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900; font-style: italic;">Low_Offer_Market</span> <span style="color: #859900; font-weight: bold;">extends</span> <span style="color: #b58900; font-style: italic;">Market</span> {
+       <span style="color: #859900; font-weight: bold;">public</span> <span style="color: #b58900; font-style: italic;">Money</span> <span style="color: #b58900;">buy</span>(<span style="color: #b58900; font-style: italic;">Item</span> <span style="color: #268bd2;">item</span>)
+          <span style="color: #96A7A9; font-style: italic;">// </span><span style="color: #96A7A9; font-style: italic;">Requires: item is an element the domain of offers</span>
+          <span style="color: #96A7A9; font-style: italic;">// </span><span style="color: #96A7A9; font-style: italic;">Effects: choose and remove pair (item, price) with the </span>
+          <span style="color: #96A7A9; font-style: italic;">//          </span><span style="color: #96A7A9; font-style: italic;">lowest price from offers and return the chosen price</span>
+</pre>
+</div>
+<p>
+Is <code>Low_Offer_Market</code> a valid subtype of <code>Market</code>? Appeal to the methods rule to back up your answer. 
+</p></li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgb31c57c" class="outline-3">
+<h3 id="orgb31c57c">Grading Criteria</h3>
+<div class="outline-text-3" id="text-orgb31c57c">
+<p>
+This is purely a "paper and pencil" exercise. No code is required. Write your answer so that it is easily understandable by someone with only a passing knowledge of Liskov's rules for subtypes.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org4d52a71" class="outline-2">
+<h2 id="a7">Assignment 7</h2>
+<div class="outline-text-2" id="text-a7">
+</div>
+
+<div id="outline-container-org9f3d9f0" class="outline-3">
+<h3 id="org9f3d9f0">Goals: Polymorphic Abstraction.</h3>
+<div class="outline-text-3" id="text-org9f3d9f0">
+<p>
+A <code>Comparator</code> based on absolute values is problematic. Code up the comparator and then write client code that illustrates the problem. Use a <i>lambda function</i> to implement the comparator. Explain what is wrong in a brief summary statement. Your explanation of the problem must be phrased in terms of a violation of the contract for <code>Comparator</code>.
+</p>
+
+<p>
+To emphasize that this contract problem is real, your code should create two Java sets, one a <code>HashSet</code>, and the other a <code>TreeSet</code>. The <code>TreeSet</code> should order items with your absolute value comparator. Your example should add the same integers to both sets, yet still end up with sets that are different. Your summary statement should explain why.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org28fab95" class="outline-3">
+<h3 id="org28fab95">Grading Criteria</h3>
+<div class="outline-text-3" id="text-org28fab95">
+<p>
+As for other recent assignments, your deliverable is a clear, concise story that demonstrates completion of the assignment.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org9c2926b" class="outline-2">
+<h2 id="a8">Assignment 8</h2>
+<div class="outline-text-2" id="text-a8">
+</div>
+
+<div id="outline-container-orgd9288f0" class="outline-3">
+<h3 id="orgd9288f0">Goals: Generics</h3>
+<div class="outline-text-3" id="text-orgd9288f0">
+<p>
+Consider the <a href="./files/BoundedQueue.java">BoundedQueue</a> example from in-class exercise <a href="./inclass08C.html">#8C</a>.
+</p>
+
+<p>
+Complete the generic part of the exercise: The result should be fully generic, and there should not be any compiler warnings. You should adopt Bloch's advice about lists vs. arrays; doing so will eliminate the need for many of the instance variables.
+</p>
+
+<p>
+Keep the same methods, but update the behavior (and document with contracts!) to include exception handling for all cases not on the happy path.
+</p>
+
+<p>
+Include the constructor in your considerations. In particular, consider whether you think a zero-sized buffer is a reasonable possibility. Document your reasoning. This is less about a right vs. wrong answer than a careful consideration of the consequences of the decision.
+</p>
+
+<p>
+Add <code>putAll()</code> and <code>getAll()</code>. Define the method signatures carefully. Use exception-handling consistent with that for <code>get()</code> and <code>put()</code>. Use bounded wildcards as appropriate. Note that <code>putAll()</code> has a special case where there isn't sufficient space in the bounded queue. Adopt a solution you think Bloch and/or Liskov would approve of. In particular, Bloch prefers that when methods throw exceptions, there is no change to the state of the object.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7edc45f" class="outline-3">
+<h3 id="org7edc45f">Grading Criteria</h3>
+<div class="outline-text-3" id="text-org7edc45f">
+<p>
+As before, turn in a clear, concise story demonstrating completion of the assignment.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org1397412" class="outline-2">
+<h2 id="a9">Assignment 9</h2>
+<div class="outline-text-2" id="text-a9">
+</div>
+
+<div id="outline-container-org611a8ef" class="outline-3">
+<h3 id="org611a8ef">Goals: <code>Object</code> class contracts.</h3>
+<div class="outline-text-3" id="text-org611a8ef">
+<p>
+As it happens, Liskov's implementation of <code>clone()</code> for the <code>IntSet</code> class (see figure 5.10, page 97) is wrong.
+</p>
+
+<ol class="org-ol">
+<li>Use the <a href="./files/IntSet.java">version</a> of <code>IntSet</code> from the in-class exercise. Implement a subtype of <code>IntSet</code> to demonstrate the problem. Your solution should include appropiate executable code in the form of JUnit tests.</li>
+<li>Provide a correct implementation of <code>clone()</code> for <code>IntSet</code>. Again, give appropriate JUnit tests.</li>
+<li>Correctly override <code>hashCode()</code> and <code>equals()</code>. As discussed in the class exercise, the standard recipe is not appropriate in this (unusual) case.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgfdc4296" class="outline-3">
+<h3 id="orgfdc4296">Grading Criteria</h3>
+<div class="outline-text-3" id="text-orgfdc4296">
+<p>
+In addititon to code and tests, your deliverable is a story. Explain what is going on at each stage of the exercise. The GTA will primarily grade your story.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org0670722" class="outline-2">
+<h2 id="a10">Assignment 10</h2>
+<div class="outline-text-2" id="text-a10">
+</div>
+<div id="outline-container-orgc03e9b4" class="outline-3">
+<h3 id="orgc03e9b4">Goals: Favoring composition over inheritance. Bloch, Item 18.</h3>
+<div class="outline-text-3" id="text-orgc03e9b4">
+<p>
+Consider the <code>InstrumentedSet</code> example from Bloch Item 18 (as well as in-class exercise <a href="./inclass10A.html">#10A</a>).
+</p>
+<ol class="org-ol">
+<li>Replace <code>Set</code> with <code>List</code>. There is no problem with <code>equals()</code>. Why not?</li>
+<li>Replace <code>Set</code> with <code>Collection</code>. Now <code>equals()</code> does not satisfy its contract.
+<ul class="org-ul">
+<li>Explain why there is a problem.</li>
+<li>Demonstrate the problem with a suitable JUnit test.</li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-org639e151" class="outline-3">
+<h3 id="org639e151">Grading Criteria</h3>
+<div class="outline-text-3" id="text-org639e151">
+<p>
+The GTA will look for correct responses, appropriate JUnit tests, and plausible explanations when doing the grading.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org034fcf8" class="outline-2">
+<h2 id="a11">Assignment 11</h2>
+<div class="outline-text-2" id="text-a11">
+</div>
+<div id="outline-container-org0207d9c" class="outline-3">
+<h3 id="org0207d9c">Goals: Applying lessons learned.</h3>
+<div class="outline-text-3" id="text-org0207d9c">
+<p>
+You have a choice of possible assignments:
+</p>
+
+<ol class="org-ol">
+<li>Consider one of the <code>copyOf()</code> methods in the Java <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html">Arrays</a> utility class. Bloch uses this method in his <code>Stack</code> example. Code a corresponding method in C++, changing the argument list as necessary. Provide a specification for the C++ code by translating the JavaDoc and adding preconditions as necessary. Explain what this exercise demonstrates about C++ type safety.</li>
+
+<li><p>
+For most of the semester, we have focused on design considerations for constructing software that does something we want it to do. For this last assignment, I would like students to appreciate just how vulnerable software is to malicious parties intent on attacking their software.
+</p>
+
+<p>
+There are two attacks documented in Bloch's Item 88: <i>Write <code>readObject()</code> methods defensively</i>. One is called <code>BogusPeriod</code>, and the other is called <code>MutablePeriod</code>. Implement either (your choice) of these attacks (basically involves typing in code from Bloch) and verify that the attack takes place.
+</p></li>
+
+<li>A different source of security vulnerabilities in Java also involve serialization. Bloch (and others) recommend "cross-platform structured data representations" (e.g. JSON or Protocol Buffers) as safe alternatives. Develop a simple serialization example in Java and convert it into a safe alternative (probably, JSON is easier to use, since it is text-based). To make the example more interesting, use some objects types that are not directly supported.</li>
+
+<li>Find some existing (Java) code that uses the "int enum pattern" and refactor it to use Java <code>Enums</code> instead. Identify any type-safety issue you uncover in the existing code. To make the exercise interesting, extend your enums beyond simple named-constants in one of the ways discussed by Bloch in Item 34.</li>
+
+<li>Where appropriate, code up, as JUnit theories, constraints for classes that implement the Java <code>Comparable</code> interface. Note that there is significant overlap with the in-class exercise. Note also that the Comparable interface is generic; hence, you should use generics in your JUnit test class.</li>
+
+<li>Gain experience with one of the property-based testing tools. I suggest a Java-based one (such as <a href="https://jqwik.net">jqwik</a>). One way to do this is work through one of the articles linked on the jqwik site.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org8894ee2" class="outline-3">
+<h3 id="org8894ee2">Grading Criteria</h3>
+<div class="outline-text-3" id="text-org8894ee2">
+<p>
+In each case, the deliverable is a story. Write a brief report, and include enough evidence (output, screen shots, etc.) that the GTA can figure out that you actually completed the assignment.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org047bf8c" class="outline-2">
+<h2 id="org047bf8c">Links</h2>
+<div class="outline-text-2" id="text-org047bf8c">
+<ul class="org-ul">
+<li><a href="./index.html">Syllabus</a></li>
+<li><a href="./schedule.html">Schedule</a></li>
+</ul>
+</div>
+</div>
+</div>
+</body>
+</html>

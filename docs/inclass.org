@@ -5,23 +5,22 @@
 
 #+OPTIONS: ^:nil num:nil
 
-* In Class Exercises
-
-** In class 0
-   :PROPERTIES:
-   :CUSTOM_ID: ic0
-   :END:
+* In class 0
+  :PROPERTIES:
+  :CUSTOM_ID: ic0
+  :END:
    
-   Work with your group. Your group assignment is on Piazza. (You might decide to change groups later, but for today, stick with this group.) When we invoke the BB break-out function, nagivate to your assigned group.
+  Work with your group. Your group assignment is on Piazza. (You might decide to change groups later, but for today, stick with this group.) When we invoke the BB break-out function, nagivate to your assigned group.
 
-   1. Your group should spend a few minutes getting acquainted. Explain a bit about yourself: full-time student?, working in  software development?, why are you taking this class?, favorite/least favorite thing about writing software?, etc.
-   1. Decide on a mechanism for joint communication. Google docs? IDE with screen share? Something else?
 
-   Now address a technical topic. This exercise touches on some of the thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don't worry if it seems confusing today. We'll revisit this example several times over the course of the semester.
+  1. Your group should spend a few minutes getting acquainted. Explain a bit about yourself: full-time student?, working in  software development?, why are you taking this class?, favorite/least favorite thing about writing software?, etc.
+  1. Decide on a mechanism for joint communication. Google docs? IDE with screen share? Something else?
 
-   Consider the following (textbook) code:
+  Now address a technical topic. This exercise touches on some of the thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don't worry if it seems confusing today. We'll revisit this example several times over the course of the semester.
 
-   #+begin_src java
+  Consider the following (textbook) code:
+
+  #+begin_src java
      public class User {
          private String name;
          public User (String name) { this.name = name; }
@@ -40,22 +39,22 @@
          }
          // other methods omitted
      }
-   #+end_src
+  #+end_src
 
-   1. Walk though the execution of the =equals()= method in class =User= for a few well-chosen objects as the parameter. What happens at each point in the execution? 
-   2. What does it mean for an =equals()= implementation to be *correct*? How do you know? Be as concrete as you can. 
-   3. Is the given implementation of =equals()= in class =User= correct? Again, be concrete. If there is a problem, find a specific object (test case!) that demonstrates the problem. 
-   4. How does inheritance complicate the correctness discussion for =equals()= in class =SpecialUser=? 
-   5. What is your assessment of the =equals()= method in the =SpecialUser= class?
+  1. Walk though the execution of the =equals()= method in class =User= for a few well-chosen objects as the parameter. What happens at each point in the execution? 
+  2. What does it mean for an =equals()= implementation to be *correct*? How do you know? Be as concrete as you can. 
+  3. Is the given implementation of =equals()= in class =User= correct? Again, be concrete. If there is a problem, find a specific object (test case!) that demonstrates the problem. 
+  4. How does inheritance complicate the correctness discussion for =equals()= in class =SpecialUser=? 
+  5. What is your assessment of the =equals()= method in the =SpecialUser= class?
 
-** In class 1A
-   :PROPERTIES:
-   :CUSTOM_ID: ic1A
-   :END:
+* In class 1A
+  :PROPERTIES:
+  :CUSTOM_ID: ic1A
+  :END:
    
-   Consider the following specification and implementation:
+  Consider the following specification and implementation:
 
-   #+begin_src java
+  #+begin_src java
 
      public static List<Integer> tail (List<Integer> list) {
 
@@ -66,37 +65,37 @@
          result.remove(0);
          return result;
      }
-   #+end_src
+  #+end_src
   
-   1. What does the *implementation* of =tail= do in each of the following cases? How do you know: Running the code or reading an API description?
-      - =list = null= 
-      - =list = []=
-      - =list = [1]= 
-      - =list = [1, 2, 3]=
-   1. Write a partial specification that matches the "happy path" part of the implementation's behavior. 
-   1. Rewrite the specification to be total. Use Bloch's standard exceptions. 
-   1. The resulting specification has a problem. What is it? 
-   1. Rewrite the specification to address this problem. Rewrite the code to match the new specification. 
+  1. What does the *implementation* of =tail= do in each of the following cases? How do you know: Running the code or reading an API description?
+     - =list = null= 
+     - =list = []=
+     - =list = [1]= 
+     - =list = [1, 2, 3]=
+  1. Write a partial specification that matches the "happy path" part of the implementation's behavior. 
+  1. Rewrite the specification to be total. Use Bloch's standard exceptions. 
+  1. The resulting specification has a problem. What is it? 
+  1. Rewrite the specification to address this problem. Rewrite the code to match the new specification. 
 
-** In class 1B
-   :PROPERTIES:
-   :CUSTOM_ID: ic1B
-   :END:
+* In class 1B
+  :PROPERTIES:
+  :CUSTOM_ID: ic1B
+  :END:
    
-   *Goal*: Understanding Contracts 
+  *Goal*: Understanding Contracts 
 
-   Consider the Java [[https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html][Iterator]] interface.
-   - For each method, identify all preconditions and postconditions.
-   - For each precondition, identify a specific input that violates the precondition.
-   - For each postcondition, identify an input specific to that postcondition.
+  Consider the Java [[https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html][Iterator]] interface.
+  - For each method, identify all preconditions and postconditions.
+  - For each precondition, identify a specific input that violates the precondition.
+  - For each postcondition, identify an input specific to that postcondition.
 
-** In class 2A
-   :PROPERTIES:
-   :CUSTOM_ID: ic2A
-   :END:
+* In class 2A
+  :PROPERTIES:
+  :CUSTOM_ID: ic2A
+  :END:
    
-   Consider a simple generic =Queue= implementation.
-   #+begin_src java
+  Consider a simple generic =Queue= implementation.
+  #+begin_src java
 
      public class Queue <E> {
 
@@ -126,27 +125,27 @@
          }
      }
 
-   #+end_src
+  #+end_src
 
-   1. Rewrite =Queue= to be *immutable*. Keep the representation variables =elements= and =size=.
-   1. Do the right thing with =enQueue()=.
-   1. Do the right thing with =deQueue()=.
+  1. Rewrite =Queue= to be *immutable*. Keep the representation variables =elements= and =size=.
+  1. Do the right thing with =enQueue()=.
+  1. Do the right thing with =deQueue()=.
 
 
 
-** In class 2B
-   :PROPERTIES:
-   :CUSTOM_ID: ic2B
-   :END:
+* In class 2B
+  :PROPERTIES:
+  :CUSTOM_ID: ic2B
+  :END:
    
   
-   Consider Liskov's Poly example, where an abstract Poly is defined as $c_0 + c_1x + c_2x^2 + \dots$, and is implemented with two variables:
-   #+begin_src java
+  Consider Liskov's Poly example, where an abstract Poly is defined as $c_0 + c_1x + c_2x^2 + \dots$, and is implemented with two variables:
+  #+begin_src java
      private int deg;
      private int[] trms;
-   #+end_src
+  #+end_src
 
-   #+begin_src text
+  #+begin_src text
      Fill in example values that are mapped by the abstraction function.
      Abstract Poly State:
 
@@ -157,14 +156,14 @@
 
      AF
      /|\
-     |         5 + 3x^2
-     |
-     |
-     |----------------------------------------------------------
-     |
-     |
-     |
-     |        (-10, null)
+      |         5 + 3x^2
+      |
+      |
+      |----------------------------------------------------------
+      |
+      |
+      |
+      |        (-10, null)
 
      (2, [5,0,3,0])  Liskov says "no"
 
@@ -182,29 +181,29 @@
 
 
      Representation State: (deg, trms)
-   #+end_src
+  #+end_src
   
-   1. Identify representation states that should not be mapped.
-   1. Try to capture these states with a rule (that is, a rep-invariant).
-   1. Devise a representation that is suitable for a mutable version of Poly.
-   1. Develop a rep-invariant for that representation.
+  1. Identify representation states that should not be mapped.
+  1. Try to capture these states with a rule (that is, a rep-invariant).
+  1. Devise a representation that is suitable for a mutable version of Poly.
+  1. Develop a rep-invariant for that representation.
 
-** In class 3A
-   :PROPERTIES:
-   :CUSTOM_ID: ic3A
-   :END:
+* In class 3A
+  :PROPERTIES:
+  :CUSTOM_ID: ic3A
+  :END:
 
 
-   Consider Liskov's immutable =Poly= example, where an abstract =Poly= is defined as $c_0 + c_1x + c_2x^2 + \dots$, and is implemented with one variable:
+  Consider Liskov's immutable =Poly= example, where an abstract =Poly= is defined as $c_0 + c_1x + c_2x^2 + \dots$, and is implemented with one variable:
 
-   #+begin_src java
+  #+begin_src java
      private Map<Integer, Integer> map;
-   #+end_src
+  #+end_src
    
 
-   Fill in example values that are mapped by the abstraction function.
+  Fill in example values that are mapped by the abstraction function.
 
-   #+begin_src text
+  #+begin_src text
 
      Abstract State: Poly
 
@@ -223,20 +222,20 @@
 
      Representation State: map
 
-   #+end_src
+  #+end_src
 
-   1. Identify representation states that should not be mapped.
-   1. Try to capture these states with a rule (that is, a rep-invariant).
-   1. Consider implementing the =degree()= method. What code would do the job? What more specific type of map would make the implementation simpler? 
+  1. Identify representation states that should not be mapped.
+  1. Try to capture these states with a rule (that is, a rep-invariant).
+  1. Consider implementing the =degree()= method. What code would do the job? What more specific type of map would make the implementation simpler? 
 
-** In class 3B
-   :PROPERTIES:
-   :CUSTOM_ID: ic3B
-   :END:
+* In class 3B
+  :PROPERTIES:
+  :CUSTOM_ID: ic3B
+  :END:
 
-   Consider the code:
+  Consider the code:
 
-   #+begin_src java
+  #+begin_src java
 
      public class Members {
          // Members is a mutable record of organization membership
@@ -253,49 +252,49 @@
          //  Post: person is no longer a member
          public void leave(Person person) { members.remove(person);}
 
-   #+end_src
+  #+end_src
 
 
-   1. Analyze these 4 questions for rep-inv 1.
-      1. Does =join()= maintain rep-inv?
-      1. Does =join()= satisfy contract?
-      1. Does =leave()= maintain rep-inv?
-      1. Does =leave()= satisfy contract? 
-   1. Repeat for rep-inv 2.
-   1. Recode =join()= to make the verification go through. Which rep-invariant do you use?
-   1. Recode =leave()= to make the verification go through. Which rep-invariant do you use? 
+  1. Analyze these 4 questions for rep-inv 1.
+     1. Does =join()= maintain rep-inv?
+     1. Does =join()= satisfy contract?
+     1. Does =leave()= maintain rep-inv?
+     1. Does =leave()= satisfy contract? 
+  1. Repeat for rep-inv 2.
+  1. Recode =join()= to make the verification go through. Which rep-invariant do you use?
+  1. Recode =leave()= to make the verification go through. Which rep-invariant do you use? 
 
-** In class 4A
-   :PROPERTIES:
-   :CUSTOM_ID: ic4A
-   :END:
+* In class 4A
+  :PROPERTIES:
+  :CUSTOM_ID: ic4A
+  :END:
 
-   Consider the Java =Iterator<E>= interface:
+  Consider the Java =Iterator<E>= interface:
 
-   #+begin_src java
+  #+begin_src java
      public boolean hasNext();
      public E next() throws NoSuchElementException
                             public void remove() throws IllegalStateException
-   #+end_src
+  #+end_src
 
-   1. What is the abstract state of an iterator without the =remove()= method?
-   1. Work through an example iterating over a list of strings: =["bat", "cat", "dog"]=
-   1. What is the abstract state of an iterator with a =previous()= method?
-   1. What is the abstract state of an iterator with the =remove()= method?
-   1. Design an immutable version of the iterator.
-      1. How is =hasNext()= handled?
-      1. How is =next()= handled?
-      1. How is =remove()= handled?
-   1. Exercise the immutable iterator with some sample client code. 
+  1. What is the abstract state of an iterator without the =remove()= method?
+  1. Work through an example iterating over a list of strings: =["bat", "cat", "dog"]=
+  1. What is the abstract state of an iterator with a =previous()= method?
+  1. What is the abstract state of an iterator with the =remove()= method?
+  1. Design an immutable version of the iterator.
+     1. How is =hasNext()= handled?
+     1. How is =next()= handled?
+     1. How is =remove()= handled?
+  1. Exercise the immutable iterator with some sample client code. 
 
-** In class 4B
-   :PROPERTIES:
-   :CUSTOM_ID: ic4B
-   :END:
+* In class 4B
+  :PROPERTIES:
+  :CUSTOM_ID: ic4B
+  :END:
 
-   Consider the example in Bloch's Item 50 (3rd Edition):
+  Consider the example in Bloch's Item 50 (3rd Edition):
 
-   #+begin_src java
+  #+begin_src java
 
      // Broken “immutable” time period class
      public final class Period {               // Question 3
@@ -316,37 +315,37 @@
          public Date start() { return start;}    // Question 2
          public Date end()   { return end;}      // Question 2
      }
-   #+end_src
+  #+end_src
 
 
-   1. Write code that shows the problem the line marked // Question 1.
-   1. Write code that shows the problem the lines marked // Question 2.
-   1. Suppose that the class declaration were:
-      #+begin_src java
-        public class Period { // Question 3
-      #+end_src
-      Write code that shows the problem.
-   1. Bloch fixes the constructor as follows:
-      #+begin_src java
-        public Period (Date start, Date end) {
-            this.start = new Date(start.getTime());  // Defensive copy
-            this.end   = new Date(end.getTime());    // Defensive copy
+  1. Write code that shows the problem the line marked // Question 1.
+  1. Write code that shows the problem the lines marked // Question 2.
+  1. Suppose that the class declaration were:
+     #+begin_src java
+       public class Period { // Question 3
+     #+end_src
+     - Write code that shows the problem.
+  1. Bloch fixes the constructor as follows:
+     #+begin_src java
+       public Period (Date start, Date end) {
+           this.start = new Date(start.getTime());  // Defensive copy
+           this.end   = new Date(end.getTime());    // Defensive copy
 
-            if (this.start.compareTo(end) > 0) throw new IAE();
-      #+end_src
-      1. Bloch states that =clone()= would be inappropriate for copying the dates. Write code that shows the problem.
-      1. Bloch defers the exception check until the end, which seems to violate normal practice. What's the problem with checking early? 
+           if (this.start.compareTo(end) > 0) throw new IAE();
+     #+end_src
+     1. Bloch states that =clone()= would be inappropriate for copying the dates. Write code that shows the problem.
+     1. Bloch defers the exception check until the end, which seems to violate normal practice. What's the problem with checking early? 
 
-** In class 5A
-   :PROPERTIES:
-   :CUSTOM_ID: ic5A
-   :END:
+* In class 5A
+  :PROPERTIES:
+  :CUSTOM_ID: ic5A
+  :END:
 
-   *Goal*: Understanding dynamic dispatching
+  *Goal*: Understanding dynamic dispatching
 
-   Consider Liskov's =MaxIntSet= example with explict =repOk()= calls: (Really, we'd need assertions on these calls...)
+  Consider Liskov's =MaxIntSet= example with explict =repOk()= calls: (Really, we'd need assertions on these calls...)
 
-   #+begin_src java
+  #+begin_src java
 
      public class IntSet {
          public void insert(int x) {...; repOk();}
@@ -360,21 +359,21 @@
      }
 
      MaxIntSet s = {3, 5}; s.remove(5);  // repOk()????
-   #+end_src
+  #+end_src
   
-   1. What does the default constructor in =MaxIntSet= do?
-   1. What do the ="..."= bits do?
-   1. How does the call work out?
-   1. What is the abstract state of a =MaxIntSet=? There are two options. What are they, and what are the consequences of each choice? 
+  1. What does the default constructor in =MaxIntSet= do?
+  1. What do the ="..."= bits do?
+  1. How does the call work out?
+  1. What is the abstract state of a =MaxIntSet=? There are two options. What are they, and what are the consequences of each choice? 
 
-** In class 5B
-   :PROPERTIES:
-   :CUSTOM_ID: ic5B
-   :END:
+* In class 5B
+  :PROPERTIES:
+  :CUSTOM_ID: ic5B
+  :END:
 
-   Consider the following:
+  Consider the following:
 
-   #+begin_src java
+  #+begin_src java
 
      class A:
          public void reduce (Reducer x)    
@@ -393,11 +392,11 @@
              // Effects: if x is null return (normally) with no change to this
              // else if x is not appropriate for this throw IAE
              // else reduce this by x
-   #+end_src
+  #+end_src
 
-   Analyze the "methods rule" for =reduce()= in each of these cases: Note: Some analysis may not be necessary. If so, indicate that.
+  Analyze the "methods rule" for =reduce()= in each of these cases: Note: Some analysis may not be necessary. If so, indicate that.
 
-   #+begin_src text
+  #+begin_src text
 
      B extends A.
      Precondition Part:
@@ -419,15 +418,15 @@
      Precondition Part:
      Postcondition Part: 
      -----------------------------------          
-   #+end_src
+  #+end_src
 
-** In class 5C
-   :PROPERTIES:
-   :CUSTOM_ID: ic5C
-   :END:
+* In class 5C
+  :PROPERTIES:
+  :CUSTOM_ID: ic5C
+  :END:
 
-   Consider the following:
-   #+begin_src java
+  Consider the following:
+  #+begin_src java
 
      public class Counter{   // Liskov 7.8
          public Counter()     //EFF: Makes this contain 0
@@ -442,23 +441,23 @@
          public Counter3(int n)   //EFF: Makes this contain n
              public void incr(int n)  // MOD: this //EFF: if n>0 add n to this
              }
-   #+end_src
+  #+end_src
 
-   1. What role do constructors play in analyzing the Liskov Substitition Principle?
-   1. Is there a constraint about negative/zero values for this? How do we know?
-   1. What methods are in the =Counter2= API?
-   1. Is =Counter2= a valid subtype of Counter?
-   1. What methods are in the =Counter3= API?
-   1. Is =Counter3= a valid subtype of =Counter=? In particular, does =incr(int n)= have to be consistent with =incr()=? 
+  1. What role do constructors play in analyzing the Liskov Substitition Principle?
+  1. Is there a constraint about negative/zero values for this? How do we know?
+  1. What methods are in the =Counter2= API?
+  1. Is =Counter2= a valid subtype of Counter?
+  1. What methods are in the =Counter3= API?
+  1. Is =Counter3= a valid subtype of =Counter=? In particular, does =incr(int n)= have to be consistent with =incr()=? 
 
-** In class 6
-   :PROPERTIES:
-   :CUSTOM_ID: ic6
-   :END:
+* In class 6
+  :PROPERTIES:
+  :CUSTOM_ID: ic6
+  :END:
 
-   This is a recap exercise.
+  This is a recap exercise.
 
-   #+begin_src java
+  #+begin_src java
 
      public class BoundedQueue {
          private Object rep[];
@@ -515,33 +514,32 @@
          }
      }
 
-   #+end_src
+  #+end_src
   
 
-   1. How would Liskov describe a typical bounded queue?
-   1. What is wrong with =toString()=? What needs to be done to fix it? Make it so.
-   1. Write some sample client code to exercise the data structure. Include some non-happy-path cases. Would Bloch likely change the behavior? If so, how?
-   1. Write contracts for each method (as written), including the constructor.
-   1. Build a rep-invariant. Focus on the code in =get()=. There are also lots of constraints on the array indices; these are quite tricky to get right. The constructor also introduces some complexity.
-   1. Suppose we removed the line
-      #+begin_src java
-        rep[front] = null;       
-      #+end_src
-      from =get()=.
-      1. Informally, why is this wrong?
-      1. Formally, where does the correctness proof break down?
-      1. Could a client ever see the problem?
-   1. Now that we've done some AF/RI analysis, what changes make the implementation better? btw - this is code straight out of a textbook.
-   1. Could this data structure be made immutable? If so, what would change in the contracts and method headers? What would likely change in the implementation? 
+  1. How would Liskov describe a typical bounded queue?
+  1. What is wrong with =toString()=? What needs to be done to fix it? Make it so.
+  1. Write some sample client code to exercise the data structure. Include some non-happy-path cases. Would Bloch likely change the behavior? If so, how?
+  1. Write contracts for each method (as written), including the constructor.
+  1. Build a rep-invariant. Focus on the code in =get()=. There are also lots of constraints on the array indices; these are quite tricky to get right. The constructor also introduces some complexity.
+  1. Suppose we removed the line
+     #+begin_src java
+       rep[front] = null;       
+     #+end_src
+     from =get()=.
+     1. Informally, why is this wrong?
+     1. Formally, where does the correctness proof break down?
+     1. Could a client ever see the problem?
+  1. Now that we've done some AF/RI analysis, what changes make the implementation better? btw - this is code straight out of a textbook.
+  1. Could this data structure be made immutable? If so, what would change in the contracts and method headers? What would likely change in the implementation? 
 
+* In class 8A
+  :PROPERTIES:
+  :CUSTOM_ID: ic8A
+  :END:
 
-** In class 8A
-   :PROPERTIES:
-   :CUSTOM_ID: ic8A
-   :END:
-
-   Given the following variable declarations, independently consider the given 6 sequences of Java instructions.
-   #+begin_src java
+  Given the following variable declarations, independently consider the given 6 sequences of Java instructions.
+  #+begin_src java
 
      String           string = "bat";
      Integer          x = 7;
@@ -550,59 +548,58 @@
      List < Object >  objectList;
      List < String >  stringList;
 
-   #+end_src
+  #+end_src
 
-   Identify any code that results in a compiler error or warning.
-   Identify any code that raises a runtime exception.
-   Once a compiler error is noted, you do not need to analyze the sequence further.
+  Identify any code that results in a compiler error or warning.
+  Identify any code that raises a runtime exception.
+  Once a compiler error is noted, you do not need to analyze the sequence further.
 
-   1.
-      #+begin_src java
-        objects = new String[1]; 
-        objects[0] = string;     
-        objects[0] = x;        
-      #+end_src
+  1.
+     #+begin_src java
+       objects = new String[1]; 
+       objects[0] = string;     
+       objects[0] = x;        
+     #+end_src
 
-   1.
-      #+begin_src java
-        objects = new Object[1];
-        objects[0] = string;   
-        objects[0] = x;     
-      #+end_src
+  1.
+     #+begin_src java
+       objects = new Object[1];
+       objects[0] = string;   
+       objects[0] = x;     
+     #+end_src
 
-   1.
-      #+begin_src java
-        stringList = new ArrayList < String >();
-        stringList.add(string) ;
-      #+end_src
+  1.
+     #+begin_src java
+       stringList = new ArrayList < String >();
+       stringList.add(string) ;
+     #+end_src
 
-   1.
-      #+begin_src java
-        objectList = new ArrayList < String >();
-        objectList.add(string) ;
-      #+end_src
+  1.
+     #+begin_src java
+       objectList = new ArrayList < String >();
+       objectList.add(string) ;
+     #+end_src
 
-   1.
-      #+begin_src java
-        objectList = new ArrayList < Object >(); 
-        objectList.add(string) ;      
-        objectList.add(x) ;        
-      #+end_src
+  1.
+     #+begin_src java
+       objectList = new ArrayList < Object >(); 
+       objectList.add(string) ;      
+       objectList.add(x) ;        
+     #+end_src
 
-   6.
-      #+begin_src java
-        rawList = new ArrayList();
-        rawList.add(string) ;    
-        rawList.add(x) ;       
-      #+end_src
+  6.
+     #+begin_src java
+       rawList = new ArrayList();
+       rawList.add(string) ;    
+       rawList.add(x) ;       
+     #+end_src
 
+* In class 8B
+  :PROPERTIES:
+  :CUSTOM_ID: ic8B
+  :END:
 
-** In class 8B
-   :PROPERTIES:
-   :CUSTOM_ID: ic8B
-   :END:
-
-   #+begin_src java
+  #+begin_src java
      // Chooser - a class badly in need of generics!
      // Bloch 3rd edition, Chapter 5, Item 28:  Prefer lists to arrays
 
@@ -618,22 +615,22 @@
              return choiceArray [rnd.nextInt(choiceArray.length)];
          }
      }
-   #+end_src
+  #+end_src
 
    
 
-   - First, simply generify by adding a type to the Chooser class. What is the compiler error with this approach?
-   - How can you turn the compiler error into a compiler warning?
-   - Can this warning be suppressed? Should it?
-   - How can you adopt Bloch's advice about arrays and lists to get a typesafe Chooser class without doing anything else that is complicated?
-   - What would Liskov have to say about this class? How should it evolve to address her concerns? What is the appropriate place to deal with the problem? Does an invariant help? Is that a rep-invariant, or some other kind of invariant?
+  - First, simply generify by adding a type to the Chooser class. What is the compiler error with this approach?
+  - How can you turn the compiler error into a compiler warning?
+  - Can this warning be suppressed? Should it?
+  - How can you adopt Bloch's advice about arrays and lists to get a typesafe Chooser class without doing anything else that is complicated?
+  - What would Liskov have to say about this class? How should it evolve to address her concerns? What is the appropriate place to deal with the problem? Does an invariant help? Is that a rep-invariant, or some other kind of invariant?
 
-** In class 8C
-   :PROPERTIES:
-   :CUSTOM_ID: ic8C
-   :END:
+* In class 8C
+  :PROPERTIES:
+  :CUSTOM_ID: ic8C
+  :END:
    
-   #+begin_src java
+  #+begin_src java
      public class BoundedQueue {
 
          protected Object rep[];
@@ -678,21 +675,21 @@
          }
      }
 
-   #+end_src
+  #+end_src
 
 
-   Generify!
-   - Can you add a putAll() method? A getAll() method?
-   - Recall that we used this same example in in-class 6 as a vehicle for applying Liskov's ideas to make code easier to understand.
+  Generify!
+  - Can you add a putAll() method? A getAll() method?
+  - Recall that we used this same example in in-class 6 as a vehicle for applying Liskov's ideas to make code easier to understand.
 
-** In class 9A
-   :PROPERTIES:
-   :CUSTOM_ID: ic9A
-   :END:
+* In class 9A
+  :PROPERTIES:
+  :CUSTOM_ID: ic9A
+  :END:
    
-   Consider Bloch's =Point/ColorPoint= example. For today, ignore the =hashCode()= issue.
+  Consider Bloch's =Point/ColorPoint= example. For today, ignore the =hashCode()= issue.
 
-   #+begin_src java
+  #+begin_src java
 
      public class Point {  // routine code
          private int x; private int y;    
@@ -729,46 +726,46 @@
              return super.equals(obj) && cp.color == color;
          }
      }
-   #+end_src
+  #+end_src
 
-   1. What is the =equals()= contract? What is the standard recipe?
-   1. Why does Bloch use the =instanceof= operator in the standard recipe?
-   1. Write client code that shows a contract problem with the first attempt at =ColorPoint=.
-   1. Write client code that shows a contract problem with the second attempt at =ColorPoint=.
-   1. Some authors recommend solving this problem by using a different standard recipe for =equals()=.
-      - What's the key difference?
-      - Which approach do you want in the following code:
-        #+begin_src java
-          public class CounterPoint extends Point
-                                            private static final AtomicInteger counter =
-                                            new AtomicInteger();
+  1. What is the =equals()= contract? What is the standard recipe?
+  1. Why does Bloch use the =instanceof= operator in the standard recipe?
+  1. Write client code that shows a contract problem with the first attempt at =ColorPoint=.
+  1. Write client code that shows a contract problem with the second attempt at =ColorPoint=.
+  1. Some authors recommend solving this problem by using a different standard recipe for =equals()=.
+     - What's the key difference?
+     - Which approach do you want in the following code:
+       #+begin_src java
+         public class CounterPoint extends Point
+                                           private static final AtomicInteger counter =
+                                           new AtomicInteger();
 
-          public CounterPoint(int x, int y) {
-              super (x, y);
-              counter.incrementAndGet();
-          }
-          public int numberCreated() { return counter.get(); }
+         public CounterPoint(int x, int y) {
+             super (x, y);
+             counter.incrementAndGet();
+         }
+         public int numberCreated() { return counter.get(); }
 
-          @Override public boolean equals (Object obj) { ??? }
-          }
+         @Override public boolean equals (Object obj) { ??? }
+         }
 
 
-          // Client code:
+         // Client code:
 
-          Point p = PointFactory.getPoint();   // either a Point or a CounterPoint
-          Set<Point> importantPoints =   // a set of important points
-              boolean b = PointUtilities.isImportant(p);  // value?
+         Point p = PointFactory.getPoint();   // either a Point or a CounterPoint
+         Set<Point> importantPoints =   // a set of important points
+             boolean b = PointUtilities.isImportant(p);  // value?
 
-        #+end_src
+       #+end_src
 
-** In class 9B
-   :PROPERTIES:
-   :CUSTOM_ID: ic9B
-   :END:
+* In class 9B
+  :PROPERTIES:
+  :CUSTOM_ID: ic9B
+  :END:
    
-   Consider a variation of Liskov's =IntSet= example (Figure 5.10, page 97)
+  Consider a variation of Liskov's =IntSet= example (Figure 5.10, page 97)
 
-   #+begin_src java
+  #+begin_src java
 
      public class IntSet implements Cloneable {  
          private List<Integer> els;
@@ -796,25 +793,25 @@
          }
 
      }
-   #+end_src
+  #+end_src
 
-   1. How should the =equals()= method be completed?
-   1. Analyze the following ways to implement =hashCode()=? If there is a problem, give a test case that shows the problem.
-      1. not overridden at all
-      1. return 42;
-      1. return =els.hashCode()=;
-      1. ~int sum = 0; for (Integer i : els) sum += i.hashCode(); return sum;~ 
-   1. What's the problem with =clone()= here? Give a test case that shows the problem.
-   1. Fix =clone()= in two very different ways. 
+  1. How should the =equals()= method be completed?
+  1. Analyze the following ways to implement =hashCode()=? If there is a problem, give a test case that shows the problem.
+     1. not overridden at all
+     1. return 42;
+     1. return =els.hashCode()=;
+     1. ~int sum = 0; for (Integer i : els) sum += i.hashCode(); return sum;~ 
+  1. What's the problem with =clone()= here? Give a test case that shows the problem.
+  1. Fix =clone()= in two very different ways. 
 
-** In class 10A
-   :PROPERTIES:
-   :CUSTOM_ID: ic10A
-   :END:
+* In class 10A
+  :PROPERTIES:
+  :CUSTOM_ID: ic10A
+  :END:
 
-   Consider Bloch's =InstrumentedHashSet=, =InstrumentedSet=, and =ForwardingSet= examples:
+  Consider Bloch's =InstrumentedHashSet=, =InstrumentedSet=, and =ForwardingSet= examples:
 
-   #+begin_src java
+  #+begin_src java
      public class InstrumentedHashSet<E> extends HashSet<E>{
          private int addCount = 0;	
          public InstrumentedHashSet() {}
@@ -864,30 +861,30 @@
 
      r.remove("bee");
      s.remove("ant");
-   #+end_src
+  #+end_src
 
 
-   1. How do you think the =addCount= variable should be updated in the =addAll()= method in =InstrumentedHashSet=?
-      1. Why is this a hard question?
-      1. What does the answer say about inheritance?
-      1. Does =equals()= behave correctly in =InstrumentedHashSet?=
-   1. Given your previous answer, what is the value of =sh.addCount= at the end of the computation?
-   1. Consider the =InstrumentedSet= solution. Besides being correct (always a plus!) why is it more general than the =InstrumentedHashSet= solution?
-   1. At the end of the computation, what are the values of: =r=, =s=, and =t=?
-   1. What would a call to =s.getAddCount()= return at the end of the computation?
-   1. At the end of the computation, what are the values of: =r.equals(s)=, =s.equals(t)=, and =t.equals(s)=?
-      - Are there any problems with the =equals()= contract?
-   1. Would this still work if you globally replaced sets with lists?
-   1. Would this still work if you globally replaced sets with collections?
+  1. How do you think the =addCount= variable should be updated in the =addAll()= method in =InstrumentedHashSet=?
+     1. Why is this a hard question?
+     1. What does the answer say about inheritance?
+     1. Does =equals()= behave correctly in =InstrumentedHashSet?=
+  1. Given your previous answer, what is the value of =sh.addCount= at the end of the computation?
+  1. Consider the =InstrumentedSet= solution. Besides being correct (always a plus!) why is it more general than the =InstrumentedHashSet= solution?
+  1. At the end of the computation, what are the values of: =r=, =s=, and =t=?
+  1. What would a call to =s.getAddCount()= return at the end of the computation?
+  1. At the end of the computation, what are the values of: =r.equals(s)=, =s.equals(t)=, and =t.equals(s)=?
+     - Are there any problems with the =equals()= contract?
+  1. Would this still work if you globally replaced sets with lists?
+  1. Would this still work if you globally replaced sets with collections?
 
-   *Note*: There is a lot going on in this example. I highly recommend that you play with the code until you understand it.    
+     *Note*: There is a lot going on in this example. I highly recommend that you play with the code until you understand it.    
 
-** In class 10B
-   :PROPERTIES:
-   :CUSTOM_ID: ic10B
-   :END:
+* In class 10B
+  :PROPERTIES:
+  :CUSTOM_ID: ic10B
+  :END:
 
-   #+begin_src java
+  #+begin_src java
      public class Super {
          public Super() {
              overrideMe();
@@ -912,23 +909,23 @@
              sub.overrideMe();
          }
      }
-   #+end_src   
+  #+end_src   
 
-   1. What is the pattern, and how common is it?
-   1. What does the main method do, and why?
-   1. Which of Bloch's rules does this example break?
-   1. What does this example mean for =Cloneable= interface and the =clone()= method?
-   1. What does this example mean for =Serializable= interface and the =readObject()= method?
-   1. To what extent does this rule generalize to producer methods?
+  1. What is the pattern, and how common is it?
+  1. What does the main method do, and why?
+  1. Which of Bloch's rules does this example break?
+  1. What does this example mean for =Cloneable= interface and the =clone()= method?
+  1. What does this example mean for =Serializable= interface and the =readObject()= method?
+  1. To what extent does this rule generalize to producer methods?
 
-** In class 10C
-   :PROPERTIES:
-   :CUSTOM_ID: ic10C
-   :END:
+* In class 10C
+  :PROPERTIES:
+  :CUSTOM_ID: ic10C
+  :END:
 
-   Consider a mutable complex number class:
+  Consider a mutable complex number class:
 
-   #+begin_src java
+  #+begin_src java
      public class MComplex {
          double re; protected double im;
 
@@ -981,50 +978,50 @@
          @Override public String toString() { return "(" + re + " + " + im + "i)"; }
      }
 
-   #+end_src
+  #+end_src
 
-   Before we get to immutability, consider the method contracts. Where do the various contracts "come from", and is there anything in the (missing) JavaDoc that might require a bit of research?
+  Before we get to immutability, consider the method contracts. Where do the various contracts "come from", and is there anything in the (missing) JavaDoc that might require a bit of research?
 
-   Apply each of Bloch's 5 rules for making a class immutable:
-   1. Don't provide any methods that modify the object's state. How do you handle the mutators?
-   2. Ensure that no methods can be overridden.
-      - Why is this a problem? Show me!
-      - Fix the problem:
-        - Change the class declaration, or
-        - Change the method declarations, or
-        - Change the constructor visibility. 
-   1. Make all fields final.
-   1. Make all fields private.
-      - Is there a significant difference in visibility between re and im?
-   1. Ensure exclusive access to any mutable components.
+  Apply each of Bloch's 5 rules for making a class immutable:
+  1. Don't provide any methods that modify the object's state. How do you handle the mutators?
+  2. Ensure that no methods can be overridden.
+     - Why is this a problem? Show me!
+     - Fix the problem:
+       - Change the class declaration, or
+       - Change the method declarations, or
+       - Change the constructor visibility. 
+  1. Make all fields final.
+  1. Make all fields private.
+     - Is there a significant difference in visibility between re and im?
+  1. Ensure exclusive access to any mutable components.
 
-** In class 11
-   :PROPERTIES:
-   :CUSTOM_ID: ic11
-   :END:
+* In class 11
+  :PROPERTIES:
+  :CUSTOM_ID: ic11
+  :END:
 
-   This is a JUnit theory exercise.
+  This is a JUnit theory exercise.
 
-   1. Write a JUnit theory that captures the symmetry property of the =equals()= method.
-   1. Create =@DataPoints= from Bloch's =Point=, =ColorPoint= classes. So that we're all on the same page, create 1 =null= reference, 1 =Point= object and 2 =ColorPoint= objects.
-   1. Given this set of data points:
-      - How many combinations are considered by the theory?
-      - How many combinations make it past the preconditions of the theory?
-      - How many combinations make it to the postcondition of the theory? 
-   1. What happens to this theory and the accompanying data points when favoring composition over inheritance?
-   1. Repeat the exercise for the transitive property for =equals()=.
-   1. Recall the =equals()= and =hashCode()= discussion in Bloch. Write a JUnit theory that encodes the consistency property between =equals()= and =hashCode()=.
-   1. Build a toy example that violates the theory. Fix the toy example so that the theory is no longer violated.
-   1. Consider the =Comparable= interface: what properties should be checked with theories? 
+  1. Write a JUnit theory that captures the symmetry property of the =equals()= method.
+  1. Create =@DataPoints= from Bloch's =Point=, =ColorPoint= classes. So that we're all on the same page, create 1 =null= reference, 1 =Point= object and 2 =ColorPoint= objects.
+  1. Given this set of data points:
+     - How many combinations are considered by the theory?
+     - How many combinations make it past the preconditions of the theory?
+     - How many combinations make it to the postcondition of the theory? 
+  1. What happens to this theory and the accompanying data points when favoring composition over inheritance?
+  1. Repeat the exercise for the transitive property for =equals()=.
+  1. Recall the =equals()= and =hashCode()= discussion in Bloch. Write a JUnit theory that encodes the consistency property between =equals()= and =hashCode()=.
+  1. Build a toy example that violates the theory. Fix the toy example so that the theory is no longer violated.
+  1. Consider the =Comparable= interface: what properties should be checked with theories? 
 
-** In class 12A
-   :PROPERTIES:
-   :CUSTOM_ID: ic12A
-   :END:
+* In class 12A
+  :PROPERTIES:
+  :CUSTOM_ID: ic12A
+  :END:
 
-   Consider the following (bad) Java, implementing the "C style" enum pattern:
+  Consider the following (bad) Java, implementing the "C style" enum pattern:
 
-   #+begin_src java
+  #+begin_src java
      public class Coins {
          public static final int PENNY = 1;
          public static final int NICKLE = 5;
@@ -1032,20 +1029,20 @@
          public static final int QUARTER = 25;
      }
 
-   #+end_src
+  #+end_src
 
-   1. Give example code that illustrates a type safety problem with =Coins=. Work through a range of expressions from "probably ok" to "clearly wrong".
-   1. What code would you need to turn a nickel into a string? Explain how this could go wrong at runtime.
-   1. What code would you need to iterate through the coins?
-   1. Would extensions to this particular enum be likely to require recompilation of client code? Explain.
-   1. Write a decent Java Enum for coins.
-   1. Turn a nickle into a string.
-   1. Iterate though the coins.
+  1. Give example code that illustrates a type safety problem with =Coins=. Work through a range of expressions from "probably ok" to "clearly wrong".
+  1. What code would you need to turn a nickel into a string? Explain how this could go wrong at runtime.
+  1. What code would you need to iterate through the coins?
+  1. Would extensions to this particular enum be likely to require recompilation of client code? Explain.
+  1. Write a decent Java Enum for coins.
+  1. Turn a nickle into a string.
+  1. Iterate though the coins.
 
 
-   Consider Bloch's example:
+  Consider Bloch's example:
 
-   #+begin_src java
+  #+begin_src java
      // Abuse of ordinal to derive an associated value – DON’T DO THIS
      public enum Ensemble {
          SOLO,   DUET,   TRIO,  QUARTET, QUINTET, 
@@ -1053,39 +1050,39 @@
 
          public int numberOfMusicians() { return ordinal() + 1; }
      }
-   #+end_src
+  #+end_src
 
-   Explain why it's wrong, fix it, and add another enum with an overlapping number of musicians.
+  Explain why it's wrong, fix it, and add another enum with an overlapping number of musicians.
 
-** In class 12B
-   :PROPERTIES:
-   :CUSTOM_ID: ic12B
-   :END:
+* In class 12B
+  :PROPERTIES:
+  :CUSTOM_ID: ic12B
+  :END:
 
-   This is a recap exercise based on the map-based implementation of Liskov's polynomial example: [[./files/MapPoly.java][MapPoly]]
+  This is a recap exercise based on the map-based implementation of Liskov's polynomial example: [[./files/MapPoly.java][MapPoly]]
 
-   1. How are the following polynomials represented?
-      - $0$
-      - $3-7x^4$
-   1. Bloch would not accept that the MapPoly class is immutable. Why not? Show how it would be possible to provide mutable behavior with the class if Bloch's problem isn't fixed. Fix the problem, and implement any other changes Bloch suggests, even if they don't compromise immutability in this particular example.
-   1. Write a reasonable rep-invariant for =MapPoly=. How would this rep-invariant change if the zero =Poly= had an alternate representation.
-   1. Provide reasonable implementations of =equals()= and =hashCode()=. Explain why you believe your implemetations are appropriate.
-   1. As written, the contract for the =coeff()= method is inconsistent with other contracts in the class.
-      - What is the inconsistency with the contract?
-      - Fix the inconsistency with the contract.
-      - Fix the code to match the revised contract. 
-   1. Argue that the implementation of the =coeff()= method is correct (with respect to your repaired contract, of course.)
-   1. Consider implementing =Cloneable= for this class. Decide whether Bloch would think this is a good idea and provide justification for your answer. Note: You don't have to actually implement anything for this question.
-   1. See if you can come up with a theory about Polys and implement it in JUnit. (Polys are math objects, so there should be theories!) Here's a suggestion: Think about the relationship between the degrees of two Polys being multiplied and the resulting degree.
-    
-** In class 13
-   :PROPERTIES:
-   :CUSTOM_ID: ic13
-   :END:
+  1. How are the following polynomials represented?
+     - $0$
+     - $3-7x^4$
+  1. Bloch would not accept that the MapPoly class is immutable. Why not? Show how it would be possible to provide mutable behavior with the class if Bloch's problem isn't fixed. Fix the problem, and implement any other changes Bloch suggests, even if they don't compromise immutability in this particular example.
+  1. Write a reasonable rep-invariant for =MapPoly=. How would this rep-invariant change if the zero =Poly= had an alternate representation.
+  1. Provide reasonable implementations of =equals()= and =hashCode()=. Explain why you believe your implemetations are appropriate.
+  1. As written, the contract for the =coeff()= method is inconsistent with other contracts in the class.
+     - What is the inconsistency with the contract?
+     - Fix the inconsistency with the contract.
+     - Fix the code to match the revised contract. 
+  1. Argue that the implementation of the =coeff()= method is correct (with respect to your repaired contract, of course.)
+  1. Consider implementing =Cloneable= for this class. Decide whether Bloch would think this is a good idea and provide justification for your answer. Note: You don't have to actually implement anything for this question.
+  1. See if you can come up with a theory about Polys and implement it in JUnit. (Polys are math objects, so there should be theories!) Here's a suggestion: Think about the relationship between the degrees of two Polys being multiplied and the resulting degree.
 
-   How well are you prepared for the final? This exercise should help you find out. Piazza discussions encouraged!
+* In class 13
+  :PROPERTIES:
+  :CUSTOM_ID: ic13
+  :END:
 
-   #+begin_src java
+  How well are you prepared for the final? This exercise should help you find out. Piazza discussions encouraged!
+
+  #+begin_src java
 
      public class Stack {
          private Object[] elements; private int size = 0;
@@ -1120,17 +1117,17 @@
      }
 
 
-   #+end_src
+  #+end_src
 
-   1. Write a contract for =push(Object e)=.
-   1. What is wrong with =toString()?= Fix it.
-   1. What rep-invariant is likely broken? Fix it. This includes writing a suitable rep-invariant.
-   1. How would Bloch's Item 25: /Prefer Lists to Arrays/ apply here? Would it make the rep-invariant simpler?
-   1. How would you argue that that =pop()= is correct (or not)?
-   1. As =Stack= is written, =pushAll()= requires special documention? Why? What would Bloch suggest as an alternative?
-   1. Override =equals()=. What else do you have to do? Do that too.
-   1. Generify. What should happen to the parameter for =pushAll()=? Why?
-   1. Suppose we decide to implement the =Cloneable()= interface. In what ways would Bloch think we would likely get it wrong? What would Bloch recommend instead?
+  1. Write a contract for =push(Object e)=.
+  1. What is wrong with =toString()?= Fix it.
+  1. What rep-invariant is likely broken? Fix it. This includes writing a suitable rep-invariant.
+  1. How would Bloch's Item 25: /Prefer Lists to Arrays/ apply here? Would it make the rep-invariant simpler?
+  1. How would you argue that that =pop()= is correct (or not)?
+  1. As =Stack= is written, =pushAll()= requires special documention? Why? What would Bloch suggest as an alternative?
+  1. Override =equals()=. What else do you have to do? Do that too.
+  1. Generify. What should happen to the parameter for =pushAll()=? Why?
+  1. Suppose we decide to implement the =Cloneable()= interface. In what ways would Bloch think we would likely get it wrong? What would Bloch recommend instead?
 
 
 * Links
