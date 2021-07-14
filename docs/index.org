@@ -18,7 +18,7 @@
 #+end_export
 #+end_center
 
-* [[./schedule.html][SCHEDULE]]
+* [[./schedule.html][SCHEDULE and ASSIGNMENTS]]
    
 * Course Description
 
@@ -28,10 +28,10 @@
 
 * Course Materials
 
-- Joshua Bloch. /Effective Java/. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1. *Required*. 
+- Joshua Bloch. [[https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=sr_1_1?dchild=1&keywords=effective+java&qid=1626231154&sr=8-1][/Effective Java/]]. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1. *Required*. 
   - [[http://proquest.safaribooksonline.com/book/programming/java/9780134686097][Direct Safari Link]]
-  - [[https://learning-oreilly-com.mutex.gmu.edu/library/view/effective-java-3rd/9780134686097/cover.xhtml][General Safari Link (off campus)]]
-- Barbara Liskov with John Guttag. /Program Development in Java/ . Addison Wesley, 2001, ISBN 0-201-65768-6. *Required*. 
+  - [[https://learning-oreilly-com.mutex.gmu.edu/library/view/effective-java-3rd/9780134686097/cover.xhtml][Mason Safari Link (off campus)]], [[https://www.oreilly.com/library/view/program-development-in/9780768685299/?ar][General Safari link]]
+- Barbara Liskov with John Guttag. [[https://www.amazon.com/Program-Development-Java-Specification-Object-Oriented/dp/0201657686/ref=sr_1_2?dchild=1&qid=1626231221&refinements=p_27%3ABarbara+Liskov&s=books&sr=1-2&text=Barbara+Liskov][/Program Development in Java: Abstraction, Specification, and Object-Oriented Design/]]. Addison Wesley, 2001, ISBN 0-201-65768-6. *Required*. 
   - [[http://proquest.safaribooksonline.com/book/programming/java/9780768685299][Direct Safari Link]]
   - [[https://learning-oreilly-com.mutex.gmu.edu/library/view/program-development-in/9780768685299/ch1.html][General Safari Link (off campus)]]
     # - Note that you can access the Java 8 APIs at the Oracle site.

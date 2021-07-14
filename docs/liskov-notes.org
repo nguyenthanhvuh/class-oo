@@ -1,3 +1,9 @@
+#+TITLE: LISKOV NOTES
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+#+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+
+#+OPTIONS: toc:2
 
 
 # Liskov 3
