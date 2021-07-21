@@ -1,10 +1,9 @@
 #+TITLE: SWE 619 Course Schedule and Assignments
 
-#+OPTIONS: toc:1
+#+OPTIONS: ^:nil toc:1
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
-
 
 * Schedule
   
