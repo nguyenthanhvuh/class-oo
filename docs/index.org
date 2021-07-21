@@ -9,7 +9,7 @@
     Instructor: 	<a href="https://nguyenthanhvuh.github.io">ThanhVu Nguyen</a><br>
     Office: 	Zoom<br>
     Course Location: 	Zoom <br>
-    Email: 	<a href="mailto:tnguy212@gmu.edu">nguy212@gmu.edu</a><br>
+    Email: 	<a href="mailto:tnguy212@gmu.edu">tnguy212@gmu.edu</a><br>
     URL: 	<a href="https://nguyenthanhvuh.github.io/class-oo">https://nguyenthanhvuh.github.io/class-oo</a><br>
     Class Hours: 	Mondays 4:30 to 7:10, Online (BB)<br>
     Office Hour Zoom: 	TBA (Zoom) <br>
