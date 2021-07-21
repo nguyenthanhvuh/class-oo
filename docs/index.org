@@ -148,19 +148,19 @@
 
   Every semester, I get email from students wondering why there grade doesn't correspond to the TOTAL column in BB. Please don't be the student who sends me this message.
 
-* Email
+# * Email
 
-  Please note that questions of general interest should not be emailed to me. Post on Piazza instead.
+#   Please note that questions of general interest should not be emailed to me. Post on Piazza instead.
 
-* Virginia Privacy Laws
+# * Virginia Privacy Laws
 
-  The state of Virginia now has laws that require the University (including me) not to disclose student email addresses, phone numbers, and addresses. This will impact communications in this class as follows:
-  - Communicating via email with groups of students is problematic. (Bcc is a partial but not very good, solution.) As far as I have been able to determine, Piazza does not make student emails visible to other students, even though instructors can see email addresses. Hence, this is another reason to favor the Piazza forum.
-  - *You* can choose to disclose your email whenever and wherever you wish. That's up to you.
+#   The state of Virginia now has laws that require the University (including me) not to disclose student email addresses, phone numbers, and addresses. This will impact communications in this class as follows:
+#   - Communicating via email with groups of students is problematic. (Bcc is a partial but not very good, solution.) As far as I have been able to determine, Piazza does not make student emails visible to other students, even though instructors can see email addresses. Hence, this is another reason to favor the Piazza forum.
+#   - *You* can choose to disclose your email whenever and wherever you wish. That's up to you.
 
-* Piazza
+# * Piazza
 
-  I find anonymous discussions unhelpful in this class; here learning is predicated on interactions. Plus, part of your education is to learn to stand behind your questions and ideas. That's how employees function in the working world. Piazza allows partial, but not complete, control of anonymous posts. Should someone post anonymously, I will ask the poster to change the visibility and ask the class not to respond to the anonymous version.
+#   I find anonymous discussions unhelpful in this class; here learning is predicated on interactions. Plus, part of your education is to learn to stand behind your questions and ideas. That's how employees function in the working world. Piazza allows partial, but not complete, control of anonymous posts. Should someone post anonymously, I will ask the poster to change the visibility and ask the class not to respond to the anonymous version.
 
 
   -----
