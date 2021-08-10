@@ -11,7 +11,7 @@
     Course Location: 	Zoom <br>
     Email: 	<a href="mailto:tnguy212@gmu.edu">tnguy212@gmu.edu</a><br>
     URL: 	<a href="https://nguyenthanhvuh.github.io/class-oo">https://nguyenthanhvuh.github.io/class-oo</a><br>
-    Class Hours: 	Mondays 4:30 to 7:10, Online (BB)<br>
+    Class Hours: 	Mondays 4:30 to 7:10, Online (Zoom)<br>
     Office Hour Zoom: 	TBA (Zoom) <br>
     </address>
 #+end_export
@@ -35,11 +35,11 @@
     + [[https://learning-oreilly-com.mutex.gmu.edu/library/view/program-development-in/9780768685299/ch1.html][General Safari Link (off campus)]]
       # - Note that you can access the Java 8 APIs at the Oracle site.
 
-  *Note on the course materials*: We'll start with Liskov. Don't worry about the publication date; Liskov is basically a math book, and hence ages remarkably well. We're interested in contracts, mutability, data abstraction, and type abstraction. Bloch is concerned about the same things, but explores them in more detail and in more up-to-date Java. Bloch also corrects some important points that weren't well understood when Liskov's text came out.
+  *Note*: We'll start with Liskov. Don't worry about the publication date; Liskov is basically a math book, and hence ages remarkably well. We're interested in contracts, mutability, data abstraction, and type abstraction. Bloch is concerned about the same things, but explores them in more detail and in more up-to-date Java. Bloch also corrects some important points that weren't well understood when Liskov's text came out.
 
-* Weekly schedule
+* Weekly Schedule
 
-  This class is a group-based, hybrid synchronous, online offering. That means you need to be present in class at class time. You will also need to schedule regular meetings with your group and with me (and possibly the GTA) outside of class.
+  This class is a group-based, online offering. That means you need to be present in class at class time. You will also need to schedule regular meetings with your group and with me (and possibly the GTA) outside of class.
   # This is my second offering of this class in a full-time online format. Mostly, we'll do what I did last fall, but there are some updates and tweaks.
 
   Each week will cover a small number of related technical issues (see course [[./schedule.html][schedule]]). Let's call this small number of technical issues a "topic". Each topic will follow roughly the same sequence of preparation, in-class learning activities, homework completion and (possibly) presentation, and knowledge assessment. To make this scale in an online environment, many of these activities will be group based. The sequence is:
@@ -60,10 +60,10 @@
 
   | Assignenmts                        | Percentage |
   |------------------------------------+------------|
-  | Group Functioning (group-based)    |        10% |
+  | Group Functioning (group-based)    |         5% |
   | Reading Reflections (group-based)  |        10% |
   | Homework assignments (group-based) |        15% |
-  | Oral Assessments (individual)      |        35% |
+  | Weekly Quizzes (individual)        |        40% |
   | Final exam (individual)            |        30% |
 
 ** Group Functioning
@@ -80,25 +80,24 @@
 
 ** Reading Reflections
 
-   Each week, each group must complete a "reading reflection" the day *before* class. (That means midnight Sunday, in the case of this class, since class meetings are Monday afternoon.) I will review these assessments before class, compile the overall responses, and use them to tune the in-class activities. Reading reflections are available on Blackboard. These reflections are part of the learning process rather than the assessment process. That is, they don't assess whether you have achieved mastery of the new material, rather they check whether you have done the necessary preparation.
+   Each week, each group must complete a "reading reflection" the day *before* class. (That means midnight Sunday, in the case of this class, since class meetings are Monday afternoon.) I will review these assessments before class, compile the overall responses, and use them to tune the in-class activities. Reading reflections are linked from the course schedule and must be turned in on BB. These reflections are part of the learning process rather than the assessment process. That is, they don't assess whether you have achieved mastery of the new material, rather they check whether you have done the necessary preparation.
 
-   *Important*
+   *Important*:
    * There are no make-ups.
    * Only one submission per *group*. Everyone in the group gets the same credit.
 
 ** Homework Assignments
 
-   There are weekly *group* homework assighments. I post homework assignments on the class [[./schedule.html][schedule web site]]. Generally, your group should submit assignments via Blackboard.
+   There are weekly *group* homework assighments. I post homework assignments on the class [[./schedule.html][schedule web site]]. Generally, your group should submit assignments via BB.
 
    Because of the way in which this class is taught, it is important to stay on pace. Homeworks are due *before class*. Late submissions are not accepted except in truly exceptional circumstances.
 
    *Important*: 
    * Each group should be prepared to present their homework solution in class.
    * *Statement of who did what*. Homeworks are group exercises. Each submission must contain a specific statement of who did what.
-   * *Solutions and solution checking*. The group must split their roles on each exercise. Part of the group creates the solution. A separate part of the group checks the solution, certifies that it is correct, and *explains why it is correct*. If you can't formulate this explanation, it's time for your group to see me or the GTA in office hours.
-     + Note: this model is common in engineering, where engineers sometimes create solutions and other times certify solutions. You should rotate roles within your group from week to week.
+   # * *Solutions and solution checking*. The group must split their roles on each exercise. Part of the group creates the solution. A separate part of the group checks the solution, certifies that it is correct, and *explains why it is correct*. If you can't formulate this explanation, it's time for your group to see me or the GTA in office hours.
 
-** Oral Assessments
+** Assessments
 
    Ideally, oral assessments should happen every week. But I don't have the bandwidth to make that happen. Instead, every student will schedule an oral assessment once every *two* weeks.
 
@@ -117,7 +116,7 @@
 
 ** Final Exam
 
-   There will be a final exam appropriate for the online, unproctored nature of this class offering. I plan to offer an oral option as well as a written option. The last class of the semester will include a detailed discussion of the exam structure and contents.
+   There will be a final exam appropriate for the online, unproctored nature of this class offering. The last class of the semester will include a detailed discussion of the exam structure and contents.
 
    -----
 
@@ -131,9 +130,9 @@
 
   I plan an in-class exercise for every class. Students will work in their designated group. Some of these exercises need a Java development environment. Very often, the in-class exercises will be closely related to an upcoming homework assignment.
 
-* ShowMe Videos/Other videos
+# * ShowMe Videos/Other videos
 
-  The course schedule page links to a number of short videos created by [[https://cs.gmu.edu/~pammann/][Paul Ammann]] with the ShowMe service. Some students find these helpful for grasping key points from various lectures.
+#   The course schedule page links to a number of short videos created by [[https://cs.gmu.edu/~pammann/][Paul Ammann]] with the ShowMe service. Some students find these helpful for grasping key points from various lectures.
   # Several items of note:
   # - Each ShowMe captures an interaction a student has with me. Such interactions can help students master the material more effectively than having me drone on solo.
   # - I am interested in creating more ShowMe videos for other topics in the course. Contact me if you would like to help me do this.
@@ -142,11 +141,12 @@
 
 * Record Keeping
 
-  We'll use Blackboard to maintain *RAW* scores and attendance data. Grades are computed according to this syllabus. There is a column in BB labeled "TOTAL": Ignore it; it's meaningless for this class. (BB, in typical BB arrogance, does not give me the option of disabling or hiding this column.)
+  We'll use Blackboard to maintain *RAW* scores and attendance data. Grades are computed according to this syllabus.
+  # There is a column in BB labeled "TOTAL": Ignore it; it's meaningless for this class. (BB does not give me the option of disabling or hiding this column.)
 
   It's the student's responsibility to ensure that Blackboard records are correct. (I'm happy to correct errors.)
 
-  Every semester, I get email from students wondering why there grade doesn't correspond to the TOTAL column in BB. Please don't be the student who sends me this message.
+  # Every semester, I get email from students wondering why there grade doesn't correspond to the TOTAL column in BB. Please don't be the student who sends me this message.
 
 # * Email
 
