@@ -7,28 +7,29 @@
 
 * Schedule
   
-  - *Notes*: Except for the first class, I expect students to complete the reading *prior to class* on listed meeting. Quizzes may occasionally take advantage of this expectation.
+  - *Notes*: Except for the first class, students are expected to complete the reading *prior to class* on listed meeting. Quizzes may occasionally take advantage of this expectation.
 
     Homework assignments are *due* on the date listed. Quizzes are posted, with solutions, on Piazza following the class in which the quiz is given.
 
-  | Meeting | Topic                                     | Reading                                    |      Assignment/Assessment Guide      |                In-Class Exercise                 | Video Link |
-  |     <r> |                                           | <l>                                        |                  <c>                  |                       <c>                        |            |
-  |---------+-------------------------------------------+--------------------------------------------+---------------------------------------+--------------------------------------------------+------------|
-  |       1 | Class Overview                            | Liskov 1--2                                |                                       |           IC [[./inclass.html#ic0][0]]           |            |
-  |       2 | Procedural Abstraction; Exceptions        | Liskov 3--4, Bloch 10                      |   [[#a1][A1 Due]]; [[#g1][Guide 1]]   |          IC 1 [[#ic1A][A]] [[#ic1B][B]]          |            |
-  |       3 | Data Abstraction; Mutability              | Liskov 5.1--5.4, LiskovSet.java, Poly.java |   [[#a2][A2 Due]]; [[#g2][Guide 2]]   |          IC 2 [[#ic2A][A]] [[#ic2B][B]]          |            |
-  |       4 | Reasoning About Data Abstraction          | Liskov 5.5-5.10 More Liskov 5.5-5.10       |   [[#a3][A3 Due]]; [[#g3][Guide 3]]   |          IC 3 [[#ic3A][A]] [[#ic3B][B]]          |            |
-  |       5 | Interation Abstraction; Method Guidelines | Liskov 6 Bloch 8                           |   [[#a4][A4 Due]]; [[#g4][Guide 4]]   |          IC 4 [[#ic4A][A]] [[#ic4B][B]]          |            |
-  |       6 | Type Abstraction                          | Liskov 7                                   |   [[#a5][A5 Due]]; [[#g5][Guide 5]]   |   IC 5 [[#ic5A][A]] [[#ic5B][B]] [[#ic5C][C]]    |            |
-  |       7 | Mid-semester Recap                        | /No New Material/                          |           [[#g6][Guide 6]]            |                  IC [[#ic6][6]]                  |            |
-  |       8 | Polymorphic Abstract; Lambdas             | Liskov 8, Bloch 7(Item 42)                 |   [[#a6][A6 Due]]; [[#g7][Guide 7]]   |                  IC [[#ic7][7]]                  |            |
-  |       9 | Generics                                  | Bloch 5                                    |   [[#a7][A7 Due]]; [[#g8][Guide 8]]   |          IC 8 [[#ic8A][A]] [[#ic8B][B]]          |            |
-  |      10 | Common Java Contracts                     | Bloch 3                                    |   [[#a8][A8 Due]]; [[#g9][Guide 9]]   |          IC 9 [[#ic9A][A]] [[#ic9B][B]]          |            |
-  |      11 | Classes and Inheritance                   | Bloch 4                                    |  [[#a9][A9 Due]]; [[#g10][Guide 10]]  | IC 10 [[#ic10A][A]] [[#ic10B][B]]  [[#ic10C][C]] |            |
-  |      12 | Contract Model in Testing                 | Advanced JUnit (slides 22-24)              | [[#a10][A10 Due]]; [[#g11][Guide 11]] |                 IC [[#ic11][11]]                 |            |
-  |      13 | Enums and Annotations                     | Bloch 6                                    | [[#a11][A11 Due]]; [[#g12][Guide 12]] |        IC 12 [[#ic12A][A]] [[#ic12B][B]]         |            |
-  |      14 | Course Wrap Up                            | Final Exam Notes; Code for final           |                                       |                 IC [[#ic13][13]]                 |            |
-  |      15 | Final Exam @ 4:30                         | /Online/                                   |                                       |                                                  |            |
+  | Meeting | Topic                                     | Reading                                    |      Assignment/Assessment Guide      |                In-Class Exercise                 |
+  |     <r> |                                           | <l>                                        |                  <c>                  |                       <c>                        |
+  |---------+-------------------------------------------+--------------------------------------------+---------------------------------------+--------------------------------------------------|
+  |       1 | Class Overview                            | Liskov 1--2                                |                                       |           IC [[#ic0][0]]                         |
+  |       2 | Procedural Abstraction; Exceptions        | Liskov 3--4, Bloch 10                      |   [[#a1][A1 Due]]; [[#g1][Guide 1]]   |          IC 1 [[#ic1A][A]] [[#ic1B][B]]          |
+  |       3 | Data Abstraction; Mutability              | Liskov 5.1--5.4, LiskovSet.java, Poly.java |   [[#a2][A2 Due]]; [[#g2][Guide 2]]   |          IC 2 [[#ic2A][A]] [[#ic2B][B]]          |
+  |       4 | Reasoning About Data Abstraction          | Liskov 5.5-5.10 More Liskov 5.5-5.10       |   [[#a3][A3 Due]]; [[#g3][Guide 3]]   |          IC 3 [[#ic3A][A]] [[#ic3B][B]]          |
+  |       5 | Interation Abstraction; Method Guidelines | Liskov 6 Bloch 8                           |   [[#a4][A4 Due]]; [[#g4][Guide 4]]   |          IC 4 [[#ic4A][A]] [[#ic4B][B]]          |
+  |       6 | Type Abstraction                          | Liskov 7                                   |   [[#a5][A5 Due]]; [[#g5][Guide 5]]   |   IC 5 [[#ic5A][A]] [[#ic5B][B]] [[#ic5C][C]]    |
+  |       7 | Mid-semester Recap                        | /No New Material/                          |           [[#g6][Guide 6]]            |                  IC [[#ic6][6]]                  |
+  |       8 | Polymorphic Abstract; Lambdas             | Liskov 8, Bloch 7(Item 42)                 |   [[#a6][A6 Due]]; [[#g7][Guide 7]]   |                  IC [[#ic7][7]]                  |
+  |       9 | Generics                                  | Bloch 5                                    |   [[#a7][A7 Due]]; [[#g8][Guide 8]]   |          IC 8 [[#ic8A][A]] [[#ic8B][B]]          |
+  |      10 | Common Java Contracts                     | Bloch 3                                    |   [[#a8][A8 Due]]; [[#g9][Guide 9]]   |          IC 9 [[#ic9A][A]] [[#ic9B][B]]          |
+  |      11 | Classes and Inheritance                   | Bloch 4                                    |  [[#a9][A9 Due]]; [[#g10][Guide 10]]  | IC 10 [[#ic10A][A]] [[#ic10B][B]]  [[#ic10C][C]] |
+  |      12 | Contract Model in Testing                 | Advanced JUnit (slides 22-24)              | [[#a10][A10 Due]]; [[#g11][Guide 11]] |                 IC [[#ic11][11]]                 |
+  |      13 | Enums and Annotations                     | Bloch 6                                    | [[#a11][A11 Due]]; [[#g12][Guide 12]] |        IC 12 [[#ic12A][A]] [[#ic12B][B]]         |
+  |      14 | Course Wrap Up                            | Final Exam Notes; Code for final           |                                       |                 IC [[#ic13][13]]                 |
+  |      15 | Final Exam @ 4:30                         | /Online/                                   |                                       |                                                  |
+  |         |                                           |                                            |                                       |                                                  |
 
 * In class Assignments
 
@@ -37,9 +38,8 @@
    :CUSTOM_ID: ic0
    :END:
    
-   Work with your group. Your group assignment is on Piazza. (You might decide to change groups later, but for today, stick with this group.) When we invoke the BB break-out function, nagivate to your assigned group.
-
-   1. Your group should spend a few minutes getting acquainted. Explain a bit about yourself: full-time student?, working in software development?, why are you taking this class?, favorite/least favorite thing about writing software?, etc.
+   Work with your group and do the following:
+   1. Spend a few minutes getting acquainted. Explain a bit about yourself: full-time student?, working in software development?, why are you taking this class?, favorite/least favorite thing about writing software?, etc.
    1. Decide on a mechanism for joint communication. Google docs? IDE with screen share? Something else?
 
    Now address a technical topic. This exercise touches on some of the thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don't worry if it seems confusing today. We'll revisit this example several times over the course of the semester.
@@ -163,7 +163,6 @@
    :CUSTOM_ID: ic2B
    :END:
    
-  
    Consider Liskov's Poly example, where an abstract Poly is defined as $c_0 + c_1x + c_2x^2 + \dots$, and is implemented with two variables:
    #+begin_src java
      private int deg;
@@ -1597,6 +1596,105 @@
    Since I want all students to understand every week of the semester, it's possible that your oral assessment will address last week's topic. Be prepared for both!
 
    # This guide covers oral assessments administered between Monday, April 19 and Friday, April 23.
+
+* Reflection
+  
+  For each of the following, answer these two questions first:
+  1. List the names of students in your group.
+  1. Did everyone in your group contribute to the discussion of your solutions to this reading quiz? If not, who did not?
+
+** Reflection 1
+   1. Much of the material explores the connection between preconditions and exception handling. Were there any aspects of this connection that surprised or confused anyone in your group? If so, explain. If not, where did you learn this material?
+   1. Liskov and Bloch have different advice with respect to checked vs. unchecked exceptions. Which approach do you find more persuasive, and why?
+   1. Preconditions are often characterized as "bad" from a security perspective. If you think you know why this is, please explain. If you are unsure, say so and try to explain why the you find the connection between preconditions and security confusing.
+
+
+** Reflection 2
+
+   1. If you sat down to design a new class, would the result likely be mutable or immutable? Why?
+   1. In her presentation, Liskov doesn't cover all the requirements for immutability. (In fairness, these requirements weren't well understood at the time she wrote her text.) Do you know what she's missing and why it's important? If so, briefly explain. (We'll cover those requirements later in the semester.)
+   1. Based on your experience, what do you think the major advantage is of immutability over mutability? mutability over immutability?
+
+
+
+** Reflection 3
+   1. Have you ever explicitly considered invariants when deciding how to implement a Java class? If so, can you give an example?
+   1. Please explain what you think it means to to correctly override the toString() method. Base your answer on your understanding *before* enrolling in SWE 619.
+   1. How do you decide whether you have implemented a Java method correctly? Again, base your answer on your understanding *before* enrolling in SWE 619.
+
+
+** Reflection 4
+   1. Iteration is a basic concept, yet Liskov devotes an entire chapter to it. What, if anything, did you find in Liskov's presentation of iteration abstraction that is new to you?
+   1. Defensive copies are an important, yet error-prone, obligation of using mutable objects in a public setting. Was there anything about Bloch's discussion that you found confusing? (Note that I have posted a video for Bloch Item 50 on the course schedule page.)
+   1. Bloch's Period class (Item 50) has a lot going on in it. We'll revisit the this example in an in-class exercise. What, if anything, did you find confusing in this example?
+
+
+
+** Reflection 5
+
+   1. Liskov 7 develops rules for assessing the correctness of subtypes. What do you think the connection is between these rules and the rules for verification addressed in Chapter 5?
+   1. In-class exercise 5C goes through a concrete exercise from Liskov. Which aspects of this of this exercise are clear, and which aspects are confusing?
+   1. Consider the Java Set interface and two subtypes: HashSet and TreeSet. Do you think the abstract state for these three interfaces/classes are identical or different? (You might want to spend some time in the JavaDoc before jumping to a conclusion; there is a specific answer in there!)
+
+
+
+** Reflection 6
+
+   1. Can you explain why Java has both a Comparable interface and a Comparator interface?
+   1. How familiar is your group with the Java "anonymous class" and "lambda" constructs?
+   1. Can you explain the connection between anonymous classes and lambda expressions?
+
+
+
+** Reflection 7
+
+
+   1. Can you explain the basic role of generics in the Java language?
+   1. Do you have experience generifying Java classes? Explain.
+   1. Bloch explains how bounded wildcards can address certain limitations in the use of generics in inheritance settings. If you can, give a brief description of how this works. (If not, that's fine; we'll address in class.)
+
+
+** Reflection 8
+
+
+   1. Have you overridden the equals() or the hashCode() methods? In light of Bloch's discussion of both methods, do you think your implementations were correct?
+   1. Have you overridden the clone() method? Do you understand why inheritance is a particular concern for overridding this method?
+   1. What similarities and differences do you see between how Liskov and Bloch treat the toString() method?
+
+
+** Reflection 9
+
+   1. What is your comfort level with "regular" logic? What aspect of using logic do you find most challenging?
+   1. Do you have any experience learning and/or using temporal logic?
+   1. How familiar/comfortable are you with finite state machines?
+
+
+
+** Reflection 10
+
+   1. Bloch discusses specific rules for making a class immutable. Did you find any of these rules confusing?
+   1. Bloch's InstrumentedHashSet example demonstrates how inheritance can break encapsulation. Does the JavaDoc for HashSet, Set and/or Collection follow the Bloch's Item 19 advice for documenting for inheritances?
+   1. Bloch's InstrumentedSet example has a lot going on in it. What aspects, if any, of this example did you find confusing?
+
+
+
+** Reflection 11
+
+
+   1. How would you rate your experience with writing (ordinary) tests in the JUnit framework? Use a scale from "A few times for class" to "I do that professionally".
+   1. JUnit theories are the JUnit implementation of "property-based" testing. Have you every written a property-based test?
+   1. JUnit theories are included on the syllabus because they show how the precondition/postcondition model applies beyond method contracts. Does the pre/post model for JUnit theories make sense to you?
+
+
+
+** Reflection 12
+
+
+   1. Is there anything about property based testing that you still find confusing?
+   1. Have you ever used a "C style" enum? If so, at the time, did this seem reasonable or ridiculous?
+   1. This week's in-class exercise is a recap. Is there a topic (or two) we've covered that you think you need more practice with?
+
+
 
 
 * Links
