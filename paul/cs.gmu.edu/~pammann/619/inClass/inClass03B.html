@@ -1,0 +1,63 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 3B</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 3B <BR>
+ </H1>
+</CENTER>
+
+<HR>
+<font size=+1>
+<P>
+Consider the code:
+<pre>
+public class Members {
+    // Members is a mutable record of organization membership
+    // AF: Collect the list as a set
+    // rep-inv1: members != null
+    // rep-inv2: members != null && no duplicates in members
+    // for simplicity, assume null can be a member...
+
+    List&lt;Person&gt; members;   // the representation
+
+    //  Post: person becomes a member
+    public void join (Person person) { members.add   (person);}
+
+    //  Post: person is no longer a member
+    public void leave(Person person) { members.remove(person);}
+</pre>
+
+</pre>
+<OL>
+<UL>
+<LI>
+Does <code>join()</code> maintain rep-inv?
+<LI>
+Does <code>join()</code> satisfy contract?
+<LI>
+Does <code>leave()</code> maintain rep-inv?
+<LI>
+Does <code>leave()</code> satisfy contract?
+</UL>
+<br>
+<LI>
+Analyze these 4 questions for rep-inv 1.
+<br><br>
+<LI>
+Repeat for rep-inv 2.
+<br><br>
+<LI>
+Recode <code>join()</code>
+to make the verification go through.
+Which rep-invariant do you use?
+<br><br>
+<LI>
+Recode <code>leave()</code>
+to make the verification go through.
+Which rep-invariant do you use?
+</OL>
+
+</BODY>

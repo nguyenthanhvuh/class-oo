@@ -1,0 +1,84 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 6</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 6 <BR>
+  October 9, 2019
+ </H1>
+</CENTER>
+
+<font size=+3>
+Name:
+</font>
+<HR>
+
+<font size=+0>
+  Consider the following classes with
+  method <code>compose()</code>.
+<pre>
+class A {
+   public Iterator compose (Iterator itr)
+   // Requires: itr is not null
+   // Modifies: itr
+   // Effects: if this is not appropriate for itr throw IAE
+   // else return generator of itr composed with this
+class B {
+   public Iterator compose (Iterator itr)
+   // Modifies: itr
+   // Effects: if itr is null throw NPE 
+   // else if this is not appropriate for itr throw IAE
+   // else return generator of itr composed with this
+class C {
+   public Iterator compose (Iterator itr)
+   // Modifies: itr
+   // Effects: if itr is null return iterator equal to this
+   // else if this is not appropriate for itr throw IAE
+   // else return generator of itr composed with this
+</pre>
+Analyze the "methods rule"
+for <code>compose()</code> in each of these cases:
+Note:  Some analysis may not be necessary.  If so, indicate that.
+<OL>
+<LI>    <code>B</code> extends <code>A</code>.
+<br> Precondition Part:
+<br><b>Answer:</b> Satisfied: weaker precondition in B
+<br> Postcondition Part:
+<br><b>Answer:</b> Satisfied:  Identical behavior where A defined, with additional behavior where A not defined.
+<HR>
+<LI>    <code>C</code> extends <code>A</code>.
+<br> Precondition Part:
+<br><b>Answer:</b> Satisfied: weaker precondition in C
+<br> Postcondition Part:
+<br><b>Answer:</b> Satisfied:  Identical behavior where A defined, with additional behavior where A not defined.
+<HR>
+<LI>    <code>A</code> extends <code>B</code>.
+<br> Precondition Part:
+<br><b>Answer:</b> Not satisfied: stronger precondition in A
+<br> Postcondition Part:
+<br><b>Answer:</b> No analysis required
+<HR>
+<LI>    <code>C</code> extends <code>B</code>.
+<br> Precondition Part:
+<br><b>Answer:</b> Satisfied: same preconditions
+<br> Postcondition Part:
+<br><b>Answer:</b> Not satisfied: Inconsistent behavior in case where itr is null
+<HR>
+<LI>    <code>B</code> extends <code>C</code>.
+<br> Precondition Part:
+<br><b>Answer:</b> Satisfied: same preconditions
+<br> Postcondition Part:
+<br><b>Answer:</b> Not satisfied: Inconsistent behavior in case where itr is null
+</OL>
+Grading note:  Justifications are not required for credit.
+
+
+</font>
+
+
+
+<HR>
+
+</BODY>

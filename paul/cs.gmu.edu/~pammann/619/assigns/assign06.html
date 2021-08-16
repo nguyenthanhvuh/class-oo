@@ -1,0 +1,81 @@
+<html>
+<head>
+   <title>
+SWE 619 Assignment 6
+   </title>
+</head>
+<body>
+
+<center> <h1>
+SWE 619 Assignment 6 <br>
+Spring 2021
+</h1></center>
+
+
+
+<center>
+<hr>
+</center>
+
+
+<p>
+<b>Goal:</b>
+Type Abstraction.<BR>
+<P>
+
+Consider the following market class.
+<pre>
+class Market {
+   private Set&lt;Item&gt; wanted;           // items for which prices are of interest
+   private Bag&lt;Item, Money&gt; offers;    // offers to sell items at specific prices
+   // Note:  Bag isn't a Java data type.  Here, the bag entries are pairs.
+
+   public void offer (Item item, Money price)
+      // Requires: item is an element of wanted
+      // Effects:  add (item, price) to offers
+   
+   public Money buy(Item item)
+      // Requires: item is an element of the domain of offers
+      // Effects: choose and remove some (arbitrary) pair (item, price) from
+      //          offers and return the chosen price
+}
+</pre>
+
+<OL>
+<LI>
+Suppose that offers are only accepted if they are lower than previous offers.
+<pre>
+class Low_Bid_Market extends Market {
+   public void offer (Item item, Money price)
+      // Requires: item is an element of wanted
+      // Effects:  if (item, price) is not cheaper than any existing pair
+      //           (item, existing_price) in offers do nothing
+      //           else add (item, price) to offers
+</pre>
+<br>
+Is <code>Low_Bid_Market</code> a valid subtype of <code>Market</code>?
+Appeal to the methods rule to back up your answer.
+<LI>
+Suppose that the <code>buy()</code> method always chooses the lowest price on an item.
+<pre>
+class Low_Offer_Market extends Market {
+   public Money buy(Item item)
+      // Requires: item is an element the domain of offers
+      // Effects: choose and remove pair (item, price) with the 
+      //          lowest price from offers and return the chosen price
+</pre>
+<br>
+Is <code>Low_Offer_Market</code> a valid subtype of <code>Market</code>?
+Appeal to the methods rule to back up your answer.
+
+<br>
+</OL>
+Note: This is purely a "paper and pencil" exercise.  No
+	code is required.
+Write your answer so that it is easily understandable by
+someone with only a passing knowledge of Liskov's rules for subtypes.
+
+
+</body>
+</html>
+

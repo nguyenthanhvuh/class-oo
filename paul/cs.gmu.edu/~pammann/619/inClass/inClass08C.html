@@ -1,0 +1,73 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 8C</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 8C <BR>
+ </H1>
+</CENTER>
+
+<HR>
+
+
+<font size=+1>
+
+
+<pre>
+public class BoundedQueue {
+
+    protected Object rep[];
+    protected int front = 0;
+    protected int back = -1;
+    protected int size = 0;
+    protected int count = 0;
+
+    public BoundedQueue(int size) {
+        if (size > 0) {
+            this.size = size;
+            rep = new Object[size];
+            back = size - 1;
+    }  }
+
+    public boolean isEmpty() { return (count == 0); }
+
+    public boolean isFull() { return (count == size); }
+
+    public int getCount() { return count; }
+
+    public void put(Object e) {
+        if (e != null && !isFull()) {
+            back++;
+            if (back >= size)
+                back = 0;
+            rep[back] = e;
+            count++;
+    }  }
+
+    public Object get() {
+        Object result = null;
+        if (!isEmpty()) {
+            result = rep[front];
+            rep[front] = null;
+            front++;
+            if (front >= size)
+                front = 0;
+            count--;
+        }
+        return result;
+    }
+}
+</pre>
+Generify!
+<br>
+Can you add a <code>putAll()</code> method?  A <code>getAll()</code> method?
+<br>
+Recall that we used this same example in in-class 6 as a vehicle for
+applying Liskov's ideas to make code easier to understand.
+<br>
+</font>
+
+
+</BODY>

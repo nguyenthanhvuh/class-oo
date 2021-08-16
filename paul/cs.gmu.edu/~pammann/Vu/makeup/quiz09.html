@@ -1,0 +1,111 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 9</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 9 <BR>
+  Make-up version: Fall 2019
+<br>
+Maximum Possible score is 8
+ </H1>
+</CENTER>
+
+<font size=+3>
+Name:
+<HR>
+
+<font size=+2>
+  Express the following in CTL.
+  Use the following declarations in constructing your answer.
+<pre>
+  VAR
+     alarm : {on, off};
+     valve : {open, closed};
+</pre>
+<OL>
+<LI>
+It is possible to get to a state where the
+<b>alarm</b>
+is 
+<b>on</b>
+but the 
+<b>valve</b>
+is 
+<b>open</b>.
+<br>
+<!--
+<b>Answer:</b>
+<pre>
+EF ((alarm == on) && (valve == open))
+</pre>
+Also ok is:
+<pre>
+AG EF ((alarm == on) && (valve == open))
+</pre>
+-->
+<br>
+<br>
+<br>
+<LI>
+For any state if the
+<b>alarm</b> is
+<b>on</b>,
+then eventually the
+<b>valve</b> will be
+<b>open</b>.
+<br>
+<!--
+<b>Answer:</b>
+<pre>
+AG ((alarm == on) => AF (valve == open))
+</pre>
+Also ok is:
+<pre>
+(alarm == on) => AF (valve == open)
+</pre>
+-->
+<br>
+<br>
+<br>
+<LI>
+Whatever happens, the
+<b>valve</b> will eventually be 
+permanently
+<b>closed</b>.
+<br>
+<!--
+<b>Answer:</b>
+<pre>
+AF AG(valve == closed)
+</pre>
+-->
+<br>
+<br>
+<br>
+<LI>
+From any state, it is possible to get to a 
+state where the 
+<b>alarm</b>
+is
+<b>off</b>.
+<br>
+<!--
+<b>Answer:</b>
+<pre>
+AG EF(alarm == off)
+</pre>
+Also ok is:
+<pre>
+EF(alarm == off)
+</pre>
+-->
+</OL>
+</font>
+
+
+
+
+</BODY>
+

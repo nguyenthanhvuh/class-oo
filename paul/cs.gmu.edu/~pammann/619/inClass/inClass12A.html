@@ -1,0 +1,61 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 12A</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 12A <BR>
+ </H1>
+</CENTER>
+
+<HR>
+
+<font size=+0>
+Consider the following (bad) Java,
+implementing the "C style" enum pattern:
+<pre>
+public class Coins {
+   public static final int PENNY = 1;
+   public static final int NICKLE = 5;
+   public static final int DIME = 10;
+   public static final int QUARTER = 25;
+}
+</pre>
+<OL>
+	<LI> Give example code that illustrates a type safety problem with 
+	<code>Coins</code>.   Work through a range of expressions from 
+	"probably ok" to "clearly wrong".
+<br> <br>
+	<LI> What code would you need to turn a nickel into a string?
+	Explain how this could go wrong at runtime.
+<br> <br>
+	<LI> What code would you need to iterate through the coins?
+<br> <br>
+	<LI> Would extensions to this particular enum be likely to require
+	recompilation of client code?  Explain.
+<br> <br>
+	<LI> Write a decent Java Enum for coins.
+<br> <br>
+	<LI> Turn a nickle into a string.
+<br> <br>
+	<LI> Iterate though the coins.
+<br> <br>
+</OL>
+Consider Bloch's example:
+<pre>
+// Abuse of ordinal to derive an associated value – DON’T DO THIS
+public enum Ensemble {
+   SOLO,   DUET,   TRIO,  QUARTET, QUINTET, 
+   SEXTET, SEPTET, OCTET, NONET,   DECTET;
+
+   public int numberOfMusicians() { return ordinal() + 1; }
+}
+</pre>
+Explain why it's wrong, fix it,
+and add another enum with an overlapping number of musicians.
+</font>
+
+
+</BODY>
+</font>

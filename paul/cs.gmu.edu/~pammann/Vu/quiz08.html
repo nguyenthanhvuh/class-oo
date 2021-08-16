@@ -1,0 +1,112 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 8</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 8 <BR>
+  October 23, 2019
+ </H1>
+</CENTER>
+
+
+<font size=+3>
+Name:
+<HR>
+</font>
+Consider the following code:
+<pre>
+public class Example &lt;E&gt; {
+    String           string = "ant";
+    Integer          seven = 7;
+    E                e = null;
+    Object[]         objects;
+    List &lt; Object &gt;  listObject;
+    List &lt; E &gt;       listE;
+    public void m() {
+          // Java code for questions appears here
+    }
+}
+</pre>
+Independently consider the following 5 sequences of Java instructions.
+Circle one of the four choices.
+<OL>
+<!--
+<LI>
+<pre>
+    listE = new ArrayList();
+    listE.add(e);
+</pre>
+compiler warning &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compiler error &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; runtime exception &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; normal Java
+<br>
+<b>Answer</b>: compiler warning
+-->
+<HR>
+<LI>
+<pre>
+    objects = new E[1];
+    objects[0] = e;   
+</pre>
+compiler warning &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compiler error &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; runtime exception &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; normal Java
+<br>
+<b>Answer</b>: compiler error
+<HR>
+<LI>
+<pre>
+    listE = new ArrayList &lt; E &gt;();
+    listE.add(e);
+    listObject = listE;
+</pre>
+compiler warning &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compiler error &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; runtime exception &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; normal Java
+<br>
+<b>Answer</b>: compiler error
+<HR>
+<LI>
+<pre>
+    listObject = new ArrayList &lt; String &gt;();
+    listObject.add(string) ;
+    listObject.add(seven) ;
+</pre>
+compiler warning &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compiler error &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; runtime exception &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; normal Java
+<br>
+<b>Answer</b>:  compiler error
+
+<!--
+<HR>
+<LI>
+<pre>
+    listObject = new ArrayList &lt; Object &gt;(); 
+    listObject.add(string) ;      
+    listObject.add(seven) ;        
+</pre>
+compiler warning &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compiler error &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; runtime exception &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; normal Java
+<br>
+<b>Answer</b>: normal Java
+-->
+<HR>
+<LI>
+<pre>
+    objects = new Object[1];
+    objects[0] = string;   
+    objects[0] = seven;     
+</pre>
+compiler warning &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compiler error &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; runtime exception &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; normal Java
+<br>
+<b>Answer</b>: normal Java
+<HR>
+<LI>
+<pre>
+    objects = new String[1]; 
+    objects[0] = string;     
+    objects[0] = seven;        
+</pre>
+compiler warning &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compiler error &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; runtime exception &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; normal Java
+<br>
+<b>Answer</b>: runtime exception
+<HR>
+</OL>
+</font>
+
+
+</BODY>

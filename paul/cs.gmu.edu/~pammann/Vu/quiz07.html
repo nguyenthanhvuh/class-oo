@@ -1,0 +1,73 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 7</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 7 <BR>
+  October 15, 2019
+ </H1>
+</CENTER>
+
+<font size=+3>
+Name:
+</font>
+<HR>
+<font size=+1>
+<pre>
+ Set&lt;String&gt; t = //  See questions below
+
+ t.add("antelope");
+ t.add("dog");
+ t.add("cat");
+
+ // t.toString() is ???
+</pre>
+<HR>
+<OL>
+<LI>	Suppose <code>t</code> is instantiated as
+<pre>
+ Set&lt;String&gt; t = new TreeSet&lt;String&gt;();
+</pre>
+	At the end of the computation, what is <code>t.toString()</code>?
+<br><br>
+<br><br>
+<br><b>Answer:</b>  <code>[antelope, cat, dog]</code>
+<LI>	Suppose <code>t</code> is instantiated as
+<pre>
+ Set&lt;String&gt; t = new TreeSet&lt;String&gt;((x,y) -> x.length() - y.length());
+</pre>
+	At the end of the computation, what is <code>t.toString()</code>?
+<br><br>
+<br><br>
+<br><b>Answer:</b>  <code>[dog, antelope]</code>
+<LI>	Suppose <code>t</code> is instantiated as
+<pre>
+ Set&lt;String&gt; t = new TreeSet&lt;String&gt;((x,y) -> y.compareTo(x));
+</pre>
+	At the end of the computation, what is <code>t.toString()</code>?
+<br><br>
+<br><br>
+<br><b>Answer:</b>  <code>[dog, cat, antelope]</code>
+<LI>	Which <code>Comparator</code> implementation is problematic?
+Fill in the blank:
+<br> <br>
+<br>
+<i>
+The one in question ________.
+</i>
+<br>
+<br><br>
+<br><b>Answer:</b> 
+The one in question 2.
+<LI>	Why is it problematic?  Cite the relevant contract clause that is violated.
+<br><b>Answer:</b> 
+	<code>compare(a,b)</code>&nbsp;
+	is not consistent with <code>a.equals(b)</code>.
+</OL>
+</font>
+
+
+
+</BODY>

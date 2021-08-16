@@ -1,0 +1,80 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 13</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H2>
+  SWE 619 In Class Exercise Number 13 <BR>
+ </H2>
+</CENTER>
+
+<HR>
+
+<font size=+0>
+How well are you prepared for the final?
+This exercise should help you find out.
+Piazza discussions encouraged!
+<pre>
+public class Stack {
+   private Object[] elements; private int size = 0;
+
+   public Stack() { this.elements = new Object[0]; }
+
+   public void push (Object e) {
+     if (e == null) throw new NullPointerException("Stack.push");
+     ensureCapacity(); elements[size++] = e;  
+   }
+
+   public void pushAll (Object[] collection) { for (Object obj: collection) { push(obj); } }
+
+   public Object pop () {
+     if (size == 0) throw new IllegalStateException("Stack.pop");
+     Object result = elements[--size];
+     // elements[size] = null;
+     return result;
+   }
+
+   @Override public String toString() {
+      String result = "size = " + size;
+      result += "; elements = [";
+      for (int i = 0; i < elements.length; i++) {
+         if (i < elements.length-1)
+            result = result + elements[i] + ", ";
+         else
+            result = result + elements[i];
+      }
+      return result + "]";
+   }
+}
+</pre>
+<OL>
+	<LI> Write a contract for <code>push(Object e)</code>.
+<br> <br>
+	<LI> What is wrong with <code>toString()</code>?  Fix it.
+<br> <br>
+	<LI> What rep-invariant is likely broken?  Fix it.  
+		This includes writing a suitable rep-invariant.
+<br> <br>
+	<LI> How would Bloch's Item 25: <em>Prefer Lists to Arrays</em> apply here?
+	Would it make the rep-invariant simpler?
+<br> <br>
+	<LI> How would you argue that that <code>pop()</code> is correct (or not)?
+<br> <br>
+	<LI> As <code>Stack</code> is written, <code>pushAll()</code> requires special documention?
+	Why?  What would Bloch suggest as an alternative?
+<br> <br>
+	<LI> Override <code>equals()</code>.  What else do you have to do?  Do that too.
+<br> <br>
+	<LI> Generify.  What should happen to the parameter for <code>pushAll()</code>?  Why?
+<br> <br>
+	<LI> Suppose we decide to implement the <code>Cloneable()</code> interface.  
+	In what ways would Bloch think we would likely get it wrong?
+	What would Bloch recommend instead?
+</OL>
+</font>
+
+
+</body>
+</html>
+

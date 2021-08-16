@@ -1,0 +1,106 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 10</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 10 <BR>
+  November 6, 2019
+ </H1>
+</CENTER>
+
+<font size=+2>
+Name:
+<HR>
+</font>
+
+  Consider the following code.
+<pre>
+class Apple {
+  // rep-inv:  name != null
+  private String name;
+  public Apple (String name) {   
+     if (name == null) throw new NPE(...);
+     this.name = name;
+  }
+  @Override public boolean equals (Object o) {
+     if (!(o instanceof Apple)) { return false; }
+     Apple a = (Apple) o;     
+     return name.equals(a.name);
+  }
+  @Override public int hashCode() { // see questions below }
+  @Override public String toString() { return name; }
+}
+class AppleTracker extends Apple {
+  private static Set&lt;String&gt; inventory = new HashSet&lt;String&gt; ();
+  public AppleTracker (String name) { super(name); inventory.add(name);}
+  public static Set&lt;String&gt; getInventory() { return Collections.unmodifiableSet(inventory);}
+}
+// client code
+Apple a = new Apple("Winesap");
+AppleTracker at1 = new AppleTracker("Winesap");
+AppleTracker at2 = new AppleTracker("Fuji");
+</pre>
+Mark each of the following statements <b>True</b> or <b>False</b>:
+<OL>
+<LI><b>True</b> &nbsp; &nbsp; <b>False</b> &nbsp; &nbsp;
+The <code>equals()</code> method in the <code>AppleTracker</code>
+class is inherited from the <code>Apple</code> class.
+<br> <br>
+
+<LI><b>True</b> &nbsp; &nbsp; <b>False</b> &nbsp; &nbsp;
+<code>a.equals(at1)</code> sometimes returns <code>true</code>
+and sometimes returns <code>false</code>.
+<br> <br>
+
+<LI><b>True</b> &nbsp; &nbsp; <b>False</b> &nbsp; &nbsp;
+The <code>equals()</code> method in the <code>Apple</code>
+class relies on the rep-invariant to satisfy its contract.
+<br> <br>
+
+<LI><b>True</b> &nbsp; &nbsp; <b>False</b> &nbsp; &nbsp;
+<code>AppleTracker</code> adds client-visible state
+to <code>Apple</code> objects.
+<br> <br>
+
+<LI><b>True</b> &nbsp; &nbsp; <b>False</b> &nbsp; &nbsp;
+<code>a.equals(at1)</code> and 
+<code>at1.equals(a)</code> are both <code>true</code>.
+<br> <br>
+
+<LI><b>True</b> &nbsp; &nbsp; <b>False</b> &nbsp; &nbsp;
+<code>a.equals(at2)</code> and 
+<code>at2.equals(a)</code> are both <code>false</code>.
+<br> <br>
+
+<LI><b>True</b> &nbsp; &nbsp; <b>False</b> &nbsp; &nbsp;
+<code>at1.equals(a)</code> and 
+<code>a.equals(at2)</code> are both <code>true</code>,
+but <code>at1.equals(at2)</code> is <code>false</code>.
+<br> <br>
+
+<LI><b>True</b> &nbsp; &nbsp; <b>False</b> &nbsp; &nbsp;
+It would correct to implement <code>hashCode()</code> as
+<code> return name.hashCode(); </code>
+<br> <br>
+
+<LI><b>True</b> &nbsp; &nbsp; <b>False</b> &nbsp; &nbsp;
+It would correct to inherit <code>hashCode()</code> from the <code>Object</code> class.
+<br> <br>
+
+<LI><b>True</b> &nbsp; &nbsp; <b>False</b> &nbsp; &nbsp;
+Bloch would object to replacing "<code>o instanceof Apple</code>"
+with a predicate built atop "<code>getClass()</code>".
+<br> <br>
+
+<br><b>Answer:</b>
+T,F,T,F,T, 
+T,F,T,F,T
+</OL>
+</font>
+
+
+
+
+</BODY>

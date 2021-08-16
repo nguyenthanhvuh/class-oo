@@ -1,0 +1,139 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 10</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 10 <BR>
+  Make-up version: Fall 2019
+<br>
+Maximum Possible score is 8
+ </H1>
+</CENTER>
+
+<font size=+3>
+Name:
+<HR>
+</font>
+<font size=+1>
+<pre>
+class Point {
+  private int x; private int y;
+  public Point (int x, int y) {
+      this.x = x; this.y = y;
+  }
+  @Override public boolean equals (Object o) {
+     if (!(o instanceof Point)) { return false; }
+     Point p = (Point) o;     
+     return p.x == x && p.y == y;
+  }
+  @Override public int hashCode() { // See Question 3  }
+}
+class CounterPoint extends Point {
+  private static int count = 0;   // point counter; not threadsafe
+  public CounterPoint (int x, int y)  { super(x, y); count++;}
+  public int getCount() { return count; }
+}
+</pre>
+<!--
+  Point a = new CounterPoint(1, 2);
+  Point b = new Point       (1, 2);
+  Point c = new CounterPoint(2, 1);
+  Point d = new CounterPoint(2, 2);
+
+  Set&lt;Point&gt; points  = new HashSet&lt;Point&gt;();
+  points.add(a);  points.add(b);  points.add(c);  points.add(d);
+-->
+<OL>
+<LI><b>Yes</b> &nbsp; &nbsp; &nbsp; <b>No</b>
+&nbsp; &nbsp;
+Is the <code>equals()</code> method in the
+<code>Point</code> class consistent with Bloch's standard recipe? 
+<br>
+<br>
+<!--
+<br><b>Answer:</b>    Yes.
+-->
+<LI><b>Yes</b> &nbsp; &nbsp; &nbsp; <b>No</b>
+&nbsp; &nbsp;
+Does the <code>equals()</code> method in the
+<code>Point</code> class satisfy its contract?
+<br>
+<br>
+<!--
+<br><b>Answer:</b>    Yes.
+-->
+<LI>	Mark each of the following implementations of <code>hashCode()</code>
+	in the <code>Point</code> class as to whether it satisfies its contract:
+<br>
+<br>
+<UL>
+<LI><b>Yes</b> &nbsp; &nbsp; &nbsp; <b>No</b>
+&nbsp; &nbsp;
+     Don't override <code>hashCode()</code> at all.  (That is, delete the line of code)
+<br>
+<br>
+<LI><b>Yes</b> &nbsp; &nbsp; &nbsp; <b>No</b>
+&nbsp; &nbsp;
+     <code>return super.hashCode(); </code>
+<br>
+<br>
+<LI><b>Yes</b> &nbsp; &nbsp; &nbsp; <b>No</b>
+&nbsp; &nbsp;
+     <code>return x + y; </code>
+<br>
+<br>
+<LI><b>Yes</b> &nbsp; &nbsp; &nbsp; <b>No</b>
+&nbsp; &nbsp;
+     <code>return (31*17 + x)*31 + y; </code>
+<br>
+<br>
+<LI><b>Yes</b> &nbsp; &nbsp; &nbsp; <b>No</b>
+&nbsp; &nbsp;
+     <code>return x;</code>
+<br>
+<br>
+<LI><b>Yes</b> &nbsp; &nbsp; &nbsp; <b>No</b>
+&nbsp; &nbsp;
+     <code>return 42;</code>
+<br>
+<br>
+</UL>
+<!--
+<b>Answer:</b>    
+No, No, Yes, Yes, Yes, Yes.
+-->
+
+
+
+<!--
+<LI>	Suppose we <b>don't</b> override <code>equals()</code>
+	or <code>hashCode()</code> in the <code>CounterPoint</code>
+	class.  (For this question, assume <code>equals()</code>
+	and <code>hashCode()</code> in the <code>Point</code> class are ok.)
+<br>
+<br>
+<UL>
+<LI><b>Yes</b> &nbsp; &nbsp; &nbsp; <b>No</b>
+&nbsp; &nbsp;
+	Does this decision lead to a contract problem with <code>equals()</code>?
+<br>
+<br>
+<br><b>Answer:</b>    No
+<LI><b>Yes</b> &nbsp; &nbsp; &nbsp; <b>No</b>
+&nbsp; &nbsp;
+	Does this decision lead to a contract problem with <code>hashCode()</code>?
+<br>
+<br>
+<br><b>Answer:</b>    No
+</UL>
+-->
+
+</OL>
+</font>
+
+
+
+
+</BODY>

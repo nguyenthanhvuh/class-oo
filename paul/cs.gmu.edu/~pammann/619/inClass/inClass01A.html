@@ -1,0 +1,58 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 1A</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 1A <BR>
+ </H1>
+</CENTER>
+
+<HR>
+<P>
+
+
+<font size=+1>
+Consider the following specification and implementation:
+<pre>
+
+public static List&lt;Integer&gt; tail (List&lt;Integer&gt; list) {
+
+   // REQUIRES: ???
+   // EFFECTS:  ???
+
+   List&lt;Integer&gt; result = new ArrayList&lt;Integer&gt;(list);
+   result.remove(0);
+   return result;
+}
+</pre>
+<OL>
+<LI> What does the <b>implementation</b> of <code>tail</code>
+	do in each of the following cases?  
+	How do you know:  Running the code or reading an API description?
+<UL>
+	<LI><code>list = null</code>
+<br> <br>
+	<LI><code>list = []</code>
+<br> <br>
+	<LI><code>list = [1]</code>
+<br> <br>
+	<LI><code>list = [1, 2, 3]</code>
+<br> <br>
+</UL>
+<LI> Write a partial specification that matches the "happy path" part of the implementation's behavior.
+<br> <br>
+<LI> Rewrite the specification to be total.
+Use Bloch's standard exceptions.
+<br> <br>
+<LI> The resulting specification has a problem.  What is it?
+<br> <br>
+<LI> Rewrite the specification to address this problem.
+Rewrite the code to match the new specification.
+<br> <br>
+</OL>
+</font>
+
+
+</BODY>

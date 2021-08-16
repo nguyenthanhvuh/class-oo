@@ -1,0 +1,106 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 2</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 2 <BR>
+  September 11, 2019
+ </H1>
+</CENTER>
+
+
+
+<font size=+3>
+Name:
+</font>
+<br>
+<hr>
+<font size=+1>
+Consider the following 2 specifications, the second of which
+has an associated implementation:
+<pre>
+public static int minIndex (int [] a) {... implementation omitted ... }
+   // EFFECTS: if a null throw NullPointerException, else if a.length=0 throw
+   //      IllegalArgumentException else return index of some min element in a.
+public static void setSmall (int [] a, int i) {
+   // REQUIRES: a != null, 0 <= i < a.length
+   // MODIFIES a
+   // EFFECTS: rearranges elements in array a so that some smallest element is at index i
+   int j = minIndex(a); int t = a[j]; a[j] = a[i]; a[i] = t;    }
+</pre>
+<OL>
+	<LI> Suppose we wish to transform the 
+	<code> setSmall</code> precondition 
+	<code>a != null</code> into defined behavior with
+	an exception.
+<UL>
+<LI> What exception would Bloch recommend for this transformation?
+<br><br>
+ <br>   <b> Answer</b>: <code>NullPointerException</code>.
+<LI> Rewrite the precondition and postcondition 
+for <code>setSmall()</code> to achieve this result.
+<br><br>
+<br><br>
+<br><br>
+ <br>   <b> Answer</b>: 
+Note that the predicate <code>a!=null</code> is no longer in the REQUIRES clause.
+<pre>
+   // REQUIRES: 0 <= i < a.length
+   // MODIFIES a
+   // EFFECTS: if a = null throw NullPointerException else
+   //          rearranges elements in array a so that 
+   //          smallest element is at index i
+</pre>
+<LI> Does the given implementation of <code>setSmall()</code>
+satisfy this revised specification? 
+<br><br>
+ <br>   <b> Answer</b>:  Yes.  
+	Note that the call to <code>minIndex()</code>
+	generates the correct exception.
+</UL>
+<LI>
+	Suppose we wish, in addition, to transform the
+	<code>setSmall()</code> precondition 
+	<code>0 <= i < a.length</code> into defined behavior with
+	an exception.
+<UL>
+<LI> What exception would Bloch recommend for this transformation?
+Hint: Note that <code>i</code> is described as an "index".
+<br><br>
+ <br>   <b> Answer</b>: <code>IndexOutOfBoundsException</code>
+<LI> Extend your rewrite of the precondition and postcondition 
+for <code>setSmall()</code> to achieve this result.
+<br><br>
+<br><br>
+<br><br>
+ <br>   <b> Answer</b>: 
+Note that the predicate <code>0 <= i < a.length</code> is no longer in the REQIURES clause.
+<pre>
+   // MODIFIES a
+   // EFFECTS: if a = null throw NullPointerException else
+   //          if !(0 <= i < a.length) throw IndexOutOfBoundsException else
+   //          rearranges elements in array a so that 
+   //          smallest element is at index i
+</pre>
+<LI> Does the given implementation of <code>setSmall()</code>
+satisfy this revised specification?
+<br><br>
+ <br>   <b> Answer</b>:
+No. 
+There are two cases.
+If the array is <b>not</b> empty,
+then the implementation returns <code>IndexOutOfBoundsException</code>.
+However, if the array is empty,
+then the implementation
+generates <code>IllegalArgumentException</code>.
+via the call to <code>minIndex()</code>,
+which is <b>not</b> <code>IndexOutOfBoundsException</code>.
+</UL>
+</OL>
+</font>
+
+
+
+</BODY>

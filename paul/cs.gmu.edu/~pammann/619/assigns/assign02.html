@@ -1,0 +1,106 @@
+<html>
+<head>
+   <title>
+SWE 619 Assignment 2
+   </title>
+</head>
+<body>
+
+<center> <h1>
+SWE 619 Assignment 2 <br>
+Spring 2021
+</h1></center>
+
+
+
+<center>
+<hr>
+</center>
+
+
+
+<b>Goal:</b>
+Contracts <BR>
+<br>
+For the second assignment, you'll build a <em>very</em> small piece of Java
+for a contract with preconditions,
+transform the contract so that all preconditions become postconditions,
+and then re-implement appropriately.
+
+<p>
+Consider a method that calculates the number of months
+needed to pay off a loan of a given size at
+a fixed <i>annual</i> interest rate and a fixed <i>monthly</i> payment.
+For instance, a $100,000 loan at an 8% annual rate would
+take 166 months to discharge at a monthly payment of $1,000,
+and 141 months to discharge at a monthly payment of $1,100.
+(In both of these cases, the final payment is smaller than the others;
+I rounded  165.34 up to 166 and 140.20 up to 141.)
+Continuing the example, the loan would never be
+paid off at a monthly payment of $100, since
+the principal would grow rather than shrink.
+<br>
+Define a Java class called <code>Loan</code>.
+In that class, write a method that satisfies the following specification:
+<pre>
+   @param principal:  Amount of the initial principal
+   @param rate:       Annual interest rate  (8% rate expressed as rate = 0.08)
+   @param payment:    Amount of the monthly payment
+
+   public static int months (int principal, double rate, int payment)
+   
+   Requires: principal, rate, and payment all positive 
+            and payment is sufficiently large to drive the principal to zero.
+   Effects:  return the number of months required to pay off the principal
+</pre>
+
+<p>
+Note that the precondition is quite strong, which makes implementing
+the method easy.  
+You should use double precision arithmetic internally,
+but the final result is an integer, not a floating point value.
+The key step in your calculation is to change the principal on
+each iteration with the following formula (which amounts
+to monthly compounding):
+<pre>
+    newPrincipal = oldPrincipal * (1 + monthlyInterestRate) - payment;
+</pre>
+The variable names here are explanatory, not required.
+You may want to use different variables, which is fine.
+<p>
+<b>
+To make sure you understand the point about preconditions, 
+your code is required to be minimal. 
+Specifically, if it possible to delete parts of your implementation 
+and still have it satisfy the requirements, you'll earn less than full credit.
+</b>
+
+<p>
+
+Now modify <code>months</code>
+so that it handles <b>all</b> of its preconditions with exceptions.
+Use the standard exceptions recommended by Bloch.
+Document this with a revised contract.
+You can use JavaDoc or you can simply identify the postconditions.
+<br>
+
+
+
+<br>
+<br>
+<b>Grading Criteria:</b>
+<UL>
+<li>
+Adherence to instructions.
+<li>
+Minimal implementation.
+<li>
+Preconditions are correctly converted to exceptions.
+<li>
+Syntax: Java compiles and runs.
+</UL>
+
+
+</body>
+</html>
+

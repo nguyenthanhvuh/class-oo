@@ -1,0 +1,84 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 3</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 3 <BR>
+  Make-up version: Fall 2019
+<br>
+Maximum Possible score is 8
+ </H1>
+</CENTER>
+
+<font size=+3>
+Name:
+</font>
+<HR>
+<font size=+1>
+
+Consider the Java 7 <code>java.util.Iterator&lt;E&gt;</code> interface:
+<pre>
+public interface Iterator&lt;E&gt; {
+  public boolean hasNext() // Returns true if the iterator has more elements
+
+  public E       next()    // Returns the next element in the iteration.
+
+  public void    remove()  // Removes from the underlying collection the last element 
+                           // returned by this iterator (optional operation).
+}
+</pre>
+<OL>
+<LI>
+Iterator is a mutable data type.
+Demonstrate this by writing some additional lines of code below.
+For full credit, you must include a comment that indicates why your code
+demonstrates mutability.
+<pre>
+   List &lt;String&gt; list = new ArrayList &lt;String&gt;();
+   list.add("cat"); list.add("dog");
+   Iterator &lt;String&gt; itr = list.iterator();
+
+
+
+
+</pre>
+<!--
+<b>Answer</b>:  
+<pre>
+      itr.next();   // returns "cat"
+      itr.next();   // returns "dog"
+</pre>
+<code>itr.next();</code> returns different values on the two
+calls; hence the iterator must be mutable, and <code>next()</code> must be a mutator.
+-->
+<LI> Suppose we are interested the corresponding immutable class, <code>IIterator</code>.
+For each method below, give the method header or headers
+	appropriate for the <code>IIterator</code> class.
+	(The <code>remove()</code> method is deliberately omitted from this exercise.)
+<br> <br>
+<OL>
+<LI> <code>hasNext()</code>:
+<br> <br> <br> <br> <br>
+<!--
+<b>Answer</b>:  Fine as is
+-->
+<LI> <code>next()</code>:
+<br> <br> <br> <br> <br>
+<!--
+<b>Answer</b>:
+Two methods needed because <code> next()</code>
+is both an observer and a mutator.
+<pre>
+    public E nextE()                 // observer
+    public IIterator nextIterator()  // producer
+</pre>
+-->
+</UL>
+</OL>
+
+</font>
+
+
+</BODY>

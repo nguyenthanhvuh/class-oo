@@ -1,0 +1,94 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 7</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 7 <BR>
+  Make-up version: Fall 2019
+<br>
+Maximum Possible score is 8
+ </H1>
+</CENTER>
+
+<font size=+3>
+Name:
+</font>
+<HR>
+<font size=+0>
+<pre>
+ public class Point {
+    int x;  int y;
+    public Point(int a, int b) { x = a; y = b; }
+    @Override public boolean equals (Object obj) {
+       if (!(obj instanceof Point)) { return false; }
+       else {
+          Point p = (Point) obj;
+          return (this.x == p.x && this.y == p.y);
+       }
+    }
+ }
+
+ class PointCompare implements Comparator&lt;Point&gt; {
+    @Override public int compare (Point p, Point q) {
+      return p.x - q.x;
+    }
+ }
+
+ Point p = new Point(3, 5);
+ Point q = new Point(4, 8);
+ Point r = new Point(3, 8);
+
+ Comparator&lt;Point&gt; c = new PointCompare();
+
+ c.compare(p, q);     // line 1
+ c.compare(p, r);     // line 2
+ c.compare(q, r);     // line 3
+
+ Set&lt;Point&gt; t = new TreeSet&lt;Point&gt;(c);
+
+ t.add(p);
+ t.add(q);
+ t.add(r);
+ t.size();    // line 4
+</pre>
+<OL>
+<LI>	What is the result of line 1?
+<!--
+<br><b>Answer:</b>  -1
+-->
+<br><br>
+<LI>	What is the result of line 2?
+<!--
+<br><b>Answer:</b>  0
+-->
+<br><br>
+<LI>	What is the result of line 3?
+<!--
+<br><b>Answer:</b>  1
+-->
+<br><br>
+<LI>	What is the result of line 4?
+<!--
+<br><b>Answer:</b>  2
+-->
+<br><br>
+<!--
+<LI>	<code>compare(a,b)</code>&nbsp;
+	is not consistent with <code>a.equals(b)</code>.
+	Give an example which shows the problem,
+	and explain the issue.
+<br><b>Answer:</b> 
+	Consider the example in question  2 above.
+	p and r are clearly not equal, but compare(p,r) returns
+        0.  The problem is that <code>compare</code> imposes
+	a partial, but not a total, order on <code>Point</code>,
+	because it looks only at x values, but not at y values.
+-->
+</OL>
+</font>
+
+
+
+</BODY>

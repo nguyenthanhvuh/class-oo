@@ -1,0 +1,90 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 9</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 9 <BR>
+  October 30, 2019
+ </H1>
+</CENTER>
+
+
+<font size=+3>
+Name:
+</font>
+<HR>
+<font size=+1>
+  Express the following in CTL.
+  Use the following declaration in constructing your answer.
+  Specifically, the variable <code>class</code> can have exactly
+  one of the given values at any one time.
+<pre>
+  VAR
+     class  : {start, quiz, lecture, exercise, break, end};
+</pre>
+<OL>
+<LI>
+        As soon as class <code>start</code>s,
+	a <code>quiz</code> is always next.
+<br> <br> <br>
+<br> <br> <br>
+<br><b>Answer:</b>    
+<pre>
+    class=start -&gt; AX (class=quiz)
+</pre>
+<LI>
+        If there is a  <code>quiz</code>,
+	then later there is a <code>break</code>.
+<br> <br> <br>
+<br> <br> <br>
+<br><b>Answer:</b>    
+<pre>
+    class=quiz -&gt; AF(class=break)
+</pre>
+<LI>
+	After a <code>break</code>
+        there is a  never a <code>quiz</code>.
+<br> <br> <br>
+<br> <br> <br>
+<br><b>Answer:</b>    
+<pre>
+    class=break -> AG (class!=quiz)
+</pre>
+Note, you could put an explicit delay in here (with an AX) to
+address the word "After", but, given that there is only one
+variable (ie "class"), and it can only have one value at any
+given time, there is no need to do so.
+<LI>
+	If the <code>quiz</code> is ongoing in the current state, but over in some next state,
+        then it is over in all next states.
+<br> <br> <br>
+<br> <br> <br>
+<br><b>Answer:</b>    
+<pre>
+    class=quiz && [EX class!=quiz] -> AX [class!=quiz]
+</pre>
+<LI>
+	Once we get to the  <code>end</code> of class
+        we don't do anything else.
+<br> <br> <br>
+<br> <br> <br>
+<br><b>Answer:</b>    
+<pre>
+    class=end -> AG (class=end)
+</pre>
+If you think the word "Once" implies that we are guaranteed to
+get to the end of class, you could add this constraint as well:
+<pre>
+    AF( class = end)
+    &
+    class=end -> AG (class=end)
+</pre>
+</OL>
+</font>
+
+
+
+
+</BODY>

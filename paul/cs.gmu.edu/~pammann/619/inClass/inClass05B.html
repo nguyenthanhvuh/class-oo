@@ -1,0 +1,88 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 5B</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 5B <BR>
+ </H1>
+</CENTER>
+
+<HR>
+<P>
+
+<font size=+0>
+Consider the following:
+<pre>
+class A:
+   public void reduce (Reducer x)    
+   // Effects: if x is null throw NPE 
+   // else if x is not appropriate for this throw IAE
+   // else reduce this by x
+
+class B:
+   public void reduce (Reducer x) 
+   // Requires: x is not null
+   // Effects: if x is not appropriate for this throw IAE
+   // else reduce this by x
+
+class C:
+   public void reduce (Reducer x)   
+   // Effects: if x is null return (normally) with no change to this
+   // else if x is not appropriate for this throw IAE
+   // else reduce this by x
+</pre>
+<font size=+1>
+Analyze the "methods rule"
+for <code>reduce()</code> in each of these cases:
+Note:  Some analysis may not be necessary.  If so, indicate that.
+<UL>
+<LI>    <code>B</code> extends <code>A</code>.
+<br> Precondition Part:
+<br> Postcondition Part:
+<HR>
+<LI>    <code>C</code> extends <code>A</code>.
+<br> Precondition Part:
+<br> Postcondition Part:
+<HR>
+<LI>    <code>A</code> extends <code>B</code>.
+<br> Precondition Part:
+<br> Postcondition Part:
+<HR>
+<LI>    <code>C</code> extends <code>B</code>.
+<br> Precondition Part:
+<br> Postcondition Part:
+<HR>
+<LI>    <code>A</code> extends <code>C</code>.
+<br> Precondition Part:
+<br> Postcondition Part:
+<HR>
+</UL>
+<!--
+<br><b>Answer:</b><br>
+<UL>
+<LI>    <code>B</code> extends <code>A</code>.
+	B has a stronger precondition than A, hence fails "precondition" part of methods rule.
+	No need to analyze postcondition part.
+<LI>    <code>C</code> extends <code>A</code>.
+	C and A have same precondition - hence precondition part of methods rule Ok.
+        C and A conflict if x is null - hence fails "postcondition" part of methods rule.
+<LI>    <code>A</code> extends <code>B</code>.
+	A has a weaker precondition than B, hence precondition part of methods rule Ok.
+        A defines behavior where B is undefined; otherwise the behavior is the same.
+	Hence "postcondition" part of methods rule Ok.
+<LI>    <code>C</code> extends <code>B</code>.
+	C has a weaker precondition than B, hence precondition part of methods rule Ok.
+        C defines behavior where B is undefined; otherwise the behavior is the same.
+	Hence "postcondition" part of methods rule Ok.
+<LI>    <code>A</code> extends <code>C</code>.
+	A and C have same precondition - hence precondition part of methods rule Ok.
+        As noted before, A and C conflict if x is null - hence fails "postcondition" part of methods rule.
+</UL>
+-->
+</OL>
+</font>
+
+
+</BODY>

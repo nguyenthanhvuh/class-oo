@@ -1,0 +1,91 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 4</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 4 <BR>
+  Make-up version: Fall 2019
+<br>
+Maximum Possible score is 8
+ </H1>
+</CENTER>
+
+<font size=+3>
+Name:
+</font>
+<HR>
+<font size=+0>
+   Suppose that we strengthen the rep-invariant in Liskov's 
+   <code>IntSet</code> implementation
+   so that entries in the instance variable <code>els</code> are required to positive,
+   but do <b>NOT</b> change the code or the abstraction function.
+   Clearly, there are downsides to this choice;
+   this quiz is about articulating precisely 
+   what happens to the verification process.
+<pre>
+   List &lt;Integer&gt; els;     // updated version of the rep (with generics)
+
+   // Effects:  adds x to this; ie this_post = this + {x}
+   public void insert(int x) { 
+      if (!els.contains(x)) els.add(x);   
+   }
+
+   // Effects:  removes x from this; ie this_post = this - {x}
+   public void remove(int x) { 
+      els.remove(new Integer(x));
+
+// Rep-inv:  els != null && els does not contain nulls &&
+//         no duplicates in els <b> and els contains only positive values </b>
+</pre>
+<OL>
+<LI>
+	Does <code>insert()</code> maintain the representation invariant?
+	If not, give an explicit counterexample.
+<br> <br> <br> <br>
+<br> <br> <br> <br>
+<!--
+    <b> Answer:</b>
+	The rep-invariant is not maintained.
+	For example,
+	if the rep state is [2,3],
+	a call <code>insert(-1)</code>
+	yields the state <code>els = [2,3,-1]</code>,
+	which fails the rep invariant.
+-->
+<LI>
+	Repeat the previous exercise for <code>remove()</code>.
+<br> <br> <br> <br>
+<br> <br> <br> <br>
+<!--
+    <b> Answer:</b>
+	The rep-invariant is most definitely maintained.
+-->
+<LI>
+	Does <code>remove()</code> satisfy its contract?
+<br> <br> <br> <br>
+<br> <br> <br> <br>
+<!--
+    <b> Answer:</b>
+	Yes.
+-->
+<LI>
+	Unfortunately, given the abstraction function,
+        there are abstract states that do <b>not</b> have a representation
+	that satisfies the representation invariant.
+	Give an example of such an abstract state.
+<br>
+<!--
+    <b> Answer:</b>
+	Any set with zero or negative values works.
+	Example: {0, 3}.
+-->
+
+</OL>
+</font>
+
+
+
+
+</BODY>

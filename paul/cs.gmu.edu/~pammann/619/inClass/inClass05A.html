@@ -1,0 +1,55 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 5A</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 5A <BR>
+ </H1>
+</CENTER>
+
+<HR>
+<P>
+
+<font size=+1>
+Goal: Understanding dynamic dispatching:
+<p>
+Consider Liskov's <code>MaxIntSet</code> example
+with explict <code>repOk()</code> calls:
+(Really, we'd need assertions on these calls...)
+<pre>
+   public class IntSet {
+      public void insert(int x) {...; repOk();}
+      public void remove(int x) {...; repOk();}
+      public boolean repOk() {...}
+   }
+   public class MaxIntSet extends IntSet {
+      public void insert(int x) {...; super.insert(x); repOk();}
+      public void remove(int x) {super.remove(x); ...; repOk();}
+      public boolean repOk() {super.repOk(); ...;}
+   }
+
+    MaxIntSet s = {3, 5}; s.remove(5);  // repOk()????
+
+</pre>
+
+<OL>
+<LI>
+What does the default constructor in <code>MaxIntSet</code> do?
+
+<LI>
+What do the "..." bits do?
+
+<LI>
+How does the call work out?
+
+<LI>
+What is the abstract state of a <code>MaxIntSet</code>?
+There are two options.
+What are they, and what are the consequences of each choice?
+</OL>
+</font>
+
+
+</BODY>

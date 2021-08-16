@@ -1,0 +1,94 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 3</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 3 <BR>
+  September 18, 2019
+ </H1>
+</CENTER>
+
+<HR>
+<P>
+
+
+<!--
+<font size=+1>
+-->
+Consider a partial version of Bloch's mutable </code>Stack</code> class:
+<pre>
+public class Stack {
+
+   private Object[] elements;
+   private int size = 0;
+
+   public Stack() { this.elements = new Object[0]; }
+
+   public void push (Object e) {
+     ensureCapacity();      // implementation omitted from quiz
+     elements[size++] = e;
+   }
+
+   public Object pop () {
+     if (size == 0) throw new IllegalStateException("Stack.pop");
+     Object result = elements[--size];
+     elements[size] = null;
+     return result;
+   }
+}
+</pre>
+Also consider the following client interaction with <code>Stack</code>
+<pre>
+        Stack s = new Stack();
+        s.push("cat");
+        s.push("dog");
+        System.out.println(s.pop());
+</pre>
+<OL>
+<LI>
+	What methods would be needed to convert the client interataction
+        into an equivalent interaction with an 
+	<i>immutable</i> version called <code>IStack</code>?
+        For each method, give just the method header - not the contract or implemetation.
+<br> <br> <br>
+<br> <br> <br>
+<br> <br> <br>
+    <b> Answer:</b>
+<pre>
+        public IStack push (Object o)
+        public IStack pop ()
+        public Object top ()
+</pre>
+Note:  Obviously, you need a constructor as well, but the simplest thing is for it
+to behave as the original,
+so grading is the same whether you list it or not.
+<LI>
+Use these methods to write the equivalent interaction with <code>IStack</code>.
+(You may only use one variable,
+and its final value must be the same as the value of "s" in the mutable interaction.)
+<br> <br> <br>
+<br> <br> <br>
+<br> <br> <br>
+    <b> Answer:</b>
+	<pre>
+        Stack s = new Stack();
+        s = s.push("cat");
+        s = s.push("dog");
+        System.out.println(s.top());
+        s = s.pop();
+	</pre>
+<LI>
+How many <code>IStack</code> objects does the interaction produce?  (Assume a naive implementation that
+does not cache <code>IStack</code> objects.)
+<br>
+    <b> Answer:</b> 4.  The empty IStack, the "cat" IStack, the "dog" on top of "cat"
+IStack, and finally the "cat" IStack.
+
+</OL>
+</font>
+
+
+
+</BODY>

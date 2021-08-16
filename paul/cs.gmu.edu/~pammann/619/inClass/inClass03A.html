@@ -1,0 +1,56 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 3A</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 3A <BR>
+ </H1>
+</CENTER>
+
+<HR>
+<P>
+
+<font size=+1>
+Consider Liskov's immutable Poly example, where an abstract Poly
+is defined as c0 + c1x + c2x^2 + ...,
+and is implemented with one variable:
+<pre>
+   private Map&lt;Integer, Integer&gt; map;
+</pre>
+Fill in example values that are mapped by the abstraction function.
+<pre>
+Abstract State: Poly
+
+
+
+ AF
+/|\
+ |
+ |
+ |
+ |----------------------------------------------------------
+ |
+ |
+ |
+ |
+
+
+
+Representation State: map
+</pre>
+<OL>
+<LI>
+Identify representation states that should not be mapped.
+<LI>
+Try to capture these states with a rule (that is, a rep-invariant).
+<LI>
+Consider implementing the <code>degree()</code> method.
+What code would do the job?
+What more specific type of map would make the implementation simpler?
+
+
+</OL>
+
+</BODY>

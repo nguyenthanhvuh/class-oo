@@ -1,0 +1,125 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 10A</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 10A <BR>
+ </H1>
+</CENTER>
+
+<HR>
+<font size=+0>
+
+Consider Bloch's 
+<code>InstrumentedHashSet</code>,
+<code>InstrumentedSet</code>,
+and
+<code>ForwardingSet</code> examples:
+<pre>
+public class InstrumentedHashSet&lt;E&gt; extends HashSet&lt;E&gt;{
+   private int addCount = 0;	
+   public InstrumentedHashSet() {}
+
+   @Override public boolean add(E e){ 
+      addCount++; 
+      return super.add(e); 
+   }
+   @Override public boolean addAll(Collection&lt;? extends E&gt; c){ 
+       // What to do with addCount?
+       return super.addAll(c); 
+   }
+   public int getAddCount(){ return addCount; }
+}
+public class InstrumentedSet&lt;E&gt; extends ForwardingSet&lt;E&gt;{
+   private int addCount = 0;	
+
+   public InstrumentedSet(Set&lt;E&gt; s){ super(s); }
+   @Override public boolean add(E e){ addCount++; return super.add(e); }
+   public int getAddCount(){ return addCount; }
+}
+public class ForwardingSet&lt;E&gt; implements Set&lt;E&gt; {
+   private final Set&lt;E&gt; s;
+
+   public ForwardingSet(Set&lt;E&gt; s){ this.s = s; }
+   public           boolean add(E e)        { return s.add(e);     }
+   public           boolean remove(Object o){ return s.remove(o);  }
+   @Override public boolean equals(Object o){ return s.equals(o);  }
+   @Override public int     hashCode()      { return s.hashCode(); }
+   @Override public String  toString()      { return s.toString(); }
+   // Other forwarded methods from Set interface omitted
+}
+</pre>
+Consider also the following client code:
+<pre>
+   Set&lt;String&gt; r = new HashSet&lt;String&gt;();
+   r.add("ant"); r.add("bee");
+
+   Set&lt;String&gt; sh = new InstrumentedHashSet&lt;String&gt;();
+   sh.addAll(r);
+
+   Set&lt;String&gt; s =  new InstrumentedSet&lt;String&gt;(r);
+   s.add("ant"); s.add("cat");
+
+   Set&lt;String&gt; t = new InstrumentedSet&lt;String&gt;(s);
+   t.add("dog");
+
+   r.remove("bee");
+   s.remove("ant");
+</pre>
+<p style="page-break-before: always"></p>
+<OL>
+<LI>
+How do you think the <code>addCount</code> variable
+should be updated in the 
+<code>addAll()</code> method in <code>InstrumentedHashSet</code>?
+<br><br><br>
+<UL>
+<LI>
+Why is this a hard question?
+<br><br><br>
+<LI>
+What does the answer say about inheritance?
+<br><br><br>
+<LI>
+Does <code>equals()</code> behave correctly
+in <code>InstrumentedHashSet</code>?
+<br><br><br>
+</UL>
+<LI>
+Given your previous answer, what is the value of <code>sh.addCount</code>
+at the end of the computation?
+<br><br><br>
+<LI>
+Consider the <code>InstrumentedSet</code> solution.
+Besides being correct (always a plus!) why is it more general than the 
+<code>InstrumentedHashSet</code> solution?
+<br><br><br>
+<LI>
+At the end of the computation,
+what are the values of:
+<code>r</code>, <code>s</code>, and <code>t</code>?
+<br><br><br>
+<LI>	What would a call to <code>s.getAddCount()</code>
+	return at the end of the computation?
+<br><br><br>
+<LI>
+At the end of the computation,
+what are the values of:
+<code>r.equals(s)</code>, <code>s.equals(t)</code>, and <code>t.equals(s)</code>?
+<br><br><br>
+<UL>
+<LI>  Are there any problems with the <code>equals()</code> contract?
+<br><br><br>
+</UL>
+<LI> Would this still work if you globally replaced sets with lists?
+<br><br><br>
+<LI> Would this still work if you globally replaced sets with collections?
+<br><br><br>
+</OL>
+Note:  There is a <b>lot</b> going on in this example.
+I highly recommend that you play with the code until you understand it.
+</body>
+</html>
+

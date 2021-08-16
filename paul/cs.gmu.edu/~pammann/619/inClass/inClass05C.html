@@ -1,0 +1,46 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 5C</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 5C <BR>
+ </H1>
+</CENTER>
+
+<HR>
+<P>
+
+<font size=+1>
+Consider the following:
+<pre>
+public class Counter{   // Liskov 7.8
+   public Counter()     //EFF: Makes this contain 0
+   public int get()     //EFF: Returns the value of this
+   public void incr()   //MOD: this //EFF: makes this larger
+}
+public class Counter2 extends Counter { // Liskov 7.9
+   public Counter2()         //EFF: Makes this contain 0
+   public void incr()       // MOD: this //EFF: double this
+}
+public class Counter3 extends Counter {  // Liskov 7.10
+   public Counter3(int n)   //EFF: Makes this contain n
+   public void incr(int n)  // MOD: this //EFF: if n>0 add n to this
+}
+</pre>
+<OL>
+<LI> What role do constructors play in analyzing the Liskov Substitition Principle?
+<LI> Is there a constraint about negative/zero values for this?
+How do we know?
+<LI> What methods are in the <code>Counter2</code> API?
+<LI> Is <code>Counter2</code> a valid subtype of <code>Counter</code>?
+<LI> What methods are in the <code>Counter3</code> API?
+<LI> Is <code>Counter3</code> a valid subtype of <code>Counter</code>?
+In particular, does <code>incr(int n)</code>
+have to be consistent with <code>incr()</code>?
+</OL>
+</font>
+
+
+</BODY>

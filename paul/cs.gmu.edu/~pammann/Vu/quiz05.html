@@ -1,0 +1,88 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 5</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 5 <BR>
+  October 2, 2019
+ </H1>
+</CENTER>
+<font size=+2>
+Name:
+</font>
+<HR>
+<font size=+1>
+<P>
+Consider the following (supposedly) immutable class:
+<pre>
+public final class Immutable { 
+   private final String string;
+   private final int x;
+   private final List&lt;String&gt; list;
+
+   public Immutable(String string, int x, List&lt;String&gt; list) {
+      this.string = string;                     // Line A
+      this.x = x;                               // Line B
+      this.list = new ArrayList&lt;String&gt; (list); // Line C
+   }
+
+   public getString() { return string; }  // Line D
+   public getInt()    { return x; }       // Line E
+   public getList()   { return list; }    // Line F
+}
+
+</pre>
+<OL>
+<LI>
+Mark whether each line of code
+is a problem w.r.t. the immutability of  class <code>Immutable</code>.
+<br><br>
+<UL>
+<LI> Line A: &nbsp;&nbsp; ____&nbsp;Yes&nbsp;&nbsp;&nbsp;____&nbspNo&nbsp;&nbsp;
+<br><br>
+<LI> Line B: &nbsp;&nbsp; ____&nbsp;Yes&nbsp;&nbsp;&nbsp;____&nbspNo&nbsp;&nbsp;
+<br><br>
+<LI> Line C: &nbsp;&nbsp; ____&nbsp;Yes&nbsp;&nbsp;&nbsp;____&nbspNo&nbsp;&nbsp;
+<br><br>
+<LI> Line D: &nbsp;&nbsp; ____&nbsp;Yes&nbsp;&nbsp;&nbsp;____&nbspNo&nbsp;&nbsp;
+<br><br>
+<LI> Line E: &nbsp;&nbsp; ____&nbsp;Yes&nbsp;&nbsp;&nbsp;____&nbspNo&nbsp;&nbsp;
+<br><br>
+<LI> Line F: &nbsp;&nbsp; ____&nbsp;Yes&nbsp;&nbsp;&nbsp;____&nbspNo&nbsp;&nbsp;
+</UL>
+<b>Answer</b>:
+Lines F is a problem.  Other lines are not.
+<br>
+<br>
+
+<LI>
+Write pseudo-code that compromises the immutability of the <code>Immutable</code>
+class.
+<br>
+<br>
+<b>Answer</b>:
+Since the <code>List</code> object is the only mutable class here, we need to 
+attack that, and we have to do so through the <code>getList()</code> method:
+<pre>
+     List&lt;String&gt; list = //... supppose list is [cat, dog]
+     Immutable im = new Immutable("bat", 7, list);
+     list = im.getList();
+     list.add("elephant");   // now I've changed the internal state of Immutable
+                             // from
+                             // &lt;bat, 7, [cat, dog]&gt;
+                             // to
+                             // &lt;bat, 7, [cat, dog, elephant]&gt;
+     
+</pre>
+
+</OL>
+
+
+
+</font>
+
+
+
+</BODY>

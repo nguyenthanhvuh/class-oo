@@ -1,0 +1,99 @@
+<html>
+<head>
+   <title>
+SWE 619 In Class Exercise # 9A
+   </title>
+</head>
+<body>
+
+<center> <h1>
+SWE 619 In Class Exercise # 9A
+<br>
+</h1></center>
+
+<hr>
+<font size=+1>
+
+Consider Bloch's <code>Point</code>/<code>ColorPoint</code> example.
+For today, ignore the <code>hashCode()</code> issue.
+<pre>
+public class Point {  // routine code
+   private int x; private int y;    
+   ...
+   @Override public boolean equals(Object obj) {  // Standard recipe
+      if (!(obj instanceof Point)) return false;
+
+      Point p = (Point) obj;
+      return p.x == x && p.y == y;
+   }
+}
+
+public class ColorPoint extends Point {  // First attempt: Standard recipe
+   private COLOR color;
+   ...
+  @Override public boolean equals(Object obj) {
+      if (!(obj instanceof ColorPoint)) return false;
+
+      ColorPoint cp = (ColorPoint) obj;
+      return super.equals(obj) && cp.color == color;
+   }
+}
+
+public class ColorPoint extends Point {  // Second attempt: DON'T DO THIS!
+   private COLOR color;
+   ...
+   @Override public boolean equals(Object obj) {
+      if (!(o instance of Point)) return false;
+
+      // If obj is a normal Point, be colorblind
+      if (!(obj instanceof ColorPoint)) return obj.equals(this);
+
+      ColorPoint cp = (ColorPoint) obj;
+      return super.equals(obj) && cp.color == color;
+   }
+}
+
+</pre>
+<OL>
+	<LI> What is the <code>equals()</code> contract?   What is the standard recipe?
+	<LI> Why does Bloch use the <code>instanceof</code> operator in the standard recipe?
+	<LI> Write client code that shows a contract problem with the first attempt
+	at <code>ColorPoint</code>.
+	<LI> Write client code that shows a contract problem with the second attempt
+	at <code>ColorPoint</code>.
+	<LI> Some authors recommend solving this problem by using a different
+	standard recipe for <code>equals()</code>.
+<UL>
+<LI>
+	What's the key difference?
+<LI>
+	Which approach do you want in the following code:
+<pre>
+   public class CounterPoint extends Point
+      private static final AtomicInteger counter =
+         new AtomicInteger();
+ 
+      public CounterPoint(int x, int y) {
+         super (x, y);
+         counter.incrementAndGet();
+      }
+      public int numberCreated() { return counter.get(); }
+
+      @Override public boolean equals (Object obj) { ??? }
+   }
+<br> <br> 
+Client code:
+<pre>
+    Point p = PointFactory.getPoint();   // either a Point or a CounterPoint
+    Set&lt;Point&gt; importantPoints =   // a set of important points
+    boolean b = PointUtilities.isImportant(p);  // value?
+</pre>
+<UL>
+</OL>
+</font>
+
+
+
+</body>
+</html>
+

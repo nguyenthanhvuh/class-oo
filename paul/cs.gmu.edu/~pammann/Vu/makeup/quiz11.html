@@ -1,0 +1,105 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 11</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 11 <BR>
+  Make-up version: Fall 2019
+<br>
+Maximum Possible score is 8
+ </H1>
+</CENTER>
+
+<font size=+3>
+Name:
+</font>
+<HR>
+<font size=+2>
+<P>
+<br>
+<pre>
+public class IWantToBeImmutable {
+
+
+   public Set&lt;String&gt; s;
+   
+
+   public IWantToBeImmutable() {
+      this.s = new HashSet&lt;String&gt;();
+   }
+
+
+   public void addString(String t) {
+      s.add(t);
+   }
+
+
+
+
+
+   public Set&lt;String&gt; getSet() { return s;}
+
+}
+</pre>
+<font size=+1>
+<br>
+<br>
+<br>
+
+The <code>IWantToBeImmutable</code> class isn't.
+Instead, it violates many of Bloch's rules
+for making a class immutable.
+Mark up the code above to create a rewritten class that follows
+Bloch's rules and actually is immutable.
+In your rewritten class,
+you should make and clearly identify (with a comment)
+at least 4 types of changes
+that Bloch would recommend for this class. 
+In other words, change the code and provide a comment
+describing/citing Bloch's motivation for the change.
+Your edits should be mutually consistent.
+<p>
+Please be brief and clear:  I have to be able to read this document!
+<!--
+<br>
+<b>Answer</b>  Note that the numbers are from Bloch's list on page 73
+<pre>
+public final class IWantToBeImmutable {  // 2: ensure class can't be extended
+   // 3 : make instance variables final
+   // 4 : make instance variables private 
+   private final Set&lt;String&gt; s;          
+
+   // 2A: static factory an alternative to ensuring class can't be extended
+   // (not shown)
+   public IWantToBeImmutable() {
+      this.s = new HashSet&lt;String&gt;();
+   }
+
+   // 1A: private constuctor for producers to use
+   private IWantToBeImmutable(Set&lt;String&gt; s) {
+      this.s = s;
+   }
+
+   // 1: No mutators; turn into producers
+   // 2A:  final methods are an alternative to ensuring class can't be extended
+   final public IWantToBeImmutable addString(String t) {
+      HashSet&lt;String&gt; newS = new HashSet&lt;String&gt;(s);
+      newS.add(t);
+      return new IWantToBeImmutable(newS);
+   }
+
+   // 5: ensure exclusive access to mutable components
+   // 2A:  final methods are an alternative to ensuring class can't be extended
+   final public Set&lt;String&gt; getSet() { return new HashSet&lt;String&gt;(s);}
+
+
+}
+
+</pre>
+-->
+<br>
+
+
+</BODY>

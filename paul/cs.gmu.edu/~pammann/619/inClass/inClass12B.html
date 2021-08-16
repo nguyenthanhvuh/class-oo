@@ -1,0 +1,68 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 12B</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 12B <BR>
+ </H1>
+</CENTER>
+
+<HR>
+This is a recap exercise based on the map-based implementation
+of Liskov's polynomial example:
+<a href="http://cs.gmu.edu/~pammann/619/code/MapPoly.java">MapPoly</a>
+
+
+<p>
+<OL>
+<LI> How are the following polynomials represented?
+<UL>
+<LI> 0
+<LI> 3-7x^4
+</UL>
+
+<LI> Bloch would not accept that the <code>MapPoly</code> class 
+is immutable.
+Why not?  
+Show how it would be possible to provide mutable behavior
+with the class if Bloch's problem isn't fixed.
+Fix the problem, and implement any other changes Bloch suggests,
+even if they don't compromise immutability in this particular example.
+
+<LI>Write a reasonable rep-invariant  for <code>MapPoly</code>.
+How would this rep-invariant change if the zero Poly had
+an alternate representation.
+
+<LI> Provide reasonable implementations of <code>equals()</code> 
+and <code>hashCode()</code>.
+Explain why you believe your implemetations are appropriate.
+
+<LI> As written, the contract for the <code>coeff()</code> method
+is inconsistent with other contracts in the class.
+<UL>
+<LI> What is the inconsistency with the contract?
+<LI> Fix the inconsistency with the contract.
+<LI> Fix the code to match the revised contract.
+</UL>
+
+<LI> Argue that the implementation of the <code>coeff()</code> method is correct
+(with respect to your repaired contract, of course.)
+
+<LI> Consider implementing  <code>Cloneable</code> for this class.
+Decide whether Bloch would think this is a good idea
+and provide justification for your answer.
+Note:  You don't have to actually implement anything for this question.
+
+<LI>
+See if you can come up with a theory about Polys and implement it
+in JUnit.  (Polys are math objects, so there should be theories!)
+Here's a suggestion:  Think about the relationship between the degrees
+of two Polys being multiplied and the resulting degree.
+
+</OL>
+
+
+</BODY>
+</font>

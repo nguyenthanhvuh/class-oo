@@ -1,0 +1,72 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 2B</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 2B <BR>
+ </H1>
+</CENTER>
+
+<HR>
+<P>
+
+<font size=+1>
+Consider Liskov's Poly example, where an abstract Poly
+is defined as c0 + c1x + c2x^2 + ...,
+and is implemented with two variables:
+<pre>
+   private int deg;
+   private int[] trms;
+</pre>
+Fill in example values that are mapped by the abstraction function.
+<pre>
+Abstract Poly State:
+
+
+What is a "state"?
+A "state" is an assigment of values to variables
+
+
+ AF
+/|\
+ |         5 + 3x^2
+ |
+ |
+ |----------------------------------------------------------
+ |
+ |
+ |
+ |        (-10, null)
+
+             (2, [5,0,3,0])  Liskov says "no"
+
+             (2, [5,0,3])  Liskov says "yes"
+
+The "rep-invariant" describes which rep states are "yes"
+1) trms != null
+2) deg >= 0
+3) deg = trms.length - 1
+4) and more - see Liskov
+
+The rep-invariant defines the domain of the abstraction function
+
+
+
+Representation State: (deg, trms)
+</pre>
+<OL>
+<LI>
+Identify representation states that should not be mapped.
+<LI>
+Try to capture these states with a rule (that is, a rep-invariant).
+<LI>
+Devise a representation that is suitable for a mutable version of Poly.
+<LI>
+Develop a rep-invariant for that representation.
+
+
+</OL>
+
+</BODY>

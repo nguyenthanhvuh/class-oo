@@ -1,0 +1,71 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 10B</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 10B <BR>
+ </H1>
+</CENTER>
+
+<HR>
+<font size=+0>
+<br>
+<pre>
+public class Super {
+   public Super() {
+      overrideMe();
+   }
+
+   public void overrideMe () {
+   }
+}
+public final class Sub extends Super {
+
+   private final Date date;  // filled in by constructor
+
+   public Sub() {
+      date = new Date();
+   }
+   @Override public void overrideMe () {
+       System.out.println(date);
+   }
+
+   public static void main (String[] args) {
+      Sub sub = new Sub();
+      sub.overrideMe();
+   }
+}
+</pre>
+<OL>
+<LI>
+What is the pattern, and how common is it?
+<br> <br>
+<LI>
+What does the main method do, and why?
+<br> <br>
+<LI>
+Which of Bloch's rules does this example break?
+<br> <br>
+<LI>
+What does this example mean for
+<code>Cloneable</code> interface
+and the 
+<code>clone()</code> method?
+<br> <br>
+<LI>
+What does this example mean for
+<code>Serializable</code> interface
+and the 
+<code>readObject()</code> method?
+<br> <br>
+<LI>
+To what extent does this rule generalize to producer methods?
+<br> <br>
+</OL>
+
+
+
+
+</BODY>

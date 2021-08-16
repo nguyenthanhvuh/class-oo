@@ -1,0 +1,126 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 6</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 6 <BR>
+ </H1>
+</CENTER>
+
+<HR>
+This is a recap exercise.
+<pre>
+public class BoundedQueue {
+    private Object rep[];
+    private int front = 0;
+    private int back = -1;
+    private int size = 0;
+    private int count = 0;
+
+    public BoundedQueue(int size) {
+        if (size > 0) {
+            this.size = size;
+            rep = new Object[size];
+            back = size - 1;
+    }  }
+
+    public boolean isEmpty() { return (count == 0); }
+    public boolean isFull() { return (count == size); }
+    public int getCount() { return count; }
+
+    public void put(Object e) {
+        if (e != null && !isFull()) {
+            back++;
+            if (back >= size)
+                back = 0;
+            rep[back] = e;
+            count++;
+    } }
+
+    public Object get() {
+        Object result = null;
+        if (!isEmpty()) {
+            result = rep[front];
+            rep[front] = null;
+            front++;
+            if (front >= size)
+                front = 0;
+            count--;
+        }
+        return result;
+    }
+   @Override public String toString() {
+      String result = "front = " + front;
+      result += "; back = " + back;
+      result += "; size = " + size;
+      result += "; count = " + count;
+      result += "; rep = [";
+      for (int i = 0; i < rep.length; i++) {
+         if (i < rep.length-1)
+            result = result + rep[i] + ", ";
+         else
+            result = result + rep[i];
+      }
+      return result + "]";
+}  }
+</pre>
+<p style="page-break-before: always"></p>
+<OL>
+	<LI> How would Liskov describe a typical bounded queue?
+<br> <br>
+<br> <br>
+	<LI> What is wrong with <code>toString()</code>?    What needs to be done to fix it?
+	Make it so.
+<br> <br>
+<br> <br>
+	<LI> Write some sample client code to exercise the data structure.
+	Include some non-happy-path cases.
+	Would Bloch likely change the behavior?  If so, how?
+<br> <br>
+<br> <br>
+	<LI> Write contracts for each method (as written), including the constructor.
+<br> <br>
+<br> <br>
+	<LI> Build a rep-invariant.    Focus on the code in <code>get()</code>.
+There are also lots of constraints on the array indices; these are quite tricky to get right.
+The constructor also introduces some complexity.
+<br> <br>
+<br> <br>
+	<LI> Suppose we removed the line 
+<pre>
+            rep[front] = null;
+</pre>
+	from <code>get()</code>.
+<UL>
+<LI>
+   Informally, why is this wrong?
+<br> <br>
+<br> <br>
+<LI>
+   Formally, where does the correctness proof break down?
+<br> <br>
+<br> <br>
+<LI>
+   Could a client ever see the problem?
+<br> <br>
+<br> <br>
+</UL>
+</pre>
+<br> <br>
+<LI>
+Now that we've done some AF/RI analysis,
+what changes make the implementation better?
+btw - this is code straight out of a textbook.
+<br> <br>
+<LI>
+	Could this data structure be made immutable?  If so, what would change
+	in the contracts and method headers?  What would likely change in the implementation?
+</OL>
+</font>
+
+
+</body>
+</html>
+

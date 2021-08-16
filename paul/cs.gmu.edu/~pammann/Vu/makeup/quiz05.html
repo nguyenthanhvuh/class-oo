@@ -1,0 +1,90 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 5</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 5 <BR>
+  Make-up version: Fall 2019
+<br>
+Maximum Possible score is 8
+ </H1>
+</CENTER>
+
+<font size=+3>
+Name:
+</font>
+<HR>
+<font size=+1>
+
+
+The specification for Liskov's <code>elements()</code> method
+is given below.
+<br>
+Note 1: A Liskov <code>Iterator</code> has only the
+the <code>hasNext()</code> and <code>next()</code> methods.
+<br>
+Note 2: As discussed in class the abstract state for such an
+Iterator is a Stack of objects yet to be produced.
+	<pre>
+ public Iterator elements() 
+ // EFFECTS: Returns a generator that will produce all the elements of
+ //  this (as Integers), each exactly once, in arbitrary order.
+ // REQUIRES: this must not be modified while the generator is in use
+	</pre>
+Consider the code below which uses <code>elements()</code>.
+Line numbers have been added for reference purposes.
+	<pre>
+    0: IntSet s = new IntSet(); 
+    
+    1: s.insert(2);
+    2: s.insert(8);
+
+    3: Iterator itr = s.elements();   
+    4: itr.next();                    
+    5: itr.next();                    
+    6: // See questions below
+    7: itr.next();                   
+	</pre>
+<OL>
+   <LI> There are 2 possible values for <code>AF(itr)</code>
+	after line 3.   List them both.
+<br> <br> <br> 
+<!--
+<b> Answer:</b> [2, 8] or [8, 2]
+-->
+   <LI> There is 1 possible value for <code>AF(itr)</code>&nbsp;
+	after line 5.  List it.
+<br> <br> <br>
+<!--
+<b> Answer:</b> []
+-->
+<!--
+   <LI> If line 6 is empty, 
+	what is the value of </code>AF(itr)</code> after line 7?
+<br> <br> <br>
+<b> Answer:</b> Still []
+-->
+   <LI> If line 6 is <code>s.insert(12);</code>
+	what is the value of </code>AF(itr)</code> after line 6?
+<br> <br> <br>
+<!--
+<b> Answer:</b> Undefined, since the precondition is violated.
+-->
+   <LI> If line 6 is <code>int i = s.getIndex(-5);</code>
+	what is the value of </code>AF(itr)</code> after line 6?
+<br> <br> <br>
+<!--
+<b> Answer:</b> Still [] since the <code>getIndex</code> call
+doesn't change the state of the <code>IntSet</code> object.
+-->
+
+</OL>
+
+</font>
+
+
+
+
+</BODY>

@@ -1,0 +1,72 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 4B</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 4B <BR>
+ </H1>
+</CENTER>
+
+<HR>
+<P>
+
+<font size=+1>
+Consider the example in Bloch's Item 50 (3rd Edition):
+<pre>
+// Broken “immutable” time period class
+public final class Period {               // Question 3
+  private final Date start;
+  private final Date end;
+
+  /**
+    * @param start the beginning of the period
+    * @param end the end of the period; must not precede start
+    * @throws IAE if start is after end
+    * @throws NPE if start or end null
+    */
+
+  public Period (Date start, Date end) {
+    if (start.compareTo(end) > 0) throw new IAE();
+    this.start = start; this.end = end;  // Question 1
+  }
+  public Date start() { return start;}    // Question 2
+  public Date end()   { return end;}      // Question 2
+}
+</pre>
+<OL>
+<LI>
+Write code that shows the problem the line marked  <code>// Question 1</code>.
+<br> <br>
+<LI>
+Write code that shows the problem the lines marked  <code>// Question 2</code>.
+<br> <br>
+<LI>
+Suppose that the class declaration were:
+<pre>
+</pre>
+public class Period {               // Question 3
+<br> <br>
+Write code that shows the problem.
+<br> <br>
+<LI>
+Bloch fixes the constructor as follows:
+<pre>
+public Period (Date start, Date end) {
+  this.start = new Date(start.getTime());  // Defensive copy
+  this.end   = new Date(end.getTime());    // Defensive copy
+
+  if (this.start.compareTo(end) > 0) throw new IAE();
+</pre>
+<UL>
+<LI>  Bloch states that <code>clone()</code> would be inappropriate for copying
+	the dates.
+	Write code that shows the problem.
+<br> <br>
+<LI>  Bloch defers the exception check until the end, which seems to violate
+normal practice.  What's the problem with checking early?
+</UL>
+</OL>
+
+</BODY>

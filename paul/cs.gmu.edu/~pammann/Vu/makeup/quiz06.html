@@ -1,0 +1,97 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 6</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 6 <BR>
+  Make-up version: Fall 2019
+<br>
+Maximum Possible score is 8
+ </H1>
+</CENTER>
+
+<font size=+3>
+Name:
+</font>
+<HR>
+
+<font size=+1>
+  Consider the following superclass and subclass
+  with overridden method <code>get()</code>.
+  Note:  All methods modify "this".
+<pre>
+class B {
+   public Object get ()    // may throw unchecked exception ISE
+   // Effects: if this is empty throw ISE
+   // else return arbitrary element of this
+
+class B1 extends B {
+   public Object get ()    // may throw unchecked exception ISE
+   // Requires: this is not empty
+   // Effects: return arbitrary element of this
+
+class Q1 extends B {
+   public Object get ()    // may throw unchecked exception ISE
+   // Effects: if this is empty throw ISE
+   // else return oldest element of this
+
+class Q2 extends B {
+   public Object get ()    // may throw unchecked exception ISE
+   // Effects: if this is empty return null
+   // else return oldest element of this
+</pre>
+<OL>
+<LI>	Explain whether method <code>get()</code> 
+	satisfies the "precondition" obligation of the "methods rule"
+	with respect to <code>B</code> in:
+<UL>
+<LI> <code>B1</code>?
+<br> <br>
+<LI> <code>Q1</code>?
+<br> <br>
+<LI> <code>Q2</code>?
+<br> <br>
+</UL>
+
+<!--
+<br><b>Answer:</b>
+<UL>
+<LI> <code>B1</code>? No.  B1 has a stronger precondition than B.
+<LI> <code>Q1</code>? Yes.  B and Q1 have the same precondition.
+<LI> <code>Q2</code>? Yes.  B and Q2 have the same precondition.
+</UL>
+-->
+<LI>	Explain whether method <code>get()</code> 
+	satisfies the "postcondition" obligation of the "methods rule"
+	with respect to <code>B</code> in:
+<UL>
+<LI> <code>B1</code>?
+<br> <br>
+<LI> <code>Q1</code>?
+<br> <br>
+<LI> <code>Q2</code>?
+<br> <br>
+Note:  Depending on your answer to question 1, the postcondition rule
+may not require analysis.
+</UL>
+<!--
+<br><b>Answer:</b> 
+<UL>
+<LI> <code>B1</code>? No analysis required - precondition rule fails.
+<LI> <code>Q1</code>? Yes.  B and Q1 throw the same exception under the same circumstances.
+	Further, returning the oldest element is consistent with returning
+	an arbitrary element.
+<LI> <code>Q2</code>? No.  B throws ISE if this is empty, but Q2 returns null.
+	These two behaviors are not consistent.
+</UL>
+-->
+</OL>
+</font>
+
+
+
+<HR>
+
+</BODY>

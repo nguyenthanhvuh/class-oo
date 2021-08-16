@@ -1,0 +1,82 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 11</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 11 <BR>
+  November 13, 2019
+ </H1>
+</CENTER>
+
+<font size=+3>
+Name:
+<HR>
+</font>
+
+<font size=+1>
+Consider the following code,
+and suppose the main method in <code>Sub</code> is
+executed.
+<pre>
+public class Super {
+  private String y;
+  public Super () { stut();}
+  public void stut() { if (y == null) {y = "cat";} else {y = y + y;}}
+}
+public class Sub extends Super {
+  private String x;
+  public Sub (String s) { x = s;}
+  @Override public void stut() {
+     x = x + x;
+  }
+  public static void main(String[] args) {
+      Super s = new Sub("dog");
+  }
+}
+</pre>
+<OL>
+<LI>	Is the constructor in <code>Super</code> invoked?  Why or why not?
+<br> <br> <br> <br> <br>
+<br><b>Answer:</b>  Yes.  There is an implicit
+call to <code>super();</code>
+as the very first instruction
+in the <code>Sub</code> constructor
+<LI>	Is the <code>stut()</code> method in <code>Super</code> invoked?
+	Why or why not?
+<br> <br> <br> <br> <br>
+<br><b>Answer:</b>  No. The <code>stut()</code> method is overridden
+in class <code>Sub</code>, and so the class <code>Sub</code>
+<code>stut()</code> method is invoked instead.
+<LI>	Is the <code>stut()</code> method in <code>Sub</code> invoked?
+	Why or why not?
+<br> <br> <br> <br> <br>
+<br><b>Answer:</b>  Yes. See the answer to the previous question.
+<LI>	The execution of
+	<code>main()</code> in </code>Sub</code>
+	terminates with an exception.
+	Which one, and why?
+<br> <br> <br> <br> <br>
+<br><b>Answer:</b>  <code>NullPointerException</code>.
+	The reason is that the <code>+</code>
+	operator is called on <code>x</code> while x is still null.
+<br>
+<b>Note:</b>  Correction:  There is no exception.  It turns out that null + null returns the
+string "nullnull".
+<br>
+Because the question is broken, everyone gets credit!
+<LI>	Which rule in Bloch does this code violate?
+	(Any reasonable phrasing of the principle is fine.)
+<br> <br> <br> <br> <br>
+<br><b>Answer:</b>  The rule that says "Constructors
+       (in classes that may be extended) must not invoke
+	overridable methods."
+</OL>
+</font>
+
+
+
+<HR>
+
+</BODY>

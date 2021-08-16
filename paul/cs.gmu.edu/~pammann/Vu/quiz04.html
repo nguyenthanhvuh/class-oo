@@ -1,0 +1,100 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 4</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 4 <BR>
+  September 25, 2019
+ </H1>
+</CENTER>
+
+
+<font size=+3>
+Name:
+</font>
+<HR>
+
+
+<font size=+0>
+   The rep-invariant for Liskov's Poly class (as implemented in the text) is:
+<pre>
+      private int deg;
+      private int[] trms; 
+
+      1) trms != null &&
+      2) trms.length >= 1 &&
+      3) deg = trms.length-1 &&
+      4) if deg > 0 then trms[deg] !=0 
+</pre>
+   Suppose that we weaken the rep-invariant be deleting the 4th constraint.
+   Note that there is no effect on the abstraction function.
+<OL>
+<LI>
+	Consider the Poly 5 + 4x^2.
+<br>
+	Give example values for <code>deg</code> and <code>trms</code>
+	that satisfy the new invariant, but not the old one.
+<br>
+<br>
+<br>
+<br>
+<br>
+<b>Answer</b>:
+Basically, you need a trailing zero.
+Here are two possibilities.
+<pre>
+   deg = 3, trms = [5,0,4,0]
+   deg = 4, trms = [5,0,4,0,0]
+</pre>
+<LI>
+	The <code>degree</code> method, as written, is not correct under the weaker rep-invariant.
+<pre>
+public int degree() {
+   // Effects:  Returns the degree of this, ie the largest exponent
+   //    with a non-zero coefficient.  Returns 0 if this is the zero Poly.
+   return deg; 
+}
+</pre>
+Step through the analysis:
+<UL>
+	<LI> Does <code>degree()</code> maintain the weaker rep-invariant?
+	If not, what's the problem?
+<br> <br> <br> <br>
+	<LI> Does <code>degree()</code> satisfy its contract? 
+	If not, what's the problem?  (Note:  Depending on the answer to the previous question,
+	no analysis may be required here.)
+</UL>
+<br> <br> <br> <br>
+<b>Answer</b>:
+<code>degree()</code> definitely maintains the rep-invariant.
+It doesn't modify any variables!
+But it doesn't satisfy its contract.
+The problem is that the contract asks for the degree,
+but deg might be associated with a zero coefficient.
+<LI>
+	Rewrite <code>degree()</code>
+	so that it is correct under the weaker rep-invariant
+	("Quiz" Java is fine.)
+<br>
+<br>
+<br>
+<br>
+<br>
+<b>Answer</b>:
+The necessary code searches for the highest non-zero coefficient in the 
+<code>trms</code> array and return the corresponding index.
+<pre>
+   for (int i = deg; i >= 0; i--) {
+      if (trms[i] != 0) return i;
+   }
+   return 0;
+</pre>
+Grading note:  I'm unconcerned about Java syntax or minor errors;
+if it's clear from your code what your intent is, you'll receive credit.
+
+</OL>
+</font>
+
+</BODY>

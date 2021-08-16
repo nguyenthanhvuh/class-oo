@@ -1,0 +1,131 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 8A</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 8A <BR>
+ </H1>
+</CENTER>
+
+<HR>
+
+
+<font size=+1>
+Given the following variable declarations,
+<em>independently</em> consider the given 6 sequences of Java instructions.
+<br>
+<pre>
+    String           string = "bat";
+    Integer          x = 7;
+    Object[]         objects;
+    List             rawList;
+    List &lt; Object &gt;  objectList;
+    List &lt; String &gt;  stringList;
+</pre>
+Identify any code that results in a compiler error or warning.
+<br>
+Identify any code that raises a runtime exception.
+<br>
+Once a compiler error is noted, you do not need to analyze the
+sequence further.
+<OL>
+<LI>
+<pre>
+objects = new String[1]; 
+objects[0] = string;     
+objects[0] = x;        
+</pre>
+<!--
+<br>
+<b>Answer</b>
+<br>
+<pre>
+objects = new String[1]; // works because arrays are covariant in Java
+objects[0] = string;     // note that Bloch thinks covariant arrays are bad
+objects[0] = x;        // Runtime exception (ArrayStoreException)
+</pre>
+-->
+<LI>
+<pre>
+objects = new Object[1];
+objects[0] = string;   
+objects[0] = x;     
+</pre>
+<!--
+<br>
+<b>Answer</b>
+<br>
+<pre>
+objects = new Object[1];  // fine: ordinary Java
+objects[0] = string;      // fine: ordinary Java polymorphism
+objects[0] = x;         // fine: ordinary Java polymorphism
+</pre>
+-->
+<LI>
+<pre>
+stringList = new ArrayList &lt; String &gt;();
+stringList.add(string) ;
+</pre>
+<!--
+<br>
+<b>Answer</b>
+<br>
+<pre>
+stringList = new ArrayList &lt; String &gt;();  // fine: ordinary java
+stringList.add(string) ;                        // fine: ordinary Java
+</pre>
+-->
+<LI>
+<pre>
+objectList = new ArrayList &lt; String &gt;();
+objectList.add(string) ;
+</pre>
+<!--
+<br>
+<b>Answer</b>
+<br>
+<pre>
+objectList = new ArrayList &lt; String &gt;(); // Compiler Error! Java Lists are *not* covariant
+objectList.add(string) ;  // Never get here
+</pre>
+-->
+<LI>
+<pre>
+objectList = new ArrayList &lt; Object &gt;(); 
+objectList.add(string) ;      
+objectList.add(x) ;        
+</pre>
+<!--
+<br>
+<b>Answer</b>
+<br>
+<pre>
+objectList = new ArrayList &lt; Object &gt;();  // proper use of Java generics
+objectList.add(string) ;      // so this works
+objectList.add(x) ;         // so does this
+</pre>
+-->
+<LI>
+<pre>
+rawList = new ArrayList();
+rawList.add(string) ;    
+rawList.add(x) ;       
+</pre>
+<!--
+<br>
+<b>Answer</b>
+<br>
+<pre>
+rawList = new ArrayList(); // no generic typechecking, so there are warnings,
+rawList.add(string) ;      // but code compiles and runs fine
+rawList.add(x) ;         // so does this
+</pre>
+
+-->
+
+</font>
+
+
+</BODY>

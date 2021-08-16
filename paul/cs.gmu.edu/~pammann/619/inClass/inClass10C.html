@@ -1,0 +1,122 @@
+<html>
+<head>
+   <title>
+SWE 619 In Class Exercise # 10C
+   </title>
+</head>
+<body>
+
+<center> <h2>
+SWE 619 In Class Exercise # 10C
+<br>
+</h2></center>
+
+<font size=+3>
+Name(s):
+</font>
+<hr>
+<font size=+0>
+
+Consider a mutable complex number class:
+<pre>
+public class MComplex {
+   double re; protected double im;
+
+   public MComplex (double re, double im) { this.re = re; this.im = im; }
+
+   public double getReal()      { return re; }
+   public double getImaginary() { return im; }
+
+   public void setReal(double re)      { this.re = re; }
+   public void setImaginary(double im) { this.im = im; }
+
+   public void add (MComplex c) { re += c.re; im += c.im; }
+
+   public void subtract (MComplex c) { re -= c.re; im -= c.im; }
+
+   public void multiply (MComplex c) {
+      double r = re * c.re - im * c.im;
+      double i = re * c.im + im * c.re;
+      re = r; im = i;
+   }
+
+   public void divide (MComplex c) {
+      double den = c.re * c.re + c.im * c.im;
+      double r = (re * c.re - im * c.im) / den;
+      double i = (re * c.im + im * c.re) / den;
+      re = r; im = i;
+   }
+
+   @Override public boolean equals (Object o) {
+     if (o == this)               return true;
+     if (!(o instanceof MComplex)) return false;
+     MComplex c = (MComplex) o;
+
+     // See Bloch page 43 to find out why to use compare() instead of ==
+     return Double.compare(re, c.re) == 0 &&
+            Double.compare(im, c.im) == 0;
+   }
+
+   @Override public int hashCode () {
+      int result = 17 + hashDouble(re);
+      result = 31 * result + hashDouble(im);
+      return result;
+   }
+
+   private int hashDouble (double val) {
+      long longBits = Double.doubleToLongBits(val);
+      return (int) (longBits ^ (longBits >>>32));
+   }
+
+   @Override public String toString() { return "(" + re + " + " + im + "i)"; }
+}
+</pre>
+<p style="page-break-before: always"></p>
+<p>
+Before we get to immutability, 
+consider the method contracts.
+Where do the various contracts "come from", and
+is there anything in the (missing) JavaDoc that might
+require a bit of research?
+<p>
+Apply each of Bloch's 5 rules for making a class immutable:
+<OL>
+	<LI> Don't provide any methods that modify the object's state.
+	How do you handle the mutators?
+<br> <br> <br> <br>
+	<LI> Ensure that no methods can be overridden.
+<br><br>
+Why is this a problem?  Show me!
+<br><br>
+Fix the problem:
+<br><br>
+<UL>
+	<LI> Change the class declaration, or
+<br><br>
+	<LI> Change the method declarations, or
+<br><br>
+	<LI> Change the constructor visibility.
+</UL>
+<br> <br> <br> <br>
+	<LI> Make all fields final.
+<br> <br> <br> <br>
+	<LI> Make all fields private.
+<br><br>
+	Is there a significant difference in visibility between
+ <code>re</code>
+and
+ <code>im</code>?
+<br> <br> <br> <br>
+	<LI> Ensure exclusive access to any mutable components.
+<br> <br> <br> <br>
+</OL>
+</font>
+
+
+</BODY>
+</font>
+
+
+</body>
+</html>
+

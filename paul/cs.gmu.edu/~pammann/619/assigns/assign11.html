@@ -1,0 +1,104 @@
+<html>
+<head>
+   <title>
+SWE 619 Assignment 11 
+   </title>
+</head>
+<body>
+
+<center> <h1>
+SWE 619 Assignment 11 <br>
+Spring 2021
+</h1></center>
+
+
+
+<center>
+<hr>
+</center>
+
+
+<p>
+<b>Goal:</b>
+Applying lessons learned.
+ <BR>
+
+You have a choice of possible assignments.
+<br>
+<br>
+<p>
+In each case, the deliverable is a <em>story</em>.
+Write a brief report,
+and include enough evidence
+(output, screen shots, etc.)
+that the GTA can figure out that you actually completed the assignment.
+<OL>
+<LI>
+Consider one of the <code>copyOf()</code> methods in the java 
+<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html">
+Arrays</a> utility class.
+Bloch uses this method in his <code>Stack</code> example.
+Code a corresponding method in C++, changing the argument list as necessary.
+Provide a specification for the C++ code by
+translating the JavaDoc and adding preconditions as necessary.
+Explain what this exercise demonstrates about C++ type safety.
+<LI>
+For most of the semester, we have focused on
+design considerations for constructing software
+that does something we want it to do.
+For this last assignment, I would like students
+to appreciate just how vulnerable software is
+to malicious parties intent on attacking their
+software.
+Students who find this assignment amusing might
+wish to take ISA/SWE 681: Secure Software Design and Programming.
+<P>
+
+There are two attacks documented in Bloch's 
+Item 88: <i>Write <code>readObject()</code> methods defensively.</i>
+One is called <code>BogusPeriod</code>,
+and the other is called <code>MutablePeriod</code>.
+Implement either (your choice) of these attacks (basically involves
+typing in code from Bloch) and verify that the attack takes place.
+
+<LI>
+A different source of security vulnerabilities in Java also involve
+serialization.
+Bloch (and others) recommend "cross-platform
+structured data representations" (e.g. JSON or Protocol Buffers) 
+as safe alternatives.
+Develop a simple serialization example in Java and convert it
+into a safe alternative (probably, JSON is easier to use, since
+it is text-based).
+To make the example more interesting, use some objects types that
+are not directly supported.
+
+<LI> Find some existing (Java) code that uses the "int enum pattern"
+and refactor it to use Java Enums instead.
+Identify any type-safety issue you uncover in the existing code.
+To make the exercise interesting, 
+extend your enums beyond simple named-constants
+in one of the ways discussed by Bloch in Item 34.
+
+
+<br>
+<LI>
+  Where appropriate, code up, as JUnit theories, constraints 
+  for classes that implement the Java <code>Comparable</code> interface.
+  Note that there is significant overlap with the in-class exercise.
+  Note also that the <code>Comparable</code> interface is generic;
+  hence, you should use generics in your JUnit test class.
+<LI>
+  Gain experience with one of the property-based testing
+tools.  I suggest a Java-based one (such as jqwik).  One
+way to do this is work through one of the articles linked
+on the jqwik site.
+
+
+</UL>
+
+
+<HR>
+
+
+</BODY>

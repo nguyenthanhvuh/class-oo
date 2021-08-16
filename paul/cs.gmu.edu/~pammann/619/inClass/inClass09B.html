@@ -1,0 +1,78 @@
+<html>
+<head>
+   <title>
+SWE 619 In Class Exercise # 9B
+   </title>
+</head>
+<body>
+
+<center> <h1>
+SWE 619 In Class Exercise # 9B
+</h1></center>
+
+<br>
+<hr>
+<font size=+1>
+
+Consider a variation of Liskov's IntSet example (Figure 5.10, page 97)
+<pre>
+public class IntSet implements Cloneable {  
+   private List&lt;Integer&gt; els;
+   public IntSet () { els = new ArrayList&lt;Integer&gt;(); }
+   ...
+   @Override 
+   public boolean equals(Object obj) { 
+      if (!(obj instanceof IntSet)) return false;
+
+      IntSet s = (IntSet) obj;
+      return ???
+   }
+
+   @Override 
+   public int hashCode() { 
+      // see below 
+   }
+
+   // adding a private constructor
+   private IntSet (List&lt;Integer&gt; list) { els = list; }
+
+   @Override 
+   public IntSet clone() { 
+      return new IntSet ( new ArrayList&lt;Integer&gt;(els));
+   }
+}
+</pre>
+<OL>
+	<LI> How should the <code>equals()</code> method be completed?
+	<LI> Analyze the following ways to implement <code>hashCode()</code>?
+	If there is a problem, give a test case that shows the problem.
+<UL>
+<LI> not overridden at all
+<LI> return 42;
+<LI> return els.hashCode();
+<LI> int sum = 0; for (Integer i : els) sum += i.hashCode(); return sum;
+</UL>
+<!--
+	<LI> Does the private constructor need to be private?
+<br> <br> <br> <br>
+	<LI> Is the return type for  <code>clone()</code> ok?  What's the
+	geeky term for this?
+<br> <br> <br> <br>
+	<LI> Note that <code>clone()</code> doesn't use <code>clone()</code>
+	on <code>ArrayList</code>.  Could it?  Any downside?
+<br> <br> <br> <br>
+-->
+	<LI> What's the problem with <code>clone()</code> here?
+	Give a test case that shows the problem.
+	<LI> Fix <code>clone()</code> in two very different ways.
+</OL>
+</font>
+
+
+</BODY>
+</font>
+
+
+</body>
+</html>
+

@@ -1,0 +1,59 @@
+<HEAD>
+<TITLE>SWE 619 In Class Exercise Number 2A</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 In Class Exercise Number 2A <BR>
+ </H1>
+</CENTER>
+
+<HR>
+<P>
+
+Consider a simple generic <code>Queue</code> implementation.
+<pre>
+public class Queue &lt;E&gt; {
+
+   private List&lt;E&gt; elements;
+   private int size;
+
+   public Queue() {   
+      this.elements = new ArrayList&lt;E&gt;();
+      this.size = 0;
+   }
+
+   public void enQueue (E e) {
+     elements.add(e);
+     size++;
+   }
+
+   public E deQueue () {
+     if (size == 0) throw new IllegalStateException("Queue.deQueue");
+     E result = elements.get(0);
+     elements.remove(0);
+     size--;
+     return result;
+   }
+
+   public boolean isEmpty() {
+      return size == 0;
+   }
+}
+</pre>
+
+<font size=+0>
+
+<OL>
+<LI>	Rewrite <code>Queue</code> to be <b>immutable</b>.
+Keep the representation variables <code>elements</code> and <code>size</code>.
+
+<LI>	Do the right thing with <code>enQueue()</code>.
+
+<LI>	Do the right thing with <code>deQueue()</code>.
+
+</OL>
+
+
+</BODY>

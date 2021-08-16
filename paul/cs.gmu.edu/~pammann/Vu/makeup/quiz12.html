@@ -1,0 +1,94 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 12</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 12 <BR>
+  Make-up version: Fall 2019
+<br>
+Maximum Possible score is 8
+ </H1>
+</CENTER>
+
+<font size=+3>
+Name:
+</font>
+<HR>
+<font size=+1>
+Consider the following incomplete JUnit theory about the consistency
+of <code>equals()</code> and <code>hashCode()</code>.
+<P>
+<pre>
+   @Theory public void equalsConsistentWithHashCode( ... ) {
+      assumeTrue (...);   // Precondition
+      
+      assertTrue (...);   // Postcondition
+    }
+</pre>
+
+<OL>
+   <LI> Supply the appropriate number of parameters of the appropriate types for this theory:
+<br> <br>
+<!--
+<br> <br>
+<br><b>Answer</b>:
+<pre>
+   Object x, Object y
+</pre>
+-->
+   <LI> What is an appropriate precondition?
+	You might want to use multiple <code>assumeTrue()</code> statements.
+<br> <br>
+<!--
+<br> <br>
+<br><b>Answer</b>:
+<pre>
+      assumeTrue (x!= null && y!=null);   // Assume
+      assumeTrue (x.equals(y));        // Assume
+</pre>
+Note:  The "null" test on y is not strictly necessary.
+-->
+   <LI> What is an appropriate postcondition?
+<br> <br>
+<!--
+<br> <br>
+<br><b>Answer</b>:
+<pre>
+      assertTrue (x.hashCode() == y.hashCode());   // Assert
+</pre>
+-->
+<LI>
+Suppose you had the following JUnit datapoints.  
+<pre>
+@DataPoints public static Object[] stuff = { "bat", "cat", "cat", null };
+</pre>
+<UL>
+   <LI> 
+	How many times would the precondition be be evaluated?
+<br> <br>
+<!--
+<br> <br>
+<br><b>Answer</b>:
+<pre>
+      4*4 = 16
+</pre>
+-->
+   <LI> How many times would the postcondition be evaluated?
+<br> <br>
+<!--
+<br> <br>
+<br><b>Answer</b>:
+<pre>
+      1 + 4 = 5
+</pre>
+-->
+</UL>
+</OL>
+</font>
+
+
+
+
+</BODY>

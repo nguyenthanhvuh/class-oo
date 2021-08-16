@@ -1,0 +1,107 @@
+<HEAD>
+<TITLE>SWE 619 Quiz Number 2</TITLE>
+</HEAD>
+<BODY>
+
+<CENTER>
+ <H1>
+  SWE 619 Quiz Number 2 <BR>
+  Make-up version: Fall 2019
+<br>
+Maximum Possible score is 8
+ </H1>
+</CENTER>
+
+<font size=+3>
+Name:
+</font>
+<HR>
+Consider the following implementation.
+<pre>
+public &lt;T&gt; static void rotate (List&lt;T&gt; list) {
+   T x = list.remove(0);  
+   list.add(x);          // places x at end of list
+}
+</pre>
+
+<OL>
+<LI>
+Identify the behavior of the implementation in the following cases:
+
+<UL>
+<LI> 
+<code>    
+rotate(null); 
+</code>
+<br><br>
+<!--
+<b> Answer</b>: <code>NullPointerException</code>.
+-->
+<LI> 
+<pre>
+List &lt;String&gt; list = new ArrayList &lt;String&gt;();
+rotate(list);
+</pre>
+<br>
+<!--
+<b> Answer</b>: <code>IndexOutOfBoundsException</code>.
+-->
+<LI> 
+<pre>
+List &lt;String&gt; list = new ArrayList &lt;String&gt;();
+list.add("cat");
+rotate(list);
+</pre>
+<br>
+<!--
+<b> Answer</b>: <code>list</code> has the value <code>[cat]</code>.
+-->
+<LI> 
+<pre>
+List &lt;String&gt; list = new ArrayList &lt;String&gt;();
+list.add("cat");
+list.add("dog");
+rotate(list);
+</pre>
+<br>
+<!--
+<b> Answer</b>: <code>list</code> has the value <code>[dog, cat]</code>.
+-->
+</UL>
+<LI>
+	Write preconditions that forbid the first two cases above.
+<br><br> <br>
+<!--
+<b> Answer</b>: <code>list != null</code> and <code>list not empty</code>
+-->
+<LI> Transform each precondition into a postcondition with exception handling.
+Follow Bloch's guidelines.
+<br> <br> <br>
+<!--
+ <br>   <b> Answer</b>: 
+<pre>
+@throws NullPointerException if list is null
+@throws IllegalArgumentException if list is empty
+</pre>
+-->
+</UL>
+<LI>
+Change the implementation so that it satisfies the postconditions you just wrote.
+Again, follow Bloch's guidelines.
+<br> <br> <br>
+<!--
+ <br>   <b> Answer</b>: 
+<pre>
+public &lt;T&gt; static void rotate (List&lt;T&gt; list) {
+   if (list.size() == 0) throw new IllegalArgumentException();
+   T x = list.remove(0);  
+   list.add(x);          // places x at end of list
+}
+</pre>
+-->
+</OL>
+</font>
+
+
+
+</BODY>
