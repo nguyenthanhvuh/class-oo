@@ -2,183 +2,174 @@
 #+OPTIONS: ^:nil toc:nil 
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
-  
-#+begin_center
-#+begin_export html
-    <address>
-    Instructor: 	<a href="https://nguyenthanhvuh.github.io">ThanhVu Nguyen</a><br>
-    Office: 	Zoom<br>
-    Course Location: 	Zoom <br>
-    Email: 	<a href="mailto:tvn@gmu.edu">tvn@gmu.edu</a><br>
-    URL: 	<a href="https://nguyenthanhvuh.github.io/class-oo">https://nguyenthanhvuh.github.io/class-oo</a><br>
-    Class Hours: 	Mondays 4:30 to 7:10, Online (Zoom)<br>
-    Office Hour Zoom: 	TBA (Zoom) <br>
-    </address>
-#+end_export
-#+end_center
 
-
-
-
+* General Information
+  - Instructor: [[https://nguyenthanhvuh.github.io][ThanhVu Nguyen]]
+    - Office Hrs: Mondays 3:00PM - 4:00PM (Zoom link below)
+    - Email: [[mailto:tvn@gmu.edu][tvn@gmu.edu]] (Piazza discussion is preferred)
+  - TA: TBD
+  - Class:
+    - Mondays 4:30PM--7:10PM (ONLINE format)
+    - Zoom link: https://gmu.zoom.us/j/98393279342 (Passcode: 148674)
+    - Piazza: https://piazza.com/gmu/fall2021/swe619nguyen
+    - Syllabus and Schedule (this website): [[https://nguyenthanhvuh.github.io/class-oo][https://nguyenthanhvuh.github.io/class-oo]]
+    - Assignment Submissions (homework, reflection, quizzes, exams): Blackboard (BB)
+      
 * [[./schedule.org][Schedule and Assignments]]
   
 * Syllabus       
 ** Course Description
 
-  To give the students a solid understanding of modern software construction. To prepare students to construct sequential and concurrent programs. To encourage the construction of software systems of high quality. In-depth study of software construction in a modern language including control structuring and packaging. Concepts such as information hiding, data abstraction, and object-based and object-oriented software construction are discussed and illustrated. This course is part of the core of the SWE program. This section of 619 uses Java.
+   To give the students a solid understanding of modern software construction. To prepare students to construct sequential and concurrent programs. To encourage the construction of software systems of high quality. In-depth study of software construction in a modern language including control structuring and packaging. Concepts such as information hiding, data abstraction, and object-based and object-oriented software construction are discussed and illustrated. This course is part of the core of the SWE program. This section of 619 uses Java.
 
-  *Prerequisite*: SWE Foundation Courses or equivalent
+   *Prerequisite*: SWE Foundation Courses or equivalent
 
 ** Course Materials
 
-  - Joshua Bloch. [[https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=sr_1_1?dchild=1&keywords=effective+java&qid=1626231154&sr=8-1][/Effective Java/]]. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1. *Required*. 
-    # + [[http://proquest.safaribooksonline.com/book/programming/java/9780134686097][Direct Safari Link]]
-    + [[https://learning-oreilly-com.mutex.gmu.edu/library/view/effective-java-3rd/9780134686097/cover.xhtml][Link]]
-  - Barbara Liskov with John Guttag. [[https://www.amazon.com/Program-Development-Java-Specification-Object-Oriented/dp/0201657686/ref=sr_1_2?dchild=1&qid=1626231221&refinements=p_27%3ABarbara+Liskov&s=books&sr=1-2&text=Barbara+Liskov][/Program Development in Java: Abstraction, Specification, and Object-Oriented Design/]]. Addison Wesley, 2001, ISBN 0-201-65768-6. *Required*. 
-    # + [[http://proquest.safaribooksonline.com/book/programming/java/9780768685299][Direct Safari Link]]
-    + [[https://learning-oreilly-com.mutex.gmu.edu/library/view/program-development-in/9780768685299/ch1.html][Link]]
-      # - Note that you can access the Java 8 APIs at the Oracle site.
+   - Joshua Bloch. [[https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=sr_1_1?dchild=1&keywords=effective+java&qid=1626231154&sr=8-1][/Effective Java/]]. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1. *Required*. 
+     # + [[http://proquest.safaribooksonline.com/book/programming/java/9780134686097][Direct Safari Link]]
+     + [[https://learning-oreilly-com.mutex.gmu.edu/library/view/effective-java-3rd/9780134686097/cover.xhtml][Link]]
+   - Barbara Liskov with John Guttag. [[https://www.amazon.com/Program-Development-Java-Specification-Object-Oriented/dp/0201657686/ref=sr_1_2?dchild=1&qid=1626231221&refinements=p_27%3ABarbara+Liskov&s=books&sr=1-2&text=Barbara+Liskov][/Program Development in Java: Abstraction, Specification, and Object-Oriented Design/]]. Addison Wesley, 2001, ISBN 0-201-65768-6. *Required*. 
+     # + [[http://proquest.safaribooksonline.com/book/programming/java/9780768685299][Direct Safari Link]]
+     + [[https://learning-oreilly-com.mutex.gmu.edu/library/view/program-development-in/9780768685299/ch1.html][Link]]
+       # - Note that you can access the Java 8 APIs at the Oracle site.
 
-  *Note*: We'll start with Liskov. Don't worry about the publication date; Liskov is basically a math book, and hence ages remarkably well. We're interested in contracts, mutability, data abstraction, and type abstraction. Bloch is concerned about the same things, but explores them in more detail and in more up-to-date Java. Bloch also corrects some important points that weren't well understood when Liskov's text came out.
+   *Note*: We'll start with Liskov. Don't worry about the publication date; Liskov is basically a math book, and hence ages remarkably well. We're interested in contracts, mutability, data abstraction, and type abstraction. Bloch is concerned about the same things, but explores them in more detail and in more up-to-date Java. Bloch also corrects some important points that weren't well understood when Liskov's text came out.
 
 ** Weekly Schedule
 
-  This class is a group-based, online offering. That means you need to be present in class at class time. You will also need to schedule regular meetings with your group and with me (and possibly the GTA) outside of class.
-  # This is my second offering of this class in a full-time online format. Mostly, we'll do what I did last fall, but there are some updates and tweaks.
+   This class is a group-based, /online/ offering. You need to be present in class at class time. You will also need to schedule regular meetings with your group.
+   # This is my second offering of this class in a full-time online format. Mostly, we'll do what I did last fall, but there are some updates and tweaks.
 
-  Each week will cover a small number of related technical issues (see course [[./schedule.html][schedule]]). Let's call this small number of technical issues a "topic". Each topic will follow roughly the same sequence of preparation, in-class learning activities, homework completion and (possibly) presentation, and knowledge assessment. To make this scale in an online environment, many of these activities will be group based. The sequence is:
+   Each week will cover a topic, which is a small number of related technical issues (see course [[./schedule.html][schedule]]). Each topic will follow roughly the same sequence of preparation, in-class learning activities, homework completion and (possibly) presentation, and knowledge assessment. To make this scale in an online environment, many of these activities will be group based. The sequence is:
 
-  - Preparation: Complete assigned readings and watch relevant videos, if any.
-  - Reading Reflection: This is a formal opportunity for each group to reflect on the reading.
-  - Synchronous Class Meeting (BB Collaborate):
-    + Prior week's homework solution presentation and discussion. This is typically a randomly selected group, but occasionally, I'll do the presentation.
-    + Reading reflection summary
-    + Combined session on the day's topic, followed by in-class exercises (group breakouts)
-    + Break
-    + Combined session on the day's topic, followed by in-class exercises (group breakouts)
-    + Wrap up
-  - Homework (group-based).
-  - Individual oral assessments.
+   - Preparation: Complete assigned readings and watch relevant videos, if any.  No formal submission for this activity.
+   - Reading Reflection: This is a formal opportunity for each group to reflect on the reading.
+   - Class Meeting:
+     + Reading reflection summary
+     + Combined session on the day's topic, followed by in-class exercises (group breakouts)
+     + Break
+     + Combined session on the day's topic, followed by in-class exercises (group breakouts)
+   - Homework (group-based)
+   - Assessments via quiz: takes place at the beginning of class the same day as the homework is due.
 
 ** Grading
 
-  | Assignenmts                        | Percentage |
-  |------------------------------------+------------|
-  | Group Functioning (group-based)    |         5% |
-  | Reading Reflections (group-based)  |        10% |
-  | Homework assignments (group-based) |        15% |
-  | Weekly Quizzes (individual)        |        40% |
-  | Final exam (individual)            |        30% |
+   | Assignenmts                        | Percentage |
+   |------------------------------------+------------|
+   | Group Functioning (group-based)    |         5% |
+   | Reading Reflections (group-based)  |        10% |
+   | Homework assignments (group-based) |        15% |
+   | Weekly Quizzes (individual)        |        40% |
+   | Final exam (individual)            |        30% |
 
 *** Group Functioning
 
-   Every student needs to be part of a group. I would prefer that groups stay stable throughout the semester, but if there is a good rationale to reconfigure a group or two, we'll do that.
+    Every student needs to be part of a group. I would prefer that groups stay stable throughout the semester, but if there is a good rationale to reconfigure a group or two, we'll do that.
 
-   *Group size*: 2 to 4 students.
+    *Group size*: 2 to 4 students.
 
-   Group creation mechanism: As a default, we'll drop students into groups at random. If you are happy with your random group, great! If you prefer a different group, during the first week you will have the option to re-group. If your group dwindles to just yourself, you'll need to join another group.
+    Group creation mechanism: As a default, we'll drop students into groups at random. If you are happy with your random group, great! If you prefer a different group, during the first week you will have the option to re-group. If your group dwindles to just yourself, you'll need to join another group.
 
-   At the end of the semester, each individual will provide an assessment of the rest of their group. This assessment will determine the "Group Functioning" part of the grade.
+    At the end of the semester, each individual will provide an assessment of the rest of their group. This assessment will determine the "Group Functioning" part of the grade.
 
-   Groups can communicate internally through any mechanism they choose: zoom, discord, google docs, etc
+    Groups can communicate internally through any mechanism they choose: zoom, discord, google docs, etc
 
 *** Reading Reflections
 
-   Each week, each group must complete a "reading reflection" the day *before* class. (That means midnight Sunday, in the case of this class, since class meetings are Monday afternoon.) I will review these assessments before class, compile the overall responses, and use them to tune the in-class activities. Reading reflections are linked from the course schedule and must be turned in on BB. These reflections are part of the learning process rather than the assessment process. That is, they don't assess whether you have achieved mastery of the new material, rather they check whether you have done the necessary preparation.
+    Each week, each group must complete a "reading reflection" the day *before* class. (That means midnight Sunday, in the case of this class, since class meetings are Monday afternoon.) I will review these assessments before class, compile the overall responses, and use them to tune the in-class activities. Reading reflections are linked from the course schedule and must be turned in on BB. These reflections are part of the learning process rather than the assessment process. That is, they don't assess whether you have achieved mastery of the new material, rather they check whether you have done the necessary preparation.
 
-   *Important*:
-   - There are no make-ups.
-   - Only one submission per *group*. Everyone in the group gets the same credit.
+    *Important*:
+    - There are no make-ups.
+    - Only one submission per *group*. Everyone in the group gets the same credit.
 
 *** Homework Assignments
 
-   There are weekly *group* homework assighments. I post homework assignments on the class [[./schedule.html][schedule web site]]. Generally, your group should submit assignments via BB.
+    There are weekly *group* homework assighments. I post homework assignments on the class [[./schedule.html][schedule web site]]. Generally, your group should submit assignments via BB.
 
-   Because of the way in which this class is taught, it is important to stay on pace. Homeworks are due *before class*. Late submissions are not accepted except in truly exceptional circumstances.
+    Because of the way in which this class is taught, it is important to stay on pace. Homeworks are due *before class*. Late submissions are not accepted except in truly exceptional circumstances.
 
-   *Important*: 
-   - Each group should be prepared to present their homework solution in class.
-   - *Statement of who did what*. Homeworks are group exercises. Each submission must contain a specific statement of who did what.
-   # ** *Solutions and solution checking*. The group must split their roles on each exercise. Part of the group creates the solution. A separate part of the group checks the solution, certifies that it is correct, and *explains why it is correct*. If you can't formulate this explanation, it's time for your group to see me or the GTA in office hours.
+    *Important*: 
+    - Each group should be prepared to present their homework solution in class.
+    - *Statement of who did what*. Homeworks are group exercises. Each submission must contain a specific statement of who did what.
+    # ** *Solutions and solution checking*. The group must split their roles on each exercise. Part of the group creates the solution. A separate part of the group checks the solution, certifies that it is correct, and *explains why it is correct*. If you can't formulate this explanation, it's time for your group to see me or the GTA in office hours.
 
-*** Assessments
 
-   Ideally, oral assessments should happen every week. But I don't have the bandwidth to make that happen. Instead, every student will schedule an oral assessment once every *two* weeks.
+*** Weekly Quizzes
 
-   *Process*:
-   - Scheduling: While each student will complete each assessment individually, we will schedule assessments by group. Students in odd numbered gropus should schedule themselves for an assessment in weeks with odd-numbered oral assessment guides. Students in even numbered groups should schedule themselves for an assessment in weeks with even-numbered oral assessment guides.
-   - Duration: Each assessment lasts 10 minutes. This is a little tight, but generally works.
-   - I will be forthcoming and concrete about the content for each assessment. I'll do this in the form of "Oral Assessment Guides" posted to the course schedule. That is, you shouldn't be surprised by any of the questions. Often, they will be closely related to the prior week's homework. The questions will typically look like, "What would Liskov (or Bloch) think of the following variation(s) of this snippet of code we studied last week? And why would they think that?"
-   - Not every student will get the same quiz, even if the quiz is on the same day.
-   - The evaluation scale is as follows:
-     + Awesome means you demonstrate mastery of the material. Scores 10/10.
-     + Strong performance, but perhaps a slight wobble: Scores 9/10.
-     + Acceptable, but some significant errors: Scores 8/10.
-     + Weak: Scores 5/10 to 7/10.
-     + Unacceptable: Scores 0/10.
-     Make-ups. The goal is to get you to understand the material. So, if you score as "Weak" or "Unacceptable", I'll give you an opportunity for a make-up. The maximum score on a make-up is 8/10. Before I'll admit you for a make-up, you will have to practice with the GTA. If the GTA gives me the green light, I'll schedule a make-up.
+    - Each quiz happens during the first 10 to 15 minutes of class. If you're late, you miss the quiz.
+    - I will be forthcoming and concrete about the content for each quiz. I'll do this in the form of "Quiz Guides" posted to the course schedule. That is, you shouldn't be surprised by any of the questions. Often, they will be closely related to the prior week's homework.
+
+    *Make-up Policy*
+    - All quizzes count towards the final grade. Each quiz is scored on a 10 point scale. Missed quizzes score 0/10. Students who miss a quiz or perform badly on a quiz may choose to take the "make-up".
+    - The maximum possible score on the make-up is 8/10. (Example: your quiz grade is 5/10. You take the make-up and correctly answer 9 of 10 equally weighted questions. Your final score improves from 5/10 to 8/10.)
+    - If you attempt the make-up, that score counts, no matter what your score was on the quiz. (Example: your quiz grade is 7/10. You take the make-up and correctly answer 5 of 10 equally weighted questions. Your final score declines from 7/10 to 5/10.)
+    - Scheduling: I plan to offer the make-up during GTA office hours. The make-up can be different than the quiz given in class, but focuses on the same topics.
+    - The make-up must be taken promptly and within a window of two class meetings from the quiz. (Example: Quiz 1 takes place on Wednesday, September 1. The make-up must be taken on or before Wednesday, September 15. Another Example: Quiz 11 takes place on Wednesday, November 11. Because we don't meet the week of Thanksgiving, the make-up must be taken on or before Wednesday, December 1.)
+    - Each quiz only has one make-up, and you can only attempt that make-up once. However, you are free to use the make-up mechanism on as many different quizzes as you wish.
+    - Quizzes are generally returned one week after the quiz is taken. Make-ups are returned after the window has closed.
 
 *** Final Exam
 
-   There will be a final exam appropriate for the online, unproctored nature of this class offering. The last class of the semester will include a detailed discussion of the exam structure and contents.
+    There will be an online final exam at the time specified by the university's final exam schedule. I may also offer an oral option for interested students.
 
-   -----
+    -----
 
 ** Class Attendance
 
-  I place great emphasis on peer learning and interactive engagement. The class is structured to leverage group interactions to the largest extent possible for the purpose of maximizing learning gain through out the semester.
+   I place great emphasis on peer learning and interactive engagement. The class is structured to leverage group interactions to the largest extent possible for the purpose of maximizing learning gain through out the semester.
 
-  Bottome line: It's important to be in class.
+   Bottome line: It's important to be in class.
 
 ** In-Class Exercises
 
-  I plan an in-class exercise for every class. Students will work in their designated group. Some of these exercises need a Java development environment. Very often, the in-class exercises will be closely related to an upcoming homework assignment.
+   I plan an in-class exercise for every class. Students will work in their designated group. Some of these exercises need a Java development environment. Very often, the in-class exercises will be closely related to an upcoming homework assignment.
 
-# ** ShowMe Videos/Other videos
+   # ** ShowMe Videos/Other videos
 
-#   The course schedule page links to a number of short videos created by [[https://cs.gmu.edu/~pammann/][Paul Ammann]] with the ShowMe service. Some students find these helpful for grasping key points from various lectures.
-  # Several items of note:
-  # - Each ShowMe captures an interaction a student has with me. Such interactions can help students master the material more effectively than having me drone on solo.
-  # - I am interested in creating more ShowMe videos for other topics in the course. Contact me if you would like to help me do this.
-  # - I am open to redoing existing topics if there is something you think could be done better.
-  # - Other videos are just me.
+   #   The course schedule page links to a number of short videos created by [[https://cs.gmu.edu/~pammann/][Paul Ammann]] with the ShowMe service. Some students find these helpful for grasping key points from various lectures.
+   # Several items of note:
+   # - Each ShowMe captures an interaction a student has with me. Such interactions can help students master the material more effectively than having me drone on solo.
+   # - I am interested in creating more ShowMe videos for other topics in the course. Contact me if you would like to help me do this.
+   # - I am open to redoing existing topics if there is something you think could be done better.
+   # - Other videos are just me.
 
 ** Record Keeping
 
-  We'll use Blackboard to maintain *RAW* scores and attendance data. Grades are computed according to this syllabus.
-  # There is a column in BB labeled "TOTAL": Ignore it; it's meaningless for this class. (BB does not give me the option of disabling or hiding this column.)
+   We'll use Blackboard to maintain *RAW* scores and attendance data. Grades are computed according to this syllabus.
+   # There is a column in BB labeled "TOTAL": Ignore it; it's meaningless for this class. (BB does not give me the option of disabling or hiding this column.)
 
-  It's the student's responsibility to ensure that Blackboard records are correct. (I'm happy to correct errors.)
+   It's the student's responsibility to ensure that Blackboard records are correct. (I'm happy to correct errors.)
 
-  # Every semester, I get email from students wondering why there grade doesn't correspond to the TOTAL column in BB. Please don't be the student who sends me this message.
+   # Every semester, I get email from students wondering why there grade doesn't correspond to the TOTAL column in BB. Please don't be the student who sends me this message.
 
-# ** Email
+   # ** Email
 
-#   Please note that questions of general interest should not be emailed to me. Post on Piazza instead.
+   #   Please note that questions of general interest should not be emailed to me. Post on Piazza instead.
 
-# ** Virginia Privacy Laws
+   # ** Virginia Privacy Laws
 
-#   The state of Virginia now has laws that require the University (including me) not to disclose student email addresses, phone numbers, and addresses. This will impact communications in this class as follows:
-#   - Communicating via email with groups of students is problematic. (Bcc is a partial but not very good, solution.) As far as I have been able to determine, Piazza does not make student emails visible to other students, even though instructors can see email addresses. Hence, this is another reason to favor the Piazza forum.
-#   - *You** can choose to disclose your email whenever and wherever you wish. That's up to you.
+   #   The state of Virginia now has laws that require the University (including me) not to disclose student email addresses, phone numbers, and addresses. This will impact communications in this class as follows:
+   #   - Communicating via email with groups of students is problematic. (Bcc is a partial but not very good, solution.) As far as I have been able to determine, Piazza does not make student emails visible to other students, even though instructors can see email addresses. Hence, this is another reason to favor the Piazza forum.
+   #   - *You** can choose to disclose your email whenever and wherever you wish. That's up to you.
 
-# ** Piazza
+   # ** Piazza
 
-#   I find anonymous discussions unhelpful in this class; here learning is predicated on interactions. Plus, part of your education is to learn to stand behind your questions and ideas. That's how employees function in the working world. Piazza allows partial, but not complete, control of anonymous posts. Should someone post anonymously, I will ask the poster to change the visibility and ask the class not to respond to the anonymous version.
+   #   I find anonymous discussions unhelpful in this class; here learning is predicated on interactions. Plus, part of your education is to learn to stand behind your questions and ideas. That's how employees function in the working world. Piazza allows partial, but not complete, control of anonymous posts. Should someone post anonymously, I will ask the poster to change the visibility and ask the class not to respond to the anonymous version.
 
 
-  -----
+   -----
 
 ** Honor Code
 
-  As with all GMU courses, SWE 619 is governed by the [[http://oai.gmu.edu/the-mason-honor-code/][GMU Honor Code]]. In this course, all oral assessments and the final exam carry with them an implicit statement that it is the sole work of the author. Further, all group submissions require a statement of participation from each member of the group.
+   As with all GMU courses, SWE 619 is governed by the [[http://oai.gmu.edu/the-mason-honor-code/][GMU Honor Code]]. In this course, all oral assessments and the final exam carry with them an implicit statement that it is the sole work of the author. Further, all group submissions require a statement of participation from each member of the group.
 
 ** Learning Disabilities
 
-  Students with learning disabilities (or other conditions documented with GMU Office of Disability Services) who need academic accommodations should see me and contact the [[http://ods.gmu.edu/][Disability Resource Center]] (DRC) at (703)993-2474. I am more than happy to assist you, but all academic accommodations must be arranged through the DRC.
+   Students with learning disabilities (or other conditions documented with GMU Office of Disability Services) who need academic accommodations should see me and contact the [[http://ods.gmu.edu/][Disability Resource Center]] (DRC) at (703)993-2474. I am more than happy to assist you, but all academic accommodations must be arranged through the DRC.
 
-  -----
+   -----
 ** Acknowledgement
-  This class is heavily modeled after [[https://cs.gmu.edu/~pammann/][Paul Ammann]]'s [[https://cs.gmu.edu/~pammann/619.html][SWE619 course]].
+   This class is heavily modeled after [[https://cs.gmu.edu/~pammann/][Paul Ammann]]'s [[https://cs.gmu.edu/~pammann/619.html][SWE619 course]].
 
   
