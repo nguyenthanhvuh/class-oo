@@ -1446,13 +1446,13 @@
 *** Grading Criteria
     In each case, the deliverable is a story. Write a brief report, and include enough evidence (output, screen shots, etc.) that the GTA can figure out that you actually completed the assignment.
 
-* Oral Assessment Guides
+* Quiz Guides
 ** Guide 1
    :PROPERTIES:
    :CUSTOM_ID: g1
    :END:
    
-   Oral Assessment 1 will revisit the example from In-Class Exercise 0. I'll ask you about the *first* of the two given =equals()= methods, as well as "corner" cases where this method might do something odd.
+   Quiz 1 will revisit the example from In-Class Exercise 0. I'll ask you about the *first* of the two given =equals()= methods, as well as "corner" cases where this method might do something odd.
 
    This won't be a deep-dive; that comes later. But you should be able to identify specific inputs that lead to corner case behavior. You should be able to assess code behavior on specific inputs.
 
@@ -1462,7 +1462,7 @@
    :CUSTOM_ID: g2
    :END:
    
-   Oral Assessment 2 will focus on Liskov, Chapters 3-4 and Bloch 10. Specifically, you should be able to explain the code and the contracts for in-Class exercise 1A. As part of this, you should be able to transform preconditions into postconditions via the exception handling mechanism, and you should be able to incorporate Bloch's advice on exceptions into this transformation.
+   Quiz 2 will focus on Liskov, Chapters 3-4 and Bloch 10. Specifically, you should be able to explain the code and the contracts for in-Class exercise 1A. As part of this, you should be able to transform preconditions into postconditions via the exception handling mechanism, and you should be able to incorporate Bloch's advice on exceptions into this transformation.
 
    Since I want all students to understand every week of the semester, it's possible that your oral assessment will address last week's topic. Be prepared for both!
 
@@ -1471,7 +1471,7 @@
    :CUSTOM_ID: g3
    :END:
    
-   Oral Assessment 3 will focus on the first part of Liskov 5. You should be able to understand/explain variations of the IntSet and Poly examples. You should be able to convert methods (both contracts and code) in either of these classes into the appropriate version for the "other" mutability. (That is, immutable versions of IntSet or mutable versions of Poly.)
+   Quiz 3 will focus on the first part of Liskov 5. You should be able to understand/explain variations of the IntSet and Poly examples. You should be able to convert methods (both contracts and code) in either of these classes into the appropriate version for the "other" mutability. (That is, immutable versions of IntSet or mutable versions of Poly.)
 
    Since I want all students to understand every week of the semester, it's possible that your oral assessment will address last week's topic. Be prepared for both!
 
@@ -1482,7 +1482,7 @@
    :CUSTOM_ID: g4
    :END:   
 
-   Oral Assessment 4 will focus on the second part of Liskov 5: abstraction functions, rep-invariants, and how to argue that a method is correct. To make this concrete, let's focus on specific code fragments, listed below. You should be able to explain how changes to the contracts and the invariant affect correctness, much as in-class exercise 3B.
+   Quiz 4 will focus on the second part of Liskov 5: abstraction functions, rep-invariants, and how to argue that a method is correct. To make this concrete, let's focus on specific code fragments, listed below. You should be able to explain how changes to the contracts and the invariant affect correctness, much as in-class exercise 3B.
 
    The specific examples are:
 
@@ -1502,7 +1502,7 @@
    :CUSTOM_ID: g5
    :END:
    
-   Oral Assessment 5 will focus on the Liskov's treatment of iteration abstraction and Bloch Chapter 8, especially item 50.
+   Quiz 5 will focus on the Liskov's treatment of iteration abstraction and Bloch Chapter 8, especially item 50.
 
    For the oral assessment, you should focus on the iteration examples from in-class exercise 4A. (Exercise 4B is the focus of the homework.)
 
@@ -1515,7 +1515,7 @@
    :CUSTOM_ID: g6
    :END:
    
-   Oral Assessment 6 will be a re-cap.
+   Quiz 6 will be a re-cap.
 
    This week, students choose an assessment they have not yet taken. In other words, look over the guides and make a choice.
 
@@ -1526,7 +1526,7 @@
    :CUSTOM_ID: g7
    :END:   
 
-   Oral Assessment 7 will focus on the Liskov's treatment of subtyping.
+   Quiz 7 will focus on the Liskov's treatment of subtyping.
 
    You should focus on the type of analysis required for exercise 5B. That is, I will give you a method signature and two contracts, one for a supertype, and one for a subtype. As we work through variations on what's a precondition, what's a postcondition, and what the postcondition specifies, you should be able to state whether Liskov's two rules for analyzing methods are satisfied and, if not, why not.
 
@@ -1539,7 +1539,7 @@
    :CUSTOM_ID: g8
    :END:   
 
-   Oral Assessment 8 will focus both Liskov's treatment of polymorphism and Bloch's treatment of lambda expressions.
+   Quiz 8 will focus both Liskov's treatment of polymorphism and Bloch's treatment of lambda expressions.
 
    To make this concrete, we'll focus on the =Comparator= interface. You should be prepared to evaluate various implementations of this interface against the contract for the interface, with the ability to explain why certain violations of the contract could lead to trouble (e.g. when used in a collection framework such as =TreeSet=). You should also be prepared to manipulate this interface via lambda expressions (e.g. when used in a collection framework such as =TreeSet=).
 
@@ -1555,7 +1555,7 @@
    :CUSTOM_ID: g9
    :END:
 
-   Oral Assessment 9 will focus on Bloch's Chooser example. There is a lot going on in this example. Not only does it illustrate many of the points Bloch makes about generics, but it is also a good place to apply what we learned in Liskov about analyzing data types. Note that =Chooser= is very similar to Liskov's =IntSet= class.
+   Quiz 9 will focus on Bloch's Chooser example. There is a lot going on in this example. Not only does it illustrate many of the points Bloch makes about generics, but it is also a good place to apply what we learned in Liskov about analyzing data types. Note that =Chooser= is very similar to Liskov's =IntSet= class.
 
    Since I want all students to understand every week of the semester, it's possible that your oral assessment will address last week's topic. Be prepared for both!
 
@@ -1566,7 +1566,7 @@
    :CUSTOM_ID: g10
    :END:   
 
-   Oral Assessment 10 will focus on the Bloch's treatment of =Object= class methods.
+   Quiz 10 will focus on the Bloch's treatment of =Object= class methods.
 
    In particular, you should be able to identify defective implementations of =equals()=, =hashCode()=, and =clone()=, explain what's wrong, and repair appropriately. The assessments will be based on the examples we study in class.
 
@@ -1579,7 +1579,7 @@
    :CUSTOM_ID: g11
    :END:
    
-   Oral Assessment 11 will focus on the Bloch Chapter 4 with special emphasis on Item 17: Minimize mutability and Item 18: Favor composition over inheritance. In particular, you should be prepared to apply Bloch's rules for making a class immutable to a simple example and you should understand the various aspects of Bloch's InstrumentedSet example (code on page 90).
+   Quiz 11 will focus on the Bloch Chapter 4 with special emphasis on Item 17: Minimize mutability and Item 18: Favor composition over inheritance. In particular, you should be prepared to apply Bloch's rules for making a class immutable to a simple example and you should understand the various aspects of Bloch's InstrumentedSet example (code on page 90).
 
    Since I want all students to understand every week of the semester, it's possible that your oral assessment will address last week's topic. Be prepared for both!
 
@@ -1591,7 +1591,7 @@
    :CUSTOM_ID: g12
    :END:
    
-   Oral Assessment 12 will focus on the contract model in JUnit theories. The specific examples will be variations from In-Class 11.
+   Quiz 12 will focus on the contract model in JUnit theories. The specific examples will be variations from In-Class 11.
 
    Since I want all students to understand every week of the semester, it's possible that your oral assessment will address last week's topic. Be prepared for both!
 
