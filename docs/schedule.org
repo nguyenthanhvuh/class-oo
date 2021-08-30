@@ -110,7 +110,8 @@
    
    *Goal*: Understanding Contracts 
 
-   Consider the Java [[https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html][Iterator]] interface.
+   Consider the 3 methods =hasNext= , =next=, and =remove= in the Java [[https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html][Iterator]] interface:
+   
    - For each method, identify all preconditions and postconditions.
    - For each precondition, identify a specific input that violates the precondition.
    - For each postcondition, identify an input specific to that postcondition.

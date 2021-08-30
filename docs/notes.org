@@ -1,6 +1,78 @@
 <2021-08-26 Thu>
+** Quiz:
+   binary search
+   - write pre/post/modifies
+   - total vs partial
 
-Precondition: weakest is best,  nothing (i.e., True) is even better
+** Contact
+   (powerpoint)
+   - {P} S{Q}:  Hoare tripple
+     - P , S, Q
+     - assume terminaton
+     - customer (client) needs to establish P
+     - Implementer (service) assume P
+     - Implementer needs to establish Q (assume P)
+     - Customer assumes Q
+     - Bug: if both client/server do their job: good
+     - if precondition is not satisfied, customer is wrong (client has bug)
+     - if postcond is not satisfied, implementer is wrong (service has a bug)
+
+   - sqrt example:
+     sqrt(x):
+        pre:  x >= 0
+        what if x is negative?
+        post:  r*r = x +/ epsilon
+
+   - Precondition:
+     - as weak as possible  (True is the weakest)
+     - but lots of work, so Server prefers STRONGER (e.g., sqrt example:  if pre is weak/nothing, then SERVER has to handle more corner cases,  if if pre is stronger (e.g., x >= 0) , then SERVER doesn't have to handle as much
+       
+   - Postcondition:
+     - as strong as possible  (False is the strongest)
+     - but lots of work !  so Server prefers WEAKER post conditions (less things to do),  e.g.,  if post for sqrt is just return a number, then very easy
+
+
+     
+** Abstraction
+   - focuses on what (not how)
+     - signature: formal parameters, return types, etc
+     - isPrime:  detemrine if arg is prime is important ,   how this is determine is irrelevant
+** Specifications/Contracts
+   
+   - Informal (English, remove example): easier to write but vague
+** Signatures/Header
+   - requires/modifies/effects   in comments
+   - requires/precond: partial vs total
+   - modifies: input modification -> side-effect
+   - effects/postcond:  under assumption that requires are satisfied  (x' or x_post)
+   - Precondition: weakest is best,  nothing (i.e., True) is even better
+   - weaker vs stronger
+
+** Implementation
+   - Adhere to specifications
+   - weaker vs stronger  , e.g., if specification says return a number, then always return 3 is ok.  but if specification says return an odd number, then cannot return any number.
+   - 
+     
+** Exception (Bloch item 69)
+
+** Checkvs vs Unchecked (Bloch item 70)
+
+** 71
+
+** 72
+
+** 73
+
+** 74
+
+** 75
+
+** 76
+
+
+In class 1B (20 mins)
+
+
 
 -----
 
