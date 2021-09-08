@@ -1202,14 +1202,11 @@
 
     #+begin_src java
       @param principal:  Amount of the initial principal
-          @param rate:       Annual interest rate  (8% rate expressed as rate = 0.08)
-              @param payment:    Amount of the monthly payment
-
-                  public static int months (int principal, double rate, int payment)
-
-                  Requires: principal, rate, and payment all positive 
-          and payment is sufficiently large to drive the principal to zero.
-          Effects:  return the number of months required to pay off the principal
+      @param rate:       Annual interest rate  (8% rate expressed as rate = 0.08)
+      @param payment:    Amount of the monthly payment
+      public static int months (int principal, double rate, int payment)
+          // Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.
+          // Effects:  return the number of months required to pay off the principal
     #+end_src
 
 
