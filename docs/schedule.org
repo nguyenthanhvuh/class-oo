@@ -1704,7 +1704,7 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
     - Suppose we wish, in addition, to transform the =setSmall()= precondition ~0 <= i < a.length~ into defined behavior with an exception.
        - What exception would Bloch recommend for this transformation? Hint: Note that i is described as an "index". 
        - Extend your rewrite of the precondition and postcondition for =setSmall()= to achieve this result. 
-       - Does the given implementation of setSmall() satisfy this revised specification? 
+       - Does the given implementation of =setSmall()= satisfy this revised specification? 
 
 
 * Links
