@@ -1673,6 +1673,38 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
    1. This week's in-class exercise is a recap. Is there a topic (or two) we've covered that you think you need more practice with?
 
 
+* Quizzes
+*** Quiz 2:
+
+    Consider the following 2 specifications, the second of which has an associated implementation:
+    #+begin_src java
+      public static int minIndex (int [] a) {... implementation omitted ... }
+      // EFFECTS: if a null throw NullPointerException, else if a.length=0 throw
+      //      IllegalArgumentException else return index of some min element in a.
+
+      public static void setSmall (int [] a, int i) {
+          // REQUIRES: a != null, 0 <= i < a.length
+          // MODIFIES a
+          // EFFECTS: rearranges elements in array a so that some smallest element is at index i
+          int j = minIndex(a); int t = a[j]; a[j] = a[i]; a[i] = t;    }
+    #+end_src
+
+    1. Suppose we wish to transform the setSmall precondition ~a != null~ into defined behavior with an exception.
+       - What exception would Bloch recommend for this transformation? 
+       - Rewrite the precondition and postcondition for =setSmall()= to achieve this result. 
+         #+begin_src java
+           // REQUIRES: 0 <= i < a.length
+           // MODIFIES a
+           // EFFECTS: if a = null throw NullPointerException else
+           //          rearranges elements in array a so that 
+           //          smallest element is at index i
+
+         #+end_src
+       - Does the given implementation of =setSmall()= satisfy this revised specification? 
+    - Suppose we wish, in addition, to transform the =setSmall()= precondition ~0 <= i < a.length~ into defined behavior with an exception.
+       - What exception would Bloch recommend for this transformation? Hint: Note that i is described as an "index". 
+       - Extend your rewrite of the precondition and postcondition for =setSmall()= to achieve this result. 
+       - Does the given implementation of setSmall() satisfy this revised specification? 
 
 
 * Links
