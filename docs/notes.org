@@ -1,3 +1,185 @@
+<2021-09-13 Mon>
+
+
+
+Lecture 3
+
+HW2:
+- Pick some volunteer  (example code: https://www.youtube.com/watch?v=dacJdCgm-dM  5:31)
+- should not have checks or code for precondition (it’s assumed )
+- contracts format
+    - javadoc (preferred)
+    - Liskov (effects, modifies etc)
+- Report all errors at once or one by one 
+    - no standard
+    - one by one (compilers style)
+- Reflections
+    - Immutable: Many mention threat safe as an advtange of immutable;  also easy to compare
+    - Mutable: may be faster, doesn't have to recreate the whole thing when changing something
+
+*immutability over mutability?*
+1. Prevents corruption of objects and the data they hold as the object cannot be updated.
+2. Data is predictable. Once created cannot be modified.
+3. Comparing two immutable objects is easier. We can just compare the reference of the object.
+4. Immutable objects are thread safe and is useful to share data in multithreaded applications.
+5. Testing: Testing will be easy for immutable objects.
+
+*o mutability over immutability?*
+1. Mutable objects can be used when we do not know the actual size of the input data. Size can be
+variable which is an advantage of mutable objects over immutable objects.
+2. Objects can be modified post its creation. This memory efficient as we just update the reference
+instead of creating a new object.
+3. Mutable classes provide methods to update the data.
+
+
+- Data abstraction
+    - Creators: create objects (constructors are special kinds of creators)
+    - Producers: (???)
+        - create objects of their type based on existing objects
+        - typically used in immutable data types
+    - Mutators:
+        - modify objects of their type
+        - typically used in mutable data types
+    - Observers
+        - 
+- Disadvantage: Performance
+    - typically approach:  provide both Immutable and muttation. 
+    - E.g., Java library:
+        - String (Immutatble)
+        - StringBuilder (companion mutable class)
+- Poly.java
+    - What is a polynomial ? Ask student
+        - Should describe high level (client perspective), not implemented
+        - Wikipedia: expressions consisting of terms, which are variables and coefficients
+        - Also involve operations such as mult, addition, subtraction, non-neg int exponentiation
+    - How to implement polynomial?  
+        - Coef:  integer coef
+        - Exponent:  non-neg ints
+        - 1 variable (just x) 
+    - Poly code
+        - Effects (Poly constructor):  would it be ok if we say “initialize array to 0 and such”,  no it’s wrong,  it’s implementation level,  not specification 
+        - Think about this as “if I change my code,  would the specification still hold?”  If yes, then specification is good, otherwise,  incorrect 
+    - ADD:
+        - why so ugly?
+        - Because she has a constraint such that doesn’t trailing zeros …
+        - last thing in array is a non-negative coefficient
+- In class exercise: 2A QUEUE 
+    - Queue is currently mutable
+    - convert it to immutable
+    - ALSO put/change the contracts on both the ORIGINAL (mutable version) and immutatable version
+    - 30 mins
+    - 
+   #+begin_src java
+
+     public class Queue <E> {
+
+         private List<E> elements;
+         private int size;
+
+         public Queue() {   
+             this.elements = new ArrayList<E>();
+             this.size = 0;
+         }
+
+         public void enQueue (E e) {
+             elements.add(e);
+             size++;
+         }
+
+         public Queue<E> enQueue_producer (E e) {
+             Queue<E> queue = new Queue<>();
+             queue.elements.addAll(this.element);
+             queue.elements.add(e);
+             queue.size = this.size + 1;
+             return queue;
+         }
+
+         //Effect: remove and return the front element of queue (this)
+         //Modifies: contents of queue
+         //@throw ISE if queue is empty  (DO NOT USE SIZE)
+         public E deQueue () {
+             if (size == 0) throw new IllegalStateException("Queue.deQueue");
+             E result = elements.get(0);
+             elements.remove(0);
+             size--;
+             return result;
+         }
+
+         //Effect: return a queue that is like this but without the front element
+         //Modifies: none 
+         //@throw ISE if queue is empty  (DO NOT USE SIZE)
+         public Queue<E> deQueue_producer () {
+             if (size == 0) throw new IllegalStateException("Queue.deQueue");
+
+             Queue<E> queue = new Queue<>();
+             queue.elements.addAll(this.element);
+             //E result = queue.elements.get(0);
+             queue.elements.remove(0);
+             queue.size--;
+             return queue;//return result
+
+
+         }
+
+         public boolean isEmpty() {
+             return size == 0;
+         }
+
+     }
+
+     public static void main(String [] args){
+         Queue <String> q = new Queue<>();
+         q.enQueue("cat");
+         q.enQueue("dog");
+         q.deQueue();// return cat 
+     }
+   #+end_src
+
+
+*** Invariants:
+**** definition    
+**** Invariant locations :
+     - at the end,  post condition 
+     - loop invariant
+       - hold at the loop entrance
+       - preserves through the loop body
+         
+     #+begin_src 
+      {N >= 0}
+
+      i = 0
+      while (i < N):
+         i++
+
+# loop invs
+# i < N   # not a loop invariant because at first loop entrance, when N = 0  ,  i is NOT < N
+# i >= 0 # YES , loop inv
+# N >= 0   #  YES, loop inv
+# i <= N   # YES, loop inv 
+
+#  N >= -10
+#  N >= -11000
+
+     #+end_src
+
+
+
+AF:  mapping from (concrete state) representation state to abstract state  (often many to 1,  why, because abstractions forget details)
+
+    e.g.,  (2, [5,0,3])  ->  5 + 3x^2
+           (2, [5,0,3,0])  -> 5 + 3x^2   ... but Liskov's implementation not allows this
+
+     rep-inv: implementation details !!!! talk about the specific representation (programmer/Liskov's choice)
+     
+     #+begin_src txt
+     trms != null
+     terms.length >= 1
+     deg = trms.length - 1
+     deg >= 0  =>  c.terms[deg] != 0
+
+     #+end_src
+
+     
 Option to 
 - Multiple Share screen
 - Allow people to join to break out rooms
