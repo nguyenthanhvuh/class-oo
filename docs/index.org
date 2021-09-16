@@ -50,12 +50,11 @@
    - Preparation: Complete assigned readings and watch relevant videos, if any.  No formal submission for this activity.
    - Reading Reflection: This is a formal opportunity for each group to reflect on the reading.
    - Class Meeting:
-     + Reading reflection summary
      + Combined session on the day's topic, followed by in-class exercises (group breakouts)
      + Break
-     + Combined session on the day's topic, followed by in-class exercises (group breakouts)
+     + Combined session on the day's topic, may followed by in-class exercises (group breakouts)
    - Homework (group-based)
-   - Assessments via quiz: takes place at the beginning of class the same day as the homework is due.
+   - Assessments via quiz: takes place at the *end* of class the same day as the homework is due.
 
 ** Grading
 
@@ -101,8 +100,8 @@
 
 *** Weekly Quizzes
 
-    - Each quiz happens during the first 10 to 15 minutes of class. If you're late, you miss the quiz.
-    - I will be forthcoming and concrete about the content for each quiz. I'll do this in the form of "Quiz Guides" posted to the course schedule. That is, you shouldn't be surprised by any of the questions. Often, they will be closely related to the prior week's homework.
+    - Each quiz happens during the last 15 minutes of class.
+    - "Quiz Guides" posted to the course schedule tell you what to expect on the quiz. Often, they will be closely related to the prior week's homework.
 
     *Make-up Policy*
     - All quizzes count towards the final grade. Each quiz is scored on a 10 point scale. Missed quizzes score 0/10. Students who miss a quiz or perform badly on a quiz may choose to take the "make-up".
