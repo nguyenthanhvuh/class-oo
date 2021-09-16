@@ -1,8 +1,16 @@
 /*
  * Liskov's Poly class, as typed in out of her text
- * A typical Poly is c0 + c1 x + c2 x^2 + ...
- *
+ * A typical Poly is c0 + c1 x + c2 x^2 + ...  
+ * c0 : integers 
+ * deg: non-neg int 
+ * 1 variable ..   (3*x*y not allowed) 
+
+
+ * (deg=2, terms=[5,0,3])  ->   5+3*x^2
+ * (deg=2, terms=[5,0,3,0,0,0,0...]  -> 5+3*x^2+0*x^3:  is not allowed in this implementation
  */
+
+
 public class Poly {
 
     private int[] trms;
@@ -43,6 +51,11 @@ public class Poly {
        return deg;
     }
 
+    // Effects: returns the coefficent of the term of this whose exponent is d
+    public int coeff_book(int d){
+        if (d < 0 || d > deg) return 0 else return terms[d];
+    }
+    
     // @throws IAE if d < 0
     // Effects: returns the coefficent of the term of this whose exponent is d
     public int coeff(int d) {

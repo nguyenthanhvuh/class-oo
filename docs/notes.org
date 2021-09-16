@@ -3,9 +3,12 @@
 
 
 Lecture 3
-
+RECORD
 HW2:
 - Pick some volunteer  (example code: https://www.youtube.com/watch?v=dacJdCgm-dM  5:31)
+
+TEAM 2
+
 - should not have checks or code for precondition (it’s assumed )
 - contracts format
     - javadoc (preferred)
@@ -32,22 +35,23 @@ instead of creating a new object.
 3. Mutable classes provide methods to update the data.
 
 
-- Data abstraction
-    - Creators: create objects (constructors are special kinds of creators)
-    - Producers: (???)
-        - create objects of their type based on existing objects
-        - typically used in immutable data types
-    - Mutators:
-        - modify objects of their type
-        - typically used in mutable data types
-    - Observers
-        - 
-- Disadvantage: Performance
-    - typically approach:  provide both Immutable and muttation. 
-    - E.g., Java library:
-        - String (Immutatble)
-        - StringBuilder (companion mutable class)
-- Poly.java
+# - Data abstraction
+#     - Creators: create objects (constructors are special kinds of creators)
+#     - Producers: (???)
+#         - create objects of their type based on existing objects
+#         - typically used in immutable data types
+#     - Mutators:
+#         - modify objects of their type
+#         - typically used in mutable data types
+#     - Observers
+#         - 
+# - Disadvantage: Performance
+#     - typically approach:  provide both Immutable and muttation. 
+#     - E.g., Java library:
+#         - String (Immutatble)
+#         - StringBuilder (companion mutable class)
+
+- Poly.java :  show the code
     - What is a polynomial ? Ask student
         - Should describe high level (client perspective), not implemented
         - Wikipedia: expressions consisting of terms, which are variables and coefficients
