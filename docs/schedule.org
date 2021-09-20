@@ -11,25 +11,26 @@
 
     Homework assignments are *due* on the date listed. Quizzes are posted, with solutions, on Piazza following the class in which the quiz is given.
 
-  | Meeting | Topic                                     | Reading                                                                                            |      Assignment/Quiz Guide  |                In-Class Exercise                 |
-  |     <r> |                                           | <l>                                                                                                |                  <c>                  |                       <c>                        |
-  |---------+-------------------------------------------+----------------------------------------------------------------------------------------------------+---------------------------------------+--------------------------------------------------|
-  |       1 | Class Overview                            | Liskov 1--2                                                                                        |                                       |                  IC [[#ic0][0]]                  |
-  |       2 | Procedural Abstraction; Exceptions        | Liskov 3--4, Bloch 10                                                                              |   [[#a1][A1 Due]]; [[#g1][Guide 1]]   |          IC 1 [[#ic1A][A]] [[#ic1B][B]]          |
-  |       3 | Data Abstraction; Mutability              | Liskov 5.1--5.4, [[file:./files/LiskovSet.java][LiskovSet.java]], [[./files/Poly.java][Poly.java]] |   [[#a2][A2 Due]]; [[#g2][Guide 2]]   |          IC 2 [[#ic2A][A]] [[#ic2B][B]]          |
-  |       4 | Reasoning About Data Abstraction          | Liskov 5.5-5.10                                                                                    |   [[#a3][A3 Due]]; [[#g3][Guide 3]]   |          IC 3 [[#ic3A][A]] [[#ic3B][B]]          |
-  |       5 | Interation Abstraction; Method Guidelines | Liskov 6 Bloch 8                                                                                   |   [[#a4][A4 Due]]; [[#g4][Guide 4]]   |          IC 4 [[#ic4A][A]] [[#ic4B][B]]          |
-  |       6 | Type Abstraction                          | Liskov 7                                                                                           |   [[#a5][A5 Due]]; [[#g5][Guide 5]]   |   IC 5 [[#ic5A][A]] [[#ic5B][B]] [[#ic5C][C]]    |
-  |       7 | Mid-semester Recap                        | /No New Material/                                                                                  |           [[#g6][Guide 6]]            |                  IC [[#ic6][6]]                  |
-  |       8 | Polymorphic Abstract; Lambdas             | Liskov 8, Bloch 7(Item 42)                                                                         |   [[#a6][A6 Due]]; [[#g7][Guide 7]]   |                  IC [[#ic7][7]]                  |
-  |       9 | Generics                                  | Bloch 5                                                                                            |   [[#a7][A7 Due]]; [[#g8][Guide 8]]   |          IC 8 [[#ic8A][A]] [[#ic8B][B]]          |
-  |      10 | Common Java Contracts                     | Bloch 3                                                                                            |   [[#a8][A8 Due]]; [[#g9][Guide 9]]   |          IC 9 [[#ic9A][A]] [[#ic9B][B]]          |
-  |      11 | Classes and Inheritance                   | Bloch 4                                                                                            |  [[#a9][A9 Due]]; [[#g10][Guide 10]]  | IC 10 [[#ic10A][A]] [[#ic10B][B]]  [[#ic10C][C]] |
-  |      12 | Contract Model in Testing                 | Advanced JUnit (slides 22-24)                                                                      | [[#a10][A10 Due]]; [[#g11][Guide 11]] |                 IC [[#ic11][11]]                 |
-  |      13 | Enums and Annotations                     | Bloch 6                                                                                            | [[#a11][A11 Due]]; [[#g12][Guide 12]] |        IC 12 [[#ic12A][A]] [[#ic12B][B]]         |
-  |      14 | Course Wrap Up                            | Final Exam Notes; Code for final                                                                   |                                       |                 IC [[#ic13][13]]                 |
-  |      15 | Final Exam @ 4:30                         | /Online/                                                                                           |                                       |                                                  |
-  |         |                                           |                                                                                                    |                                       |                                                  |
+  | Meeting | Topic                                     | Reading                                                                                            |           Assignment/Quiz Guide           |                In-Class Exercise                 |
+  |     <r> |                                           | <l>                                                                                                |                    <c>                    |                       <c>                        |
+  |---------+-------------------------------------------+----------------------------------------------------------------------------------------------------+-------------------------------------------+--------------------------------------------------|
+  |       1 | Class Overview                            | Liskov 1--2                                                                                        |                                           |                  IC [[#ic0][0]]                  |
+  |       2 | Procedural Abstraction; Exceptions        | Liskov 3--4, Bloch 10                                                                              |     [[#a1][A1 Due]]; [[#g1][Guide 1]]     |          IC 1 [[#ic1A][A]] [[#ic1B][B]]          |
+  |       3 | Data Abstraction; Mutability              | Liskov 5.1--5.4, [[file:./files/LiskovSet.java][LiskovSet.java]], [[./files/Poly.java][Poly.java]] |     [[#a2][A2 Due]]; [[#g2][Guide 2]]     |          IC 2 [[#ic2A][A]] [[#ic2B][B]]          |
+  |     4-1 | Program Verification                      | -                                                                                                  | [[#a4-1][A4-1 Due]]; [[#g4-1][Guide 4-1]] |                 [[#ic4-1][IC 4-1]]               |
+  |       4 | Reasoning About Data Abstraction          | Liskov 5.5-5.10                                                                                    |     [[#a3][A3 Due]]; [[#g3][Guide 3]]     |          IC 3 [[#ic3A][A]] [[#ic3B][B]]          |
+  |       5 | Interation Abstraction; Method Guidelines | Liskov 6 Bloch 8                                                                                   |     [[#a4][A4 Due]]; [[#g4][Guide 4]]     |          IC 4 [[#ic4A][A]] [[#ic4B][B]]          |
+  |       6 | Type Abstraction                          | Liskov 7                                                                                           |     [[#a5][A5 Due]]; [[#g5][Guide 5]]     |   IC 5 [[#ic5A][A]] [[#ic5B][B]] [[#ic5C][C]]    |
+  |       7 | Mid-semester Recap                        | /No New Material/                                                                                  |             [[#g6][Guide 6]]              |                  IC [[#ic6][6]]                  |
+  |       8 | Polymorphic Abstract; Lambdas             | Liskov 8, Bloch 7(Item 42)                                                                         |     [[#a6][A6 Due]]; [[#g7][Guide 7]]     |                  IC [[#ic7][7]]                  |
+  |       9 | Generics                                  | Bloch 5                                                                                            |     [[#a7][A7 Due]]; [[#g8][Guide 8]]     |          IC 8 [[#ic8A][A]] [[#ic8B][B]]          |
+  |      10 | Common Java Contracts                     | Bloch 3                                                                                            |     [[#a8][A8 Due]]; [[#g9][Guide 9]]     |          IC 9 [[#ic9A][A]] [[#ic9B][B]]          |
+  |      11 | Classes and Inheritance                   | Bloch 4                                                                                            |    [[#a9][A9 Due]]; [[#g10][Guide 10]]    | IC 10 [[#ic10A][A]] [[#ic10B][B]]  [[#ic10C][C]] |
+  |      12 | Contract Model in Testing                 | Advanced JUnit (slides 22-24)                                                                      |   [[#a10][A10 Due]]; [[#g11][Guide 11]]   |                 IC [[#ic11][11]]                 |
+  |      13 | Enums and Annotations                     | Bloch 6                                                                                            |   [[#a11][A11 Due]]; [[#g12][Guide 12]]   |        IC 12 [[#ic12A][A]] [[#ic12B][B]]         |
+  |      14 | Course Wrap Up                            | Final Exam Notes; Code for final                                                                   |                                           |                 IC [[#ic13][13]]                 |
+  |      15 | Final Exam @ 4:30                         | /Online/                                                                                           |                                           |                                                  |
+  |         |                                           |                                                                                                    |                                           |                                                  |
 
 * In class Assignments
 
@@ -277,6 +278,25 @@
    1. Recode =join()= to make the verification go through. Which rep-invariant do you use?
    1. Recode =leave()= to make the verification go through. Which rep-invariant do you use? 
 
+** In class 4-1
+   :PROPERTIES:
+   :CUSTOM_ID: ic4-1
+   :END:
+   #+begin_src java
+     // {N >= 0}   # P  
+     i = 0;
+     while (i < N){
+       i = i + 1;
+     }
+
+     //{i == N}  # Q
+   #+end_src
+
+   - Identify the loop invariants for the loop in this program
+   - Use a sufficiently strong invariant to prove the program is correct
+   - Attemp to prove the program using an insufficiently strong invariant, describe what happens and why.
+
+   
 ** In class 4A
    :PROPERTIES:
    :CUSTOM_ID: ic4A
@@ -1261,6 +1281,21 @@
     - Clarity of story
     Note: If your group had trouble with the previous assignment, feel free to appeal to your classmates to post a sample solution on Piazza.
 
+** Assignment 4-1 
+   :PROPERTIES:
+   :CUSTOM_ID: a4-1
+   :END:
+*** Goals: Understanding Program Verification through Hoare Logic
+  
+    Redo the in-class exercise and submit it. More specifically, you will do the below two tasks:
+      1. Prove the program using the following the loop invariant:  =unsufficient=.  Clearly reason why this is a loop invariant, compute =wp=,  compute =vc=, and reason about the =vc=, conclude whether the program is proved or not.
+      1. Prove the program using the following the loop invariant:  =unsufficient=.  Clearly reason why this is a loop invariant, compute =wp=,  compute =vc=, and reason about the =vc=, conclude whether the program is proved or not.
+       
+*** Grading Criteria
+  
+    - Correctness of solution
+    Note: If your group had trouble with the assignment, feel free to appeal to your classmates to post a sample solution on Piazza.
+    
 
 ** Assignment 5 
    :PROPERTIES:
@@ -1463,6 +1498,15 @@
    :END:
    
 Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulate the IntSet and Poly examples. You should understand basic mutability - that is, the specification of mutators in mutable classes and producers in immutable classes. You should be able to convert the specification of a simple mutable class to an immutable one, and vice versa.
+
+** Guide 4-1
+   :PROPERTIES:
+   :CUSTOM_ID: g4-1
+   :END:   
+
+ Quiz 4-1 will focus on program verification using Hoare tripple. You should understand and able to do examples we have discussed in class. In particular, I'd suggest modifying the examples or specifications or invariants and see if the verification process still works or fails.
+
+
 
 ** Guide 4
    :PROPERTIES:

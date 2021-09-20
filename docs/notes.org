@@ -1,6 +1,54 @@
+* Lecture 4
+**  Reflection
+   - Invariants
+   - Invariants vs Precondition
+   - toString:  abstraction function that takes internal representation (e.g., arrays, vectors) and abstract it for the client (e.g., polynomials)
+   -  Correctness
+     - Testing vs Verification
+     - Dijsktra
+     - Satisfy contracts (specifications)
+** Verification
+   - Verification vs Testing: very different
+   - Testing: correct over sample inputs
+     - number of inputs is infinite ,  so can only sample a small finite set
+   - Verification: the implementation is correct with respect to the specification.
+     - Correctness: Mathematical definition, a proof
+     - Theorem proving ..
+
+** Abstract Function and RepInv
+      - Abstraction Function:  maps rep internal data to the astract object
+        - e.g., Liskov's PolyClass (uses arrays)  => mathematical polynomial objects
+        - =toString= is often used as an abstraction function
+      - Rep invariant:
+        - Example:  binary tree (2 children),  binary search tree (binary tree and lc <= rc),
+        - IntSet:
+          #+begin_src java
+            // c.els ≠ null &&
+             // (all elements of c.els are integers)
+            // for all integers i. c.els[i] is an Integer && 
+            // for all integers i , j. (0 <= i < j < c.els.size ⇒
+            // no duplicates in c.els
+            //     c.els[i].intValue ≠ c.els[j].intValue )
+          #+end_src
+        - =repOK= use to check rep invariant (used in various constructors and methods to check if the rep invs are establish or preserved)
+
+          
+** OO Verification
+    - Main keys to verification
+      - verify each method one by one,  once verified wrt to the contract,  we can now just use the contract
+   
+   - establish or maintain rep invariant
+          - constructor: establish rep invariants
+          - mutator:  maintain/preserves the rep invariants
+          - inductive :  constructor(base) inductive case (muttator)
+      - Contract:
+        - given rep inv as assumption, given preconditions as assumptions, does postcondition hold?
+
+    - Verification diagram
+      Abstract Stage (Poly, Set)
+
+        
 <2021-09-13 Mon>
-
-
 
 Lecture 3
 RECORD
