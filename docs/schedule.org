@@ -1635,7 +1635,7 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
 
 ** Reflection 4
    1. Iteration is a basic concept, yet Liskov devotes an entire chapter to it. What, if anything, did you find in Liskov's presentation of iteration abstraction that is new to you?
-   1. Defensive copies are an important, yet error-prone, obligation of using mutable objects in a public setting. Was there anything about Bloch's discussion that you found confusing? (Note that I have posted a video for Bloch Item 50 on the course schedule page.)
+   # 1. Defensive copies are an important, yet error-prone, obligation of using mutable objects in a public setting. Was there anything about Bloch's discussion that you found confusing? (Note that I have posted a video for Bloch Item 50 on the course schedule page.)
    1. Bloch's Period class (Item 50) has a lot going on in it. We'll revisit the this example in an in-class exercise. What, if anything, did you find confusing in this example?
 
 
