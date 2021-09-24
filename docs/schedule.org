@@ -1,5 +1,4 @@
 #+TITLE: SWE 619 Course Schedule and Assignments
-
 #+OPTIONS: ^:nil toc:1
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
@@ -1287,13 +1286,13 @@
    :END:
 *** Goals: Understanding Program Verification through Hoare Logic
   
-    Do the in-class exercise with your group and submit it on BB. More specifically, you will do the below two tasks:
+    Do the [[#ic4-1][in-class exercise]] with your group and submit it on BB. More specifically, you will do the below two tasks:
       1. Prove the program using the following the loop invariant:  ~i <= N~.
          1. Clearly reason why this is a loop invariant
          1. Compute the weakest precondition =wp= of the program wrt the post conditiong =Q=
          1. Compute the verification condition =vc (P => wp(..))=, and
          1. Analyze the =vc= to dertermine whether the program is proved or not
-      1. Repeat the above tasks a differnt loop invariant:  ~N >= 0~
+      1. Repeat the above task a different loop invariant:  ~N >= 0~
        
 *** Grading Criteria
   
@@ -1307,7 +1306,7 @@
    :END:
 *** Goals: Immutablity via Bloch Item 50
 
-    Revisit the Period example [[./inclass04B.html][In-Class 4B]].
+    Revisit the [[#ic4B][Period example]].
 
     Implement a satisfying solution to question 3. That is, you should not only break the immutability of the =Period= class by writing a suitable sublcass, but you should also develop a plausible case where a client ends up "in trouble" due to the loss of immutability.
 
