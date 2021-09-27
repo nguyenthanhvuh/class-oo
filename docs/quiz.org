@@ -52,5 +52,5 @@
    #+end_src
   
   1. Informally reason that this program is correct with the given =P= and =Q=.
-  1. Find a loop invariant and program that the program is correct (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)     
+  1. Find a loop invariant and prove that the program is correct (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)     
   
