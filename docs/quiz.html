@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-09-27 Mon 14:22 -->
+<!-- 2021-09-27 Mon 14:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 619</title>
 <meta name="generator" content="Org mode" />
@@ -18,39 +18,39 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org348a06b">1. Quiz 3:</a></li>
+<li><a href="#org71af4cd">1. Quiz 3:</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org348a06b" class="outline-2">
-<h2 id="org348a06b"><span class="section-number-2">1</span> Quiz 3:</h2>
+<div id="outline-container-org71af4cd" class="outline-2">
+<h2 id="org71af4cd"><span class="section-number-2">1</span> Quiz 3:</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org9ca289c" class="outline-3">
-<h3 id="org9ca289c"><span class="section-number-3">1.1</span> Immutatiblity</h3>
+<div id="outline-container-org41688f2" class="outline-3">
+<h3 id="org41688f2"><span class="section-number-3">1.1</span> Immutatiblity</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Consider a partial version of Bloch's mutable Stack class:
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Stack</span> {
+<pre class="src src-java"><span style="color: #a020f0;">public</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Stack</span> {
 
-    <span style="color: #e45649;">private</span> <span style="color: #986801;">Object</span>[] <span style="color: #6a1868;">elements</span>;
-    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">size</span> = 0;
+    <span style="color: #a020f0;">private</span> <span style="color: #228b22;">Object</span>[] <span style="color: #a0522d;">elements</span>;
+    <span style="color: #a020f0;">private</span> <span style="color: #228b22;">int</span> <span style="color: #a0522d;">size</span> = 0;
 
-    <span style="color: #e45649;">public</span> <span style="color: #a626a4;">Stack</span>() { <span style="color: #e45649;">this</span>.elements = <span style="color: #e45649;">new</span> <span style="color: #986801;">Object</span>[0]; }
+    <span style="color: #a020f0;">public</span> <span style="color: #0000ff;">Stack</span>() { <span style="color: #a020f0;">this</span>.elements = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">Object</span>[0]; }
 
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">push</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">e</span>) {
-        ensureCapacity();      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">implementation omitted from quiz</span>
+    <span style="color: #a020f0;">public</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">push</span> (<span style="color: #228b22;">Object</span> <span style="color: #a0522d;">e</span>) {
+        ensureCapacity();      <span style="color: #b22222;">// </span><span style="color: #b22222;">implementation omitted from quiz</span>
         elements[size++] = e;
     }
 
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">Object</span> <span style="color: #a626a4;">pop</span> () {
-        <span style="color: #e45649;">if</span> (size == 0) <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IllegalStateException</span>(<span style="color: #50a14f;">"Stack.pop"</span>);
-        <span style="color: #986801;">Object</span> <span style="color: #6a1868;">result</span> = elements[--size];
-        elements[size] = <span style="color: #b751b6;">null</span>;
-        <span style="color: #e45649;">return</span> result;
+    <span style="color: #a020f0;">public</span> <span style="color: #228b22;">Object</span> <span style="color: #0000ff;">pop</span> () {
+        <span style="color: #a020f0;">if</span> (size == 0) <span style="color: #a020f0;">throw</span> <span style="color: #a020f0;">new</span> <span style="color: #228b22;">IllegalStateException</span>(<span style="color: #8b2252;">"Stack.pop"</span>);
+        <span style="color: #228b22;">Object</span> <span style="color: #a0522d;">result</span> = elements[--size];
+        elements[size] = <span style="color: #008b8b;">null</span>;
+        <span style="color: #a020f0;">return</span> result;
     }
 }
 
@@ -60,9 +60,9 @@ Consider a partial version of Bloch's mutable Stack class:
 Also consider the following client interaction with Stack
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #986801;">Stack</span> <span style="color: #6a1868;">s</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Stack</span>();
-s.push(<span style="color: #50a14f;">"cat"</span>);
-s.push(<span style="color: #50a14f;">"dog"</span>);
+<pre class="src src-java"><span style="color: #228b22;">Stack</span> <span style="color: #a0522d;">s</span> = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">Stack</span>();
+s.push(<span style="color: #8b2252;">"cat"</span>);
+s.push(<span style="color: #8b2252;">"dog"</span>);
 System.out.println(s.pop());
 
 </pre>
@@ -73,19 +73,18 @@ System.out.println(s.pop());
 </div>
 </div>
 
-<div id="outline-container-org2838b1c" class="outline-3">
-<h3 id="org2838b1c"><span class="section-number-3">1.2</span> Verification using Hoare Logic</h3>
+<div id="outline-container-orgb5e0aa5" class="outline-3">
+<h3 id="orgb5e0aa5"><span class="section-number-3">1.2</span> Verification using Hoare Logic</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Given the program
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">{N &gt;= 0}   # P  </span>
-i = 0;
-<span style="color: #e45649;">while</span> (i &lt; <span style="color: #986801;">N</span>){
-  i = i + 1;
+<pre class="src src-java"><span style="color: #b22222;">// </span><span style="color: #b22222;">{x &lt;= 10}   # P  </span>
+<span style="color: #a020f0;">while</span> (x != 10){
+  <span style="color: #008b8b;">x</span> := x + 1;
 }
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">{i == N}  # Q</span>
+<span style="color: #b22222;">//</span><span style="color: #b22222;">{x == 10}  # Q</span>
 </pre>
 </div>
 
@@ -93,7 +92,7 @@ i = 0;
 and the loop invariant <code>I</code> as <code>i&gt;=0</code>
 </p>
 <ol class="org-ol">
-<li>Show that you <b>cannot</b> use <code>I</code> to prove the validity of the Hoare tripple of this program (show your work, i.e., generate the wp and the vc of the program)</li>
+<li>Show that you <b>cannot</b> use <code>I</code> to prove the validity of the Hoare tripple of this program (show your work, i.e., generate the <code>wp</code> and the <code>vc</code> of the program, and reason about these)</li>
 <li>Give a new postcondition <code>Q</code> of this program so that the given loop invariant <code>I</code> is sufficiently strong to prove the validity of the Hoare triple of the program (with the new postcondition)</li>
 </ol>
 </div>
