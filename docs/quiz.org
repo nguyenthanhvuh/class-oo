@@ -51,7 +51,6 @@
      //{x == 10}  # Q
    #+end_src
   
-  and the loop invariant ~I~ as ~i>=0~
-  1. Show that you *cannot* use =I= to prove the validity of the Hoare tripple of this program (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)
-  2. Give a new postcondition =Q= of this program so that the given loop invariant ~I~ is sufficiently strong to prove the validity of the Hoare triple of the program (with the new postcondition)
+  1. Informally reason that this program is correct with the given =P= and =Q=.
+  1. Find a loop invariant and program that the program is correct (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)     
   
