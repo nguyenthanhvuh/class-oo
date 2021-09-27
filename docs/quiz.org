@@ -1,0 +1,58 @@
+#+TITLE: SWE 619 
+#+OPTIONS: ^:nil toc:1
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+#+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+
+* Quiz 3:
+
+** Immutatiblity
+
+  Consider a partial version of Bloch's mutable Stack class:
+  #+begin_src java
+    public class Stack {
+
+        private Object[] elements;
+        private int size = 0;
+
+        public Stack() { this.elements = new Object[0]; }
+
+        public void push (Object e) {
+            ensureCapacity();      // implementation omitted from quiz
+            elements[size++] = e;
+        }
+
+        public Object pop () {
+            if (size == 0) throw new IllegalStateException("Stack.pop");
+            Object result = elements[--size];
+            elements[size] = null;
+            return result;
+        }
+    }
+
+  #+end_src
+  Also consider the following client interaction with Stack
+  #+begin_src java
+    Stack s = new Stack();
+    s.push("cat");
+    s.push("dog");
+    System.out.println(s.pop());
+
+  #+end_src
+  - What methods would be needed to convert the client interaction into an equivalent interaction with an immutable version called IStack? For each method, give *just the method header* - not the contract or implemetation. 
+
+** Verification using Hoare Logic
+  Given the program
+   #+begin_src java
+     // {N >= 0}   # P  
+     i = 0;
+     while (i < N){
+       i = i + 1;
+     }
+     //{i == N}  # Q
+   #+end_src
+  
+  and the loop invariant ~I~ as ~i>=0~
+  1. Show that you *cannot* use =I= to prove the validity of the Hoare tripple of this program (show your work, i.e., generate the wp and the vc of the program)
+  2. Give a new postcondition =Q= of this program so that the given loop invariant ~I~ is sufficiently strong to prove the validity of the Hoare triple of the program (with the new postcondition)
+  

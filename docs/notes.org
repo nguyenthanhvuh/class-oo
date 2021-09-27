@@ -1,3 +1,74 @@
+<2021-09-27 Mon>
+
+
+Verifying methods class
+- when analyzing a method, do not attempt to analyze other methods and their interactions
+- will not scale
+- should analyze each method in isolation
+- use rep inv !
+
+- Does the method establish and maintain rep-inv  ?
+  - similar to inductive invariant (hold before and preserve through loop)
+  - constructor: return obj satisfies the repr
+  - mutator:  assume repr, maintain it 
+
+Example :  Members.java
+
+#+begin_src java
+  public class Members {
+      // Members is a mutable record of organization membership
+      // AF: Collect the list as a set 
+      // rep-inv1: members != null
+      // rep-inv2: members != null & no duplicates in members
+
+      List <Person> members;   // the representation
+
+      //  Post: person becomes a member
+      public void join (Person person) { members.add(person);}
+
+      //  Post: person is no longer a member
+      public void leave(Person person) { members.remove(person);}
+
+  }
+#+end_src
+  - does method maintain rep-inv ?   does it satisfy the contract?
+    - if the first one fails,  no point to do the rest
+
+  - ~members != null~
+    - join:  yes,  no assignment to members, we just add things to it,  so if it was not null when we enter the method then not null when we exit the method.
+      - yes, satisfy the contract, because person becomes a member
+    - leave: yes, maintain inv;
+      - no, does not satisfy the contract (we haven't looked at or assume the duplicate repr inv)
+      - to "repair" this,  we can do something like
+        while (members.contains(person)){
+           members.remove(person);
+        }
+      
+  - ~members !=null and no duplicates~  (stronger)
+    - join:  NO,  doesn't check if input person already a member. Counterexample ?
+      - since doesn't preserve the repr, so don't care about contract 
+      - repair: check if a person already a member, 
+
+        
+    - leave: yes, maintain repr inv
+      - yes, satisfy the contract (using the repr,  person only in the list no more than once)
+
+
+- Poly example
+  #+begin_src java
+
+    public class Poly {
+    // Polys are immutable polynomial c0+c1x + c2x^2 + ..
+    
+        private int[] trms;
+        private int deg;
+
+        // Effects: returns the degree of this
+        public int degree() {
+           return deg;
+        }
+  #+end_src
+  
 <2021-09-20 Mon>
 * Lecture 4-1
 

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-09-27 Mon 14:22 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>SWE 619</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="ThanhVu (Vu) Nguyen" />
+<link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+<link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+</head>
+<body>
+<div id="content">
+<h1 class="title">SWE 619</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org348a06b">1. Quiz 3:</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org348a06b" class="outline-2">
+<h2 id="org348a06b"><span class="section-number-2">1</span> Quiz 3:</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org9ca289c" class="outline-3">
+<h3 id="org9ca289c"><span class="section-number-3">1.1</span> Immutatiblity</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Consider a partial version of Bloch's mutable Stack class:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Stack</span> {
+
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">Object</span>[] <span style="color: #6a1868;">elements</span>;
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">size</span> = 0;
+
+    <span style="color: #e45649;">public</span> <span style="color: #a626a4;">Stack</span>() { <span style="color: #e45649;">this</span>.elements = <span style="color: #e45649;">new</span> <span style="color: #986801;">Object</span>[0]; }
+
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">push</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">e</span>) {
+        ensureCapacity();      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">implementation omitted from quiz</span>
+        elements[size++] = e;
+    }
+
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Object</span> <span style="color: #a626a4;">pop</span> () {
+        <span style="color: #e45649;">if</span> (size == 0) <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IllegalStateException</span>(<span style="color: #50a14f;">"Stack.pop"</span>);
+        <span style="color: #986801;">Object</span> <span style="color: #6a1868;">result</span> = elements[--size];
+        elements[size] = <span style="color: #b751b6;">null</span>;
+        <span style="color: #e45649;">return</span> result;
+    }
+}
+
+</pre>
+</div>
+<p>
+Also consider the following client interaction with Stack
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #986801;">Stack</span> <span style="color: #6a1868;">s</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Stack</span>();
+s.push(<span style="color: #50a14f;">"cat"</span>);
+s.push(<span style="color: #50a14f;">"dog"</span>);
+System.out.println(s.pop());
+
+</pre>
+</div>
+<ul class="org-ul">
+<li>What methods would be needed to convert the client interaction into an equivalent interaction with an immutable version called IStack? For each method, give <b>just the method header</b> - not the contract or implemetation.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2838b1c" class="outline-3">
+<h3 id="org2838b1c"><span class="section-number-3">1.2</span> Verification using Hoare Logic</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Given the program
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">{N &gt;= 0}   # P  </span>
+i = 0;
+<span style="color: #e45649;">while</span> (i &lt; <span style="color: #986801;">N</span>){
+  i = i + 1;
+}
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">{i == N}  # Q</span>
+</pre>
+</div>
+
+<p>
+and the loop invariant <code>I</code> as <code>i&gt;=0</code>
+</p>
+<ol class="org-ol">
+<li>Show that you <b>cannot</b> use <code>I</code> to prove the validity of the Hoare tripple of this program (show your work, i.e., generate the wp and the vc of the program)</li>
+<li>Give a new postcondition <code>Q</code> of this program so that the given loop invariant <code>I</code> is sufficiently strong to prove the validity of the Hoare triple of the program (with the new postcondition)</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
