@@ -1,3 +1,69 @@
+
+<2021-10-04 Mon>
+
+Iterator 
+
+List<String> list  = new List<>();
+
+list = [bat, cat, dog] ;
+
+Iterator<STring> itr = list.iterator();   // iter = [b,c,d]
+
+itr.next();    //return b ,   iter = [c,d]  so iter's contents can be stored in a STACK ADT 
+itr.next();   // return c ,   iter = [d]
+iter.hasNext(); return True,  iter =[d]
+iter.next(); //return d ,   iter = []
+iter.hasNext(); return False,  iter =[]
+iter.next(); // raise Exception NSEE
+
+
+
+next()
+hasNext()
+prev()
+hasPrev() 
+
+Iterator<STring> itr = list.iterator();     // itr.X = [b,c,d] itr.Y = []
+itr.next(); // return b ,   itr.X = [c,d]   itr.Y = [b]
+itr.next(); // return c ,   itr.X = [d]     itr.Y = [c,b]
+itr.prev(); // return c,    itr.X = [c,d]   itr.Y = [b]
+itr.prev(); // return b,    itr.X = [b,c,d] itr.Y = []
+itr.prev() ; // raise NSEE ...
+
+
+Iterator<STring> itr = list.iterator();     // itr.X = [b,c,d],  itr.nextCalled = False
+itr.next() ;  // return b ,   itr.X = [c,d],   list = [b,c,d],  itr.nextCalled = True
+itr.next() ;  // return c,   itr.X [d],  list = [b,c,d], itr.nextCalled = True
+
+itr.remove(); //   itr.X = [d],  list = [a, d],  itr.nextCalled = False
+itr.remove(); // raise ISE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <2021-09-27 Mon>
 
 

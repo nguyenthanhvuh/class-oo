@@ -1646,7 +1646,7 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
 ** Reflection 5
 
    1. Liskov 7 develops rules for assessing the correctness of subtypes. What do you think the connection is between these rules and the rules for verification addressed in Chapter 5?
-   1. In-class exercise 5C goes through a concrete exercise from Liskov. Which aspects of this of this exercise are clear, and which aspects are confusing?
+   # 1. In-class exercise 5C goes through a concrete exercise from Liskov. Which aspects of this of this exercise are clear, and which aspects are confusing?
    1. Consider the Java Set interface and two subtypes: HashSet and TreeSet. Do you think the abstract state for these three interfaces/classes are identical or different? (You might want to spend some time in the JavaDoc before jumping to a conclusion; there is a specific answer in there!)
 
 

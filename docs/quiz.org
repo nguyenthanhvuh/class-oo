@@ -39,12 +39,31 @@
     System.out.println(s.pop());
 
   #+end_src
-  - What methods would be needed to convert the client interaction into an equivalent interaction with an immutable version called IStack? For each method, give *just the method header* - not the contract or implemetation. 
+  
+  - What methods would be needed to convert the client interaction into an equivalent interaction with an immutable version called IStack? For each method, give *just the method header* - not the contract or implemetation.
+
+    public class IStack{
+        public IStack push(Object e){
+        // return new IStack() .... 
+        }
+
+    public IStack pop (){
+        // return new IStack object
+    }
+
+    public Object top(){
+         // return the top of the stack 
+    }
+        
+    }
+
+    
 
 ** Verification using Hoare Logic
   Given the program
    #+begin_src java
-     // {x <= 10}   # P  
+     // {x <= 10}   # P
+
      while (x != 10){
        x := x + 1;
      }
@@ -53,6 +72,23 @@
   
   1. Informally reason that this program is correct with the given =P= and =Q=.
   1. Find a loop invariant and prove that the program is correct (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)     
+
+loop inv :  x <= 10
+
+wp(while[x<=10](x != 10){x := x + 1;}, {x == 10})
+= I  &   (I & x!=10) => wp(x:= x+1, I)   &   (I & !(x!=10) => x == 10)
+= x < =
+
+
+
+
+
+
+
+
+
+
+
   
 *  Quiz 4:
   
