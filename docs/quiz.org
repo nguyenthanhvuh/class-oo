@@ -54,3 +54,39 @@
   1. Informally reason that this program is correct with the given =P= and =Q=.
   1. Find a loop invariant and prove that the program is correct (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)     
   
+*  Quiz 4:
+  
+1. Consider the following (supposedly) immutable class:
+
+   #+begin_src java
+     public final class Immutable { 
+         private final String string;
+         private final int x;
+         private final List<String> list;
+
+        public Immutable(String string, int x, List<String> list) {
+           this.string = string;                     // Line A
+           this.x = x;                               // Line B
+           this.list = new ArrayList<String> (list); // Line C
+        }
+
+        public getString() { return string; }  // Line D
+        public getInt()    { return x; }       // Line E
+        public getList()   { return list; }    // Line F
+     }
+   #+end_src
+
+Mark whether each line of code is a problem w.r.t. the immutability of class Immutable. 
+
+- Line A:    ____ Yes   ____ No   
+- Line B:    ____ Yes   ____ No   
+- Line C:    ____ Yes   ____ No   
+- Line D:    ____ Yes   ____ No   
+- Line E:    ____ Yes   ____ No   
+- Line F:    ____ Yes   ____ No  
+
+
+2. Write pseudo-code that compromises the immutability of the Immutable class. 
+
+
+        
