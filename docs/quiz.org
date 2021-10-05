@@ -106,9 +106,9 @@ wp(while[x<=10](x != 10){x := x + 1;}, {x == 10})
            this.list = new ArrayList<String> (list); // Line C
         }
 
-        public getString() { return string; }  // Line D
-        public getInt()    { return x; }       // Line E
-        public getList()   { return list; }    // Line F
+        public String getString() { return string; }  // Line D
+        public int getInt()    { return x; }       // Line E
+        public List<String> getList() { return list; }    // Line F
      }
    #+end_src
 
