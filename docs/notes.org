@@ -1,6 +1,158 @@
 <2021-09-27 Mon>
 
 
+F
+F'
+
+F == F'    F => F'  && F' => F
+
+
+F =    x >= 5  && True && x >= 4
+F' =   x >= 5  && x >= 4
+F'' =  x >= 4  not correct
+F''' = x >= 5
+
+F = i >= 0 && N >= i
+F' =   N >= 0
+
+(i >= 0 && N >= i)  =>  N >= 0
+N >=0  =>  (i >= 0 && N >= i)    (N=5,  i = 100)
+
+
+
+
+(x >= 5 && x >= 4)   =>   x >= 4     TRUE
+x >= 4   => (x >= 5 && x >= 4)   ? x = 4 
+4 >= 4  =>  4 >= 5 && 4 >= 4
+True =>  (False &&  True)
+True =>  (False)
+
+False
+
+
+(x >= 5 && x >= 4)   =>   x >= 5   TRUE
+(x >= 5)  => (x >= 5 && x >= 4)   TRUE 
+
+
+"3-SAT" 
+
+Convert Java/C++/Rust  => a (BIG) formula => 3-SAT (Verification condition)
+
+Theorem Proving (SAT Solver,  SMT solver)
+
+
+assignment
+loop ()
+...
+
+
+NP-COMPLETE
+
+
+Objects/ Classes
+
+- analyze / verify method in ISOLATION
+- M1,  M2, M3   ...
+- M1,  M2,  M3   ... will not scale 
+
+- Rep Inv
+
+  IntSet, Poly
+
+  Binary Tree
+  - if a child != null (not leaf), then it will have 2 children
+  - if a child == null (leaf), ...
+  - constructor ,  ...  =>  valid BT (rep-inv will hold)
+  - delete/add ,     => valid BT
+
+  Binary Search Tree
+  - content of the left child (node)  <= content of parent (node)
+  -
+
+
+class BinSearchTree:
+    bool is_valid(...){
+       ... 
+    }
+    
+  
+#+begin_src java
+  public class Members {
+      // rep-inv1: members != null
+
+      // rep-inv2: members != null & no duplicates in members
+
+      List <Person> members;   // the representation
+
+      //  Post: person becomes a member
+      public void join (Person person){
+        if (!members.contain(person)){
+          members.add(person);
+        }
+      }
+
+      //  Post: person is no longer a member
+      public void leave(Person person) {
+        //rep-inv2 
+          members.remove(person);
+
+      }
+
+    ...
+  }
+
+#+end_src
+
+for each method : join and leave 
+1. does it satisfy rep-inv1 ?  
+   join: yes
+   leave: yes
+   
+2. does it satisfy rep-inv2 ?
+   join: no
+   leave: yes
+
+3. does it satisfy postcondition ?
+   join: yes
+   
+   leave: NO if do not assume rep-inv2 (or no assumption)
+          YES if do assume rep-inv2
+
+3b.  if a method DOESNOT satisfy given rep, then do we need to check if satisfy the postcondition?
+     no, if rep inv is broken, the code is wrong,  no need to check anything else
+    
+4. if the method doesn't method a rep inv,  modify the code so it does
+
+
+
+
+
+abstract function:  toString()
+
+Poly:
+
+
+toString:  internal/concrete -> abstract  5x^4 + 3x^2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Verifying methods class
 - when analyzing a method, do not attempt to analyze other methods and their interactions
 - will not scale
