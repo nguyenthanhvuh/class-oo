@@ -35,7 +35,7 @@
 
 ** In class 1
    :PROPERTIES:
-   :CUSTOM_ID: ic1
+   :CUSTOM_ID: ic0
    :END:
    
    Work with your group and do the following:
@@ -393,10 +393,11 @@
      MaxIntSet s = {3, 5}; s.remove(5);  // repOk()????
    #+end_src
   
-   1. What does the default constructor in =MaxIntSet= do?
-   1. What do the ="..."= bits do?
-   1. How does the call work out?
-   1. What is the abstract state of a =MaxIntSet=? There are two options. What are they, and what are the consequences of each choice? 
+   # 1. What does the default constructor in =MaxIntSet= do?
+
+   3. What do the ="..."= bits do?
+   4. How does the call work out?
+   5. What is the abstract state of a =MaxIntSet=? There are two options. What are they, and what are the consequences of each choice? 
 
 ** In class 5B
    :PROPERTIES:
@@ -407,23 +408,23 @@
 
    #+begin_src java
 
-     class A:
-         public void reduce (Reducer x)    
-             // Effects: if x is null throw NPE 
-             // else if x is not appropriate for this throw IAE
-             // else reduce this by x
+    class A:
+        public void reduce (Reducer x)    
+            // Effects: if x is null throw NPE 
+            // else if x is not appropriate for this throw IAE
+            // else reduce this by x
 
-             class B:
-             public void reduce (Reducer x) 
-             // Requires: x is not null
-             // Effects: if x is not appropriate for this throw IAE
-             // else reduce this by x
+    class B:
+        public void reduce (Reducer x) 
+            // Requires: x is not null
+            // Effects: if x is not appropriate for this throw IAE
+            // else reduce this by x
 
-             class C:
-             public void reduce (Reducer x)   
-             // Effects: if x is null return (normally) with no change to this
-             // else if x is not appropriate for this throw IAE
-             // else reduce this by x
+    class C:
+        public void reduce (Reducer x)   
+            // Effects: if x is null return (normally) with no change to this
+            // else if x is not appropriate for this throw IAE
+            // else reduce this by x
    #+end_src
 
    Analyze the "methods rule" for =reduce()= in each of these cases: Note: Some analysis may not be necessary. If so, indicate that.
@@ -1638,9 +1639,9 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
 
 ** Reflection 4
    1. Iteration is a basic concept, yet Liskov devotes an entire chapter to it. What, if anything, did you find in Liskov's presentation of iteration abstraction that is new to you?
-   # 1. Defensive copies are an important, yet error-prone, obligation of using mutable objects in a public setting. Was there anything about Bloch's discussion that you found confusing? (Note that I have posted a video for Bloch Item 50 on the course schedule page.)
-   1. Bloch's Period class (Item 50) has a lot going on in it. We'll revisit the this example in an in-class exercise. What, if anything, did you find confusing in this example?
+   1. Bloch's ~Period~ class (Item 50) has a lot going on in it. We'll revisit the this example in an in-class exercise. What, if anything, did you find confusing in this example?
 
+         # 1. Defensive copies are an important, yet error-prone, obligation of using mutable objects in a public setting. Was there anything about Bloch's discussion that you found confusing? (Note that I have posted a video for Bloch Item 50 on the course schedule page.)
 
 
 ** Reflection 5

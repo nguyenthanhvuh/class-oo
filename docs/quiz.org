@@ -8,76 +8,76 @@
 
 ** Immutatiblity
 
-  Consider a partial version of Bloch's mutable Stack class:
-  #+begin_src java
-    public class Stack {
+   Consider a partial version of Bloch's mutable Stack class:
+   #+begin_src java
+     public class Stack {
 
-        private Object[] elements;
-        private int size = 0;
+         private Object[] elements;
+         private int size = 0;
 
-        public Stack() { this.elements = new Object[0]; }
+         public Stack() { this.elements = new Object[0]; }
 
-        public void push (Object e) {
-            ensureCapacity();      // implementation omitted from quiz
-            elements[size++] = e;
-        }
+         public void push (Object e) {
+             ensureCapacity();      // implementation omitted from quiz
+             elements[size++] = e;
+         }
 
-        public Object pop () {
-            if (size == 0) throw new IllegalStateException("Stack.pop");
-            Object result = elements[--size];
-            elements[size] = null;
-            return result;
-        }
-    }
+         public Object pop () {
+             if (size == 0) throw new IllegalStateException("Stack.pop");
+             Object result = elements[--size];
+             elements[size] = null;
+             return result;
+         }
+     }
 
-  #+end_src
-  Also consider the following client interaction with Stack
-  #+begin_src java
-    Stack s = new Stack();
-    s.push("cat");
-    s.push("dog");
-    System.out.println(s.pop());
+   #+end_src
+   Also consider the following client interaction with Stack
+   #+begin_src java
+     Stack s = new Stack();
+     s.push("cat");
+     s.push("dog");
+     System.out.println(s.pop());
 
-  #+end_src
+   #+end_src
   
-  - What methods would be needed to convert the client interaction into an equivalent interaction with an immutable version called IStack? For each method, give *just the method header* - not the contract or implemetation.
+   - What methods would be needed to convert the client interaction into an equivalent interaction with an immutable version called IStack? For each method, give *just the method header* - not the contract or implemetation.
 
-    public class IStack{
-        public IStack push(Object e){
-        // return new IStack() .... 
-        }
+     public class IStack{
+     public IStack push(Object e){
+     // return new IStack() .... 
+     }
 
-    public IStack pop (){
-        // return new IStack object
-    }
+     public IStack pop (){
+     // return new IStack object
+     }
 
-    public Object top(){
-         // return the top of the stack 
-    }
-        
-    }
+     public Object top(){
+     // return the top of the stack 
+     }
 
-    
+     }
+
+
 
 ** Verification using Hoare Logic
-  Given the program
+   Given the program
    #+begin_src java
      // {x <= 10}   # P
 
      while (x != 10){
-       x := x + 1;
+         x := x + 1;
      }
      //{x == 10}  # Q
    #+end_src
   
-  1. Informally reason that this program is correct with the given =P= and =Q=.
-  1. Find a loop invariant and prove that the program is correct (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)     
+   1. Informally reason that this program is correct with the given =P= and =Q=.
+   1. Find a loop invariant and prove that the program is correct (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)     
 
-loop inv :  x <= 10
+   loop inv :  x <= 10
 
-wp(while[x<=10](x != 10){x := x + 1;}, {x == 10})
-= I  &   (I & x!=10) => wp(x:= x+1, I)   &   (I & !(x!=10) => x == 10)
-= x < =
+   wp(while[x<=10](x != 10){x := x + 1;}, {x == 10})
+   = I  &   (I & x!=10) => wp(x:= x+1, I)   &   (I & !(x!=10) => x == 10)
+   = x < =
 
 
 
@@ -92,37 +92,100 @@ wp(while[x<=10](x != 10){x := x + 1;}, {x == 10})
   
 *  Quiz 4:
   
-1. Consider the following (supposedly) immutable class:
+  1. Consider the following (supposedly) immutable class:
 
-   #+begin_src java
-     public final class Immutable { 
-         private final String string;
-         private final int x;
-         private final List<String> list;
+     #+begin_src java
+       public final class Immutable { 
+           private final String string;
+           private final int x;
+           private final List<String> list;
 
-        public Immutable(String string, int x, List<String> list) {
-           this.string = string;                     // Line A
-           this.x = x;                               // Line B
-           this.list = new ArrayList<String> (list); // Line C
-        }
+           public Immutable(String string, int x, List<String> list) {
+               this.string = string;                     // Line A
+               this.x = x;                               // Line B
+               this.list = new ArrayList<String> (list); // Line C
+           }
 
-        public String getString() { return string; }  // Line D
-        public int getInt()    { return x; }       // Line E
-        public List<String> getList() { return list; }    // Line F
-     }
-   #+end_src
+           public String getString() { return string; }  // Line D
+           public int getInt()    { return x; }       // Line E
+           public List<String> getList() { return list; }    // Line F
+       }
+     #+end_src
 
-Mark whether each line of code is a problem w.r.t. the immutability of class Immutable. 
+  Mark whether each line of code is a problem w.r.t. the immutability of class Immutable. 
 
-- Line A:    ____ Yes   ____ No   
-- Line B:    ____ Yes   ____ No   
-- Line C:    ____ Yes   ____ No   
-- Line D:    ____ Yes   ____ No   
-- Line E:    ____ Yes   ____ No   
-- Line F:    ____ Yes   ____ No  
-
-
-2. Write pseudo-code that compromises the immutability of the Immutable class. 
+  - Line A:    ____ Yes   ____ No   
+  - Line B:    ____ Yes   ____ No   
+  - Line C:    ____ Yes   ____ No   
+  - Line D:    ____ Yes   ____ No   
+  - Line E:    ____ Yes   ____ No   
+  - Line F:    ____ Yes   ____ No  
 
 
-        
+  2. Write pseudo-code that compromises the immutability of the Immutable class. 
+
+
+
+* Quiz 5:  Iterator
+
+The specification for Liskov's ~elements()~ method is given below. 
+- Note 1: A Liskov Iterator has only the the ~hasNext()~ and ~next()~ methods. 
+- Note 2: As discussed in class the abstract state for such an ~Iterator~ is a ~Stack~ of objects yet to be produced.
+  #+begin_src java
+     public Iterator elements() 
+     // EFFECTS: Returns a generator that will produce all the elements of
+     //  this (as Integers), each exactly once, in arbitrary order.
+     // REQUIRES: this must not be modified while the generator is in use
+
+
+       #+end_src	
+
+Consider the code below which uses ~elements()~. Line numbers have been added for reference purposes.
+  #+begin_src java    
+        0: IntSet s = new IntSet(); 
+
+        1: s.insert(2);
+        2: s.insert(8);
+
+        3: Iterator itr = s.elements();   
+        4: itr.next();                    
+        5: itr.next();                    
+        6: // See questions below
+        7: itr.next();                   
+
+  #+end_src
+	
+- show the (stack) contents of ~itr~  after line 2
+- show the contents of ~itr~  after line 5.
+- If line 6 is ~s.insert(12)~; show the contents of ~itr~ after line 6? 
+
+
+
+#   #+begin_src java
+# class A {
+#    public Iterator compose (Iterator itr)
+#    // Requires: itr is not null
+#    // Modifies: itr
+#    // Effects: if this is not appropriate for itr throw IAE
+#    // else return generator of itr composed with this
+# class B {
+#    public Iterator compose (Iterator itr)
+#    // Modifies: itr
+#    // Effects: if itr is null throw NPE 
+#    // else if this is not appropriate for itr throw IAE
+#    // else return generator of itr composed with this
+# class C {
+#    public Iterator compose (Iterator itr)
+#    // Modifies: itr
+#    // Effects: if itr is null return iterator equal to this
+#    // else if this is not appropriate for itr throw IAE
+#    // else return generator of itr composed with this
+#   #+end_src
+
+# Analyze the =compose()= method in each of these cases. For each case, state if the precondition and the postcondition parts are OK or fail, and justify.
+
+# 1. B extends A. 
+# 1. C extends A. 
+# 1. A extends B. 
+# 1. C extends B. 
+# 1. B extends C. 
