@@ -95,7 +95,6 @@
     *Important*: 
     - Each group should be prepared to present their homework solution in class.
     - *Statement of who did what*. Homeworks are group exercises. Each submission must contain a specific statement of who did what.
-    # ** *Solutions and solution checking*. The group must split their roles on each exercise. Part of the group creates the solution. A separate part of the group checks the solution, certifies that it is correct, and *explains why it is correct*. If you can't formulate this explanation, it's time for your group to see me or the GTA in office hours.
 
 
 *** Weekly Quizzes
@@ -126,15 +125,6 @@
 ** In-Class Exercises
 
    I plan an in-class exercise for every class. Students will work in their designated group. Some of these exercises need a Java development environment. Very often, the in-class exercises will be closely related to an upcoming homework assignment.
-
-   # ** ShowMe Videos/Other videos
-
-   #   The course schedule page links to a number of short videos created by [[https://cs.gmu.edu/~pammann/][Paul Ammann]] with the ShowMe service. Some students find these helpful for grasping key points from various lectures.
-   # Several items of note:
-   # - Each ShowMe captures an interaction a student has with me. Such interactions can help students master the material more effectively than having me drone on solo.
-   # - I am interested in creating more ShowMe videos for other topics in the course. Contact me if you would like to help me do this.
-   # - I am open to redoing existing topics if there is something you think could be done better.
-   # - Other videos are just me.
 
 ** Record Keeping
 

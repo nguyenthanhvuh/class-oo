@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-09-27 Mon 14:50 -->
+<!-- 2021-10-04 Mon 16:04 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 619</title>
 <meta name="generator" content="Org mode" />
@@ -18,39 +18,40 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org6112bb5">1. Quiz 3:</a></li>
+<li><a href="#orgc04d1a7">1. Quiz 3:</a></li>
+<li><a href="#orgbcaf673">2. Quiz 4</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org6112bb5" class="outline-2">
-<h2 id="org6112bb5"><span class="section-number-2">1</span> Quiz 3:</h2>
+<div id="outline-container-orgc04d1a7" class="outline-2">
+<h2 id="orgc04d1a7"><span class="section-number-2">1</span> Quiz 3:</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org84e2e11" class="outline-3">
-<h3 id="org84e2e11"><span class="section-number-3">1.1</span> Immutatiblity</h3>
+<div id="outline-container-orgae12d98" class="outline-3">
+<h3 id="orgae12d98"><span class="section-number-3">1.1</span> Immutatiblity</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Consider a partial version of Bloch's mutable Stack class:
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #a020f0;">public</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Stack</span> {
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Stack</span> {
 
-    <span style="color: #a020f0;">private</span> <span style="color: #228b22;">Object</span>[] <span style="color: #a0522d;">elements</span>;
-    <span style="color: #a020f0;">private</span> <span style="color: #228b22;">int</span> <span style="color: #a0522d;">size</span> = 0;
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">Object</span>[] <span style="color: #6a1868;">elements</span>;
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">size</span> = 0;
 
-    <span style="color: #a020f0;">public</span> <span style="color: #0000ff;">Stack</span>() { <span style="color: #a020f0;">this</span>.elements = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">Object</span>[0]; }
+    <span style="color: #e45649;">public</span> <span style="color: #a626a4;">Stack</span>() { <span style="color: #e45649;">this</span>.elements = <span style="color: #e45649;">new</span> <span style="color: #986801;">Object</span>[0]; }
 
-    <span style="color: #a020f0;">public</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">push</span> (<span style="color: #228b22;">Object</span> <span style="color: #a0522d;">e</span>) {
-        ensureCapacity();      <span style="color: #b22222;">// </span><span style="color: #b22222;">implementation omitted from quiz</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">push</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">e</span>) {
+        ensureCapacity();      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">implementation omitted from quiz</span>
         elements[size++] = e;
     }
 
-    <span style="color: #a020f0;">public</span> <span style="color: #228b22;">Object</span> <span style="color: #0000ff;">pop</span> () {
-        <span style="color: #a020f0;">if</span> (size == 0) <span style="color: #a020f0;">throw</span> <span style="color: #a020f0;">new</span> <span style="color: #228b22;">IllegalStateException</span>(<span style="color: #8b2252;">"Stack.pop"</span>);
-        <span style="color: #228b22;">Object</span> <span style="color: #a0522d;">result</span> = elements[--size];
-        elements[size] = <span style="color: #008b8b;">null</span>;
-        <span style="color: #a020f0;">return</span> result;
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Object</span> <span style="color: #a626a4;">pop</span> () {
+        <span style="color: #e45649;">if</span> (size == 0) <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IllegalStateException</span>(<span style="color: #50a14f;">"Stack.pop"</span>);
+        <span style="color: #986801;">Object</span> <span style="color: #6a1868;">result</span> = elements[--size];
+        elements[size] = <span style="color: #b751b6;">null</span>;
+        <span style="color: #e45649;">return</span> result;
     }
 }
 
@@ -60,9 +61,9 @@ Consider a partial version of Bloch's mutable Stack class:
 Also consider the following client interaction with Stack
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #228b22;">Stack</span> <span style="color: #a0522d;">s</span> = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">Stack</span>();
-s.push(<span style="color: #8b2252;">"cat"</span>);
-s.push(<span style="color: #8b2252;">"dog"</span>);
+<pre class="src src-java"><span style="color: #986801;">Stack</span> <span style="color: #6a1868;">s</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Stack</span>();
+s.push(<span style="color: #50a14f;">"cat"</span>);
+s.push(<span style="color: #50a14f;">"dog"</span>);
 System.out.println(s.pop());
 
 </pre>
@@ -73,18 +74,18 @@ System.out.println(s.pop());
 </div>
 </div>
 
-<div id="outline-container-orgd48031b" class="outline-3">
-<h3 id="orgd48031b"><span class="section-number-3">1.2</span> Verification using Hoare Logic</h3>
+<div id="outline-container-org3fef010" class="outline-3">
+<h3 id="org3fef010"><span class="section-number-3">1.2</span> Verification using Hoare Logic</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Given the program
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #b22222;">// </span><span style="color: #b22222;">{x &lt;= 10}   # P  </span>
-<span style="color: #a020f0;">while</span> (x != 10){
-  <span style="color: #008b8b;">x</span> := x + 1;
+<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">{x &lt;= 10}   # P  </span>
+<span style="color: #e45649;">while</span> (x != 10){
+  <span style="color: #b751b6;">x</span> := x + 1;
 }
-<span style="color: #b22222;">//</span><span style="color: #b22222;">{x == 10}  # Q</span>
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">{x == 10}  # Q</span>
 </pre>
 </div>
 
@@ -93,6 +94,56 @@ Given the program
 <li>Find a loop invariant and prove that the program is correct (show your work, i.e., generate the <code>wp</code> and the <code>vc</code> of the program, and reason about these)</li>
 </ol>
 </div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgbcaf673" class="outline-2">
+<h2 id="orgbcaf673"><span class="section-number-2">2</span> Quiz 4</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li><p>
+Consider the following (supposedly) immutable class:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">final</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Immutable</span> { 
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">String</span> <span style="color: #6a1868;">string</span>;
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>;
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">list</span>;
+
+   <span style="color: #e45649;">public</span> <span style="color: #a626a4;">Immutable</span>(<span style="color: #986801;">String</span> <span style="color: #6a1868;">string</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">list</span>) {
+      <span style="color: #e45649;">this</span>.string = string;                     <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line A</span>
+      <span style="color: #e45649;">this</span>.x = x;                               <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line B</span>
+      <span style="color: #e45649;">this</span>.list = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">String</span>&gt; (list); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line C</span>
+   }
+
+   <span style="color: #e45649;">public</span> <span style="color: #a626a4;">getString</span>() { <span style="color: #e45649;">return</span> string; }  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line D</span>
+   <span style="color: #e45649;">public</span> <span style="color: #a626a4;">getInt</span>()    { <span style="color: #e45649;">return</span> x; }       <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line E</span>
+   <span style="color: #e45649;">public</span> <span style="color: #a626a4;">getList</span>()   { <span style="color: #e45649;">return</span> list; }    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line F</span>
+}
+</pre>
+</div></li>
+</ol>
+
+<p>
+Mark whether each line of code is a problem w.r.t. the immutability of class Immutable. 
+</p>
+
+<ul class="org-ul">
+<li>Line A:    <span class="underline">__</span> Yes   <span class="underline">__</span> No</li>
+<li>Line B:    <span class="underline">__</span> Yes   <span class="underline">__</span> No</li>
+<li>Line C:    <span class="underline">__</span> Yes   <span class="underline">__</span> No</li>
+<li>Line D:    <span class="underline">__</span> Yes   <span class="underline">__</span> No</li>
+<li>Line E:    <span class="underline">__</span> Yes   <span class="underline">__</span> No</li>
+<li>Line F:    <span class="underline">__</span> Yes   <span class="underline">__</span> No</li>
+</ul>
+
+
+<ol class="org-ol">
+<li>Write pseudo-code that compromises the immutability of the Immutable class.</li>
+</ol>
 </div>
 </div>
 </div>
