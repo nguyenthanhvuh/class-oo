@@ -1,5 +1,134 @@
+<2021-10-12 Tue>
+
+Substitution principle
+
+-  If B is a subtype of A,a B can always be substituted for an A
+
+- B is permitted to strengthen properties and add properties
+  – Fine to add new methods (that preserve invariants)
+  – An overriding method must have a stronger (or equal) spec
+B is not permitted to weaken a spec
+  – No method removal
+  – No overriding method with a weaker spec
+
+Constraints on methods
+– For each supertype method, subtype must have such a method
+  • Could be inherited or overridden
+Each overriding method must strengthen (or match) the spec: –
+   Ask nothing extra of client (“weaker precondition”)
+      - Requires clause is at most as strict as in supertype’s method
+      -  Guarantee atleast as much(“stronger post condition”)
+         • Effects clause is at least as strict as in the supertype method
+         • No new entries in modifies clause
+         • Promise more (or the same) in returns clause
+         • Throws clause must indicate fewer (or same) possible exception types
+
+*TYPE*
+      Contra vs co-variance
+supertype    T1 foo(T2)
+subtype      T1' foo(T2')
+      T2' is supertype of T2 (as T2' is weaker, contravariance)
+      T1' is subtype of T1 (as T1 is stronger, covariance)
+
+class A{
+   A foo(A x);
+}
+
+class B extends A{
+   A foo(B x); // Bad, strengthening precond
+   B foo(A x); // OK,  strenthening postcond
+   A foo(Object x); // OK , weakening precond
+}
+      
+Object o = new Date() ;// OK,   new Date() returns a Date() which is stronger than Object
+Date d = new Object(); // Not OK, compile time error 
+
+
+*SPECIFICATION*
+- Any property (e.g., invariants or specification) guaranteed by supertype must be guaranteed by subtype
+  – The subtype is permitted to strengthen & add properties
+  – Anything provable about an A is provable about a B
+- No specification weakening
+  - No method removal
+  - An overriding method has
+    - a weaker precondition:
+      - cannot ask anything extra more from the client
+      - if super_pre  is x < 5,
+        - then sub_pre can be x < 4 ? no, bc x<4 => x<5
+      -  then sub_pre can be x < 10? yes, bc x<5 => x<10
+    - a stronger postcondition:
+      - give result at least as strong as the overriden one
+
+
+-supertype has a method f that takes in an int, and returns a positive int (e.g., absolute)
+-subtype overrides f and
+  - take positive int:  so strenghthen precond, this is bad because what used to work with negative is now broken
+  - returns an int: so weakening postcond,  also bad because the return should be positive int, but now could return a neg
+
+
+
+  
+
+
+
+https://www.youtube.com/watch?v=PZlD39cd4Wk
+
+
+Counter vs Counter2:
+
+2 methods in Counter
+Also 2 in Counter2 (get is inherit)
+precondition: OK,  same (both True)
+postcondition: NOT OK double doesn't make it bigger (incr), so this is not at least stronger than post of Counter.  (if we have some precondition saying this >= 0, then we are OK)
+
+
+
+
+Method rules
+- Subtype has all methods from supertype and more
+- Client only has access to the methods (overriden or extra) of the subtypes, they cannot access methods of the supertype directly     
+
+- Subtype Precondition:
+  - can be weaken than supertype precond
+    - i.e, ~presuper -> presub~
+  - e.g., supertype precond : x > 5
+  - subtype precond,  x > 4   (x > 5 => x> 4)
+  - 
+
+- Subtype Post:
+  - can stregthen supertype post
+    - i.e., ~presuper & postsub => postsuper~ 
+    
+
+
+In-class 5B
+
+B extends A:  fails
+Precond:  BAD
+Post: really doesn't matter, already fail pre
+
+C extends A: fails
+Precond: Ok, no precond for both
+Post: BAD,  supertype A does more (e.g., return NP when x is null)
+
+A extends B: OK
+precond:  OK,  A has no precond
+post: Ok, A is stronger, throws exception (actually they are the same if we consider the precond of B)
+
+C extends B: OK
+precond: OK, C's precond is arguebly weaker
+post: Ok, same post
+
+
+A extends C: OK
+precond: OK, none has precond
+postcond:  A post is stronger if we consider returning exception is stronger.  But not OK if we reason that in C we expect a return but in A we don't get anything.
+We can also say the postcondition is not compatible,  neither one is stronger or weaker,  so in that case it also not satisfies the requirement that sub post has to be stronger than super post
+
+
 
 <2021-10-04 Mon>
+
 
 Iterator 
 

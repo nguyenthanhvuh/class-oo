@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-10-04 Mon 16:04 -->
+<!-- 2021-10-12 Tue 15:13 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 619</title>
 <meta name="generator" content="Org mode" />
@@ -18,18 +18,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc04d1a7">1. Quiz 3:</a></li>
-<li><a href="#orgbcaf673">2. Quiz 4</a></li>
+<li><a href="#orgd32cca3">1. Quiz 3:</a></li>
+<li><a href="#orgd9bbec9">2. Quiz 4:</a></li>
+<li><a href="#org252ddda">3. Quiz 5:</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgc04d1a7" class="outline-2">
-<h2 id="orgc04d1a7"><span class="section-number-2">1</span> Quiz 3:</h2>
+<div id="outline-container-orgd32cca3" class="outline-2">
+<h2 id="orgd32cca3"><span class="section-number-2">1</span> Quiz 3:</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgae12d98" class="outline-3">
-<h3 id="orgae12d98"><span class="section-number-3">1.1</span> Immutatiblity</h3>
+<div id="outline-container-org784753c" class="outline-3">
+<h3 id="org784753c"><span class="section-number-3">1.1</span> Immutatiblity</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Consider a partial version of Bloch's mutable Stack class:
@@ -68,22 +69,51 @@ System.out.println(s.pop());
 
 </pre>
 </div>
+
 <ul class="org-ul">
-<li>What methods would be needed to convert the client interaction into an equivalent interaction with an immutable version called IStack? For each method, give <b>just the method header</b> - not the contract or implemetation.</li>
+<li><p>
+What methods would be needed to convert the client interaction into an equivalent interaction with an immutable version called IStack? For each method, give <b>just the method header</b> - not the contract or implemetation.
+</p>
+
+<p>
+public class IStack{
+public IStack push(Object e){
+// return new IStack() &#x2026;. 
+}
+</p>
+
+<p>
+public IStack pop (){
+// return new IStack object
+}
+</p>
+
+<p>
+public Object top(){
+// return the top of the stack 
+}
+</p>
+
+<p>
+}
+</p></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org3fef010" class="outline-3">
-<h3 id="org3fef010"><span class="section-number-3">1.2</span> Verification using Hoare Logic</h3>
+
+
+<div id="outline-container-org296c40c" class="outline-3">
+<h3 id="org296c40c"><span class="section-number-3">1.2</span> Verification using Hoare Logic</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Given the program
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">{x &lt;= 10}   # P  </span>
+<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">{x &lt;= 10}   # P</span>
+
 <span style="color: #e45649;">while</span> (x != 10){
-  <span style="color: #b751b6;">x</span> := x + 1;
+    <span style="color: #b751b6;">x</span> := x + 1;
 }
 <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">{x == 10}  # Q</span>
 </pre>
@@ -93,14 +123,33 @@ Given the program
 <li>Informally reason that this program is correct with the given <code>P</code> and <code>Q</code>.</li>
 <li>Find a loop invariant and prove that the program is correct (show your work, i.e., generate the <code>wp</code> and the <code>vc</code> of the program, and reason about these)</li>
 </ol>
+
+<p>
+loop inv :  x &lt;= 10
+</p>
+
+<p>
+wp(while[x&lt;=10](x != 10){x := x + 1;}, {x <code>= 10})
+   = I  &amp;   (I &amp; x!=10) =&gt; wp(x:</code> x+1, I)   &amp;   (I &amp; !(x!=10) <code>&gt; x =</code> 10)
+= x &lt; =
+</p>
 </div>
 </div>
 </div>
 
 
 
-<div id="outline-container-orgbcaf673" class="outline-2">
-<h2 id="orgbcaf673"><span class="section-number-2">2</span> Quiz 4</h2>
+
+
+
+
+
+
+
+
+
+<div id="outline-container-orgd9bbec9" class="outline-2">
+<h2 id="orgd9bbec9"><span class="section-number-2">2</span> Quiz 4:</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li><p>
@@ -113,15 +162,15 @@ Consider the following (supposedly) immutable class:
     <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>;
     <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">list</span>;
 
-   <span style="color: #e45649;">public</span> <span style="color: #a626a4;">Immutable</span>(<span style="color: #986801;">String</span> <span style="color: #6a1868;">string</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">list</span>) {
-      <span style="color: #e45649;">this</span>.string = string;                     <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line A</span>
-      <span style="color: #e45649;">this</span>.x = x;                               <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line B</span>
-      <span style="color: #e45649;">this</span>.list = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">String</span>&gt; (list); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line C</span>
-   }
+    <span style="color: #e45649;">public</span> <span style="color: #a626a4;">Immutable</span>(<span style="color: #986801;">String</span> <span style="color: #6a1868;">string</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">list</span>) {
+        <span style="color: #e45649;">this</span>.string = string;                     <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line A</span>
+        <span style="color: #e45649;">this</span>.x = x;                               <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line B</span>
+        <span style="color: #e45649;">this</span>.list = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">String</span>&gt; (list); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line C</span>
+    }
 
-   <span style="color: #e45649;">public</span> <span style="color: #a626a4;">getString</span>() { <span style="color: #e45649;">return</span> string; }  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line D</span>
-   <span style="color: #e45649;">public</span> <span style="color: #a626a4;">getInt</span>()    { <span style="color: #e45649;">return</span> x; }       <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line E</span>
-   <span style="color: #e45649;">public</span> <span style="color: #a626a4;">getList</span>()   { <span style="color: #e45649;">return</span> list; }    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line F</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">String</span> <span style="color: #a626a4;">getString</span>() { <span style="color: #e45649;">return</span> string; }  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line D</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">getInt</span>()    { <span style="color: #e45649;">return</span> x; }       <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line E</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #a626a4;">getList</span>() { <span style="color: #e45649;">return</span> list; }    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line F</span>
 }
 </pre>
 </div></li>
@@ -143,6 +192,47 @@ Mark whether each line of code is a problem w.r.t. the immutability of class Imm
 
 <ol class="org-ol">
 <li>Write pseudo-code that compromises the immutability of the Immutable class.</li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-org252ddda" class="outline-2">
+<h2 id="org252ddda"><span class="section-number-2">3</span> Quiz 5:</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">A</span> {
+   <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span> <span style="color: #a626a4;">compose</span> (<span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">itr</span>)
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: itr is not null</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Modifies: itr</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if this is not appropriate for itr throw IAE</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return generator of itr composed with this</span>
+<span style="color: #e45649;">class</span> B {
+   <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span> <span style="color: #a626a4;">compose</span> (<span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">itr</span>)
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Modifies: itr</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if itr is null throw NPE </span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if this is not appropriate for itr throw IAE</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return generator of itr composed with this</span>
+<span style="color: #e45649;">class</span> C {
+   <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span> <span style="color: #a626a4;">compose</span> (<span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">itr</span>)
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Modifies: itr</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if itr is null return iterator equal to this</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if this is not appropriate for itr throw IAE</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return generator of itr composed with this</span>
+</pre>
+</div>
+
+<p>
+Analyze the <code>compose()</code> method in each of these cases. For each case, state if the precondition and the postcondition parts are OK or fail, and justify.
+</p>
+
+<ol class="org-ol">
+<li>B extends A.</li>
+<li>C extends A.</li>
+<li>A extends B.</li>
+<li>C extends B.</li>
+<li>B extends C.</li>
 </ol>
 </div>
 </div>
