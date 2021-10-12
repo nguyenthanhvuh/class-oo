@@ -476,12 +476,12 @@
              }
    #+end_src
 
-   1. What role do constructors play in analyzing the Liskov Substitition Principle?
    1. Is there a constraint about negative/zero values for this? How do we know?
    1. What methods are in the =Counter2= API?
    1. Is =Counter2= a valid subtype of Counter?
    1. What methods are in the =Counter3= API?
-   1. Is =Counter3= a valid subtype of =Counter=? In particular, does =incr(int n)= have to be consistent with =incr()=? 
+
+   # 1. Is =Counter3= a valid subtype of =Counter=? In particular, does =incr(int n)= have to be consistent with =incr()=? 
 
 ** In class 6
    :PROPERTIES:

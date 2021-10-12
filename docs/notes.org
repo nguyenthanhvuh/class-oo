@@ -1,6 +1,6 @@
 <2021-10-12 Tue>
 
-Substitution principle
+Liskov Substitution principle
 
 -  If B is a subtype of A,a B can always be substituted for an A
 
