@@ -393,10 +393,11 @@
      MaxIntSet s = {3, 5}; s.remove(5);  // repOk()????
    #+end_src
   
-   1. What does the default constructor in =MaxIntSet= do?
-   1. What do the ="..."= bits do?
-   1. How does the call work out?
-   1. What is the abstract state of a =MaxIntSet=? There are two options. What are they, and what are the consequences of each choice? 
+   # 1. What does the default constructor in =MaxIntSet= do?
+
+   3. What do the ="..."= bits do?
+   4. How does the call work out?
+   5. What is the abstract state of a =MaxIntSet=? There are two options. What are they, and what are the consequences of each choice? 
 
 ** In class 5B
    :PROPERTIES:

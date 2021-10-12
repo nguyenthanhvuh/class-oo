@@ -125,7 +125,9 @@ precond: OK, none has precond
 postcond:  A post is stronger if we consider returning exception is stronger.  But not OK if we reason that in C we expect a return but in A we don't get anything.
 We can also say the postcondition is not compatible,  neither one is stronger or weaker,  so in that case it also not satisfies the requirement that sub post has to be stronger than super post
 
+---
 
+In-class 5A
 
 <2021-10-04 Mon>
 
@@ -189,7 +191,7 @@ public class Period {
 }
 
 
-public class MyClass extends Period{
+public class MyMaliciousClass extends Period{
     private Date myDate = new Date(0)
 
 @override public Date start(){
@@ -206,12 +208,12 @@ public class LoanProvider{
     Period p;
 
     public LoanProvider (Period p, other stuff){
-        this.p = p ; // no defense copy, Because Period is immutable 
+        this.p = p ; // no defense copy, Because Period is supposed to be immutable 
     }
 }
 
 
-Period m = new myClass();  //use start method from my class and hence when itsTime() will use myDate defined in my class,  not the start in Period.  
+Period m = new myMaliciousClass(); 
 LoanProvider lp = new LoanProvider(m, ...) // will have start from myClass
 
 
