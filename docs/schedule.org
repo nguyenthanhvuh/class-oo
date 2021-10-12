@@ -10,32 +10,32 @@
 
     Homework assignments are *due* on the date listed. Quizzes are posted, with solutions, on Piazza following the class in which the quiz is given.
 
-  | Meeting | Topic                                     | Reading                                                                                            |           Assignment/Quiz Guide           |                In-Class Exercise                 |
-  |     <r> |                                           | <l>                                                                                                |                    <c>                    |                       <c>                        |
-  |---------+-------------------------------------------+----------------------------------------------------------------------------------------------------+-------------------------------------------+--------------------------------------------------|
-  |       1 | Class Overview                            | Liskov 1--2                                                                                        |                                           |                  IC [[#ic0][0]]                  |
-  |       2 | Procedural Abstraction; Exceptions        | Liskov 3--4, Bloch 10                                                                              |     [[#a1][A1 Due]]; [[#g1][Guide 1]]     |          IC 1 [[#ic1A][A]] [[#ic1B][B]]          |
-  |       3 | Data Abstraction; Mutability              | Liskov 5.1--5.4, [[file:./files/LiskovSet.java][LiskovSet.java]], [[./files/Poly.java][Poly.java]] |     [[#a2][A2 Due]]; [[#g2][Guide 2]]     |          IC 2 [[#ic2A][A]] [[#ic2B][B]]          |
-  |     4-1 | Program Verification                      | -                                                                                                  | [[#a4-1][A4-1 Due]]; [[#g4-1][Guide 4-1]] |                 [[#ic4-1][IC 4-1]]               |
-  |       4 | Reasoning About Data Abstraction          | Liskov 5.5-5.10                                                                                    |     [[#a3][A3 Due]]; [[#g3][Guide 3]]     |          IC 3 [[#ic3A][A]] [[#ic3B][B]]          |
-  |       5 | Interation Abstraction; Method Guidelines | Liskov 6 Bloch 8                                                                                   |     [[#a4][A4 Due]]; [[#g4][Guide 4]]     |          IC 4 [[#ic4A][A]] [[#ic4B][B]]          |
-  |       6 | Type Abstraction                          | Liskov 7                                                                                           |     [[#a5][A5 Due]]; [[#g5][Guide 5]]     |   IC 5 [[#ic5A][A]] [[#ic5B][B]] [[#ic5C][C]]    |
-  |       7 | Mid-semester Recap                        | /No New Material/                                                                                  |             [[#g6][Guide 6]]              |                  IC [[#ic6][6]]                  |
-  |       8 | Polymorphic Abstract; Lambdas             | Liskov 8, Bloch 7(Item 42)                                                                         |     [[#a6][A6 Due]]; [[#g7][Guide 7]]     |                  IC [[#ic7][7]]                  |
-  |       9 | Generics                                  | Bloch 5                                                                                            |     [[#a7][A7 Due]]; [[#g8][Guide 8]]     |          IC 8 [[#ic8A][A]] [[#ic8B][B]]          |
-  |      10 | Common Java Contracts                     | Bloch 3                                                                                            |     [[#a8][A8 Due]]; [[#g9][Guide 9]]     |          IC 9 [[#ic9A][A]] [[#ic9B][B]]          |
-  |      11 | Classes and Inheritance                   | Bloch 4                                                                                            |    [[#a9][A9 Due]]; [[#g10][Guide 10]]    | IC 10 [[#ic10A][A]] [[#ic10B][B]]  [[#ic10C][C]] |
-  |      12 | Contract Model in Testing                 | Advanced JUnit (slides 22-24)                                                                      |   [[#a10][A10 Due]]; [[#g11][Guide 11]]   |                 IC [[#ic11][11]]                 |
-  |      13 | Enums and Annotations                     | Bloch 6                                                                                            |   [[#a11][A11 Due]]; [[#g12][Guide 12]]   |        IC 12 [[#ic12A][A]] [[#ic12B][B]]         |
-  |      14 | Course Wrap Up                            | Final Exam Notes; Code for final                                                                   |                                           |                 IC [[#ic13][13]]                 |
-  |      15 | Final Exam @ 4:30                         | /Online/                                                                                           |                                           |                                                  |
-  |         |                                           |                                                                                                    |                                           |                                                  |
+  | Meeting | Topic                                     | Reading                          |           Assignment/Quiz Guide           |                In-Class Exercise                 |
+  |     <r> |                                           | <l>                              |                    <c>                    |                       <c>                        |
+  |---------+-------------------------------------------+----------------------------------+-------------------------------------------+--------------------------------------------------|
+  |       1 | Class Overview                            | Liskov 1--2                      |                                           |                  IC [[#ic0][0]]                  |
+  |       2 | Procedural Abstraction; Exceptions        | Liskov 3--4, Bloch 10            |     [[#a1][A1 Due]]; [[#g1][Guide 1]]     |          IC 1 [[#ic1A][A]] [[#ic1B][B]]          |
+  |       3 | Data Abstraction; Mutability              | Liskov 5.1--5.4,                 |     [[#a2][A2 Due]]; [[#g2][Guide 2]]     |          IC 2 [[#ic2A][A]] [[#ic2B][B]]          |
+  |     4-1 | Program Verification                      | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]]          | [[#a4-1][A4-1 Due]]; [[#g4-1][Guide 4-1]] |                [[#ic4-1][IC 4-1]]                |
+  |       4 | Reasoning About Data Abstraction          | Liskov 5.5-5.10                  |     [[#a3][A3 Due]]; [[#g3][Guide 3]]     |          IC 3 [[#ic3A][A]] [[#ic3B][B]]          |
+  |       5 | Interation Abstraction; Method Guidelines | Liskov 6, Bloch 8                |     [[#a4][A4 Due]]; [[#g4][Guide 4]]     |          IC 4 [[#ic4A][A]] [[#ic4B][B]]          |
+  |       6 | Type Abstraction                          | Liskov 7                         |     [[#a5][A5 Due]]; [[#g5][Guide 5]]     |   IC 5 [[#ic5A][A]] [[#ic5B][B]] [[#ic5C][C]]    |
+  |       7 | Mid-semester Recap                        | /No New Material/                |             [[#g6][Guide 6]]              |                  IC [[#ic6][6]]                  |
+  |       8 | Polymorphic Abstract; Lambdas             | Liskov 8, Bloch 7(Item 42)       |     [[#a6][A6 Due]]; [[#g7][Guide 7]]     |                  IC [[#ic7][7]]                  |
+  |       9 | Generics                                  | Bloch 5                          |     [[#a7][A7 Due]]; [[#g8][Guide 8]]     |          IC 8 [[#ic8A][A]] [[#ic8B][B]]          |
+  |      10 | Common Java Contracts                     | Bloch 3                          |     [[#a8][A8 Due]]; [[#g9][Guide 9]]     |          IC 9 [[#ic9A][A]] [[#ic9B][B]]          |
+  |      11 | Classes and Inheritance                   | Bloch 4                          |    [[#a9][A9 Due]]; [[#g10][Guide 10]]    | IC 10 [[#ic10A][A]] [[#ic10B][B]]  [[#ic10C][C]] |
+  |      12 | Contract Model in Testing                 | Advanced JUnit (slides 22-24)    |   [[#a10][A10 Due]]; [[#g11][Guide 11]]   |                 IC [[#ic11][11]]                 |
+  |      13 | Enums and Annotations                     | Bloch 6                          |   [[#a11][A11 Due]]; [[#g12][Guide 12]]   |        IC 12 [[#ic12A][A]] [[#ic12B][B]]         |
+  |      14 | Course Wrap Up                            | Final Exam Notes; Code for final |                                           |                 IC [[#ic13][13]]                 |
+  |      15 | Final Exam @ 4:30                         | /Online/                         |                                           |                                                  |
+  |         |                                           |                                  |                                           |                                                  |
 
 * In class Assignments
 
-** In class 0
+** In class 1
    :PROPERTIES:
-   :CUSTOM_ID: ic0
+   :CUSTOM_ID: ic1
    :END:
    
    Work with your group and do the following:
@@ -1707,41 +1707,11 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
    1. Have you ever used a "C style" enum? If so, at the time, did this seem reasonable or ridiculous?
    1. This week's in-class exercise is a recap. Is there a topic (or two) we've covered that you think you need more practice with?
 
+* Files
+  - [[file:./files/LiskovSet.java][LiskovSet.java]]
+  - [[./files/Poly.java][Poly.java]]   
 
-* Quizzes
-*** Quiz 2:
-
-    Consider the following 2 specifications, the second of which has an associated implementation:
-    #+begin_src java
-      public static int minIndex (int [] a) {... implementation omitted ... }
-      // EFFECTS: if a null throw NullPointerException, else if a.length=0 throw
-      //      IllegalArgumentException else return index of some min element in a.
-
-      public static void setSmall (int [] a, int i) {
-          // REQUIRES: a != null, 0 <= i < a.length
-          // MODIFIES a
-          // EFFECTS: rearranges elements in array a so that some smallest element is at index i
-          int j = minIndex(a); int t = a[j]; a[j] = a[i]; a[i] = t;    }
-    #+end_src
-
-    1. Suppose we wish to transform the setSmall precondition ~a != null~ into defined behavior with an exception.
-       - What exception would Bloch recommend for this transformation? 
-       - Rewrite the precondition and postcondition for =setSmall()= to achieve this result. 
-         #+begin_src java
-           // REQUIRES: 0 <= i < a.length
-           // MODIFIES a
-           // EFFECTS: if a = null throw NullPointerException else
-           //          rearranges elements in array a so that 
-           //          smallest element is at index i
-
-         #+end_src
-       - Does the given implementation of =setSmall()= satisfy this revised specification? 
-    - Suppose we wish, in addition, to transform the =setSmall()= precondition ~0 <= i < a.length~ into defined behavior with an exception.
-       - What exception would Bloch recommend for this transformation? Hint: Note that i is described as an "index". 
-       - Extend your rewrite of the precondition and postcondition for =setSmall()= to achieve this result. 
-       - Does the given implementation of =setSmall()= satisfy this revised specification? 
-
-
+    
 * Links
   - [[./index.html][Syllabus]]
   - [[./schedule.html][Schedule]]
