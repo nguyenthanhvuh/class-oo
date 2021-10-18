@@ -161,31 +161,33 @@ Consider the code below which uses ~elements()~. Line numbers have been added fo
 
 
 
-#   #+begin_src java
-# class A {
-#    public Iterator compose (Iterator itr)
-#    // Requires: itr is not null
-#    // Modifies: itr
-#    // Effects: if this is not appropriate for itr throw IAE
-#    // else return generator of itr composed with this
-# class B {
-#    public Iterator compose (Iterator itr)
-#    // Modifies: itr
-#    // Effects: if itr is null throw NPE 
-#    // else if this is not appropriate for itr throw IAE
-#    // else return generator of itr composed with this
-# class C {
-#    public Iterator compose (Iterator itr)
-#    // Modifies: itr
-#    // Effects: if itr is null return iterator equal to this
-#    // else if this is not appropriate for itr throw IAE
-#    // else return generator of itr composed with this
-#   #+end_src
+* Quiz 6:  Type
 
-# Analyze the =compose()= method in each of these cases. For each case, state if the precondition and the postcondition parts are OK or fail, and justify.
+  #+begin_src java
+ class A {
+    public Iterator compose (Iterator itr)
+    // Requires: itr is not null
+    // Modifies: itr
+    // Effects: if this is not appropriate for itr throw IAE
+    // else return generator of itr composed with this
+ class B {
+    public Iterator compose (Iterator itr)
+    // Modifies: itr
+    // Effects: if itr is null throw NPE 
+    // else if this is not appropriate for itr throw IAE
+    // else return generator of itr composed with this
+ class C {
+    public Iterator compose (Iterator itr)
+    // Modifies: itr
+    // Effects: if itr is null return iterator equal to this
+    // else if this is not appropriate for itr throw IAE
+    // else return generator of itr composed with this
+   #+end_src
 
-# 1. B extends A. 
-# 1. C extends A. 
-# 1. A extends B. 
-# 1. C extends B. 
-# 1. B extends C. 
+ Analyze the =compose()= method in each of these cases. For each case, state if the precondition and the postcondition parts are OK or fail, and justify.
+
+ 1. B extends A. 
+ 1. C extends A. 
+ 1. A extends B. 
+ 1. C extends B. 
+ 1. B extends C. 

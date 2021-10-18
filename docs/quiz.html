@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-10-12 Tue 16:12 -->
+<!-- 2021-10-18 Mon 15:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 619</title>
 <meta name="generator" content="Org mode" />
@@ -18,19 +18,20 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org03f3b03">1. Quiz 3:</a></li>
-<li><a href="#orgc3fd0df">2. Quiz 4:</a></li>
-<li><a href="#org71a0346">3. Quiz 5:  Iterator</a></li>
+<li><a href="#orga921046">1. Quiz 3:</a></li>
+<li><a href="#org76e6035">2. Quiz 4:</a></li>
+<li><a href="#org811aa33">3. Quiz 5:  Iterator</a></li>
+<li><a href="#org35eab2e">4. Quiz 6:  Type</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org03f3b03" class="outline-2">
-<h2 id="org03f3b03"><span class="section-number-2">1</span> Quiz 3:</h2>
+<div id="outline-container-orga921046" class="outline-2">
+<h2 id="orga921046"><span class="section-number-2">1</span> Quiz 3:</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org15db598" class="outline-3">
-<h3 id="org15db598"><span class="section-number-3">1.1</span> Immutatiblity</h3>
+<div id="outline-container-org56ab24f" class="outline-3">
+<h3 id="org56ab24f"><span class="section-number-3">1.1</span> Immutatiblity</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Consider a partial version of Bloch's mutable Stack class:
@@ -103,8 +104,8 @@ public Object top(){
 
 
 
-<div id="outline-container-org90352a7" class="outline-3">
-<h3 id="org90352a7"><span class="section-number-3">1.2</span> Verification using Hoare Logic</h3>
+<div id="outline-container-org985169d" class="outline-3">
+<h3 id="org985169d"><span class="section-number-3">1.2</span> Verification using Hoare Logic</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Given the program
@@ -148,8 +149,8 @@ wp(while[x&lt;=10](x != 10){x := x + 1;}, {x <code>= 10})
 
 
 
-<div id="outline-container-orgc3fd0df" class="outline-2">
-<h2 id="orgc3fd0df"><span class="section-number-2">2</span> Quiz 4:</h2>
+<div id="outline-container-org76e6035" class="outline-2">
+<h2 id="org76e6035"><span class="section-number-2">2</span> Quiz 4:</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li><p>
@@ -198,8 +199,8 @@ Mark whether each line of code is a problem w.r.t. the immutability of class Imm
 
 
 
-<div id="outline-container-org71a0346" class="outline-2">
-<h2 id="org71a0346"><span class="section-number-2">3</span> Quiz 5:  Iterator</h2>
+<div id="outline-container-org811aa33" class="outline-2">
+<h2 id="org811aa33"><span class="section-number-2">3</span> Quiz 5:  Iterator</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The specification for Liskov's <code>elements()</code> method is given below. 
@@ -243,6 +244,47 @@ Consider the code below which uses <code>elements()</code>. Line numbers have be
 <li>show the contents of <code>itr</code>  after line 5.</li>
 <li>If line 6 is <code>s.insert(12)</code>; show the contents of <code>itr</code> after line 6?</li>
 </ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org35eab2e" class="outline-2">
+<h2 id="org35eab2e"><span class="section-number-2">4</span> Quiz 6:  Type</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">A</span> {
+   <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span> <span style="color: #a626a4;">compose</span> (<span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">itr</span>)
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: itr is not null</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Modifies: itr</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if this is not appropriate for itr throw IAE</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return generator of itr composed with this</span>
+<span style="color: #e45649;">class</span> B {
+   <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span> <span style="color: #a626a4;">compose</span> (<span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">itr</span>)
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Modifies: itr</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if itr is null throw NPE </span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if this is not appropriate for itr throw IAE</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return generator of itr composed with this</span>
+<span style="color: #e45649;">class</span> C {
+   <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span> <span style="color: #a626a4;">compose</span> (<span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">itr</span>)
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Modifies: itr</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if itr is null return iterator equal to this</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if this is not appropriate for itr throw IAE</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return generator of itr composed with this</span>
+</pre>
+</div>
+
+<p>
+Analyze the <code>compose()</code> method in each of these cases. For each case, state if the precondition and the postcondition parts are OK or fail, and justify.
+</p>
+
+<ol class="org-ol">
+<li>B extends A.</li>
+<li>C extends A.</li>
+<li>A extends B.</li>
+<li>C extends B.</li>
+<li>B extends C.</li>
+</ol>
 </div>
 </div>
 </div>

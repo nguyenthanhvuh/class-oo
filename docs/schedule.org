@@ -460,7 +460,6 @@
 
    Consider the following:
    #+begin_src java
-
      public class Counter{   // Liskov 7.8
          public Counter()     //EFF: Makes this contain 0
              public int get()     //EFF: Returns the value of this
@@ -491,7 +490,6 @@
    This is a recap exercise.
 
    #+begin_src java
-
      public class BoundedQueue {
          private Object rep[];
          private int front = 0;
@@ -550,9 +548,9 @@
    #+end_src
   
 
-   1. How would Liskov describe a typical bounded queue?
    1. What is wrong with =toString()=? What needs to be done to fix it? Make it so.
-   1. Write some sample client code to exercise the data structure. Include some non-happy-path cases. Would Bloch likely change the behavior? If so, how?
+   1. Write some sample client code to exercise the data structure. Include some non-happy-path cases.
+      # Would Bloch likely change the behavior? If so, how?
    1. Write contracts for each method (as written), including the constructor.
    1. Build a rep-invariant. Focus on the code in =get()=. There are also lots of constraints on the array indices; these are quite tricky to get right. The constructor also introduces some complexity.
    1. Suppose we removed the line

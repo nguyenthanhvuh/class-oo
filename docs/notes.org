@@ -1,3 +1,257 @@
+Type-Checking or Type-Safety
+
+
+Greyhound extends Dog extends Animal
+
+Dog f(dog d){
+ ...
+ return g(d);
+}
+
+What is the signature of g?
+
+T2 g(T1 x)
+
+T1 :  Dog or Animal
+T2:  Dog  or Greyhound
+
+
+
+
+Greyground g (Greyhound x)  ?   NO (not TYPE-SAFE)
+Greyhound g (Animal x)  ?   YES
+
+
+
+Dog d =  Greyhound f(...)   
+Animal a  = Greyhound f(...)
+
+
+
+
+
+
+
+
+Inclass 5B
+
+#+begin_src java
+  class A:
+      public void reduce (Reducer x)    
+          // Effects: if x is null throw NPE 
+          // else if x is not appropriate for this throw IAE
+          // else reduce this by x
+
+  class B:
+      public void reduce (Reducer x) 
+          // Requires: x is not null
+        
+          // Effects: if x is not appropriate for this throw IAE
+          // else reduce this by x
+
+  class C:
+      public void reduce (Reducer x)   
+          // Effects: if x is null return (normally) with no change to this
+          // else if x is not appropriate for this throw IAE
+          // else reduce this by x
+#+end_src
+        
+
+
+
+B extends A.   Fail
+Precondition Part:  B has stronger pre:  Fail
+Postcondition Part: B has weaker post:  Fail  
+
+-----------------------------------          
+C extends A. 
+Precondition Part: both have no preconds:  OK   
+Postcondition Part:
+- incompatible behaviors (a => b ,  b => a) :  Fails
+- throwing NPE is stronger than return normally:  Fails
+- return normally is better / stronger than giving an exception:  OK   
+-----------------------------------          
+A extends B.  
+Precondition Part: OK, A has no precondition 
+Postcondition Part: OK, A is stronger
+OK, A == B
+
+P        Q    (supertype)
+ P'   Q'      (subtype)
+
+P -> P'  -> Q' -> Q
+P is stronger than P'
+Q' is stronger than Q
+
+-----------------------------------          
+C extends B.  OK
+Precondition Part: OK,  C has no precondition so weakest 
+Postcondition Part:
+- same postconditions (because of B's precond forbidding null) OK
+- C's post is stronger (because it handles more cases)  OK
+-----------------------------------                    
+
+A extends C.
+Precondition Part: none has precond OK
+Postcondition Part: A is stronger OK
+A is weaker :  Fail
+-----------------------------------          
+
+
+
+
+
+
+Liskov Substitution Principle (LSP)
+
+If B is a subtype of A, B can always be subsituted for A
+
+- B extends A  (B is a subtype of A  ,  A is a supertype of B)
+
+- foo(A) =>  foo(B)
+
+
+B should be more preicse than A,  strengthen properties of A
+- if A has some N methods,  B will have those methods,  B can have extra ones,  B overrides those N methods
+- An overriding method must have a stronger (or equal to) specification the the original method of A.
+- Precondition (requires)
+- Postcondition (effects)
+- Specification: Precondition => Postcondition (partial correctness specification, total)    
+- A's original method ~foo~   ~p => q~
+- B's ~foo~:   ~p' => q'~ 
+
+- more requires,  more preconditions
+
+ ~p'~ has more constraints/requires than ~p~, then  ~p'~ is stronger. 
+
+
+p' is stronger than p  ,     p' => q'  is stronger or weaker than p => q ? 
+
+
+p -> q
+
+p' -> q
+
+
+p' -> p   DOES NOT MEAN p' -> q =>  p -> q
+
+
+p -> q =>  p' -> q
+
+
+1. WEAKEN the precondition p' of foo in B (i.e., make the precondition p' of B foo weaker than the precondion p of A's foo) (and keep the postconditions of both the same)
+
+p -> p'  MEANS (p' -> q) -> (p -> q)
+
+weakening the precondition of B's foo, allows B's foo to deal with MORE inputs than A's foo, thus B's is "better" or stronger than A's.
+
+OR
+2. STRENGTHEN the postcondition of foo in B (i.e., make the postcondition of B's foo stronger than A's foo) (keep the preconditions of both the same)
+
+q' -> q  MEANS (p -> q') -> (p -> q)
+
+   
+A's foo return some animal , and B's foo return a cat  ,   thus B's foo is stronger than that of A
+
+
+
+if A has a function
+#+begin_src java
+  A_foo(int x){
+    //requires x as an integer
+    //effects: returns a positive int
+    }
+
+  B_foo(int x){
+      //requires x as a postive integer :  BAD (stronger precondition)
+      //effects:  return an integer:  BAD (weaker postcondition)
+    }
+#+end_src
+
+
+
+
+A:
+foo() returns animal
+
+
+B:
+foo() returns a mamal
+
+
+class Shape
+
+class Triangle extend Shape
+
+
+
+
+just types, then the Compiler will automatically checks and enforces LSP for us
+
+T1' extends T1
+T2' extends T2
+
+--- contravariance and covariance
+supertype       T1 foo (T2 x)
+subtype         T1 foo (T2 x)
+                   foo (T2' x)   #would violate Liskov principle 
+
+
+
+
+T1x.foo()
+
+T1'x.foo()
+
+
+bar(T1x)
+bar(T1'x)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <2021-10-12 Tue>
 
 Liskov Substitution principle
@@ -42,6 +296,24 @@ class B extends A{
       
 Object o = new Date() ;// OK,   new Date() returns a Date() which is stronger than Object
 Date d = new Object(); // Not OK, compile time error 
+
+dog a = ..
+dog b = f(a)
+
+
+dog f(dog d):
+   ...
+   return g(d)
+
+
+can f returns greyhound ?  YES,    
+can f returns animal ?  NO
+
+can f takes greyhound ?  yes
+can f takes germanshephard? yes
+
+g: animal -> greyhound
+
 
 
 *SPECIFICATION*
