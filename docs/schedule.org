@@ -20,8 +20,8 @@
   |       4 | Reasoning About Data Abstraction          | Liskov 5.5-5.10                  |     [[#a3][A3 Due]]; [[#g3][Guide 3]]     |          IC 3 [[#ic3A][A]] [[#ic3B][B]]          |
   |       5 | Interation Abstraction; Method Guidelines | Liskov 6, Bloch 8                |     [[#a4][A4 Due]]; [[#g4][Guide 4]]     |          IC 4 [[#ic4A][A]] [[#ic4B][B]]          |
   |       6 | Type Abstraction                          | Liskov 7                         |     [[#a5][A5 Due]]; [[#g5][Guide 5]]     |   IC 5 [[#ic5A][A]] [[#ic5B][B]] [[#ic5C][C]]    |
-  |       7 | Mid-semester Recap                        | /No New Material/                |             [[#g6][Guide 6]]              |                  IC [[#ic6][6]]                  |
-  |       8 | Polymorphic Abstract; Lambdas             | Liskov 8, Bloch 7(Item 42)       |     [[#a6][A6 Due]]; [[#g7][Guide 7]]     |                  IC [[#ic7][7]]                  |
+  |       7 | Mid-semester Recap                        | /No New Material/                |                           |                  IC [[#ic6][6]]                  |
+  |       8 | Polymorphic Abstract; Lambdas             | Liskov 8, Bloch 7(Item 42)       |     [[#a6][A6 Due]]; [[#g7][Guide 6]]     |                  IC [[#ic7][7]]                  |
   |       9 | Generics                                  | Bloch 5                          |     [[#a7][A7 Due]]; [[#g8][Guide 8]]     |          IC 8 [[#ic8A][A]] [[#ic8B][B]]          |
   |      10 | Common Java Contracts                     | Bloch 3                          |     [[#a8][A8 Due]]; [[#g9][Guide 9]]     |          IC 9 [[#ic9A][A]] [[#ic9B][B]]          |
   |      11 | Classes and Inheritance                   | Bloch 4                          |    [[#a9][A9 Due]]; [[#g10][Guide 10]]    | IC 10 [[#ic10A][A]] [[#ic10B][B]]  [[#ic10C][C]] |
