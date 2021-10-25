@@ -1406,10 +1406,6 @@
 
        #+end_src
        Is =Low_Bid_Market= a valid subtype of =Market=? Appeal to the methods rule to back up your answer.
-       #+export_comment
-       Pre:  OK, doesn't have pre so weaker
-       Post: NotOK, not stronger,  before it works with all item, but now it does not 
-       #+export_comment
 
     1. Suppose that the =buy()= method always chooses the lowest price on an item.
        #+begin_src java
@@ -1421,11 +1417,6 @@
        #+end_src
        Is =Low_Offer_Market= a valid subtype of =Market=? Appeal to the methods rule to back up your answer.
        
-       #+export_comment
-       Pre:  OK, same
-       Post: OK, stronger, supertype removes arbitrary one, subtype removes specific one
-       #+export_comment
-
 *** Grading Criteria
 
     This is purely a "paper and pencil" exercise. No code is required. Write your answer so that it is easily understandable by someone with only a passing knowledge of Liskov's rules for subtypes.
