@@ -2,16 +2,56 @@
 
 Assignment 6
 
+Comparable vs Comparator
 
 
+#+begin_src java
+
+    //natural/default sorting
+    class Employee implements Comparable {
+       String name;
+       public int compareTo(Employee o) {        
+          return name.compareTo(o.name);
+       }
+    }
+
+    //Collections.sort(employees);
 
 
+  class IdComparator implements Comparator<Employee> {
+     public int compare(Employee o1, Employee o2) {
+        if (o1.getId() < o2.getId()) {
+           return -1;        
+        }else if (o1.getId() > o2.getId()) {          
+           return 1;
+        } else {
+           return 0;        
+        }
+     }
+  }
+
+  class AgeComparator implements Comparator<Employee> {
+     public int compare(Employee o1, Employee o2) {
+        if (o1.getAge() < o2.getAge()) {
+           return -1;        
+        }else if (o1.getAge() > o2.getAge()) {          
+           return 1;
+        } else {
+           return 0;        
+        }    
+     }
+  }
+  //Collections.sort(employees, new IdComparator());
+  //Collections.sort(employees, new AgeComparator());
+
+#+end_src
 
 
+Inclass Lambda
 
+https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html#use-case
 
-
-
+Do all except 8
 
 
 
