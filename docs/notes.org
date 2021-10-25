@@ -47,19 +47,19 @@ Comparable vs Comparator
 #+end_src
 
 
-Inclass Lambda
-
-https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html#use-case
-
-Do all except 8
+- Inclass Lambda
 
 
 
+- Inclass 6
 
 
+- Show Quiz if have time 
 
 
+- Quiz
 
+-------------------------
 
 
 
