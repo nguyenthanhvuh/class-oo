@@ -6,9 +6,8 @@
 
 * Schedule
   
-  - *Notes*: Except for the first class, students are expected to complete the reading *prior to class* on listed meeting. Quizzes may occasionally take advantage of this expectation.
-
-    Homework assignments are *due* on the date listed. Quizzes are posted, with solutions, on Piazza following the class in which the quiz is given.
+  - *Notes*: Except for the first class, students are expected to complete the reading *prior to class* on listed meeting. Quizzes may occasionally take advantage of this expectation. Homework assignments are *due* on the date listed.
+    
 
   | Meeting | Topic                                     | Reading                          |           Assignment/Quiz Guide           |                In-Class Exercise                 |
   |     <r> |                                           | <l>                              |                    <c>                    |                       <c>                        |

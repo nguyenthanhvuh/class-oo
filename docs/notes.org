@@ -4,6 +4,143 @@ Assignment 6
 
 Comparable vs Comparator
 
+Comparable:
+
+
+class Person implements Comparable{
+   int age ..
+   String name ...
+   int years_in_college
+   
+   public int compareTo(Person p){
+       age.compareTo(p.age); 
+   }
+
+}
+
+class NamePerson impelments Comparator{
+  public int compare(Person p1, Person p2){
+  //compare name
+  }
+}
+
+class YICPerson implements Comparator{
+  public int compare(Person p1, Person p2){
+  //compare yearsin college
+  }
+
+}
+
+Collections.sort(persons, new NamePerson())
+
+
+In-class Exercise 7
+
+
+1. Approach 1
+#+begin_src java
+public static void findPersonOlderThan(List<Person> listOfPerson, int age) {
+	for (Person p : listOfPerson) {
+		if (p.getAge() >= age) p.printPerson();
+	}
+}
+#+end_src
+
+2. Approach 2
+   
+
+#+begin_src java
+  public void AgeRange(ArrayList<Person> personArrayList, int lower, int upper){
+              Iterator<Person> it = personArrayList.iterator();
+              while(it.hasNext()){
+                  Person person = it.next();
+                  if(lower > person.getAge() && person.getAge() > upper) person.printPerson();
+              }
+
+#+end_src
+
+3. Approach 3
+   
+#+begin_src java
+  public static void printPersons(
+          List<Person> roster, CheckPerson tester) {
+          for (Person p : roster) {
+              if (tester.test(p)) {
+                  p.printPerson();
+              }
+          }
+      }
+
+  interface CheckPerson {
+      boolean test(Person p);
+  }
+
+
+  class CheckPersonEligibleForSelectiveService implements CheckPerson {
+      public boolean test(Person p) {
+          return p.gender == Person.Sex.MALE &&
+              p.getAge() >= 18 &&
+              p.getAge() <= 25;
+      }
+  }
+
+
+
+#+end_src
+
+4. Approach 4
+   #+begin_src java
+     printPersons(
+         roster,
+         new CheckPerson() {
+             public boolean test(Person p) {
+                 return p.getGender() == Person.Sex.MALE
+                     && p.getAge() >= 18
+                     && p.getAge() <= 25;
+             }
+         }
+     );
+
+
+   #+end_src
+
+5. Approach 5:Lambda Expression
+   #+begin_src java
+
+     printPersons(
+         roster,
+         (Person p) -> p.getGender() == Person.Sex.MALE
+             && p.getAge() >= 18
+             && p.getAge() <= 25
+     );
+   #+end_src
+
+
+Java SE Lambda Expression tutorial
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Comparable vs Comparator
+
 
 #+begin_src java
 
@@ -54,7 +191,7 @@ Comparable vs Comparator
 - Inclass 6
 
 
-- Show Quiz if have time 
+- Show DIG if have time 
 
 
 - Quiz
