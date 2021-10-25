@@ -1341,7 +1341,7 @@
           // Requires: item is an element of wanted
           // Effects:  add (item, price) to offers
 
-              public Money buy(Item item)
+          public Money buy(Item item)
           // Requires: item is an element of the domain of offers
           // Effects: choose and remove some (arbitrary) pair (item, price) from
           //          offers and return the chosen price
@@ -1360,6 +1360,10 @@
 
        #+end_src
        Is =Low_Bid_Market= a valid subtype of =Market=? Appeal to the methods rule to back up your answer.
+       #+export_comment
+       Pre:  OK, doesn't have pre so weaker
+       Post: NotOK, not stronger,  before it works with all item, but now it does not 
+       #+export_comment
 
     1. Suppose that the =buy()= method always chooses the lowest price on an item.
        #+begin_src java
@@ -1369,8 +1373,12 @@
              // Effects: choose and remove pair (item, price) with the 
              //          lowest price from offers and return the chosen price
        #+end_src
-       Is =Low_Offer_Market= a valid subtype of =Market=? Appeal to the methods rule to back up your answer. 
-
+       Is =Low_Offer_Market= a valid subtype of =Market=? Appeal to the methods rule to back up your answer.
+       
+       #+export_comment
+       Pre:  OK, same
+       Post: OK, stronger, supertype removes arbitrary one, subtype removes specific one
+       #+export_comment
 
 *** Grading Criteria
 
