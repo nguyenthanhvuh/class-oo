@@ -1,23 +1,316 @@
 <2021-11-01 Mon>
 
-Item 26
+HW assignment 7 (abs value in comparator)
 
-Item 27: Handle Warnings
+-3, 3  abs(-3) == abs(3)   -3,3  => 3
 
-- more complicated
-  - Arrays don't play well with GEnerics
+-10 3    10  3     1
 
 
-Item 28: prefer Lists to Arrays
+
+Generics 
+
+- Summary
+  - Generics are safer (type-safe and give errors at *compilation time*) than raw types (gives erros at *runtime*)
+  - Raw types still allowed due to backward compability
+
+    
+
+Item 26: Don't use Raw Type
+
+- List: raw
+- List<E>: generics
+- List<String>  parametrized type  
+
+
+#+begin_src java
+
+  // Now a raw collection type – don’t do this
+     private final Collection stamps = …; // Contains only Stamps
+  // Erroneous insertion of coin into stamp collection
+     stamps.add(new Coin(…));   // Oops!  We’re set up for ClassCastException later
+
+   for (Iterator I = stamps.iterator(); i.hasNext(); ) {
+      Stamp s = (Stamp) i.next();       // Throws ClassCastException
+       …//  Do something with the stamp
+    }
+
+  // Parameterized collection type - typesafe 
+     private final Collection<Stamp> stamps = …;
+     stamps.add(new Coin(…));  // result is instead a compile time error, which is good
+
+  for(Stamp s: stamps){
+    //do something with the stamp s
+    }
+#+end_src
+
+#+begin_src java
+      List<String> strings = new ArrayList<String>();
+      unsafeAdd(strings, new Integer(42));
+      String s = strings.get(0);  //can cause error at runtime
+
+       // note use of raw types
+       private static void unsafeAdd(List list, Object o) {
+          list.add(o);
+       }
+
+      private static void unsafeAdd( List<Object> list, Object o) {
+          list.add(o);
+      }
+#+end_src
+
+
+Item 27: Suppress Warnings
+
+#+begin_src java
+    Set<Lark> exaltation = new HashSet();              // warning
+    Set<Lark> exaltation = new HashSet<Lark>();              // no warning
+
+
+    public <T> T[] toArray (T[] a) {
+      if (a.length < size)
+         @SuppressWarnings(“unchecked”)
+         T[]results = (T[]) Arrays.copyOf(elements, size, a.getClass());
+         return results
+           
+      System.arraycopy(elements, 0, a, 0, size);
+      if (a.length > size)  a[size] = null;
+      return a; }
+
+  /*
+    ArrayList.java:305: warning [unchecked] unchecked cast
+  found   : Object[], required T[]    
+      return (T[]) Arrays.copyOf(elements, size, a.getClass());
+   ,*/
+
+#+end_src
+
+
+Item 28: Prefer Lists over Arrays
+- Lists play well with Generics
+
+- Arrays are covariant; and generics are invariant
+  - array of type Sub is a subtype of array of type Super  (covariant)
+  - List<Sub> NO relationship   List<Super>   (invariant)   
+
+reifying  :  Arrays (information are carried to runtime) 
+erasure  List (information not carried to runtime)
+
+#+begin_src java
+// Fails at runtime
+Object[] objectArray = new Long[1];
+objectArray[0] = “I don’t fit in!”;           // Throws ArrayStoreException
+
+// Won’t compile
+List<Object> o1 = new ArrayList<Long>();
+o1.add(“I don’t fit in!”);                           //  Incompatible types
+#+end_src
+
+
+Item 29: Favor generic types
+#+begin_src java
+  public class Stack {                 // Original Version – no generics
+     private Object [] elements;
+     private int size = 0;
+     private static final int CAP = 16;
+
+     public Stack() { elements = new Object [CAP];}
+
+     public void push( Object e ) {
+        ensureCapacity(); 
+        elements [size++] = e;
+     }
+     public Object pop() {
+        if (size == 0) { throw new ISE(…); }
+        Object result = elements [--size];
+        elements[size] = null;
+        return result;
+     }
+
+    # generify it
+  public class Stack<E> {                 // Original Version – no generics
+     private E [] elements;
+     private int size = 0;
+     private static final int CAP = 16;
+
+     public Stack() {
+       @supresswarning ...
+       elements = new (E []) Object [CAP];
+
+     }
+
+     public void push( E e ) {
+        ensureCapacity(); 
+        elements [size++] = e;
+     }
+     public E pop() {
+        if (size == 0) { throw new ISE(…); }
+        E result = (...) elements [--size];
+        elements[size] = null;
+        return result;
+     }
+#+end_src
+
+Item 30: Favor generic methods
+#+begin_src java
+
+  // Uses raw types – unacceptable! (Item 23)
+  public static Set union (Set s1, Set s2)  {  
+     Set result = new HashSet(s1);              // Generates a warning              
+     result.addAll(s2);                                 // Generates a warning
+     return result;
+  }
+  // Generic method 
+     public static <E> Set <E> union (Set <E> s1, Set  <E> s2)  {  
+     Set <E> result = new HashSet <E> (s1);              
+     result.addAll(s2);                                 
+     return result;
+  }
+#+end_src
+
+Recursive Type Bound
+#+begin_src 
+public  static <T extends Comparable<T>>  T  max (List <T> list)
+#+end_src
+
+Item 31: Bounded Wildcards
+
+
+#+begin_src java
+
+    public class Stack <E> {       
+       public Stack()
+       public void push( E e ) 
+       public E pop()
+       public boolean isEmpty()
+    }
+
+      //  pushAll method without a wildcard type – deficient!
+          public void pushAll( Iterable<E> src) {
+             for (E e : src) { push(e); }
+          }
+
+
+     //  wildcard type for parameter that serves as an E producer
+          public void pushAll( Iterable<? extends E> src) {
+             for (E e : src) { push(e); }
+          }
+
+
+       // wildcard type for parameter that serves as an E consumer
+         public void popAll ( Collection<? super E> dst) {
+             while (!isEmpty()) { dst.add(pop()); }
+        }
+
+  # PECS: procer extends and consumer super
+                     
+#+end_src
+
+
+#+begin_src java
+  public class Chooser<T> {
+      private final T[] choiceArray;
+
+      public Chooser (Collection<T> choices) {
+        @supresswarning..
+          choiceArray = (T[]) choices.toArray();
+      }
+
+      public T choose() { 
+          Random rnd = ThreadLocalRandom.current();
+          return choiceArray [rnd.nextInt(choiceArray.length)];
+#+end_src
+   
+
+#+begin_src java
+  public class Chooser<T> {
+     private final List<T> choiceList;
+
+
+     // Rep invs: choiceList != null && size(choices) > 0
+
+     // Requires/Precond: None
+     // Post: if choices is null , throw IAE
+     // Post: if choices is empty, throw exception
+     // Post: !choices.contains(null), throw exception
+     // Post: create a choooser with choices
+
+     //Alternative way
+     // Precondition: choices cannot be null, cannot be empty, cannot contain null
+     // Post: create a choooser with choices
+     public Chooser(Collection<T> choices) {
+         if (choice.size() == 0) throw IllegalArException(); // ADD
+         //if choice == null throw ...
+         choiceList = new ArrayList<>(choices);
+     }
+
+     //Requires: None
+     //Post/Effects: returns random choice in List<T> choiceList
+     public T choose() {
+         Random rnd = ThreadLocalRandom.current();
+         return choiceList.get(rnd.nextInt(choiceList.size()));
+     }
+
+
+     public void addChoice(E choice) {
+        /**
+         ,* REQUIRES: None
+         ,* EFFECTS: Throws IllegalArgumentException if choice == null, 
+         ,* else add choice to the choiceList
+         ,*/
+
+         if (choice == null){
+             throw new IllegalArgumentException();
+         }
+
+         choiceList.add(choice);
+    }
+#+end_src
+
+//REQUIRE: x has type int
+foo(int x)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- Homework assignment 7:
+  Absvalue comparator (see schedule.org)
+
+- Reflection: not too many used generics  
+  
+Item 26: Don't use Raw types (slide 4, 5)
+
+Item 27: Handle Warnings  (slide 10)
+
+Item 28: prefer Lists to Arrays (slide 11, 12)
+
 - Arrays are covaraint; generics are invariants
   - array of Sub (i.e., Sub[]) is a subtype of array of Super (Super []) (design) -> covariant
   - But List <Sub> is not a subtype of List <Super), and vice versa -> invariant
 
 
-Item 29: Favor generic types (#Slide 18 Converting collection to generics)
+Item 29: Favor generic types (#Slide 18, #19 Converting collection to generics)
 #+begin_src java
-  public class Stack 
+  public class Stack ...
 #+end_src
+
+Item 30: Generic method / *Recursive Type Bound* (slide 22)
+#+begin_src java
+  max function
+#+end_src
+
+Item 31: Slide 28
 
 
 

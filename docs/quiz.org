@@ -228,7 +228,7 @@ Answer: [dog, antelope]
 Answer: [dog, cat, antelope]
 #+end_comment
 
-- Which of the above ~Comparator~ implementation is problematic? and why?
+- Which of the above ~Comparator~ implementations is problematic? and why?
 #+begin_comment
 Answer: 2, compare(a,b)  is not consistent with a.equals(b).
 #+end_comment
