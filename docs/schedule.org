@@ -709,20 +709,38 @@
    - How can you turn the compiler error into a compiler warning?
    - Can this warning be suppressed? Should it?
    - How can you adopt Bloch's advice about arrays and lists to get a typesafe Chooser class without doing anything else that is complicated?
-   - Add rep invariants and contracts (this will take the most time!)
+   - Add rep invariants and contracts (e.g., throw exceptions in unwanted cases); check if code satisfies these; and if not modify code to satisfy them. This question will take the most time!
+   - Add a =addChoice= method to the API and write appropriate contracts for it
 
   #+begin_comment
    #+begin_src java
      public class Chooser {
          private final List<T> choiceArray;
 
+         //RepInv: choicearray is not Null and not empty
+
+         //POST: @throw IAE if choices is empty
+         //POST: @throw NPE if choice contains null
+         //Post: create a chooser with choices
          public Chooser (Collection<T> choices) {
+             if (choices.size() == 0)  throw new IllegalArgumentException(); // ADD
+             if (choices.contains(null)) throw new NullPointerExeption();//ADD
              choiceArray = new ArrayList<>();
          }
 
-         public Object choose() { 
+         //POST: @throws ISE if empty, else return random choice
+         //CHECK: choiceArray never changed so RI maintained,
+         public Object choose() {
+             if(choiceList.size() == 0) throw IllegalStateException(); // NEW CODE
              Random rnd = ThreadLocalRandom.current();
              return choiceArray [rnd.nextInt(choiceArray.length)];
+         }
+
+         //Post @throw NPE if choice is null
+         //POST: add choice to this
+         public void addChoice(T choice){
+           if (choice == null) throw new NullPointerException();
+           choiceList.add(choice);
          }
      }
    #+end_src  
