@@ -72,12 +72,14 @@
   
    1. Informally reason that this program is correct with the given =P= and =Q=.
    1. Find a loop invariant and prove that the program is correct (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)     
-
+#+begin_comment
    loop inv :  x <= 10
 
    wp(while[x<=10](x != 10){x := x + 1;}, {x == 10})
    = I  &   (I & x!=10) => wp(x:= x+1, I)   &   (I & !(x!=10) => x == 10)
    = x < =
+#+end_comment
+
 
 
 
@@ -189,9 +191,14 @@ Consider the code below which uses ~elements()~. Line numbers have been added fo
  1. B extends A. 
  1. C extends A. 
  1. A extends B. 
- 1. C extends B. 
+ 1. C extends B.    
  1. B extends C. 
 
+#+begin_comment
+4. C extends B
+C pre:  OK,  same pre as B
+C post: OK, stronger (assuming returning a an iterator equal to this)
+#+end_comment
 
 * Quiz 7:
 

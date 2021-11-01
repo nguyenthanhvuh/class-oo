@@ -704,13 +704,30 @@
      }
    #+end_src
 
-   
 
    - First, simply generify by adding a type to the Chooser class. What is the compiler error with this approach?
    - How can you turn the compiler error into a compiler warning?
    - Can this warning be suppressed? Should it?
    - How can you adopt Bloch's advice about arrays and lists to get a typesafe Chooser class without doing anything else that is complicated?
-   - What would Liskov have to say about this class? How should it evolve to address her concerns? What is the appropriate place to deal with the problem? Does an invariant help? Is that a rep-invariant, or some other kind of invariant?
+   - Add rep invariants and contracts (this will take the most time!)
+
+  #+begin_comment
+   #+begin_src java
+     public class Chooser {
+         private final List<T> choiceArray;
+
+         public Chooser (Collection<T> choices) {
+             choiceArray = new ArrayList<>();
+         }
+
+         public Object choose() { 
+             Random rnd = ThreadLocalRandom.current();
+             return choiceArray [rnd.nextInt(choiceArray.length)];
+         }
+     }
+   #+end_src  
+  #+end_comment
+     
 
 ** In class 8C
    :PROPERTIES:

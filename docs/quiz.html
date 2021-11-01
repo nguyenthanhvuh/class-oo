@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-11-01 Mon 14:24 -->
+<!-- 2021-11-01 Mon 15:30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 619</title>
 <meta name="generator" content="Org mode" />
@@ -18,21 +18,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgfffa439">1. Quiz 3:</a></li>
-<li><a href="#org4fb788a">2. Quiz 4:</a></li>
-<li><a href="#org5d1abe3">3. Quiz 5:  Iterator</a></li>
-<li><a href="#org6e77f79">4. Quiz 6:  Type</a></li>
-<li><a href="#orgb7dc521">5. Quiz 7:</a></li>
+<li><a href="#orgeabbfc0">1. Quiz 3:</a></li>
+<li><a href="#org86fb80b">2. Quiz 4:</a></li>
+<li><a href="#orgb0766af">3. Quiz 5:  Iterator</a></li>
+<li><a href="#org40683b7">4. Quiz 6:  Type</a></li>
+<li><a href="#orgd82b223">5. Quiz 7:</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgfffa439" class="outline-2">
-<h2 id="orgfffa439"><span class="section-number-2">1</span> Quiz 3:</h2>
+<div id="outline-container-orgeabbfc0" class="outline-2">
+<h2 id="orgeabbfc0"><span class="section-number-2">1</span> Quiz 3:</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org9a3b055" class="outline-3">
-<h3 id="org9a3b055"><span class="section-number-3">1.1</span> Immutatiblity</h3>
+<div id="outline-container-orgbfe997f" class="outline-3">
+<h3 id="orgbfe997f"><span class="section-number-3">1.1</span> Immutatiblity</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Consider a partial version of Bloch's mutable Stack class:
@@ -105,8 +105,8 @@ public Object top(){
 
 
 
-<div id="outline-container-orgf44d3d5" class="outline-3">
-<h3 id="orgf44d3d5"><span class="section-number-3">1.2</span> Verification using Hoare Logic</h3>
+<div id="outline-container-org09c38c0" class="outline-3">
+<h3 id="org09c38c0"><span class="section-number-3">1.2</span> Verification using Hoare Logic</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Given the program
@@ -125,16 +125,6 @@ Given the program
 <li>Informally reason that this program is correct with the given <code>P</code> and <code>Q</code>.</li>
 <li>Find a loop invariant and prove that the program is correct (show your work, i.e., generate the <code>wp</code> and the <code>vc</code> of the program, and reason about these)</li>
 </ol>
-
-<p>
-loop inv :  x &lt;= 10
-</p>
-
-<p>
-wp(while[x&lt;=10](x != 10){x := x + 1;}, {x <code>= 10})
-   = I  &amp;   (I &amp; x!=10) =&gt; wp(x:</code> x+1, I)   &amp;   (I &amp; !(x!=10) <code>&gt; x =</code> 10)
-= x &lt; =
-</p>
 </div>
 </div>
 </div>
@@ -150,8 +140,9 @@ wp(while[x&lt;=10](x != 10){x := x + 1;}, {x <code>= 10})
 
 
 
-<div id="outline-container-org4fb788a" class="outline-2">
-<h2 id="org4fb788a"><span class="section-number-2">2</span> Quiz 4:</h2>
+
+<div id="outline-container-org86fb80b" class="outline-2">
+<h2 id="org86fb80b"><span class="section-number-2">2</span> Quiz 4:</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li><p>
@@ -200,8 +191,8 @@ Mark whether each line of code is a problem w.r.t. the immutability of class Imm
 
 
 
-<div id="outline-container-org5d1abe3" class="outline-2">
-<h2 id="org5d1abe3"><span class="section-number-2">3</span> Quiz 5:  Iterator</h2>
+<div id="outline-container-orgb0766af" class="outline-2">
+<h2 id="orgb0766af"><span class="section-number-2">3</span> Quiz 5:  Iterator</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The specification for Liskov's <code>elements()</code> method is given below. 
@@ -250,8 +241,8 @@ Consider the code below which uses <code>elements()</code>. Line numbers have be
 
 
 
-<div id="outline-container-org6e77f79" class="outline-2">
-<h2 id="org6e77f79"><span class="section-number-2">4</span> Quiz 6:  Type</h2>
+<div id="outline-container-org40683b7" class="outline-2">
+<h2 id="org40683b7"><span class="section-number-2">4</span> Quiz 6:  Type</h2>
 <div class="outline-text-2" id="text-4">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">A</span> {
@@ -290,8 +281,8 @@ Analyze the <code>compose()</code> method in each of these cases. For each case,
 </div>
 
 
-<div id="outline-container-orgb7dc521" class="outline-2">
-<h2 id="orgb7dc521"><span class="section-number-2">5</span> Quiz 7:</h2>
+<div id="outline-container-orgd82b223" class="outline-2">
+<h2 id="orgd82b223"><span class="section-number-2">5</span> Quiz 7:</h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-java">   <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">t</span> = <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">See questions below</span>

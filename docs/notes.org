@@ -14,7 +14,11 @@ Item 28: prefer Lists to Arrays
   - But List <Sub> is not a subtype of List <Super), and vice versa -> invariant
 
 
-Slide 18 (Converting collection to generics)
+Item 29: Favor generic types (#Slide 18 Converting collection to generics)
+#+begin_src java
+  public class Stack 
+#+end_src
+
 
 
 <2021-10-25 Mon>
