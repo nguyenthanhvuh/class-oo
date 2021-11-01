@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-10-18 Mon 15:46 -->
+<!-- 2021-11-01 Mon 14:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 619</title>
 <meta name="generator" content="Org mode" />
@@ -18,20 +18,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga921046">1. Quiz 3:</a></li>
-<li><a href="#org76e6035">2. Quiz 4:</a></li>
-<li><a href="#org811aa33">3. Quiz 5:  Iterator</a></li>
-<li><a href="#org35eab2e">4. Quiz 6:  Type</a></li>
+<li><a href="#orgfffa439">1. Quiz 3:</a></li>
+<li><a href="#org4fb788a">2. Quiz 4:</a></li>
+<li><a href="#org5d1abe3">3. Quiz 5:  Iterator</a></li>
+<li><a href="#org6e77f79">4. Quiz 6:  Type</a></li>
+<li><a href="#orgb7dc521">5. Quiz 7:</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orga921046" class="outline-2">
-<h2 id="orga921046"><span class="section-number-2">1</span> Quiz 3:</h2>
+<div id="outline-container-orgfffa439" class="outline-2">
+<h2 id="orgfffa439"><span class="section-number-2">1</span> Quiz 3:</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org56ab24f" class="outline-3">
-<h3 id="org56ab24f"><span class="section-number-3">1.1</span> Immutatiblity</h3>
+<div id="outline-container-org9a3b055" class="outline-3">
+<h3 id="org9a3b055"><span class="section-number-3">1.1</span> Immutatiblity</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Consider a partial version of Bloch's mutable Stack class:
@@ -104,8 +105,8 @@ public Object top(){
 
 
 
-<div id="outline-container-org985169d" class="outline-3">
-<h3 id="org985169d"><span class="section-number-3">1.2</span> Verification using Hoare Logic</h3>
+<div id="outline-container-orgf44d3d5" class="outline-3">
+<h3 id="orgf44d3d5"><span class="section-number-3">1.2</span> Verification using Hoare Logic</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Given the program
@@ -149,8 +150,8 @@ wp(while[x&lt;=10](x != 10){x := x + 1;}, {x <code>= 10})
 
 
 
-<div id="outline-container-org76e6035" class="outline-2">
-<h2 id="org76e6035"><span class="section-number-2">2</span> Quiz 4:</h2>
+<div id="outline-container-org4fb788a" class="outline-2">
+<h2 id="org4fb788a"><span class="section-number-2">2</span> Quiz 4:</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li><p>
@@ -199,8 +200,8 @@ Mark whether each line of code is a problem w.r.t. the immutability of class Imm
 
 
 
-<div id="outline-container-org811aa33" class="outline-2">
-<h2 id="org811aa33"><span class="section-number-2">3</span> Quiz 5:  Iterator</h2>
+<div id="outline-container-org5d1abe3" class="outline-2">
+<h2 id="org5d1abe3"><span class="section-number-2">3</span> Quiz 5:  Iterator</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The specification for Liskov's <code>elements()</code> method is given below. 
@@ -249,8 +250,8 @@ Consider the code below which uses <code>elements()</code>. Line numbers have be
 
 
 
-<div id="outline-container-org35eab2e" class="outline-2">
-<h2 id="org35eab2e"><span class="section-number-2">4</span> Quiz 6:  Type</h2>
+<div id="outline-container-org6e77f79" class="outline-2">
+<h2 id="org6e77f79"><span class="section-number-2">4</span> Quiz 6:  Type</h2>
 <div class="outline-text-2" id="text-4">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">A</span> {
@@ -285,6 +286,40 @@ Analyze the <code>compose()</code> method in each of these cases. For each case,
 <li>C extends B.</li>
 <li>B extends C.</li>
 </ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgb7dc521" class="outline-2">
+<h2 id="orgb7dc521"><span class="section-number-2">5</span> Quiz 7:</h2>
+<div class="outline-text-2" id="text-5">
+<div class="org-src-container">
+<pre class="src src-java">   <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">t</span> = <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">See questions below</span>
+
+   t.add(<span style="color: #50a14f;">"antelope"</span>);
+   t.add(<span style="color: #50a14f;">"dog"</span>);
+   t.add(<span style="color: #50a14f;">"cat"</span>);
+
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">t.toString() is ???</span>
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li>Suppose <code>t</code> is instantiated as <code>Set&lt;String&gt; t = new TreeSet&lt;String&gt;();</code>.  At the end of the computation, what is <code>t.toString()?</code></li>
+</ol>
+
+<ol class="org-ol">
+<li>Suppose <code>t</code> is instantiated as <code>Set&lt;String&gt; t = new TreeSet&lt;String&gt;((x,y) -&gt; x.length() - y.length());</code>. At the end of the computation, what is <code>t.toString()?</code></li>
+</ol>
+
+<ol class="org-ol">
+<li>Suppose <code>t</code> is instantiated as <code>Set&lt;String&gt; t = new TreeSet&lt;String&gt;((x,y) -&gt; y.compareTo(x));</code>. At the end of the computation, what is <code>t.toString()?</code></li>
+</ol>
+
+<ul class="org-ul">
+<li>Which of the above <code>Comparator</code> implementation is problematic? and why?</li>
+</ul>
 </div>
 </div>
 </div>

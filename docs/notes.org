@@ -1,3 +1,22 @@
+<2021-11-01 Mon>
+
+Item 26
+
+Item 27: Handle Warnings
+
+- more complicated
+  - Arrays don't play well with GEnerics
+
+
+Item 28: prefer Lists to Arrays
+- Arrays are covaraint; generics are invariants
+  - array of Sub (i.e., Sub[]) is a subtype of array of Super (Super []) (design) -> covariant
+  - But List <Sub> is not a subtype of List <Super), and vice versa -> invariant
+
+
+Slide 18 (Converting collection to generics)
+
+
 <2021-10-25 Mon>
 
 Assignment 6

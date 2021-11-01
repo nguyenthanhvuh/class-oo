@@ -191,3 +191,40 @@ Consider the code below which uses ~elements()~. Line numbers have been added fo
  1. A extends B. 
  1. C extends B. 
  1. B extends C. 
+
+
+* Quiz 7:
+
+  #+begin_src java
+    Set<String> t = //  See questions below
+
+    t.add("antelope");
+    t.add("dog");
+    t.add("cat");
+
+ // t.toString() is ???
+  #+end_src  
+
+
+1. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>();~.  At the end of the computation, what is ~t.toString()?~ 
+#+begin_comment
+Answer: [antelope, cat, dog]
+#+end_comment
+
+2. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> x.length() - y.length());~. At the end of the computation, what is ~t.toString()?~
+#+begin_comment
+Answer: [dog, antelope]
+#+end_comment
+
+3. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> y.compareTo(x));~. At the end of the computation, what is ~t.toString()?~
+#+begin_comment
+Answer: [dog, cat, antelope]
+#+end_comment
+
+- Which of the above ~Comparator~ implementation is problematic? and why?
+#+begin_comment
+Answer: 2, compare(a,b)  is not consistent with a.equals(b).
+#+end_comment
+
+
+

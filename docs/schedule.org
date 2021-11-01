@@ -31,9 +31,6 @@
   |         |                                           |                                  |                                           |                                                  |
 
 
-  #+begin_comment
-  test
-  #+end_comment
   
 * In class Assignments
 
@@ -1435,6 +1432,11 @@
 *** Grading Criteria
     As for other recent assignments, your deliverable is a clear, concise story that demonstrates completion of the assignment.
 
+  #+begin_comment
+   abs(x).CompareTo(abs(y))    :  (-3, 3) = 0, (-10,3)   = 1,  add(1,-3,-10,5,3) => {1,-3,5,-10}
+   x.CompareTo(y):  -3,3  = -1;  (-10,3) = -1, add(1,-3,-10,5,3) => {1,-3,-10,5,3}
+  #+end_comment
+    
 
 ** Assignment 8 
    :PROPERTIES:
@@ -1701,7 +1703,7 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
 
 ** Reflection 6
 
-   1. Can you explain why Java has both a Comparable interface and a Comparator interface?
+   1. Explain why Java has both a Comparable interface and a Comparator interface.
    1. How familiar is your group with the Java "anonymous class" and "lambda" constructs?
    1. Can you explain the connection between anonymous classes and lambda expressions?
 
@@ -1710,9 +1712,21 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
 ** Reflection 7
 
 
-   1. Can you explain the basic role of generics in the Java language?
+   1. Explain the basic role of generics in the Java language
    1. Do you have experience generifying Java classes? Explain.
    1. Bloch explains how bounded wildcards can address certain limitations in the use of generics in inheritance settings. If you can, give a brief description of how this works. (If not, that's fine; we'll address in class.)
+
+
+   #+begin_comment
+   Basic role of generics: type safety, avoid CCE; also have certain cosntraint mechanism
+
+   Bound wildcards:
+    f is invariant if neither of the above holds   
+    f is covariant if A ≤ B implies that f(A) ≤ f(B)
+    f is contravariant if A ≤ B implies that f(B) ≤ f(A)
+https://stackoverflow.com/questions/8481301/covariance-invariance-and-contravariance-explained-in-plain-english
+   #+end_comment
+      
 
 
 ** Reflection 8
