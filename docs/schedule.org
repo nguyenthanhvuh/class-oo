@@ -851,28 +851,28 @@
    #+end_src
 
    1. What is the =equals()= contract? What is the standard recipe?
-   #+begin_comment
-   reflexive, symmetry, transitivity, liskov substitution variable
-   Standard receipt:
-   @Override public boolean equals(Object obj) {
-      if (obj == this) return true
-      if (!(obj instanceof ColorPoint)) return false;
-      ColorPoint cp = (ColorPoint) obj;
-     return super.equals(obj) && cp.color == color;
-   #+end_comment
+      #+begin_comment
+         reflexive, symmetry, transitivity, liskov substitution variable
+         Standard receipt:
+         @Override public boolean equals(Object obj) {
+            if (obj == this) return true
+            if (!(obj instanceof ColorPoint)) return false;
+            ColorPoint cp = (ColorPoint) obj;
+          return super.equals(obj) && cp.color == color;
+      #+end_comment
    1. Why does Bloch use the =instanceof= operator in the standard recipe?
-   #+begin_comment
-     preserve type hierchy
-   #+end_comment
+      #+begin_comment
+        preserve type hierchy
+      #+end_comment
    1. Write client code that shows a contract problem with the first attempt at =ColorPoint= (i.e., what contract does it break?)
-   #+begin_comment
-   #+begin_src java
-     Point a = new Point(1,2)
-     ColorPoint b = new ColorPoint(1,2, Color.Red)
-     a.equals(b); // return true
-     b.equals(a); // return false  , break symmetry
-   #+end_src
-   #+end_comment
+      #+begin_comment
+      #+begin_src java
+        Point a = new Point(1,2)
+        ColorPoint b = new ColorPoint(1,2, Color.Red)
+        a.equals(b); // return true
+        b.equals(a); // return false  , break symmetry
+      #+end_src
+      #+end_comment
    1. Write client code that shows a contract problem with the second attempt at =ColorPoint= (i.e., what contract does it break?).
       #+begin_comment
       Point a = new Point(1,2)
@@ -962,12 +962,51 @@
       #+end_comment
    1. Analyze the following ways to implement =hashCode()=? If there is a problem, give a test case that shows the problem.
       1. not overridden at all
+      #+begin_comment
+      return diff number for diff objects (regardless if their contents are the same)
+      #+end_comment
       1. return 42;
+      #+begin_comment
+      same hash for everything,  so degrade into a linked list
+      #+end_comment
       1. return =els.hashCode()=;
-      1. ~int sum = 0; for (Integer i : els) sum += i.hashCode(); return sum;~ 
+      #+begin_comment
+      order now matters
+      #+end_comment
+      1. ~int sum = 0; for (Integer i : els) sum += i.hashCode(); return sum;~
+      #+begin_comment
+      sum(1,3)  == sum(0,4)
+      #+end_comment
    1. What's the problem with =clone()= here (something with subtyping)? Give a test case that shows the problem.
-   1. Fix =clone()= in two very different ways. 
+      #+begin_comment
+      just create a subclass IntSet2 of IntSet (doesn't do anything, just a subclass)
 
+      # prob with using superclass clone 
+      IS2 i = new IS2();
+      IS2 i2 = i.clone();    //use clone of superclass IS,  return IS as a type,  so bad typing
+
+      # another way, closer, but still wrong
+      public IntSet2 clone() { 
+        return (IntSet2)super.clone();   // just like constructor, called super to do it
+      }                                  // but this has a CCE, because cannot convert IntSet to InSet2 (cannot cast supertype to subtype)
+      #+end_comment
+   1. Fix =clone()= in two very different ways.
+      #+begin_comment
+
+      #1 
+      @Override 
+      public IntSet clone() {
+         IntSet result = (Intset) super.clone();
+         results.els = new ArrayList<Intenger>els;
+         return result;
+      }
+
+      #2 disable subtypes (put final in there)
+      @Override 
+      public final class IntSet ... {  
+      }
+      #+end_comment
+      
 ** In class 10A
    :PROPERTIES:
    :CUSTOM_ID: ic10A
@@ -1522,7 +1561,7 @@
 
 *** Goals: Generics
 
-    Consider the [[./files/BoundedQueue.java][BoundedQueue]] example from in-class exercise [[./inclass08C.html][#8C]].
+    Consider the [[./files/BoundedQueue.java][BoundedQueue]] example from in-class exercise [[./inclass08C.html][#ic8C]].
 
     Complete the generic part of the exercise: The result should be fully generic, and there should not be any compiler warnings. You should adopt Bloch's advice about lists vs. arrays; doing so will eliminate the need for many of the instance variables.
 
@@ -1535,6 +1574,60 @@
 *** Grading Criteria
     As before, turn in a clear, concise story demonstrating completion of the assignment.
 
+#+begin_comment
+public class BoundedQueue<T> {
+
+    private List<T> rep;
+    private int size = 0;
+    
+    public BoundedQueue(int size) {
+        if (size > 0) {
+            this.size = size;
+            rep = new ArrayList<>(size);
+         }
+    }
+
+    public boolean isEmpty() { return (rep.size() == 0); }
+
+    public boolean isFull() { return (count == size); }
+
+    public int getCount() { return count; }
+
+    /*
+    if not full and e is not null, put e to the back of queue
+    */
+    public void put(Object e) {
+        if (e != null && !isFull()) {
+            rep.add(e);
+        }
+    }
+
+    
+    public void putAll(Collections <? extends T> l){
+      for (T t: l){
+         put(t); // not optimized,  more optimized would be if full, then just break
+      }
+    }
+
+    public void getAll(List<T> l){
+       while(!isEmpty()){
+        l.add(get());
+       }
+    }
+    public Object get() {
+        Object result = null;
+        if (!isEmpty()) {
+            result = rep[front];
+            rep[front] = null;
+            front++;
+            if (front >= size)
+                front = 0;
+            count--;
+        }
+        return result;
+    }
+}
+#+end_comment    
 
 ** Assignment 9
    :PROPERTIES:
