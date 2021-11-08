@@ -21,7 +21,7 @@
   |       6 | Type Abstraction                          | Liskov 7                         |     [[#a5][A5 Due]]; [[#g5][Guide 5]]     |   IC 5 [[#ic5A][A]] [[#ic5B][B]] [[#ic5C][C]]    |
   |       7 | Mid-semester Recap                        | /No New Material/                |                           |                  IC [[#ic6][6]]                  |
   |       8 | Polymorphic Abstract; Lambdas             | Liskov 8, Bloch 7(Item 42)       |     [[#a6][A6 Due]]; [[#g7][Guide 6]]     |                  IC [[#ic7][7]]                  |
-  |       9 | Generics                                  | Bloch 5                          |     [[#a7][A7 Due]]; [[#g8][Guide 8]]     |          IC 8 [[#ic8A][A]] [[#ic8B][B]]          |
+  |       9 | Generics                                  | Bloch 5                          |     [[#a7][A7 Due]]; [[#g8][Guide 8]]     |          IC 8 [[#ic8A][A]] [[#ic8B][B]] [[#ic8C][C]] |
   |      10 | Common Java Contracts                     | Bloch 3                          |     [[#a8][A8 Due]]; [[#g9][Guide 9]]     |          IC 9 [[#ic9A][A]] [[#ic9B][B]]          |
   |      11 | Classes and Inheritance                   | Bloch 4                          |    [[#a9][A9 Due]]; [[#g10][Guide 10]]    | IC 10 [[#ic10A][A]] [[#ic10B][B]]  [[#ic10C][C]] |
   |      12 | Contract Model in Testing                 | Advanced JUnit (slides 22-24)    |   [[#a10][A10 Due]]; [[#g11][Guide 11]]   |                 IC [[#ic11][11]]                 |
@@ -755,10 +755,10 @@
    #+begin_src java
      public class BoundedQueue {
 
-         protected Object rep[];
+         private Object rep[];
          protected int front = 0;
          protected int back = -1;
-         protected int size = 0;
+         private int size = 0;
          protected int count = 0;
 
          public BoundedQueue(int size) {
@@ -800,8 +800,8 @@
    #+end_src
 
 
-   Generify!
-   - Can you add a putAll() method? A getAll() method?
+   *Generify*!
+   - Can you add a ~putAll()~ method? A ~getAll()~ method?
    - Recall that we used this same example in in-class 6 as a vehicle for applying Liskov's ideas to make code easier to understand.
 
 ** In class 9A
@@ -852,8 +852,8 @@
 
    1. What is the =equals()= contract? What is the standard recipe?
    1. Why does Bloch use the =instanceof= operator in the standard recipe?
-   1. Write client code that shows a contract problem with the first attempt at =ColorPoint=.
-   1. Write client code that shows a contract problem with the second attempt at =ColorPoint=.
+   1. Write client code that shows a contract problem with the first attempt at =ColorPoint= (i.e., what contract does it break?).
+   1. Write client code that shows a contract problem with the second attempt at =ColorPoint= (i.e., what contract does it break?).
    1. Some authors recommend solving this problem by using a different standard recipe for =equals()=.
       - What's the key difference?
       - Which approach do you want in the following code:

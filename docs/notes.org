@@ -1,3 +1,14 @@
+<2021-11-08 Mon>
+
+Equal :  ... HARD
+
+getClass ... violating Liskov
+
+
+Pg. 48 recipe
+
+
+
 <2021-11-01 Mon>
 
 HW assignment 7 (abs value in comparator)
