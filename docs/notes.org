@@ -2,11 +2,19 @@
 
 Equal :  ... HARD
 
+only 2 out of 3,  shows example,  show how it breaks Liskov
+
 getClass ... violating Liskov
 
 
 Pg. 48 recipe
 
+In class 9A (40 mins)
+
+Equal contracts
+reflex, symmetry, transitivity, liskov substitution variable
+
+In class 9B (30 mins)
 
 
 <2021-11-01 Mon>
