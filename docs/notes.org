@@ -1,5 +1,314 @@
 <2021-11-08 Mon>
 
+equals, toString, clone, hash
+
+equals
+- reflexive  :  x.equals(x)  
+- symmetric  :  x.equals(y)  <->  y.equals(x)
+- transitive :  x.equals(y) && y.equals(z)  -> x.equals(z)
+- Liskov's Substitution Principle  
+
+
+- consistent  :   
+- o.equals.null()     should be False
+
+
+
+
+#+begin_src java
+
+  public final class CaseInsensitiveString {
+
+      private final String s;
+
+      public CaseInsensitiveString(String s) {
+          this.s = Objects.requireNonNull(s);
+
+      }
+
+
+
+      // Broken - violates symmetry!
+      @Override public boolean equals(Object o) {
+          if (o instanceof CaseInsensitiveString)
+
+              return s.equalsIgnoreCase(
+                  ((CaseInsensitiveString) o).s);
+
+          if (o instanceof String)  // One-way interoperability!
+              return s.equalsIgnoreCase((String) o);
+          return false;
+
+      }
+
+      // does not break symmetry
+      @Override public boolean equals(Object o) {
+          return (o instanceof CaseInsensitiveString  && s.equalsIgnoreCase(
+                  ((CaseInsensitiveString) o).s))  
+      }
+
+      ...  // Remainder omitted
+
+  }
+
+  CaseInsensitiveString s1 = CaseInsensitiveString("Hello")
+  String s2 = "hello";
+
+  s1.equals(s2) ;  // True
+  s2.equals(s1); // False
+
+
+#+end_src
+
+
+* Transitivity
+  #+begin_src java
+
+        public class Point {
+
+            private final int x;
+            private final int y;
+
+            public Point(int x, int y) {
+                this.x = x;
+                this.y = y;
+            }
+
+            @Override public boolean equals(Object o) {
+                if (!(o instanceof Point))
+                    return false;
+                Point p = (Point)o;
+                return p.x == x && p.y == y;
+            }
+
+
+
+            ...  // Remainder omitted
+
+        }
+        public class ColorPoint extends Point {
+            private final Color color;
+
+
+
+            public ColorPoint(int x, int y, Color color) {
+                super(x, y);
+                this.color = color;
+                }
+                ...  // Remainder omitted
+            }
+
+    // breaks symmetry
+    @Override public boolean equals(Object o) {
+        if (!(o instanceof ColorPoint))
+           return false;
+        return super.equals(o) && ((ColorPoint) o).color == color;
+
+    // does not break symmetry (but breaks transivity instead)
+    @Override public boolean equals(Object o) {
+        if (!(o instanceof Point))
+           return false;
+
+         if (!(o instanceof ColorPoint)) //if o instanceof Point
+            return o.equals(this);       //then call equals of Point
+
+        //o is colorpoint
+        return super.equals(o) && ((ColorPoint) o).color == color;
+
+    }
+  #+end_src
+
+
+  ColorPoint a (1,2,Blue)
+  ColorPoint b (1,2,Red)
+  Point c (1,2)
+
+  c.equals(a) ; // True
+  a.equals(c) ; //  True
+  
+  c.equals(b) ;// True
+  b.equals(a) ;// True
+
+  a.equals(c) -> True
+  c.equals(b) -> True 
+  a.equals(b) -> False  //break transitivity
+
+  x.equals(y) && y.equals(z)  but !x.equals(z)
+
+
+
+ 
+  #+begin_src java
+
+       //3rd attempt, many people will try this, but this breaks Liskov Principle of substitution
+      @Override public boolean equals(Object o) {
+
+          if (o == null || o.getClass() != getClass())
+              return false;
+
+          Point p = (Point) o;
+          return p.x == x && p.y == y;
+      }
+
+      //Vu's attempt,  anything wrong with this ?
+      @Override public boolean equals(Object o) {
+          if (o == null)
+              return false;
+
+          if (o.getClass() != getClass())
+              return o.equals(this)
+
+
+          Point p = (Point) o;
+          return p.x == x && p.y == y;
+          // return super.equals(o) && ((ColorPoint) o).color == color;
+      }
+
+    ColorPoint a (1,2,Blue)
+    ColorPoint b (1,2,Red)
+    Point c (1,2)
+
+    a.equals(c) // True
+    c.equals(b) // True
+    a.equals(b) // False   , breaks transitivity
+
+    a.equals(b)  //TRUE  <- not expected
+
+
+
+    //points = [Point(1,2), Point(3,4)]
+    //c1 = ColorPoint(1,2,Blue)
+    //c1 should be in points (because c1 is still a point), but using this equals method, c1 is not in points because of diff types
+  #+end_src
+
+
+
+What is the equals() contract? What is the standard recipe?
+  - reflexive, transitivity, symmetry, consistency, non-null equiv
+  - use == for reference  (for performance)  if (o == this){ return true } 
+    Check if the type is Point, if not false  
+    Cast to Point
+    Compare key attributes
+   
+Why does Bloch use the instanceof operator in the standard recipe?
+ - to preserve type hierachy for principle of subs (i.e., use instanceof insetad of getclass)
+
+Write client code that shows a contract problem with the first attempt at ColorPoint (i.e., what contract does it break?)
+ - breaks symmetry
+   Point a = new Point(1,2)
+   ColorPoint b = new ColorPoint(1,2, Color.Red)
+   a.equals(b); // return true
+   b.equals(a); // return false  , break symmetry   
+
+Write client code that shows a contract problem with the second attempt at ColorPoint (i.e., what contract does it break?)
+- breaks transitivity
+     Point a = new Point(1,2)
+     ColorPoint b = new ColorPoint(1,2, Color.Red)
+     ColorPoint c = new ColorPoint(1,2, Color.Blue)
+     a.equals(b); // return true
+     a.equals(c); // return true
+     b.equals(c); // return false; break transitivity
+
+
+Some authors recommend solving this problem by using a different standard recipe for equals().
+What's the key difference?
+getClass()  ...  break Liskov principle of subs
+
+Which approach do you want in the following code:
+
+        #+begin_src java
+          public class CounterPoint extends Point
+                                            private static final AtomicInteger counter =
+                                            new AtomicInteger();
+
+          public CounterPoint(int x, int y) {
+              super (x, y);
+              counter.incrementAndGet();
+          }
+          public int numberCreated() { return counter.get(); }
+
+          // @Override public boolean equals (Object obj) {
+          //   //don't need this ,  
+
+          // }
+          }
+
+
+          // Client code:
+
+          Point p = PointFactory.getPoint();   // either a Point or a CounterPoint
+          Set<Point> importantPoints =   // a set of important points
+              boolean b = PointUtilities.isImportant(p);  // value?
+
+        #+end_src
+
+
+
+
+(1,2,counter=5)  =  (1,2,counter=6)
+
+
+Consider a variation of Liskov's IntSet example (Figure 5.10, page 97)
+#+begin_src java
+  public class IntSet implements Cloneable {  
+      private List<Integer> els;
+      public IntSet () { els = new ArrayList<Integer>(); }
+      ...
+      @Override
+      public boolean equals(Object obj) {
+          if this == ojb return true ;
+
+          if (!(obj instanceof IntSet)) return false;
+
+          IntSet s = (IntSet) obj;
+          return super.equals(obj)  && els.equals(obj.els)
+       }
+
+      @Override
+      public int hashCode() { 
+          // ??
+      }
+
+      // adding a private constructor
+      private IntSet (List<Integer> list) { els = list; }
+
+      @Override 
+      public IntSet clone() { 
+          return new IntSet ( new ArrayList<Integer>(els));
+      }
+
+  }
+#+end_src
+
+How should the equals() method be completed?
+Analyze the following ways to implement hashCode()? If there is a problem, give a test case that shows the problem.
+- not overridden at all
+  //will return different hashcode for every objects  
+- return 42;
+  //degrade performance b/c everything collides and instead of efficient hashing (e.g., constant look up in hashtable), you have a an inefficient operation (e.g., O(n) search instead of constant)
+- return els.hashCode();
+  //hash([1,2,3])  !=  hash([3,2,1])  != hash([3,1,3,2])
+  //set([1,2,3]) == set(3,2,1)== set([3,1,3,2])
+- int sum = 0; for (Integer i : els) sum += i.hashCode(); return sum;
+  //sum(1,3)  =4  sum(0,4)
+
+  result = hash(v1)
+  result += 31 * v1  + has(v2)
+  result += 31 * v1  + has(v3)
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
 Equal :  ... HARD
 
 only 2 out of 3,  shows example,  show how it breaks Liskov
@@ -1266,7 +1575,7 @@ Example :  Members.java
   #+end_src
   
 <2021-09-20 Mon>
-* Lecture 4-1
+* * Lecture 4-1
 
 
 

@@ -1907,15 +1907,8 @@ https://stackoverflow.com/questions/8481301/covariance-invariance-and-contravari
    1. What similarities and differences do you see between how Liskov and Bloch treat the toString() method?
 
 
+
 ** Reflection 9
-
-   1. What is your comfort level with "regular" logic? What aspect of using logic do you find most challenging?
-   1. Do you have any experience learning and/or using temporal logic?
-   1. How familiar/comfortable are you with finite state machines?
-
-
-
-** Reflection 10
 
    1. Bloch discusses specific rules for making a class immutable. Did you find any of these rules confusing?
    1. Bloch's InstrumentedHashSet example demonstrates how inheritance can break encapsulation. Does the JavaDoc for HashSet, Set and/or Collection follow the Bloch's Item 19 advice for documenting for inheritances?
@@ -1923,7 +1916,7 @@ https://stackoverflow.com/questions/8481301/covariance-invariance-and-contravari
 
 
 
-** Reflection 11
+** Reflection 10
 
 
    1. How would you rate your experience with writing (ordinary) tests in the JUnit framework? Use a scale from "A few times for class" to "I do that professionally".
@@ -1932,7 +1925,7 @@ https://stackoverflow.com/questions/8481301/covariance-invariance-and-contravari
 
 
 
-** Reflection 12
+** Reflection 11
 
 
    1. Is there anything about property based testing that you still find confusing?
