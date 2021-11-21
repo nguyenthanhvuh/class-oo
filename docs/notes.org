@@ -1,70 +1,6 @@
-<2021-11-15 Mon>
-
-#+begin_src java
-  import java.util.*;
-
-  public class IntSet implements Cloneable {  
-     private List<Integer> els;
-
-     @Override public boolean equals(Object obj) { 
-        if (!(obj instanceof IntSet)) return false;
-
-        IntSet s = (IntSet) obj;
-        for (Integer i : s.els){
-            if (!els.contains(i)){
-                return false;
-            }
-        }
-
-        for (Integer i: els){
-            if(!s.els.contains(i)){
-                return false;
-            }
-        }
 
 
-        return true;
-     }
-
-     @Override public int hashCode() { 
-        // see below 
-        return 42;
-     }
-
-     public IntSet () { els = new ArrayList<Integer>(); }
-
-     private IntSet (List<Integer> list) { els = list; }
-
-     @Override public IntSet clone() { 
-        return new IntSet (new ArrayList<Integer>(els));
-     }
-  }
-#+end_src
-
-
-
-
-** Reflection
-- Bloch discusses specific rules for making a class immutable. Did you find any of these rules confusing?
-- Bloch's InstrumentedHashSet example demonstrates how inheritance can break encapsulation. Does the JavaDoc for HashSet, Set and/or Collection follow the Bloch's Item 19 advice for documenting for inheritances?
-- Bloch's InstrumentedSet example has a lot going on in it. What aspects, if any, of this example did you find confusing? 
-
-** Lecture
-
-**** Make Each class or Member as Inaccessible as Possible (Slide 4)
-    - private
-    - package-private
-    The above 2 are preferred, developer's ..  
-    - protected for subclass
-    - public
-    These two are essentially public (anyone can subclass)
-
-
-**** Item 17 (Slide 9)
-     - show all the benefits on the slide
-     - 
-
-<2021-11-08 Mon>
+<2020-11-08 Mon>
 
 equals, toString, clone, hash
 
@@ -117,11 +53,11 @@ equals
 
   }
 
-  CaseInsensitiveString s1 = CaseInsensitiveString("Hello")
-  String s2 = "hello";
+  CaseInsensitiveString s0 = CaseInsensitiveString("Hello")
+  String s1 = "hello";
 
-  s1.equals(s2) ;  // True
-  s2.equals(s1); // False
+  s0.equals(s2) ;  // True
+  s1.equals(s1); // False
 
 
 #+end_src
