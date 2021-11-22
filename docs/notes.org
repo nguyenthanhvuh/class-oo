@@ -2,9 +2,38 @@
 
 testing vs verification
 
-- blackbox
-- whitebox
-- graybox
+
+- random fuzzer
+  - metrics:  code coverage
+    - statement: each statement in teh code must be executed by at least one test input
+    - branch: ..
+  - mutation-based testing (mutating inputs from a valid one):
+    - Randomly generated inputs are frequently invalid – and thus exercise mostly input processing functionality.
+    -  Mutations from existing valid inputs have much higher chances to be valid, and thus to exercise functionality beyond input processing.
+- search-based fuzzing:
+    - "evolve" an input to satisfy some specific goal
+      - fitness & mutation
+- mutation analysis
+  - measure how good a testsuite is
+    - mutate the program, create =mutants=
+    - testsuites that kill more mutants are better
+
+- grammar-based fuzzing:
+  - genrate test inputs based on a grammar (e.g.,  URL)
+    - previously, start with some good/valid seed input
+    - this method generealizes that by specifiying a grammar that describe all valid inputs
+
+- delta-debugging:
+  big input:  fail  - use this
+  1st half:  pass  : ignore
+  2nd half:  fail  - use this
+  ...
+
+- symbolic execution
+
+- graybox:
+  - e.g., AFL mutation-based fuzzer:
+  - AFL is also a greybox fuzzer (not blackbox nor whitebox). Meaning, AFL leverages coverage-feedback to learn how to reach deeper into the program. It is not entirely blackbox because AFL leverages at least some program analysis. It is not entirely whitebox either because AFL does not build on heavyweight program analysis or constraint solving. Instead, AFL uses lightweight program instrumentation to glean some information about the (branch) coverage of a generated input. If a generated input increases coverage, it is added to the seed corpus for further fuzzing.
 
 
 
@@ -80,8 +109,7 @@ This is a JUnit theory exercise.
 4. What happens to this theory and the accompanying data points when favoring composition over inheritance?
 5. Repeat the exercise for the transitive property for equals().
 6. Recall the equals() and hashCode() discussion in Bloch. Write a JUnit theory that encodes the consistency property between equals() and hashCode().
-7. Build a toy example that violates the theory. Fix the toy example so that the theory is no longer violated.
-8. Consider the Comparable interface: what properties should be checked with theories?
+
 
 
 
