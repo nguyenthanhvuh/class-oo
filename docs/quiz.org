@@ -351,3 +351,42 @@ Mark each of the following either *True* or *False*:
 #+begin_comment
 Answer: T,F,T,F,T,T,F,T,F,T
 #+end_comment
+
+
+* Quiz 10: 11/22
+Consider the following code, and suppose the main method in ~Sub~ is executed.
+#+begin_src java
+public class Super {
+  private String y;
+  public Super () { stut();}
+  public void stut() { if (y == null) {y = "cat";} else {y = y + y;}}
+}
+public class Sub extends Super {
+  private String x;
+  public Sub (String s) { x = s;}
+  @Override public void stut() {
+     x = x + x;
+  }
+  public static void main(String[] args) {
+      Super s = new Sub("dog");
+  }
+}
+#+end_src
+
+
+1. Is the constructor in Super invoked? Why or why not?
+   #+begin_comment
+   Answer: Yes. There is an implicit call to super(); as the very first instruction in the Sub constructor
+   #+end_comment
+1. Is the stut() method in Super invoked? Why or why not?
+   #+begin_comment
+   Answer: No. The stut() method is overridden in class Sub, and so the class Sub stut() method is invoked instead.
+   #+end_comment
+1. Is the stut() method in Sub invoked? Why or why not?
+   #+begin_comment
+   Answer: Yes. See the answer to the previous question.
+   #+end_comment
+1. Which rule in Bloch does this code violate? (Any reasonable phrasing of the principle is fine.)
+   #+begin_comment
+   Answer: The rule that says "Constructors (in classes that may be extended) must not invoke overridable methods."
+    #+end_comment

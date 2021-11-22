@@ -1,3 +1,88 @@
+<2021-11-22 Mon>
+
+testing vs verification
+
+- blackbox
+- whitebox
+- graybox
+
+
+
+
+#+begin_src java
+
+try{
+    foo();
+}catch (NPE e){
+    return;
+}
+
+#+end_src
+
+JUnit theory
+- https://www.softpost.org/junit-testing-framework/junit-theories/
+
+
+In-class 11
+
+This is a JUnit theory exercise.
+
+1. Write a JUnit theory that captures the symmetry property of the equals() method.
+   #+begin_src java
+   @DataPoints
+   public static Object[] array = [null, new Point(1,0), new ColorPoint(1,0,2), new ColorPoint(1,1,2)]
+
+   @Theory
+   public void equalsTest1(Object x, Object y){//use object for generalization
+       //want this: x.equals(y)  <=> y.equals(x)
+
+       assumeTrue(x!= null);
+       assumeTrue(y!= null);
+       assertTrue(x.equals(y) == y.equals(x));
+       //x.equals(y) && y.equals(x)  : incorrect ,  !x.equals(y) : false
+       //x.equals(y) || y.equals(x)  :  incorrect,  x.equals(y) ,  but y.equals(x)
+
+   }
+
+   @Theory
+   public void equalsTransitivity(Object x, Object y, Object z){
+       //want:  (x = y && y = z) => x = z
+
+       assumeTrue(x != null);
+       assumeTrue(y != null);  //might not be necessary because we call x.equals(y)
+       assumeTrue(z != null);
+
+       assumeTrue(x.equals(y));
+       assumeTrue(y.equals(z));
+       assertTrue(x.equals(z))
+  }
+
+   @Theory
+   public void equalsHashCode(object x, Object y){
+       //(x = y) => hash(x) = hasy(y)
+
+       assumeTrue(x !=null);
+       assumeTrue(y !=null);
+       assumeTrue(x.equals(y));
+       assertTrue(x.hashCode() = y.hashCode())
+   }
+   #+end_src
+
+2. Create @DataPoints from Bloch’s Point, ColorPoint classes. So that we’re all on the same page, create 1 null reference, 1 Point object and 2 ColorPoint objects.
+3. Given this set of data points:
+   - How many combinations are considered by the theory?
+     16
+   - How many combinations make it past the preconditions of the theory?
+     9 (22;33;44;23;32;24;42;34;43)
+   - How many combinations make it to the postcondition of the theory?
+     5 (22;33;44;34;43)
+
+4. What happens to this theory and the accompanying data points when favoring composition over inheritance?
+5. Repeat the exercise for the transitive property for equals().
+6. Recall the equals() and hashCode() discussion in Bloch. Write a JUnit theory that encodes the consistency property between equals() and hashCode().
+7. Build a toy example that violates the theory. Fix the toy example so that the theory is no longer violated.
+8. Consider the Comparable interface: what properties should be checked with theories?
+
 
 
 <2020-11-08 Mon>

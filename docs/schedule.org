@@ -31,7 +31,6 @@
   |         |                                           |                                     |                       |                   |
 
 
-  
 * In class Assignments
 
 ** In class 1
@@ -1211,11 +1210,11 @@
       - How many combinations are considered by the theory?
       - How many combinations make it past the preconditions of the theory?
       - How many combinations make it to the postcondition of the theory? 
-   1. What happens to this theory and the accompanying data points when favoring composition over inheritance?
+      # 1. What happens to this theory and the accompanying data points when favoring composition over inheritance?
    1. Repeat the exercise for the transitive property for =equals()=.
    1. Recall the =equals()= and =hashCode()= discussion in Bloch. Write a JUnit theory that encodes the consistency property between =equals()= and =hashCode()=.
-   1. Build a toy example that violates the theory. Fix the toy example so that the theory is no longer violated.
-   1. Consider the =Comparable= interface: what properties should be checked with theories? 
+      # 1. Build a toy example that violates the theory. Fix the toy example so that the theory is no longer violated.
+   # 1. Consider the =Comparable= interface: what properties should be checked with theories?
 
 ** In class 12A
    :PROPERTIES:
