@@ -1,5 +1,286 @@
 <2021-11-22 Mon>
 
+JUnit Theory
+
+#+begin_src java
+
+  @RunWith(Theories.class)
+  public class MyJunitTheories {
+
+      @DataPoints
+      public static int[] dataPoints() {
+          return new int[]{
+                  71, 82, 53, -1
+          };
+      }
+
+      //For a and b where a,b > 0
+      //(a+b)^2 = a^2+b^2+2ab 
+      //a+b > a and a+b > b
+
+      @Theory
+      public void squareTheory(Integer a, Integer b) {
+        
+          //Below assume statement ensures that we are testing only positive numbers
+          Assume.assumeTrue(a > 0 && b > 0);
+
+          System.out.println("Running with Data points - " + a + " , "+ b);
+
+          Double leftSide = Math.pow(a+b,2);
+          Double rightSide = Double.valueOf(a * a + b * b + 2 * a * b);
+
+          assertEquals(leftSide,rightSide);
+          assertTrue(a + b > a);
+          assertTrue(a + b > b);
+      }
+
+  }
+
+
+#+end_src
+total: 16 tests
+7 tests would fail the preconditions
+all 16 tests would pass
+
+
+
+71,71
+71,82 
+71,53
+71,-1
+82,82
+82,71
+82,56
+...
+-1,71
+...
+
+
+-1,-1
+-1,71
+-1,82
+-1,53
+71,-1
+82,-1
+53,-1
+
+
+
+In-class exercise
+#+begin_src java
+     @DataPoints
+     public static Point[] points = {null, //a
+         new Point(2,2),  //b
+         new ColorPoint(2,2,COLOR.BLACK), //c
+         new ColorPoint(2,2 ,COLOR.RED)}; //d
+
+
+   @Theory
+   public void testEquals(Object a, Object b) {
+     //symmetric   a.equals(b)  <=> b.equals(a)
+     //a = b =>  b = a  && b =a => a = b
+     //
+
+
+     assumeTrue(a!=null && b!=null); //precond
+     //assertTrue(a.equals(b) && b.equals(a));//a == b && b == a
+     assertTrue(a.equals(b) == b.equals(a));
+     // print(a , b ) 
+
+     if(a.equals(b)){assertTrue(b.equals(a));}
+     if(b.equals(a)){assertTrue(a.equals(b));}
+   }
+
+
+    @Theory
+    public void equalsTransitivity(Object x, Object y, Object z){
+      //transitivity 
+          @DataPoints
+     public static Point[] points = {null, //a
+         new Point(2,2),  //b
+         new ColorPoint(2,2,COLOR.BLACK), //c
+         new ColorPoint(2,2 ,COLOR.RED)}; //d
+
+
+   @Theory
+   public void testEquals(Object a, Object b) {
+     //symmetric   a.equals(b)  <=> b.equals(a)
+     //a = b =>  b = a  && b =a => a = b
+     //
+
+
+     assumeTrue(a!=null && b!=null); //precond
+     //assertTrue(a.equals(b) && b.equals(a));//a == b && b == a
+     assertTrue(a.equals(b) == b.equals(a));
+     // print(a , b ) 
+
+     if(a.equals(b)){assertTrue(b.equals(a));}
+     if(b.equals(a)){assertTrue(a.equals(b));}
+   }
+
+
+    @Theory
+    public void equalsTransitivity(Object x, Object y, Object z){
+      //transitivity   a==b && b == c => a == c
+      //if(a == b && b==c){assert(a==c);}
+
+      //a==b && b==c && a==c
+      assumeTrue(x != null);
+      assumeTrue(y != null);
+
+      assumeEquals(a, b);  //if(a==b) and 
+      assumeEquals(b, c);  //if(b==c) then
+      assertEquals(a, c);  //  a==c
+
+      if(a.equals(b) && b.equals(c)){
+        assertTrue(a.equals(c))
+      }
+    }
+
+
+  @Theory
+  public void equalsHashCode(object x, Object y){
+    // x==y => x.hashcode==y.hashcode
+    // if(x==y){x.hash == y.hash;}
+
+      //assertTrue(x.equals(y) == y.equals(x));
+
+
+      if(x!=null && y!=null & x.equals(y)) assertTrue(x.hashCode() == y.hashCode());
+
+      assumeTrue(x != null);
+      assumeTrue(y != null);
+    
+      assumeTrue(x.equals(y));
+      assertTrue(x.hashCode() == y.hashCode());
+
+      //else assertTrue(x.hashCode() != y.hashCode());
+
+      // x==y => hash(x) == has(y)  && x#y  => hash(x) # hash(y)
+
+  }
+  }
+
+
+
+#+end_src
+
+
+total tests = 16
+pass precond = 9
+
+a,a  (null,null)  pass
+a,*               pass
+*,a               pass
+b,b               pass
+c,c               pass
+d,d               pass
+c,d               pass
+d,c               pass
+
+b,c               fail
+b,d ..
+
+
+
+
+
+
+Software Testing vs Verification
+- dynamic vs static
+- TESTING:  check the program over some finite number of inputs/tests
+- VERIFICATION: check the program over ALL possible inputs  
+
+
+- Random Fuzzing
+  
+  Coverage : metrics to measure quality of testsuite
+    - statement coverage:
+    - branch coverage:
+
+  
+- Mutation-based Testing
+
+  void checkDate("11/15/1981")  1341fsdf923432 
+     checkValid(inp)
+
+  "11/15/1981"  ->  11/51/1981
+
+
+- Search-based Testing
+
+
+
+   foo(int l_of_size5){
+     assert(ascending(l));
+   }
+
+   does there exist some input x that make P false? "evolve" x over time
+
+   
+   21214 -> 12214 -> 11224
+
+   - Genetic Algorithm/Generic Programming
+
+
+- Mutational Analysis
+
+  P
+  Testsuite A  
+  Testsuite B 
+   
+  P ->  P1, P2,  P3 , P4   # mutants
+  A     P1,  P3
+  B     P1
+
+
+BLACKBOX testing
+
+
+
+WHITEBOX testing
+- grammar-based testing
+  number[0,12]/number[0,31],number[length4]
+
+
+
+
+
+GRAYBOX testing
+
+AFL : mix btw white/black box testing:  does some lightweight analysis to know structure of programs ... 
+
+
+
+
+DELTA-DEBUGING
+
+
+fskfjklsdfjaklsfjlaksdjfklasdjfklasdjfalksdjflkd  => CRASH
+fskfjklsdfjaklsfjlak => RUNS FINE
+sdjfklasdjfklasdjfalksdjflkd  => CRASH
+sdjfklasdjfkl => CRASH
+asdjfalksdjflkd  => RUNS FINE
+sdjfkl => RUNS FINE
+asdjfkl => RUNS FINE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 testing vs verification
 
 
@@ -24,6 +305,7 @@ testing vs verification
     - this method generealizes that by specifiying a grammar that describe all valid inputs
 
 - delta-debugging:
+  GCC compiler
   big input:  fail  - use this
   1st half:  pass  : ignore
   2nd half:  fail  - use this
@@ -88,7 +370,7 @@ This is a JUnit theory exercise.
 
    @Theory
    public void equalsHashCode(object x, Object y){
-       //(x = y) => hash(x) = hasy(y)
+       //(x = y) => hash(x) = hash(y)
 
        assumeTrue(x !=null);
        assumeTrue(y !=null);

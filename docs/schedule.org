@@ -26,7 +26,7 @@
 |      11 | Classes and Inheritance                  | Bloch 4                                                                                   |    [[#a9][A9 Due]]; [[#g10][Guide 10]]    | IC 10 [[#ic10A][A]] [[#ic10B][B]]  [[#ic10C][C]] |
 |      12 | Contract Model in Testing                | Advanced JUnit ([[./files/Ch03-automation.pptx ][slides 22-24)]]                          |   [[#a10][A10 Due]]; [[#g11][Guide 11]]   |                 IC [[#ic11][11]]                 |
 |      13 | Enums and Annotations                    | Bloch 6                                                                                   |   [[#a11][A11 Due]]; [[#g12][Guide 12]]   |        IC 12 [[#ic12A][A]] [[#ic12B][B]]         |
-|      14 | Course Wrap Up                           | Final Exam Notes; Code for final                                                          |                                           |                 IC [[#ic13][13]]                 |
+|      14 | Course Wrap Up                           | Final Exam Notes                                                                          |                                           |                 IC [[#ic13][13]]                 |
 |      15 | Final Exam 12/13 @ 4:30                  | /Online/                                                                                  |                                           |                                                  |
 |         |                                          |                                                                                           |                                           |                                                  |
 
