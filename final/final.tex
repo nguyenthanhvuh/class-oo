@@ -1,0 +1,121 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{etoolbox}
+
+\newtoggle{usecoe}
+\settoggle{usecoe}{false} % not CoE version
+\newcommand{\coe}[1]{\iftoggle{usecoe}{#1}{}}
+\newcommand{\notcoe}[1]{\nottoggle{usecoe}{#1}{}}
+\newcommand{\coeite}[2]{\iftoggle{usecoe}{#1}{#2}}
+\newcommand{\classname}{SWE619--Fall'21}
+
+\author{Your Name:}
+\date{}
+\title{\classname{}: Final Exam}
+
+\begin{document}
+\maketitle
+\section*{Instructions}
+
+\begin{enumerate}
+\item This is an open-book/open-notes exam. This means that you can access course materials on paper or on the internet..
+
+\item It is a violation of the honor code to communicate with any other person (except me, the instructor) about this exam while you are taking it.
+
+\item It is a violation of the honor code to discuss or share the contents of this exam in any way with any student who is currently registered for this course but who has not yet completed this exam.
+
+%When you see a reference to code, you should map that to the relevant Java file I provided as part of your study guide for this exam. 
+
+\item Capture your answers as a PDF document and submit on Blackboard by the deadline. If, for any reason, you have a problem submitting to BB,  submit your final on Piazza in a private post.  Your post should also explain your problem.
+\end{enumerate}
+
+\begin{center}
+  \begin{tabular}{lcc}
+    \toprule
+    Section		&	Points	&	Score \\
+    \midrule
+    Question 1	&	 30	& \\
+    Question 2	&	 35	& \\
+    Question 3 	&	 35	& \\
+    \midrule
+    Total		&	100	& \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\newpage
+\section{Question 1}
+Consider {\tt Queue.java}.
+
+\begin{enumerate}
+\item
+Write a reasonable \texttt{toString()} implementation.
+
+\item
+Consider a new method, \texttt{deQueueAll()}, which does exactly  what the name suggests. Write a reasonable contract for this method and then implement it.  Be sure to follow Bloch's advice with respect to generics.
+
+\item
+Rewrite the \texttt{deQueue()} method for an immutable version of this class.
+
+\item
+Write a reasonable implementation of \texttt{clone()}. 
+
+
+\end{enumerate}
+
+\section{Question 2}
+
+Consider Bloch's final version of his {\tt Chooser} example, namely {\tt GenericChooser.java}.
+
+
+\begin{enumerate}
+\item
+What would be a good representation invariant for this class?
+You may want to argue that the client
+view of {\tt Chooser} objects  should be changed to support 
+your proposed invariant.
+If so, explain exactly what you are doing and why.
+\item
+Supply suitable contracts for the constructor and the {\tt choose()} method
+and recode if necessary.
+The contracts should be consistent with your answer to the previous question.
+Explain exactly what you are doing and why.
+\item
+Argue that the {\tt choose()} method, as documented and possibly updated
+in your previous answers, is correct.  
+You don't have to be especially formal, but you do have
+to ask (and answer) the right questions.  
+\end{enumerate}
+
+
+\section{Question 3}
+
+Consider {\tt StackInClass.java}.
+You should take special note of the {\tt push()} method;
+it is a variation on Bloch's code.
+
+\begin{enumerate}
+\item
+What is wrong with {\tt toString()}?  Fix it.
+
+\item
+As written, {\tt pushAll()} requires documentation that violates encapsulation.  Explain why
+and then write a contract for {\tt pushAll()}.
+
+\item
+Rewrite the {\tt pop()} method for an immutable version of the {\tt Stack} class.
+Keep the same instance variables.
+
+\item
+Implementing the {\tt equals()} method for this class is a messy exercise, but would
+	be much easier if the array was replaced by a list.  Explain why.
+	Note:  You are not required to provide a implementation in your answer,
+	but if you find it helpful to do so, that's fine.
+\end{enumerate}
+
+
+\end{document}
