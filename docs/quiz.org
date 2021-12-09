@@ -429,5 +429,5 @@ Consider the following incomplete JUnit theory about the consistency of ~compare
    public static String[] stuff = { "cat", "cat", "dog"};
   #+end_src
   #+begin_comment  
-      3*3 = 9
+      3*3 = 9    11,22,33,12,13,23,21,31,32
   #+end_comment    

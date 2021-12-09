@@ -1,3 +1,145 @@
+<2021-12-06 Mon>
+
+Final review
+
+online format
+open notes/books 
+2:30 hrs
+final avail 11:59PM Sunday 12/12  ----  11:59 Monday 12/13
+Questions about grading on quizzes/assignments ->  ask us within this week 
+
+
+Questions:
+- Essays 
+
+In-class 13 (Stack)
+1. Contract for push
+   
+// Effects: If the Object is null, throw NPE
+Expand the array if more space is needed
+add Object e to the top of the stack (elements)
+
+
+
+// Effects:  throw NPE if attempt to add a null element, else add element to the top of the stack  
+
+
+// Modifies: elements, size  # don't go into implementation details,
+
+// Modifies: this (or modifies the stack representation)
+
+// Do we want Require (Precondition) ?  In this example, no need (code already include if e == null throw ... ).  In general, if you can, avoid having require/precondition ,  you want the weakest precond (i.e., nothing)
+
+2. toString()
+
+   code: just want contents up to size  and not elements.length (which outputs everything in the array)
+
+   fix: print "stack" ,  elements.length = size
+
+3. repr inv
+   1. elements != null   ... Correct
+
+     
+   - contents of elements are not null (NOT a Repr Inv)
+     size = 2 
+     ["cat", "dog", null, "cow"]
+
+     
+   2. 0 <= size <= elements.length()     # size != elems.length
+
+   # The number of elements that are not null equals the size.
+   
+   3. If size > 0 then elements from 0 to size should not be null
+
+
+4. Prefer ArrayList to Array
+   If we use ArrayList,
+   - pop() doesn't need to set elemennts[size] = null
+   - don't even need a separate variable `size` to keep track of Stack size
+   - capacity()  :  no need
+
+5.  Argue pop() is correct (or not)?
+   - correct =  satisfy repr and the contract
+   - contract:
+
+     //effects:  if this (or stack) is already empty, throw ISE
+     //else remove the top of the stack and remove it
+
+     
+6. pushAll:
+   contract: if any element is null , then raise exception, otherwise, add everything to this (or the stack)
+   #+begin_src java
+           public void pushAll (Object[] collection) {
+               //check for null element
+               for (Object obj: collection) {if obj == null throw NPE;}
+               for (Object obj: collection) { push(obj); }
+     }
+
+   #+end_src
+   //require: all elements are non-null
+
+   //add vs addAll()
+
+7. equals:
+
+   - if elements is array,
+
+     size = 1           size = 1
+     ["dog", null]  ==  ["dog"]
+
+
+   - if elements is arraylist, reuse .equals() ..
+
+
+   - hashCode,
+      for arrays: use  Bloch's recipe,   hash()*32 + ..
+      for arrayList  use hashCode()
+     
+     
+   #+begin_src java
+     @Theory public void compareToConsistentWithEquals( ... ) {
+        assumeTrue (...);   // Assume none of the parameters are null  (i.e. no NPE)
+        assumeTrue (...);   // Assume parameters are mutually comparable (i.e. no CCE)
+
+        assertTrue (...);   // See question 3
+      }
+   #+end_src   
+
+Suppose you had the following DataPoints. How many times does JUnit evaluate the assertTrue() statement in this theory?
+
+2
+
+9
+
+[1,2,3]
+1,1
+2,2
+3,3
+1,2
+1,3
+...
+
+#+begin_src java
+    @DataPoints
+     public static String[] stuff = { "cat", "cat", "dog"};
+
+
+
+  
+#+end_src
+
+q2: comparable
+q3: assertTrue ((x.compareTo(y)==0) == (x.equals(y))  //  <=>  (iff)
+
+
+
+Hoare logic
+
+finding loop invs , and proving the program is correct wrt to the loop invs
+
+
+
+
 <2021-11-29 Mon>
 
 #+begin_src java
