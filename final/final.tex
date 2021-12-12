@@ -4,7 +4,7 @@
 \usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
-
+\usepackage{hyperref}
 
 \usepackage{xcolor}
 \definecolor{dkgreen}{rgb}{0,0.5,0}
@@ -63,16 +63,21 @@
 %When you see a reference to code, you should map that to the relevant Java file I provided as part of your study guide for this exam. 
 
 \item Capture your answers as a PDF document and submit on Blackboard by the deadline. If, for any reason, you have a problem submitting to BB,  submit your final on Piazza in a private post.  Your post should also explain your problem.
+
 \end{enumerate}
+
 
 \begin{center}
   \begin{tabular}{lcc}
     \toprule
     Section		&	Points	&	Score \\
     \midrule
-    Question 1	&	 30	& \\
-    Question 2	&	 35	& \\
-    Question 3 	&	 35	& \\
+    Question 1	&	 25	& \\
+    Question 2	&	 25	& \\
+    Question 3 	&	 25	& \\
+    Question 4 	&	 25	& \\
+    Question 5 	&	 0	& \\
+    Question 6 	&	 0	& \\
     \midrule
     Total		&	100	& \\
     \bottomrule
@@ -81,27 +86,30 @@
 
 \newpage
 \section{Question 1}
-Consider {\tt Queue.java}.
+Consider \href{https://nguyenthanhvuh.github.io/class-oo/files/Queue.java}{Queue.java}.
+
+
 
 \begin{enumerate}
 \item
-Write a reasonable \texttt{toString()} implementation.
+Write a reasonable \texttt{toString()} implementation. Explain what you did
 
 \item
-Consider a new method, \texttt{deQueueAll()}, which does exactly  what the name suggests. Write a reasonable contract for this method and then implement it.  Be sure to follow Bloch's advice with respect to generics.
+Consider a new method, \texttt{deQueueAll()}, which does exactly  what the name suggests. Write a reasonable contract for this method and then implement it.  Be sure to follow Bloch's advice with respect to generics. 
+Explain what you did
 
 \item
-Rewrite the \texttt{deQueue()} method for an immutable version of this class.
+Rewrite the \texttt{deQueue()} method for an immutable version of this class. Explain what you did
 
 \item
-Write a reasonable implementation of \texttt{clone()}. 
+Write a reasonable implementation of \texttt{clone()}. Explain what you did. 
 
 
 \end{enumerate}
 \newpage
 \section{Question 2}
 
-Consider Bloch's final version of his {\tt Chooser} example, namely {\tt GenericChooser.java}.
+Consider Bloch's final version of his Chooser example, namely  \href{https://nguyenthanhvuh.github.io/class-oo/files/GenericChooser.java}{GenericChooser.java}.
 
 
 \begin{enumerate}
@@ -126,9 +134,8 @@ to ask (and answer) the right questions.
 \newpage
 \section{Question 3}
 
-Consider {\tt StackInClass.java}.
-You should take special note of the {\tt push()} method;
-it is a variation on Bloch's code.
+Consider \href{https://nguyenthanhvuh.github.io/class-oo/files/StackInClass.java}{StackInClass.java}.
+Note of the {\tt push()} method is a variation on Bloch's code.
 
 \begin{enumerate}
 \item
@@ -140,7 +147,7 @@ and then write a contract for {\tt pushAll()}.
 
 \item
 Rewrite the {\tt pop()} method for an immutable version of the {\tt Stack} class.
-Keep the same instance variables.
+Keep the same instance variables. Rewrite what you did.
 
 \item
 Implementing the {\tt equals()} method for this class is a messy exercise, but would
@@ -152,27 +159,30 @@ Implementing the {\tt equals()} method for this class is a messy exercise, but w
 \newpage
 \section{Question 4}
 
-Consider the program below. 
+Consider the program below (\texttt{y} is the input). 
 \begin{lstlisting}
-{N >= 0}   // precondition
-i := 0 ;
+{y $\ge$ 1}   // precondition
 
-while(i < N)
-  i := N;
+x := 0;
+while(x < y)
+  x += 2;
 
-{i == N} // post condition
+{x $\ge$ y} // post condition
 \end{lstlisting}
 
 
 \begin{enumerate}
-\item Informally argue that this program is correct with respect to the given specification (pre/post conditions).
-\item Compute several loop invariants for this program (e.g., 3 should suffice). For each loop invariant, informally argue why it is a loop invariant.  
+\item Informally argue that this program satisfies the given specification (pre/post conditions).
+\item Give 3 loop invariants for this program. For each loop invariant, informally argue why it is a loop invariant.  
 \item \emph{Sufficiently strong loop invariants:}  Use a sufficiently strong loop invariant to formally prove that the program is correct with respect to given specification. This loop invariant can be one of those you computed in the previous question or something new.
   \begin{itemize}
-    \item }Note: show all works for this step (e.g., obtain weakest preconditions, verification condition, and analyze the verification condition).
+    \item Note: show all works for this step (e.g., obtain weakest preconditions, verification condition, and analyze the verification condition).
   \item Recall that if the loop invariant is strong enough, then you will be able to do the proof. In contrast, if it is not strong enough, then you cannot do the proof.
   \end{itemize}
-\item \emph{Insufficiently strong loop invariants:} Use another loop invariant (could be one of those you computed previously) and show that you cannot use it to prove the program.  Also, show all work as the previous question.
+\item \emph{Insufficiently strong loop invariants:} Use another loop invariant (could be one of those you computed previously) and show that you cannot use it to prove the program. 
+  \begin{itemize}
+    \item Note: show all work as the previous question.
+  \end{itemize}
 \end{enumerate}
 
 
@@ -190,4 +200,20 @@ This question helps me determine the grade for group functioning.  It does not a
   \item Regular participant; contributed reliably
   \end{enumerate}
 \end{enumerate}
+
+
+
+\newpage
+\section{Question 6}
+
+
+There is no right or wrong answer for the below questions, but they can help me improve the class. 
+I might present your text verbatim (but anonymously) to next year's students when they are considering taking the course (e.g., in the first week of class) and also add your advice to the project description pages.
+
+\begin{enumerate}
+\item What were your favorite \textbf{and} least aspects of this class? Favorite topics?
+\item Favorite things the professor did or didn't do?
+\item What would you change for next time?
+\end{enumerate}
+
 \end{document}
