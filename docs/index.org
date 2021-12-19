@@ -1,4 +1,4 @@
-#+TITLE: OO Software Specification and Construction @@html:<br>@@ (SWE 619 Course Syllabus -  Fall 2021)
+#+TITLE: OO Software Specification and Construction @@html:<br>@@ (SWE 619 Course Syllabus -  Spring 2022)
 
 #+OPTIONS: ^:nil toc:1
 
@@ -66,6 +66,16 @@
    | Weekly Quizzes (individual)        |        40% |
    | Final exam (individual)            |        30% |
 
+
+*** Scale
+    
+    |----+--------+---+--------+----+--------|
+    | A+ | >= 97% | A | >= 93% | A- | >= 90% |
+    | B+ | >= 87% | B | >= 83% | B- | >= 80% |
+    | C  | >= 70% | D | >= 60% | F  | < 60%  |
+
+   
+
 *** Group Functioning
 
     Every student needs to be part of a group. I would prefer that groups stay stable throughout the semester, but if there is a good rationale to reconfigure a group or two, we'll do that.
@@ -129,21 +139,8 @@
 ** Record Keeping
 
    We'll use Blackboard to maintain *RAW* scores and attendance data. Grades are computed according to this syllabus.
-   # There is a column in BB labeled "TOTAL": Ignore it; it's meaningless for this class. (BB does not give me the option of disabling or hiding this column.)
 
    It's the student's responsibility to ensure that Blackboard records are correct. (I'm happy to correct errors.)
-
-   # Every semester, I get email from students wondering why there grade doesn't correspond to the TOTAL column in BB. Please don't be the student who sends me this message.
-
-   # ** Email
-
-   #   Please note that questions of general interest should not be emailed to me. Post on Piazza instead.
-
-   # ** Virginia Privacy Laws
-
-   #   The state of Virginia now has laws that require the University (including me) not to disclose student email addresses, phone numbers, and addresses. This will impact communications in this class as follows:
-   #   - Communicating via email with groups of students is problematic. (Bcc is a partial but not very good, solution.) As far as I have been able to determine, Piazza does not make student emails visible to other students, even though instructors can see email addresses. Hence, this is another reason to favor the Piazza forum.
-   #   - *You** can choose to disclose your email whenever and wherever you wish. That's up to you.
 
    # ** Piazza
 
@@ -154,7 +151,7 @@
 
 ** Honor Code
 
-   As with all GMU courses, SWE 619 is governed by the [[http://oai.gmu.edu/the-mason-honor-code/][GMU Honor Code]]. In this course, all oral assessments and the final exam carry with them an implicit statement that it is the sole work of the author. Further, all group submissions require a statement of participation from each member of the group.
+   As with all GMU courses, SWE 619 is governed by the [[http://oai.gmu.edu/the-mason-honor-code/][GMU Honor Code]]. In this course, quizzes and the final exam carry with them an implicit statement that it is the sole work of the author.
 
 ** Learning Disabilities
 

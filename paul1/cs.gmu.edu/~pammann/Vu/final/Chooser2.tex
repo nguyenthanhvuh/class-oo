@@ -1,0 +1,26 @@
+Consider Bloch's final version of his {\tt Chooser} example, namely {\tt GenericChooser.java}.
+For this exercise, you may assume that the generic parameter {\tt T}
+represents an immutable type such as {\tt String}.
+
+
+\begin{enumerate}
+\item
+Provide an implementation of {\tt equals()}
+appropriate for this class.
+Think carefully about this; why is this more complex than it
+might first appear?  Give an example to explain.
+Provide an appropriate implementation of {\tt hashCode()}.
+\item
+Provide a contract and an implementation for another method,
+\begin{verbatim}
+public void addChoice(T t)
+\end{verbatim}
+This method should do the obvious thing based on the name.
+\item
+Suppose we decide to make this class immutable.
+Would that be reasonable?  What changes, if any, would be necessary to the code?
+Why would those changes be necessary?  Be specific:
+explain how the class would exhibit mutable behavior without this change.
+Include the {\tt addChoice} 
+method from the prior question in your analysis.
+\end{enumerate}

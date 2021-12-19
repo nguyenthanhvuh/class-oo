@@ -1,0 +1,279 @@
+SWE 619
+Anum Qureshi
+12/13/21
+
+1.
+	a. For enQueue, write (i) a partial contract and (ii) a total contract. For each part, if you need to change
+	the code for the contract, do so and explain what you did
+	Partial Contract: 
+
+		effects: add the new element e to the elements list and increment the size
+	Total Contract:
+		modifies: elements
+		effects: add the new element e to the elements and increments the size 
+		requires: E e cannot be null
+	b. Write the rep invs for this class. Explain what they are.
+		elements is not equal to null
+		size cannot be less than 0 
+	c. Write a reasonable toString() implementation. Explain what you did
+			If size  <= 0 throw new illegal exception state (Queue.toString)
+		      String result = "size = " + size;
+				result += "; elements = [";
+				for (int i = 0; i < size; i++) {
+					if (i < size-1)
+						result = result + elements.get(i).toString + ", ";
+					else
+						result = result + elements.get(i).toString;
+				}
+				return result + "]";
+   }	
+		first i check to see if the elements array has a size more than 0, this means it has elements if it has elements then i access each element and print out its value with commas in between, this case i am printing to the 
+		system
+	d. Consider a new method, deQueueAll(), which does exactly what the name suggests. Write a reasonable
+	contract for this method and then implement it. Be sure to follow Bloch’s advice with respect to
+	generics. Explain what you did
+	effects: dequeues everything currently in the queueue
+	modifies: this.elements
+	requires: size cannot equal 0 and elements cannot be null 
+		for this example i did not include a return state
+	dequeueAll(){
+		If size  <= 0 throw new illegal exception state (Queue.dequeue)
+		while( size != 0 ) 
+			deQueue();
+			# for an example where you would return all that you dequeued as a list you would 
+			dequeueAll(){
+			If size  <= 0 throw new illegal exception state (Queue.dequeue)
+			List<E> toreturn = new ArrayList<E>;
+			while( size != 0 ) 
+				toreturn.add(deQueue());
+			}
+			return toreturn
+			
+	
+	e. Rewrite the deQueue() method for an immutable version of this class. Explain what you did
+		dequeue()
+		    if (size == 0) throw new IllegalStateException("Queue.deQueue");
+			E result = elements.get(0);
+			list list = new list()
+			for(int i = 1; i < size; i++){
+				list.add(elements.get(i)
+				}
+			elements = new arraylist<>(list);
+			size--;
+			return result;
+			
+			i took all the elements from list and added all the ones i wanted to a new list, i then created a new instance of elements to retain the immutability of it and added the results using the list that stored the 
+			list
+	f. Write a reasonable implementation of clone(). Explain what you did.
+			if clone is a deepy copy with a different pointer:
+				if (size == 0) throw new IllegalStateException("Queue.clone");
+				list to return = new list<>;
+					for(a: element){
+						E e = new E(a);
+						list.add(e);
+			return to return;
+			if clone is a copy that has the same pointer
+				if (size == 0) throw new IllegalStateException("Queue.clone");
+				list to return = new list<>();
+				toreturn = elements
+				
+			basically i take all the elements in the elements list and copy them over to a new list. however if we dont care about pointers and just want a shallow copy then you just copy the list pointer to the new list 
+2.
+	a. What would be good rep invariants for this class? Explain each.
+		choicelist is not null - this will ensure that the choice list is always created and we will not get null pointer exceptions
+		choicelist size is not < 0 - this will ensure that choice list is always greater than 0 so that we can always have a next int
+	b. Supply suitable contracts for the constructor and the choose() method and recode if necessary. The
+	contracts should be consistent with your answer to the previous question. Explain exactly what you
+	are doing and why.
+		requires: choices != null = this is to ensure that the choices list you pass is not a null and you do not get a null pointer exception
+		requires: choices >= 0 - this is to ensure that the choices list has some numbers populated in it:
+		effects: creates a new choices array for chooser to choose from
+			in the code you would add lines to 
+				if choices == null - throw an exception
+				if choices.size <= 0 - throw an exceptions
+		
+		for the choose method:
+		
+		requires: choices != null - this is to ensure we do not end up with a null pointer
+		requires: choices.size > 0 - this is sure ensure wehn we get a next in there is a int in the array to choose from
+		effects: chooses a random number from the choices array and returns it 
+		returns: int that is random from the array
+			you would have to add both the checks in the code to ensure the requires are met 
+				if choices == null - throw an exception
+				if choices.size <= 0 - throw an exceptions
+				
+				
+	c. Argue that the choose() method, as documented and possibly updated in your previous answers,
+	is correct. You don’t have to be especially formal, but you do have to ask (and answer) the right
+	questions.
+		we can check if choose is correct by first checking, can we choose a number not in the choices array? the answer is no because we make sure to get a number from the array with the .get
+		can we pick a number if choice array is null? the answer is now no and we dont get exceptions because we handled that case to ensure we got a proper number
+		can we pick a number from an empty array?  the answer is no because we snure that the choices array has at least one element in it. 
+		
+
+3.
+	a. What is wrong with toString()? Fix it.
+		in this case you would not print all the information for the object stored in this array  you would just print the hashcode of it, similiarly to the example i did above you need to first check if the array is empty if its not then you proceed
+		with looking at each element in the array and printing out its information. in this case you would also print out the stack backwards
+					If size  <= 0 throw new illegal exception state (toString)
+		      String result = "size = " + size;
+				result += "; elements = [";
+				for (int i = size -1 ; i >= 0; i--) {
+					if (i > 0 )
+						result = result + elements[i].toString + ", ";
+					else
+						result = result + elements[i].toString;
+				}
+				return result + "]";
+   }	
+		to fix it i instead decremented i to start printing from the bottom of the stack to the top
+		
+	b. As written, pushAll() requires documentation that violates encapsulation. Explain why and then
+	write a contract for pushAll().
+		it violates the rules that require the encapsulation that says 
+	 public void pushAll (Object[] collection) {
+	 for (Object obj: collection) {
+	 push(obj); 
+	 } 
+	 }
+		
+		
+		
+	c. Rewrite the pop() method for an immutable version of the Stack class. Keep the same instance
+	variables. Rewrite what you did.
+		
+		origonal: public Object pop () {
+     if (size == 0) throw new IllegalStateException("Stack.pop");
+     Object result = elements[--size];
+     // elements[size] = null;
+     return result;
+   }
+	if (size == 0) throw new IllegalStateException("Stack.pop");
+	object list = new list(elements)
+	Object result = list[size --];
+	elements = new list[](list);
+	return result
+		
+	d. Implementing the equals() method for this class is a messy exercise, but would be much easier if the
+	array was replaced by a list. Explain why. Note: You are not required to provide a implementation in
+	your answer, but if you find it helpful to do so, that’s fine.
+			initially the answer would be that java internally has a collections/list comparator that is good. however upon closer inspection it is found that an arraylist is better for comparisions because arrays store the pointers to memorys of an object
+			whereas an array stores the object itself and so when running a commparision between the two you would be running a commparison on the memory feilds in an array and on objects in an array list
+
+
+
+4 Question 4
+Consider the program below (y is the input).
+1 {y ≥ 1} // precondition
+2
+3 x := 0;
+4 while(x < y)
+5 x += 2;
+6
+7 {x ≥ y} // post condition
+
+
+1. Informally argue that this program satisfies the given specification (pre/post conditions).
+	this program satisfies the precondition because x starts at 0 and if at any point is greater than y then it will break the codes intended purpose
+	the postcondiction is satisfied because x will increment by 2 until it is greater tahn y
+2. Give 3 loop invariants for the while loop in this program. For each loop invariant, informally argue
+why it is a loop invariant.
+	y does not change. = y does not change in this loop if y were to change we could end up with a never ending loop
+	x starts less than y otherwise we would never enter the loop 
+	y is not 0 because then we would not enter the loop
+	
+3. Sufficiently strong loop invariants: Use a sufficiently strong loop invariant to formally prove that the
+program is correct with respect to given specification. This loop invariant can be one of those you
+computed in the previous question or something new.
+	
+
+• Note: show all works for this step (e.g., obtain weakest preconditions, verification condition, and
+analyze the verification condition).
+• Recall that if the loop invariant is strong enough, then you will be able to do the proof. In
+contrast, if it is not strong enough, then you cannot do the proof.
+
+
+4. Insufficiently strong loop invariants: Use another loop invariant (could be one of those you computed
+previously) and show that you cannot use it to prove the program.
+• Note: show all work as the previous question.
+
+
+
+
+5 Question 5
+Note: you can reuse your answers/examples in previous questions to help you answer the following questions.
+1. What does it mean that a program (or a method) is correct? Give (i) an example showing a program
+(or method) is correct, an (ii) an example showing a program (or method) is incorrect.
+	for a program or method to be correct means that it does not violate any of its contracts
+		I) 
+1 	{y ≥ 1} // precondition
+2
+3 	x := 0;
+4	 while(x < y)
+5 	x += 2;
+6	
+7 	{x ≥ y} // post condition
+
+	II)
+		the choose method from choose violates its contracts 
+		requires: choices != null - this is to ensure we do not end up with a null pointer
+		requires: choices.size > 0 - this is sure ensure wehn we get a next in there is a int in the array to choose from
+		effects: chooses a random number from the choices array and returns it 
+		returns: int that is random from the array
+		
+		public T choose() { 
+      Random rnd = ThreadLocalRandom.current();
+      return choiceList.get(rnd.nextInt(choiceList.size()));
+   }
+
+	as stated above this could have a random number that is from a next int 0 and that would break because it would not be in the array. 
+2. Explain the difference between rep invariants, loop invariants, and contract/specifications (i.e., pre/post
+conds). Use concrete examples to demonstrate the difference.
+	rep invariants stay true throughout the life of a class
+		for example a class could say that at no point can the elements list be null that means that in any point of the class after being created the elements list cannot be null
+		
+	loop invariants stay true throughout a loop
+		using the elements example:
+			the elements list cannot be null while you are in the loop however outside of the loop the elements array could end up null at some point 
+	contracts are true for specific functions
+			the elements array could be null in other functions of a program but for the given function it cannot be null 
+	
+3. What are the benefits of using JUnit Theories comparing to standard JUnit tests. Use examples to
+demonstrate your understanding.
+		junit theories make it so that it is possible to test edge cases a human tester making test could not think of, by allowing the computer to run against many datapoints you can ensure that there are senarios that human may have missed but are still tested
+4. Explain the differences between proving and testing. In addition, if you cannot prove (e.g., using Hoare
+logic), then what does that mean about the program (e.g., is it wrong)?
+	proving means that you are conceptually sure a program will not fail its contracts
+	however testing helps to prove that there are cases perhaps not in the contract that the program violates
+	
+5. Explain the Liskov Substitution Principle (LSP). Use a concrete example to demonstrate LSP. Note:
+use a different example than the one given in Liskov.
+		the object from a super class can be replaced with the objects of the subclass without breaking the program. 
+		a good way to ensure this works to look into being able to play older videogames on newer computers: newer computers have newer classes and perhaps some super classes of objects used by older games however you can still use the newer videogame because a lot of the newer classescan subsitute the older ones. 
+
+This question helps me determine the grade for group functioning. It does not affect the grade of this final.
+1. Who are your group members?
+SaiVarun - a
+Aastha - c
+Mo - c
+
+2. For each group member, rate their participation in the group on the following scale:
+(a) Completely absent
+(b) Occasionally attended, but didn’t contribute reliably
+(c) Regular participant; contributed reliably
+
+
+
+There is no right or wrong answer for the below questions, but they can help me improve the class. I might
+present your text verbatim (but anonymously) to next year’s students when they are considering taking the
+course (e.g., in the first week of class) and also add your advice to the project description pages.
+1. What were your favorite and least aspects of this class? Favorite topics?
+		my favorite part of the class was the inclass examples they made it easy to understand concepts
+			my least favorite part of the class was A) having it be in such a long time block
+			B) the context switching of vocabulary between the books and the professor teaching, it made me really confused at some point. 
+	
+2. Favorite things the professor did or didn’t do?
+
+	i loved learning about the professors research topic and being able to talk to the professor openly
+3. What would you change for next time?
+	change the lenth of time a class was, because it was online it was very difficult to sit through the full length of time without being in a classroom. 

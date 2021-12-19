@@ -1,0 +1,20 @@
+// Overall questions for StackInClass.java
+
+1) Write a total contract for push()
+
+2) What is wrong with toString()?  Fix it
+
+3) What is a good rep-invariant for this version of the Stack class?
+
+4) Is pop() correct?  Be sure to explain your reasoning.
+
+5) As written, pushAll() violates Bloch's guidance on exception handling.  Why?  Fix it.
+
+6) As written, pushAll() requires documentation that violates encapsulation.  Why?  
+
+7) Rewrite the pop() method for an immutable version of this class.
+
+8) The equals() method for this class is a messy exercise, but would
+	be much easier if the array was replaced by a list.  Explain why.
+
+9) Write a reasonable implementation of clone()  (Don't worry about syntax; "exam" java is fine.)

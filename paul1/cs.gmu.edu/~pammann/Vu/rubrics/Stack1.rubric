@@ -1,0 +1,13 @@
+____/30 (Stack Part 1)
+
+
+____/5  push() contract 
+
+____/5  rep-inv   
+
+____/10 pop() correctness
+
+____/5  pushAll() exception handling
+
+____/5  clone()
+

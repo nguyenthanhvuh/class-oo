@@ -1,0 +1,22 @@
+// Overall questions for Queue.java
+
+1) Write a reasonable toString() implementation.
+
+2) Write a total contract for deQueue()
+
+3) What is a good rep-invariant for the Queue class?
+
+4) Is deQueue() correct?  Be sure to explain your reasoning.
+
+5) Consider a new method, deQueueAll(), which does exactly 
+what the name suggests.
+Write a reasonable contract for this method
+and then implement it.  Be sure to follow Bloch's advice with
+respect to generics.
+
+6) Rewrite the deQueue() method for an immutable version of this class.
+
+7) Override hashCode() and equals() for the Queue class.  Hint:  This is
+   very simple code.
+
+8) Write a reasonable implementation of clone()  (Don't worry about syntax; "exam" java is fine.)

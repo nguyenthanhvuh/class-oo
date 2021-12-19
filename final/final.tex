@@ -36,13 +36,12 @@
   columns=flexible,
   morekeywords={then,end,do},
 }
-
 \usepackage{etoolbox}
-\newtoggle{usecoe}
-\settoggle{usecoe}{false} % not CoE version
-\newcommand{\coe}[1]{\iftoggle{usecoe}{#1}{}}
-\newcommand{\notcoe}[1]{\nottoggle{usecoe}{#1}{}}
-\newcommand{\coeite}[2]{\iftoggle{usecoe}{#1}{#2}}
+\newtoggle{usesol}
+\settoggle{usesol}{true} % not sol version
+\newcommand{\sol}[1]{\iftoggle{usesol}{\textbf{Sol:} #1}{}}
+\newcommand{\notsol}[1]{\nottoggle{usesol}{#1}{}}
+\newcommand{\solite}[2]{\iftoggle{usesol}{#1}{#2}}
 \newcommand{\classname}{SWE619--Fall'21}
 
 \author{Your Name:}
@@ -96,7 +95,16 @@ Consider \href{https://nguyenthanhvuh.github.io/class-oo/files/Queue.java}{Queue
 \begin{enumerate}
 \item For \texttt{enQueue}, write (i) a partial contract and (ii) a total contract.  For each part, if you need to change the code for the contract, do so and explain what you did
 
+\sol{\textbf{Partial contract:}  has a precondition/require that \texttt{e} is a valid element (non-null), postcondition/effect is straight forward, e.g., add \textbf{e} to top of stack. 
+\textbf{Total contract:} no precondition/requirement, effects/postcondition: straightforward  but also raise exception when \texttt{e} is invalid.  Would need to change the code to check that \texttt{e} is non-null and raise exception if it is.
+
+\textbf{Things to check}: make sure the contract is written in general that every stack implementation would have.  More specifically, if it talks about this specific implementation, it is not a good contract. Can take of some points}
+
 \item Write the rep invs for this class.  Explain what they are. 
+
+\sol{things like elements cannot be null,  0 $\le$ size $<$ elements.length(), for i < size, elements[i] != null.
+
+\textbf{Things to check}: off-by-1 error, e.g., $\le x$ instead of $< x$, is probably OK here, the main idea acounts.}
 
 \item Write a reasonable \texttt{toString()} implementation. Explain what you did
 
