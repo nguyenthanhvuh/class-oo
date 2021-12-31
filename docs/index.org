@@ -7,15 +7,15 @@
 
 * General Information
   - Instructor: [[https://nguyenthanhvuh.github.io][ThanhVu Nguyen]]
-    - Office Hrs: Mondays 2:00PM - 3:00PM (use class Zoom link below)
+    - Office Hrs: Mondays 2:00PM - 3:00PM (either Research Hall 356 or through Zoom link below)
     - Email: [[mailto:tvn@gmu.edu][tvn@gmu.edu]] (Piazza discussion is preferred)
   - TA: Xu Han
     - Email: [[mailto:xhan21@gmu.edu][xhan21@gmu.edu]]
     - Office Hrs: Mondays 3:00PM - 4:15PM (use class Zoom link below)
   - Class:
-    - Mondays 4:30PM--7:10PM (ONLINE format)
-    - Zoom link: https://gmu.zoom.us/j/98393279342 (Passcode: 148674)
-    - Piazza: https://piazza.com/gmu/fall2021/swe619nguyen
+    - Mondays 4:30PM--7:10PM, Horizon Hall 1012
+    - Zoom link for office hrs: https://gmu.zoom.us/j/98393279342 (Passcode: 148674)
+    - Piazza: https://piazza.com/gmu/spring2022/swe619nguyen
     - Syllabus and Schedule (this website): [[https://nguyenthanhvuh.github.io/class-oo][https://nguyenthanhvuh.github.io/class-oo]]
     - Assignment Submission (homework, reflection, quizzes, exams): Blackboard (BB)
       
@@ -24,7 +24,7 @@
 * Syllabus       
 ** Course Description
 
-   To give the students a solid understanding of modern software construction. To prepare students to construct sequential and concurrent programs. To encourage the construction of software systems of high quality. In-depth study of software construction in a modern language including control structuring and packaging. Concepts such as information hiding, data abstraction, and object-based and object-oriented software construction are discussed and illustrated. This course is part of the core of the SWE program. This section of 619 uses Java.
+   To give the students a solid understanding of modern software construction. To encourage the construction of software systems of high quality. In-depth study of software construction in a modern language including program specifications and OO designs. Concepts such as information hiding, data abstraction, and object-based and object-oriented software construction are discussed and illustrated. This course is part of the core of the SWE program.
 
    *Prerequisite*: SWE Foundation Courses or equivalent
 
@@ -42,10 +42,9 @@
 
 ** Weekly Schedule
 
-   This class is a group-based, /online/ offering. You need to be present in class at class time. You will also need to schedule regular meetings with your group.
-   # This is my second offering of this class in a full-time online format. Mostly, we'll do what I did last fall, but there are some updates and tweaks.
+   This class is a group-based, /in-person/ offering. You need to be present in class at class time. You will also need to schedule regular meetings with your group.
 
-   Each week will cover a topic, which is a small number of related technical issues (see course [[./schedule.html][schedule]]). Each topic will follow roughly the same sequence of preparation, in-class learning activities, homework completion and (possibly) presentation, and knowledge assessment. To make this scale in an online environment, many of these activities will be group based. The sequence is:
+   Each week will cover a topic, which is a small number of related technical issues (see course [[./schedule.html][schedule]]). Each topic will follow roughly the same sequence of preparation, in-class learning activities, homework completion and (possibly) presentation, and knowledge assessment. Many of these activities will be group based. The sequence is:
 
    - Preparation: Complete assigned readings and watch relevant videos, if any.  No formal submission for this activity.
    - Reading Reflection: This is a formal opportunity for each group to reflect on the reading.
@@ -66,7 +65,6 @@
    | Weekly Quizzes (individual)        |        40% |
    | Final exam (individual)            |        30% |
 
-
 *** Scale
     
     |----+--------+---+--------+----+--------|
@@ -75,22 +73,21 @@
     | C  | >= 70% | D | >= 60% | F  | < 60%  |
 
    
-
 *** Group Functioning
 
     Every student needs to be part of a group. I would prefer that groups stay stable throughout the semester, but if there is a good rationale to reconfigure a group or two, we'll do that.
 
     *Group size*: 2 to 4 students.
 
-    Group creation mechanism: As a default, we'll drop students into groups at random. If you are happy with your random group, great! If you prefer a different group, during the first week you will have the option to re-group. If your group dwindles to just yourself, you'll need to join another group.
+    Group creation mechanism: As a default, we'll drop students into groups at random. If you prefer a different group, during the first week you will have the option to re-group. If your group dwindles to just yourself, you'll need to join another group.
 
-    At the end of the semester, each individual will provide an assessment of the rest of their group. This assessment will determine the "Group Functioning" part of the grade.
+    During the final exam, each individual will provide an assessment of the rest of their group. This assessment will determine the "Group Functioning" part of the grade.
 
-    Groups can communicate internally through any mechanism they choose: zoom, discord, google docs, etc
+    Groups can communicate internally through any mechanism they choose: in-person, zoom, discord, google docs, etc.
 
 *** Reading Reflections
 
-    Each week, each group must complete a "reading reflection" the day *before* class. (That means midnight Sunday, in the case of this class, since class meetings are Monday afternoon.) I will review these assessments before class, compile the overall responses, and use them to tune the in-class activities. Reading reflections are linked from the course schedule and must be turned in on BB. These reflections are part of the learning process rather than the assessment process. That is, they don't assess whether you have achieved mastery of the new material, rather they check whether you have done the necessary preparation.
+    Each week, each group must complete a "reading reflection" the day *before* class. (That means midnight Sunday, in the case of this class, since class meetings are Monday afternoon.) I will review these assessments before class and use them to tune the in-class activities. Reading reflections are linked from the course schedule and must be turned in on BB. These reflections are part of the learning process rather than the assessment process. That is, they don't assess whether you have achieved mastery of the new material, rather they check whether you have done the necessary preparation.
 
     *Important*:
     - There are no make-ups.
@@ -98,7 +95,7 @@
 
 *** Homework Assignments
 
-    There are weekly *group* homework assighments. I post homework assignments on the class [[./schedule.html][schedule web site]]. Generally, your group should submit assignments via BB.
+    There are weekly *group* homework assighments. I post homework assignments on the class [[./schedule.html][schedule web site]]. Your group will submit assignments via BB.
 
     Because of the way in which this class is taught, it is important to stay on pace. Homeworks are due *before class*. Late submissions are not accepted except in truly exceptional circumstances.
 
@@ -106,24 +103,23 @@
     - Each group should be prepared to present their homework solution in class.
     - *Statement of who did what*. Homeworks are group exercises. Each submission must contain a specific statement of who did what.
 
-
 *** Weekly Quizzes
 
-    - Each quiz happens during the last 15 minutes of class.
+    - Each quiz happens during the last 15-20 minutes of class.
     - "Quiz Guides" posted to the course schedule tell you what to expect on the quiz. Often, they will be closely related to the prior week's homework.
 
     *Make-up Policy*
     - All quizzes count towards the final grade. Each quiz is scored on a 10 point scale. Missed quizzes score 0/10. Students who miss a quiz or perform badly on a quiz may choose to take the "make-up".
     - The maximum possible score on the make-up is 8/10. (Example: your quiz grade is 5/10. You take the make-up and correctly answer 9 of 10 equally weighted questions. Your final score improves from 5/10 to 8/10.)
     - If you attempt the make-up, that score counts, no matter what your score was on the quiz. (Example: your quiz grade is 7/10. You take the make-up and correctly answer 5 of 10 equally weighted questions. Your final score declines from 7/10 to 5/10.)
-    - Scheduling: I plan to offer the make-up during GTA office hours. The make-up can be different than the quiz given in class, but focuses on the same topics.
+    - Scheduling: the GTA will offer the make-up during TA office hours. The make-up can be different than the quiz given in class, but focuses on the same topics.
     - The make-up must be taken promptly and within a window of two class meetings from the quiz. (Example: Quiz 1 takes place on Wednesday, September 1. The make-up must be taken on or before Wednesday, September 15. Another Example: Quiz 11 takes place on Wednesday, November 11. Because we don't meet the week of Thanksgiving, the make-up must be taken on or before Wednesday, December 1.)
     - Each quiz only has one make-up, and you can only attempt that make-up once. However, you are free to use the make-up mechanism on as many different quizzes as you wish.
     - Quizzes are generally returned one week after the quiz is taken. Make-ups are returned after the window has closed.
 
 *** Final Exam
 
-    There will be an online final exam at the time specified by the university's final exam schedule.
+    There will be an final exam at the time specified by the university's final exam schedule.
     -----
 
 ** Class Attendance
