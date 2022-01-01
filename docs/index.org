@@ -104,9 +104,8 @@
     - *Statement of who did what*. Homeworks are group exercises. Each submission must contain a specific statement of who did what.
 
 *** Weekly Quizzes
-
     - Each quiz happens during the last 15-20 minutes of class.
-    - "Quiz Guides" posted to the course schedule tell you what to expect on the quiz. Often, they will be closely related to the prior week's homework.
+#    - "Quiz Guides" posted to the course schedule tell you what to expect on the quiz. Often, they will be closely related to the prior week's homework.
 
     *Make-up Policy*
     - All quizzes count towards the final grade. Each quiz is scored on a 10 point scale. Missed quizzes score 0/10. Students who miss a quiz or perform badly on a quiz may choose to take the "make-up".

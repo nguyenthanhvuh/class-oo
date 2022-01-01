@@ -9,33 +9,32 @@
 - *Notes*: Except for the first class, students are expected to complete the reading *prior to class* on listed meeting. Quizzes may occasionally take advantage of this expectation. Homework assignments are *due* on the date listed.
 
 
-| Meeting | Topic                                    | Reading                                                                                   |           Assignment/Quiz Guide           |                In-Class Exercise                 |
-|     <r> |                                          | <l>                                                                                       |                    <c>                    |                       <c>                        |
-|---------+------------------------------------------+-------------------------------------------------------------------------------------------+-------------------------------------------+--------------------------------------------------|
-|       1 | Class Overview                           | Liskov 1--2                                                                               |                                           |                  IC [[#ic0][0]]                  |
-|       2 | Procedural Abstraction; Exceptions       | Liskov 3--4, Bloch 10                                                                     |     [[#a1][A1 Due]]; [[#g1][Guide 1]]     |          IC 1 [[#ic1A][A]] [[#ic1B][B]]          |
-|       3 | Data Abstraction; Mutability             | Liskov 5.1--5.4,                                                                          |     [[#a2][A2 Due]]; [[#g2][Guide 2]]     |          IC 2 [[#ic2A][A]] [[#ic2B][B]]          |
-|     4-1 | Program Verification                     | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]] | [[#a4-1][A4-1 Due]]; [[#g4-1][Guide 4-1]] |                [[#ic4-1][IC 4-1]]                |
-|       4 | Reasoning About Data Abstraction         | Liskov 5.5-5.10                                                                           |     [[#a3][A3 Due]]; [[#g3][Guide 3]]     |          IC 3 [[#ic3A][A]] [[#ic3B][B]]          |
-|       5 | Iteration Abstraction; Method Guidelines | Liskov 6, Bloch 8                                                                         |     [[#a4][A4 Due]]; [[#g4][Guide 4]]     |          IC 4 [[#ic4A][A]] [[#ic4B][B]]          |
-|       6 | Type Abstraction                         | Liskov 7                                                                                  |     [[#a5][A5 Due]]; [[#g5][Guide 5]]     |   IC 5 [[#ic5A][A]] [[#ic5B][B]] [[#ic5C][C]]    |
-|       7 | Mid-semester Recap                       | /No New Material/                                                                         |                                           |                  IC [[#ic6][6]]                  |
-|       8 | Polymorphic Abstract; Lambdas            | Liskov 8, Bloch 7(Item 42)                                                                |     [[#a6][A6 Due]]; [[#g7][Guide 6]]     |                  IC [[#ic7][7]]                  |
-|       9 | Generics                                 | Bloch 5                                                                                   |     [[#a7][A7 Due]]; [[#g8][Guide 8]]     |   IC 8 [[#ic8A][A]] [[#ic8B][B]] [[#ic8C][C]]    |
-|      10 | Common Java Contracts                    | Bloch 3                                                                                   |     [[#a8][A8 Due]]; [[#g9][Guide 9]]     |          IC 9 [[#ic9A][A]] [[#ic9B][B]]          |
-|      11 | Classes and Inheritance                  | Bloch 4                                                                                   |    [[#a9][A9 Due]]; [[#g10][Guide 10]]    | IC 10 [[#ic10A][A]] [[#ic10B][B]]  [[#ic10C][C]] |
-|      12 | Contract Model in Testing                | Advanced JUnit ([[./files/Ch03-automation.pptx ][slides 22-24)]]                          |   [[#a10][A10 Due]]; [[#g11][Guide 11]]   |                 IC [[#ic11][11]]                 |
-|      13 | Enums and Annotations                    | Bloch 6                                                                                   |   [[#a11][A11 Due]]; [[#g12][Guide 12]]   |        IC 12 [[#ic12A][A]] [[#ic12B][B]]         |
-|      14 | Course Wrap Up                           | Final Exam Notes                                                                          |                                           |                 IC [[#ic13][13]]                 |
-|      15 | Final Exam 12/13 @ 4:30                  | /Online/                                                                                  |                                           |                                                  |
-|         |                                          |                                                                                           |                                           |                                                  |
+| Meeting | Topic                                    | Reading                                                                                   |    Assignment     |                In-Class Exercise                 |
+|     <r> |                                          | <l>                                                                                       |        <c>        |                       <c>                        |
+|---------+------------------------------------------+-------------------------------------------------------------------------------------------+-------------------+--------------------------------------------------|
+|       1 | Class Overview                           | Liskov 1--2                                                                               |                   |                  IC [[#ic1][1]]                  |
+|       2 | Procedural Abstraction; Exceptions       | Liskov 3--4, Bloch 10                                                                     |  [[#a1][A1 Due]]  |          IC 2 [[#ic2A][A]] [[#ic2B][B]]          |
+|       3 | Data Abstraction; Mutability             | Liskov 5.1--5.4,                                                                          |  [[#a2][A2 Due]]  |          IC 3 [[#ic3A][A]] [[#ic3B][B]]          |
+|       4 | Imperative Program Verification          | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]] |  [[#a3][A3 Due]]  |              IC        [[#ic4][4]]               |
+|       5 | Reasoning About Data Abstraction         | Liskov 5.5-5.10                                                                           |  [[#a4][A4 Due]]  |          IC 5 [[#ic5A][A]] [[#ic5B][B]]          |
+|       5 | Iteration Abstraction; Method Guidelines | Liskov 6, Bloch 8                                                                         |  [[#a5][A5 Due]]  |          IC 6 [[#ic6A][A]] [[#ic6B][B]]          |
+|       6 | Type Abstraction                         | Liskov 7                                                                                  |  [[#a6][A6 Due]]  |   IC 7 [[#ic7A][A]] [[#ic7B][B]] [[#ic7C][C]]    |
+|       7 | Mid-semester Recap                       | /No New Material/                                                                         |                   |                  IC [[#ic8][8]]                  |
+|       8 | Polymorphic Abstract; Lambdas            | Liskov 8, Bloch 7(Item 42)                                                                |  [[#a7][A7 Due]]  |                  IC [[#ic9][9]]                  |
+|       9 | Generics                                 | Bloch 5                                                                                   |  [[#a8][A8 Due]]  | IC 10 [[#ic10A][A]] [[#ic10B][B]] [[#ic10C][C]]  |
+|      10 | Common Java Contracts                    | Bloch 3                                                                                   |  [[#a9][A9 Due]]  |        IC 11 [[#ic11A][A]] [[#ic11B][B]]         |
+|      11 | Classes and Inheritance                  | Bloch 4                                                                                   | [[#a10][A10 Due]] | IC 12 [[#ic12A][A]] [[#ic12B][B]]  [[#ic12C][C]] |
+|      12 | Contract Model in Testing                | Advanced JUnit ([[./files/Ch03-automation.pptx ][slides 22-24)]]                          | [[#a11][A11 Due]] |                 IC [[#ic13][13]]                 |
+|      13 | Enums and Annotations                    | Bloch 6                                                                                   | [[#a12][A12 Due]] |        IC 14 [[#ic14A][A]] [[#ic14B][B]]         |
+|      14 | Course Wrap Up                           | Final Exam Notes                                                                          |                   |                 IC [[#ic15][14]]                 |
+|      15 | Final Exam 12/13 @ 4:30                  | /In-Person/                                                                               |                   |                                                  |
 
 
 * In class Assignments
 
 ** In class 1
 :PROPERTIES:
-:CUSTOM_ID: ic0
+:CUSTOM_ID: ic1
 :END:
    
 Work with your group and do the following:
@@ -73,9 +72,9 @@ public class SpecialUser extends User {
    4. How does inheritance complicate the correctness discussion for =equals()= in class =SpecialUser=? 
    5. What is your assessment of the =equals()= method in the =SpecialUser= class?
 
-** In class 1A
+** In class 2A
 :PROPERTIES:
-:CUSTOM_ID: ic1A
+:CUSTOM_ID: ic2A
 :END:
    
 Consider the following specification and implementation:
@@ -103,9 +102,9 @@ public static List<Integer> tail (List<Integer> list) {
 1. The resulting specification has a problem. What is it?
 1. Rewrite the specification to address this problem. Rewrite the code to match the new specification.
 
-** In class 1B
+** In class 2B
 :PROPERTIES:
-:CUSTOM_ID: ic1B
+:CUSTOM_ID: ic2B
 :END:
    
 *Goal*: Understanding Contracts
@@ -116,9 +115,9 @@ Consider the 3 methods =hasNext= , =next=, and =remove= in the Java [[https://do
 - For each precondition, identify a specific input that violates the precondition.
 - For each postcondition, identify an input specific to that postcondition.
 
-** In class 2A
+** In class 3A
 :PROPERTIES:
-:CUSTOM_ID: ic2A
+:CUSTOM_ID: ic3A
 :END:
    
 Consider a simple generic =Queue= implementation.
@@ -158,10 +157,9 @@ public class Queue <E> {
 1. Do the right thing with =enQueue()=.
 1. Do the right thing with =deQueue()=.
 
-
-** In class 2B
+** In class 3B
 :PROPERTIES:
-:CUSTOM_ID: ic2B
+:CUSTOM_ID: ic3B
 :END:
    
 Consider Liskov's Poly example, where an abstract Poly is defined as $c_0 + c_1x + c_2x^2 + \dots$, and is implemented with two variables:
@@ -200,10 +198,26 @@ Representation State: (deg, trms)
 1. Try to capture these states with a rule (that is, a rep-invariant).
 1. Devise a representation that is suitable for a mutable version of Poly.
 1. Develop a rep-invariant for that representation.
-
-** In class 3A
+** In class 4
 :PROPERTIES:
-:CUSTOM_ID: ic3A
+:CUSTOM_ID: ic4
+:END:
+#+begin_src java
+// {N >= 0}   # P
+i = 0;
+while (i < N){
+    i = i + 1;
+}
+
+//{i == N}  # Q
+#+end_src
+
+- Identify the loop invariants for the loop in this program
+- Use a sufficiently strong invariant to prove the program is correct
+- Attemp to prove the program using an insufficiently strong invariant, describe what happens and why.
+** In class 5A
+:PROPERTIES:
+:CUSTOM_ID: ic5A
 :END:
 
 
@@ -241,9 +255,9 @@ Representation State: map
 1. Try to capture these states with a rule (that is, a rep-invariant).
 1. Consider implementing the =degree()= method. What code would do the job? What more specific type of map would make the implementation simpler?
 
-** In class 3B
+** In class 5B
 :PROPERTIES:
-:CUSTOM_ID: ic3B
+:CUSTOM_ID: ic5B
 :END:
 
 Consider the code:
@@ -277,28 +291,10 @@ public class Members {
    1. Recode =join()= to make the verification go through. Which rep-invariant do you use?
    1. Recode =leave()= to make the verification go through. Which rep-invariant do you use? 
 
-** In class 4-1
+
+** In class 6A
 :PROPERTIES:
-:CUSTOM_ID: ic4-1
-:END:
-#+begin_src java
-// {N >= 0}   # P
-i = 0;
-while (i < N){
-    i = i + 1;
-}
-
-//{i == N}  # Q
-#+end_src
-
-- Identify the loop invariants for the loop in this program
-- Use a sufficiently strong invariant to prove the program is correct
-- Attemp to prove the program using an insufficiently strong invariant, describe what happens and why.
-
-
-** In class 4A
-:PROPERTIES:
-:CUSTOM_ID: ic4A
+:CUSTOM_ID: ic6A
 :END:
 
 Consider the Java =Iterator<E>= interface:
@@ -319,9 +315,9 @@ public E next() throws NoSuchElementException
    1. How is =remove()= handled?
 1. Exercise the immutable iterator with some sample client code.
 
-** In class 4B
+** In class 6B
 :PROPERTIES:
-:CUSTOM_ID: ic4B
+:CUSTOM_ID: ic6B
 :END:
 
 Consider the example in Bloch's Item 50 (3rd Edition):
@@ -368,9 +364,9 @@ public Period (Date start, Date end) {
       1. Bloch states that =clone()= would be inappropriate for copying the dates. Write code that shows the problem.
       1. Bloch defers the exception check until the end, which seems to violate normal practice. What's the problem with checking early? 
 
-** In class 5A
+** In class 7A
 :PROPERTIES:
-:CUSTOM_ID: ic5A
+:CUSTOM_ID: ic7A
 :END:
 
 *Goal*: Understanding dynamic dispatching
@@ -399,9 +395,9 @@ MaxIntSet s = {3, 5}; s.remove(5);  // repOk()????
 4. How does the call work out?
 5. What is the abstract state of a =MaxIntSet=? There are two options. What are they, and what are the consequences of each choice?
 
-** In class 5B
+** In class 7B
 :PROPERTIES:
-:CUSTOM_ID: ic5B
+:CUSTOM_ID: ic7B
 :END:
 
 Consider the following:
@@ -453,9 +449,9 @@ Postcondition Part:
 -----------------------------------
 #+end_src
 
-** In class 5C
+** In class 7C
 :PROPERTIES:
-:CUSTOM_ID: ic5C
+:CUSTOM_ID: ic7C
 :END:
 
 Consider the following:
@@ -482,9 +478,9 @@ public class Counter3 extends Counter {  // Liskov 7.10
 
    # 1. Is =Counter3= a valid subtype of =Counter=? In particular, does =incr(int n)= have to be consistent with =incr()=? 
 
-** In class 6
+** In class 8
 :PROPERTIES:
-:CUSTOM_ID: ic6
+:CUSTOM_ID: ic8
 :END:
 
 This is a recap exercise.
@@ -564,9 +560,9 @@ rep[front] = null;
    1. Now that we've done some AF/RI analysis, what changes make the implementation better? btw - this is code straight out of a textbook.
    1. Could this data structure be made immutable? If so, what would change in the contracts and method headers? What would likely change in the implementation? 
 
-** In class 7
+** In class 9
 :PROPERTIES:
-:CUSTOM_ID: ic7
+:CUSTOM_ID: ic9
 :END:
 
 #+begin_src java
@@ -618,10 +614,9 @@ Limtation: This approach reduces the amount of code required because you don't h
 
 Use lambda expression to address the limitation the previous approach.
 
-   
-** In class 8A
+** In class 10A
 :PROPERTIES:
-:CUSTOM_ID: ic8A
+:CUSTOM_ID: ic10A
 :END:
 
 Given the following variable declarations, independently consider the given 6 sequences of Java instructions.
@@ -680,9 +675,9 @@ rawList.add(string) ;
 rawList.add(x) ;
    #+end_src
 
-** In class 8B
+** In class 10B
 :PROPERTIES:
-:CUSTOM_ID: ic8B
+:CUSTOM_ID: ic10B
 :END:
 
 #+begin_src java
@@ -745,10 +740,9 @@ choiceList.add(choice);
 #+end_src
 #+end_comment
      
-
-** In class 8C
+** In class 10C
 :PROPERTIES:
-:CUSTOM_ID: ic8C
+:CUSTOM_ID: ic10C
 :END:
    
 #+begin_src java
@@ -803,9 +797,9 @@ public class BoundedQueue {
 - Can you add a ~putAll()~ method? A ~getAll()~ method?
 - Recall that we used this same example in in-class 6 as a vehicle for applying Liskov's ideas to make code easier to understand.
 
-** In class 9A
+** In class 11A
 :PROPERTIES:
-:CUSTOM_ID: ic9A
+:CUSTOM_ID: ic11A
 :END:
    
 Consider Bloch's =Point/ColorPoint= example. For today, ignore the =hashCode()= issue.
@@ -917,9 +911,9 @@ Set<Point> importantPoints =   // a set of important points
 
      client code:  breaks Liskov's example  as we can have a Point and CounterPoint with same x,y but both show up in importantPoints
      #+end_comment
-** In class 9B
+** In class 11B
 :PROPERTIES:
-:CUSTOM_ID: ic9B
+:CUSTOM_ID: ic11B
 :END:
    
 Consider a variation of Liskov's =IntSet= example (Figure 5.10, page 97)
@@ -1006,9 +1000,9 @@ public class IntSet implements Cloneable {
    }
    #+end_comment
 
-** In class 10A
+** In class 12A
 :PROPERTIES:
-:CUSTOM_ID: ic10A
+:CUSTOM_ID: ic12A
 :END:
 
 Consider Bloch's ~InstrumentedHashSet~, ~InstrumentedSet~, and ~ForwardingSet~ examples:
@@ -1069,7 +1063,6 @@ r.remove("bee");
 s.remove("ant");
 #+end_src
 
-
    1. How do you think the ~addCount~ variable should be updated in the ~addAll()~ method in ~InstrumentedHashSet~?
       1. Why is this a hard question?
       1. What does the answer say about inheritance?
@@ -1085,9 +1078,9 @@ s.remove("ant");
 
       *Note*: There is a lot going on in this example. I highly recommend that you play with the code until you understand it.    
 
-** In class 10B
+** In class 12B
 :PROPERTIES:
-:CUSTOM_ID: ic10B
+:CUSTOM_ID: ic12B
 :END:
 
 #+begin_src java
@@ -1124,9 +1117,9 @@ public final class Sub extends Super {
 1. What does this example mean for =Serializable= interface and the =readObject()= method?
 1. To what extent does this rule generalize to producer methods?
 
-** In class 10C
+** In class 12C
 :PROPERTIES:
-:CUSTOM_ID: ic10C
+:CUSTOM_ID: ic12C
 :END:
 
 Consider a mutable complex number class:
@@ -1201,9 +1194,9 @@ Apply each of Bloch's 5 rules for making a class immutable:
    - Is there a significant difference in visibility between re and im?
 1. Ensure exclusive access to any mutable components.
 
-** In class 11
+** In class 13
 :PROPERTIES:
-   :CUSTOM_ID: ic11
+   :CUSTOM_ID: ic13
    :END:
 
    This is a JUnit theory exercise.
@@ -1220,9 +1213,9 @@ Apply each of Bloch's 5 rules for making a class immutable:
       # 1. Build a toy example that violates the theory. Fix the toy example so that the theory is no longer violated.
    # 1. Consider the =Comparable= interface: what properties should be checked with theories?
 
-** In class 12A
+** In class 14A
    :PROPERTIES:
-   :CUSTOM_ID: ic12A
+   :CUSTOM_ID: ic14A
    :END:
 
    Consider the following (bad) Java, implementing the "C style" enum pattern:
@@ -1260,9 +1253,9 @@ Apply each of Bloch's 5 rules for making a class immutable:
 
    Explain why it's wrong, fix it, and add another enum with an overlapping number of musicians.
 
-** In class 12B
+** In class 14B
    :PROPERTIES:
-   :CUSTOM_ID: ic12B
+   :CUSTOM_ID: ic14B
    :END:
 
    This is a recap exercise based on the map-based implementation of Liskov's polynomial example: [[./files/MapPoly.java][MapPoly]]
@@ -1325,10 +1318,9 @@ Apply each of Bloch's 5 rules for making a class immutable:
 
 
 
-   
-** In class 13
+** In class 15
    :PROPERTIES:
-   :CUSTOM_ID: ic13
+   :CUSTOM_ID: ic15
    :END:
 
    How well are you prepared for the final? This exercise should help you find out. Piazza discussions encouraged!
@@ -1380,9 +1372,7 @@ Apply each of Bloch's 5 rules for making a class immutable:
    # 1. Generify. What should happen to the parameter for =pushAll()=? Why?
    # 1. Suppose we decide to implement the =Cloneable()= interface. In what ways would Bloch think we would likely get it wrong? What would Bloch recommend instead?
 
-  
 * HW Assignments
-  
 ** Assignment 1
    :PROPERTIES:
    :CUSTOM_ID: a1
@@ -1402,7 +1392,6 @@ Apply each of Bloch's 5 rules for making a class immutable:
 *** Grading Criteria
     - Your individual Piazza post adhers to my instructions. (That is, no sideways pictures, no oversize pictures, etc.)
     - You are in a group.
-
 
 ** Assignment 2 
    :PROPERTIES:
@@ -1468,10 +1457,28 @@ Apply each of Bloch's 5 rules for making a class immutable:
     - Clarity of your story.
     - Reasonable division of synthesis vs. checking.  
 
-
 ** Assignment 4 
    :PROPERTIES:
    :CUSTOM_ID: a4
+   :END:
+*** Goals: Understanding Program Verification through Hoare Logic
+  
+    Do the [[#ic4][in-class exercise]] with your group and submit it on BB. More specifically, you will do the below two tasks:
+      1. Prove the program using the following the loop invariant:  ~i <= N~.
+         1. Clearly reason why this is a loop invariant
+         1. Compute the weakest precondition =wp= of the program wrt the post conditiong =Q=
+         1. Compute the verification condition =vc (P => wp(..))=, and
+         1. Analyze the =vc= to dertermine whether the program is proved or not
+      1. Repeat the above task a different loop invariant:  ~N >= 0~
+       
+*** Grading Criteria
+  
+    - Correctness of solution
+    Note: If your group had trouble with the assignment, feel free to appeal to your classmates to post a sample solution on Piazza.
+   
+** Assignment 5 
+   :PROPERTIES:
+   :CUSTOM_ID: a5
    :END:
 *** Goals: Rep-Invariants, contracts, tests
   
@@ -1490,33 +1497,13 @@ Apply each of Bloch's 5 rules for making a class immutable:
     - Clarity of story
     Note: If your group had trouble with the previous assignment, feel free to appeal to your classmates to post a sample solution on Piazza.
 
-** Assignment 4-1 
+** Assignment 6 
    :PROPERTIES:
-   :CUSTOM_ID: a4-1
-   :END:
-*** Goals: Understanding Program Verification through Hoare Logic
-  
-    Do the [[#ic4-1][in-class exercise]] with your group and submit it on BB. More specifically, you will do the below two tasks:
-      1. Prove the program using the following the loop invariant:  ~i <= N~.
-         1. Clearly reason why this is a loop invariant
-         1. Compute the weakest precondition =wp= of the program wrt the post conditiong =Q=
-         1. Compute the verification condition =vc (P => wp(..))=, and
-         1. Analyze the =vc= to dertermine whether the program is proved or not
-      1. Repeat the above task a different loop invariant:  ~N >= 0~
-       
-*** Grading Criteria
-  
-    - Correctness of solution
-    Note: If your group had trouble with the assignment, feel free to appeal to your classmates to post a sample solution on Piazza.
-   
-
-** Assignment 5 
-   :PROPERTIES:
-   :CUSTOM_ID: a5
+   :CUSTOM_ID: a6
    :END:
 *** Goals: Immutablity via Bloch Item 50
 
-    Revisit the [[#ic4B][Period example]].
+    Revisit the [[#ic6B][Period example]].
 
     Implement a satisfying solution to question 3. That is, you should not only break the immutability of the =Period= class by writing a suitable sublcass, but you should also develop a plausible case where a client ends up "in trouble" due to the loss of immutability.
 
@@ -1526,10 +1513,9 @@ Apply each of Bloch's 5 rules for making a class immutable:
 
     Grading is in part the technical aspect of breaking immutability, and in part that your client case is plausible.
 
-
-** Assignment 6 
+** Assignment 7 
    :PROPERTIES:
-   :CUSTOM_ID: a6
+   :CUSTOM_ID: a7
    :END:
 
 *** Goals: Type Abstraction
@@ -1581,10 +1567,9 @@ Apply each of Bloch's 5 rules for making a class immutable:
 
     This is purely a "paper and pencil" exercise. No code is required. Write your answer so that it is easily understandable by someone with only a passing knowledge of Liskov's rules for subtypes.
 
-
-** Assignment 7 
+** Assignment 8 
    :PROPERTIES:
-   :CUSTOM_ID: a7
+   :CUSTOM_ID: a8
    :END:
 
 *** Goals: Polymorphic Abstraction.
@@ -1601,10 +1586,9 @@ Apply each of Bloch's 5 rules for making a class immutable:
    x.CompareTo(y):  -3,3  = -1;  (-10,3) = -1, add(1,-3,-10,5,3) => {1,-3,-10,5,3}
   #+end_comment
     
-
-** Assignment 8 
+** Assignment 9 
    :PROPERTIES:
-   :CUSTOM_ID: a8
+   :CUSTOM_ID: a9
    :END:
 
 *** Goals: Generics
@@ -1677,9 +1661,9 @@ public class BoundedQueue<T> {
 }
 #+end_comment    
 
-** Assignment 9
+** Assignment 10
    :PROPERTIES:
-   :CUSTOM_ID: a9
+   :CUSTOM_ID: a10
    :END:
 
 *** Goals: =Object= class contracts.
@@ -1693,10 +1677,9 @@ public class BoundedQueue<T> {
 *** Grading Criteria
     In addititon to code and tests, your deliverable is a story. Explain what is going on at each stage of the exercise. The GTA will primarily grade your story.
 
-
-** Assignment 10
+** Assignment 11
    :PROPERTIES:
-   :CUSTOM_ID: a10
+   :CUSTOM_ID: a11
    :END:
 *** Goals: Favoring composition over inheritance. Bloch, Item 18.
 
@@ -1711,10 +1694,9 @@ public class BoundedQueue<T> {
 *** Grading Criteria
     The GTA will look for correct responses, appropriate JUnit tests, and plausible explanations when doing the grading.
 
-
-** Assignment 11
+** Assignment 12
    :PROPERTIES:
-   :CUSTOM_ID: a11
+   :CUSTOM_ID: a12
    :END:
 
 *** Goals: Applying lessons learned. 
@@ -1740,10 +1722,9 @@ public class BoundedQueue<T> {
 *** Grading Criteria
     In each case, the deliverable is a story. Write a brief report, and include enough evidence (output, screen shots, etc.) that the GTA can figure out that you actually completed the assignment.
 
-* Quiz Guides
-   *Note*: it's possible that your quiz involves last week's topic. Be prepared for both!
 
-  
+# * Quiz Guides
+   *Note*: it's possible that your quiz involves last week's topic. Be prepared for both!
 ** Guide 1
    :PROPERTIES:
    :CUSTOM_ID: g1
@@ -1762,7 +1743,6 @@ public class BoundedQueue<T> {
 
    Quiz 2 will focus on Liskov, Chapters 3-4 and Bloch 10. Specifically, you should be able to explain the code and the contracts for in-Class exercise 1A. As part of this, you should be able to transform preconditions into postconditions via the exception handling mechanism, and you should be able to incorporate Bloch's advice on exceptions into this transformation.
 
-   
 ** Guide 3
    :PROPERTIES:
    :CUSTOM_ID: g3
@@ -1778,7 +1758,6 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
  Quiz 4-1 will focus on program verification using Hoare tripple. You should understand and able to do examples we have discussed in class. In particular, I'd suggest modifying the examples or specifications or invariants and see if the verification process still works or fails.
 
 
-
 ** Guide 4
    :PROPERTIES:
    :CUSTOM_ID: g4
@@ -1790,7 +1769,6 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
 
    # # This guide covers oral assessments administered between Monday, February 22 and Friday, February 26.
    
-
 ** Guide 5
    :PROPERTIES:
    :CUSTOM_ID: g5
@@ -1819,7 +1797,6 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
    Java's lambda expressions as explored in the in-class exercise.
    The element subtype vs. related subtype approaches to polymorphism and how they are implemented in Comparable vs. Comparator.
 
-
 ** Guide 8
    :PROPERTIES:
    :CUSTOM_ID: g8
@@ -1833,7 +1810,6 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
 
 
    # This guide covers oral assessments administered between Monday, March 22 and Friday, March 26.
-
 
 ** Guide 9
    :PROPERTIES:
@@ -1867,7 +1843,6 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
 
    # This guide covers oral assessments administered between Monday, April 12 and Friday, April 16.
 
-
 ** Guide 12
    :PROPERTIES:
    :CUSTOM_ID: g12
@@ -1889,7 +1864,6 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
    1. Liskov and Bloch have different advice with respect to checked vs. unchecked exceptions. Which approach do you find more persuasive, and why?
    1. Preconditions are often characterized as "bad" from a security perspective. If you think you know why this is, please explain. If you are unsure, say so and try to explain why the you find the connection between preconditions and security confusing.
 
-
 ** Reflection 2
 
    1. If you sat down to design a new class, would the result likely be mutable or immutable? Why?
@@ -1897,19 +1871,16 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
    1. Based on your experience, what do you think the major advantage is of immutability over mutability? mutability over immutability?
 
 
-
 ** Reflection 3
    1. Have you ever explicitly considered invariants when deciding how to implement a Java class? If so, can you give an example?
    1. Please explain what you think it means to to correctly override the toString() method. Base your answer on your understanding *before* enrolling in SWE 619.
    1. How do you decide whether you have implemented a Java method correctly? Again, base your answer on your understanding *before* enrolling in SWE 619.
-
 
 ** Reflection 4
    1. Iteration is a basic concept, yet Liskov devotes an entire chapter to it. What, if anything, did you find in Liskov's presentation of iteration abstraction that is new to you?
    1. Bloch's ~Period~ class (Item 50) has a lot going on in it. We'll revisit the this example in an in-class exercise. What, if anything, did you find confusing in this example?
 
          # 1. Defensive copies are an important, yet error-prone, obligation of using mutable objects in a public setting. Was there anything about Bloch's discussion that you found confusing? (Note that I have posted a video for Bloch Item 50 on the course schedule page.)
-
 
 ** Reflection 5
 
@@ -1918,13 +1889,11 @@ Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulat
    1. Consider the Java Set interface and two subtypes: HashSet and TreeSet. Do you think the abstract state for these three interfaces/classes are identical or different? (You might want to spend some time in the JavaDoc before jumping to a conclusion; there is a specific answer in there!)
 
 
-
 ** Reflection 6
 
    1. Explain why Java has both a Comparable interface and a Comparator interface.
    1. How familiar is your group with the Java "anonymous class" and "lambda" constructs?
    1. Can you explain the connection between anonymous classes and lambda expressions?
-
 
 
 ** Reflection 7
@@ -1946,14 +1915,12 @@ https://stackoverflow.com/questions/8481301/covariance-invariance-and-contravari
    #+end_comment
       
 
-
 ** Reflection 8
 
 
    1. Have you overridden the equals() or the hashCode() methods? In light of Bloch's discussion of both methods, do you think your implementations were correct?
    1. Have you overridden the clone() method? Do you understand why inheritance is a particular concern for overridding this method?
    1. What similarities and differences do you see between how Liskov and Bloch treat the toString() method?
-
 
 
 ** Reflection 9
@@ -1963,14 +1930,12 @@ https://stackoverflow.com/questions/8481301/covariance-invariance-and-contravari
    1. Bloch's InstrumentedSet example has a lot going on in it. What aspects, if any, of this example did you find confusing?
 
 
-
 ** Reflection 10
 
 
    1. How would you rate your experience with writing (ordinary) tests in the JUnit framework? Use a scale from "A few times for class" to "I do that professionally".
    1. JUnit theories are the JUnit implementation of "property-based" testing. Have you every written a property-based test?
    1. JUnit theories are included on the syllabus because they show how the precondition/postcondition model applies beyond method contracts. Does the pre/post model for JUnit theories make sense to you?
-
 
 
 ** Reflection 11
@@ -1983,8 +1948,6 @@ https://stackoverflow.com/questions/8481301/covariance-invariance-and-contravari
 * Files
   - [[file:./files/LiskovSet.java][LiskovSet.java]]
   - [[./files/Poly.java][Poly.java]]   
-
-    
 * Links
   - [[./index.html][Syllabus]]
   - [[./schedule.html][Schedule]]
