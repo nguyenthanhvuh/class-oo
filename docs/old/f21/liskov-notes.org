@@ -1,0 +1,165 @@
+#+TITLE: LISKOV NOTES
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+#+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+
+#+OPTIONS: toc:2
+
+
+# Liskov 3
+* Procedural Abstraction and Design by Contract
+
+** Benefits of Abstraction
+   - Locality
+     - The implementation of an abstraction can be read or written without needing to examine the implementations of any other abstractions
+   - Modifiability
+     - An abstraction can be reimplemented without requiring changes to any abstractions that use it
+
+** Abstraction by Specification
+
+   Abstraction $\mapsto$ Implementation 1 $\dots$ Implementation N
+
+
+** Specifications
+  - Way to Define Abstractions
+  - Formality
+    - As much as is useful
+    - More than just English
+    - Typically less than a language with a formal semantics
+    - We will be close to industry standard (ie Javadoc)
+    - Not intended to be a programming language!
+
+
+** Parts of a Procedural Specification
+   #+begin_src java
+
+     public static int sortedSearch (int[]a, int x)
+     // Requires:  a is sorted in ascending order
+     // Effects:   if x is in a returns an index where 
+     //  x is stored; otherwise, returns -1
+
+   #+end_src
+
+   - Precondition (Requires): Anything missing? What happens in other languages?  (e.g., C++)
+   - Postcondition (Effects)
+
+
+   #+begin_src java
+     // Another example
+     public static int search (int[]a, int x)
+     // Effects:   if x is in a returns an index where 
+     //  x is stored; otherwise, returns -1
+   #+end_src
+
+
+   - Precondition: None (i.e., =True=)
+   - Underdetermined – what happens if =x= is in =a= more than once?
+
+
+
+Yet Another Example
+
+
+Yet Another Example
+
+
+Specifications and Implementations
+Minimality
+minimal means fewer constraints on behavior (what does this say about the postcondition?)
+Underdetermined behavior
+More than one possible result per input allowed
+Deterministic implementation
+Only one result per input produced
+Generality
+More general if specification can handle a large class of inputs.  (What does this say about the precondition?)
+
+
+Total vs. Partial Procedures
+A procedure is total if its behavior is specified for all possible inputs. 
+A partial procedure always has a precondition.
+Partial procedures are less safe than total procedures.
+Exception handling can be used to eliminate preconditions (more in next lecture…).
+
+
+Bertrand Meyer’s View: Design by Contract
+A programmer’s job is to produce solutions, not programs.
+Software should be reliable.
+Type safety, garbage collection, etc…
+These are good
+But they are not enough
+Correctness is a relative notion
+A program is correct relative to a specification
+
+What does a Contract Look Like?
+Consider the triple:  {P} S {Q}
+P is the precondition (Requires clause)
+Q is the postcondition (Effects clause)
+S is the program text
+The Customer (client) is obligated to establish P.
+The Implementor (service) may assume P
+The Customer is entitled to Q
+The Implementor is obligated to provide Q
+That’s it!
+What happens when a Contract Breaks?
+If everyone does their job, there is no problem!
+If the precondition is not satisfied, the Customer is wrong!  (The client has a bug).
+If the precondition is satisfied, but the postcondition is not, then the Service is wrong (The service has a bug).
+The Client can’t do the Service’s job!
+The Service can’t do the Client’s job!
+Application of Contract Model to Debugging
+Suppose you are fixing a fault in a program.
+What justification is there for a proposed change?
+ Example Context:
+code considered correct
+.....
+code identifed as wrong vs. proposed correct code
+.....
+more code considered correct
+Example
+//Effects:  if arr is null throw NPE else return the number of occurrences of 0 in arr
+public static in numZero (int[] arr) {
+   int count = 0;
+
+   for (int i=1; i < arr.length; i++) {
+
+      if (arr[i] == 0) {count++}
+   }
+   return count;
+}
+What does the Client like?
+Since preconditions are Client obligations, the Client would prefer not to have any!
+From the Client’s perspective, “true” is the best precondition.  In general, weaker preconditions are better.
+The Client is happy to have any postcondition that is strong enough to meet the Client’s needs.
+What does the Server like?
+Since preconditions are Server benefits, the Server would prefer to have lots of them!
+From the Server’s perspective, “false” is the best precondition.  In general, stronger preconditions mean an easier job with the implementation.
+The Server prefers weak postconditions.  Each additional constraint in a postcondition is an additional obligation on the Server.
+Who should get preference?
+In Business, the Customer is thought to be “always right”   This is a good model for software as well:
+Tradeoffs should generally be made in favor of the client.  That is
+minimize preconditions
+provide usefully strong postconditions
+But there are limits…
+Problems with Eliminating Preconditions
+Forcing the Server to handle “weird” cases can lead to inefficient, bulky (read “error prone”) code.
+For “local” use, therefore, preconditions can be extremely powerful (and appropriate).
+Example:  Consider the “partition” method in a quicksort routine (Liskov p. 49).  It would be weird to handle the case where the array indices were out of bounds.
+More Problems with Eliminating Preconditions
+What if the Implementer can’t provide a good “default” (ie Defensive Programming)?
+Consider the following (horrible) code:
+
+Dissecting the Square Root Example
+What could possibly be a correct “default”?
+Printing an error message?
+Not a comforting thought to certain end users (ie pilots).
+What could possibly be a reasonable return value?
+The Lesson:  The Server is not in a position to define behavior.  That’s the Client’s job. (through the contract mechanism).
+Meyer’s Perspective on Defensive Programming
+Defensive programming:
+leads to duplicate checks on preconditions and therefore code bloat.
+leads to implementers checking preconditions when they have no idea what to do if the precondition is false.
+leads to confusion over responsibility for ensuring certain constraints.
+So, Meyer’s advice is, “Don’t do it!”
+Your mileage may vary
+Think about this in the context of preconditions and exception handling.
+What are the implications for security?
