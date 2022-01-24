@@ -1,10 +1,31 @@
+Option to 
+- Multiple Share screen
+- Allow people to join to break out rooms
+
 <2021-08-26 Thu>
 ** Quiz:
    binary search
    - write pre/post/modifies
-   - total vs partial
+   - total vs **
 
-** Contact
+partial Reflection:
+   - precondition (purely specification):  undefine behavior
+   - exception (more implementation): turn undefine behavior into defined ones
+   - checked exception (i.e. these that you should explicitly catch or rethrow):
+     - Block: To summarize, throw checked exceptions for recoverable conditions and unchecked exceptions for programming errors. When in doubt, throw unchecked exceptions.
+     - Liskov:
+       - You should use an unchecked exception only if you expect that users will usually write code that ensures the exception will not happen, because
+        • There is a convenient and inexpensive way to avoid the exception.
+        • The context of use is local.
+       - Otherwise, use checked
+
+Otherwise, you should use a checked exception.
+     Most prefer Bloch's ...
+   - security:
+     - some group mention about parseHttpRequestLine ..
+     - fuzzing : generating weird, unexpected inputs ... hoping for weird/undefined/unexpected behaviors that can be exploited
+
+** Contract
    (powerpoint)
    - {P} S{Q}:  Hoare tripple
      - P , S, Q
@@ -42,7 +63,7 @@
    - Informal (English, remove example): easier to write but vague
 ** Signatures/Header
    - requires/modifies/effects   in comments
-   - requires/precond: partial vs total
+   - requires/precond: partial vs total  (partial: only for certain input so have require/preconditions,  total: for all correct type inputs, so precondition is TRUE, i.e. no precondition/require clause)
    - modifies: input modification -> side-effect
    - effects/postcond:  under assumption that requires are satisfied  (x' or x_post)
    - Precondition: weakest is best,  nothing (i.e., True) is even better
@@ -56,21 +77,67 @@
 ** Exception (Bloch item 69)
 
 ** Checkvs vs Unchecked (Bloch item 70)
-
-** 71
-
-** 72
-
-** 73
-
-** 74
-
-** 75
-
-** 76
+   - check exception:  recoverable
+     - force the caller to handle the exception
+     - IOException:  file not found,  well probably can have a backup , default one       
+   - unchecked exception:
+     - recovery not possible
+     - NPE: if you pass me a null pointer, and I try to dereference it, well then I should get NPE.  Not much I can do to turn a null pointer into a non-null pointer.  
+       
 
 
-In class 1B (20 mins)
+
+** Item76: Strive for Failure Atomicity
+   - failed method invocation should leave the object in the state that it was prior to the invocation
+   - ways to achieve this
+     - design immutable objects (tuples, string vs arrays, set)
+       - performance, easy to reason about that (will spend more time later)
+     - check the inputs
+     - order the computation : parts that fail come before modification
+     - write recovery code:  allow objecet to roll back its state
+     - perform the operations on temporary copy of the object
+
+
+
+** WARNING: will make people share your answers ...
+   Look at Javadoc for ArrayList
+   
+
+** in class 1A
+
+#+begin_src java
+public static List<Integer> tail (List<Integer> list) {
+
+    // REQUIRES: ???
+    // EFFECTS:  ???
+  if(list.size() == 0) throw new IllegalAccessException() ..
+    List<Integer> result = new ArrayList<Integer>(list);
+    result.remove(0);
+    return result;
+}
+#+end_src
+
+
+https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html
+
+
+- what does it do?
+
+- write partial specs for happy paths (where it works) ,
+  A: last 2 cases
+- rewrite to be total.  A: add addition things to postconditions so that we can remove preconditions
+  @throws NPE if list is null
+  @throws IOOBE if list is empty (because of remove in javadoc)
+
+  
+- IOBE :  does not match the exception (if list is empty, throw IOB)
+
+- instead of IOBE,  throw IllegalAccessException
+
+- no need to do nullpointer exception because .size() will throw   
+
+  
+** In class 1B (20 mins)
 
 
 
