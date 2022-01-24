@@ -1,0 +1,13 @@
+// Overall questions for GenericChooser.java
+
+1) rep invariant
+
+2) contracts/code for constructor and choose
+
+3) choose is correct
+
+4) equals/hashCode
+
+5) addChoice
+
+6) Make the class immutable

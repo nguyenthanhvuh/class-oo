@@ -38,7 +38,8 @@ public class MapPoly {
        return result;
     }
 
-    // Effects: returns the coefficent of the term of this whose exponent is d
+    // Effects: if degree is < 0 then throws IAE;
+    // returns the coefficent of the term of this whose exponent is d (otherwise return 0)
     public int coeff(int d) {
        if (d < 0) throw new IllegalArgumentException("MapPoly.coeff");
        if (trms.containsKey(d)) return trms.get(d);
@@ -84,7 +85,7 @@ public class MapPoly {
 
        for (Integer i:  trms.keySet()) {
           for (Integer j:  q.trms.keySet()) {
-              result = result.add(new MapPoly (coeff(i) * q.coeff(j), i+j));
+              result = result.add(new MapPoly (coeff(i) + q.coeff(j), i+j));
           }
        }
        return result;

@@ -1,0 +1,40 @@
+Grading rubric for final exam, fall 2020: version 3
+
+Name:
+
+------------------------------------------------
+
+____/30 (Chooser Part 1)
+
+
+____/10 rep-inv   
+
+____/10 contracts for constructor, choose()
+
+____/10 choose() correctness
+
+------------------------------------------------
+
+____/35 (Stack Part 2)
+
+
+____/10  toString() problem, fix
+
+____/10  pushAll() encapsulation problem, contract
+
+____/10 immutable pop(): header and implementation
+
+____/5  why is equals() messy?
+
+------------------------------------------------
+
+____/35 (Queue Part 2)
+
+
+____/10  reasonable toString()
+
+____/10  deQueueAll() contract, implementation
+
+____/10 immutable deQueue(): header and implementation
+
+____/5  reasonable clone()

@@ -1,0 +1,10 @@
+____/35 (Stack Part 2)
+
+
+____/10  toString() problem, fix
+
+____/10  pushAll() encapsulation problem, contract
+
+____/10 immutable pop(): header and implementation
+
+____/5  why is equals() messy?

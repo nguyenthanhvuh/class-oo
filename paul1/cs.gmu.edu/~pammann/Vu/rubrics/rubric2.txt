@@ -1,0 +1,38 @@
+Grading rubric for final exam, fall 2020: version 2
+
+Name:
+
+------------------------------------------------
+
+____/30 (Queue Part 1)
+
+
+____/5  contract
+
+____/5  rep-inv
+
+____/10  deQueue() correctness
+
+____/10  override hashCode() and equals()
+
+------------------------------------------------
+
+____/35 (Map Part 2)
+
+
+____/15  Immutability problem explanation, counterexample, fix
+
+____/10  Cloneable
+
+____/10 reasonable equals(), hashCode()
+
+------------------------------------------------
+
+____/35 (Chooser Part 2)
+
+
+____/15  equals() explanation, implementation, hashCode()
+
+____/10  addChoice() contract, implementation
+
+____/10 immutability explanation, counterxample
