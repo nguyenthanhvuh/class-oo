@@ -7,11 +7,11 @@
 
 * General Information
   - Instructor: [[https://nguyenthanhvuh.github.io][ThanhVu Nguyen]]
-    - Office Hrs: Mondays 2:00PM - 3:00PM (either Research Hall 356 or through Zoom link below)
+    - Office Hrs: Mondays 2:00PM - 3:00PM (Research Hall 356 and through Zoom link below)
     - Email: [[mailto:tvn@gmu.edu][tvn@gmu.edu]] (Piazza discussion is preferred)
   - TA: Xu Han
     - Email: [[mailto:xhan21@gmu.edu][xhan21@gmu.edu]]
-    - Office Hrs: Mondays 3:00PM - 4:15PM (use class Zoom link below)
+    - Office Hrs: Mondays 3:00PM - 4:00PM (use class Zoom link below)
   - Class:
     - Mondays 4:30PM--7:10PM, Horizon Hall 1012
     - Zoom link for office hrs: https://gmu.zoom.us/j/98393279342 (Passcode: 148674)
@@ -66,10 +66,10 @@
 
 *** Scale
     
-    |----+--------+---+--------+----+--------|
-    | A+ | >= 97% | A | >= 93% | A- | >= 90% |
-    | B+ | >= 87% | B | >= 83% | B- | >= 80% |
-    | C  | >= 70% | D | >= 60% | F  | < 60%  |
+    |----+---------+---+--------+----+--------|
+    | A+ | \ge 97%   | A | \ge 93% | A- | >= 90% |
+    | B+ | \ge 87%  | B | \ge 83% | B- | \ge 80% |
+    | C  | \ge 70%  | D | \ge 60% | F  | < 60%  |
 
    
 *** Group Functioning
