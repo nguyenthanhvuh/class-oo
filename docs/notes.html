@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-01-31 Mon 14:24 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Thanhvu Nguyen" />
+</head>
+<body>
+<div id="content">
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>
+</p>
+
+<ul class="org-ul">
+<li>Precondition P:
+<ul class="org-ul">
+<li>Customer/Client: need to establish the precond</li>
+</ul></li>
+<li>PostCondition Q:
+<ul class="org-ul">
+<li>Implementation/Service: need to establish the precondition (assuming precondition)</li>
+</ul></li>
+
+<li>Several scenarios:
+<ul class="org-ul">
+<li>if precondition is wrong, and postcondition is wrong:  blame customer/client (because they give us something we don't expect)</li>
+<li>if precondition is correct, but postcondition is wrong: blame the developer</li>
+</ul></li>
+
+<li><p>
+sqrt example:   
+P: some input x
+</p>
+<ol class="org-ol">
+<li>positive   (x&gt;0)</li>
+<li>non-negative (x&gt;=0)</li>
+<li>&gt;= 100</li>
+<li>1000</li>
+</ol>
+
+<p>
+stronger -&gt; weaker
+1000 -&gt;  &gt;= 100  -&gt; x &gt; 0 -&gt;  x &gt;= 0  (more preferred, we want our sqrt function to be able to deal with as many inputs as possible)
+</p>
+
+<p>
+Q: some output y
+</p>
+<ol class="org-ol">
+<li>(real) numbers</li>
+<li>y*y = x   (or y*y = x +/- eps)</li>
+</ol>
+
+<p>
+stronger -&gt; weaker
+</p>
+
+<p>
+(more preferred) y = x * x (+/=eps) -&gt; real number
+</p></li>
+</ul>
+
+
+<ul class="org-ul">
+<li>Partial vs Total contract/specification
+<ul class="org-ul">
+<li>partial contract:  has a precondition (e.g., x&gt;= 1)</li>
+<li>total contract:    has no precondition (or just True for precondition).  
+<ul class="org-ul">
+<li>this is the most preferred because True/no contract is the most general/weakest precondition, i.e., it will accept everything.</li>
+</ul></li>
+
+<li><p>
+how do we turn a partial contract to a total contract
+</p>
+<ul class="org-ul">
+<li>have different condition branch for each precondition, can return default value, raise exception, etc</li>
+</ul>
+<p>
+e.g.,  div(x,y):   if y == 0 raise Exception("cannot divide by 0")
+</p></li>
+
+<li>happy path</li>
+</ul></li>
+
+<li>In-class exercise 2A (30 mins)</li>
+</ul>
+
+<p>
+Checked vs Unchecked
+</p>
+<ul class="org-ul">
+<li>Checked exception:
+<ul class="org-ul">
+<li>inherit Throwable (except RuntimeException and Error)</li>
+<li>Eg., IOException, SQLException</li>
+<li>checked at compile time and you need to handle this (e.g., if you call some method that might throw a CheckedException, you need to catch and handle it.  So try the method, and catch/handle it so that we can continue smoothly.  Or rethrow it and let it be handled somewhere else)</li>
+<li>so exceptions that we want to recover from</li>
+</ul></li>
+<li>Unchecked exception:
+<ul class="org-ul">
+<li>inherit RuntimeExcpetion</li>
+<li>E.g., ArithmeticException, NullPointerException, ArrayIndexOutOfBoundsException</li>
+<li>not checked at compile time, only check at runtime</li>
+<li>no need to handle it</li>
+<li>so exceptions that we cannot recover form / fatal error</li>
+</ul></li>
+</ul>
+
+
+
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span>
+</p>
+
+<p>
+What does it mean to write correct software?
+</p>
+<ul class="org-ul">
+<li>It conforms to some expectation (software contracts or specificaions)</li>
+<li>Should pass its testsuite  ..</li>
+<li>Should not have exception or performance issues</li>
+</ul>
+
+
+<ul class="org-ul">
+<li>Specifications/contracts (requirements)</li>
+<li>Should not have exception or error</li>
+
+<li>Performance, maintainable, expandable :  desired qualities , but not</li>
+</ul>
+<p>
+required for <b>correctness</b>
+</p>
+
+
+<p>
+f (x, y):   // return output = x  / y
+   //precond:  x,y are reals
+</p>
+
+<p>
+if y == 0:  raise exception
+&#x2026;
+</p>
+
+
+
+
+<p>
+preconditions
+</p>
+<ul class="org-ul">
+<li>x,y are reals</li>
+<li>y != 0</li>
+<li>x &gt;= 0</li>
+<li>x &gt;=  100</li>
+<li>we want preconditions are are as WEAK as possible
+<ol class="org-ol">
+<li>x could be any real numbers</li>
+<li>x must be non-negative</li>
+<li>x must be &gt;= 100</li>
+</ol></li>
+</ul>
+
+<p>
+3 is stronger than 2 is stronger 1
+the best precondition is the weakest one, i.e., TRUE  (the function
+has no assumption on the input)
+</p>
+
+
+<ul class="org-ul">
+<li>output : number</li>
+<li>output ~   x /y    (output * y   ~= x)</li>
+
+<li>precondition/requirements:  a condition over the inputs ,</li>
+</ul>
+<p>
+assumptions that we make when the function starts
+</p>
+<ul class="org-ul">
+<li>x,y being real numbers</li>
+<li>y != 0</li>
+</ul>
+<ul class="org-ul">
+<li>postcondition/behaviors:  behavior of the function (the program),</li>
+</ul>
+<p>
+relationshp btw inputs and outputs
+</p>
+
+<ol class="org-ol">
+<li>output is a number (reals,&#x2026; )     weaker</li>
+<li>output * y ~= x                     stronger</li>
+</ol>
+
+<p>
+the best postcondition is the strongest one,  i.e.,   output * y ~= x
+</p>
+
+<ul class="org-ul">
+<li>side-effects:
+<ul class="org-ul">
+<li>can change input X, &#x2026;.</li>
+</ul></li>
+</ul>
+
+
+<p>
+task: sorting a list of numbers in ascending order  (e.g., 1,5,10,&#x2026;)
+</p>
+
+<p>
+g(l):
+  //precondition: a list of numbers
+  //same data types (comparable)
+  //iterable &#x2026;
+  //finite
+</p>
+
+<p>
+<i>/ l is arraylist of integers
+/</i> precondition over l:   none,  true
+</p>
+
+<p>
+postcondition:
+</p>
+<ul class="org-ul">
+<li>|l| == |l'|</li>
+<li>l' same datatype  as l</li>
+<li>[1,2,1,2]   [1,1,1,2]</li>
+<li>l' is a permutation of l</li>
+<li>l' ascending order</li>
+</ul>
+
+
+<p>
+//sort l in ascending order
+return l'
+</p>
+
+
+
+
+<p>
+type checking
+</p>
+
+<ul class="org-ul">
+<li>void f (int x, int y){
+int o = 3;
+return o;</li>
+</ul>
+<p>
+}
+</p>
+
+<ul class="org-ul">
+<li>type-checker is light-weight analysis and therefore can be built in in comilers,  just check if x and y are integers</li>
+<li>assertion checking is heavy-weight because we can check expressive properties such as y = x ** 2; never built in, have to do some serious program analysis for this.</li>
+</ul>
+<p>
+assertion(y = x**2);
+</p>
+</div>
+</body>
+</html>
