@@ -1,3 +1,75 @@
+
+
+<2022-01-31 Mon>
+
+- Precondition P:
+  - Customer/Client: need to establish the precond
+- PostCondition Q:
+  - Implementation/Service: need to establish the precondition (assuming precondition)
+
+- Several scenarios:
+  - if precondition is wrong, and postcondition is wrong:  blame customer/client (because they give us something we don't expect)
+  - if precondition is correct, but postcondition is wrong: blame the developer
+
+- sqrt example:   
+  P: some input x
+  1. positive   (x>0)      
+  2. non-negative (x>=0)    
+  3. >= 100
+  4. 1000
+
+  stronger -> weaker
+  1000 ->  >= 100  -> x > 0 ->  x >= 0  (more preferred, we want our sqrt function to be able to deal with as many inputs as possible)
+
+  Q: some output y
+  1. (real) numbers
+  2.  y*y = x   (or y*y = x +/- eps)
+
+  stronger -> weaker
+
+  (more preferred) y = x * x (+/=eps) -> real number
+
+
+- Partial vs Total contract/specification
+  - partial contract:  has a precondition (e.g., x>= 1)
+  - total contract:    has no precondition (or just True for precondition).  
+    - this is the most preferred because True/no contract is the most general/weakest precondition, i.e., it will accept everything.
+
+  - how do we turn a partial contract to a total contract
+    - have different condition branch for each precondition, can return default value, raise exception, etc
+    e.g.,  div(x,y):   if y == 0 raise Exception("cannot divide by 0")
+    
+  - happy path
+     
+- In-class exercise 2A (30 mins)
+  
+Checked vs Unchecked
+- Checked exception:
+  - inherit Throwable (except RuntimeException and Error)
+  - Eg., IOException, SQLException
+  - checked at compile time and you need to handle this (e.g., if you call some method that might throw a CheckedException, you need to catch and handle it.  So try the method, and catch/handle it so that we can continue smoothly.  Or rethrow it and let it be handled somewhere else)
+  - so exceptions that we want to recover from
+- Unchecked exception:
+  - inherit RuntimeExcpetion
+  - E.g., ArithmeticException, NullPointerException, ArrayIndexOutOfBoundsException
+  - not checked at compile time, only check at runtime
+  - no need to handle it
+  - so exceptions that we cannot recover form / fatal error  
+  
+# - Formal def of specification
+
+#   P: precondition
+#   Q: postcondition
+#   S: your program (a list of statements)
+  
+#   P  {S}  Q   :  Hoare Tripple
+
+#   Partial correctness:   assuming the precondition P holds, 
+  
+
+
+<2022-01-24 Mon>
+
 What does it mean to write correct software?
 - It conforms to some expectation (software contracts or specificaions)
 - Should pass its testsuite  ..
@@ -87,12 +159,8 @@ type checking
    return o;
 }
 
-type-checker is light-weight analysis
-
+- type-checker is light-weight analysis and therefore can be built in in comilers,  just check if x and y are integers 
+- assertion checking is heavy-weight because we can check expressive properties such as y = x ** 2; never built in, have to do some serious program analysis for this.
 assertion(y = x**2);
 
 
-
-
-
-- side-effects

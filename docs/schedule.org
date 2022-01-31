@@ -46,24 +46,24 @@
       Consider the following (textbook) code:
 
       #+begin_src java
-   public class User {
-       private String name;
-       public User (String name) { this.name = name; }
-       @Override public boolean equals (Object obj) {
-           if (!(obj instanceof User)) return false;
-           return ((User) obj).name.equals(this.name);
-       }
-       // other methods omitted
-   }
-   public class SpecialUser extends User {
-       private int id;
-       public SpecialUser (String name, int id) { super(name); this.id = id; }
-       @Override public boolean equals (Object obj) {
-           if (!(obj instanceof SpecialUser)) return false;
-           return super.equals(obj) && ((SpecialUser) obj).id == this.id;
-       }
-       // other methods omitted
-   }
+        public class User {
+            private String name;
+            public User (String name) { this.name = name; }
+            @Override public boolean equals (Object obj) {
+                if (!(obj instanceof User)) return false;
+                return ((User) obj).name.equals(this.name);
+            }
+            // other methods omitted
+        }
+        public class SpecialUser extends User {
+            private int id;
+            public SpecialUser (String name, int id) { super(name); this.id = id; }
+            @Override public boolean equals (Object obj) {
+                if (!(obj instanceof SpecialUser)) return false;
+                return super.equals(obj) && ((SpecialUser) obj).id == this.id;
+            }
+            // other methods omitted
+        }
       #+end_src
 
       1. Walk though the execution of the =equals()= method in class =User= for a few well-chosen objects as the parameter. What happens at each point in the execution? 
@@ -72,36 +72,66 @@
       4. How does inheritance complicate the correctness discussion for =equals()= in class =SpecialUser=? 
       5. What is your assessment of the =equals()= method in the =SpecialUser= class?
 
-** In class 2A
+** COMMENT In class 2A
    :PROPERTIES:
    :CUSTOM_ID: ic2A
    :END:
    
-   Consider the following specification and implementation:
+   Consider the following implementation:
 
    #+begin_src java
 
-public static List<Integer> tail (List<Integer> list) {
+     public static List<Integer> tail (List<Integer> list) {
 
-    // REQUIRES: ???
-    // EFFECTS:  ???
+         // REQUIRES/PRECONDS: ???
+         // EFFECTS/POSTCONDS:  ???
 
-    List<Integer> result = new ArrayList<Integer>(list);
-    result.remove(0);
-    return result;
-}
+         List<Integer> result = new ArrayList<Integer>(list);
+         result.remove(0);
+         return result;
+     }
    #+end_src
-  
-   1. What does the *implementation* of =tail= do in each of the following cases? How do you know: Running the code or reading an API description?
+
+   Hint: also look at the Javadoc (for remove)
+   
+   1. What does the /implementation/ of =tail= do in each of the following cases? How do you know: Running the code or reading an API description?
       - =list = null=
       - =list = []=
       - =list = [1]=
       - =list = [1, 2, 3]=
-   1. Write a partial specification that matches the "happy path" part of the implementation's behavior.
-   1. Rewrite the specification to be total. Use Bloch's standard exceptions.
-   1. The resulting specification has a problem. What is it?
-   1. Rewrite the specification to address this problem. Rewrite the code to match the new specification.
+        #+begin_comment
+        - =list = null=   returns NPE, know this because of the docs for remove
+        - =list = []=   returns IOBE,  know this because of the docs for remove
+        - =list = [1]=   happy path, return []
+        - =list = [1, 2, 3]=  happy path, return [2, 3]
+        #+end_comment
+   1. Write a *partial* specification that matches the "happy path" part of the implementation's behavior.
+      #+begin_comment
+      Requires:  non-empty and non-null list 
+      Effects: removes first element of the list and returns the rest (tail)
+      #+end_comment
+   1. Rewrite the specification to be *total*. Use Bloch's standard exceptions.
+      #+begin_comment
+      Requires:  nothing
+      Effects: removes first element of the list and returns the rest (tail); throws NPE if list is null and IOBE if list is empty
+      #+end_comment
+   1. The resulting specification has a problem. What is it? (hint: specification should be more general and not tied to the implementation)
+      #+begin_comment
+      should return IllegalArgumentException instead of IndexOfOfBound (which is tied into this specific implementation).
+      #+end_comment
+   1. /Rewrite/ the specification to address this problem. /Rewrite/ the code to match the new specification.
+      #+begin_comment
+      Requires:  nothing
+      Effects: removes first element of the list and returns the rest (tail); throws NPE if list is null and IAE if list is empty
 
+      if (list.size() == 0) throw IAE
+      // no need null checking as the remove(0) will throw that
+
+
+      Also, possible to do if list is [], return [],  but then needs to update the contract.  In general, as long as you satisfy the contract, you're fine.
+      #+end_comment
+
+      
 ** In class 2B
    :PROPERTIES:
    :CUSTOM_ID: ic2B
@@ -123,33 +153,33 @@ public static List<Integer> tail (List<Integer> list) {
    Consider a simple generic =Queue= implementation.
    #+begin_src java
 
-public class Queue <E> {
+     public class Queue <E> {
 
-    private List<E> elements;
-    private int size;
+         private List<E> elements;
+         private int size;
 
-    public Queue() {
-        this.elements = new ArrayList<E>();
-        this.size = 0;
-    }
+         public Queue() {
+             this.elements = new ArrayList<E>();
+             this.size = 0;
+         }
 
-    public void enQueue (E e) {
-        elements.add(e);
-        size++;
-    }
+         public void enQueue (E e) {
+             elements.add(e);
+             size++;
+         }
 
-    public E deQueue () {
-        if (size == 0) throw new IllegalStateException("Queue.deQueue");
-        E result = elements.get(0);
-        elements.remove(0);
-        size--;
-        return result;
-    }
+         public E deQueue () {
+             if (size == 0) throw new IllegalStateException("Queue.deQueue");
+             E result = elements.get(0);
+             elements.remove(0);
+             size--;
+             return result;
+         }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-}
+         public boolean isEmpty() {
+             return size == 0;
+         }
+     }
 
    #+end_src
 
@@ -164,34 +194,34 @@ public class Queue <E> {
    
    Consider Liskov's Poly example, where an abstract Poly is defined as $c_0 + c_1x + c_2x^2 + \dots$, and is implemented with two variables:
    #+begin_src java
-private int deg;
-private int[] trms;
+     private int deg;
+     private int[] trms;
    #+end_src
 
    #+begin_src text
-Fill in example values that are mapped by the abstraction function.
-Abstract Poly State:
-What is a "state"?
+     Fill in example values that are mapped by the abstraction function.
+     Abstract Poly State:
+     What is a "state"?
 
 
 
-AF
-/|\
-|
-|
-|
-|----------------------------------------------------------
-|
-|
-|
-|
+     AF
+     /|\
+     |
+     |
+     |
+     |----------------------------------------------------------
+     |
+     |
+     |
+     |
 
 
 
 
 
 
-Representation State: (deg, trms)
+     Representation State: (deg, trms)
    #+end_src
   
    1. Identify representation states that should not be mapped.
@@ -203,13 +233,13 @@ Representation State: (deg, trms)
    :CUSTOM_ID: ic4
    :END:
    #+begin_src java
-// {N >= 0}   # P
-i = 0;
-while (i < N){
-    i = i + 1;
-}
+     // {N >= 0}   # P
+     i = 0;
+     while (i < N){
+         i = i + 1;
+     }
 
-//{i == N}  # Q
+     //{i == N}  # Q
    #+end_src
 
    - Identify the loop invariants for the loop in this program
@@ -224,7 +254,7 @@ while (i < N){
    Consider Liskov's immutable =Poly= example, where an abstract =Poly= is defined as $c_0 + c_1x + c_2x^2 + \dots$, and is implemented with one variable:
 
    #+begin_src java
-private Map<Integer, Integer> map;
+     private Map<Integer, Integer> map;
    #+end_src
    
 
@@ -232,22 +262,22 @@ private Map<Integer, Integer> map;
 
    #+begin_src text
 
-Abstract State: Poly
+     Abstract State: Poly
 
-AF
-/|\
-|
-|
-|
-|----------------------------------------------------------
-|
-|
-|
-|
+     AF
+     /|\
+     |
+     |
+     |
+     |----------------------------------------------------------
+     |
+     |
+     |
+     |
 
 
 
-Representation State: map
+     Representation State: map
 
    #+end_src
 
@@ -264,20 +294,20 @@ Representation State: map
 
    #+begin_src java
 
-public class Members {
-    // Members is a mutable record of organization membership
-    // AF: Collect the list as a set
-    // rep-inv1: members != null
-    // rep-inv2: members != null && no duplicates in members
-    // for simplicity, assume null can be a member...
+     public class Members {
+         // Members is a mutable record of organization membership
+         // AF: Collect the list as a set
+         // rep-inv1: members != null
+         // rep-inv2: members != null && no duplicates in members
+         // for simplicity, assume null can be a member...
 
-    List<Person> members;   // the representation
+         List<Person> members;   // the representation
 
-    //  Post: person becomes a member
-    public void join (Person person) { members.add   (person);}
+         //  Post: person becomes a member
+         public void join (Person person) { members.add   (person);}
 
-    //  Post: person is no longer a member
-    public void leave(Person person) { members.remove(person);}
+         //  Post: person is no longer a member
+         public void leave(Person person) { members.remove(person);}
 
    #+end_src
 
@@ -300,9 +330,9 @@ public class Members {
    Consider the Java =Iterator<E>= interface:
 
    #+begin_src java
-public boolean hasNext();
-public E next() throws NoSuchElementException
-                       public void remove() throws IllegalStateException
+     public boolean hasNext();
+     public E next() throws NoSuchElementException
+                            public void remove() throws IllegalStateException
    #+end_src
 
    1. What is the abstract state of an iterator without the =remove()= method?
@@ -324,25 +354,25 @@ public E next() throws NoSuchElementException
 
    #+begin_src java
 
-// Broken “immutable” time period class
-public final class Period {               // Question 3
-    private final Date start;
-    private final Date end;
+     // Broken “immutable” time period class
+     public final class Period {               // Question 3
+         private final Date start;
+         private final Date end;
 
-    /**
-     ,* @param start the beginning of the period
-     ,* @param end the end of the period; must not precede start
-     ,* @throws IAE if start is after end
-     ,* @throws NPE if start or end null
-     ,*/
+         /**
+          ,* @param start the beginning of the period
+          ,* @param end the end of the period; must not precede start
+          ,* @throws IAE if start is after end
+          ,* @throws NPE if start or end null
+          ,*/
 
-    public Period (Date start, Date end) {
-        if (start.compareTo(end) > 0) throw new IAE();
-        this.start = start; this.end = end;  // Question 1
-    }
-    public Date start() { return start;}    // Question 2
-    public Date end()   { return end;}      // Question 2
-}
+         public Period (Date start, Date end) {
+             if (start.compareTo(end) > 0) throw new IAE();
+             this.start = start; this.end = end;  // Question 1
+         }
+         public Date start() { return start;}    // Question 2
+         public Date end()   { return end;}      // Question 2
+     }
    #+end_src
 
 
@@ -350,16 +380,16 @@ public final class Period {               // Question 3
    1. Write code that shows the problem the lines marked // Question 2.
    1. Suppose that the class declaration were:
       #+begin_src java
-public class Period { // Question 3
+        public class Period { // Question 3
       #+end_src
       - Write code that shows the problem.
    1. Bloch fixes the constructor as follows:
       #+begin_src java
-public Period (Date start, Date end) {
-    this.start = new Date(start.getTime());  // Defensive copy
-    this.end   = new Date(end.getTime());    // Defensive copy
+        public Period (Date start, Date end) {
+            this.start = new Date(start.getTime());  // Defensive copy
+            this.end   = new Date(end.getTime());    // Defensive copy
 
-    if (this.start.compareTo(end) > 0) throw new IAE();
+            if (this.start.compareTo(end) > 0) throw new IAE();
       #+end_src
       1. Bloch states that =clone()= would be inappropriate for copying the dates. Write code that shows the problem.
       1. Bloch defers the exception check until the end, which seems to violate normal practice. What's the problem with checking early? 
@@ -375,18 +405,18 @@ public Period (Date start, Date end) {
 
    #+begin_src java
 
-public class IntSet {
-    public void insert(int x) {...; repOk();}
-    public void remove(int x) {...; repOk();}
-    public boolean repOk() {...}
-}
-public class MaxIntSet extends IntSet {
-    public void insert(int x) {...; super.insert(x); repOk();}
-    public void remove(int x) {super.remove(x); ...; repOk();}
-    public boolean repOk() {super.repOk(); ...;}
-}
+     public class IntSet {
+         public void insert(int x) {...; repOk();}
+         public void remove(int x) {...; repOk();}
+         public boolean repOk() {...}
+     }
+     public class MaxIntSet extends IntSet {
+         public void insert(int x) {...; super.insert(x); repOk();}
+         public void remove(int x) {super.remove(x); ...; repOk();}
+         public boolean repOk() {super.repOk(); ...;}
+     }
 
-MaxIntSet s = {3, 5}; s.remove(5);  // repOk()????
+     MaxIntSet s = {3, 5}; s.remove(5);  // repOk()????
    #+end_src
   
    # 1. What does the default constructor in =MaxIntSet= do?
@@ -404,49 +434,49 @@ MaxIntSet s = {3, 5}; s.remove(5);  // repOk()????
 
    #+begin_src java
 
-class A:
-    public void reduce (Reducer x)
-        // Effects: if x is null throw NPE
-        // else if x is not appropriate for this throw IAE
-        // else reduce this by x
+     class A:
+         public void reduce (Reducer x)
+             // Effects: if x is null throw NPE
+             // else if x is not appropriate for this throw IAE
+             // else reduce this by x
 
-        class B:
-        public void reduce (Reducer x)
-        // Requires: x is not null
-        // Effects: if x is not appropriate for this throw IAE
-        // else reduce this by x
+             class B:
+             public void reduce (Reducer x)
+             // Requires: x is not null
+             // Effects: if x is not appropriate for this throw IAE
+             // else reduce this by x
 
-        class C:
-        public void reduce (Reducer x)
-        // Effects: if x is null return (normally) with no change to this
-        // else if x is not appropriate for this throw IAE
-        // else reduce this by x
+             class C:
+             public void reduce (Reducer x)
+             // Effects: if x is null return (normally) with no change to this
+             // else if x is not appropriate for this throw IAE
+             // else reduce this by x
    #+end_src
 
    Analyze the "methods rule" for =reduce()= in each of these cases: Note: Some analysis may not be necessary. If so, indicate that.
 
    #+begin_src text
 
-B extends A.
-Precondition Part:
-Postcondition Part:
------------------------------------
-C extends A.
-Precondition Part:
-Postcondition Part:
------------------------------------
-A extends B.
-Precondition Part:
-Postcondition Part:
------------------------------------
-C extends B.
-Precondition Part:
-Postcondition Part:
------------------------------------
-A extends C.
-Precondition Part:
-Postcondition Part:
------------------------------------
+     B extends A.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
+     C extends A.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
+     A extends B.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
+     C extends B.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
+     A extends C.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
    #+end_src
 
 ** In class 7C
@@ -456,19 +486,19 @@ Postcondition Part:
 
    Consider the following:
    #+begin_src java
-public class Counter{   // Liskov 7.8
-    public Counter()     //EFF: Makes this contain 0
-        public int get()     //EFF: Returns the value of this
-        public void incr()   //MOD: this //EFF: makes this larger
-        }
-public class Counter2 extends Counter { // Liskov 7.9
-    public Counter2()         //EFF: Makes this contain 0
-        public void incr()       // MOD: this //EFF: double this
-        }
-public class Counter3 extends Counter {  // Liskov 7.10
-    public Counter3(int n)   //EFF: Makes this contain n
-        public void incr(int n)  // MOD: this //EFF: if n>0 add n to this
-        }
+     public class Counter{   // Liskov 7.8
+         public Counter()     //EFF: Makes this contain 0
+             public int get()     //EFF: Returns the value of this
+             public void incr()   //MOD: this //EFF: makes this larger
+             }
+     public class Counter2 extends Counter { // Liskov 7.9
+         public Counter2()         //EFF: Makes this contain 0
+             public void incr()       // MOD: this //EFF: double this
+             }
+     public class Counter3 extends Counter {  // Liskov 7.10
+         public Counter3(int n)   //EFF: Makes this contain n
+             public void incr(int n)  // MOD: this //EFF: if n>0 add n to this
+             }
    #+end_src
 
    1. Is there a constraint about negative/zero values for this? How do we know?
@@ -486,60 +516,60 @@ public class Counter3 extends Counter {  // Liskov 7.10
    This is a recap exercise.
 
    #+begin_src java
-public class BoundedQueue {
-    private Object rep[];
-    private int front = 0;
-    private int back = -1;
-    private int size = 0;
-    private int count = 0;
+     public class BoundedQueue {
+         private Object rep[];
+         private int front = 0;
+         private int back = -1;
+         private int size = 0;
+         private int count = 0;
 
-    public BoundedQueue(int size) {
-        if (size > 0) {
-            this.size = size;
-            rep = new Object[size];
-            back = size - 1;
-        }  }
+         public BoundedQueue(int size) {
+             if (size > 0) {
+                 this.size = size;
+                 rep = new Object[size];
+                 back = size - 1;
+             }  }
 
-    public boolean isEmpty() { return (count == 0); }
-    public boolean isFull() { return (count == size); }
-    public int getCount() { return count; }
+         public boolean isEmpty() { return (count == 0); }
+         public boolean isFull() { return (count == size); }
+         public int getCount() { return count; }
 
-    public void put(Object e) {
-        if (e != null && !isFull()) {
-            back++;
-            if (back >= size)
-                back = 0;
-            rep[back] = e;
-            count++;
-        } }
+         public void put(Object e) {
+             if (e != null && !isFull()) {
+                 back++;
+                 if (back >= size)
+                     back = 0;
+                 rep[back] = e;
+                 count++;
+             } }
 
-    public Object get() {
-        Object result = null;
-        if (!isEmpty()) {
-            result = rep[front];
-            rep[front] = null;
-            front++;
-            if (front >= size)
-                front = 0;
-            count--;
-        }
-        return result;
-    }
-    @Override public String toString() {
-        String result = "front = " + front;
-        result += "; back = " + back;
-        result += "; size = " + size;
-        result += "; count = " + count;
-        result += "; rep = [";
-        for (int i = 0; i < rep.length; i++) {
-            if (i < rep.length-1)
-                result = result + rep[i] + ", ";
-            else
-                result = result + rep[i];
-        }
-        return result + "]";
-    }
-}
+         public Object get() {
+             Object result = null;
+             if (!isEmpty()) {
+                 result = rep[front];
+                 rep[front] = null;
+                 front++;
+                 if (front >= size)
+                     front = 0;
+                 count--;
+             }
+             return result;
+         }
+         @Override public String toString() {
+             String result = "front = " + front;
+             result += "; back = " + back;
+             result += "; size = " + size;
+             result += "; count = " + count;
+             result += "; rep = [";
+             for (int i = 0; i < rep.length; i++) {
+                 if (i < rep.length-1)
+                     result = result + rep[i] + ", ";
+                 else
+                     result = result + rep[i];
+             }
+             return result + "]";
+         }
+     }
 
    #+end_src
   
@@ -551,7 +581,7 @@ public class BoundedQueue {
    1. Build a rep-invariant. Focus on the code in =get()=. There are also lots of constraints on the array indices; these are quite tricky to get right. The constructor also introduces some complexity.
    1. Suppose we removed the line
       #+begin_src java
-rep[front] = null;
+        rep[front] = null;
       #+end_src
       from =get()=.
       1. Informally, why is this wrong?
@@ -566,24 +596,24 @@ rep[front] = null;
    :END:
 
    #+begin_src java
-public class Person {
+     public class Person {
 
-    public enum Sex {
-        MALE, FEMALE
-    }
+         public enum Sex {
+             MALE, FEMALE
+         }
 
-    String name;
-    Sex gender;
-    String emailAddress;
+         String name;
+         Sex gender;
+         String emailAddress;
 
-    public int getAge() {
-        // ...
-    }
+         public int getAge() {
+             // ...
+         }
 
-    public void printPerson() {
-        // ...
-    }
-}
+         public void printPerson() {
+             // ...
+         }
+     }
 
    #+end_src
 **** Approach 1: Create Methods That Search for Members That Match One Characteristic.
@@ -622,12 +652,12 @@ public class Person {
    Given the following variable declarations, independently consider the given 6 sequences of Java instructions.
    #+begin_src java
 
-String           string = "bat";
-Integer          x = 7;
-Object[]         objects;
-List             rawList;
-List < Object >  objectList;
-List < String >  stringList;
+     String           string = "bat";
+     Integer          x = 7;
+     Object[]         objects;
+     List             rawList;
+     List < Object >  objectList;
+     List < String >  stringList;
 
    #+end_src
 
@@ -637,42 +667,42 @@ List < String >  stringList;
 
    1.
       #+begin_src java
-   objects = new String[1];
-   objects[0] = string;
-   objects[0] = x;
+        objects = new String[1];
+        objects[0] = string;
+        objects[0] = x;
       #+end_src
 
    1.
       #+begin_src java
-   objects = new Object[1];
-   objects[0] = string;
-   objects[0] = x;
+        objects = new Object[1];
+        objects[0] = string;
+        objects[0] = x;
       #+end_src
 
    1.
       #+begin_src java
-   stringList = new ArrayList < String >();
-   stringList.add(string) ;
+        stringList = new ArrayList < String >();
+        stringList.add(string) ;
       #+end_src
 
    1.
       #+begin_src java
-   objectList = new ArrayList < String >();
-   objectList.add(string) ;
+        objectList = new ArrayList < String >();
+        objectList.add(string) ;
       #+end_src
 
    1.
       #+begin_src java
-   objectList = new ArrayList < Object >();
-   objectList.add(string) ;
-   objectList.add(x) ;
+        objectList = new ArrayList < Object >();
+        objectList.add(string) ;
+        objectList.add(x) ;
       #+end_src
 
    6.
       #+begin_src java
-   rawList = new ArrayList();
-   rawList.add(string) ;
-   rawList.add(x) ;
+        rawList = new ArrayList();
+        rawList.add(string) ;
+        rawList.add(x) ;
       #+end_src
 
 ** In class 10B
@@ -681,21 +711,21 @@ List < String >  stringList;
    :END:
 
    #+begin_src java
-// Chooser - a class badly in need of generics!
-// Bloch 3rd edition, Chapter 5, Item 28:  Prefer lists to arrays
+     // Chooser - a class badly in need of generics!
+     // Bloch 3rd edition, Chapter 5, Item 28:  Prefer lists to arrays
 
-public class Chooser {
-    private final Object[] choiceArray;
+     public class Chooser {
+         private final Object[] choiceArray;
 
-    public Chooser (Collection choices) {
-        choiceArray = choices.toArray();
-    }
+         public Chooser (Collection choices) {
+             choiceArray = choices.toArray();
+         }
 
-    public Object choose() {
-        Random rnd = ThreadLocalRandom.current();
-        return choiceArray [rnd.nextInt(choiceArray.length)];
-    }
-}
+         public Object choose() {
+             Random rnd = ThreadLocalRandom.current();
+             return choiceArray [rnd.nextInt(choiceArray.length)];
+         }
+     }
    #+end_src
 
 
@@ -746,49 +776,49 @@ public class Chooser {
    :END:
    
    #+begin_src java
-public class BoundedQueue {
+     public class BoundedQueue {
 
-    private Object rep[];
-    protected int front = 0;
-    protected int back = -1;
-    private int size = 0;
-    protected int count = 0;
+         private Object rep[];
+         protected int front = 0;
+         protected int back = -1;
+         private int size = 0;
+         protected int count = 0;
 
-    public BoundedQueue(int size) {
-        if (size > 0) {
-            this.size = size;
-            rep = new Object[size];
-            back = size - 1;
-        }  }
+         public BoundedQueue(int size) {
+             if (size > 0) {
+                 this.size = size;
+                 rep = new Object[size];
+                 back = size - 1;
+             }  }
 
-    public boolean isEmpty() { return (count == 0); }
+         public boolean isEmpty() { return (count == 0); }
 
-    public boolean isFull() { return (count == size); }
+         public boolean isFull() { return (count == size); }
 
-    public int getCount() { return count; }
+         public int getCount() { return count; }
 
-    public void put(Object e) {
-        if (e != null && !isFull()) {
-            back++;
-            if (back >= size)
-                back = 0;
-            rep[back] = e;
-            count++;
-        }  }
+         public void put(Object e) {
+             if (e != null && !isFull()) {
+                 back++;
+                 if (back >= size)
+                     back = 0;
+                 rep[back] = e;
+                 count++;
+             }  }
 
-    public Object get() {
-        Object result = null;
-        if (!isEmpty()) {
-            result = rep[front];
-            rep[front] = null;
-            front++;
-            if (front >= size)
-                front = 0;
-            count--;
-        }
-        return result;
-    }
-}
+         public Object get() {
+             Object result = null;
+             if (!isEmpty()) {
+                 result = rep[front];
+                 rep[front] = null;
+                 front++;
+                 if (front >= size)
+                     front = 0;
+                 count--;
+             }
+             return result;
+         }
+     }
 
    #+end_src
 
@@ -806,41 +836,41 @@ public class BoundedQueue {
 
    #+begin_src java
 
-public class Point {  // routine code
-    private int x; private int y;
-    ...
-        @Override public boolean equals(Object obj) {  // Standard recipe
-        if (!(obj instanceof Point)) return false;
+     public class Point {  // routine code
+         private int x; private int y;
+         ...
+             @Override public boolean equals(Object obj) {  // Standard recipe
+             if (!(obj instanceof Point)) return false;
 
-        Point p = (Point) obj;
-        return p.x == x && p.y == y;
-    }
-}
+             Point p = (Point) obj;
+             return p.x == x && p.y == y;
+         }
+     }
 
-public class ColorPoint extends Point {  // First attempt: Standard recipe
-    private COLOR color;
-    ...
-        @Override public boolean equals(Object obj) {
-        if (!(obj instanceof ColorPoint)) return false;
+     public class ColorPoint extends Point {  // First attempt: Standard recipe
+         private COLOR color;
+         ...
+             @Override public boolean equals(Object obj) {
+             if (!(obj instanceof ColorPoint)) return false;
 
-        ColorPoint cp = (ColorPoint) obj;
-        return super.equals(obj) && cp.color == color;
-    }
-}
+             ColorPoint cp = (ColorPoint) obj;
+             return super.equals(obj) && cp.color == color;
+         }
+     }
 
-public class ColorPoint extends Point {  // Second attempt: DON'T DO THIS!
-    private COLOR color;
-    ...
-        @Override public boolean equals(Object obj) {
-        if (!(o instance of Point)) return false;
+     public class ColorPoint extends Point {  // Second attempt: DON'T DO THIS!
+         private COLOR color;
+         ...
+             @Override public boolean equals(Object obj) {
+             if (!(o instance of Point)) return false;
 
-        // If obj is a normal Point, be colorblind
-        if (!(obj instanceof ColorPoint)) return obj.equals(this);
+             // If obj is a normal Point, be colorblind
+             if (!(obj instanceof ColorPoint)) return obj.equals(this);
 
-        ColorPoint cp = (ColorPoint) obj;
-        return super.equals(obj) && cp.color == color;
-    }
-}
+             ColorPoint cp = (ColorPoint) obj;
+             return super.equals(obj) && cp.color == color;
+         }
+     }
    #+end_src
 
    1. What is the =equals()= contract? What is the standard recipe?
@@ -879,25 +909,25 @@ public class ColorPoint extends Point {  // Second attempt: DON'T DO THIS!
       - What's the key difference?
       - Which approach do you want in the following code:
         #+begin_src java
-   public class CounterPoint extends Point
-                                     private static final AtomicInteger counter =
-                                     new AtomicInteger();
+          public class CounterPoint extends Point
+                                            private static final AtomicInteger counter =
+                                            new AtomicInteger();
 
-   public CounterPoint(int x, int y) {
-       super (x, y);
-       counter.incrementAndGet();
-   }
-   public int numberCreated() { return counter.get(); }
+          public CounterPoint(int x, int y) {
+              super (x, y);
+              counter.incrementAndGet();
+          }
+          public int numberCreated() { return counter.get(); }
 
-   @Override public boolean equals (Object obj) { ??? }
-   }
+          @Override public boolean equals (Object obj) { ??? }
+          }
 
 
-   // Client code:
+          // Client code:
 
-   Point p = PointFactory.getPoint();   // either a Point or a CounterPoint
-   Set<Point> importantPoints =   // a set of important points
-       boolean b = PointUtilities.isImportant(p);  // value?
+          Point p = PointFactory.getPoint();   // either a Point or a CounterPoint
+          Set<Point> importantPoints =   // a set of important points
+              boolean b = PointUtilities.isImportant(p);  // value?
 
         #+end_src
         #+begin_comment
@@ -920,32 +950,32 @@ public class ColorPoint extends Point {  // Second attempt: DON'T DO THIS!
 
    #+begin_src java
 
-public class IntSet implements Cloneable {
-    private List<Integer> els;
-    public IntSet () { els = new ArrayList<Integer>(); }
-    ...
-        @Override
-        public boolean equals(Object obj) {
-        if (!(obj instanceof IntSet)) return false;
+     public class IntSet implements Cloneable {
+         private List<Integer> els;
+         public IntSet () { els = new ArrayList<Integer>(); }
+         ...
+             @Override
+             public boolean equals(Object obj) {
+             if (!(obj instanceof IntSet)) return false;
 
-        IntSet s = (IntSet) obj;
-        return ???
-            }
+             IntSet s = (IntSet) obj;
+             return ???
+                 }
 
-    @Override
-    public int hashCode() {
-        // see below
-    }
+         @Override
+         public int hashCode() {
+             // see below
+         }
 
-    // adding a private constructor
-    private IntSet (List<Integer> list) { els = list; }
+         // adding a private constructor
+         private IntSet (List<Integer> list) { els = list; }
 
-    @Override
-    public IntSet clone() {
-        return new IntSet ( new ArrayList<Integer>(els));
-    }
+         @Override
+         public IntSet clone() {
+             return new IntSet ( new ArrayList<Integer>(els));
+         }
 
-}
+     }
    #+end_src
 
    1. How should the =equals()= method be completed?
@@ -1008,59 +1038,59 @@ public class IntSet implements Cloneable {
    Consider Bloch's ~InstrumentedHashSet~, ~InstrumentedSet~, and ~ForwardingSet~ examples:
 
    #+begin_src java
-public class InstrumentedHashSet<E> extends HashSet<E>{
-    private int addCount = 0;
-    public InstrumentedHashSet() {}
+     public class InstrumentedHashSet<E> extends HashSet<E>{
+         private int addCount = 0;
+         public InstrumentedHashSet() {}
 
-    @Override public boolean add(E e){
-        addCount++;
-        return super.add(e);
-    }
-    @Override public boolean addAll(Collection<? extends E> c){
-        // What to do with addCount?
-        return super.addAll(c);
-    }
-    public int getAddCount(){ return addCount; }
-}
+         @Override public boolean add(E e){
+             addCount++;
+             return super.add(e);
+         }
+         @Override public boolean addAll(Collection<? extends E> c){
+             // What to do with addCount?
+             return super.addAll(c);
+         }
+         public int getAddCount(){ return addCount; }
+     }
 
-public class InstrumentedSet<E> extends ForwardingSet<E>{
-    private int addCount = 0;
+     public class InstrumentedSet<E> extends ForwardingSet<E>{
+         private int addCount = 0;
 
-    public InstrumentedSet(Set<E> s){ super(s); }
-    @Override public boolean add(E e){ addCount++; return super.add(e); }
-    public int getAddCount(){ return addCount; }
-}
+         public InstrumentedSet(Set<E> s){ super(s); }
+         @Override public boolean add(E e){ addCount++; return super.add(e); }
+         public int getAddCount(){ return addCount; }
+     }
 
-public class ForwardingSet<E> implements Set<E> {
-    private final Set<E> s;
+     public class ForwardingSet<E> implements Set<E> {
+         private final Set<E> s;
 
-    public ForwardingSet(Set<E> s){ this.s = s; }
-    public           boolean add(E e)        { return s.add(e);     }
-    public           boolean remove(Object o){ return s.remove(o);  }
-    @Override public boolean equals(Object o){ return s.equals(o);  }
-    @Override public int     hashCode()      { return s.hashCode(); }
-    @Override public String  toString()      { return s.toString(); }
-    // Other forwarded methods from Set interface omitted
-}
+         public ForwardingSet(Set<E> s){ this.s = s; }
+         public           boolean add(E e)        { return s.add(e);     }
+         public           boolean remove(Object o){ return s.remove(o);  }
+         @Override public boolean equals(Object o){ return s.equals(o);  }
+         @Override public int     hashCode()      { return s.hashCode(); }
+         @Override public String  toString()      { return s.toString(); }
+         // Other forwarded methods from Set interface omitted
+     }
    #+end_src
 
    Consider also the following client code:
 
    #+begin_src java
-Set<String> r = new HashSet<String>();
-r.add("ant"); r.add("bee");
+     Set<String> r = new HashSet<String>();
+     r.add("ant"); r.add("bee");
 
-Set<String> sh = new InstrumentedHashSet<String>();
-sh.addAll(r);
+     Set<String> sh = new InstrumentedHashSet<String>();
+     sh.addAll(r);
 
-Set<String> s =  new InstrumentedSet<String>(r);
-s.add("ant"); s.add("cat");
+     Set<String> s =  new InstrumentedSet<String>(r);
+     s.add("ant"); s.add("cat");
 
-Set<String> t = new InstrumentedSet<String>(s);
-t.add("dog");
+     Set<String> t = new InstrumentedSet<String>(s);
+     t.add("dog");
 
-r.remove("bee");
-s.remove("ant");
+     r.remove("bee");
+     s.remove("ant");
    #+end_src
 
    1. How do you think the ~addCount~ variable should be updated in the ~addAll()~ method in ~InstrumentedHashSet~?
@@ -1084,30 +1114,30 @@ s.remove("ant");
    :END:
 
    #+begin_src java
-public class Super {
-    public Super() {
-        overrideMe();
-    }
+     public class Super {
+         public Super() {
+             overrideMe();
+         }
 
-    public void overrideMe () {
-    }
-}
-public final class Sub extends Super {
+         public void overrideMe () {
+         }
+     }
+     public final class Sub extends Super {
 
-    private final Date date;  // filled in by constructor
+         private final Date date;  // filled in by constructor
 
-    public Sub() {
-        date = new Date();
-    }
-    @Override public void overrideMe () {
-        System.out.println(date);
-    }
+         public Sub() {
+             date = new Date();
+         }
+         @Override public void overrideMe () {
+             System.out.println(date);
+         }
 
-    public static void main (String[] args) {
-        Sub sub = new Sub();
-        sub.overrideMe();
-    }
-}
+         public static void main (String[] args) {
+             Sub sub = new Sub();
+             sub.overrideMe();
+         }
+     }
    #+end_src
 
    1. What is the pattern, and how common is it?
@@ -1125,57 +1155,57 @@ public final class Sub extends Super {
    Consider a mutable complex number class:
 
    #+begin_src java
-public class MComplex {
-    double re; protected double im;
+     public class MComplex {
+         double re; protected double im;
 
-    public MComplex (double re, double im) { this.re = re; this.im = im; }
+         public MComplex (double re, double im) { this.re = re; this.im = im; }
 
-    public double getReal()      { return re; }
-    public double getImaginary() { return im; }
+         public double getReal()      { return re; }
+         public double getImaginary() { return im; }
 
-    public void setReal(double re)      { this.re = re; }
-    public void setImaginary(double im) { this.im = im; }
+         public void setReal(double re)      { this.re = re; }
+         public void setImaginary(double im) { this.im = im; }
 
-    public void add (MComplex c) { re += c.re; im += c.im; }
+         public void add (MComplex c) { re += c.re; im += c.im; }
 
-    public void subtract (MComplex c) { re -= c.re; im -= c.im; }
+         public void subtract (MComplex c) { re -= c.re; im -= c.im; }
 
-    public void multiply (MComplex c) {
-        double r = re * c.re - im * c.im;
-        double i = re * c.im + im * c.re;
-        re = r; im = i;
-    }
+         public void multiply (MComplex c) {
+             double r = re * c.re - im * c.im;
+             double i = re * c.im + im * c.re;
+             re = r; im = i;
+         }
 
-    public void divide (MComplex c) {
-        double den = c.re * c.re + c.im * c.im;
-        double r = (re * c.re - im * c.im) / den;
-        double i = (re * c.im + im * c.re) / den;
-        re = r; im = i;
-    }
+         public void divide (MComplex c) {
+             double den = c.re * c.re + c.im * c.im;
+             double r = (re * c.re - im * c.im) / den;
+             double i = (re * c.im + im * c.re) / den;
+             re = r; im = i;
+         }
 
-    @Override public boolean equals (Object o) {
-        if (o == this)               return true;
-        if (!(o instanceof MComplex)) return false;
-        MComplex c = (MComplex) o;
+         @Override public boolean equals (Object o) {
+             if (o == this)               return true;
+             if (!(o instanceof MComplex)) return false;
+             MComplex c = (MComplex) o;
 
-        // See Bloch page 43 to find out why to use compare() instead of ==
-        return Double.compare(re, c.re) == 0 &&
-            Double.compare(im, c.im) == 0;
-    }
+             // See Bloch page 43 to find out why to use compare() instead of ==
+             return Double.compare(re, c.re) == 0 &&
+                 Double.compare(im, c.im) == 0;
+         }
 
-    @Override public int hashCode () {
-        int result = 17 + hashDouble(re);
-        result = 31 * result + hashDouble(im);
-        return result;
-    }
+         @Override public int hashCode () {
+             int result = 17 + hashDouble(re);
+             result = 31 * result + hashDouble(im);
+             return result;
+         }
 
-    private int hashDouble (double val) {
-        long longBits = Double.doubleToLongBits(val);
-        return (int) (longBits ^ (longBits >>>32));
-    }
+         private int hashDouble (double val) {
+             long longBits = Double.doubleToLongBits(val);
+             return (int) (longBits ^ (longBits >>>32));
+         }
 
-    @Override public String toString() { return "(" + re + " + " + im + "i)"; }
-}
+         @Override public String toString() { return "(" + re + " + " + im + "i)"; }
+     }
 
    #+end_src
 
@@ -1408,13 +1438,13 @@ public class MComplex {
 
     #+begin_src java
       /*
-      @param principal:  Amount of the initial principal
-      @param rate:       Annual interest rate  (8% rate expressed as rate = 0.08)
-      @param payment:    Amount of the monthly payment
-      */
+        @param principal:  Amount of the initial principal
+        @param rate:       Annual interest rate  (8% rate expressed as rate = 0.08)
+        @param payment:    Amount of the monthly payment
+      ,*/
       public static int months (int principal, double rate, int payment)
-          // Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.
-          // Effects:  return the number of months required to pay off the principal
+      // Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.
+      // Effects:  return the number of months required to pay off the principal
     #+end_src
 
 
@@ -1533,7 +1563,7 @@ public class MComplex {
           // Requires: item is an element of wanted
           // Effects:  add (item, price) to offers
 
-          public Money buy(Item item)
+              public Money buy(Item item)
           // Requires: item is an element of the domain of offers
           // Effects: choose and remove some (arbitrary) pair (item, price) from
           //          offers and return the chosen price
