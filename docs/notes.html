@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-01-31 Mon 14:24 -->
+<!-- 2022-02-06 Sun 18:02 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>&lrm;</title>
 <meta name="generator" content="Org mode" />
@@ -16,100 +16,184 @@
 </p>
 
 <ul class="org-ul">
-<li>Precondition P:
-<ul class="org-ul">
-<li>Customer/Client: need to establish the precond</li>
-</ul></li>
-<li>PostCondition Q:
-<ul class="org-ul">
-<li>Implementation/Service: need to establish the precondition (assuming precondition)</li>
-</ul></li>
+<li><p>
+Specification/Contract of a program
+</p>
 
-<li>Several scenarios:
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #b58900;">int</span> <span style="color: #268bd2;">add2numbers</span>(<span style="color: #b58900;">int</span> <span style="color: #268bd2;">x</span>, <span style="color: #b58900;">int</span> <span style="color: #268bd2;">y</span>){
+    <span style="color: #586e75;">//</span><span style="color: #586e75;">requires/preconditions</span>
+    <span style="color: #586e75;">//</span><span style="color: #586e75;">- x and y are integers</span>
+
+    <span style="color: #586e75;">//</span><span style="color: #586e75;">effects/postconditions</span>
+    <span style="color: #586e75;">//</span><span style="color: #586e75;">- z is integer</span>
+    <span style="color: #586e75;">//</span><span style="color: #586e75;">- z = x + y</span>
+    <span style="color: #859900; font-weight: bold;">return</span> z;
+}
+</pre>
+</div>
+
+<pre class="example">
+
+List sortAscending(List&lt;Int&gt; l){
+   //preconds:  l is a list of integers 
+   //l cannot be null
+   //l cannot contain null
+
+   //postconditions:
+   - l' has an ascending order 
+   - l' is a permutation of l
+   return l';
+}
+</pre></li>
+</ul>
+
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #b58900;">User</span> <span style="color: #268bd2;">u</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">User</span>(&#8220;SWE619&#8221;);
+u.equals(u); <span style="color: #586e75;">// </span><span style="color: #586e75;">contract: T, impl: T</span>
+u.equals(<span style="color: #268bd2; font-weight: bold;">null</span>); <span style="color: #586e75;">//</span><span style="color: #586e75;">contract: F, impl: F</span>
+u.equals(<span style="color: #2aa198;">"SWE619"</span>); <span style="color: #586e75;">//</span><span style="color: #586e75;">contract: F, impl: F</span>
+
+<span style="color: #b58900;">User</span> <span style="color: #268bd2;">v</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">User</span>(<span style="color: #268bd2; font-weight: bold;">null</span>);
+v.equals(u); <span style="color: #586e75;">//</span><span style="color: #586e75;">contract:F, impl: F</span>
+u.equals(v); <span style="color: #586e75;">//</span><span style="color: #586e75;">contract:F, impl: exception</span>
+
+</pre>
+</div>
+
+
+<p>
+testing vs verfication
+</p>
 <ul class="org-ul">
-<li>if precondition is wrong, and postcondition is wrong:  blame customer/client (because they give us something we don't expect)</li>
-<li>if precondition is correct, but postcondition is wrong: blame the developer</li>
+<li>testing:  test if the program works over a <b>finite</b> number of inputs</li>
+<li>verification: formally/mathematically show/guarantee that a program works over <b>all possible</b> inputs
+<ul class="org-ul">
+<li>Nasa rovers</li>
+<li>A318: formally proved that no floating pt errs</li>
+<li>robotic surgical arms</li>
+</ul></li>
+</ul>
+
+
+
+<p>
+Precondition (P):
+</p>
+<ul class="org-ul">
+<li>client/customer: establish  P</li>
+</ul>
+<p>
+Postcondition (Q)
+</p>
+<ul class="org-ul">
+<li>developer/implementation:  establish Q under assumption that P is established</li>
+</ul>
+
+
+<ul class="org-ul">
+<li>If a program is not correct
+<ul class="org-ul">
+<li>if precondition is wrong: blame client</li>
+<li>if (precondition is met) postcondition is wrong: blame developer</li>
+</ul></li>
+</ul>
+
+
+<ul class="org-ul">
+<li><p>
+sqrt example  :  y = sqrt(x)
+preconditions:
+</p>
+<ul class="org-ul">
+<li>x &gt; 0 (preferred)</li>
+<li>x &gt;= 0 (preferred)</li>
+<li>x is an integer (preferred)</li>
+<li>100 &lt;= x  &lt;= 200  (not preferred)</li>
+<li>x = 101  (not preferred)</li>
+
+<li>best precondition: no precondition</li>
+</ul>
+
+<p>
+postconditions:
+</p>
+<ul class="org-ul">
+<li>y is a number</li>
+<li>y &lt;= x</li>
+<li>y*y == x (-/+ epsilon)   ~~ y = x/y  (preferred)</li>
+</ul></li>
+</ul>
+
+
+
+<ul class="org-ul">
+<li>partial vs total specification
+<ul class="org-ul">
+<li>partial specification:  has a precondition</li>
+<li>total specification:  has NO precondition</li>
 </ul></li>
 
 <li><p>
-sqrt example:   
-P: some input x
-</p>
-<ol class="org-ol">
-<li>positive   (x&gt;0)</li>
-<li>non-negative (x&gt;=0)</li>
-<li>&gt;= 100</li>
-<li>1000</li>
-</ol>
-
-<p>
-stronger -&gt; weaker
-1000 -&gt;  &gt;= 100  -&gt; x &gt; 0 -&gt;  x &gt;= 0  (more preferred, we want our sqrt function to be able to deal with as many inputs as possible)
+how to turn a partial into a total specification?
+//partial spec
+sqrt(x):
+   precondition: x &gt;= 0
+   postcondition:  y*y == x (-/+ epsilon)
 </p>
 
 <p>
-Q: some output y
-</p>
-<ol class="org-ol">
-<li>(real) numbers</li>
-<li>y*y = x   (or y*y = x +/- eps)</li>
-</ol>
-
-<p>
-stronger -&gt; weaker
+//total spec
+sqrt(x):
+   precondition: 
+   postcondition:
+       //if x &lt; 0:  raise exception
+       //ow.  y*y == x (-/+ epsilon)
 </p>
 
 <p>
-(more preferred) y = x * x (+/=eps) -&gt; real number
+//div<sub>xy</sub>(x,y):   output = x/y
+partial spec:
+ precond:  y != 0
+ post :   y*output == x
+</p>
+
+<p>
+total spec:
+  precond: true
+  postcondition:   if y is 0, raise exception(DivByZero);
+  y*output = 
 </p></li>
 </ul>
 
 
-<ul class="org-ul">
-<li>Partial vs Total contract/specification
-<ul class="org-ul">
-<li>partial contract:  has a precondition (e.g., x&gt;= 1)</li>
-<li>total contract:    has no precondition (or just True for precondition).  
-<ul class="org-ul">
-<li>this is the most preferred because True/no contract is the most general/weakest precondition, i.e., it will accept everything.</li>
-</ul></li>
-
-<li><p>
-how do we turn a partial contract to a total contract
-</p>
-<ul class="org-ul">
-<li>have different condition branch for each precondition, can return default value, raise exception, etc</li>
-</ul>
-<p>
-e.g.,  div(x,y):   if y == 0 raise Exception("cannot divide by 0")
-</p></li>
-
-<li>happy path</li>
-</ul></li>
-
-<li>In-class exercise 2A (30 mins)</li>
-</ul>
 
 <p>
-Checked vs Unchecked
+list = null,  NPE
+list = [], IOBE
+list = [1], []  *
+list = [1,2,3] , [2,3] *
 </p>
-<ul class="org-ul">
-<li>Checked exception:
-<ul class="org-ul">
-<li>inherit Throwable (except RuntimeException and Error)</li>
-<li>Eg., IOException, SQLException</li>
-<li>checked at compile time and you need to handle this (e.g., if you call some method that might throw a CheckedException, you need to catch and handle it.  So try the method, and catch/handle it so that we can continue smoothly.  Or rethrow it and let it be handled somewhere else)</li>
-<li>so exceptions that we want to recover from</li>
-</ul></li>
-<li>Unchecked exception:
-<ul class="org-ul">
-<li>inherit RuntimeExcpetion</li>
-<li>E.g., ArithmeticException, NullPointerException, ArrayIndexOutOfBoundsException</li>
-<li>not checked at compile time, only check at runtime</li>
-<li>no need to handle it</li>
-<li>so exceptions that we cannot recover form / fatal error</li>
-</ul></li>
-</ul>
+
+<p>
+pre: non-empty list and non-null
+post: remove the head, return the rest (tail)
+</p>
+
+<p>
+//total
+pre: 
+post:
+if  (list is []) throw IOBE
+if (list is null) throw NPE
+remove the head, return the rest (tail)
+</p>
+
+<p>
+specification too specific to implentation (remove(0)), to fix: throws IAE instead of IOBE when list is []
+</p>
+
 
 
 

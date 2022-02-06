@@ -2,59 +2,187 @@
 
 <2022-01-31 Mon>
 
-- Precondition P:
-  - Customer/Client: need to establish the precond
-- PostCondition Q:
-  - Implementation/Service: need to establish the precondition (assuming precondition)
+- Specification/Contract of a program
 
-- Several scenarios:
-  - if precondition is wrong, and postcondition is wrong:  blame customer/client (because they give us something we don't expect)
-  - if precondition is correct, but postcondition is wrong: blame the developer
+  #+begin_src java
+    int add2numbers(int x, int y){
+        //requires/preconditions
+        //- x and y are integers
 
-- sqrt example:   
-  P: some input x
-  1. positive   (x>0)      
-  2. non-negative (x>=0)    
-  3. >= 100
-  4. 1000
+        //effects/postconditions
+        //- z is integer
+        //- z = x + y
+        return z;
+    }
+  #+end_src
 
-  stronger -> weaker
-  1000 ->  >= 100  -> x > 0 ->  x >= 0  (more preferred, we want our sqrt function to be able to deal with as many inputs as possible)
+  #+begin_src
 
-  Q: some output y
-  1. (real) numbers
-  2.  y*y = x   (or y*y = x +/- eps)
+    List sortAscending(List<Int> l){
+       //preconds:  l is a list of integers 
+       //l cannot be null
+       //l cannot contain null
 
-  stronger -> weaker
+       //postconditions:
+       - l' has an ascending order 
+       - l' is a permutation of l
+       return l';
+    }
+  #+end_src
 
-  (more preferred) y = x * x (+/=eps) -> real number
 
+#+begin_src java
+  User u = new User(“SWE619”);
+  u.equals(u); // contract: T, impl: T
+  u.equals(null); //contract: F, impl: F
+  u.equals("SWE619"); //contract: F, impl: F
 
-- Partial vs Total contract/specification
-  - partial contract:  has a precondition (e.g., x>= 1)
-  - total contract:    has no precondition (or just True for precondition).  
-    - this is the most preferred because True/no contract is the most general/weakest precondition, i.e., it will accept everything.
-
-  - how do we turn a partial contract to a total contract
-    - have different condition branch for each precondition, can return default value, raise exception, etc
-    e.g.,  div(x,y):   if y == 0 raise Exception("cannot divide by 0")
-    
-  - happy path
-     
-- In-class exercise 2A (30 mins)
+  User v = new User(null);
+  v.equals(u); //contract:F, impl: F
+  u.equals(v); //contract:F, impl: exception
   
-Checked vs Unchecked
-- Checked exception:
-  - inherit Throwable (except RuntimeException and Error)
-  - Eg., IOException, SQLException
-  - checked at compile time and you need to handle this (e.g., if you call some method that might throw a CheckedException, you need to catch and handle it.  So try the method, and catch/handle it so that we can continue smoothly.  Or rethrow it and let it be handled somewhere else)
-  - so exceptions that we want to recover from
-- Unchecked exception:
-  - inherit RuntimeExcpetion
-  - E.g., ArithmeticException, NullPointerException, ArrayIndexOutOfBoundsException
-  - not checked at compile time, only check at runtime
-  - no need to handle it
-  - so exceptions that we cannot recover form / fatal error  
+#+end_src
+
+
+testing vs verfication
+- testing:  test if the program works over a *finite* number of inputs
+- verification: formally/mathematically show/guarantee that a program works over *all possible* inputs
+  - Nasa rovers
+  - A318: formally proved that no floating pt errs
+  - robotic surgical arms
+
+
+
+Precondition (P):
+  - client/customer: establish  P
+Postcondition (Q)
+  - developer/implementation:  establish Q under assumption that P is established
+
+
+- If a program is not correct
+  - if precondition is wrong: blame client
+  - if (precondition is met) postcondition is wrong: blame developer
+
+
+- sqrt example  :  y = sqrt(x)
+  preconditions:
+  - x > 0 (preferred)
+  - x >= 0 (preferred)
+  - x is an integer (preferred)
+  - 100 <= x  <= 200  (not preferred)
+  - x = 101  (not preferred)
+
+  - best precondition: no precondition
+  
+  postconditions:
+  - y is a number
+  - y <= x
+  - y*y == x (-/+ epsilon)   ~~ y = x/y  (preferred)
+
+
+
+- partial vs total specification
+  - partial specification:  has a precondition
+  - total specification:  has NO precondition
+
+- how to turn a partial into a total specification?
+  //partial spec
+  sqrt(x):
+     precondition: x >= 0
+     postcondition:  y*y == x (-/+ epsilon)
+
+  //total spec
+  sqrt(x):
+     precondition: 
+     postcondition:
+         //if x < 0:  raise exception
+         //ow.  y*y == x (-/+ epsilon)
+
+  //div_xy(x,y):   output = x/y
+  partial spec:
+   precond:  y != 0
+   post :   y*output == x
+
+  total spec:
+    precond: true
+    postcondition:   if y is 0, raise exception(DivByZero);
+    y*output = 
+
+
+
+list = null,  NPE
+list = [], IOBE
+list = [1], []  *
+list = [1,2,3] , [2,3] *
+
+pre: non-empty list and non-null
+post: remove the head, return the rest (tail)
+
+//total
+pre: 
+post:
+if  (list is []) throw IOBE
+if (list is null) throw NPE
+remove the head, return the rest (tail)
+
+specification too specific to implentation (remove(0)), to fix: throws IAE instead of IOBE when list is []
+
+
+
+
+# - Precondition P:
+#   - Customer/Client: need to establish the precond
+# - PostCondition Q:
+#   - Implementation/Service: need to establish the precondition (assuming precondition)
+
+# - Several scenarios:
+#   - if precondition is wrong, and postcondition is wrong:  blame customer/client (because they give us something we don't expect)
+#   - if precondition is correct, but postcondition is wrong: blame the developer
+
+# - sqrt example:   
+#   P: some input x
+#   1. positive   (x>0)      
+#   2. non-negative (x>=0)    
+#   3. >= 100
+#   4. 1000
+
+#   stronger -> weaker
+#   1000 ->  >= 100  -> x > 0 ->  x >= 0  (more preferred, we want our sqrt function to be able to deal with as many inputs as possible)
+
+#   Q: some output y
+#   1. (real) numbers
+#   2.  y*y = x   (or y*y = x +/- eps)
+
+#   stronger -> weaker
+
+#   (more preferred) y = x * x (+/=eps) -> real number
+
+
+# - Partial vs Total contract/specification
+#   - partial contract:  has a precondition (e.g., x>= 1)
+#   - total contract:    has no precondition (or just True for precondition).  
+#     - this is the most preferred because True/no contract is the most general/weakest precondition, i.e., it will accept everything.
+
+#   - how do we turn a partial contract to a total contract
+#     - have different condition branch for each precondition, can return default value, raise exception, etc
+#     e.g.,  div(x,y):   if y == 0 raise Exception("cannot divide by 0")
+    
+#   - happy path
+     
+# - In-class exercise 2A (30 mins)
+  
+# Checked vs Unchecked
+# - Checked exception:
+#   - inherit Throwable (except RuntimeException and Error)
+#   - Eg., IOException, SQLException
+#   - checked at compile time and you need to handle this (e.g., if you call some method that might throw a CheckedException, you need to catch and handle it.  So try the method, and catch/handle it so that we can continue smoothly.  Or rethrow it and let it be handled somewhere else)
+#   - so exceptions that we want to recover from
+# - Unchecked exception:
+#   - inherit RuntimeExcpetion
+#   - E.g., ArithmeticException, NullPointerException, ArrayIndexOutOfBoundsException
+#   - not checked at compile time, only check at runtime
+#   - no need to handle it
+#   - so exceptions that we cannot recover form / fatal error, 
   
 # - Formal def of specification
 

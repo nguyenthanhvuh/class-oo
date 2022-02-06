@@ -100,8 +100,8 @@
       - =list = [1]=
       - =list = [1, 2, 3]=
         #+begin_comment
-        - =list = null=   returns NPE, know this because of the docs for remove
-        - =list = []=   returns IOBE,  know this because of the docs for remove
+        - =list = null=   returns NPE, from the docs for remove
+        - =list = []=   returns IOBE,  from the docs for ArrayList constructor
         - =list = [1]=   happy path, return []
         - =list = [1, 2, 3]=  happy path, return [2, 3]
         #+end_comment
@@ -122,7 +122,7 @@
    1. /Rewrite/ the specification to address this problem. /Rewrite/ the code to match the new specification.
       #+begin_comment
       Requires:  nothing
-      Effects: removes first element of the list and returns the rest (tail); throws NPE if list is null and IAE if list is empty
+      Effects: removes first element of the list and returns the rest (tail); throws NPE if list is null and IAE (illegal argument exception) if list is empty
 
       if (list.size() == 0) throw IAE
       // no need null checking as the remove(0) will throw that
@@ -1430,7 +1430,7 @@
 
 *** Goals: Contracts
 
-    For the second assignment, you'll build a /very/ small piece of Java for a contract with preconditions, transform the contract so that all preconditions become postconditions, and then re-implement appropriately.
+    For the second assignment, you'll build a /very/ small piece of Java for a contract with preconditions, transform the contract so that all preconditions become postconditions (i.e., make it a /total/ contract), and then re-implement appropriately.
 
     - Consider a method that calculates the number of months needed to pay off a loan of a given size at a fixed /annual/ interest rate and a fixed /monthly/ payment. For instance, a $100,000 loan at an 8% annual rate would take 166 months to discharge at a monthly payment of $1,000, and 141 months to discharge at a monthly payment of $1,100. (In both of these cases, the final payment is smaller than the others; I rounded 165.34 up to 166 and 140.20 up to 141.) Continuing the example, the loan would never be paid off at a monthly payment of $100, since the principal would grow rather than shrink.
 
