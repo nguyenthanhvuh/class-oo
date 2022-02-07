@@ -3,7 +3,7 @@
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
-* Quiz 1
+* Quiz 1 (<2022-01-31 Mon>)
 # ** equal (the first equal implementation in in-class exercise 1)
 #     - Give 2 inputs such that the results from the specs (Javadoc) and implementation agree 
 #     - Give 2 inputs such that the results from the specs (Javadoc) and implementation disagree
@@ -11,7 +11,58 @@
 ** Contracts for a Binary Search implementation.
    - specifiy the contracts/specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.
 
-  
+* Quiz 2 (<2022-02-07 Mon>)
+
+Consider the following 2 specifications, the second of which has an associated implementation:
+#+begin_src java
+public static int minIndex (int [] a) {... implementation omitted ... }
+   // EFFECTS: if a null throw NullPointerException, else if a.length=0 throw
+   //      IllegalArgumentException else return index of some min element in a.
+public static void setSmall (int [] a, int i) {
+   // REQUIRES: a != null, 0 <= i < a.length
+   // MODIFIES a
+   // EFFECTS: rearranges elements in array a so that some smallest element is at index i
+   int j = minIndex(a); int t = a[j]; a[j] = a[i]; a[i] = t;    }
+#+end_src
+
+1. Suppose we wish to transform the setSmall precondition ~a != null~ into defined behavior with an exception.
+   1. What Java exception would Bloch recommend for this transformation?
+      #+begin_comment
+      Answer: NullPointerException.
+      #+end_comment
+   2. Rewrite the precondition and postcondition for ~setSmall()~ to achieve this result.
+      #+begin_comment
+         Answer: Note that the predicate a!=null is no longer in the REQUIRES clause.
+         // REQUIRES: 0 <= i < a.length
+         // MODIFIES a
+         // EFFECTS: if a = null throw NullPointerException else
+         //          rearranges elements in array a so that 
+         //          smallest element is at index i
+      #+end_comment
+   3. Does the given implementation of ~setSmall()~ satisfy this revised specification? 
+      #+begin_comment
+      Answer: Yes. Note that the call to ~minIndex()~ generates the correct exception.
+      #+end_comment
+2. Suppose we wish, in addition, to transform the ~setSmall()~ precondition ~0 <= i < a.length~ into defined behavior with an exception.
+   1. What exception would Bloch recommend for this transformation? Hint: Note that ~i~ is described as an "index".
+     #+begin_comment
+     Answer: IndexOutOfBoundsException
+     #+end_comment
+   2. Extend your rewrite of the precondition and postcondition for ~setSmall()~ to achieve this result. 
+      #+begin_comment
+      Answer: Note that the predicate 0 <= i < a.length is no longer in the REQUIRES clause.
+      // MODIFIES a
+      // EFFECTS: if a = null throw NullPointerException else
+      //          if !(0 <= i < a.length) throw IndexOutOfBoundsException else
+      //          rearranges elements in array a so that 
+      //          smallest element is at index i
+      #+end_comment
+   3. Does the given implementation of ~setSmall()~ satisfy this revised specification? 
+      #+begin_comment
+      Answer: No. There are two cases. If the array is not empty, then the implementation returns ~IndexOutOfBoundsException~. However, if the array is empty, then the implementation generates ~IllegalArgumentException~ via the call to ~minIndex()~, which is /not/ ~IndexOutOfBoundsException~.
+      #+end_comment
+
+
 # * Quiz 3:
 
 # ** Immutatiblity

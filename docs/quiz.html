@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-01-31 Mon 14:22 -->
+<!-- 2022-02-07 Mon 14:31 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 619</title>
 <meta name="generator" content="Org mode" />
@@ -18,22 +18,58 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org71ce37e">1. Quiz 1</a></li>
+<li><a href="#org790c61f">1. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</a></li>
+<li><a href="#org034358d">2. Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org71ce37e" class="outline-2">
-<h2 id="org71ce37e"><span class="section-number-2">1</span> Quiz 1</h2>
+<div id="outline-container-org790c61f" class="outline-2">
+<h2 id="org790c61f"><span class="section-number-2">1</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-1">
 </div>
 
-<div id="outline-container-org0994870" class="outline-3">
-<h3 id="org0994870"><span class="section-number-3">1.1</span> Contracts for a Binary Search implementation.</h3>
+<div id="outline-container-org79660a7" class="outline-3">
+<h3 id="org79660a7"><span class="section-number-3">1.1</span> Contracts for a Binary Search implementation.</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>specifiy the contracts/specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.</li>
 </ul>
 </div>
+</div>
+</div>
+
+<div id="outline-container-org034358d" class="outline-2">
+<h2 id="org034358d"><span class="section-number-2">2</span> Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Consider the following 2 specifications, the second of which has an associated implementation:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">minIndex</span> (<span style="color: #986801;">int</span> [] <span style="color: #6a1868;">a</span>) {... implementation omitted ... }
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">EFFECTS: if a null throw NullPointerException, else if a.length=0 throw</span>
+   <span style="color: #9ca0a4;">//      </span><span style="color: #9ca0a4;">IllegalArgumentException else return index of some min element in a.</span>
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">setSmall</span> (<span style="color: #986801;">int</span> [] <span style="color: #6a1868;">a</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span>) {
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">REQUIRES: a != null, 0 &lt;= i &lt; a.length</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">MODIFIES a</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">EFFECTS: rearranges elements in array a so that some smallest element is at index i</span>
+   <span style="color: #986801;">int</span> <span style="color: #6a1868;">j</span> = minIndex(a); <span style="color: #986801;">int</span> <span style="color: #6a1868;">t</span> = a[j]; a[j] = a[i]; a[i] = t;    }
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>Suppose we wish to transform the setSmall precondition <code>a != null</code> into defined behavior with an exception.
+<ol class="org-ol">
+<li>What Java exception would Bloch recommend for this transformation?</li>
+<li>Rewrite the precondition and postcondition for <code>setSmall()</code> to achieve this result.</li>
+<li>Does the given implementation of <code>setSmall()</code> satisfy this revised specification?</li>
+</ol></li>
+<li>Suppose we wish, in addition, to transform the <code>setSmall()</code> precondition <code>0 &lt;= i &lt; a.length</code> into defined behavior with an exception.
+<ol class="org-ol">
+<li>What exception would Bloch recommend for this transformation? Hint: Note that <code>i</code> is described as an "index".</li>
+<li>Extend your rewrite of the precondition and postcondition for <code>setSmall()</code> to achieve this result.</li>
+<li>Does the given implementation of <code>setSmall()</code> satisfy this revised specification?</li>
+</ol></li>
+</ol>
 </div>
 </div>
 </div>
