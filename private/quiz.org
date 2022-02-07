@@ -25,7 +25,7 @@ public static void setSmall (int [] a, int i) {
    int j = minIndex(a); int t = a[j]; a[j] = a[i]; a[i] = t;    }
 #+end_src
 
-1. Suppose we wish to transform the setSmall precondition ~a != null~ into defined behavior with an exception.
+1. Suppose we wish to transform the ~setSmall~ precondition ~a != null~ into defined behavior with an exception.
    1. What Java exception would Bloch recommend for this transformation?
       #+begin_comment
       Answer: NullPointerException.
