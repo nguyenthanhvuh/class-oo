@@ -1,4 +1,4 @@
-<2022-02-07 Mon>
+* <2022-02-07 Mon>
 #+begin_src java
   public static int months (int principal, double rate, int payment){
       // Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.
@@ -218,7 +218,7 @@ Total correctness: does not make the assumption that S will terminate (halting p
 {True} x := 5 {x>5}  ... invalid ,  S is INCORRECT wrt P and Q.
 
 
-<2022-01-31 Mon>
+* <2022-01-31 Mon>
 
 - Specification/Contract of a program
 
@@ -345,7 +345,7 @@ remove the head, return the rest (tail)
 
 specification too specific to implentation (remove(0)), to fix: throws IAE instead of IOBE when list is []
 
-<2022-01-24 Mon>
+* <2022-01-24 Mon>
 
 What does it mean to write correct software?
 - It conforms to some expectation (software contracts or specificaions)
@@ -438,4 +438,4 @@ type checking
 - type-checker is light-weight analysis and therefore can be built in in comilers,  just check if x and y are integers 
 - assertion checking is heavy-weight because we can check expressive properties such as y = x ** 2; never built in, have to do some serious program analysis for this.
 assertion(y = x**2);
-* 
+

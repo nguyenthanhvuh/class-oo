@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-02-06 Sun 18:02 -->
+<!-- 2022-02-07 Mon 21:29 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>&lrm;</title>
 <meta name="generator" content="Org mode" />
@@ -11,10 +11,285 @@
 </head>
 <body>
 <div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org10ad7ff">1. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></a></li>
+<li><a href="#org9ca96db">2. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></a></li>
+<li><a href="#org39a5647">3. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org10ad7ff" class="outline-2">
+<h2 id="org10ad7ff"><span class="section-number-2">1</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #859900; font-weight: bold;">public</span> <span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">int</span> <span style="color: #268bd2;">months</span> (<span style="color: #b58900;">int</span> <span style="color: #268bd2;">principal</span>, <span style="color: #b58900;">double</span> <span style="color: #268bd2;">rate</span>, <span style="color: #b58900;">int</span> <span style="color: #268bd2;">payment</span>){
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.</span>
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">Effects:  return the number of months required to pay off the principal</span>
+
+}
+</pre>
+</div>
+
+
 <p>
-<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>
+check vs unchecked exceptions
+</p>
+<ul class="org-ul">
+<li>Checked exception: exception that should be recoverable (and you should write code (try/catch&#x2026;) to handle it)</li>
+<li>Unchecked exception: exceptrions that we cannot recover from / fatal errors</li>
+</ul>
+
+
+<p>
+Polynomial
+</p>
+<ul class="org-ul">
+<li>10</li>
+<li>ax + bx + 5</li>
+<li>10x + 5x<sup>2</sup> - 4</li>
+
+<li>c<sub>1</sub>*x<sub>1</sub><sup>d</sup><sub>1</sub> + c<sub>2</sub>*x<sub>2</sub><sup>d</sup><sub>2</sub></li>
+</ul>
+
+
+<ul class="org-ul">
+<li>5x*y  # does not allow in Poly implementation</li>
+<li>cannot have negative degree (allows deg &gt;= 0)</li>
+<li>coefficients are integers</li>
+</ul>
+
+<p>
+5+3*x<sup>2</sup>
+Poly(deg=2, trms=[5,3])    5+3*x
+Poly(deg=2, trms=[5,0,3])  5+3x<sup>2</sup>
 </p>
 
+<p>
+Poly(deg=2, trms=[5,0,3,0,0,0,0,0&#x2026;])  not allowed in Poly implementation
+</p>
+
+<p>
+Abstraction
+Abstract representation: 5+3*x
+Concrete/Internal representation:
+Poly(deg=2, trms=[5,0,3],
+Poly(deg=2, trms=[5,0,3,0,0,0,0,0&#x2026;]))
+</p>
+
+<p>
+toString()
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #859900; font-weight: bold;">public</span> <span style="color: #859900; font-weight: bold;">class</span> <span style="color: #b58900;">Poly</span> {
+    <span style="color: #859900; font-weight: bold;">private</span> <span style="color: #b58900;">int</span>[] <span style="color: #268bd2;">trms</span>;
+    <span style="color: #859900; font-weight: bold;">private</span> <span style="color: #b58900;">int</span> <span style="color: #268bd2;">deg</span>;
+
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">Effects: Initializes this to be the zero polynomial</span>
+    <span style="color: #859900; font-weight: bold;">public</span> <span style="color: #268bd2;">Poly</span>() {
+       trms = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">int</span>[1]; trms[0] = 0;
+       deg = 0;
+    }
+
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">Effects: If n &lt; 0 throws IllegalArgumentException</span>
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">else initializes this to be the polynomial c*x^n</span>
+    <span style="color: #859900; font-weight: bold;">public</span> <span style="color: #268bd2;">Poly</span>(<span style="color: #b58900;">int</span> <span style="color: #268bd2;">c</span>, <span style="color: #b58900;">int</span> <span style="color: #268bd2;">n</span>) <span style="color: #859900; font-weight: bold;">throws</span> <span style="color: #b58900;">IllegalArgumentException</span> {
+       <span style="color: #859900; font-weight: bold;">if</span> (n &lt; 0) {
+          <span style="color: #859900; font-weight: bold;">throw</span> <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">IllegalArgumentException</span>(<span style="color: #2aa198;">"Poly(int, int) constructor"</span>);
+       }
+       <span style="color: #859900; font-weight: bold;">if</span> (c == 0) {
+          trms = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">int</span>[1]; trms[0] = 0;
+          deg = 0;
+          <span style="color: #859900; font-weight: bold;">return</span>;
+       }
+       trms = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">int</span>[n+1];
+       <span style="color: #859900; font-weight: bold;">for</span> (<span style="color: #b58900;">int</span> <span style="color: #268bd2;">i</span>=0; i &lt; <span style="color: #b58900;">n</span>; i++) {
+          trms[i] = 0;
+       }
+       trms[n] = c;
+       deg = n;
+    }
+
+    <span style="color: #859900; font-weight: bold;">private</span> <span style="color: #268bd2;">Poly</span> (<span style="color: #b58900;">int</span> <span style="color: #268bd2;">n</span>) {
+       trms = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">int</span>[n+1];
+       deg = n;
+    }
+
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">Effects: returns the degree of this</span>
+    <span style="color: #859900; font-weight: bold;">public</span> <span style="color: #b58900;">int</span> <span style="color: #268bd2;">degree</span>() {
+       <span style="color: #859900; font-weight: bold;">return</span> deg;
+    }
+
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">Effects: returns the coefficent of the term of this whose exponent is d</span>
+    <span style="color: #859900; font-weight: bold;">public</span> <span style="color: #b58900;">int</span> <span style="color: #268bd2;">coeff_book</span>(<span style="color: #b58900;">int</span> <span style="color: #268bd2;">d</span>){
+        <span style="color: #859900; font-weight: bold;">if</span> (d &lt; 0 || d &gt; deg) <span style="color: #859900; font-weight: bold;">return</span> 0 <span style="color: #859900; font-weight: bold;">else</span> <span style="color: #859900; font-weight: bold;">return</span> terms[d];
+    }
+
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">@throws IAE if d &lt; 0</span>
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">Effects: returns the coefficent of the term of this whose exponent is d</span>
+    <span style="color: #859900; font-weight: bold;">public</span> <span style="color: #b58900;">int</span> <span style="color: #268bd2;">coeff</span>(<span style="color: #b58900;">int</span> <span style="color: #268bd2;">d</span>) {
+       <span style="color: #859900; font-weight: bold;">if</span> (d &lt; 0) <span style="color: #859900; font-weight: bold;">throw</span> <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">IAE</span>();
+       <span style="color: #859900; font-weight: bold;">return</span> (d &gt; deg) ? 0 : trms[d];
+    }
+
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">Effects: If q is null throw NullPointerException</span>
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">else return the Poly this - q</span>
+    <span style="color: #859900; font-weight: bold;">public</span> <span style="color: #b58900;">Poly</span> <span style="color: #268bd2;">sub</span>(<span style="color: #b58900;">Poly</span> <span style="color: #268bd2;">q</span>) <span style="color: #859900; font-weight: bold;">throws</span> <span style="color: #b58900;">NullPointerException</span> {
+       <span style="color: #859900; font-weight: bold;">return</span> add(q.minus());
+    }
+
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">Effects: return the Poly -this</span>
+    <span style="color: #859900; font-weight: bold;">public</span> <span style="color: #b58900;">Poly</span> <span style="color: #268bd2;">minus</span>() {
+       <span style="color: #b58900;">Poly</span> <span style="color: #268bd2;">r</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">Poly</span>(deg);
+       <span style="color: #859900; font-weight: bold;">for</span> (<span style="color: #b58900;">int</span> <span style="color: #268bd2;">i</span>=0; i &lt;= deg; i++) {
+          r.trms[i] = -trms[i];
+       }
+       <span style="color: #859900; font-weight: bold;">return</span> r;
+    }
+
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">Effects: If q is null throw NullPointerException</span>
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">else return the Poly this + q</span>
+    <span style="color: #859900; font-weight: bold;">public</span> <span style="color: #b58900;">Poly</span> <span style="color: #268bd2;">add</span>(<span style="color: #b58900;">Poly</span> <span style="color: #268bd2;">q</span>) {
+       <span style="color: #b58900;">Poly</span> <span style="color: #268bd2;">la</span>, <span style="color: #268bd2;">sm</span>;
+       <span style="color: #859900; font-weight: bold;">if</span> (deg &gt; q.deg) {
+          la = <span style="color: #859900; font-weight: bold;">this</span>; sm = q;
+       }
+       <span style="color: #859900; font-weight: bold;">else</span> {
+          la = q; sm = <span style="color: #859900; font-weight: bold;">this</span>;
+       }
+       <span style="color: #b58900;">int</span> <span style="color: #268bd2;">newdeg</span> = la.deg;
+       <span style="color: #859900; font-weight: bold;">if</span> (deg == q.deg) {
+          <span style="color: #859900; font-weight: bold;">for</span> (<span style="color: #b58900;">int</span> <span style="color: #268bd2;">k</span> = deg; k &gt; 0; k--) {
+             <span style="color: #859900; font-weight: bold;">if</span> (trms[k] + q.trms[k] != 0) {
+                <span style="color: #859900; font-weight: bold;">break</span>;
+             }
+             <span style="color: #859900; font-weight: bold;">else</span> {
+                newdeg--;
+             }
+          }
+       }
+       <span style="color: #b58900;">Poly</span> <span style="color: #268bd2;">r</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">Poly</span>(newdeg);
+       <span style="color: #b58900;">int</span> <span style="color: #268bd2;">i</span>;
+       <span style="color: #859900; font-weight: bold;">for</span> (i = 0; i &lt;= sm.deg &amp;&amp; i &lt;= newdeg; i++) {
+           r.trms[i] = sm.trms[i] + la.trms[i];
+       }
+       <span style="color: #859900; font-weight: bold;">for</span> (<span style="color: #b58900;">int</span> <span style="color: #268bd2;">j</span> = i; j &lt;= newdeg; j++) {
+          r.trms[j] = la.trms[j];
+       }
+       <span style="color: #859900; font-weight: bold;">return</span> r;
+    }
+
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">Effects: If q is null throw NullPointerException</span>
+    <span style="color: #586e75;">// </span><span style="color: #586e75;">else return the Poly this * q</span>
+    <span style="color: #859900; font-weight: bold;">public</span> <span style="color: #b58900;">Poly</span> <span style="color: #268bd2;">mul</span>(<span style="color: #b58900;">Poly</span> <span style="color: #268bd2;">q</span>) <span style="color: #859900; font-weight: bold;">throws</span> <span style="color: #b58900;">NullPointerException</span> {
+
+       <span style="color: #859900; font-weight: bold;">if</span> ((q.deg == 0 &amp;&amp; q.trms[0] == 0) || (deg == 0 &amp;&amp; trms[0] == 0)) {
+          <span style="color: #859900; font-weight: bold;">return</span> <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">Poly</span>();
+       }
+
+       <span style="color: #b58900;">Poly</span> <span style="color: #268bd2;">r</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">Poly</span>(deg + q.deg);
+       r.trms[deg + q.deg] = 0;
+       <span style="color: #859900; font-weight: bold;">for</span> (<span style="color: #b58900;">int</span> <span style="color: #268bd2;">i</span> = 0; i &lt;= deg; i++) {
+          <span style="color: #859900; font-weight: bold;">for</span> (<span style="color: #b58900;">int</span> <span style="color: #268bd2;">j</span> = 0; j &lt;= q.deg; j++) {
+             r.trms[i+j] += trms[i]*q.trms[j];
+          }
+       }
+       <span style="color: #859900; font-weight: bold;">return</span> r;
+    }
+
+    <span style="color: #859900; font-weight: bold;">public</span> <span style="color: #b58900;">String</span> <span style="color: #268bd2;">toString</span>() {
+       <span style="color: #b58900;">String</span> <span style="color: #268bd2;">r</span> = <span style="color: #2aa198;">"Poly:"</span>;
+
+       <span style="color: #859900; font-weight: bold;">if</span> (deg == 0 || trms[0] != 0) {
+           r += <span style="color: #2aa198;">" "</span> + trms[0];
+       }
+
+       <span style="color: #859900; font-weight: bold;">for</span> (<span style="color: #b58900;">int</span> <span style="color: #268bd2;">i</span> = 1; i &lt;= deg; i++) {
+          <span style="color: #859900; font-weight: bold;">if</span> (trms[i] &lt; 0) {
+             r += <span style="color: #2aa198;">" - "</span> + -trms[i] + <span style="color: #2aa198;">"x^"</span> + i;
+          }
+          <span style="color: #859900; font-weight: bold;">else</span> <span style="color: #859900; font-weight: bold;">if</span> (trms[i] &gt; 0) {
+             r += <span style="color: #2aa198;">" + "</span> +  trms[i] + <span style="color: #2aa198;">"x^"</span> + i;
+          }
+       }
+       <span style="color: #859900; font-weight: bold;">return</span> r;
+    }
+}
+</pre>
+</div>
+
+
+<p>
+q = [1,2,3]
+q' = q.enQueue(4)
+q' = [1,2,3,4]   Queue.elements=[1,2,3,4] , Queue.size=4
+q = [1,2,3]
+</p>
+
+<p>
+q = [1,2,3]
+e = q.peek(); //e = 1
+q' = q.deQueue();
+q' = [2,3] 
+</p>
+
+
+<p>
+&#x2014;
+Hoare Logic
+</p>
+<ul class="org-ul">
+<li>Automatic way to <b>verify</b> that an implementation satisfies a given specification (pre/post conditions)</li>
+<li>Imperative programs (the version I am showing you does not deal with advanced OO concepts, no inheritence, no pointers/references)</li>
+<li></li>
+</ul>
+
+
+<p>
+Hoare Tripple
+{P} S {Q}
+{P} : precondition  (e.g.,  0 &lt; x &lt; 5)
+{Q} : postcondition  (e.g.,  output = x * 2)
+S   : your program (a list of statements)  (e.g., [int y = x * 2; return y;])
+</p>
+
+<p>
+Goal: verify that executing S under the assumption that P holds will result in Q (satisfies Q).
+</p>
+
+<p>
+If this goal is met, then S is correct wrt to P and Q.
+</p>
+
+<p>
+<b>Partial correctness</b>:  also assuming that S will terminate  **
+Total correctness: does not make the assumption that S will terminate (halting problem)
+</p>
+
+<p>
+:= assignment
+</p>
+
+
+<p>
+{True} x := 5 {x==5 or x== 6 or x &gt; 6}  &#x2026; valid
+{True} x := 5 {x&gt;1}  &#x2026; valid
+{True} x := 5 {x==5}  &#x2026; valid  (preferred, strongest)
+</p>
+
+<p>
+{True} x := 5 {x&gt;5}  &#x2026; invalid ,  S is INCORRECT wrt P and Q.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org9ca96db" class="outline-2">
+<h2 id="org9ca96db"><span class="section-number-2">2</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li><p>
 Specification/Contract of a program
@@ -193,14 +468,12 @@ remove the head, return the rest (tail)
 <p>
 specification too specific to implentation (remove(0)), to fix: throws IAE instead of IOBE when list is []
 </p>
+</div>
+</div>
 
-
-
-
-<p>
-<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span>
-</p>
-
+<div id="outline-container-org39a5647" class="outline-2">
+<h2 id="org39a5647"><span class="section-number-2">3</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-3">
 <p>
 What does it mean to write correct software?
 </p>
@@ -231,7 +504,6 @@ f (x, y):   // return output = x  / y
 if y == 0:  raise exception
 &#x2026;
 </p>
-
 
 
 
@@ -352,6 +624,8 @@ return o;</li>
 <p>
 assertion(y = x**2);
 </p>
+</div>
+</div>
 </div>
 </body>
 </html>
