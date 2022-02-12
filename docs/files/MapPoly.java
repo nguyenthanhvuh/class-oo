@@ -85,7 +85,7 @@ public class MapPoly {
 
        for (Integer i:  trms.keySet()) {
           for (Integer j:  q.trms.keySet()) {
-              result = result.add(new MapPoly (coeff(i) + q.coeff(j), i+j));
+              result = result.add(new MapPoly (coeff(i) * q.coeff(j), i+j));
           }
        }
        return result;
