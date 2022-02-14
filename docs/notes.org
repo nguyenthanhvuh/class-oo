@@ -1,4 +1,164 @@
+* <2022-02-14 Mon>
+
+Hoare Tripple
+{P} S {Q}
+{P} : precondition  (e.g.,  0 < x < 5)
+{Q} : postcondition  (e.g.,  output = x * 2)
+S   : your program (a list of statements)  (e.g., [int y = x * 2; return y;])
+
+Goal: verify that executing S under the assumption that P holds will result in Q (satisfies Q).
+
+If this goal is met, then S is correct wrt to P and Q.
+
+*Partial correctness*:  also assuming that S will terminate  **
+Total correctness: does not make the assumption that S will terminate (halting problem)
+
+:= assignment
+= , ==  :  equal sign
+
+{True} x := 5 {x==5 or x== 6 or x > 6}  ... valid
+{True} x := 5 {x>1}  ... valid
+{True} x := 5 {x==5}  ... valid  (preferred, strongest postcondition)
+
+{True} x := 5 {x>5}  ... invalid ,  S is INCORRECT wrt P and Q.
+
+{x = 1 & y = 2} z:= x/y  {z < 1}  .. valid
+{x = 2 & y = 4} z:= x/y  {z < 1}  .. valid
+{0 < x < y & y  != 0 } z:= x/y  {z < 1}  .. valid    (preferred, weakest precondition)
+{0 < x < y } z:= x/y  {z < 1}  .. valid  (preferred, weakest precondition)
+
+{x < y} z:= x/y  {z < 1} *Invalid tripple* , counterexample input x=-1, y = 0
+{x = 0 } z:= x/y  {z < 1} *Invalid tripple* , counterexample input x=0, y = 0
+{y != 0} z:= x/y  {z < 1} *Invalid tripple* , counterexample x=2, y=1
+{x <y & y != 0} z:= x/y  {z < 1} *Invalid tripple* , counterexample y=-1, x = -5
+
+
+To prove {P} S {Q} is valid, we check if ~P => WP(S, Q)~    
+- WP: a function returning the weakest precondition allowing the execution of S to achieve Q
+-  WP({x:=x+1}, x=5) = x=4
+-  WP({x:=x+1}, x<5)
+     =   x < 4  *weakest precondition*
+     =   x < 0          -
+     =   x < -100
+
+- *Assignment*
+- WP(x:= E, Q)  =  Q[x/E]
+  WP(x:=3, {x+y = 10})  =   {3+y=10  ->   y = 7]
+   WP({x:=x+1}, {x<5}) =   {x+1<5 ->  x < 4} 
+
+- *List of statements*
+- WP([S1; S2; S3, ...], Q) = WP(S1, WP([S2; S3; ...], Q))
+WP([x:=x+1, y=y*x], {y==2*z}) =
+   WP(x:=x+1,WP(y=y*x, {y==2*z})) = 
+   WP(x:=x+1, {y*x=2*z}) = 
+   {y*(x+1)==2*z}
+     
+- *Condition*
+- WP(if b then S1 else S2, {Q})  =
+    b => WP(S1,Q)  &&  !b => WP(S2, Q)
+    
+    #        is equiv
+    # !(b && !WP(S1,Q)  ||  !b && !WP(S2, Q))
+
+    b => x  && !b => x
+    !!(!b or x  && b or x)
+    !(b and !x   ||   !b and !x)
+    
+
+WP(if x > 0 then y :=x  else y:= 0,  {y > 0}) =
+    x>0 => WP(y:=x, {y>0})  &&  x <= 0 => WP(y:=0, {y>0})
+    x>0 => x>0             &&  x <= 0 => 0 > 0
+       TRUE                &&  x <= 0  =>  FALSE 
+       TRUE                &&          FALSE
+         FALSE
+
+    !(x>0 && !WP(y:=x, {y>0})  ||  !x <= 0 && !WP(y:=0, {y>0}))
+    !(x>0 && x<=0              ||  !x <= 0 && 0 <= 0)
+    !(x > 0  && x<= 0         ||   !x <= 0  && TRUE)
+     ! (    FALSE               ||    !x <= 0)
+          x > 0
+
+x => y   ==   !x or y
+
+
+
+
+| x | y | x && y | x OR y | !x | !x OR y |              |
+|   |   |        |        |    |         |              |
+|---+---+--------+--------+----+---------+--------------|
+| T | T | T      | T      | F  | T       | (F or T = T) |
+| T | F | F      | T      | F  | F       | (F OR F = F) |
+| F | T | F      | T      | T  | T       | (T or T = T) |
+| F | F | F      | F      | T  | T       | (T or F = T) |
+
+         
+- *Loop*
+  - User *has to* provide Loop invariants to compute WP of loop
+  - Loop invariant I: captures the meaning of the loop (manually provided by you)
+    - property that holds when the loop entered
+    - is preserved after the loop body is executed (inductive loop invariant)
+
+WP(while [I] b do S, {Q}) =
+   I && (I && b => WP(S,I) && (I && !b)  => Q)
+
+#+begin_src python
+  {N >= 0}   // precondition
+  {0 <= N}
+  i := 0
+  {i <= N}
+  while [N >= i] (i < N)
+
+     i := N;
+
+  {i == N} // postcondition   
+#+end_src
+
+- N >= 1  X  cex: N = 0
+- True /  0 >= 0 // LOOP INV
+- N > i    X cex: N =0
+
+- N >= i  LOOP INV
+- N >= 0  LOOP INV
+- i >= 0  LOOP INV
+
+- N >= i && N >= 0 && i >= 0
+
+  
+I: N >= i
+WP({i := 0; while[i<=N] i < N do i:= N}, {i == N})
+WP({i := 0}; WP(while[i<=N] i < N do i:= N}, {i == N}))
+
+
+WP(while[i<=N] i < N do i:=N, {i == N}) =
+// WP(while[i<=N] i < N do i:=N, {i == N}) 
+
+1.  i <= N
+
+&&
+
+2.   i<= N && i< N => WP(i:=N, {i<=N})
+     i<= N && i< N => WP(i:=N, {i<=N})
+     i<= N && i< N => N <= N
+         ~~~          =>  TRUE
+             TRUE
+&&
+
+3.   (i<= N && !(i < N))  => i == N
+      (i <=N  && i>=N)     => i == N
+        i = N    =>  i = N
+        TRUE
+
+
+
+WP({i := 0}; WP(while[i<=N] i < N do i:= N}, {i == N}))
+WP({i := 0}, i <= N)
+N >0 =>  0 <= N TRUE
+
+
+
 * <2022-02-07 Mon>
+
+  
 #+begin_src java
   public static int months (int principal, double rate, int payment){
       // Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.
