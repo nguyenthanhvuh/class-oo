@@ -93,11 +93,11 @@ public static void setSmall (int [] a, int i) {
      s.push("cat");
      s.push("dog");
      System.out.println(s.pop());
-
    #+end_src
-   #+begin_comment
-      - What methods would be needed to convert the client interaction into an equivalent interaction with an immutable version called IStack? For each method, give *just the method header* - not the contract or implemetation.
+     - What methods would be needed to convert the client interaction into an equivalent interaction with an immutable version called IStack? For each method, give *just the method header* - not the contract or implemetation.
 
+   
+   #+begin_comment
      public class IStack{
      public IStack push(Object e){
      // return new IStack() .... 
