@@ -1908,27 +1908,34 @@
    1. Please explain what you think it means to to correctly override the toString() method. Base your answer on your understanding *before* enrolling in SWE 619.
    1. How do you decide whether you have implemented a Java method correctly? Again, base your answer on your understanding *before* enrolling in SWE 619.
 
-** Reflection 4
+
+** Reflection 4 (reflection 3 redo)
+   1. Have you ever explicitly considered invariants when deciding how to implement a Java class? If so, can you give an example?
+   1. Please explain what you think it means to to correctly override the toString() method. Base your answer on your understanding *before* enrolling in SWE 619.
+   1. How do you decide whether you have implemented a Java method correctly? Again, base your answer on your understanding *before* enrolling in SWE 619.
+
+   
+** Reflection 5
    1. Iteration is a basic concept, yet Liskov devotes an entire chapter to it. What, if anything, did you find in Liskov's presentation of iteration abstraction that is new to you?
    1. Bloch's ~Period~ class (Item 50) has a lot going on in it. We'll revisit the this example in an in-class exercise. What, if anything, did you find confusing in this example?
 
       # 1. Defensive copies are an important, yet error-prone, obligation of using mutable objects in a public setting. Was there anything about Bloch's discussion that you found confusing? (Note that I have posted a video for Bloch Item 50 on the course schedule page.)
 
-** Reflection 5
+** Reflection 6
 
    1. Liskov 7 develops rules for assessing the correctness of subtypes. What do you think the connection is between these rules and the rules for verification addressed in Chapter 5?
    # 1. In-class exercise 5C goes through a concrete exercise from Liskov. Which aspects of this of this exercise are clear, and which aspects are confusing?
    1. Consider the Java Set interface and two subtypes: HashSet and TreeSet. Do you think the abstract state for these three interfaces/classes are identical or different? (You might want to spend some time in the JavaDoc before jumping to a conclusion; there is a specific answer in there!)
 
 
-** Reflection 6
+** Reflection 7
 
    1. Explain why Java has both a Comparable interface and a Comparator interface.
    1. How familiar is your group with the Java "anonymous class" and "lambda" constructs?
    1. Can you explain the connection between anonymous classes and lambda expressions?
 
 
-** Reflection 7
+** Reflection 8
 
 
    1. Explain the basic role of generics in the Java language
@@ -1947,7 +1954,7 @@
    #+end_comment
       
 
-** Reflection 8
+** Reflection 9
 
 
    1. Have you overridden the equals() or the hashCode() methods? In light of Bloch's discussion of both methods, do you think your implementations were correct?
@@ -1955,14 +1962,14 @@
    1. What similarities and differences do you see between how Liskov and Bloch treat the toString() method?
 
 
-** Reflection 9
+** Reflection 10
 
    1. Bloch discusses specific rules for making a class immutable. Did you find any of these rules confusing?
    1. Bloch's InstrumentedHashSet example demonstrates how inheritance can break encapsulation. Does the JavaDoc for HashSet, Set and/or Collection follow the Bloch's Item 19 advice for documenting for inheritances?
    1. Bloch's InstrumentedSet example has a lot going on in it. What aspects, if any, of this example did you find confusing?
 
 
-** Reflection 10
+** Reflection 11
 
 
    1. How would you rate your experience with writing (ordinary) tests in the JUnit framework? Use a scale from "A few times for class" to "I do that professionally".
