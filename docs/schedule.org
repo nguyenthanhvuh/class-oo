@@ -1910,11 +1910,11 @@
 
 
 ** Reflection 4 (reflection 3 redo)
-   1. Have you ever explicitly considered invariants when deciding how to implement a Java class? If so, can you give an example?
-   1. Please explain what you think it means to to correctly override the toString() method. Base your answer on your understanding *before* enrolling in SWE 619.
-   1. How do you decide whether you have implemented a Java method correctly? Again, base your answer on your understanding *before* enrolling in SWE 619.
+   Answer these questions based on your new knowledge on invariants and correctness analysis from class lectures and reading assignment.
+   1. Have you ever implicitly or explicitly considered invariants when writing code?
+   1. How do you decide whether you have implemented a program or method correctly?
 
-   
+S   
 ** Reflection 5
    1. Iteration is a basic concept, yet Liskov devotes an entire chapter to it. What, if anything, did you find in Liskov's presentation of iteration abstraction that is new to you?
    1. Bloch's ~Period~ class (Item 50) has a lot going on in it. We'll revisit the this example in an in-class exercise. What, if anything, did you find confusing in this example?
