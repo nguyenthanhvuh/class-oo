@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-02-28 Mon 17:41 -->
+<!-- 2022-02-28 Mon 18:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 619</title>
 <meta name="generator" content="Org mode" />
@@ -18,19 +18,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgfba70f6">1. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</a></li>
-<li><a href="#org674f9ce">2. Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</a></li>
-<li><a href="#orgfe86c66">3. Quiz 3:</a></li>
+<li><a href="#org813b077">1. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</a></li>
+<li><a href="#orgcd293c2">2. Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</a></li>
+<li><a href="#org895a962">3. Quiz 3:</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgfba70f6" class="outline-2">
-<h2 id="orgfba70f6"><span class="section-number-2">1</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</h2>
+<div id="outline-container-org813b077" class="outline-2">
+<h2 id="org813b077"><span class="section-number-2">1</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-1">
 </div>
 
-<div id="outline-container-org17b3a32" class="outline-3">
-<h3 id="org17b3a32"><span class="section-number-3">1.1</span> Contracts for a Binary Search implementation.</h3>
+<div id="outline-container-org1a81253" class="outline-3">
+<h3 id="org1a81253"><span class="section-number-3">1.1</span> Contracts for a Binary Search implementation.</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>specifiy the contracts/specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.</li>
@@ -39,21 +39,21 @@
 </div>
 </div>
 
-<div id="outline-container-org674f9ce" class="outline-2">
-<h2 id="org674f9ce"><span class="section-number-2">2</span> Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</h2>
+<div id="outline-container-orgcd293c2" class="outline-2">
+<h2 id="orgcd293c2"><span class="section-number-2">2</span> Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Consider the following 2 specifications, the second of which has an associated implementation:
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">minIndex</span> (<span style="color: #986801;">int</span> [] <span style="color: #6a1868;">a</span>) {... implementation omitted ... }
-   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">EFFECTS: if a null throw NullPointerException, else if a.length=0 throw</span>
-   <span style="color: #9ca0a4;">//      </span><span style="color: #9ca0a4;">IllegalArgumentException else return index of some min element in a.</span>
-<span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">setSmall</span> (<span style="color: #986801;">int</span> [] <span style="color: #6a1868;">a</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span>) {
-   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">REQUIRES: a != null, 0 &lt;= i &lt; a.length</span>
-   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">MODIFIES a</span>
-   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">EFFECTS: rearranges elements in array a so that some smallest element is at index i</span>
-   <span style="color: #986801;">int</span> <span style="color: #6a1868;">j</span> = minIndex(a); <span style="color: #986801;">int</span> <span style="color: #6a1868;">t</span> = a[j]; a[j] = a[i]; a[i] = t;    }
+<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">static</span> <span style="color: #ECBE7B;">int</span> <span style="color: #c678dd;">minIndex</span> (<span style="color: #ECBE7B;">int</span> [] <span style="color: #dcaeea;">a</span>) {... implementation omitted ... }
+   <span style="color: #5B6268;">// </span><span style="color: #5B6268;">EFFECTS: if a null throw NullPointerException, else if a.length=0 throw</span>
+   <span style="color: #5B6268;">//      </span><span style="color: #5B6268;">IllegalArgumentException else return index of some min element in a.</span>
+<span style="color: #51afef;">public</span> <span style="color: #51afef;">static</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">setSmall</span> (<span style="color: #ECBE7B;">int</span> [] <span style="color: #dcaeea;">a</span>, <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">i</span>) {
+   <span style="color: #5B6268;">// </span><span style="color: #5B6268;">REQUIRES: a != null, 0 &lt;= i &lt; a.length</span>
+   <span style="color: #5B6268;">// </span><span style="color: #5B6268;">MODIFIES a</span>
+   <span style="color: #5B6268;">// </span><span style="color: #5B6268;">EFFECTS: rearranges elements in array a so that some smallest element is at index i</span>
+   <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">j</span> = minIndex(a); <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">t</span> = a[j]; a[j] = a[i]; a[i] = t;    }
 </pre>
 </div>
 
@@ -75,30 +75,30 @@ Consider the following 2 specifications, the second of which has an associated i
 </div>
 
 
-<div id="outline-container-orgfe86c66" class="outline-2">
-<h2 id="orgfe86c66"><span class="section-number-2">3</span> Quiz 3:</h2>
+<div id="outline-container-org895a962" class="outline-2">
+<h2 id="org895a962"><span class="section-number-2">3</span> Quiz 3:</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 <b>Immutatiblity</b>: Consider a partial version of Bloch's mutable Stack class:
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Stack</span> {
+<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Stack</span> {
 
-    <span style="color: #e45649;">private</span> <span style="color: #986801;">Object</span>[] <span style="color: #6a1868;">elements</span>;
-    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">size</span> = 0;
+    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">Object</span>[] <span style="color: #dcaeea;">elements</span>;
+    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">size</span> = 0;
 
-    <span style="color: #e45649;">public</span> <span style="color: #a626a4;">Stack</span>() { <span style="color: #e45649;">this</span>.elements = <span style="color: #e45649;">new</span> <span style="color: #986801;">Object</span>[0]; }
+    <span style="color: #51afef;">public</span> <span style="color: #c678dd;">Stack</span>() { <span style="color: #51afef;">this</span>.elements = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Object</span>[0]; }
 
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">push</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">e</span>) {
-        ensureCapacity();      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">implementation omitted from quiz</span>
+    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">push</span> (<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">e</span>) {
+        ensureCapacity();      <span style="color: #5B6268;">// </span><span style="color: #5B6268;">implementation omitted from quiz</span>
         elements[size++] = e;
     }
 
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">Object</span> <span style="color: #a626a4;">pop</span> () {
-        <span style="color: #e45649;">if</span> (size == 0) <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IllegalStateException</span>(<span style="color: #50a14f;">"Stack.pop"</span>);
-        <span style="color: #986801;">Object</span> <span style="color: #6a1868;">result</span> = elements[--size];
-        elements[size] = <span style="color: #b751b6;">null</span>;
-        <span style="color: #e45649;">return</span> result;
+    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">Object</span> <span style="color: #c678dd;">pop</span> () {
+        <span style="color: #51afef;">if</span> (size == 0) <span style="color: #51afef;">throw</span> <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">IllegalStateException</span>(<span style="color: #98be65;">"Stack.pop"</span>);
+        <span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">result</span> = elements[--size];
+        elements[size] = <span style="color: #a9a1e1;">null</span>;
+        <span style="color: #51afef;">return</span> result;
     }
 }
 
@@ -108,9 +108,9 @@ Consider the following 2 specifications, the second of which has an associated i
 Also consider the following client interaction with Stack
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #986801;">Stack</span> <span style="color: #6a1868;">s</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Stack</span>();
-s.push(<span style="color: #50a14f;">"cat"</span>);
-s.push(<span style="color: #50a14f;">"dog"</span>);
+<pre class="src src-java"><span style="color: #ECBE7B;">Stack</span> <span style="color: #dcaeea;">s</span> = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Stack</span>();
+s.push(<span style="color: #98be65;">"cat"</span>);
+s.push(<span style="color: #98be65;">"dog"</span>);
 System.out.println(s.pop());
 </pre>
 </div>
@@ -119,27 +119,26 @@ System.out.println(s.pop());
 </ul>
 </div>
 
-<div id="outline-container-org22bdc5d" class="outline-3">
-<h3 id="org22bdc5d"><span class="section-number-3">3.1</span> Verification using Hoare Logic</h3>
+<div id="outline-container-org20982de" class="outline-3">
+<h3 id="org20982de"><span class="section-number-3">3.1</span> Verification using Hoare Logic</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Given the program
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">{x &lt;= 1}   # P1</span>
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">{x &lt;= 11}  # P2</span>
+<pre class="src src-java"><span style="color: #5B6268;">// </span><span style="color: #5B6268;">{x &lt;= 1}   # P1</span>
+<span style="color: #5B6268;">// </span><span style="color: #5B6268;">{x &lt;= 11}  # P2</span>
 
-<span style="color: #e45649;">while</span> (x != 10){
-    <span style="color: #b751b6;">x</span> := x + 1;
+<span style="color: #51afef;">while</span> (x != 10){
+    <span style="color: #a9a1e1;">x</span> := x + 1;
 }
 
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">{x == 10}  # Q</span>
+<span style="color: #5B6268;">//</span><span style="color: #5B6268;">{x == 10}  # Q</span>
 </pre>
 </div>
 
 <ol class="org-ol">
-<li>Informally reason that this program is correct with the given <code>P1</code> and <code>Q</code>.</li>
-<li>This program <b>is correct</b> with respect to the given precondition <code>P1</code> and postcondition <code>Q</code>.  Prove it by finding a loop invariant and verify the verficiation (show your work, i.e., generate the <code>wp</code> and the <code>vc</code> of the program, and reason about these)</li>
+<li>This program <b>is correct</b> with respect to the given precondition <code>P1</code> and postcondition <code>Q</code>.  Prove it by finding a loop invariant and verify the verification condition (show your work, i.e., generate the <code>wp</code> and the <code>vc</code> of the program, and reason about these)</li>
 <li>Now, consider a different precondition <code>P2</code>. 
 <ol class="org-ol">
 <li>Recompute the VC of the program with respect to <code>P2</code>.</li>

@@ -127,7 +127,7 @@ public static void setSmall (int [] a, int i) {
      //{x == 10}  # Q
    #+end_src
   
-   1. This program *is correct* with respect to the given precondition =P1= and postcondition =Q=.  Prove it by finding a loop invariant and verify the verficiation (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)
+   1. This program *is correct* with respect to the given precondition =P1= and postcondition =Q=.  Prove it by finding a loop invariant and verify the verification condition (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)
    2. Now, consider a different precondition =P2=. 
       1. Recompute the VC of the program with respect to =P2=.
       1. is the VC  =P2 -> WP ..=  valid?  if yes, what does that mean,  if not, what does that mean?
