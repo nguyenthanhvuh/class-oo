@@ -114,28 +114,50 @@ public static void setSmall (int [] a, int i) {
      }
    #+end_comment
 
+** Verification using Hoare Logic
+   Given the program
+   #+begin_src java
+     // {x <= 1}   # P1
+     // {x <= 11}  # P2
 
+     while (x != 10){
+         x := x + 1;
+     }
 
-# ** Verification using Hoare Logic
-#    Given the program
-#    #+begin_src java
-#      // {x <= 10}   # P
-
-#      while (x != 10){
-#          x := x + 1;
-#      }
-#      //{x == 10}  # Q
-#    #+end_src
+     //{x == 10}  # Q
+   #+end_src
   
-#    1. Informally reason that this program is correct with the given =P= and =Q=.
-#    1. Find a loop invariant and prove that the program is correct (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)     
-# #+begin_comment
-#    loop inv :  x <= 10
+   1. Informally reason that this program is correct with the given =P1= and =Q=.
+   1. Find a loop invariant and prove that the program is correct (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)
+   2. Now, consider the given P2.  Recompute the VC of the program with respect to P2 and reason about the VC (e.g., does P1 -> WP ? if yes, what does that mean,  if not, what does that mean)
+      
+#+begin_comment
+   loop inv :  x <= 10
 
-#    wp(while[x<=10](x != 10){x := x + 1;}, {x == 10})
-#    = I  &   (I & x!=10) => wp(x:= x+1, I)   &   (I & !(x!=10) => x == 10)
-#    = x < =
-# #+end_comment
+   wp(while[x<=10](x != 10){x := x + 1;}, {x == 10}) =
+
+   //conj 1
+   I = 
+   x <=10
+   
+   //conj 2
+   (I & x!=10) => wp(x:= x+1, I)   =
+   (x <= 10 & x!=10) => wp(x:= x+1, x <= 10)
+   (x < 10) => x+1 <= 10
+   (x <= 9) => x <= 9
+   TRUE
+
+   //conj 3
+   (I & !(x!=10) => x == 10) =
+   (x <= 10 & !(x!=10) => x == 10)
+   x == 10 => x == 10
+   True
+
+   //vc
+   x<=10 => x<=10   #for P1,  this implication holds and thus shows the program is correct (wrt to Q and P1)
+
+   //x<=11 => x<=10   #for P2, this implication does not hold (cex x=11), and thus does not show anything other than that we cannot prove it. Important: fail to prove does not mean the program is wrong,  it simplify means we cannot prove it (could be because we picked a weak loop invariant,  could also be that the program is actually wrong)
+#+end_comment
 
 
 
