@@ -1,5 +1,131 @@
 <2022-02-28 Mon>
 
+HW
+#+begin_src 
+//{N>=0}   # P
+
+// 0<=N  WP
+i = 0;
+while(i < N){
+  i = i + 1;
+}
+//{i == N}   #Q
+#+end_src
+
+- loop invariant: i<=N
+WP(S, Q) =
+WP([i = 0, while(i<N){i = i + 1}], i == N)
+WP([i=0], WP(while(i<N){i = i + 1}, i == N))
+
+
+WP(while(i<N){i = i + 1}, i == N) =
+I & (I & i < N => wp(i=i+1, I)) & (I & i >= N => i == N)
+
+// I
+i <= N
+
+// (I & i < N => wp(i=i+1, I))
+(i<=N & i < N) => wp(i=i+1, i<=N) =
+(i<=N & i < N) => i+1 <= N
+ i < N         =>  i <= N-1
+ i < N         =>  i < N
+   TRUE
+
+// (I & i >= N => i == N)
+(i<=N & i >= N) => i == N
+ i == N         => i == N
+ TRUE
+
+i <= N & TRUE & TRUE  =  i <= N
+
+WP(while(i<N){i = i + 1}, i == N) =  i <= N
+
+WP(i:=0, i<=N) = 0 <= N
+
+VC:
+N>=0   =>   0 <= N
+TRUE (valid),  program is correct wrt to given P and Q; i <= N
+
+if precondition is given as N >= 5
+N >= 5   =>  0 <= N
+N >= 5   =>   N >= 0  (valid)
+
+if precondition is given as N >= -5
+N >= -5   =>  0 <= N
+invalid, cex = N = -4
+
+N=-1
+
+i=0
+N=-1
+
+
+
+verification vs testing
+verification (Hoare logic, abstract interpretation):  is to prove if a program is correct
+
+testing :  is to prove that a program has a bug
+
+Disjkstra:  testing is to prove the presence of a bug, not its absence
+
+Linus Torvalds
+
+Liskov 5.5-5.10
+REasoning about correctness in Object oriented programming is even harder
+
+Abstract Function (AF)
+- toString(): {1,5,10}
+
+[1,5,10].toString() => {1,5,10}
+[5,1,10].toString() => {1,5,10}
+[1,5,1,10].toString() => {1,5,10}
+
+Representative Invariant (RepInv)
+-
+- Binary Tree:
+   - exact 2 children
+   - null or exactly 2 children
+   - 
+
+- Binary Search Tree
+   - values of the nodes in the right part of a tree are >= the values of the nodes in the left part of the tree
+
+
+BT_removenode(BT t, Node n){
+  //repr1 :  each node has 2 children
+  //repr1 holds on BT
+
+  // code to traverse t, find n, and remove n
+  ...
+
+  //ensure that the result preserves the repr inv (repr1)
+}
+
+induction (repr/loop) invariant
+
+toString:  abstract function
+bool repOK() :   check if the data satisfies the repr invs
+
+IntSet
+public boolean repOK(){
+  if (els == null) return False;
+  //no duplicate check
+  ...
+}
+
+modular analysis
+M1, M2, M3, M4  ....
+
+M1: satisfies its specification(pre/postconditions, repr)
+M2: satisfies its specification(pre/postconditions, repr)
+
+
+
+
+  
+
+
+
 
 * <2022-02-14 Mon>  <2022-02-21 Mon>
 
