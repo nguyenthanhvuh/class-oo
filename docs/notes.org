@@ -119,11 +119,44 @@ M1, M2, M3, M4  ....
 M1: satisfies its specification(pre/postconditions, repr)
 M2: satisfies its specification(pre/postconditions, repr)
 
+In class exercise 5B
 
+#+begin_src java
+                     public class Members {
+                         // Members is a mutable record of organization membership
+                         // AF: Collect the list as a set
 
+                         // rep-inv1: members != null
+                         // rep-inv2: members != null && no duplicates in members
 
+                         // for simplicity, assume null can be a member...
+
+                         List<Person> members;   // the representation
+
+                         //  Post: person becomes a member
+                         public void join (Person person) {
+
+                             if(!members.contains(person)){
+    members.add(person);
+  }
+                         }
+
+                         //  Post: person is no longer a member
+                         public void leave(Person person) {
+          members.remove(person);
+                         }
+
+#+end_src 
   
+repr1  members != null
 
+join: OK,  satisfy contract  
+leave: OK,  satisfy contract
+
+repr2 members != null && members cannot have dups
+
+join: NO,  satisfy contract
+leave: YES, satisfy contract
 
 
 

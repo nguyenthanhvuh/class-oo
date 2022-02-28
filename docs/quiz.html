@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-02-28 Mon 13:49 -->
+<!-- 2022-02-28 Mon 17:41 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 619</title>
 <meta name="generator" content="Org mode" />
@@ -18,19 +18,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgf7e3bbb">1. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</a></li>
-<li><a href="#orgab0bf2d">2. Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</a></li>
-<li><a href="#orgbd7614f">3. Quiz 3:</a></li>
+<li><a href="#orgfba70f6">1. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</a></li>
+<li><a href="#org674f9ce">2. Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</a></li>
+<li><a href="#orgfe86c66">3. Quiz 3:</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgf7e3bbb" class="outline-2">
-<h2 id="orgf7e3bbb"><span class="section-number-2">1</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</h2>
+<div id="outline-container-orgfba70f6" class="outline-2">
+<h2 id="orgfba70f6"><span class="section-number-2">1</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-1">
 </div>
 
-<div id="outline-container-org7ae838c" class="outline-3">
-<h3 id="org7ae838c"><span class="section-number-3">1.1</span> Contracts for a Binary Search implementation.</h3>
+<div id="outline-container-org17b3a32" class="outline-3">
+<h3 id="org17b3a32"><span class="section-number-3">1.1</span> Contracts for a Binary Search implementation.</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>specifiy the contracts/specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.</li>
@@ -39,8 +39,8 @@
 </div>
 </div>
 
-<div id="outline-container-orgab0bf2d" class="outline-2">
-<h2 id="orgab0bf2d"><span class="section-number-2">2</span> Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</h2>
+<div id="outline-container-org674f9ce" class="outline-2">
+<h2 id="org674f9ce"><span class="section-number-2">2</span> Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Consider the following 2 specifications, the second of which has an associated implementation:
@@ -75,8 +75,8 @@ Consider the following 2 specifications, the second of which has an associated i
 </div>
 
 
-<div id="outline-container-orgbd7614f" class="outline-2">
-<h2 id="orgbd7614f"><span class="section-number-2">3</span> Quiz 3:</h2>
+<div id="outline-container-orgfe86c66" class="outline-2">
+<h2 id="orgfe86c66"><span class="section-number-2">3</span> Quiz 3:</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 <b>Immutatiblity</b>: Consider a partial version of Bloch's mutable Stack class:
@@ -119,8 +119,8 @@ System.out.println(s.pop());
 </ul>
 </div>
 
-<div id="outline-container-orgaf74dc7" class="outline-3">
-<h3 id="orgaf74dc7"><span class="section-number-3">3.1</span> Verification using Hoare Logic</h3>
+<div id="outline-container-org22bdc5d" class="outline-3">
+<h3 id="org22bdc5d"><span class="section-number-3">3.1</span> Verification using Hoare Logic</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Given the program
@@ -139,8 +139,12 @@ Given the program
 
 <ol class="org-ol">
 <li>Informally reason that this program is correct with the given <code>P1</code> and <code>Q</code>.</li>
-<li>Find a loop invariant and prove that the program is correct (show your work, i.e., generate the <code>wp</code> and the <code>vc</code> of the program, and reason about these)</li>
-<li>Now, consider the given P2.  Recompute the VC of the program with respect to P2 and reason about the VC (e.g., does P1 -&gt; WP ? if yes, what does that mean,  if not, what does that mean)</li>
+<li>This program <b>is correct</b> with respect to the given precondition <code>P1</code> and postcondition <code>Q</code>.  Prove it by finding a loop invariant and verify the verficiation (show your work, i.e., generate the <code>wp</code> and the <code>vc</code> of the program, and reason about these)</li>
+<li>Now, consider a different precondition <code>P2</code>. 
+<ol class="org-ol">
+<li>Recompute the VC of the program with respect to <code>P2</code>.</li>
+<li>is the VC  <code>P2 -&gt; WP ..</code>  valid?  if yes, what does that mean,  if not, what does that mean?</li>
+</ol></li>
 </ol>
 </div>
 </div>
