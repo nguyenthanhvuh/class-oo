@@ -1513,7 +1513,7 @@
    :END:
 *** Goals: Rep-Invariants, contracts, tests
   
-    Revisit the mutable Poly example from [[./assign03.html][assignment 3]]. That is, use the one based on a map, not an array.
+    Revisit the mutable Poly example from [[#a3][assignment 3]]. That is, use the one based on a map, not an array.
   
     1. Implement =repOk()=.
     1. Introduce a fault (i.e. "bug") that breaks the rep-invariant. Try to do this with a small (conceptual) change to the code. Show that the rep-invariant is broken with a JUnit test.

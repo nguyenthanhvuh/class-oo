@@ -512,3 +512,7 @@ public static void setSmall (int [] a, int i) {
 #   #+begin_comment  
 #       3*3 = 9    11,22,33,12,13,23,21,31,32
 #   #+end_comment    
+
+
+(x <= 10 && !(x!=10)) => x == 10
+x == 10                => x == 10
