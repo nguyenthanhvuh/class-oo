@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-02-28 Mon 18:43 -->
+<!-- 2022-03-07 Mon 15:45 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 619</title>
 <meta name="generator" content="Org mode" />
@@ -18,19 +18,20 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org9852669">1. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</a></li>
-<li><a href="#org095e54d">2. Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</a></li>
-<li><a href="#org68b0ce4">3. Quiz 3:</a></li>
+<li><a href="#org006b75b">1. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</a></li>
+<li><a href="#org156b332">2. Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</a></li>
+<li><a href="#orgee9d5a4">3. Quiz 3: Immutability</a></li>
+<li><a href="#orgd2d4d29">4. Quiz 4:</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org9852669" class="outline-2">
-<h2 id="org9852669"><span class="section-number-2">1</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</h2>
+<div id="outline-container-org006b75b" class="outline-2">
+<h2 id="org006b75b"><span class="section-number-2">1</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-1">
 </div>
 
-<div id="outline-container-orgfab12fc" class="outline-3">
-<h3 id="orgfab12fc"><span class="section-number-3">1.1</span> Contracts for a Binary Search implementation.</h3>
+<div id="outline-container-org1b40725" class="outline-3">
+<h3 id="org1b40725"><span class="section-number-3">1.1</span> Contracts for a Binary Search implementation.</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>specifiy the contracts/specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.</li>
@@ -39,21 +40,21 @@
 </div>
 </div>
 
-<div id="outline-container-org095e54d" class="outline-2">
-<h2 id="org095e54d"><span class="section-number-2">2</span> Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</h2>
+<div id="outline-container-org156b332" class="outline-2">
+<h2 id="org156b332"><span class="section-number-2">2</span> Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Consider the following 2 specifications, the second of which has an associated implementation:
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">static</span> <span style="color: #ECBE7B;">int</span> <span style="color: #c678dd;">minIndex</span> (<span style="color: #ECBE7B;">int</span> [] <span style="color: #dcaeea;">a</span>) {... implementation omitted ... }
-   <span style="color: #5B6268;">// </span><span style="color: #5B6268;">EFFECTS: if a null throw NullPointerException, else if a.length=0 throw</span>
-   <span style="color: #5B6268;">//      </span><span style="color: #5B6268;">IllegalArgumentException else return index of some min element in a.</span>
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">static</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">setSmall</span> (<span style="color: #ECBE7B;">int</span> [] <span style="color: #dcaeea;">a</span>, <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">i</span>) {
-   <span style="color: #5B6268;">// </span><span style="color: #5B6268;">REQUIRES: a != null, 0 &lt;= i &lt; a.length</span>
-   <span style="color: #5B6268;">// </span><span style="color: #5B6268;">MODIFIES a</span>
-   <span style="color: #5B6268;">// </span><span style="color: #5B6268;">EFFECTS: rearranges elements in array a so that some smallest element is at index i</span>
-   <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">j</span> = minIndex(a); <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">t</span> = a[j]; a[j] = a[i]; a[i] = t;    }
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">minIndex</span> (<span style="color: #986801;">int</span> [] <span style="color: #6a1868;">a</span>) {... implementation omitted ... }
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">EFFECTS: if a null throw NullPointerException, else if a.length=0 throw</span>
+   <span style="color: #9ca0a4;">//      </span><span style="color: #9ca0a4;">IllegalArgumentException else return index of some min element in a.</span>
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">setSmall</span> (<span style="color: #986801;">int</span> [] <span style="color: #6a1868;">a</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span>) {
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">REQUIRES: a != null, 0 &lt;= i &lt; a.length</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">MODIFIES a</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">EFFECTS: rearranges elements in array a so that some smallest element is at index i</span>
+   <span style="color: #986801;">int</span> <span style="color: #6a1868;">j</span> = minIndex(a); <span style="color: #986801;">int</span> <span style="color: #6a1868;">t</span> = a[j]; a[j] = a[i]; a[i] = t;    }
 </pre>
 </div>
 
@@ -75,30 +76,30 @@ Consider the following 2 specifications, the second of which has an associated i
 </div>
 
 
-<div id="outline-container-org68b0ce4" class="outline-2">
-<h2 id="org68b0ce4"><span class="section-number-2">3</span> Quiz 3:</h2>
+<div id="outline-container-orgee9d5a4" class="outline-2">
+<h2 id="orgee9d5a4"><span class="section-number-2">3</span> Quiz 3: Immutability</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 <b>Immutatiblity</b>: Consider a partial version of Bloch's mutable Stack class:
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Stack</span> {
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Stack</span> {
 
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">Object</span>[] <span style="color: #dcaeea;">elements</span>;
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">size</span> = 0;
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">Object</span>[] <span style="color: #6a1868;">elements</span>;
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">size</span> = 0;
 
-    <span style="color: #51afef;">public</span> <span style="color: #c678dd;">Stack</span>() { <span style="color: #51afef;">this</span>.elements = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Object</span>[0]; }
+    <span style="color: #e45649;">public</span> <span style="color: #a626a4;">Stack</span>() { <span style="color: #e45649;">this</span>.elements = <span style="color: #e45649;">new</span> <span style="color: #986801;">Object</span>[0]; }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">push</span> (<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">e</span>) {
-        ensureCapacity();      <span style="color: #5B6268;">// </span><span style="color: #5B6268;">implementation omitted from quiz</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">push</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">e</span>) {
+        ensureCapacity();      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">implementation omitted from quiz</span>
         elements[size++] = e;
     }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">Object</span> <span style="color: #c678dd;">pop</span> () {
-        <span style="color: #51afef;">if</span> (size == 0) <span style="color: #51afef;">throw</span> <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">IllegalStateException</span>(<span style="color: #98be65;">"Stack.pop"</span>);
-        <span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">result</span> = elements[--size];
-        elements[size] = <span style="color: #a9a1e1;">null</span>;
-        <span style="color: #51afef;">return</span> result;
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Object</span> <span style="color: #a626a4;">pop</span> () {
+        <span style="color: #e45649;">if</span> (size == 0) <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IllegalStateException</span>(<span style="color: #50a14f;">"Stack.pop"</span>);
+        <span style="color: #986801;">Object</span> <span style="color: #6a1868;">result</span> = elements[--size];
+        elements[size] = <span style="color: #b751b6;">null</span>;
+        <span style="color: #e45649;">return</span> result;
     }
 }
 
@@ -108,9 +109,9 @@ Consider the following 2 specifications, the second of which has an associated i
 Also consider the following client interaction with Stack
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #ECBE7B;">Stack</span> <span style="color: #dcaeea;">s</span> = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Stack</span>();
-s.push(<span style="color: #98be65;">"cat"</span>);
-s.push(<span style="color: #98be65;">"dog"</span>);
+<pre class="src src-java"><span style="color: #986801;">Stack</span> <span style="color: #6a1868;">s</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Stack</span>();
+s.push(<span style="color: #50a14f;">"cat"</span>);
+s.push(<span style="color: #50a14f;">"dog"</span>);
 System.out.println(s.pop());
 </pre>
 </div>
@@ -119,21 +120,21 @@ System.out.println(s.pop());
 </ul>
 </div>
 
-<div id="outline-container-org0ce29a6" class="outline-3">
-<h3 id="org0ce29a6"><span class="section-number-3">3.1</span> Verification using Hoare Logic</h3>
+<div id="outline-container-orgd5d41d2" class="outline-3">
+<h3 id="orgd5d41d2"><span class="section-number-3">3.1</span> Quiz 4: Verification using Hoare Logic</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Given the program
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #5B6268;">// </span><span style="color: #5B6268;">{x &lt;= 1}   # P1</span>
-<span style="color: #5B6268;">// </span><span style="color: #5B6268;">{x &lt;= 11}  # P2</span>
+<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">{x &lt;= 1}   # P1</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">{x &lt;= 11}  # P2</span>
 
-<span style="color: #51afef;">while</span> (x != 10){
-    <span style="color: #a9a1e1;">x</span> := x + 1;
+<span style="color: #e45649;">while</span> (x != 10){
+    <span style="color: #b751b6;">x</span> := x + 1;
 }
 
-<span style="color: #5B6268;">//</span><span style="color: #5B6268;">{x == 10}  # Q</span>
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">{x == 10}  # Q</span>
 </pre>
 </div>
 
@@ -147,6 +148,42 @@ Given the program
 </ol></li>
 </ol>
 </div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgd2d4d29" class="outline-2">
+<h2 id="orgd2d4d29"><span class="section-number-2">4</span> Quiz 4:</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li><p>
+Consider the following (supposedly) immutable class:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">final</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Immutable</span> { 
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">String</span> <span style="color: #6a1868;">string</span>;
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>;
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">list</span>;
+
+    <span style="color: #e45649;">public</span> <span style="color: #a626a4;">Immutable</span>(<span style="color: #986801;">String</span> <span style="color: #6a1868;">string</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">list</span>) {
+        <span style="color: #e45649;">this</span>.string = string;                     <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line A</span>
+        <span style="color: #e45649;">this</span>.x = x;                               <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line B</span>
+        <span style="color: #e45649;">this</span>.list = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">String</span>&gt; (list); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line C</span>
+    }
+
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">String</span> <span style="color: #a626a4;">getString</span>() { <span style="color: #e45649;">return</span> string; }  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line D</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">getInt</span>()    { <span style="color: #e45649;">return</span> x; }       <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line E</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #a626a4;">getList</span>() { <span style="color: #e45649;">return</span> list; }    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line F</span>
+}
+</pre>
+</div>
+<p>
+Which of the lines (A&#x2013;F) has a problem wrt the immutability of class Immutable?
+</p></li>
+<li>For each of the above lines that has problem with immutability, write pseudocode code to demonstrate the issue</li>
+</ol>
 </div>
 </div>
 </div>

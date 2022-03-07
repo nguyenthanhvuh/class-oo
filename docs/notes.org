@@ -1,3 +1,85 @@
+<2022-03-07 Mon>
+In-Class 6A: Iterator
+
+#+begin_src java
+  List<String> list = new List<>();
+  //list = ["b", "c", "d"]
+  Iterator<String> itr = list.iterator(); //iter = [b,c,d]
+  itr.next(); //returns b, iter = [c,d]
+  itr.next(); //return c, iter = [d]
+  itr.next(); //return d, iter = []
+  itr.hasNext() ; //return False
+  itr.next(); //throw NoSuchElem exception
+
+  //hasNext: observer
+  prev();  hasPrev()  //achieving something like do/undo
+  List<String> list = new List<>();
+  //list = ["b", "c", "d"], iter.X = [b,c,d], iter.Y = []
+  itr.next(); //returns b, iter.X = [c,d], iter.Y = [b]
+  itr.next(); //return c, iter.X = [d], iter.Y= [c,b]
+  itr.prev(); //return c, iter.X=[c,d], iter.Y = [b]
+  itr.prev();  //return b, iter.X = [b,c,d], iter.Y = []
+  itr.prev(); // throw NSE exception
+
+  //remove():  will modify contents of list
+  //list = ["b", "c", "d"]
+  Iterator<String> itr = list.iterator(); //iter = [b,c,d], list=[b,c,d], nextCalled=False
+  itr.next(); //returns b, iter = [c,d], list=[b,c,d], nextCalled=True
+  itr.next(); //returns c, iter = [d], list=[b,c,d], nextCalled=True
+  itr.remove(); //iter=[d], list=[b,d], nextCalled=False
+  itr.remove(); //raise Illegal State exception 
+
+#+end_src
+
+#+begin_src java
+// Broken “immutable” time period class
+public class Period {               // Question 3
+    private final Date start;
+    private final Date end;
+    /**
+     * @param start the beginning of the period
+     * @param end the end of the period; must not precede start
+     * @throws IAE if start is after end
+     * @throws NPE if start or end null
+     */
+
+    public Period (Date start, Date end) {
+        if (start.compareTo(end) > 0) throw new IAE();
+        this.start = start; this.end = end;  // Question 1
+    }
+    public Date start() { return start;}    // Question 2
+    public Date end()   { return end;}      // Question 2
+}
+#+end_src
+
+
+#+begin_src java
+      public class MyClass extends Period{
+        private Date myDate = new Date(0);
+        @override public Date start(){
+             if (itsTime()){
+                 return myDate;   // returning some(bad)thing I define 
+             }
+             return super.start()
+         }
+      }
+
+    public class LoanProvider{
+        Period p;
+        public LoanProvider(Period p, other stuff){
+            this.p = p; // no defense copy because Period is immutable
+
+          this.p.start()
+        }
+    }
+
+  Period m = new myClass(); // instead of the start define in class Period,  this uses start method from my class which uses myDate
+  LoanProvider lp = new LoanProvider(m, ..) //will have start from my class
+
+
+
+#+end_src
+
 <2022-02-28 Mon>
 
 HW
