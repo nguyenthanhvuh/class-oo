@@ -63,7 +63,7 @@ public static void setSmall (int [] a, int i) {
       #+end_comment
 
 
-* Quiz 3:
+* Quiz 3: Immutability
 *Immutatiblity*: Consider a partial version of Bloch's mutable Stack class:
    #+begin_src java
      public class Stack {
@@ -114,7 +114,7 @@ public static void setSmall (int [] a, int i) {
      }
    #+end_comment
 
-** Verification using Hoare Logic
+** Quiz 4: Verification using Hoare Logic
    Given the program
    #+begin_src java
      // {x <= 1}   # P1
@@ -163,50 +163,42 @@ public static void setSmall (int [] a, int i) {
 
 
 
-
-
-
-
-
-
-
-
-
+*  Quiz 4:
   
-# *  Quiz 4:
-  
-#   1. Consider the following (supposedly) immutable class:
+  1. Consider the following (supposedly) immutable class:
 
-#      #+begin_src java
-#        public final class Immutable { 
-#            private final String string;
-#            private final int x;
-#            private final List<String> list;
+     #+begin_src java
+       public final class Immutable { 
+           private final String string;
+           private final int x;
+           private final List<String> list;
 
-#            public Immutable(String string, int x, List<String> list) {
-#                this.string = string;                     // Line A
-#                this.x = x;                               // Line B
-#                this.list = new ArrayList<String> (list); // Line C
-#            }
+           public Immutable(String string, int x, List<String> list) {
+               this.string = string;                     // Line A
+               this.x = x;                               // Line B
+               this.list = new ArrayList<String> (list); // Line C
+           }
 
-#            public String getString() { return string; }  // Line D
-#            public int getInt()    { return x; }       // Line E
-#            public List<String> getList() { return list; }    // Line F
-#        }
-#      #+end_src
+           public String getString() { return string; }  // Line D
+           public int getInt()    { return x; }       // Line E
+           public List<String> getList() { return list; }    // Line F
+       }
+     #+end_src
+    Which of the lines (A--F) has a problem wrt the immutability of class Immutable?
+  2. For each of the above lines that has problem with immutability, write pseudocode code to demonstrate the issue
 
-#   Mark whether each line of code is a problem w.r.t. the immutability of class Immutable. 
+    #+begin_comment
+     Only line F (because list is muttable)
 
-#   - Line A:    ____ Yes   ____ No   
-#   - Line B:    ____ Yes   ____ No   
-#   - Line C:    ____ Yes   ____ No   
-#   - Line D:    ____ Yes   ____ No   
-#   - Line E:    ____ Yes   ____ No   
-#   - Line F:    ____ Yes   ____ No  
-
-
-#   2. Write pseudo-code that compromises the immutability of the Immutable class. 
-
+     List<String> list = //... supppose list is [cat, dog]
+     Immutable im = new Immutable("bat", 7, list);
+     list = im.getList();
+     list.add("elephant");   // now I've changed the internal state of Immutable
+                             // from
+                             // <bat, 7, [cat, dog]>
+                             // to
+                             // <bat, 7, [cat, dog, elephant]>
+    #+end_comment
 
 
 # * Quiz 5:  Iterator
@@ -513,6 +505,3 @@ public static void setSmall (int [] a, int i) {
 #       3*3 = 9    11,22,33,12,13,23,21,31,32
 #   #+end_comment    
 
-
-(x <= 10 && !(x!=10)) => x == 10
-x == 10                => x == 10

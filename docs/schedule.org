@@ -340,11 +340,11 @@
    1. Work through an example iterating over a list of strings: =["bat", "cat", "dog"]=
    1. What is the abstract state of an iterator with a =previous()= method?
    1. What is the abstract state of an iterator with the =remove()= method?
-   1. Design an immutable version of the iterator.
-      1. How is =hasNext()= handled?
-      1. How is =next()= handled?
-      1. How is =remove()= handled?
-   1. Exercise the immutable iterator with some sample client code.
+   # 1. Design an immutable version of the iterator.
+   #    1. How is =hasNext()= handled?
+   #    1. How is =next()= handled?
+   #    1. How is =remove()= handled?
+   # 1. Exercise the immutable iterator with some sample client code.
 
 ** In class 6B
    :PROPERTIES:
