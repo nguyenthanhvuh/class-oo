@@ -1,3 +1,108 @@
+<2022-03-21 Mon> Typing / Liskov Substitution Principle
+
+
+- Likov Substitution Principle (LSP)
+  - if B is a substype of A (A is a supertype of B)
+  - foo(a) => foo(b)
+  - property(MAMAL)  => property(CAT)
+
+B is a subtype of A
+- B is more precise than A
+- strengthens properties of A
+- if A has N methods, B also has those N methods + additional methods (specific for B)
+- B's methods are superset of A's
+
+  
+- If B overrides a method of A, then that method (f') must be at least as strong (stronger or equal to) the original method (f).
+  - the specification of f' is stronger than or equal the specification of f
+  - specifications = pre/postconditions
+  - pre    vs   pre':  pre' should weaker than or equal to pre
+    - pre => pre' :  (pre: takes even numbers,   pre':  takes any numbers)
+  - post   vs  post':    post'  should be at least as strong as post 
+    - post' => post   (post : returns integer , post': returns positive integer,     post_int => any_int )
+
+void f(Mamal m);
+void f'(Dog m);
+Dog => Mamal
+Pre' => Pre
+
+o.f(m) => o.f(d)
+
+
+#+begin_src java
+class A:
+public void reduce (Reducer x)
+// Effects: if x is null throw NPE
+// else if x is not appropriate for this throw IAE
+// else reduce this by x
+
+class B:
+public void reduce (Reducer x)
+// Requires: x is not null
+// Effects: if x is not appropriate for this throw IAE
+// else reduce this by x
+
+class C:
+public void reduce (Reducer x)
+// Effects: if x is null return (normally) with no change to this
+// else if x is not appropriate for this throw IAE
+// else reduce this by x
+#+end_src
+
+
+
+- B extends A: violates
+  - preconds: B's precond (x not null) is stronger than A's precond is True -- violates LSP
+  - postconds:
+    - A's post stronger than B -- violates LSP
+
+- C extends A:
+  - preconds: both have no pre, i.e., their preconds are the same -- sat LSP
+  - postconds:
+    - since throwing NPE is stronger than returning normall, C is weaker than A
+    - since returning normally is more preferred than raising exception, A is weaker than C
+    - since diff behaviors (when x is null), cannot compare -- violates LSP
+
+- A extends B:
+  - preconds: A has no pre and therefore is weaker than B -- satisfies LSP     
+  - postconds:
+    - Since A is stronger because it handles null (throwing NPE), but B does not -- satisfies LSP
+    - if taken into account the precond of B, then we only deal inputs when x is not null, in which case the behaviors of both are the same (i.e., equivalence and satisfies LSP).
+
+
+- C extends B:
+  - preconds: C is weaker than B - satisfies LSP
+  - postconds:
+    - since C can handle null input, C is stronger than B
+    - since for non-null cases as required by the pre of B, both C and B hae same posts/behaviors 
+  
+
+- variance vs contravariance: LSP method rule
+
+Greyhound is subtype of Dog, subtype of Animal
+
+Dog -> Dog   (e.g.,  Dog f(Dog))
+
+- GH -> GH  (e.g., Greyhound g(Greyhound))
+  not OK
+  
+  o.f()  ->  o.g(Dog/GermanShepherd)
+- Greyhound -> Animal (e.g., Animal g(Greyhound))
+  not OK
+  o.f()  ->  o.g(Dog/GermanShepherd)
+
+- Animal -> Greyhound (i.e., Greyhound g(Animal))
+
+input type:  precondition (contravariance)
+output type: postcondition (variance)
+
+type-safe
+- TypeScript:  unsafe 
+- 
+  
+
+
+
 <2022-03-07 Mon>
 In-Class 6A: Iterator
 
