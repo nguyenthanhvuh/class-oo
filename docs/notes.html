@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-03-09 Wed 15:17 -->
+<!-- 2022-03-23 Wed 14:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>&lrm;</title>
 <meta name="generator" content="Org mode" />
@@ -15,13 +15,179 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgce8616b">1. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></a></li>
-<li><a href="#org7a04a04">2. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></a></li>
-<li><a href="#orge744a27">3. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></a></li>
-<li><a href="#org68ec5e0">4. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></a></li>
+<li><a href="#orgf806ab3">1. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></a></li>
+<li><a href="#orgb2747c1">2. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></a></li>
+<li><a href="#orga154156">3. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></a></li>
+<li><a href="#org192abc8">4. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></a></li>
 </ul>
 </div>
 </div>
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-03-21 Mon&gt; </span></span> Typing / Liskov Substitution Principle
+</p>
+
+
+<ul class="org-ul">
+<li>Likov Substitution Principle (LSP)
+<ul class="org-ul">
+<li>if B is a substype of A (A is a supertype of B)</li>
+<li>foo(a) =&gt; foo(b)</li>
+<li>property(MAMAL)  =&gt; property(CAT)</li>
+</ul></li>
+</ul>
+
+<p>
+B is a subtype of A
+</p>
+<ul class="org-ul">
+<li>B is more precise than A</li>
+<li>strengthens properties of A</li>
+<li>if A has N methods, B also has those N methods + additional methods (specific for B)</li>
+<li>B's methods are superset of A's</li>
+</ul>
+
+
+<ul class="org-ul">
+<li>If B overrides a method of A, then that method (f') must be at least as strong (stronger or equal to) the original method (f).
+<ul class="org-ul">
+<li>the specification of f' is stronger than or equal the specification of f</li>
+<li>specifications = pre/postconditions</li>
+<li>pre    vs   pre':  pre' should weaker than or equal to pre
+<ul class="org-ul">
+<li>pre =&gt; pre' :  (pre: takes even numbers,   pre':  takes any numbers)</li>
+</ul></li>
+<li>post   vs  post':    post'  should be at least as strong as post 
+<ul class="org-ul">
+<li>post' =&gt; post   (post : returns integer , post': returns positive integer,     post<sub>int</sub> =&gt; any<sub>int</sub> )</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>
+void f(Mamal m);
+void f'(Dog m);
+Dog =&gt; Mamal
+Pre' =&gt; Pre
+</p>
+
+<p>
+o.f(m) =&gt; o.f(d)
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">A</span>:
+<span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce (<span style="color: #986801;">Reducer</span> <span style="color: #6a1868;">x</span>)
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if x is null throw NPE</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if x is not appropriate for this throw IAE</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else reduce this by x</span>
+
+<span style="color: #e45649;">class</span> B:
+<span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce (<span style="color: #986801;">Reducer</span> <span style="color: #6a1868;">x</span>)
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: x is not null</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if x is not appropriate for this throw IAE</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else reduce this by x</span>
+
+<span style="color: #e45649;">class</span> C:
+<span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce (<span style="color: #986801;">Reducer</span> <span style="color: #6a1868;">x</span>)
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if x is null return (normally) with no change to this</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if x is not appropriate for this throw IAE</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else reduce this by x</span>
+</pre>
+</div>
+
+
+
+<ul class="org-ul">
+<li>B extends A: violates
+<ul class="org-ul">
+<li>preconds: B's precond (x not null) is stronger than A's precond is True &#x2013; violates LSP</li>
+<li>postconds:
+<ul class="org-ul">
+<li>A's post stronger than B &#x2013; violates LSP</li>
+</ul></li>
+</ul></li>
+
+<li>C extends A:
+<ul class="org-ul">
+<li>preconds: both have no pre, i.e., their preconds are the same &#x2013; sat LSP</li>
+<li>postconds:
+<ul class="org-ul">
+<li>since throwing NPE is stronger than returning normall, C is weaker than A</li>
+<li>since returning normally is more preferred than raising exception, A is weaker than C</li>
+<li>since diff behaviors (when x is null), cannot compare &#x2013; violates LSP</li>
+</ul></li>
+</ul></li>
+
+<li>A extends B:
+<ul class="org-ul">
+<li>preconds: A has no pre and therefore is weaker than B &#x2013; satisfies LSP</li>
+<li>postconds:
+<ul class="org-ul">
+<li>Since A is stronger because it handles null (throwing NPE), but B does not &#x2013; satisfies LSP</li>
+<li>if taken into account the precond of B, then we only deal inputs when x is not null, in which case the behaviors of both are the same (i.e., equivalence and satisfies LSP).</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+<ul class="org-ul">
+<li>C extends B:
+<ul class="org-ul">
+<li>preconds: C is weaker than B - satisfies LSP</li>
+<li>postconds:
+<ul class="org-ul">
+<li>since C can handle null input, C is stronger than B</li>
+<li>since for non-null cases as required by the pre of B, both C and B hae same posts/behaviors</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+<ul class="org-ul">
+<li>variance vs contravariance: LSP method rule</li>
+</ul>
+
+<p>
+Greyhound is subtype of Dog, subtype of Animal
+</p>
+
+<p>
+Dog -&gt; Dog   (e.g.,  Dog f(Dog))
+</p>
+
+<ul class="org-ul">
+<li><p>
+GH -&gt; GH  (e.g., Greyhound g(Greyhound))
+not OK
+</p>
+
+<p>
+o.f()  -&gt;  o.g(Dog/GermanShepherd)
+</p></li>
+<li>Greyhound -&gt; Animal (e.g., Animal g(Greyhound))
+not OK
+o.f()  -&gt;  o.g(Dog/GermanShepherd)</li>
+
+<li>Animal -&gt; Greyhound (i.e., Greyhound g(Animal))</li>
+</ul>
+
+<p>
+input type:  precondition (contravariance)
+output type: postcondition (variance)
+</p>
+
+<p>
+type-safe
+</p>
+<ul class="org-ul">
+<li>TypeScript:  unsafe</li>
+<li></li>
+</ul>
+
+
+
+
 <p>
 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-03-07 Mon&gt;</span></span>
 In-Class 6A: Iterator
@@ -355,8 +521,8 @@ leave: YES, satisfy contract
 
 
 
-<div id="outline-container-orgce8616b" class="outline-2">
-<h2 id="orgce8616b"><span class="section-number-2">1</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></h2>
+<div id="outline-container-orgf806ab3" class="outline-2">
+<h2 id="orgf806ab3"><span class="section-number-2">1</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Hoare Tripple
@@ -775,8 +941,8 @@ N, i , x
 </div>
 
 
-<div id="outline-container-org7a04a04" class="outline-2">
-<h2 id="org7a04a04"><span class="section-number-2">2</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></h2>
+<div id="outline-container-orgb2747c1" class="outline-2">
+<h2 id="orgb2747c1"><span class="section-number-2">2</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></h2>
 <div class="outline-text-2" id="text-2">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">months</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">principal</span>, <span style="color: #986801;">double</span> <span style="color: #6a1868;">rate</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">payment</span>){
@@ -1041,8 +1207,8 @@ Total correctness: does not make the assumption that S will terminate (halting p
 </div>
 
 
-<div id="outline-container-orge744a27" class="outline-2">
-<h2 id="orge744a27"><span class="section-number-2">3</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></h2>
+<div id="outline-container-orga154156" class="outline-2">
+<h2 id="orga154156"><span class="section-number-2">3</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li><p>
@@ -1225,8 +1391,8 @@ specification too specific to implentation (remove(0)), to fix: throws IAE inste
 </div>
 </div>
 
-<div id="outline-container-org68ec5e0" class="outline-2">
-<h2 id="org68ec5e0"><span class="section-number-2">4</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></h2>
+<div id="outline-container-org192abc8" class="outline-2">
+<h2 id="org192abc8"><span class="section-number-2">4</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></h2>
 <div class="outline-text-2" id="text-4">
 <p>
 What does it mean to write correct software?

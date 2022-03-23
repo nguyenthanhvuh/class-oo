@@ -222,7 +222,6 @@ Consider the code below which uses ~elements()~. Line numbers have been added fo
 
         1: s.insert(2);
         2: s.insert(8);
-
         3: Iterator itr = s.elements();   
         4: itr.next();                    
         5: itr.next();                    
@@ -231,9 +230,9 @@ Consider the code below which uses ~elements()~. Line numbers have been added fo
 
   #+end_src
 	
-- show the (stack) contents of ~itr~  after line 2
+- show the (stack) contents of ~itr~  after line 3
 #+begin_comment
-[2,8]
+[2,8]  or [8,2]
 #+end_comment
 - show the contents of ~itr~  after line 5.
 #+begin_comment
