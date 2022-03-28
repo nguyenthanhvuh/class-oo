@@ -28,7 +28,7 @@
   |      14 | Contract Model in Testing                | Advanced JUnit ([[./files/Ch03-automation.pptx ][slides 22-24)]]                          | [[#a11][A11 Due]] |                 IC [[#ic13][13]]                 |
   |      15 | Enums and Annotations                    | Bloch 6                                                                                   | [[#a12][A12 Due]] |        IC 14 [[#ic14A][A]] [[#ic14B][B]]         |
   |      16 | Final Exam Review                        | /No New Material/                                                                         |                   |                 IC [[#ic15][15]]                 |
-  |      17 | Final Exam 12/13 @ 4:30                  | /In-Person/                                                                               |                   |                                                  |
+  |      17 | Final Exam                               | /In-Person/                                                                               |                   |                                                  |
 
 
 * In class Assignments

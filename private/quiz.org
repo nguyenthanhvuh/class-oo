@@ -244,42 +244,42 @@ Undefined behavior or violating the requirements of iteration
 #+end_comment
 
 
-# * Quiz 6:  Type
+* Quiz 6:  Type
 
-#   #+begin_src java
-#  class A {
-#     public Iterator compose (Iterator itr)
-#     // Requires: itr is not null
-#     // Modifies: itr
-#     // Effects: if this is not appropriate for itr throw IAE
-#     // else return generator of itr composed with this
-#  class B {
-#     public Iterator compose (Iterator itr)
-#     // Modifies: itr
-#     // Effects: if itr is null throw NPE 
-#     // else if this is not appropriate for itr throw IAE
-#     // else return generator of itr composed with this
-#  class C {
-#     public Iterator compose (Iterator itr)
-#     // Modifies: itr
-#     // Effects: if itr is null return iterator equal to this
-#     // else if this is not appropriate for itr throw IAE
-#     // else return generator of itr composed with this
-#    #+end_src
+  #+begin_src java
+ class A {
+    public Iterator compose (Iterator itr)
+    // Requires: itr is not null
+    // Modifies: itr
+    // Effects: if this is not appropriate for itr throw IAE
+    // else return generator of itr composed with this
+ class B {
+    public Iterator compose (Iterator itr)
+    // Modifies: itr
+    // Effects: if itr is null throw NPE 
+    // else if this is not appropriate for itr throw IAE
+    // else return generator of itr composed with this
+ class C {
+    public Iterator compose (Iterator itr)
+    // Modifies: itr
+    // Effects: if itr is null return iterator equal to this
+    // else if this is not appropriate for itr throw IAE
+    // else return generator of itr composed with this
+   #+end_src
 
-#  Analyze the =compose()= method in each of these cases. For each case, state if the precondition and the postcondition parts are OK or fail, and justify.
+ Analyze the =compose()= method in each of these cases. For each case, state if the precondition and the postcondition parts are OK or fail, and justify.
 
-#  1. B extends A. 
-#  1. C extends A. 
-#  1. A extends B. 
-#  1. C extends B.    
-#  1. B extends C. 
+ 1. B extends A. 
+ 1. C extends A. 
+ 1. A extends B. 
+ 1. C extends B.    
+ 1. B extends C. 
 
-# #+begin_comment
-# 4. C extends B
-# C pre:  OK,  same pre as B
-# C post: OK, stronger (assuming returning a an iterator equal to this)
-# #+end_comment
+#+begin_comment
+4. C extends B
+C pre:  OK,  same pre as B
+C post: OK, stronger (assuming returning a an iterator equal to this)
+#+end_comment
 
 # * Quiz 7:
 
