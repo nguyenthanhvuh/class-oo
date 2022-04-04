@@ -1,3 +1,101 @@
+<2022-04-04 Mon>
+
+- Comparable vs Comparator
+
+  #+begin_src java
+    class Person implements Comparable{
+    int age;
+    String name;
+    int years_of_experiences;
+    
+    public int compareTo(Person p){
+      age.compare(p.age);
+    }
+
+
+    class NamePerson implements Comparator{
+    public int compare (Person p1, Person p2){
+    //compare name
+    }
+
+
+    Coolections.sort(collection_of_person, new NamePerson())
+  #+end_src
+
+  - Lambda Expression
+    #+begin_src python
+      my_list = [1, 2, 3, 4, 5, 6]
+
+      def mydouble(x):
+         return x*2
+
+      my_double_list = map(mydouble, my_list)
+      [2,4,6,10,12]
+
+      my_double_list = map(lambda x: x*2, my_list)
+
+
+      def mymulby(n):
+          return lambda x: x*n
+
+       double = mymulby(2) # double = lambda x:x*2
+       double(10)=20
+       double(11)=22
+
+       triple = mymulby(3)
+       triple(10)=30
+       triple(-1)=-3
+
+    #+end_src
+    
+
+
+Consider the following Market class.
+#+begin_src java
+class Market {
+    private Set<Item> wanted;           // items for which prices are of interest
+    private Bag<Item, Money> offers;    // offers to sell items at specific prices
+    // Note:  Bag isn't a Java data type.  Here, the bag entries are pairs.
+
+    public void offer (Item item, Money price)
+    // Requires: item is an element of wanted
+    // Effects:  add (item, price) to offers
+
+        public Money buy(Item item)
+    // Requires: item is an element of the domain of offers
+    // Effects: choose and remove some (arbitrary) pair (item, price) from
+    //          offers and return the chosen price
+        }
+#+end_src
+Suppose that offers are only accepted if they are lower than previous offers.
+
+#+begin_src java
+class Low_Bid_Market extends Market {
+    public void offer (Item item, Money price)
+    // Requires: item is an element of wanted
+    // Effects:  if (item, price) is not cheaper than any existing pair
+    //           (item, existing_price) in offers do nothing
+    //           else add (item, price) to offers
+
+Is Low_Bid_Market a valid subtype of Market? Appeal to the methods rule to back up your answer.
+#+end_src
+
+
+
+Suppose that the buy() method always chooses the lowest price on an item.
+
+#+begin_src java
+class Low_Offer_Market extends Market {
+    public Money buy(Item item)
+    // Requires: item is an element the domain of offers
+    // Effects: choose and remove pair (item, price) with the 
+    //          lowest price from offers and return the chosen price
+Is Low_Offer_Market a valid subtype of Market? Appeal to the methods rule to back up your answer.
+
+#+end_src
+
+
+
 <2022-03-21 Mon> Typing / Liskov Substitution Principle
 
 
