@@ -95,6 +95,74 @@ Is Low_Offer_Market a valid subtype of Market? Appeal to the methods rule to bac
 #+end_src
 
 
+In-class 9
+
+Approach 1
+
+#+begin_src java
+  public static void findPersonOlderThan(List<Person> listOfPerson, int age) {
+          for (Person p : listOfPerson) {
+                  if (p.getAge() >= age) p.printPerson();
+          }
+  }
+#+end_src
+
+Approach 2
+#+begin_src java
+  public static void findPersonOlderThan(List<Person> listOfPerson, int lower, upper) {
+          for (Person p : listOfPerson) {
+                  if (p.getAge() >= lower && p.getAge() <= lower) p.printPerson();
+          }
+  }
+#+end_src
+
+Approach 3
+#+begin_src java
+  public static void printPersons(List<Person> roster, CheckPerson tester) {
+          for (Person p : roster) {
+              if (tester.test(p)) {
+                  p.printPerson();
+              }
+          }
+      }
+
+  interface CheckPerson {
+      boolean test(Person p);
+  }
+
+
+  class CheckPersonEligibleForSelectiveService implements CheckPerson {
+      public boolean test(Person p) {
+          return p.gender == Person.Sex.MALE &&
+              p.getAge() >= 18 &&
+              p.getAge() <= 25;
+      }
+  }
+
+#+end_src
+
+Approach 4
+#+begin_src java
+  public static void printPersons(List<Person> roster,
+                                new CheckPerson{
+                                  public boolean test(Person p){
+                                      return p.gender == Person.Sex.MALE &&
+                                          p.getAge() >= 18 &&
+                                          p.getAge() <= 25;
+                                    }
+                                  }
+                                )
+#+end_src
+
+Approach 5
+#+begin_src java
+  public static void printPersons(List<Person> roster,
+                                (Person p) -> p.getGender() == Person.Sex.MALE &&
+                                  p.getAge() >= 18 &&
+                                  p.getAge() <= 25
+                                )
+#+end_src
+
 
 <2022-03-21 Mon> Typing / Liskov Substitution Principle
 
