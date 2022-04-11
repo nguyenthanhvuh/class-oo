@@ -1179,9 +1179,10 @@ Item 27: Suppress Warnings
     public <T> T[] toArray (T[] a) {
       if (a.length < size)
          @SuppressWarnings(“unchecked”)
+             //copyOf copyes Objects so it would warn that Objects[] is not the same as T[]
          T[]results = (T[]) Arrays.copyOf(elements, size, a.getClass());
          return results
-           
+
       System.arraycopy(elements, 0, a, 0, size);
       if (a.length > size)  a[size] = null;
       return a; }
@@ -1243,8 +1244,9 @@ Item 29: Favor generic types
      private static final int CAP = 16;
 
      public Stack() {
-       @supresswarning ...
-       elements = new (E []) Object [CAP];
+         
+       @supresswarning ... //warnings about castings, check if code is correct, if so then suppress warning
+       elements = new (E []) Object [CAP];  // give errors if just do element s= new E [CAP] because trying to mix generics with arrays,  have to convert it first like this
 
      }
 
@@ -1295,12 +1297,14 @@ Item 31: Bounded Wildcards
     }
 
       //  pushAll method without a wildcard type – deficient!
+      // only add E  (but not its subtype)
           public void pushAll( Iterable<E> src) {
              for (E e : src) { push(e); }
           }
 
 
      //  wildcard type for parameter that serves as an E producer
+     // allows everything that is subtypes of E
           public void pushAll( Iterable<? extends E> src) {
              for (E e : src) { push(e); }
           }
@@ -1312,17 +1316,22 @@ Item 31: Bounded Wildcards
         }
 
   # PECS: procer extends and consumer super
-                     
+
 #+end_src
 
+
+A8
+
+First attempt: compiler errors
 
 #+begin_src java
   public class Chooser<T> {
       private final T[] choiceArray;
 
       public Chooser (Collection<T> choices) {
+          choiceArray = choices.toArray();// compiler errors: cannot convert to T, 
         @supresswarning..
-          choiceArray = (T[]) choices.toArray();
+          choiceArray = (T[]) choices.toArray();  //cast to (T[]),  got a warning, supress it because we know it is safe because choiceArray is of type T
       }
 
       public T choose() { 
@@ -1331,9 +1340,10 @@ Item 31: Bounded Wildcards
 #+end_src
    
 
+
 #+begin_src java
   public class Chooser<T> {
-     private final List<T> choiceList;
+     private final List<T> choiceList; //List instead of Array
 
 
      // Rep invs: choiceList != null && size(choices) > 0
