@@ -1119,13 +1119,15 @@ HW assignment 7 (abs value in comparator)
 
 Generics 
 
-- Summary
-  - Generics are safer (type-safe and give errors at *compilation time*) than raw types (gives erros at *runtime*)
-  - Raw types still allowed due to backward compability
 
     
 
 Item 26: Don't use Raw Type
+
+- Summary
+  - Generics are safer (type-safe and give errors at *compilation time*) than raw types (gives erros at *runtime*)
+  - Raw types still allowed due to backward compability
+
 
 - List: raw
 - List<E>: generics
@@ -1197,6 +1199,7 @@ Item 27: Suppress Warnings
 
 
 Item 28: Prefer Lists over Arrays
+
 - Lists play well with Generics
 
 - Arrays are covariant; and generics are invariant

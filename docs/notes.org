@@ -1,3 +1,146 @@
+<2022-04-11 Mon>
+* Generics
+
+- Don't use Raw types (item 26)
+  
+List<E> : generic type
+List :  raw type
+List<String>:  parameterized type
+
+#+begin_src java
+  // Now a raw collection type – don’t do this
+     private final Collection stamps = …; // Contains only Stamps
+  // Erroneous insertion of coin into stamp collection
+     stamps.add(new Coin(…));   // Oops!  We’re set up for ClassCastException later
+
+   for (Iterator I = stamps.iterator(); i.hasNext(); ) {
+      Stamp s = (Stamp) i.next();       // Throws ClassCastException
+       …//  Do something with the stamp
+    }
+
+  // Parameterized collection type - typesafe 
+     private final Collection<Stamp> stamps = …;
+     stamps.add(new Coin(…));  // result is instead a compile time error, which is good
+
+  for(Stamp s: stamps){
+    //do something with the stamp s
+    }
+#+end_src
+
+#+begin_src java
+      List<String> strings = new ArrayList<String>();
+      unsafeAdd(strings, new Integer(42));
+      String s = strings.get(0);  //can cause error at runtime
+
+       // note use of raw types
+       private static void unsafeAdd(List list, Object o) {
+          list.add(o);
+       }
+
+      private static void unsafeAdd( List<Object> list, Object o) {
+          list.add(o);
+      }
+#+end_src
+
+** Suppress Warnings (Item 27)
+#+begin_src java
+    Set<Lark> exaltation = new HashSet();              // warning
+    Set<Lark> exaltation = new HashSet<Lark>();              // no warning
+
+
+    public <T> T[] toArray (T[] a) {
+      if (a.length < size)
+         @SuppressWarnings(“unchecked”)
+             //copyOf copyes Objects so it would warn that Objects[] is not the same as T[]
+         T[]results = (T[]) Arrays.copyOf(elements, size, a.getClass());
+         return results
+
+      System.arraycopy(elements, 0, a, 0, size);
+      if (a.length > size)  a[size] = null;
+      return a; }
+
+  /*
+    ArrayList.java:305: warning [unchecked] unchecked cast
+  found   : Object[], required T[]    
+      return (T[]) Arrays.copyOf(elements, size, a.getClass());
+   ,*/
+
+#+end_src
+
+** Prefer Lists over Arrays
+Arrays are *covariant* and Lists are *invariant*
+- Array[Subtype] is a subtype of Array[Type]:  covariant
+- List[Subtype] has NO relationship with List[Type]:  invariant
+
+
+#+begin_src java
+// Fails at runtime
+Object[] objectArray = new Long[1];
+objectArray[0] = “I don’t fit in!”;           // Throws ArrayStoreException
+
+// Won’t compile
+List<Object> o1 = new ArrayList<Long>();
+o1.add(“I don’t fit in!”);                           //  Incompatible types
+#+end_src
+
+** Prefer Generic Types (Item 29)
+
+*Generify* code
+
+private Object[] elements; // private E[] elements (1st attempt) /=> private List<E> elements ..
+
+** Prefer Generic Methods (Item 30)
+
+#+begin_src java
+
+  // Uses raw types – unacceptable! (Item 23)
+  public static Set union (Set s1, Set s2)  {  
+     Set result = new HashSet(s1);              // Generates a warning              
+     result.addAll(s2);                                 // Generates a warning
+     return result;
+  }
+  
+  // Generic method 
+     public static <E> Set <E> union (Set <E> s1, Set  <E> s2)  {  
+     Set <E> result = new HashSet <E> (s1);              
+     result.addAll(s2);                                 
+     return result;
+  }
+#+end_src
+
+
+** Bounded WildCards
+#+begin_src java
+    public class Stack <E> {
+       public Stack()
+       public void push( E e ) 
+       public E pop()
+       public boolean isEmpty()
+    }
+
+      //  pushAll method without a wildcard type – deficient!
+      // only add E  (but not its subtype)
+          public void pushAll( Iterable<E> src) {
+             for (E e : src) { push(e); }
+          }
+
+
+     //  wildcard type for parameter that serves as an E producer
+     // allows everything that is subtypes of E
+          public void pushAll( Iterable<? extends E> src) {
+             for (E e : src) { push(e); }
+          }
+
+
+       // wildcard type for parameter that serves as an E consumer
+         public void popAll ( Collection<? super E> dst) {
+             while (!isEmpty()) { dst.add(pop()); }
+        }
+
+  //PECS: procer extends and consumer super
+#+end_src
+
+
 <2022-04-04 Mon>
 
 - Comparable vs Comparator

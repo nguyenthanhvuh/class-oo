@@ -3,37 +3,38 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-04-04 Mon 17:48 -->
+<!-- 2022-04-11 Mon 17:48 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 619</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
 </head>
 <body>
-<div id="content">
+<div id="content" class="content">
 <h1 class="title">SWE 619</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd866bde">1. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</a></li>
-<li><a href="#org017032d">2. Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</a></li>
-<li><a href="#org60ae0d1">3. Quiz 3: Immutability</a></li>
-<li><a href="#org79e8679">4. Quiz 4: Immutable class</a></li>
-<li><a href="#orgc52cfb1">5. Quiz 5:  Iterator</a></li>
-<li><a href="#orgd0cad81">6. Quiz 6:  Type</a></li>
+<li><a href="#org751fdc0">1. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</a></li>
+<li><a href="#org1b2e4b0">2. Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</a></li>
+<li><a href="#orgc757f92">3. Quiz 3: Immutability</a></li>
+<li><a href="#orgde1d111">4. Quiz 4: Immutable class</a></li>
+<li><a href="#orgd403fe8">5. Quiz 5:  Iterator</a></li>
+<li><a href="#org37ca8cd">6. Quiz 6:  Type</a></li>
+<li><a href="#orgcbc9da7">7. Quiz 7:</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd866bde" class="outline-2">
-<h2 id="orgd866bde"><span class="section-number-2">1</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</h2>
+<div id="outline-container-org751fdc0" class="outline-2">
+<h2 id="org751fdc0"><span class="section-number-2">1.</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-1">
 </div>
 
-<div id="outline-container-orgbe2994a" class="outline-3">
-<h3 id="orgbe2994a"><span class="section-number-3">1.1</span> Contracts for a Binary Search implementation.</h3>
+<div id="outline-container-org33de761" class="outline-3">
+<h3 id="org33de761"><span class="section-number-3">1.1.</span> Contracts for a Binary Search implementation.</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>specifiy the contracts/specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.</li>
@@ -42,8 +43,8 @@
 </div>
 </div>
 
-<div id="outline-container-org017032d" class="outline-2">
-<h2 id="org017032d"><span class="section-number-2">2</span> Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</h2>
+<div id="outline-container-org1b2e4b0" class="outline-2">
+<h2 id="org1b2e4b0"><span class="section-number-2">2.</span> Quiz 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Consider the following 2 specifications, the second of which has an associated implementation:
@@ -78,8 +79,8 @@ Consider the following 2 specifications, the second of which has an associated i
 </div>
 
 
-<div id="outline-container-org60ae0d1" class="outline-2">
-<h2 id="org60ae0d1"><span class="section-number-2">3</span> Quiz 3: Immutability</h2>
+<div id="outline-container-orgc757f92" class="outline-2">
+<h2 id="orgc757f92"><span class="section-number-2">3.</span> Quiz 3: Immutability</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 <b>Immutatiblity</b>: Consider a partial version of Bloch's mutable Stack class:
@@ -90,7 +91,7 @@ Consider the following 2 specifications, the second of which has an associated i
     <span style="color: #e45649;">private</span> <span style="color: #986801;">Object</span>[] <span style="color: #6a1868;">elements</span>;
     <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">size</span> = 0;
 
-    <span style="color: #e45649;">public</span> <span style="color: #a626a4;">Stack</span>() { <span style="color: #e45649;">this</span>.elements = <span style="color: #e45649;">new</span> <span style="color: #986801;">Object</span>[0]; }
+    <span style="color: #e45649;">public</span> Stack() { <span style="color: #e45649;">this</span>.elements = <span style="color: #e45649;">new</span> <span style="color: #986801;">Object</span>[0]; }
 
     <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">push</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">e</span>) {
         ensureCapacity();      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">implementation omitted from quiz</span>
@@ -122,8 +123,8 @@ System.out.println(s.pop());
 </ul>
 </div>
 
-<div id="outline-container-orga1439a7" class="outline-3">
-<h3 id="orga1439a7"><span class="section-number-3">3.1</span> Quiz 4: Verification using Hoare Logic</h3>
+<div id="outline-container-orge962e14" class="outline-3">
+<h3 id="orge962e14"><span class="section-number-3">3.1.</span> Quiz 4: Verification using Hoare Logic</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Given the program
@@ -155,8 +156,8 @@ Given the program
 
 
 
-<div id="outline-container-org79e8679" class="outline-2">
-<h2 id="org79e8679"><span class="section-number-2">4</span> Quiz 4: Immutable class</h2>
+<div id="outline-container-orgde1d111" class="outline-2">
+<h2 id="orgde1d111"><span class="section-number-2">4.</span> Quiz 4: Immutable class</h2>
 <div class="outline-text-2" id="text-4">
 <ol class="org-ol">
 <li><p>
@@ -169,7 +170,7 @@ Consider the following (supposedly) immutable class:
     <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>;
     <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">list</span>;
 
-    <span style="color: #e45649;">public</span> <span style="color: #a626a4;">Immutable</span>(<span style="color: #986801;">String</span> <span style="color: #6a1868;">string</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">list</span>) {
+    <span style="color: #e45649;">public</span> Immutable(<span style="color: #986801;">String</span> <span style="color: #6a1868;">string</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">list</span>) {
         <span style="color: #e45649;">this</span>.string = string;                     <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line A</span>
         <span style="color: #e45649;">this</span>.x = x;                               <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line B</span>
         <span style="color: #e45649;">this</span>.list = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">String</span>&gt; (list); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line C</span>
@@ -190,8 +191,8 @@ Which of the lines (A&#x2013;F) has a problem wrt the immutability of class Immu
 </div>
 
 
-<div id="outline-container-orgc52cfb1" class="outline-2">
-<h2 id="orgc52cfb1"><span class="section-number-2">5</span> Quiz 5:  Iterator</h2>
+<div id="outline-container-orgd403fe8" class="outline-2">
+<h2 id="orgd403fe8"><span class="section-number-2">5.</span> Quiz 5:  Iterator</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 The specification for Liskov's <code>elements()</code> method is given below. 
@@ -245,8 +246,8 @@ Consider the code below which uses <code>elements()</code>. Line numbers have be
 </div>
 
 
-<div id="outline-container-orgd0cad81" class="outline-2">
-<h2 id="orgd0cad81"><span class="section-number-2">6</span> Quiz 6:  Type</h2>
+<div id="outline-container-org37ca8cd" class="outline-2">
+<h2 id="org37ca8cd"><span class="section-number-2">6.</span> Quiz 6:  Type</h2>
 <div class="outline-text-2" id="text-6">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">A</span> {
@@ -280,6 +281,28 @@ Analyze the <code>compose()</code> method in each of these cases according to Li
 <li>A extends B.</li>
 <li>C extends B.</li>
 <li>B extends C.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgcbc9da7" class="outline-2">
+<h2 id="orgcbc9da7"><span class="section-number-2">7.</span> Quiz 7:</h2>
+<div class="outline-text-2" id="text-7">
+<div class="org-src-container">
+<pre class="src src-java">   <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">t</span> = <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">See questions below</span>
+
+   t.add(<span style="color: #50a14f;">"antelope"</span>);
+   t.add(<span style="color: #50a14f;">"dog"</span>);
+   t.add(<span style="color: #50a14f;">"cat"</span>);
+
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">t.toString() is ???</span>
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li>Suppose <code>t</code> is instantiated as <code>Set&lt;String&gt; t = new TreeSet&lt;String&gt;();</code>.  At the end of the computation, what is <code>t.toString()?</code></li>
+<li>Suppose <code>t</code> is instantiated as <code>Set&lt;String&gt; t = new TreeSet&lt;String&gt;((x,y) -&gt; x.length() - y.length());</code>. At the end of the computation, what is <code>t.toString()?</code></li>
 </ol>
 </div>
 </div>

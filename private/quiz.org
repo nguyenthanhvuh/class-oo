@@ -318,14 +318,13 @@ Answer: Not satisfied: Inconsistent behavior in case where itr is null
 
 
 1. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>();~.  At the end of the computation, what is ~t.toString()?~ 
-#+begin_comment
-Answer: [antelope, cat, dog]
-#+end_comment
-
+  #+begin_comment
+  Answer: [antelope, cat, dog]
+  #+end_comment
 2. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> x.length() - y.length());~. At the end of the computation, what is ~t.toString()?~
-#+begin_comment
-Answer: [dog, antelope]
-#+end_comment
+  #+begin_comment
+  Answer: [dog, antelope]
+  #+end_comment
 
 # 3. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> y.compareTo(x));~. At the end of the computation, what is ~t.toString()?~
 # #+begin_comment
