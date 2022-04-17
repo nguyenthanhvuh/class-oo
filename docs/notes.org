@@ -140,6 +140,80 @@ private Object[] elements; // private E[] elements (1st attempt) /=> private Lis
   //PECS: procer extends and consumer super
 #+end_src
 
+#+begin_src java
+public class Chooser {
+    private final Object[] choiceArray;
+
+    public Chooser (Collection choices) {
+        choiceArray = choices.toArray();
+    }
+
+    public Object choose() {
+        Random rnd = ThreadLocalRandom.current();
+        return choiceArray [rnd.nextInt(choiceArray.length)];
+#+end_src
+
+First attempt, 
+
+#+begin_src java
+  public class Chooser<T> {
+      private final T[] choiceArray;
+
+      public Chooser (Collection<T> choices) {
+          choiceArray = choices.toArray();// compiler errors: cannot convert to T,
+          
+        @supresswarning..
+          choiceArray = (T[]) choices.toArray();  //cast to (T[]),  got a warning, supress it because we know it is safe because choiceArray is of type T
+      }
+
+      public T choose() { 
+          Random rnd = ThreadLocalRandom.current();
+          return choiceArray [rnd.nextInt(choiceArray.length)];
+#+end_src
+
+
+List attempt
+#+begin_src java
+  public class Chooser<T> {
+     private final List<T> choiceList; //List instead of Array
+
+      //repr inv: choiceList != null, cannot be empty
+
+      //preconds:  choices != null, choices cannot be empty, choices not containing null
+      //postcondition: creates a Chooser from choices
+
+      //alternative:
+      //preconds: none
+      //postcond:
+      //if choices is empty, then raise IAE
+      //if choices is null, throw exception
+      //if choices contain null, throw some exception
+      //creates a Chooser from choices
+     public Chooser(Collection<T> choices) {
+         if (choice.size() == 0) throw IllegalArException(); // ADD
+         //if choice == null throw ...
+         //...
+         choiceList = new ArrayList<>(choices);
+     }
+
+     //precond: none
+     //post: returns a random choice in choicelist
+     public T choose() {
+         Random rnd = ThreadLocalRandom.current();
+         return choiceList.get(rnd.nextInt(choiceList.size()));
+     }
+
+      //precond: none
+      //postcond:
+      //if choice is null throw exception ...
+      //otherwise add choice to choicelist
+     public void addChoice(T choice){
+         if (choice == null) throw ...;
+         choiceList.add(choice);
+     }
+
+#+end_src
+
 
 <2022-04-04 Mon>
 

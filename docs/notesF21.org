@@ -1,3 +1,5 @@
+
+
 <2021-12-06 Mon>
 
 Final review
@@ -1348,8 +1350,7 @@ First attempt: compiler errors
   public class Chooser<T> {
      private final List<T> choiceList; //List instead of Array
 
-
-     // Rep invs: choiceList != null && size(choices) > 0
+     // Rep invs: choiceList != null && size(choicesList) > 0
 
      // Requires/Precond: None
      // Post: if choices is null , throw IAE

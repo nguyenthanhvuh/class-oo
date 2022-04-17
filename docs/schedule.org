@@ -1624,7 +1624,7 @@
 
 *** Goals: Generics
 
-    Consider the [[./files/BoundedQueue.java][BoundedQueue]] example from in-class exercise [[./inclass08C.html][#ic8C]].
+    Consider the [[./files/BoundedQueue.java][BoundedQueue]] example from the in-class exercise given [[#ic10C]].
 
     Complete the generic part of the exercise: The result should be fully generic, and there should not be any compiler warnings. You should adopt Bloch's advice about lists vs. arrays; doing so will eliminate the need for many of the instance variables.
 
