@@ -1,4 +1,156 @@
+<2022-04-18 Mon>
+* Common Java Methods
+
+- equals, toString, hash, clone, etc
+
+- toString(): show abstract states/ things that are useful for the users
+
+- =equals()=
+  - reflexive:  x.equals(x)
+  - symmetric:   x.equals(y)  <->  y.equals(x)
+  - transitive:  x.equals(y) && y.equals(z) -> x.equals(z)
+
+  Mathematical equivalence:
+
+  Liskov Substitution Principle: if a Rectangle is subtype of a Shape, then Rectangle is also a Shape.
+
+
+  - consistent: ....
+  - 
+
+#+begin_src java
+  public final class CaseInsensitiveString {
+
+      private final String s;
+
+      public CaseInsensitiveString(String s) {
+          this.s = Objects.requireNonNull(s);
+
+      }
+
+      @Override public boolean equals(Object o) {
+          if (o instanceof CaseInsensitiveString)
+              return s.equalsIgnoreCase(
+                  ((CaseInsensitiveString) o).s);
+          if (o instanceof String)  // One-way interoperability!
+              return s.equalsIgnoreCase((String) o);
+          return false;          
+      }
+
+      @Override public boolean equals(Object o) {
+          return (o instanceof CaseInsensitiveString  && s.equalsIgnoreCase(
+                  ((CaseInsensitiveString) o).s))  
+      }      
+#+end_src
+  
+#+begin_src java
+  CaseInsensitiveString s0 =    CaseInsensitiveString("Hello")
+  String s1 = "hello";
+  s0.equals(s1); // True
+  s1.equals(s0); // False
+
+  // using new equal()
+  s0.equals(s1); // False
+  s1.equals(s0); // False
+#+end_src
+
+*** Transitivity
+  #+begin_src java
+           public class Point {
+
+               private final int x;
+               private final int y;
+
+               public Point(int x, int y) {
+                   this.x = x;
+                   this.y = y;
+               }
+
+               @Override public boolean equals(Object o) {
+                   if (!(o instanceof Point))
+                       return false;
+                   Point p = (Point)o;
+                   return p.x == x && p.y == y;
+               }
+
+
+
+               ...  // Remainder omitted
+
+           }
+       public class ColorPoint extends Point {
+           private final Color color;
+
+
+
+           public ColorPoint(int x, int y, Color color) {
+                   super(x, y);
+                   this.color = color;
+           }
+           ...  // Remainder omitted
+
+       // breaks symmetry (does not break transitivity)
+       @Override public boolean equals(Object o) {
+           if (!(o instanceof ColorPoint))
+              return false;
+           return super.equals(o) && ((ColorPoint) o).color == color;
+       }
+
+       // does not break symmetry, breaks transitivity
+       @Override public boolean equals(Object o) {
+           if (!(o instanceof Point))
+              return false;
+
+            if (!(o instanceof ColorPoint)) //if o instanceof Point
+               return o.equals(this);       //then call equals of Point
+
+           //o is colorpoint
+           return super.equals(o) && ((ColorPoint) o).color == color;
+
+       }
+
+
+     ColorPoint a (1,2,Blue);
+     ColorPoint b (1,2,Red);
+     Point c (1,2);
+
+     c.equals(a);  //True
+     a.equals(c); // False
+
+     //new equal      
+     c.equals(a);  //True
+     a.equals(c); // True
+
+     a.equals(c); //True
+     c.equals(b); //True
+     a.equals(b); //False
+
+
+     @Override public boolean equals(Object o) {
+         if (o == null)
+             return false;
+
+         if (o.getClass() != getClass())
+             return o.equals(this)
+
+         Point p = (Point) o;
+         return p.x == x && p.y == y;
+     }
+     a.equals(c); //True
+     c.equals(b); //True
+     a.equals(b); //True
+
+
+    //another prob, breaks LSP
+    //points = {Point(1,2), Point(3,4)}
+    //c1 = ColorPoint(1,2,Blue)
+    //
+           
+  #+end_src
+
+
 <2022-04-11 Mon>
+
 * Generics
 
 - Don't use Raw types (item 26)

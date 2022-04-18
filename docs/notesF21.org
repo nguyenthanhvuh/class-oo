@@ -880,14 +880,14 @@ equals
         }
         ...  // Remainder omitted
 
-    // breaks symmetry
+    // breaks symmetry (does not break transitivity)
     @Override public boolean equals(Object o) {
         if (!(o instanceof ColorPoint))
            return false;
         return super.equals(o) && ((ColorPoint) o).color == color;
     }
         
-    // does not break symmetry (but breaks transivity instead)
+    // does not break symmetry 
     @Override public boolean equals(Object o) {
         if (!(o instanceof Point))
            return false;
@@ -907,11 +907,13 @@ equals
   Point c (1,2)
 
   c.equals(a) ; // True
-  a.equals(c) ; //  True
-  
-  c.equals(b) ;// True
-  b.equals(a) ;// True
+  a.equals(c) ; //  False  // break transitivity
 
+
+  // add the new equals
+  c.equals(a) ; // True
+  a.equals(c) ; //  True   (essentially color-blind comparison)
+  
   a.equals(c) -> True
   c.equals(b) -> True 
   a.equals(b) -> False  //break transitivity
@@ -958,13 +960,14 @@ equals
     a.equals(b)  //TRUE  <- not expected
 
 
-
+    //break LSP
     //points = [Point(1,2), Point(3,4)]
     //c1 = ColorPoint(1,2,Blue)
     //c1 should be in points (because c1 is still a point), but using this equals method, c1 is not in points because of diff types
   #+end_src
 
 
+**  9A (40 mins)
 
 What is the equals() contract? What is the standard recipe?
   - reflexive, transitivity, symmetry, consistency, non-null equiv
@@ -978,10 +981,12 @@ Why does Bloch use the instanceof operator in the standard recipe?
 
 Write client code that shows a contract problem with the first attempt at ColorPoint (i.e., what contract does it break?)
  - breaks symmetry
+   #+begin_src java
    Point a = new Point(1,2)
    ColorPoint b = new ColorPoint(1,2, Color.Red)
    a.equals(b); // return true
    b.equals(a); // return false  , break symmetry   
+   #+end_src
 
 Write client code that shows a contract problem with the second attempt at ColorPoint (i.e., what contract does it break?)
 - breaks transitivity
@@ -999,39 +1004,32 @@ getClass()  ...  break Liskov principle of subs
 
 Which approach do you want in the following code:
 
-        #+begin_src java
-          public class CounterPoint extends Point
-                                            private static final AtomicInteger counter =
-                                            new AtomicInteger();
+#+begin_src java
+  public class CounterPoint extends Point
+    private static final AtomicInteger counter =
+                                    new AtomicInteger();
 
-          public CounterPoint(int x, int y) {
-              super (x, y);
-              counter.incrementAndGet();
-          }
-          public int numberCreated() { return counter.get(); }
+    public CounterPoint(int x, int y) {
+      super (x, y);
+      counter.incrementAndGet();
+    }
+    public int numberCreated() { return counter.get(); }
 
-          // @Override public boolean equals (Object obj) {
-          //   //don't need this ,  
+    // @Override public boolean equals (Object obj) {
+    //   //don't need this ,  not adding anything new
+    //   don't care that (1,2,counter=5)  !=  (1,2,counter=6)
+    // }
+  // Client code:
 
-          // }
-          }
-
-
-          // Client code:
-
-          Point p = PointFactory.getPoint();   // either a Point or a CounterPoint
-          Set<Point> importantPoints =   // a set of important points
-              boolean b = PointUtilities.isImportant(p);  // value?
-
-        #+end_src
+    Point p = PointFactory.getPoint();   // either a Point or a CounterPoint
+    Set<Point> importantPoints =   // a set of important points
+      boolean b = PointUtilities.isImportant(p);  // value?
+#+end_src
 
 
 
+** 11B Consider a variation of Liskov's IntSet example (Figure 5.10, page 97)
 
-(1,2,counter=5)  =  (1,2,counter=6)
-
-
-Consider a variation of Liskov's IntSet example (Figure 5.10, page 97)
 #+begin_src java
   public class IntSet implements Cloneable {  
       private List<Integer> els;
@@ -1039,12 +1037,12 @@ Consider a variation of Liskov's IntSet example (Figure 5.10, page 97)
       ...
       @Override
       public boolean equals(Object obj) {
-          if this == ojb return true ;
+          // also add this :  if this == ojb return true ;
 
           if (!(obj instanceof IntSet)) return false;
 
           IntSet s = (IntSet) obj;
-          return super.equals(obj)  && els.equals(obj.els)
+          return ?? ; //super.equals(obj)  && els.equals(obj.els)
        }
 
       @Override
@@ -1063,7 +1061,7 @@ Consider a variation of Liskov's IntSet example (Figure 5.10, page 97)
   }
 #+end_src
 
-How should the equals() method be completed?
+How should the equals() method be completed?  
 Analyze the following ways to implement hashCode()? If there is a problem, give a test case that shows the problem.
 - not overridden at all
   //will return different hashcode for every objects  
@@ -1071,13 +1069,13 @@ Analyze the following ways to implement hashCode()? If there is a problem, give 
   //degrade performance b/c everything collides and instead of efficient hashing (e.g., constant look up in hashtable), you have a an inefficient operation (e.g., O(n) search instead of constant)
 - return els.hashCode();
   //hash([1,2,3])  !=  hash([3,2,1])  != hash([3,1,3,2])
-  //set([1,2,3]) == set(3,2,1)== set([3,1,3,2])
+  //using this as a set,  so we should get similar hash, but this will not give similar hash because 
 - int sum = 0; for (Integer i : els) sum += i.hashCode(); return sum;
   //sum(1,3)  =4  sum(0,4)
 
   result = hash(v1)
-  result += 31 * v1  + has(v2)
-  result += 31 * v1  + has(v3)
+  result += 31 * v1  + hash(v2)
+  result += 31 * v1  + hash(v3)
 
 
 
