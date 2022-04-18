@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-04-11 Mon 16:28 -->
+<!-- 2022-04-18 Mon 14:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>&lrm;</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
@@ -15,13 +15,284 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org4a03247">1. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></a></li>
-<li><a href="#org8ccbd88">2. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></a></li>
-<li><a href="#org3b7c586">3. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></a></li>
-<li><a href="#org5c06fe8">4. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></a></li>
+<li><a href="#org40d710d">1. Generics</a>
+<ul>
+<li><a href="#orged6e97b">1.1. Suppress Warnings (Item 27)</a></li>
+<li><a href="#orgca8c26a">1.2. Prefer Lists over Arrays</a></li>
+<li><a href="#orgba45876">1.3. Prefer Generic Types (Item 29)</a></li>
+<li><a href="#org64ace98">1.4. Prefer Generic Methods (Item 30)</a></li>
+<li><a href="#orgd851061">1.5. Bounded WildCards</a></li>
+</ul>
+</li>
+<li><a href="#org53a2ddf">2. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></a></li>
+<li><a href="#org2465a10">3. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></a></li>
+<li><a href="#org2904a13">4. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></a></li>
+<li><a href="#orgfd87076">5. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></a></li>
 </ul>
 </div>
 </div>
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-04-11 Mon&gt;</span></span>
+</p>
+<div id="outline-container-org40d710d" class="outline-2">
+<h2 id="org40d710d"><span class="section-number-2">1.</span> Generics</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>Don't use Raw types (item 26)</li>
+</ul>
+
+<p>
+List&lt;E&gt; : generic type
+List :  raw type
+List&lt;String&gt;:  parameterized type
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Now a raw collection type &#8211; don&#8217;t do this</span>
+   <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Collection</span> <span style="color: #6a1868;">stamps</span> = &#8230;; <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Contains only Stamps</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Erroneous insertion of coin into stamp collection</span>
+   stamps.add(<span style="color: #e45649;">new</span> <span style="color: #986801;">Coin</span>(&#8230;));   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Oops!  We&#8217;re set up for ClassCastException later</span>
+
+ <span style="color: #e45649;">for</span> (<span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">I</span> = stamps.iterator(); i.hasNext(); ) {
+    <span style="color: #986801;">Stamp</span> <span style="color: #6a1868;">s</span> = (<span style="color: #986801;">Stamp</span>) i.next();       <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Throws ClassCastException</span>
+     &#8230;<span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">Do something with the stamp</span>
+  }
+
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Parameterized collection type - typesafe </span>
+   <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Collection</span>&lt;<span style="color: #986801;">Stamp</span>&gt; <span style="color: #6a1868;">stamps</span> = &#8230;;
+   stamps.add(<span style="color: #e45649;">new</span> <span style="color: #986801;">Coin</span>(&#8230;));  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">result is instead a compile time error, which is good</span>
+
+<span style="color: #e45649;">for</span>(<span style="color: #986801;">Stamp</span> <span style="color: #6a1868;">s</span>: stamps){
+  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">do something with the stamp s</span>
+  }
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">strings</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">String</span>&gt;();
+unsafeAdd(strings, <span style="color: #e45649;">new</span> <span style="color: #986801;">Integer</span>(42));
+<span style="color: #986801;">String</span> <span style="color: #6a1868;">s</span> = strings.get(0);  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">can cause error at runtime</span>
+
+ <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">note use of raw types</span>
+ <span style="color: #e45649;">private</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">unsafeAdd</span>(<span style="color: #986801;">List</span> <span style="color: #6a1868;">list</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
+    list.add(o);
+ }
+
+<span style="color: #e45649;">private</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">unsafeAdd</span>( <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Object</span>&gt; <span style="color: #6a1868;">list</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
+    list.add(o);
+}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orged6e97b" class="outline-3">
+<h3 id="orged6e97b"><span class="section-number-3">1.1.</span> Suppress Warnings (Item 27)</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+<pre class="src src-java">  <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">Lark</span>&gt; <span style="color: #6a1868;">exaltation</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">HashSet</span>();              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">warning</span>
+  <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">Lark</span>&gt; <span style="color: #6a1868;">exaltation</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">HashSet</span>&lt;<span style="color: #986801;">Lark</span>&gt;();              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">no warning</span>
+
+
+  <span style="color: #e45649;">public</span> &lt;<span style="color: #986801;">T</span>&gt; <span style="color: #986801;">T</span>[] <span style="color: #a626a4;">toArray</span> (<span style="color: #986801;">T</span>[] <span style="color: #6a1868;">a</span>) {
+    <span style="color: #e45649;">if</span> (a.length &lt; <span style="color: #986801;">size</span>)
+       <span style="color: #b751b6;">@SuppressWarnings</span>(&#8220;unchecked&#8221;)
+           <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">copyOf copyes Objects so it would warn that Objects[] is not the same as T[]</span>
+       T[]results = (<span style="color: #986801;">T</span>[]) Arrays.copyOf(elements, size, a.getClass());
+       <span style="color: #e45649;">return</span> results
+
+    System.arraycopy(elements, 0, a, 0, size);
+    <span style="color: #e45649;">if</span> (a.length &gt; size)  a[size] = <span style="color: #b751b6;">null</span>;
+    <span style="color: #e45649;">return</span> a; }
+
+<span style="color: #9ca0a4;">/*</span>
+<span style="color: #9ca0a4;">  ArrayList.java:305: warning [unchecked] unchecked cast</span>
+<span style="color: #9ca0a4;">found   : Object[], required T[]    </span>
+<span style="color: #9ca0a4;">    return (T[]) Arrays.copyOf(elements, size, a.getClass());</span>
+<span style="color: #9ca0a4;"> */</span>
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgca8c26a" class="outline-3">
+<h3 id="orgca8c26a"><span class="section-number-3">1.2.</span> Prefer Lists over Arrays</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Arrays are <b>covariant</b> and Lists are <b>invariant</b>
+</p>
+<ul class="org-ul">
+<li>Array[Subtype] is a subtype of Array[Type]:  covariant</li>
+<li>List[Subtype] has NO relationship with List[Type]:  invariant</li>
+</ul>
+
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Fails at runtime</span>
+<span style="color: #986801;">Object</span>[] <span style="color: #6a1868;">objectArray</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Long</span>[1];
+objectArray[0] = &#8220;I don&#8217;t fit in<span style="color: #4078f2; font-weight: bold;">!</span>&#8221;;           <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Throws ArrayStoreException</span>
+
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Won&#8217;t compile</span>
+<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Object</span>&gt; <span style="color: #6a1868;">o1</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">Long</span>&gt;();
+o1.add(&#8220;I don&#8217;t fit in<span style="color: #4078f2; font-weight: bold;">!</span>&#8221;);                           <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">Incompatible types</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgba45876" class="outline-3">
+<h3 id="orgba45876"><span class="section-number-3">1.3.</span> Prefer Generic Types (Item 29)</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+<b>Generify</b> code
+</p>
+
+<p>
+private Object[] elements; // private E[] elements (1st attempt) /=&gt; private List&lt;E&gt; elements ..
+</p>
+</div>
+</div>
+
+<div id="outline-container-org64ace98" class="outline-3">
+<h3 id="org64ace98"><span class="section-number-3">1.4.</span> Prefer Generic Methods (Item 30)</h3>
+<div class="outline-text-3" id="text-1-4">
+<div class="org-src-container">
+<pre class="src src-java">
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Uses raw types &#8211; unacceptable! (Item 23)</span>
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">Set</span> <span style="color: #a626a4;">union</span> (<span style="color: #986801;">Set</span> <span style="color: #6a1868;">s1</span>, <span style="color: #986801;">Set</span> <span style="color: #6a1868;">s2</span>)  {  
+   <span style="color: #986801;">Set</span> <span style="color: #6a1868;">result</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">HashSet</span>(s1);              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Generates a warning              </span>
+   result.addAll(s2);                                 <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Generates a warning</span>
+   <span style="color: #e45649;">return</span> result;
+}
+
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Generic method </span>
+   <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> &lt;<span style="color: #986801;">E</span>&gt; <span style="color: #986801;">Set</span> &lt;<span style="color: #986801;">E</span>&gt; <span style="color: #a626a4;">union</span> (<span style="color: #986801;">Set</span> &lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">s1</span>, <span style="color: #986801;">Set</span>  &lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">s2</span>)  {  
+   <span style="color: #986801;">Set</span> &lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">result</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">HashSet</span> &lt;<span style="color: #986801;">E</span>&gt; (s1);              
+   result.addAll(s2);                                 
+   <span style="color: #e45649;">return</span> result;
+}
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgd851061" class="outline-3">
+<h3 id="orgd851061"><span class="section-number-3">1.5.</span> Bounded WildCards</h3>
+<div class="outline-text-3" id="text-1-5">
+<div class="org-src-container">
+<pre class="src src-java">  <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Stack</span> &lt;<span style="color: #986801;">E</span>&gt; {
+     <span style="color: #e45649;">public</span> Stack()
+     <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> push( <span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span> ) 
+     <span style="color: #e45649;">public</span> E pop()
+     <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> isEmpty()
+  }
+
+    <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">pushAll method without a wildcard type &#8211; deficient!</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">only add E  (but not its subtype)</span>
+        <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">pushAll</span>( <span style="color: #986801;">Iterable</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">src</span>) {
+           <span style="color: #e45649;">for</span> (<span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span> : src) { push(e); }
+        }
+
+
+   <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">wildcard type for parameter that serves as an E producer</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">allows everything that is subtypes of E</span>
+        <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">pushAll</span>( <span style="color: #986801;">Iterable</span>&lt;? <span style="color: #e45649;">extends</span> <span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">src</span>) {
+           <span style="color: #e45649;">for</span> (<span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span> : src) { push(e); }
+        }
+
+
+     <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">wildcard type for parameter that serves as an E consumer</span>
+       <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">popAll</span> ( <span style="color: #986801;">Collection</span>&lt;? <span style="color: #e45649;">super</span> <span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">dst</span>) {
+           <span style="color: #e45649;">while</span> (<span style="color: #4078f2; font-weight: bold;">!</span>isEmpty()) { dst.add(pop()); }
+      }
+
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">PECS: procer extends and consumer super</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Chooser</span> {
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Object</span>[] <span style="color: #6a1868;">choiceArray</span>;
+
+    <span style="color: #e45649;">public</span> Chooser (<span style="color: #986801;">Collection</span> <span style="color: #6a1868;">choices</span>) {
+        choiceArray = choices.toArray();
+    }
+
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Object</span> <span style="color: #a626a4;">choose</span>() {
+        <span style="color: #986801;">Random</span> <span style="color: #6a1868;">rnd</span> = ThreadLocalRandom.current();
+        <span style="color: #e45649;">return</span> choiceArray [rnd.nextInt(choiceArray.length)];
+</pre>
+</div>
+
+<p>
+First attempt, 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Chooser</span>&lt;<span style="color: #986801;">T</span>&gt; {
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">T</span>[] <span style="color: #6a1868;">choiceArray</span>;
+
+    <span style="color: #e45649;">public</span> Chooser (<span style="color: #986801;">Collection</span>&lt;<span style="color: #986801;">T</span>&gt; <span style="color: #6a1868;">choices</span>) {
+        choiceArray = choices.toArray();<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">compiler errors: cannot convert to T,</span>
+
+      <span style="color: #b751b6;">@supresswarning</span>..
+        choiceArray = (<span style="color: #986801;">T</span>[]) choices.toArray();  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">cast to (T[]),  got a warning, supress it because we know it is safe because choiceArray is of type T</span>
+    }
+
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">T</span> <span style="color: #a626a4;">choose</span>() { 
+        <span style="color: #986801;">Random</span> <span style="color: #6a1868;">rnd</span> = ThreadLocalRandom.current();
+        <span style="color: #e45649;">return</span> choiceArray [rnd.nextInt(choiceArray.length)];
+</pre>
+</div>
+
+
+<p>
+List attempt
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Chooser</span>&lt;<span style="color: #986801;">T</span>&gt; {
+   <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">T</span>&gt; <span style="color: #6a1868;">choiceList</span>; <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">List instead of Array</span>
+
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">repr inv: choiceList != null, cannot be empty</span>
+
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">preconds:  choices != null, choices cannot be empty, choices not containing null</span>
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">postcondition: creates a Chooser from choices</span>
+
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">alternative:</span>
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">preconds: none</span>
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">postcond:</span>
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if choices is empty, then raise IAE</span>
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if choices is null, throw exception</span>
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if choices contain null, throw some exception</span>
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">creates a Chooser from choices</span>
+   <span style="color: #e45649;">public</span> Chooser(<span style="color: #986801;">Collection</span>&lt;<span style="color: #986801;">T</span>&gt; <span style="color: #6a1868;">choices</span>) {
+       <span style="color: #e45649;">if</span> (choice.size() == 0) <span style="color: #e45649;">throw</span> IllegalArException(); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">ADD</span>
+       <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if choice == null throw ...</span>
+       <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">...</span>
+       choiceList = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;&gt;(choices);
+   }
+
+   <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">precond: none</span>
+   <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">post: returns a random choice in choicelist</span>
+   <span style="color: #e45649;">public</span> <span style="color: #986801;">T</span> <span style="color: #a626a4;">choose</span>() {
+       <span style="color: #986801;">Random</span> <span style="color: #6a1868;">rnd</span> = ThreadLocalRandom.current();
+       <span style="color: #e45649;">return</span> choiceList.get(rnd.nextInt(choiceList.size()));
+   }
+
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">precond: none</span>
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">postcond:</span>
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if choice is null throw exception ...</span>
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">otherwise add choice to choicelist</span>
+   <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">addChoice</span>(<span style="color: #986801;">T</span> <span style="color: #6a1868;">choice</span>){
+       <span style="color: #e45649;">if</span> (choice == <span style="color: #b751b6;">null</span>) <span style="color: #e45649;">throw</span> ...;
+       choiceList.add(choice);
+   }
+
+</pre>
+</div>
+
+
 <p>
 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-04-04 Mon&gt;</span></span>
 </p>
@@ -722,12 +993,15 @@ repr2 members != null &amp;&amp; members cannot have dups
 join: NO,  satisfy contract
 leave: YES, satisfy contract
 </p>
+</div>
+</div>
+</div>
 
 
 
-<div id="outline-container-org4a03247" class="outline-2">
-<h2 id="org4a03247"><span class="section-number-2">1.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-org53a2ddf" class="outline-2">
+<h2 id="org53a2ddf"><span class="section-number-2">2.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-2">
 <p>
 Hoare Tripple
 {P} S {Q}
@@ -1145,9 +1419,9 @@ N, i , x
 </div>
 
 
-<div id="outline-container-org8ccbd88" class="outline-2">
-<h2 id="org8ccbd88"><span class="section-number-2">2.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org2465a10" class="outline-2">
+<h2 id="org2465a10"><span class="section-number-2">3.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-3">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">months</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">principal</span>, <span style="color: #986801;">double</span> <span style="color: #6a1868;">rate</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">payment</span>){
     <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.</span>
@@ -1411,9 +1685,9 @@ Total correctness: does not make the assumption that S will terminate (halting p
 </div>
 
 
-<div id="outline-container-org3b7c586" class="outline-2">
-<h2 id="org3b7c586"><span class="section-number-2">3.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org2904a13" class="outline-2">
+<h2 id="org2904a13"><span class="section-number-2">4.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-4">
 <ul class="org-ul">
 <li><p>
 Specification/Contract of a program
@@ -1595,9 +1869,9 @@ specification too specific to implentation (remove(0)), to fix: throws IAE inste
 </div>
 </div>
 
-<div id="outline-container-org5c06fe8" class="outline-2">
-<h2 id="org5c06fe8"><span class="section-number-2">4.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgfd87076" class="outline-2">
+<h2 id="orgfd87076"><span class="section-number-2">5.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-5">
 <p>
 What does it mean to write correct software?
 </p>

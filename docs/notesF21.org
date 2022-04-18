@@ -824,7 +824,7 @@ equals
 
       }
 
-      // does not break symmetry
+      // (show latter) does not break symmetry, but does not allow different types
       @Override public boolean equals(Object o) {
           return (o instanceof CaseInsensitiveString  && s.equalsIgnoreCase(
                   ((CaseInsensitiveString) o).s))  
@@ -869,24 +869,24 @@ equals
             ...  // Remainder omitted
 
         }
-        public class ColorPoint extends Point {
-            private final Color color;
+    public class ColorPoint extends Point {
+        private final Color color;
 
 
 
-            public ColorPoint(int x, int y, Color color) {
+        public ColorPoint(int x, int y, Color color) {
                 super(x, y);
                 this.color = color;
-                }
-                ...  // Remainder omitted
-            }
+        }
+        ...  // Remainder omitted
 
     // breaks symmetry
     @Override public boolean equals(Object o) {
         if (!(o instanceof ColorPoint))
            return false;
         return super.equals(o) && ((ColorPoint) o).color == color;
-
+    }
+        
     // does not break symmetry (but breaks transivity instead)
     @Override public boolean equals(Object o) {
         if (!(o instanceof Point))
