@@ -1032,7 +1032,7 @@ Which approach do you want in the following code:
 
 #+begin_src java
   public class IntSet implements Cloneable {  
-      private List<Integer> els;
+      public List<Integer> els;
       public IntSet () { els = new ArrayList<Integer>(); }
       ...
       @Override

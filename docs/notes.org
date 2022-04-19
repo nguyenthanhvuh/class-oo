@@ -149,6 +149,110 @@
   #+end_src
 
 
+** 9A
+  - equals(): reflexive, transitivity, symmetry, consistency, null-null behavior
+  -  if isinstance of Point,  if not return False
+  - Cast obj to Point
+  - compare obj key attributes with your attributes
+
+#+begin_src java
+public class ColorPoint extends Point {  // First attempt: Standard recipe
+    private COLOR color;
+    ...
+        @Override public boolean equals(Object obj) {
+        if (!(obj instanceof ColorPoint)) return false;
+
+        ColorPoint cp = (ColorPoint) obj;
+        return super.equals(obj) && cp.color == color;
+   #+end_src
+
+   #+begin_src java
+   Point a = new Point(1,2)
+   ColorPoint b = new ColorPoint(1,2, Color.Red)
+   a.equals(b); // return true
+   b.equals(a); // return false  , break symmetry   
+   #+end_src
+
+#+begin_src java
+    private COLOR color;
+    ...
+        @Override public boolean equals(Object obj) {
+        if (!(o instance of Point)) return false;
+
+        // If obj is a normal Point, be colorblind
+        if (!(obj instanceof ColorPoint)) return obj.equals(this);
+
+        ColorPoint cp = (ColorPoint) obj;
+        return super.
+#+end_src
+
+#+begin_src java
+     Point a = new Point(1,2)
+     ColorPoint b = new ColorPoint(1,2, Color.Red)
+     ColorPoint c = new ColorPoint(1,2, Color.Blue)
+     a.equals(b); // return true
+     a.equals(c); // return true
+     b.equals(c); // return false; break transitivity
+#+end_src
+
+
+#+begin_src java
+  public class CounterPoint extends Point
+    private static final AtomicInteger counter =
+                                    new AtomicInteger();
+
+    public CounterPoint(int x, int y) {
+      super (x, y);
+      counter.incrementAndGet();
+    }
+    public int numberCreated() { return counter.get(); }
+
+    // @Override public boolean equals (Object obj) {
+    //   //don't need this ,  not adding anything new
+    //   don't care that (1,2,counter=5)  !=  (1,2,counter=6)
+    // }
+  // Client code:
+
+    Point p = PointFactory.getPoint();   // either a Point or a CounterPoint
+    Set<Point> importantPoints =   // a set of important points
+      boolean b = PointUtilities.isImportant(p);  // value?
+#+end_src
+
+
+#+begin_src java
+  public class IntSet implements Cloneable {  
+      public List<Integer> els;
+      public IntSet () { els = new ArrayList<Integer>(); }
+      ...
+      @Override
+      public boolean equals(Object obj) {
+          if this == obj return true;
+
+          if (!(obj instanceof IntSet)) return false;
+          IntSet s = (IntSet) obj;
+          return super.equals(obj) && this.els.equals(obj.els);
+       }
+
+      @Override
+      public int hashCode() { 
+          // ??
+      }
+
+      // adding a private constructor
+      private IntSet (List<Integer> list) { els = list; }
+
+      @Override 
+      public IntSet clone() { 
+          return new IntSet ( new ArrayList<Integer>(els));
+      }
+
+  }
+#+end_src
+
+result = hash(v1)
+result += 31 * v1  + hash(v2)
+result += 31 * v1  + hash(v3)
+     
 <2022-04-11 Mon>
 
 * Generics
