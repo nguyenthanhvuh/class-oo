@@ -26,8 +26,7 @@
   |      12 | Common Java Contracts                                       | Bloch 3                                                                                   |  [[#a9][A9 Due]]  |        IC 11 [[#ic11A][A]] [[#ic11B][B]]         |
   |      13 | Classes and Inheritance                                     | Bloch 4                                                                                   | [[#a10][A10 Due]] | IC 12 [[#ic12A][A]] [[#ic12B][B]]  [[#ic12C][C]] |
   |      14 | Contract Model in Testing                                   | Advanced JUnit ([[./files/Ch03-automation.pptx ][slides 22-24)]]                          | [[#a11][A11 Due]] |                 IC [[#ic13][13]]                 |
-  # |      15 | Enums and Annotations                                       | Bloch 6                                                                                   | [[#a12][A12 Due]] |        IC 14 [[#ic14A][A]] [[#ic14B][B]]         |
-  |      16 | Final Exam                                                  | /In-Person/                                                                                 |                   |                                                  |
+  |      15 | Final Exam                                                  | /In-Person/                                                                                 |                   |                                                  |
 
 
 * In class Assignments
