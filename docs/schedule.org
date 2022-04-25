@@ -1102,10 +1102,15 @@
    1. What would a call to =s.getAddCount()= return at the end of the computation?
    1. At the end of the computation, what are the values of: =r.equals(s)=, =s.equals(t)=, and =t.equals(s)=?
       - Are there any problems with the =equals()= contract?
-   1. Would this still work if you globally replaced sets with lists?
-   1. Would this still work if you globally replaced sets with collections?
-
-      *Note*: There is a lot going on in this example. I highly recommend that you play with the code until you understand it.    
+   # 1. Would this still work if you globally replaced sets with lists?
+   #    #+begin_comment
+   #    yes, because javadoc for list (e.g., equal) tells us
+   #    #+end_comment
+   # 1. Would this still work if you globally replaced sets with collections?
+   #    #+begin_comment
+   #    no, because javadoc for collections (e.g., equal) doesn't give anything
+   #    #+end_comment
+*Note*: There is a lot going on in this example. I highly recommend that you play with the code until you understand it.    
 
 ** In class 12B
    :PROPERTIES:
@@ -1701,7 +1706,7 @@
 
     1. Use the [[./files/IntSet.java][version]] of =IntSet= from the in-class exercise. Implement a subtype of =IntSet= to demonstrate the problem. Your solution should include appropiate executable code in the form of JUnit tests.
     1. Provide a correct implementation of =clone()= for =IntSet=. Again, give appropriate JUnit tests.
-    1. Correctly override =hashCode()= and =equals()=. As discussed in the class exercise, the standard recipe is not appropriate in this (unusual) case.
+    1. Correctly override =hashCode()= and =equals()=. Note that the standard recipe is not appropriate in this (unusual) case (why?).
 
 *** Grading Criteria
     In addititon to code and tests, your deliverable is a story. Explain what is going on at each stage of the exercise. The GTA will primarily grade your story.
