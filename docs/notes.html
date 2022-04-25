@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-04-18 Mon 14:12 -->
+<!-- 2022-04-25 Mon 16:26 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>&lrm;</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
@@ -15,28 +15,332 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org40d710d">1. Generics</a>
+<li><a href="#orga80dc32">1. Common Java Methods</a>
 <ul>
-<li><a href="#orged6e97b">1.1. Suppress Warnings (Item 27)</a></li>
-<li><a href="#orgca8c26a">1.2. Prefer Lists over Arrays</a></li>
-<li><a href="#orgba45876">1.3. Prefer Generic Types (Item 29)</a></li>
-<li><a href="#org64ace98">1.4. Prefer Generic Methods (Item 30)</a></li>
-<li><a href="#orgd851061">1.5. Bounded WildCards</a></li>
+<li>
+<ul>
+<li><a href="#org75f5a08">1.0.1. Transitivity</a></li>
 </ul>
 </li>
-<li><a href="#org53a2ddf">2. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></a></li>
-<li><a href="#org2465a10">3. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></a></li>
-<li><a href="#org2904a13">4. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></a></li>
-<li><a href="#orgfd87076">5. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></a></li>
+<li><a href="#org637274b">1.1. 9A</a></li>
+</ul>
+</li>
+<li><a href="#org4df3774">2. Generics</a>
+<ul>
+<li><a href="#org903e5db">2.1. Suppress Warnings (Item 27)</a></li>
+<li><a href="#orgded3c8f">2.2. Prefer Lists over Arrays</a></li>
+<li><a href="#org8d06742">2.3. Prefer Generic Types (Item 29)</a></li>
+<li><a href="#org2812af1">2.4. Prefer Generic Methods (Item 30)</a></li>
+<li><a href="#org65ae64c">2.5. Bounded WildCards</a></li>
+</ul>
+</li>
+<li><a href="#org6dc4691">3. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></a></li>
+<li><a href="#org81502f5">4. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></a></li>
+<li><a href="#org55682bf">5. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></a></li>
+<li><a href="#org3e3ab1a">6. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></a></li>
 </ul>
 </div>
 </div>
 <p>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-04-18 Mon&gt;</span></span>
+</p>
+<div id="outline-container-orga80dc32" class="outline-2">
+<h2 id="orga80dc32"><span class="section-number-2">1.</span> Common Java Methods</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>equals, toString, hash, clone, etc</li>
+
+<li>toString(): show abstract states/ things that are useful for the users</li>
+
+<li><p>
+<code>equals()</code>
+</p>
+<ul class="org-ul">
+<li>reflexive:  x.equals(x)</li>
+<li>symmetric:   x.equals(y)  &lt;-&gt;  y.equals(x)</li>
+<li>transitive:  x.equals(y) &amp;&amp; y.equals(z) -&gt; x.equals(z)</li>
+</ul>
+
+<p>
+Mathematical equivalence:
+</p>
+
+<p>
+Liskov Substitution Principle: if a Rectangle is subtype of a Shape, then Rectangle is also a Shape.
+</p></li>
+</ul>
+
+
+<ul class="org-ul">
+<li>consistent: &#x2026;.</li>
+<li></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">final</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">CaseInsensitiveString</span> {
+
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">String</span> <span style="color: #6a1868;">s</span>;
+
+    <span style="color: #e45649;">public</span> CaseInsensitiveString(<span style="color: #986801;">String</span> <span style="color: #6a1868;">s</span>) {
+        <span style="color: #e45649;">this</span>.s = Objects.requireNonNull(s);
+
+    }
+
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
+        <span style="color: #e45649;">if</span> (o <span style="color: #e45649;">instanceof</span> CaseInsensitiveString)
+            <span style="color: #e45649;">return</span> s.equalsIgnoreCase(
+                ((<span style="color: #986801;">CaseInsensitiveString</span>) o).s);
+        <span style="color: #e45649;">if</span> (o <span style="color: #e45649;">instanceof</span> String)  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">One-way interoperability!</span>
+            <span style="color: #e45649;">return</span> s.equalsIgnoreCase((<span style="color: #986801;">String</span>) o);
+        <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;          
+    }
+
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
+        <span style="color: #e45649;">return</span> (o <span style="color: #e45649;">instanceof</span> CaseInsensitiveString  &amp;&amp; s.equalsIgnoreCase(
+                ((<span style="color: #986801;">CaseInsensitiveString</span>) o).s))  
+    }      
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #986801;">CaseInsensitiveString</span> <span style="color: #6a1868;">s0</span> =    CaseInsensitiveString(<span style="color: #50a14f;">"Hello"</span>)
+String s1 = <span style="color: #50a14f;">"hello"</span>;
+s0.equals(s1); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">True</span>
+s1.equals(s0); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">False</span>
+
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">using new equal()</span>
+s0.equals(s1); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">False</span>
+s1.equals(s0); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">False</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org75f5a08" class="outline-4">
+<h4 id="org75f5a08"><span class="section-number-4">1.0.1.</span> Transitivity</h4>
+<div class="outline-text-4" id="text-1-0-1">
+<div class="org-src-container">
+<pre class="src src-java">       <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Point</span> {
+
+           <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>;
+           <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>;
+
+           <span style="color: #e45649;">public</span> Point(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>) {
+               <span style="color: #e45649;">this</span>.x = x;
+               <span style="color: #e45649;">this</span>.y = y;
+           }
+
+           <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
+               <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(o <span style="color: #e45649;">instanceof</span> Point))
+                   <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
+               <span style="color: #986801;">Point</span> <span style="color: #6a1868;">p</span> = (<span style="color: #986801;">Point</span>)o;
+               <span style="color: #e45649;">return</span> p.x == x &amp;&amp; p.y == y;
+           }
+
+
+
+           ...  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Remainder omitted</span>
+
+       }
+   <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">ColorPoint</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Point</span> {
+       <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Color</span> <span style="color: #6a1868;">color</span>;
+
+
+
+       <span style="color: #e45649;">public</span> ColorPoint(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>, <span style="color: #986801;">Color</span> <span style="color: #6a1868;">color</span>) {
+               <span style="color: #e45649;">super</span>(x, y);
+               <span style="color: #e45649;">this</span>.color = color;
+       }
+       ...  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Remainder omitted</span>
+
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">breaks symmetry (does not break transitivity)</span>
+   <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
+       <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(o <span style="color: #e45649;">instanceof</span> ColorPoint))
+          <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
+       <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equals(o) &amp;&amp; ((<span style="color: #986801;">ColorPoint</span>) o).color == color;
+   }
+
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">does not break symmetry, breaks transitivity</span>
+   <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
+       <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(o <span style="color: #e45649;">instanceof</span> Point))
+          <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
+
+        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(o <span style="color: #e45649;">instanceof</span> ColorPoint)) <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if o instanceof Point</span>
+           <span style="color: #e45649;">return</span> o.equals(<span style="color: #e45649;">this</span>);       <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">then call equals of Point</span>
+
+       <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">o is colorpoint</span>
+       <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equals(o) &amp;&amp; ((<span style="color: #986801;">ColorPoint</span>) o).color == color;
+
+   }
+
+
+ <span style="color: #986801;">ColorPoint</span> <span style="color: #a626a4;">a</span> (1,2,<span style="color: #986801;">Blue</span>);
+ <span style="color: #986801;">ColorPoint</span> <span style="color: #a626a4;">b</span> (1,2,<span style="color: #986801;">Red</span>);
+ <span style="color: #986801;">Point</span> <span style="color: #a626a4;">c</span> (1,2);
+
+ c.equals(a);  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">True</span>
+ a.equals(c); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">False</span>
+
+ <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">new equal      </span>
+ c.equals(a);  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">True</span>
+ a.equals(c); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">True</span>
+
+ a.equals(c); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">True</span>
+ c.equals(b); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">True</span>
+ a.equals(b); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">False</span>
+
+
+ <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
+     <span style="color: #e45649;">if</span> (o == <span style="color: #b751b6;">null</span>)
+         <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
+
+     <span style="color: #e45649;">if</span> (o.getClass() != getClass())
+         <span style="color: #e45649;">return</span> o.equals(<span style="color: #e45649;">this</span>)
+
+     Point p = (<span style="color: #986801;">Point</span>) o;
+     <span style="color: #e45649;">return</span> p.x == x &amp;&amp; p.y == y;
+ }
+ a.equals(c); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">True</span>
+ c.equals(b); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">True</span>
+ a.equals(b); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">True</span>
+
+
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">another prob, breaks LSP</span>
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">points = {Point(1,2), Point(3,4)}</span>
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">c1 = ColorPoint(1,2,Blue)</span>
+<span style="color: #9ca0a4;">//</span>
+
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org637274b" class="outline-3">
+<h3 id="org637274b"><span class="section-number-3">1.1.</span> 9A</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>equals(): reflexive, transitivity, symmetry, consistency, null-null behavior</li>
+<li>if isinstance of Point,  if not return False</li>
+<li>Cast obj to Point</li>
+<li>compare obj key attributes with your attributes</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">ColorPoint</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Point</span> {  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">First attempt: Standard recipe</span>
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">COLOR</span> <span style="color: #6a1868;">color</span>;
+    ...
+        <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) {
+        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(obj <span style="color: #e45649;">instanceof</span> ColorPoint)) <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
+
+        <span style="color: #986801;">ColorPoint</span> <span style="color: #6a1868;">cp</span> = (<span style="color: #986801;">ColorPoint</span>) obj;
+        <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equals(obj) &amp;&amp; cp.color == color;
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #986801;">Point</span> <span style="color: #6a1868;">a</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Point</span>(1,2)
+ColorPoint b = <span style="color: #e45649;">new</span> <span style="color: #986801;">ColorPoint</span>(1,2, <span style="color: #b751b6;">Color</span>.Red)
+a.equals(b); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">return true</span>
+b.equals(a); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">return false  , break symmetry   </span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">private</span> <span style="color: #986801;">COLOR</span> <span style="color: #6a1868;">color</span>;
+...
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) {
+    <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(o instance <span style="color: #986801;">of</span> <span style="color: #6a1868;">Point</span>)) <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
+
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">If obj is a normal Point, be colorblind</span>
+    <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(obj <span style="color: #e45649;">instanceof</span> ColorPoint)) <span style="color: #e45649;">return</span> obj.equals(<span style="color: #e45649;">this</span>);
+
+    <span style="color: #986801;">ColorPoint</span> <span style="color: #6a1868;">cp</span> = (<span style="color: #986801;">ColorPoint</span>) obj;
+    <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #986801;">Point</span> <span style="color: #6a1868;">a</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Point</span>(1,2)
+ColorPoint b = <span style="color: #e45649;">new</span> <span style="color: #986801;">ColorPoint</span>(1,2, <span style="color: #b751b6;">Color</span>.Red)
+ColorPoint c = <span style="color: #e45649;">new</span> <span style="color: #986801;">ColorPoint</span>(1,2, <span style="color: #b751b6;">Color</span>.Blue)
+a.equals(b); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">return true</span>
+a.equals(c); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">return true</span>
+b.equals(c); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">return false; break transitivity</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">CounterPoint</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Point</span>
+  <span style="color: #e45649;">private</span> <span style="color: #e45649;">static</span> <span style="color: #e45649;">final</span> AtomicInteger counter =
+                                  <span style="color: #e45649;">new</span> <span style="color: #986801;">AtomicInteger</span>();
+
+  <span style="color: #e45649;">public</span> CounterPoint(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>) {
+    <span style="color: #e45649;">super</span> (x, y);
+    counter.incrementAndGet();
+  }
+  <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">numberCreated</span>() { <span style="color: #e45649;">return</span> counter.get(); }
+
+  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">@Override public boolean equals (Object obj) {</span>
+  <span style="color: #9ca0a4;">//   </span><span style="color: #9ca0a4;">//don't need this ,  not adding anything new</span>
+  <span style="color: #9ca0a4;">//   </span><span style="color: #9ca0a4;">don't care that (1,2,counter=5)  !=  (1,2,counter=6)</span>
+  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">}</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Client code:</span>
+
+  <span style="color: #986801;">Point</span> <span style="color: #6a1868;">p</span> = PointFactory.getPoint();   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">either a Point or a CounterPoint</span>
+  <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">Point</span>&gt; <span style="color: #6a1868;">importantPoints</span> =   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a set of important points</span>
+    <span style="color: #986801;">boolean</span> b = PointUtilities.isImportant(p);  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">value?</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">IntSet</span> <span style="color: #e45649;">implements</span> <span style="color: #986801;">Cloneable</span> {  
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Integer</span>&gt; <span style="color: #6a1868;">els</span>;
+    <span style="color: #e45649;">public</span> IntSet () { els = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">Integer</span>&gt;(); }
+    ...
+    <span style="color: #b751b6;">@Override</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) {
+        <span style="color: #e45649;">if</span> <span style="color: #e45649;">this</span> == obj <span style="color: #e45649;">return</span> <span style="color: #b751b6;">true</span>;
+
+        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(obj <span style="color: #e45649;">instanceof</span> IntSet)) <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
+        <span style="color: #986801;">IntSet</span> <span style="color: #6a1868;">s</span> = (<span style="color: #986801;">IntSet</span>) obj;
+        <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equals(obj) &amp;&amp; <span style="color: #e45649;">this</span>.els.equals(obj.els);
+     }
+
+    <span style="color: #b751b6;">@Override</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">hashCode</span>() { 
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">??</span>
+    }
+
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">adding a private constructor</span>
+    <span style="color: #e45649;">private</span> IntSet (<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Integer</span>&gt; <span style="color: #6a1868;">list</span>) { els = list; }
+
+    <span style="color: #b751b6;">@Override</span> 
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">IntSet</span> <span style="color: #a626a4;">clone</span>() { 
+        <span style="color: #e45649;">return</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IntSet</span> ( <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">Integer</span>&gt;(els));
+    }
+
+}
+</pre>
+</div>
+
+<p>
+result = hash(v1)
+result += 31 * v1  + hash(v2)
+result += 31 * v1  + hash(v3)
+</p>
+
+<p>
 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-04-11 Mon&gt;</span></span>
 </p>
-<div id="outline-container-org40d710d" class="outline-2">
-<h2 id="org40d710d"><span class="section-number-2">1.</span> Generics</h2>
-<div class="outline-text-2" id="text-1">
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4df3774" class="outline-2">
+<h2 id="org4df3774"><span class="section-number-2">2.</span> Generics</h2>
+<div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li>Don't use Raw types (item 26)</li>
 </ul>
@@ -85,9 +389,9 @@ unsafeAdd(strings, <span style="color: #e45649;">new</span> <span style="color: 
 </div>
 </div>
 
-<div id="outline-container-orged6e97b" class="outline-3">
-<h3 id="orged6e97b"><span class="section-number-3">1.1.</span> Suppress Warnings (Item 27)</h3>
-<div class="outline-text-3" id="text-1-1">
+<div id="outline-container-org903e5db" class="outline-3">
+<h3 id="org903e5db"><span class="section-number-3">2.1.</span> Suppress Warnings (Item 27)</h3>
+<div class="outline-text-3" id="text-2-1">
 <div class="org-src-container">
 <pre class="src src-java">  <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">Lark</span>&gt; <span style="color: #6a1868;">exaltation</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">HashSet</span>();              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">warning</span>
   <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">Lark</span>&gt; <span style="color: #6a1868;">exaltation</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">HashSet</span>&lt;<span style="color: #986801;">Lark</span>&gt;();              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">no warning</span>
@@ -115,9 +419,9 @@ unsafeAdd(strings, <span style="color: #e45649;">new</span> <span style="color: 
 </div>
 </div>
 
-<div id="outline-container-orgca8c26a" class="outline-3">
-<h3 id="orgca8c26a"><span class="section-number-3">1.2.</span> Prefer Lists over Arrays</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-orgded3c8f" class="outline-3">
+<h3 id="orgded3c8f"><span class="section-number-3">2.2.</span> Prefer Lists over Arrays</h3>
+<div class="outline-text-3" id="text-2-2">
 <p>
 Arrays are <b>covariant</b> and Lists are <b>invariant</b>
 </p>
@@ -140,9 +444,9 @@ o1.add(&#8220;I don&#8217;t fit in<span style="color: #4078f2; font-weight: bold
 </div>
 </div>
 
-<div id="outline-container-orgba45876" class="outline-3">
-<h3 id="orgba45876"><span class="section-number-3">1.3.</span> Prefer Generic Types (Item 29)</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-org8d06742" class="outline-3">
+<h3 id="org8d06742"><span class="section-number-3">2.3.</span> Prefer Generic Types (Item 29)</h3>
+<div class="outline-text-3" id="text-2-3">
 <p>
 <b>Generify</b> code
 </p>
@@ -153,9 +457,9 @@ private Object[] elements; // private E[] elements (1st attempt) /=&gt; private 
 </div>
 </div>
 
-<div id="outline-container-org64ace98" class="outline-3">
-<h3 id="org64ace98"><span class="section-number-3">1.4.</span> Prefer Generic Methods (Item 30)</h3>
-<div class="outline-text-3" id="text-1-4">
+<div id="outline-container-org2812af1" class="outline-3">
+<h3 id="org2812af1"><span class="section-number-3">2.4.</span> Prefer Generic Methods (Item 30)</h3>
+<div class="outline-text-3" id="text-2-4">
 <div class="org-src-container">
 <pre class="src src-java">
 <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Uses raw types &#8211; unacceptable! (Item 23)</span>
@@ -177,9 +481,9 @@ private Object[] elements; // private E[] elements (1st attempt) /=&gt; private 
 </div>
 
 
-<div id="outline-container-orgd851061" class="outline-3">
-<h3 id="orgd851061"><span class="section-number-3">1.5.</span> Bounded WildCards</h3>
-<div class="outline-text-3" id="text-1-5">
+<div id="outline-container-org65ae64c" class="outline-3">
+<h3 id="org65ae64c"><span class="section-number-3">2.5.</span> Bounded WildCards</h3>
+<div class="outline-text-3" id="text-2-5">
 <div class="org-src-container">
 <pre class="src src-java">  <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Stack</span> &lt;<span style="color: #986801;">E</span>&gt; {
      <span style="color: #e45649;">public</span> Stack()
@@ -999,9 +1303,9 @@ leave: YES, satisfy contract
 
 
 
-<div id="outline-container-org53a2ddf" class="outline-2">
-<h2 id="org53a2ddf"><span class="section-number-2">2.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org6dc4691" class="outline-2">
+<h2 id="org6dc4691"><span class="section-number-2">3.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-3">
 <p>
 Hoare Tripple
 {P} S {Q}
@@ -1419,9 +1723,9 @@ N, i , x
 </div>
 
 
-<div id="outline-container-org2465a10" class="outline-2">
-<h2 id="org2465a10"><span class="section-number-2">3.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org81502f5" class="outline-2">
+<h2 id="org81502f5"><span class="section-number-2">4.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-4">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">months</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">principal</span>, <span style="color: #986801;">double</span> <span style="color: #6a1868;">rate</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">payment</span>){
     <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.</span>
@@ -1685,9 +1989,9 @@ Total correctness: does not make the assumption that S will terminate (halting p
 </div>
 
 
-<div id="outline-container-org2904a13" class="outline-2">
-<h2 id="org2904a13"><span class="section-number-2">4.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-org55682bf" class="outline-2">
+<h2 id="org55682bf"><span class="section-number-2">5.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li><p>
 Specification/Contract of a program
@@ -1869,9 +2173,9 @@ specification too specific to implentation (remove(0)), to fix: throws IAE inste
 </div>
 </div>
 
-<div id="outline-container-orgfd87076" class="outline-2">
-<h2 id="orgfd87076"><span class="section-number-2">5.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-org3e3ab1a" class="outline-2">
+<h2 id="org3e3ab1a"><span class="section-number-2">6.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-6">
 <p>
 What does it mean to write correct software?
 </p>
