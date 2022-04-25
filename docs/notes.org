@@ -1,3 +1,42 @@
+<2022-04-25 Mon>
+* Classes and Inheritence
+
+Item 17: Minimize Mutability
+- Thread safe ;  easier for sharing; efficiency; safety;  less prone to error, easier to design
+- 5 rules:
+  - don't provide mutators
+  - don't allow methods to be overriden
+    - prevent careless or malicious sublcasses from compromise the immutability of the superclass
+    - e.g., making class/method final
+  - make all fields final/private
+  - ensure exlucive access to mutable components:
+    don't provide client direct reference to mutable field; make defense copies
+
+- constructor should not invoke orridable method
+
+#+begin_src java
+  public class Super {
+      public Super() {m();}
+      public void m() {//initialization code
+      }
+
+  public class Sub extends Super {
+      private final Date date;
+      public Sub() {
+          //Super() 
+          date = new Date();
+      }
+      public void m() {
+          //access date variable
+      }
+
+  Sub s = new Sub();
+  //Sub(); Super()  ; Sub's m()
+#+end_src
+
+- Item 18
+
+
 <2022-04-18 Mon>
 * Common Java Methods
 

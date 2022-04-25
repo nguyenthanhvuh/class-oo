@@ -407,48 +407,48 @@ objects[0] = seven;
 Answer: runtime exception
 #+end_comment
 
-# * Quiz 9:  11/15
-#   Consider the following code.  
-#   #+begin_src java
-# class Apple {
-#   // rep-inv:  name != null
-#   private String name;
-#   public Apple (String name) {   
-#      if (name == null) throw new NPE(...);
-#      this.name = name;
-#   }
-#   @Override public boolean equals (Object o) {
-#      if (!(o instanceof Apple)) { return false; }
-#      Apple a = (Apple) o;     
-#      return name.equals(a.name);
-#   }
-#   @Override public int hashCode() { // see questions below }
-#   @Override public String toString() { return name; }
-# }
-# class AppleTracker extends Apple {
-#   private static Set<String> inventory = new HashSet<String> ();
-#   public AppleTracker (String name) { super(name); inventory.add(name);}
-#   public static Set<String> getInventory() { return Collections.unmodifiableSet(inventory);}
-# }
-# // client code
-# Apple a = new Apple("Winesap");
-# AppleTracker at1 = new AppleTracker("Winesap");
-# AppleTracker at2 = new AppleTracker("Fuji");
+* Quiz 9: 
+  Consider the following code.  
+  #+begin_src java
+class Apple {
+  // rep-inv:  name != null
+  private String name;
+  public Apple (String name) {   
+     if (name == null) throw new NPE(...);
+     this.name = name;
+  }
+  @Override public boolean equals (Object o) {
+     if (!(o instanceof Apple)) { return false; }
+     Apple a = (Apple) o;     
+     return name.equals(a.name);
+  }
+  @Override public int hashCode() { // see questions below }
+  @Override public String toString() { return name; }
+}
+class AppleTracker extends Apple {
+  private static Set<String> inventory = new HashSet<String> ();
+  public AppleTracker (String name) { super(name); inventory.add(name);}
+  public static Set<String> getInventory() { return Collections.unmodifiableSet(inventory);}
+}
+// client code
+Apple a = new Apple("Winesap");
+AppleTracker at1 = new AppleTracker("Winesap");
+AppleTracker at2 = new AppleTracker("Fuji");
 
-#   #+end_src
+  #+end_src
 
-# Mark each of the following either *True* or *False*:
+Mark each of the following either *True* or *False*:
 
-# 1. The ~equals()~ method in the AppleTracker class is inherited from the Apple class. 
-# - ~a.equals(at1)~ sometimes returns true and sometimes returns false. 
-# - The ~equals()~ method in the Apple class relies on the rep-invariant to satisfy its contract. 
-# - ~AppleTracker~ adds client-visible state to Apple objects. 
-# - ~a.equals(at1)~ and ~at1.equals(a)~ are both true. 
-# - ~a.equals(at2)~ and ~at2.equals(a)~ are both false. 
-# - ~at1.equals(a)~ and ~a.equals(at2)~ are both true, but ~at1.equals(at2)~ is false. 
-# - It would correct to implement ~hashCode()~ as ~return name.hashCode(); ~
-# - It would correct to inherit ~hashCode()~ from the Object class. 
-# - Bloch would object to replacing ~o instanceof Apple~ with a predicate built atop ~getClass()~. 
+1. The ~equals()~ method in the AppleTracker class is inherited from the Apple class. 
+- ~a.equals(at1)~ sometimes returns true and sometimes returns false. 
+- The ~equals()~ method in the Apple class relies on the rep-invariant to satisfy its contract. 
+- ~AppleTracker~ adds client-visible state to Apple objects. 
+- ~a.equals(at1)~ and ~at1.equals(a)~ are both true. 
+- ~a.equals(at2)~ and ~at2.equals(a)~ are both false. 
+- ~at1.equals(a)~ and ~a.equals(at2)~ are both true, but ~at1.equals(at2)~ is false. 
+- It would correct to implement ~hashCode()~ as ~return name.hashCode();~
+- It would correct to inherit ~hashCode()~ from the Object class. 
+- Bloch would object to replacing ~o instanceof Apple~ with a predicate built atop ~getClass()~. 
 
 
 # #+begin_comment
