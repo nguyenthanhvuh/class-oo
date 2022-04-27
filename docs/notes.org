@@ -34,7 +34,7 @@ Item 17: Minimize Mutability
   //Sub(); Super()  ; Sub's m()
 #+end_src
 
-- Item 18
+- Inclass 10A
 
 
 <2022-04-18 Mon>

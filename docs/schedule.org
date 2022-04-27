@@ -1717,7 +1717,7 @@
    :END:
 *** Goals: Favoring composition over inheritance. Bloch, Item 18.
 
-    Consider the ~InstrumentedSet~ example from Bloch Item 18 (as well as in-class exercise [[#ic10A][in-class 10A]]).
+    Consider the ~InstrumentedSet~ example from Bloch Item 18 (as well as in-class exercise [[#ic12A][in-class 12A]]).
     1. Replace ~Set~ with ~List~. There is no problem with ~equals()~. Why not?
     1. Replace =Set= with =Collection=. Now =equals()= does not satisfy its contract.
        - Explain why there is a problem.
