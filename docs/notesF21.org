@@ -11,6 +11,7 @@ final avail 11:59PM Sunday 12/12  ----  11:59 Monday 12/13
 Questions about grading on quizzes/assignments ->  ask us within this week 
 
 
+
 Questions:
 - Essays 
 
@@ -511,7 +512,7 @@ In-class exercise
 
 
     @Theory
-    public void equalsTransitivity(Object x, Object y, Object z){
+        public void equalsTransitivity(Object x, Object y, Object z){
       //transitivity   a==b && b == c => a == c
       //if(a == b && b==c){assert(a==c);}
 

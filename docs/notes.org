@@ -1,3 +1,223 @@
+<2022-05-02 Mon>
+JUnit Theories
+#+begin_src java
+
+    @RunWith(Theories.class)
+    public class MyJunitTheories {
+
+        @DataPoints
+        public static int[] dataPoints() {
+            return new int[]{
+                    71, 82, 53, -1
+            };
+        }
+
+        //For a and b where a,b > 0
+        //(a+b)^2 = a^2+b^2+2ab 
+        //a+b > a and a+b > b
+
+        @Theory
+        public void squareTheory(Integer a, Integer b){
+
+            //Below assume statement ensures that we are testing only positive numbers
+            Assume.assumeTrue(a > 0 && b > 0);
+
+            System.out.println("Running with Data points - " + a + " , "+ b);
+
+            Double leftSide = Math.pow(a+b,2);
+            Double rightSide = Double.valueOf(a * a + b * b + 2 * a * b);
+
+            assertEquals(leftSide,rightSide);
+            
+            assertTrue(a + b > a);
+            assertTrue(a + b > b);
+        }
+  }      
+#+end_src
+
+# tests: 16
+
+-1,-1
+53,53
+82,82
+71,71
+71,82
+82,71
+82,53
+53,82
+53,-1
+-1,53
+71,53
+53,71
+71,-1
+-1,71
+82,-1
+-1,82
+
+# 7 fail preconditions
+-1,-1
+53,-1
+...
+
+# 7 pass the tests (fail preconds) + the other 9  = 16
+53,71 .. pass
+
+
+
+pair of points over 5 data points 
+5**2 ?   Cartesian product
+
+
+2**5 ?
+
+
+k over n
+n**k   
+n=5,k=2    5x5 = 25
+n=5,k=3    5x5x5 = 1255
+n=100,k=2  100x100 = 10,000
+
+Inclass 13
+#+begin_src java
+  ,#+begin_src java
+
+      @DataPoints
+       public static Point[] points = {null, //a
+           new Point(2,2),  //b
+           new ColorPoint(2,2,COLOR.BLACK), //c
+           new ColorPoint(2,2 ,COLOR.RED)}; //d
+
+      @Theory
+      public void testEquals(Object a, Object b) {  // can also use Point, but Object is more general and just
+          // symmetry
+          // *if* (a==b) then b==a AND
+
+          // if (b==a) then a==b
+          //  a==b iff b==a
+
+          // NOT correct : too strong
+          // a==b AND b==a
+          // a.equals(b) == FALSE  =>  b.equals(a) == FALSE
+
+          assumeTrue(a!= null && b != null);
+
+          if(a.equals(b)){assertTrue(b.equals(a));}
+          if(b.equals(a)){assertTrue(a.equals(b));}
+
+          //or , a shorter version
+          assertTrue(a.equals(b) == b.equals(a));
+
+          //# of tests = 4*4 = 16
+          //# of tests passing the preconds: 9
+          // fail preconds(null,null;  *,null, null,*)
+
+          //passing tests
+          // a,a
+          // a,*
+          // *,a
+          // b,b
+          // c,c
+          // d,d
+          // c,d because c.equals(d) == FALSE  == d.equals(c) == FALSE 
+          // d,c because d.equals(c) == FALSE  == c.equals(d) == FALSE
+
+          //failing tests
+          // b,c  b.equals(c)  == T
+          // c.equals(b)  == F
+          // c,b  ....
+      }
+
+    @Theory
+    public void equalsTransitivity(Object x, Object y, Object z){
+        //(x.equals(y) and y.equals(z)) => x.equals(z)
+        //if (x.equals(y) and y.equals(z)) then  x.equals(z)
+
+        assumeTrue(x!=null && y!=null && z!= null);
+        if(x.equals(y) && y.equals(z)){
+            assertTrue(x.equals(z))
+        }
+
+        assumeEquals(x,y);
+        assumeEquals(y,z);
+        assertTrue(x,z);
+    }
+
+
+    @Theory
+    public void equalsHashCode(Object x, Object y){
+        //if(x==y) then x.hash == y.hash
+
+      assumeTrue(x != null);
+      assumeTrue(y != null);
+
+      assumeTrue(x.equals(y));
+      assertTrue(x.hashCode() == y.hashCode());
+        
+    }
+
+#+end_src
+
+
+
+** Final Reviews
+
+- Format
+  Open
+  NO COLLABORATION OF ANY KIND
+- LOOK at in-class exercise
+
+*** 5 questions
+
+- specifications
+  - total vs partial contracts
+  - repr invs
+  - know when the code violates/satisfies contracts
+- Hoare logic
+  - pre/post conditions
+  - weakest precondition rules
+  - verification condition (precondition => wp)
+  - sufficiently strong loop invariants
+
+
+contract for push
+precond: none
+*postcond*:
+iff null throw exception;
+ensure adequate capacity;
+add element to array
+increase size variable by 1
+
+
+postcond (better, more general, not implementation specific):
+  throw exception if attempt to add a null element, else add element to the top of the stack
+
+  
+**toString**
+elements.length -> size
+
+*repr invs*
+
+- elements != null
+- 0 <= size <= elements.length()
+- no null before size
+
+- contents of elements cannot contain null : INCORRECT
+
+Prefers ArrayList over Array
+- if we use list,
+  - pop doesn't need to set elements[size]=null
+  - doesn't need size
+  - ensureCapacity: no need
+
+contract for *pop*
+- precond: none
+- if stack is empty, throw exception
+- otherwise, remove top of the stack and return that
+
+pushAll()  
+
+
+
 <2022-04-25 Mon>
 * Classes and Inheritence
 

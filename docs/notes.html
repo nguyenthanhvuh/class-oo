@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-04-25 Mon 16:26 -->
+<!-- 2022-05-04 Wed 10:26 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>&lrm;</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
@@ -15,38 +15,369 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orga80dc32">1. Common Java Methods</a>
+<li><a href="#org5ae0dcb">0.1. Final Reviews</a>
+<ul>
+<li><a href="#org62fa2a5">0.1.1. 5 questions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org6afb7b3">1. Classes and Inheritence</a></li>
+<li><a href="#orgf98c2a1">2. Common Java Methods</a>
 <ul>
 <li>
 <ul>
-<li><a href="#org75f5a08">1.0.1. Transitivity</a></li>
+<li><a href="#org19312bf">2.0.1. Transitivity</a></li>
 </ul>
 </li>
-<li><a href="#org637274b">1.1. 9A</a></li>
+<li><a href="#org9588cc2">2.1. 9A</a></li>
 </ul>
 </li>
-<li><a href="#org4df3774">2. Generics</a>
+<li><a href="#org4bf699a">3. Generics</a>
 <ul>
-<li><a href="#org903e5db">2.1. Suppress Warnings (Item 27)</a></li>
-<li><a href="#orgded3c8f">2.2. Prefer Lists over Arrays</a></li>
-<li><a href="#org8d06742">2.3. Prefer Generic Types (Item 29)</a></li>
-<li><a href="#org2812af1">2.4. Prefer Generic Methods (Item 30)</a></li>
-<li><a href="#org65ae64c">2.5. Bounded WildCards</a></li>
+<li><a href="#org3dd09a7">3.1. Suppress Warnings (Item 27)</a></li>
+<li><a href="#org39d3243">3.2. Prefer Lists over Arrays</a></li>
+<li><a href="#org36167b1">3.3. Prefer Generic Types (Item 29)</a></li>
+<li><a href="#orgf8fbe50">3.4. Prefer Generic Methods (Item 30)</a></li>
+<li><a href="#org77cb102">3.5. Bounded WildCards</a></li>
 </ul>
 </li>
-<li><a href="#org6dc4691">3. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></a></li>
-<li><a href="#org81502f5">4. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></a></li>
-<li><a href="#org55682bf">5. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></a></li>
-<li><a href="#org3e3ab1a">6. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></a></li>
+<li><a href="#orgb4fc421">4. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></a></li>
+<li><a href="#orgc6cb428">5. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></a></li>
+<li><a href="#org51a0b70">6. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></a></li>
+<li><a href="#org926fb02">7. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></a></div>
+</div>
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-05-02 Mon&gt;</span></span>
+JUnit Theories
+</p>
+<div class="org-src-container">
+<pre class="src src-java">
+  <span style="color: #b751b6;">@RunWith</span>(Theories.<span style="color: #e45649;">class</span>)
+  <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">MyJunitTheories</span> {
+
+      <span style="color: #b751b6;">@DataPoints</span>
+      <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span>[] <span style="color: #a626a4;">dataPoints</span>() {
+          <span style="color: #e45649;">return</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">int</span>[]{
+                  71, 82, 53, -1
+          };
+      }
+
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">For a and b where a,b &gt; 0</span>
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">(a+b)^2 = a^2+b^2+2ab </span>
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">a+b &gt; a and a+b &gt; b</span>
+
+      <span style="color: #b751b6;">@Theory</span>
+      <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">squareTheory</span>(<span style="color: #986801;">Integer</span> <span style="color: #6a1868;">a</span>, <span style="color: #986801;">Integer</span> <span style="color: #6a1868;">b</span>){
+
+          <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Below assume statement ensures that we are testing only positive numbers</span>
+          Assume.assumeTrue(a &gt; 0 &amp;&amp; b &gt; 0);
+
+          System.out.println(<span style="color: #50a14f;">"Running with Data points - "</span> + a + <span style="color: #50a14f;">" , "</span>+ b);
+
+          <span style="color: #986801;">Double</span> <span style="color: #6a1868;">leftSide</span> = Math.pow(a+b,2);
+          <span style="color: #986801;">Double</span> <span style="color: #6a1868;">rightSide</span> = Double.valueOf(a * a + b * b + 2 * a * b);
+
+          assertEquals(leftSide,rightSide);
+
+          assertTrue(a + b &gt; a);
+          assertTrue(a + b &gt; b);
+      }
+}      
+</pre>
+</div>
+
+<p>
+-1,-1
+53,53
+82,82
+71,71
+71,82
+82,71
+82,53
+53,82
+53,-1
+-1,53
+71,53
+53,71
+71,-1
+-1,71
+82,-1
+-1,82
+</p>
+
+<p>
+-1,-1
+53,-1
+&#x2026;
+</p>
+
+<p>
+53,71 .. pass
+</p>
+
+
+
+<p>
+pair of points over 5 data points 
+5**2 ?   Cartesian product
+</p>
+
+
+<p>
+2**5 ?
+</p>
+
+
+<p>
+k over n
+n**k   
+n=5,k=2    5x5 = 25
+n=5,k=3    5x5x5 = 1255
+n=100,k=2  100x100 = 10,000
+</p>
+
+<p>
+Inclass 13
+</p>
+<div class="org-src-container">
+<pre class="src src-java">#+begin_src java
+
+    <span style="color: #b751b6;">@DataPoints</span>
+     <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> Point[] points = {<span style="color: #b751b6;">null</span>, <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">a</span>
+         <span style="color: #e45649;">new</span> <span style="color: #986801;">Point</span>(2,2),  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">b</span>
+         <span style="color: #e45649;">new</span> <span style="color: #986801;">ColorPoint</span>(2,2,<span style="color: #b751b6;">COLOR</span>.BLACK), <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">c</span>
+         <span style="color: #e45649;">new</span> <span style="color: #986801;">ColorPoint</span>(2,2 ,<span style="color: #b751b6;">COLOR</span>.RED)}; <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">d</span>
+
+    <span style="color: #b751b6;">@Theory</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">testEquals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">a</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">b</span>) {  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">can also use Point, but Object is more general and just</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">symmetry</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">*if* (a==b) then b==a AND</span>
+
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">if (b==a) then a==b</span>
+        <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">a==b iff b==a</span>
+
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">NOT correct : too strong</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a==b AND b==a</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a.equals(b) == FALSE  =&gt;  b.equals(a) == FALSE</span>
+
+        assumeTrue(a!= <span style="color: #b751b6;">null</span> &amp;&amp; b != <span style="color: #b751b6;">null</span>);
+
+        <span style="color: #e45649;">if</span>(a.equals(b)){assertTrue(b.equals(a));}
+        <span style="color: #e45649;">if</span>(b.equals(a)){assertTrue(a.equals(b));}
+
+        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">or , a shorter version</span>
+        assertTrue(a.equals(b) == b.equals(a));
+
+        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;"># of tests = 4*4 = 16</span>
+        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;"># of tests passing the preconds: 9</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">fail preconds(null,null;  *,null, null,*)</span>
+
+        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">passing tests</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a,a</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a,*</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">*,a</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">b,b</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">c,c</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">d,d</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">c,d because c.equals(d) == FALSE  == d.equals(c) == FALSE </span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">d,c because d.equals(c) == FALSE  == c.equals(d) == FALSE</span>
+
+        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">failing tests</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">b,c  b.equals(c)  == T</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">c.equals(b)  == F</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">c,b  ....</span>
+    }
+
+  <span style="color: #b751b6;">@Theory</span>
+  <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">equalsTransitivity</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">y</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">z</span>){
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">(x.equals(y) and y.equals(z)) =&gt; x.equals(z)</span>
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if (x.equals(y) and y.equals(z)) then  x.equals(z)</span>
+
+      assumeTrue(x!=<span style="color: #b751b6;">null</span> &amp;&amp; y!=<span style="color: #b751b6;">null</span> &amp;&amp; z!= <span style="color: #b751b6;">null</span>);
+      <span style="color: #e45649;">if</span>(x.equals(y) &amp;&amp; y.equals(z)){
+          assertTrue(x.equals(z))
+      }
+
+      assumeEquals(x,y);
+      assumeEquals(y,z);
+      assertTrue(x,z);
+  }
+
+
+  <span style="color: #b751b6;">@Theory</span>
+  <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">equalsHashCode</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">y</span>){
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if(x==y) then x.hash == y.hash</span>
+
+    assumeTrue(x != <span style="color: #b751b6;">null</span>);
+    assumeTrue(y != <span style="color: #b751b6;">null</span>);
+
+    assumeTrue(x.equals(y));
+    assertTrue(x.hashCode() == y.hashCode());
+
+  }
+
+</pre>
+</div>
+
+
+
+<div id="outline-container-org5ae0dcb" class="outline-3">
+<h3 id="org5ae0dcb"><span class="section-number-3">0.1.</span> Final Reviews</h3>
+<div class="outline-text-3" id="text-0-1">
+<ul class="org-ul">
+<li>Format
+Open
+NO COLLABORATION OF ANY KIND</li>
+<li>LOOK at in-class exercise</li>
 </ul>
 </div>
+
+<div id="outline-container-org62fa2a5" class="outline-4">
+<h4 id="org62fa2a5"><span class="section-number-4">0.1.1.</span> 5 questions</h4>
+<div class="outline-text-4" id="text-0-1-1">
+<ul class="org-ul">
+<li>specifications
+<ul class="org-ul">
+<li>total vs partial contracts</li>
+<li>repr invs</li>
+<li>know when the code violates/satisfies contracts</li>
+</ul></li>
+<li>Hoare logic
+<ul class="org-ul">
+<li>pre/post conditions</li>
+<li>weakest precondition rules</li>
+<li>verification condition (precondition =&gt; wp)</li>
+<li>sufficiently strong loop invariants</li>
+</ul></li>
+</ul>
+
+
+<p>
+contract for push
+precond: none
+<b>postcond</b>:
+iff null throw exception;
+ensure adequate capacity;
+add element to array
+increase size variable by 1
+</p>
+
+
+<p>
+postcond (better, more general, not implementation specific):
+  throw exception if attempt to add a null element, else add element to the top of the stack
+</p>
+
+
+<p>
+<b><b>toString</b></b>
+elements.length -&gt; size
+</p>
+
+<p>
+<b>repr invs</b>
+</p>
+
+<ul class="org-ul">
+<li>elements != null</li>
+<li>0 &lt;= size &lt;= elements.length()</li>
+<li>no null before size</li>
+
+<li>contents of elements cannot contain null : INCORRECT</li>
+</ul>
+
+<p>
+Prefers ArrayList over Array
+</p>
+<ul class="org-ul">
+<li>if we use list,
+<ul class="org-ul">
+<li>pop doesn't need to set elements[size]=null</li>
+<li>doesn't need size</li>
+<li>ensureCapacity: no need</li>
+</ul></li>
+</ul>
+
+<p>
+contract for <b>pop</b>
+</p>
+<ul class="org-ul">
+<li>precond: none</li>
+<li>if stack is empty, throw exception</li>
+<li>otherwise, remove top of the stack and return that</li>
+</ul>
+
+<p>
+pushAll()  
+</p>
+
+
+
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-04-25 Mon&gt;</span></span>
+</p>
 </div>
+</div>
+</div>
+<div id="outline-container-org6afb7b3" class="outline-2">
+<h2 id="org6afb7b3"><span class="section-number-2">1.</span> Classes and Inheritence</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Item 17: Minimize Mutability
+</p>
+<ul class="org-ul">
+<li>Thread safe ;  easier for sharing; efficiency; safety;  less prone to error, easier to design</li>
+<li>5 rules:
+<ul class="org-ul">
+<li>don't provide mutators</li>
+<li>don't allow methods to be overriden
+<ul class="org-ul">
+<li>prevent careless or malicious sublcasses from compromise the immutability of the superclass</li>
+<li>e.g., making class/method final</li>
+</ul></li>
+<li>make all fields final/private</li>
+<li>ensure exlucive access to mutable components:
+don't provide client direct reference to mutable field; make defense copies</li>
+</ul></li>
+
+<li>constructor should not invoke orridable method</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Super</span> {
+    <span style="color: #e45649;">public</span> Super() {m();}
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">m</span>() {<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">initialization code</span>
+    }
+
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Sub</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Super</span> {
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Date</span> <span style="color: #6a1868;">date</span>;
+    <span style="color: #e45649;">public</span> Sub() {
+        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Super() </span>
+        date = <span style="color: #e45649;">new</span> <span style="color: #986801;">Date</span>();
+    }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">m</span>() {
+        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">access date variable</span>
+    }
+
+<span style="color: #986801;">Sub</span> <span style="color: #6a1868;">s</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Sub</span>();
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Sub(); Super()  ; Sub's m()</span>
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Inclass 10A</li>
+</ul>
+
+
 <p>
 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-04-18 Mon&gt;</span></span>
 </p>
-<div id="outline-container-orga80dc32" class="outline-2">
-<h2 id="orga80dc32"><span class="section-number-2">1.</span> Common Java Methods</h2>
-<div class="outline-text-2" id="text-1">
+</div>
+</div>
+<div id="outline-container-orgf98c2a1" class="outline-2">
+<h2 id="orgf98c2a1"><span class="section-number-2">2.</span> Common Java Methods</h2>
+<div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li>equals, toString, hash, clone, etc</li>
 
@@ -115,9 +446,9 @@ s1.equals(s0); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0
 </div>
 </div>
 
-<div id="outline-container-org75f5a08" class="outline-4">
-<h4 id="org75f5a08"><span class="section-number-4">1.0.1.</span> Transitivity</h4>
-<div class="outline-text-4" id="text-1-0-1">
+<div id="outline-container-org19312bf" class="outline-4">
+<h4 id="org19312bf"><span class="section-number-4">2.0.1.</span> Transitivity</h4>
+<div class="outline-text-4" id="text-2-0-1">
 <div class="org-src-container">
 <pre class="src src-java">       <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Point</span> {
 
@@ -215,9 +546,9 @@ s1.equals(s0); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0
 </div>
 
 
-<div id="outline-container-org637274b" class="outline-3">
-<h3 id="org637274b"><span class="section-number-3">1.1.</span> 9A</h3>
-<div class="outline-text-3" id="text-1-1">
+<div id="outline-container-org9588cc2" class="outline-3">
+<h3 id="org9588cc2"><span class="section-number-3">2.1.</span> 9A</h3>
+<div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>equals(): reflexive, transitivity, symmetry, consistency, null-null behavior</li>
 <li>if isinstance of Point,  if not return False</li>
@@ -338,9 +669,9 @@ result += 31 * v1  + hash(v3)
 </div>
 </div>
 
-<div id="outline-container-org4df3774" class="outline-2">
-<h2 id="org4df3774"><span class="section-number-2">2.</span> Generics</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org4bf699a" class="outline-2">
+<h2 id="org4bf699a"><span class="section-number-2">3.</span> Generics</h2>
+<div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li>Don't use Raw types (item 26)</li>
 </ul>
@@ -389,9 +720,9 @@ unsafeAdd(strings, <span style="color: #e45649;">new</span> <span style="color: 
 </div>
 </div>
 
-<div id="outline-container-org903e5db" class="outline-3">
-<h3 id="org903e5db"><span class="section-number-3">2.1.</span> Suppress Warnings (Item 27)</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-org3dd09a7" class="outline-3">
+<h3 id="org3dd09a7"><span class="section-number-3">3.1.</span> Suppress Warnings (Item 27)</h3>
+<div class="outline-text-3" id="text-3-1">
 <div class="org-src-container">
 <pre class="src src-java">  <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">Lark</span>&gt; <span style="color: #6a1868;">exaltation</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">HashSet</span>();              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">warning</span>
   <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">Lark</span>&gt; <span style="color: #6a1868;">exaltation</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">HashSet</span>&lt;<span style="color: #986801;">Lark</span>&gt;();              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">no warning</span>
@@ -419,9 +750,9 @@ unsafeAdd(strings, <span style="color: #e45649;">new</span> <span style="color: 
 </div>
 </div>
 
-<div id="outline-container-orgded3c8f" class="outline-3">
-<h3 id="orgded3c8f"><span class="section-number-3">2.2.</span> Prefer Lists over Arrays</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-org39d3243" class="outline-3">
+<h3 id="org39d3243"><span class="section-number-3">3.2.</span> Prefer Lists over Arrays</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 Arrays are <b>covariant</b> and Lists are <b>invariant</b>
 </p>
@@ -444,9 +775,9 @@ o1.add(&#8220;I don&#8217;t fit in<span style="color: #4078f2; font-weight: bold
 </div>
 </div>
 
-<div id="outline-container-org8d06742" class="outline-3">
-<h3 id="org8d06742"><span class="section-number-3">2.3.</span> Prefer Generic Types (Item 29)</h3>
-<div class="outline-text-3" id="text-2-3">
+<div id="outline-container-org36167b1" class="outline-3">
+<h3 id="org36167b1"><span class="section-number-3">3.3.</span> Prefer Generic Types (Item 29)</h3>
+<div class="outline-text-3" id="text-3-3">
 <p>
 <b>Generify</b> code
 </p>
@@ -457,9 +788,9 @@ private Object[] elements; // private E[] elements (1st attempt) /=&gt; private 
 </div>
 </div>
 
-<div id="outline-container-org2812af1" class="outline-3">
-<h3 id="org2812af1"><span class="section-number-3">2.4.</span> Prefer Generic Methods (Item 30)</h3>
-<div class="outline-text-3" id="text-2-4">
+<div id="outline-container-orgf8fbe50" class="outline-3">
+<h3 id="orgf8fbe50"><span class="section-number-3">3.4.</span> Prefer Generic Methods (Item 30)</h3>
+<div class="outline-text-3" id="text-3-4">
 <div class="org-src-container">
 <pre class="src src-java">
 <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Uses raw types &#8211; unacceptable! (Item 23)</span>
@@ -481,9 +812,9 @@ private Object[] elements; // private E[] elements (1st attempt) /=&gt; private 
 </div>
 
 
-<div id="outline-container-org65ae64c" class="outline-3">
-<h3 id="org65ae64c"><span class="section-number-3">2.5.</span> Bounded WildCards</h3>
-<div class="outline-text-3" id="text-2-5">
+<div id="outline-container-org77cb102" class="outline-3">
+<h3 id="org77cb102"><span class="section-number-3">3.5.</span> Bounded WildCards</h3>
+<div class="outline-text-3" id="text-3-5">
 <div class="org-src-container">
 <pre class="src src-java">  <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Stack</span> &lt;<span style="color: #986801;">E</span>&gt; {
      <span style="color: #e45649;">public</span> Stack()
@@ -1303,9 +1634,9 @@ leave: YES, satisfy contract
 
 
 
-<div id="outline-container-org6dc4691" class="outline-2">
-<h2 id="org6dc4691"><span class="section-number-2">3.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-orgb4fc421" class="outline-2">
+<h2 id="orgb4fc421"><span class="section-number-2">4.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-4">
 <p>
 Hoare Tripple
 {P} S {Q}
@@ -1723,9 +2054,9 @@ N, i , x
 </div>
 
 
-<div id="outline-container-org81502f5" class="outline-2">
-<h2 id="org81502f5"><span class="section-number-2">4.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgc6cb428" class="outline-2">
+<h2 id="orgc6cb428"><span class="section-number-2">5.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">months</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">principal</span>, <span style="color: #986801;">double</span> <span style="color: #6a1868;">rate</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">payment</span>){
     <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.</span>
@@ -1989,9 +2320,9 @@ Total correctness: does not make the assumption that S will terminate (halting p
 </div>
 
 
-<div id="outline-container-org55682bf" class="outline-2">
-<h2 id="org55682bf"><span class="section-number-2">5.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-org51a0b70" class="outline-2">
+<h2 id="org51a0b70"><span class="section-number-2">6.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-6">
 <ul class="org-ul">
 <li><p>
 Specification/Contract of a program
@@ -2173,9 +2504,9 @@ specification too specific to implentation (remove(0)), to fix: throws IAE inste
 </div>
 </div>
 
-<div id="outline-container-org3e3ab1a" class="outline-2">
-<h2 id="org3e3ab1a"><span class="section-number-2">6.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-org926fb02" class="outline-2">
+<h2 id="org926fb02"><span class="section-number-2">7.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></h2>
+<div class="outline-text-2" id="text-7">
 <p>
 What does it mean to write correct software?
 </p>
