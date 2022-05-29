@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-01-29 Sat 16:19 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>OO Software Specification and Construction <br> (SWE 619 Course Syllabus -  Spring 2022)</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Thanhvu Nguyen" />
+<link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+<link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+</head>
+<body>
+<div id="content">
+<h1 class="title">OO Software Specification and Construction <br> (SWE 619 Course Syllabus -  Spring 2022)</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org84ebc96">1. General Information</a></li>
+<li><a href="#org15554d4">2. Schedule and Assignments</a></li>
+<li><a href="#org9a914a6">3. Syllabus</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org84ebc96" class="outline-2">
+<h2 id="org84ebc96"><span class="section-number-2">1</span> General Information</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>Instructor: <a href="https://nguyenthanhvuh.github.io">ThanhVu Nguyen</a>
+<ul class="org-ul">
+<li>Office Hrs: Mondays 2:00PM - 3:00PM (Research Hall 356 and through Zoom link below)</li>
+<li>Email: <a href="mailto:tvn@gmu.edu">tvn@gmu.edu</a> (Piazza discussion is preferred)</li>
+</ul></li>
+<li>TA: Xu Han
+<ul class="org-ul">
+<li>Email: <a href="mailto:xhan21@gmu.edu">xhan21@gmu.edu</a></li>
+<li>Office Hrs: Mondays 3:00PM - 4:00PM (use class Zoom link below)</li>
+</ul></li>
+<li>Class:
+<ul class="org-ul">
+<li>Mondays 4:30PM&#x2013;7:10PM, Horizon Hall 1012</li>
+<li>Zoom link for office hrs: <a href="https://gmu.zoom.us/j/98393279342">https://gmu.zoom.us/j/98393279342</a> (Passcode: 148674)</li>
+<li>Piazza: <a href="https://piazza.com/gmu/spring2022/swe619nguyen">https://piazza.com/gmu/spring2022/swe619nguyen</a></li>
+<li>Syllabus and Schedule (this website): <a href="https://nguyenthanhvuh.github.io/class-oo">https://nguyenthanhvuh.github.io/class-oo</a></li>
+<li>Assignment Submission (homework, reflection, quizzes, exams): Blackboard (BB)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org15554d4" class="outline-2">
+<h2 id="org15554d4"><span class="section-number-2">2</span> <a href="./schedule.html">Schedule and Assignments</a></h2>
+</div>
+
+<div id="outline-container-org9a914a6" class="outline-2">
+<h2 id="org9a914a6"><span class="section-number-2">3</span> Syllabus</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgcd28dbc" class="outline-3">
+<h3 id="orgcd28dbc"><span class="section-number-3">3.1</span> Course Description</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+To give the students a solid understanding of modern software construction. To encourage the construction of software systems of high quality. In-depth study of software construction in a modern language including program specifications and OO designs. Concepts such as information hiding, data abstraction, and object-based and object-oriented software construction are discussed and illustrated. This course is part of the core of the SWE program.
+</p>
+
+<p>
+<b>Prerequisite</b>: SWE Foundation Courses or equivalent
+</p>
+</div>
+</div>
+
+<div id="outline-container-org34f87f1" class="outline-3">
+<h3 id="org34f87f1"><span class="section-number-3">3.2</span> Course Materials</h3>
+<div class="outline-text-3" id="text-3-2">
+<ol class="org-ol">
+<li>Barbara Liskov with John Guttag. <a href="https://www.amazon.com/Program-Development-Java-Specification-Object-Oriented/dp/0201657686/ref=sr_1_2?dchild=1&amp;qid=1626231221&amp;refinements=p_27%3ABarbara+Liskov&amp;s=books&amp;sr=1-2&amp;text=Barbara+Liskov"><i>Program Development in Java: Abstraction, Specification, and Object-Oriented Design</i></a>. Addison Wesley, 2001, ISBN 0-201-65768-6. <b>Required</b>. 
+
+<ul class="org-ul">
+<li><a href="https://learning-oreilly-com.mutex.gmu.edu/library/view/program-development-in/9780768685299/ch1.html">Link</a></li>
+</ul></li>
+
+<li>Joshua Bloch. <a href="https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=sr_1_1?dchild=1&amp;keywords=effective+java&amp;qid=1626231154&amp;sr=8-1"><i>Effective Java</i></a>. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1. <b>Required</b>. 
+
+<ul class="org-ul">
+<li><a href="https://learning-oreilly-com.mutex.gmu.edu/library/view/effective-java-3rd/9780134686097/cover.xhtml">Link</a></li>
+</ul></li>
+</ol>
+<p>
+<b>Note</b>: We'll start with Liskov. Don't worry about the publication date; Liskov is basically a math book, and hence ages remarkably well. We're interested in contracts, mutability, data abstraction, and type abstraction. Bloch is concerned about the same things, but explores them in more detail and in more up-to-date Java. Bloch also corrects some important points that weren't well understood when Liskov's text came out.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6c5fe68" class="outline-3">
+<h3 id="org6c5fe68"><span class="section-number-3">3.3</span> Weekly Schedule</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+This class is a group-based, <i>in-person</i> offering. You need to be present in class at class time. You will also need to schedule regular meetings with your group.
+</p>
+
+<p>
+Each week will cover a topic, which is a small number of related technical issues (see course <a href="./schedule.html">schedule</a>). Each topic will follow roughly the same sequence of preparation, in-class learning activities, homework completion and (possibly) presentation, and knowledge assessment. Many of these activities will be group based. The sequence is:
+</p>
+
+<ul class="org-ul">
+<li>Preparation: Complete assigned readings and watch relevant videos, if any.  No formal submission for this activity.</li>
+<li>Reading Reflection: This is a formal opportunity for each group to reflect on the reading.</li>
+<li>Class Meeting:
+<ul class="org-ul">
+<li>Combined session on the day's topic, followed by in-class exercises (group breakouts)</li>
+<li>Break</li>
+<li>Combined session on the day's topic, may followed by in-class exercises (group breakouts)</li>
+</ul></li>
+<li>Homework (group-based)</li>
+<li>Assessments via quiz: takes place at the <b>end</b> of class the same day as the homework is due.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc8869e3" class="outline-3">
+<h3 id="orgc8869e3"><span class="section-number-3">3.4</span> Grading</h3>
+<div class="outline-text-3" id="text-3-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Assignenmts</th>
+<th scope="col" class="org-right">Percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Group Functioning (group-based)</td>
+<td class="org-right">5%</td>
+</tr>
+
+<tr>
+<td class="org-left">Reading Reflections (group-based)</td>
+<td class="org-right">10%</td>
+</tr>
+
+<tr>
+<td class="org-left">Homework assignments (group-based)</td>
+<td class="org-right">15%</td>
+</tr>
+
+<tr>
+<td class="org-left">Weekly Quizzes (individual)</td>
+<td class="org-right">40%</td>
+</tr>
+
+<tr>
+<td class="org-left">Final exam (individual)</td>
+<td class="org-right">30%</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-orgab4a639" class="outline-4">
+<h4 id="orgab4a639"><span class="section-number-4">3.4.1</span> Scale</h4>
+<div class="outline-text-4" id="text-3-4-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">A+</td>
+<td class="org-left">&ge; 97%</td>
+<td class="org-left">A</td>
+<td class="org-left">&ge; 93%</td>
+<td class="org-left">A-</td>
+<td class="org-left">&gt;= 90%</td>
+</tr>
+
+<tr>
+<td class="org-left">B+</td>
+<td class="org-left">&ge; 87%</td>
+<td class="org-left">B</td>
+<td class="org-left">&ge; 83%</td>
+<td class="org-left">B-</td>
+<td class="org-left">&ge; 80%</td>
+</tr>
+
+<tr>
+<td class="org-left">C</td>
+<td class="org-left">&ge; 70%</td>
+<td class="org-left">D</td>
+<td class="org-left">&ge; 60%</td>
+<td class="org-left">F</td>
+<td class="org-left">&lt; 60%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+<div id="outline-container-org99a756c" class="outline-4">
+<h4 id="org99a756c"><span class="section-number-4">3.4.2</span> Group Functioning</h4>
+<div class="outline-text-4" id="text-3-4-2">
+<p>
+Every student needs to be part of a group. I would prefer that groups stay stable throughout the semester, but if there is a good rationale to reconfigure a group or two, we'll do that.
+</p>
+
+<p>
+<b>Group size</b>: 2 to 4 students.
+</p>
+
+<p>
+Group creation mechanism: As a default, we'll drop students into groups at random. If you prefer a different group, during the first week you will have the option to re-group. If your group dwindles to just yourself, you'll need to join another group.
+</p>
+
+<p>
+During the final exam, each individual will provide an assessment of the rest of their group. This assessment will determine the "Group Functioning" part of the grade.
+</p>
+
+<p>
+Groups can communicate internally through any mechanism they choose: in-person, zoom, discord, google docs, etc.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org054bcb4" class="outline-4">
+<h4 id="org054bcb4"><span class="section-number-4">3.4.3</span> Reading Reflections</h4>
+<div class="outline-text-4" id="text-3-4-3">
+<p>
+Each week, each group must complete a "reading reflection" the day <b>before</b> class. (That means midnight Sunday, in the case of this class, since class meetings are Monday afternoon.) I will review these assessments before class and use them to tune the in-class activities. Reading reflections are linked from the course schedule and must be turned in on BB. These reflections are part of the learning process rather than the assessment process. That is, they don't assess whether you have achieved mastery of the new material, rather they check whether you have done the necessary preparation.
+</p>
+
+<p>
+<b>Important</b>:
+</p>
+<ul class="org-ul">
+<li>There are no make-ups.</li>
+<li>Only one submission per <b>group</b>. Everyone in the group gets the same credit.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9330226" class="outline-4">
+<h4 id="org9330226"><span class="section-number-4">3.4.4</span> Homework Assignments</h4>
+<div class="outline-text-4" id="text-3-4-4">
+<p>
+There are weekly <b>group</b> homework assighments. I post homework assignments on the class <a href="./schedule.html">schedule web site</a>. Your group will submit assignments via BB.
+</p>
+
+<p>
+Because of the way in which this class is taught, it is important to stay on pace. Homeworks are due <b>before class</b>. Late submissions are not accepted except in truly exceptional circumstances.
+</p>
+
+<p>
+<b>Important</b>: 
+</p>
+<ul class="org-ul">
+<li>Each group should be prepared to present their homework solution in class.</li>
+<li><b>Statement of who did what</b>. Homeworks are group exercises. Each submission must contain a specific statement of who did what.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org5850bbb" class="outline-4">
+<h4 id="org5850bbb"><span class="section-number-4">3.4.5</span> Weekly Quizzes</h4>
+<div class="outline-text-4" id="text-3-4-5">
+<ul class="org-ul">
+<li>Each quiz happens during the last 15-20 minutes of class.</li>
+</ul>
+
+<p>
+<b>Make-up Policy</b>
+</p>
+<ul class="org-ul">
+<li>All quizzes count towards the final grade. Each quiz is scored on a 10 point scale. Missed quizzes score 0/10. Students who miss a quiz or perform badly on a quiz may choose to take the "make-up".</li>
+<li>The maximum possible score on the make-up is 8/10. (Example: your quiz grade is 5/10. You take the make-up and correctly answer 9 of 10 equally weighted questions. Your final score improves from 5/10 to 8/10.)</li>
+<li>If you attempt the make-up, that score counts, no matter what your score was on the quiz. (Example: your quiz grade is 7/10. You take the make-up and correctly answer 5 of 10 equally weighted questions. Your final score declines from 7/10 to 5/10.)</li>
+<li>Scheduling: the GTA will offer the make-up during TA office hours. The make-up can be different than the quiz given in class, but focuses on the same topics.</li>
+<li>The make-up must be taken promptly and within a window of two class meetings from the quiz. (Example: Quiz 1 takes place on Wednesday, September 1. The make-up must be taken on or before Wednesday, September 15. Another Example: Quiz 11 takes place on Wednesday, November 11. Because we don't meet the week of Thanksgiving, the make-up must be taken on or before Wednesday, December 1.)</li>
+<li>Each quiz only has one make-up, and you can only attempt that make-up once. However, you are free to use the make-up mechanism on as many different quizzes as you wish.</li>
+<li>Quizzes are generally returned one week after the quiz is taken. Make-ups are returned after the window has closed.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org45b0eb7" class="outline-4">
+<h4 id="org45b0eb7"><span class="section-number-4">3.4.6</span> Final Exam</h4>
+<div class="outline-text-4" id="text-3-4-6">
+<p>
+There will be an final exam at the time specified by the university's final exam schedule.
+</p>
+<hr />
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge9d6854" class="outline-3">
+<h3 id="orge9d6854"><span class="section-number-3">3.5</span> Class Attendance</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+I place great emphasis on peer learning and interactive engagement. The class is structured to leverage group interactions to the largest extent possible for the purpose of maximizing learning gain through out the semester.
+</p>
+
+<p>
+Bottome line: It's important to be in class.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5b4698a" class="outline-3">
+<h3 id="org5b4698a"><span class="section-number-3">3.6</span> In-Class Exercises</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+I plan an in-class exercise for every class. Students will work in their designated group. Some of these exercises need a Java development environment. Very often, the in-class exercises will be closely related to an upcoming homework assignment.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbfac70e" class="outline-3">
+<h3 id="orgbfac70e"><span class="section-number-3">3.7</span> Record Keeping</h3>
+<div class="outline-text-3" id="text-3-7">
+<p>
+We'll use Blackboard to maintain <b>RAW</b> scores and attendance data. Grades are computed according to this syllabus.
+</p>
+
+<p>
+It's the student's responsibility to ensure that Blackboard records are correct. (I'm happy to correct errors.)
+</p>
+
+
+<hr />
+</div>
+</div>
+
+<div id="outline-container-org13718d9" class="outline-3">
+<h3 id="org13718d9"><span class="section-number-3">3.8</span> Honor Code</h3>
+<div class="outline-text-3" id="text-3-8">
+<p>
+As with all GMU courses, SWE 619 is governed by the <a href="http://oai.gmu.edu/the-mason-honor-code/">GMU Honor Code</a>. In this course, quizzes and the final exam carry with them an implicit statement that it is the sole work of the author.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9e99efc" class="outline-3">
+<h3 id="org9e99efc"><span class="section-number-3">3.9</span> Learning Disabilities</h3>
+<div class="outline-text-3" id="text-3-9">
+<p>
+Students with learning disabilities (or other conditions documented with GMU Office of Disability Services) who need academic accommodations should see me and contact the <a href="http://ods.gmu.edu/">Disability Resource Center</a> (DRC) at (703)993-2474. I am more than happy to assist you, but all academic accommodations must be arranged through the DRC.
+</p>
+
+<hr />
+</div>
+</div>
+<div id="outline-container-org925c465" class="outline-3">
+<h3 id="org925c465"><span class="section-number-3">3.10</span> Acknowledgement</h3>
+<div class="outline-text-3" id="text-3-10">
+<p>
+This class is heavily modeled after <a href="https://cs.gmu.edu/~pammann/">Paul Ammann</a>'s <a href="https://cs.gmu.edu/~pammann/619.html">SWE619 course</a>.
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

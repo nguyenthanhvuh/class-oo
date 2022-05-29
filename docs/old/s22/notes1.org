@@ -1,0 +1,235 @@
+<2021-09-13 Mon>
+
+Reflection
+- mutable vs immutable
+
+  
+Invariants
+
+- an invariant at some program location L is a property that guarantees to hold whenever the program reaches L
+ - assertion
+ - assert(x != null)  x != null is an inv (if it is always hold)
+
+ - post condition of a program is an invariant at the function/method exit points
+
+ - LOOP Invariant (inductive invariant):
+   - holds at the loop entrance
+   - it is preserved through loop body 
+
+
+
+  
+   int f(int x){
+      //precondition (x >= 0)
+      
+      //  "x >= 0" not an invariant right here
+
+      if x < 0 {throw someException;}
+
+      // "x >= 0" is an invariant right here
+
+      assume(x >= 0); 
+      
+      int r = x * 2;
+
+      // invs ?
+      // assert(r/2 == x)
+      // assert(x >= 0)
+      // assert(r >= 0)
+
+      return r;
+   } 
+
+
+
+      #+begin_src java
+        void foo(N){
+          //requires N >= 0
+          int i = 0;
+
+          //loop inv holds here
+          while (i < N){
+            i++;
+            //loop inv holds here
+          }
+
+          //loop inv is :
+          // i < N   // not true 
+          // i <= N  // 
+
+         //invs i == N        
+        } 
+      #+end_src
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<2021-08-30 Mon>
+
+- Reflection
+  - relationship btw precondition and exception
+  - Fuzzing
+
+
+- Contract
+  
+  - P (precondition)  {S}    Q (postcondition)
+  - Hoare Tripple :  correctness  (partial correctness verification -- partial: assume program also terminates)
+
+  - Precondition:
+      - Customier/Client:  need to establish P 
+  - Postcondition:
+      - Implementation/Service: need to establish Q (assume P)
+
+  - if precondition is wrong, we blame the client/customer ...
+  - if postcondition is wrong, we blame the developer/service
+
+- sqrt example:
+  P:
+   1. positive   x > 0           
+   2. non-negative   x >= 0   ***  prefer
+   -  x >=  0  is "weaker" than x > 0
+   -  {0, 0.1, ... }       {0.1, ... }
+   - "stronger" means more "precise"
+
+   {3}  stronger than {3,4}
+   a. my program only works with when x = 3
+   b. my program only works with when x = 3, 4  
+   ...
+   d. my program only works with when x = -inf, ..., inf 
+   ..
+   x.  my program only works with on anything (no precondition)
+
+
+
+  Q:
+   - whole (-1,-2,0,1,2,3,4) ...
+   - real number
+   - pair ...
+   - rational number
+   - output*output = x    output*output = x+/- epsilon  (stronger)
+
+   
+- contract that has precondition is partial contract
+- contract that has no precondition is total contract
+
+
+
+Check vs Unchecked
+- check : error can be recovered
+  try:
+    //some code
+  catch ExceptionX:
+    // some other code to recover
+    // throw some Exception
+
+
+
+State recovery
+- immutable 
+
+    
+
+
+
+---
+<2021-08-23 Mon>
+- Want to write *correct* software
+  - software that satisfy some contracts or specifications
+  - we want strong and precise contract
+
+    
+
+- Sorting function
+  - precondition:
+  - postcondition:
+    
+  - input: a comparable (sortable) set/list of data
+    - a list l of integers
+      
+  - ascending order
+    output = ascending list of integers
+
+
+ mysort([2,3,4,2,3,4])
+
+    [2,3,4]  
+    permutation & ascending
+
+    
+
+- a function f(x,y):
+                 output =  x/y
+                 return output
+
+   - nonzery y is precondition
+     
+   postcondition about output:  
+   - a number
+   - integer or float
+   - output * y == x    
+
+
+
+
+#+begin_src java
+  public static List<Integer> tail (List<Integer> list) {
+
+      // REQUIRES: ???
+      // EFFECTS:  ???
+      if (list.size() == 0) throw IllegalArgumentException ...
+                              
+      List<Integer> result = new ArrayList<Integer>(list);
+      result.remove(0);
+      return result;
+  }
+#+end_src
+
+1. list = null  -> NPE ;  list = [] ->  IOBE
+   list =[1] -> [0] ...
+
+2. partial specs/contract
+   //requires/precond:   list is not null and not empty
+   //effects :  erase first element
+
+3. total specs/contract
+   //requires/precond:   ...
+   //effects :  erase first element
+     list is null -> have NPE
+     list is  empty -> have IOBE
+
+4/5 more general total specs/contract
+   //requires/precond:   ...
+   //effects :  erase first element
+     list is null -> have NPE
+     list is  empty -> IllegalArgumentException
+   
+
+
+   
+---  precondition
+
