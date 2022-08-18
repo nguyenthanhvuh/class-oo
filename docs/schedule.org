@@ -1,76 +1,90 @@
-#+TITLE: SWE 619 Course Schedule and Assignments
+#+TITLE: Course Schedule and Assignments
 #+OPTIONS: ^:nil toc:1
 
-#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
-#+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+#+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
+#+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
 * Schedule
   
   - *Notes*: Except for the first class, students are expected to complete the reading *prior to class* on listed meeting. Quizzes may occasionally take advantage of this expectation. Homework assignments are *due* on the date listed.
 
 
-  | Meeting | Topic                                                       | Reading                                                                                   |    Assignment     |                In-Class Exercise                 |   |
-  |     <r> |                                                             | <l>                                                                                       |        <c>        |                       <c>                        |   |
-  |---------+-------------------------------------------------------------+-------------------------------------------------------------------------------------------+-------------------+--------------------------------------------------+---|
-  |       1 | Class Overview                                              | Liskov 1--2                                                                               |                   |                  IC [[#ic1][1]]                  |   |
-  |       2 | Procedural Abstraction; Exceptions                          | Liskov 3--4, Bloch 10                                                                     |  [[#a1][A1 Due]]  |          IC 2 [[#ic2A][A]] [[#ic2B][B]]          |   |
-  |       3 | Data Abstraction; Mutability                                | Liskov 5.1--5.4,                                                                          |  [[#a2][A2 Due]]  |          IC 3 [[#ic3A][A]] [[#ic3B][B]]          |   |
-  |       4 | Imperative Program Verification                             | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]] |  [[#a3][A3 Due]]  |                                                  |   |
-  |       5 | Imperative Program verification                             | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]] |                   |              IC        [[#ic4][4]]               |   |
-  |       6 | Reasoning About Data Abstraction                            | Liskov 5.5-5.10                                                                           |  [[#a4][A4 Due]]  |          IC 5 [[#ic5A][A]] [[#ic5B][B]]          |   |
-  |       7 | Iteration Abstraction; Method Guidelines                    | Liskov 6, Bloch 8                                                                         |  [[#a5][A5 Due]]  |          IC 6 [[#ic6A][A]] [[#ic6B][B]]          |   |
-  |       8 | Type Abstraction                                            | Liskov 7                                                                                  |  [[#a6][A6 Due]]  |   IC 7 [[#ic7A][A]] [[#ic7B][B]] [[#ic7C][C]]    |   |
-  |       9 | Mid-semester Recap; [[./files/swe619.pdf][Research slides]] | /No New Material/                                                                           |                   |                  IC [[#ic8][8]]                  |   |
-  |      10 | Polymorphic Abstract; Lambdas                               | Liskov 8, Bloch 7 (Item 42)                                                               |  [[#a7][A7 Due]]  |                  IC [[#ic9][9]]                  |   |
-  |      11 | Generics                                                    | Bloch 5                                                                                   |  [[#a8][A8 Due]]  | IC 10 [[#ic10A][A]] [[#ic10B][B]] [[#ic10C][C]]  |   |
-  |      12 | Common Java Contracts                                       | Bloch 3                                                                                   |  [[#a9][A9 Due]]  |        IC 11 [[#ic11A][A]] [[#ic11B][B]]         |   |
-  |      13 | Classes and Inheritance                                     | Bloch 4                                                                                   | [[#a10][A10 Due]] | IC 12 [[#ic12A][A]] [[#ic12B][B]]  [[#ic12C][C]] |   |
-  |      14 | Contract Model in Testing                                   | Advanced JUnit ([[./files/Ch03-automation.pptx ][slides 22-24)]]                          | [[#a11][A11 Due]] |                 IC [[#ic13][13]]                 |   |
-  |      15 | Final Exam          |[[#ic15][example]]                                                                                                                 |                   |                                                  |   |
+  | Meeting | Topic          | Reading               |   Assignment    |       In-Class Exercise        |   |   |   |
+  |     <r> |                | <l>                   |       <c>       |              <c>               |   |   |   |
+  |---------+----------------+-----------------------+-----------------+--------------------------------+---+---+---|
+  |       1 | Class Overview | Liskov 1--3           |                 | IC 1 [[#ic1A][A]] [[#ic1B][B]] |   |   |   |
+  |       2 | Exceptions     | Liskov 4, Bloch 10    | [[#a1][A1 Due]] | IC 2 [[#ic2A][A]] [[#ic2B][B]] |   |   |   |
+  # |       3 | Data Abstraction; Mutability             | Liskov 5.1--5.4,                                                 |  [[#a2][A2 Due]]  |          IC 3 [[#ic3A][A]] [[#ic3B][B]]          |   |
+  # |       4 | Imperative Program Verification          | [Hoare logic notes]                                              |  [[#a3][A3 Due]]  |                                                  |   |
+  # |       5 | Imperative Program verification          | [Hoare logic notes]                                              |                   |              IC        [[#ic4][4]]               |   |
+  # |       6 | Reasoning About Data Abstraction         | Liskov 5.5-5.10                                                  |  [[#a4][A4 Due]]  |          IC 5 [[#ic5A][A]] [[#ic5B][B]]          |   |
+  # |       7 | Iteration Abstraction; Method Guidelines | Liskov 6, Bloch 8                                                |  [[#a5][A5 Due]]  |          IC 6 [[#ic6A][A]] [[#ic6B][B]]          |   |
+  # |       8 | Type Abstraction                         | Liskov 7                                                         |  [[#a6][A6 Due]]  |   IC 7 [[#ic7A][A]] [[#ic7B][B]] [[#ic7C][C]]    |   |
+  # |       9 | Mid-semester Recap; [Research slides]    | /No New Material/                                                |                   |                  IC [[#ic8][8]]                  |   |
+  # |      10 | Polymorphic Abstract; Lambdas            | Liskov 8, Bloch 7 (Item 42)                                      |  [[#a7][A7 Due]]  |                  IC [[#ic9][9]]                  |   |
+  # |      11 | Generics                                 | Bloch 5                                                          |  [[#a8][A8 Due]]  | IC 10 [[#ic10A][A]] [[#ic10B][B]] [[#ic10C][C]]  |   |
+  # |      12 | Common Java Contracts                    | Bloch 3                                                          |  [[#a9][A9 Due]]  |        IC 11 [[#ic11A][A]] [[#ic11B][B]]         |   |
+  # |      13 | Classes and Inheritance                  | Bloch 4                                                          | [[#a10][A10 Due]] | IC 12 [[#ic12A][A]] [[#ic12B][B]]  [[#ic12C][C]] |   |
+  # |      14 | Contract Model in Testing                | Advanced JUnit ([[./files/Ch03-automation.pptx ][slides 22-24)]] | [[#a11][A11 Due]] |                 IC [[#ic13][13]]                 |   |
+  # |      15 | Final Exam                               | [[#ic15][example]]                                               |                   |                                                  |   |
   
 
 
 * In class Assignments
 
-** In class 1
+** In class 1A
    :PROPERTIES:
-   :CUSTOM_ID: ic1
+   :CUSTOM_ID: ic1A
    :END:
    
    Work with your group and do the following:
    1. Spend a few minutes getting acquainted. Explain a bit about yourself: full-time student?, working in software development?, why are you taking this class?, favorite/least favorite thing about writing software?, etc.
-   1. Decide on a mechanism for joint communication. Google docs? IDE with screen share? Something else?
+   1. Decide on a mechanism for joint communication. Google docs? IDE with screen share? Zoom? Something else?
 
-      Now address a technical topic. This exercise touches on some of the thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don't worry if it seems confusing today. We'll revisit this example several times over the course of the semester.
+   Now, address a technical topic. With your group, discuss what /preconditions/ and /postconditions/ are.
 
-      Consider the following (textbook) code:
 
-      #+begin_src java
-        public class User {
-            private String name;
-            public User (String name) { this.name = name; }
-            @Override public boolean equals (Object obj) {
-                if (!(obj instanceof User)) return false;
-                return ((User) obj).name.equals(this.name);
-            }
-            // other methods omitted
-        }
-        public class SpecialUser extends User {
-            private int id;
-            public SpecialUser (String name, int id) { super(name); this.id = id; }
-            @Override public boolean equals (Object obj) {
-                if (!(obj instanceof SpecialUser)) return false;
-                return super.equals(obj) && ((SpecialUser) obj).id == this.id;
-            }
-            // other methods omitted
-        }
-      #+end_src
+** In class 1B
+   :PROPERTIES:
+   :CUSTOM_ID: ic1B
+   :END:
 
-      1. Walk though the execution of the =equals()= method in class =User= for a few well-chosen objects as the parameter. What happens at each point in the execution? 
-      2. What does it mean for an =equals()= implementation to be *correct*? How do you know? Be as concrete as you can. 
-      3. Is the given implementation of =equals()= in class =User= correct? Again, be concrete. If there is a problem, find a specific object (test case!) that demonstrates the problem. 
-      4. How does inheritance complicate the correctness discussion for =equals()= in class =SpecialUser=? 
-      5. What is your assessment of the =equals()= method in the =SpecialUser= class?
+    Consider the Java [[https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html][Iterator interface]]. 
+    1. For each method, identify all preconditions and postconditions. Pay special attention to possible exceptions.
+    1. For each precondition, identify a specific input that violates the precondition.
+    1. What "happens" if the precondition is violated? You should answer this question both theoretically and practically. (Hint: Really, it's the same answer...)
+    # 1. For each postcondition, identify an input specific to that postcondition.
+
+      # Now address a technical topic. This exercise touches on some of the thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don't worry if it seems confusing today. We'll revisit this example several times over the course of the semester.
+
+      # Consider the following (textbook) code:
+
+      # #+begin_src java
+      #   public class User {
+      #       private String name;
+      #       public User (String name) { this.name = name; }
+      #       @Override public boolean equals (Object obj) {
+      #           if (!(obj instanceof User)) return false;
+      #           return ((User) obj).name.equals(this.name);
+      #       }
+      #       // other methods omitted
+      #   }
+      #   public class SpecialUser extends User {
+      #       private int id;
+      #       public SpecialUser (String name, int id) { super(name); this.id = id; }
+      #       @Override public boolean equals (Object obj) {
+      #           if (!(obj instanceof SpecialUser)) return false;
+      #           return super.equals(obj) && ((SpecialUser) obj).id == this.id;
+      #       }
+      #       // other methods omitted
+      #   }
+      # #+end_src
+
+      # 1. Walk though the execution of the =equals()= method in class =User= for a few well-chosen objects as the parameter. What happens at each point in the execution? 
+      # 2. What does it mean for an =equals()= implementation to be *correct*? How do you know? Be as concrete as you can. 
+      # 3. Is the given implementation of =equals()= in class =User= correct? Again, be concrete. If there is a problem, find a specific object (test case!) that demonstrates the problem. 
+      # 4. How does inheritance complicate the correctness discussion for =equals()= in class =SpecialUser=? 
+      # 5. What is your assessment of the =equals()= method in the =SpecialUser= class?
 
 ** In class 2A
    :PROPERTIES:
@@ -1413,21 +1427,42 @@
    :CUSTOM_ID: a1
    :END:
    
-*** Goal
-    - Getting started on Piazza.
-    - Getting your group together. 
+*** Goals
+    1. Getting started on Piazza; getting your group together. 
+    1. Basic familiarity with contracts and coding 
 
-    There are two parts to this assignment:
 
-    - Post a brief intro about yourself on the course Piazza page. For any credit, the posting must:
+    1. Post a brief intro about yourself on the course Piazza page. For any credit, the posting must:
       - be a follow-up to my introduction. In other words, all intros need to be in the same thread.
       - Include a photo appropriate in size, content, and orientation. 
-    - Your *group* should communicate the composition of your group to me (and the GTA) on Piazza. If you group is sticking with the random assignment, just confirm that. If you have a new group, tell us the composition, and we'll edit the post to reflect the change. 
+    1. Your *group* should communicate the composition of your group to me (and the grader) on Piazza. If you group is sticking with the random assignment, just confirm that. If you have a new group, tell us the composition, and we'll edit the post to reflect the change.
+    1. Consider the following specification:
+
+     #+begin_src java
+       public static int findPrimeFactor (List<Integer> a, List<Integer> b)
+       // Requires: a not null; b not null;
+       //           there is some index i where b[i] is 
+       //           both prime and a factor of a[i]
+       //           
+       // Effects: return the least index
+       //          at which b[i] is a prime factor of a[i]
+       // E.g. findPrimeFactor ([12, 25, 18, 8], [6, 2, 3, 2]) = 2
+       // (Note: 6 is a factor of 12, but is not prime,
+       //  and 2 is prime, but is not a factor of 25.  However,
+       //  3 is a prime factor of 18. Hence, index "2" is the correct
+       //  answer.  index "3" is not a possible answer, because the
+       //  third index is not the least index with the desired property.)
+       // Also note that a[] and b[] need not be of the same length.
+     #+end_src
+     
+     Implement this method in a class called =FindPrimeFactor=. Although you should (obviously) test your implementation yourself, you do not need to include any test code. The grader will test your code. Your solution should be minimal in the sense that it doesn't include any unnecessary code. In particular, error checking in =findPrimeFactor()= for parameters that do not satisfy the precondtions is not appropriate for this assignment.
+    
 
 *** Grading Criteria
     - Your individual Piazza post adhers to my instructions. (That is, no sideways pictures, no oversize pictures, etc.)
     - You are in a group.
-
+    - Coding: Adherence to instructions. Do what I ask for above, not something else. Code runs correctly.
+      
 ** Assignment 2 
    :PROPERTIES:
    :CUSTOM_ID: a2
@@ -1764,13 +1799,11 @@
    :PROPERTIES:
    :CUSTOM_ID: g1
    :END:
-   
-   Quiz 1 will revisit the example from In-Class Exercise 0. I'll ask you about the *first* of the two given =equals()= methods, as well as "corner" cases where this method might do something odd.
 
-   This won't be a deep-dive; that comes later. But you should be able to identify specific inputs that lead to corner case behavior. You should be able to assess code behavior on specific inputs.
+   Quiz 1 will be a gentle introduction to 419 quizzes. The quiz will focus on the contract model. You should be able to answer basic questions about preconditions and postconditions.
 
-   Quiz 1 may also include items from the syllabus and from the readings. Please read both carefully!
-   
+   I also want students to read the syllabus carefully. Experience has shown that some students need a bit of prodding to do this. Hence, questions about the syllabus are also fair game.
+
 ** Guide 2
    :PROPERTIES:
    :CUSTOM_ID: g2
@@ -1909,8 +1942,8 @@
 
 ** Reflection 3
    1. Have you ever explicitly considered invariants when deciding how to implement a Java class? If so, can you give an example?
-   1. Please explain what you think it means to to correctly override the toString() method. Base your answer on your understanding *before* enrolling in SWE 619.
-   1. How do you decide whether you have implemented a Java method correctly? Again, base your answer on your understanding *before* enrolling in SWE 619.
+   1. Please explain what you think it means to to correctly override the toString() method. Base your answer on your understanding *before* enrolling in this class.
+   1. How do you decide whether you have implemented a Java method correctly? Again, base your answer on your understanding *before* enrolling in this class.
 
 
 ** Reflection 4 (reflection 3 redo)

@@ -1,21 +1,20 @@
-#+TITLE: OO Software Specification and Construction @@html:<br>@@ (SWE 619 Course Syllabus -  Spring 2022)
+#+TITLE: OO Software Specification and Construction @@html:<br>@@ (SWE 419 Course Syllabus -  Fall 2022)
 
 #+OPTIONS: ^:nil toc:1
 
-#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
-#+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+#+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
+#+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
 * General Information
   - Instructor: [[https://nguyenthanhvuh.github.io][ThanhVu Nguyen]]
-    - Office Hrs: Mondays 2:00PM - 3:00PM (Research Hall 356 and through Zoom link below)
+    - Office Hrs: Mondays 1:30 PM - 3:00PM (NGUYEN ENGR 4430)
     - Email: [[mailto:tvn@gmu.edu][tvn@gmu.edu]] (Piazza discussion is preferred)
-  - TA: Xu Han
-    - Email: [[mailto:xhan21@gmu.edu][xhan21@gmu.edu]]
-    - Office Hrs: Mondays 3:00PM - 4:00PM (use class Zoom link below)
+  # - TA: Xu Han
+  #   - Email: [[mailto:xhan21@gmu.edu][xhan21@gmu.edu]]
+  #   - Office Hrs: Mondays 3:00PM - 4:00PM (use class Zoom link below)
   - Class:
-    - Mondays 4:30PM--7:10PM, Horizon Hall 1012
-    - Zoom link for office hrs: https://gmu.zoom.us/j/98393279342 (Passcode: 148674)
-    - Piazza: https://piazza.com/gmu/spring2022/swe619nguyen
+    - Friday 10:30 AM -- 1:10 PM
+    - Piazza: https://piazza.com/gmu/fall2022/swe419nguyen
     - Syllabus and Schedule (this website): [[https://nguyenthanhvuh.github.io/class-oo][https://nguyenthanhvuh.github.io/class-oo]]
     - Assignment Submission (homework, reflection, quizzes, exams): Blackboard (BB)
       
@@ -66,10 +65,10 @@
 
 *** Scale
     
-    |----+---------+---+--------+----+--------|
-    | A+ | \ge 97%   | A | \ge 93% | A- | >= 90% |
-    | B+ | \ge 87%  | B | \ge 83% | B- | \ge 80% |
-    | C  | \ge 70%  | D | \ge 60% | F  | < 60%  |
+    |----+-------+---+-------+----+--------|
+    | A+ | \ge 96% | A | \ge 92% | A- | >= 89% |
+    | B+ | \ge 86% | B | \ge 82% | B- | \ge 79%  |
+    | C  | \ge 70% | D | \ge 60% | F  | < 60%  |
 
    
 *** Group Functioning
@@ -145,7 +144,7 @@
 
 ** Honor Code
 
-   As with all GMU courses, SWE 619 is governed by the [[http://oai.gmu.edu/the-mason-honor-code/][GMU Honor Code]]. In this course, quizzes and the final exam carry with them an implicit statement that it is the sole work of the author.
+   As with all GMU courses, this course is governed by the [[http://oai.gmu.edu/the-mason-honor-code/][GMU Honor Code]]. In this course, quizzes and the final exam carry with them an implicit statement that it is the sole work of the author.
 
 ** Learning Disabilities
 
@@ -153,6 +152,6 @@
 
    -----
 ** Acknowledgement
-   This class is heavily modeled after [[https://cs.gmu.edu/~pammann/][Paul Ammann]]'s [[https://cs.gmu.edu/~pammann/619.html][SWE619 course]].
+   This class is heavily modeled after [[https://cs.gmu.edu/~pammann/][Paul Ammann]]'s [[https://cs.gmu.edu/~pammann/419.html][SWE419 course]].
 
   
