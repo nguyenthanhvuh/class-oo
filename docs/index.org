@@ -9,11 +9,11 @@
   - Instructor: [[https://nguyenthanhvuh.github.io][ThanhVu Nguyen]]
     - Office Hrs: Mondays 1:30 PM - 3:00PM (NGUYEN ENGR 4430)
     - Email: [[mailto:tvn@gmu.edu][tvn@gmu.edu]] (Piazza discussion is preferred)
-  # - TA: Xu Han
-  #   - Email: [[mailto:xhan21@gmu.edu][xhan21@gmu.edu]]
-  #   - Office Hrs: Mondays 3:00PM - 4:00PM (use class Zoom link below)
+  - Grader: Advait Gogte
+    - Email: [[mailto:agogte@gmu.edu][agogte@gmu.edu]]
+    
   - Class:
-    - Friday 10:30 AM -- 1:10 PM
+    - Friday 10:30 AM -- 1:10 PM; East 122
     - Piazza: https://piazza.com/gmu/fall2022/swe419nguyen
     - Syllabus and Schedule (this website): [[https://nguyenthanhvuh.github.io/class-oo][https://nguyenthanhvuh.github.io/class-oo]]
     - Assignment Submission (homework, reflection, quizzes, exams): Blackboard (BB)
