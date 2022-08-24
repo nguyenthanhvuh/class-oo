@@ -1,17 +1,33 @@
 #+TITLE: OO Software Specification and Construction @@html:<br>@@ (SWE 419 Course Syllabus -  Fall 2022)
+#+AUTHOR: ThanhVu Nguyen
+#+Email: tvn@gmu.edu
+
+
 
 #+OPTIONS: ^:nil toc:1
+#+OPTIONS: num:3
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
+
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [11pt]
+#+LATEX_HEADER:\usepackage{amsthm}
+#+LATEX_HEADER:\usepackage{fullpage}
+#+LATEX_HEADER:\usepackage{xcolor}
+#+LATEX_HEADER:\usepackage{booktabs}
+
+#+LATEX: \thispagestyle{empty}
+#+LATEX: \pagenumbering{arabic}
+
+
 * General Information
   - Instructor: [[https://nguyenthanhvuh.github.io][ThanhVu Nguyen]]
-    - Office Hrs: Mondays 1:30 PM - 3:00PM (NGUYEN ENGR 4430)
+    - Office Hrs: Tuesday 1:30 PM - 2:30PM (NGUYEN ENGR 4430)
     - Email: [[mailto:tvn@gmu.edu][tvn@gmu.edu]] (Piazza discussion is preferred)
   - Grader: Advait Gogte
     - Email: [[mailto:agogte@gmu.edu][agogte@gmu.edu]]
-    
   - Class:
     - Friday 10:30 AM -- 1:10 PM; East 122
     - Piazza: https://piazza.com/gmu/fall2022/swe419nguyen
@@ -28,14 +44,9 @@
    *Prerequisite*: SWE Foundation Courses or equivalent
 
 ** Course Materials
-   1. Barbara Liskov with John Guttag. [[https://www.amazon.com/Program-Development-Java-Specification-Object-Oriented/dp/0201657686/ref=sr_1_2?dchild=1&qid=1626231221&refinements=p_27%3ABarbara+Liskov&s=books&sr=1-2&text=Barbara+Liskov][/Program Development in Java: Abstraction, Specification, and Object-Oriented Design/]]. Addison Wesley, 2001, ISBN 0-201-65768-6. *Required*. 
-     # + [[http://proquest.safaribooksonline.com/book/programming/java/9780768685299][Direct Safari Link]]
-     + [[https://learning-oreilly-com.mutex.gmu.edu/library/view/program-development-in/9780768685299/ch1.html][Link]]
-       # - Note that you can access the Java 8 APIs at the Oracle site.
+   1. Barbara Liskov with John Guttag. [[https://www.amazon.com/Program-Development-Java-Specification-Object-Oriented/dp/0201657686/ref=sr_1_2?dchild=1&qid=1626231221&refinements=p_27%3ABarbara+Liskov&s=books&sr=1-2&text=Barbara+Liskov][/Program Development in Java: Abstraction, Specification, and Object-Oriented Design/]]. Addison Wesley, 2001, ISBN 0-201-65768-6. *Required*. [[https://learning-oreilly-com.mutex.gmu.edu/library/view/program-development-in/9780768685299/ch1.html][Read from O'Reilly Safari]]
+   - Joshua Bloch. [[https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=sr_1_1?dchild=1&keywords=effective+java&qid=1626231154&sr=8-1][/Effective Java/]]. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1. *Required*.  [[https://learning-oreilly-com.mutex.gmu.edu/library/view/effective-java-3rd/9780134686097/cover.xhtml][Read from O'Reilly Safari]]
 
-   - Joshua Bloch. [[https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=sr_1_1?dchild=1&keywords=effective+java&qid=1626231154&sr=8-1][/Effective Java/]]. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1. *Required*. 
-     # + [[http://proquest.safaribooksonline.com/book/programming/java/9780134686097][Direct Safari Link]]
-     + [[https://learning-oreilly-com.mutex.gmu.edu/library/view/effective-java-3rd/9780134686097/cover.xhtml][Link]]
    *Note*: We'll start with Liskov. Don't worry about the publication date; Liskov is basically a math book, and hence ages remarkably well. We're interested in contracts, mutability, data abstraction, and type abstraction. Bloch is concerned about the same things, but explores them in more detail and in more up-to-date Java. Bloch also corrects some important points that weren't well understood when Liskov's text came out.
 
 ** Weekly Schedule
