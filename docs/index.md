@@ -13,7 +13,7 @@
     -   Assignment Submission (homework, reflection, quizzes, exams):
         Blackboard (BB)
 
-# [Schedule and Assignments](./schedule)
+# [Schedule and Assignments](./schedule.md)
 
 # Syllabus
 
