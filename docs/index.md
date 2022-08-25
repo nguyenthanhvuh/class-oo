@@ -82,9 +82,8 @@ sequence is:
 
   | Assignments                        | Percentage |
   |------------------------------------|:----------:|
-  | Group Functioning (group-based)    | 5%         |
-  | Reading Reflections (group-based)  | 10%        |
-  | Homework assignments (group-based) | 15%        |
+  | Group Functioning (group-based)    | 10%        |
+  | Homework assignments (group-based) | 20%        |
   | Weekly Quizzes (individual)        | 40%        |
   | Final exam (individual)            | 30%        |
 
@@ -116,17 +115,17 @@ Functioning\" part of the grade.
 Groups can communicate internally through any mechanism they choose:
 in-person, zoom, discord, google docs, etc.
 
-### Reading Reflections
+<!-- ### Reading Reflections -->
 
-Each week, each group must complete a "reading reflection" the day
-**before** class. (That means midnight Thursday, in the case of this
-class, since class meetings are Monday morning.) I will review these
-assessments before class and use them to tune the in-class activities.
-Reading reflections are linked from the course schedule and must be
-turned in on BB. These reflections are part of the learning process
-rather than the assessment process. That is, they don't assess whether
-you have achieved mastery of the new material, rather they check whether
-you have done the necessary preparation.
+<!-- Each week, each group must complete a "reading reflection" the day -->
+<!-- **before** class. (That means midnight Thursday, in the case of this -->
+<!-- class, since class meetings are Monday morning.) I will review these -->
+<!-- assessments before class and use them to tune the in-class activities. -->
+<!-- Reading reflections are linked from the course schedule and must be -->
+<!-- turned in on BB. These reflections are part of the learning process -->
+<!-- rather than the assessment process. That is, they don't assess whether -->
+<!-- you have achieved mastery of the new material, rather they check whether -->
+<!-- you have done the necessary preparation. -->
 
 **Important**:
 

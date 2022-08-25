@@ -4,10 +4,10 @@
     complete the reading **prior to class** on listed meeting. Quizzes
     may occasionally take advantage of this expectation. 
 
-    | Meeting | Topic                           | Reading            | Assignment Due | In-Class Exercise          |
-    |---------|---------------------------------|--------------------|----------------|----------------------------|
-    | 1       | Class Overview / Specifications | Liskov 1--3        |                | IC 1 [A](#in-class-1A) [B](#in-class-1B) |
-    | 2       | Exceptions                      | Liskov 4, Bloch 10 | [A1 Due](#assignment-1)  | IC 2 [A](#in-class-2A) [B](#in-class-2B) |
+    | Meeting | Topic                              | Reading     | Assignment Due          | In-Class Exercise                        |
+    |---------|------------------------------------|-------------|-------------------------|------------------------------------------|
+    | 1       | Class Overview / Specifications    | Liskov 1--2 |                         | IC 1 [A](#in-class-1a) [B](#in-class-1b) |
+    | 2       | Procedure Abstractions, Exceptions | Liskov 3--4 | [A1 Due](#assignment-1) | IC 2 [A](#in-class-2a) [B](#in-class-2b) |
 
 
 # In class Excercises
@@ -37,46 +37,46 @@ interface](https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html).
     precondition.
 3.  What do you think would happen if the precondition is violated?
 
-<!-- ## In class 2A -->
+## In class 2A
 
-<!-- Consider the following implementation: -->
+Consider the following implementation:
 
-<!-- ``` java -->
+``` java
 
-<!-- public static List<Integer> tail (List<Integer> list) { -->
+public static List<Integer> tail (List<Integer> list) {
 
-<!--     // REQUIRES/PRECONDS: ??? -->
-<!--     // EFFECTS/POSTCONDS:  ??? -->
+    // REQUIRES/PRECONDS: ???
+    // EFFECTS/POSTCONDS:  ???
 
-<!--     List<Integer> result = new ArrayList<Integer>(list); -->
-<!--     result.remove(0); -->
-<!--     return result; -->
-<!-- } -->
-<!-- ``` -->
+    List<Integer> result = new ArrayList<Integer>(list);
+    result.remove(0);
+    return result;
+}
+```
 
-<!-- Hint: also look at the Javadoc (for remove) -->
+Hint: also look at the Javadoc (for remove)
 
-<!-- 1.  What does the *implementation* of `tail`{.verbatim} do in each of -->
-<!--     the following cases? How do you know: Running the code or reading an -->
-<!--     API description? -->
+1.  What does the *implementation* of `tail`{.verbatim} do in each of
+    the following cases? How do you know: Running the code or reading an
+    API description?
 
-<!--     -   `list = null`{.verbatim} -->
-<!--     -   `list = []`{.verbatim} -->
-<!--     -   `list = [1]`{.verbatim} -->
-<!--     -   `list = [1, 2, 3]`{.verbatim} -->
+    -   `list = null`{.verbatim}
+    -   `list = []`{.verbatim}
+    -   `list = [1]`{.verbatim}
+    -   `list = [1, 2, 3]`{.verbatim}
 
-<!-- 2.  Write a **partial** specification that matches the "happy path" -->
-<!--     part of the implementation's behavior. -->
+2.  Write a **partial** specification that matches the "happy path"
+    part of the implementation's behavior.
 
-<!-- 3.  Rewrite the specification to be **total**. Use Bloch's standard -->
-<!--     exceptions. -->
+3.  Rewrite the specification to be **total**. Use Bloch's standard
+    exceptions.
 
-<!-- 4.  The resulting specification has a problem. What is it? (hint: -->
-<!--     specification should be more general and not tied to the -->
-<!--     implementation) -->
+4.  The resulting specification has a problem. What is it? (hint:
+    specification should be more general and not tied to the
+    implementation)
 
-<!-- 5.  *Rewrite* the specification to address this problem. *Rewrite* the -->
-<!--     code to match the new specification. -->
+5.  *Rewrite* the specification to address this problem. *Rewrite* the
+    code to match the new specification.
 
 <!-- ## In class 2B -->
 
@@ -1316,531 +1316,531 @@ interface](https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html).
      # Also note that listA and listB need not be of the same length.
     ```
 
-    Implement this `find_prime_factor` method. Although you should (obviously) test  your implementation yourself, you do not need to include any test code. Your solution should be minimal in the sense that it doesn't include any unnecessary code.  In particular, error checking in `find_prime_factor` for parameters that do not satisfy the precondtions is not appropriate  for this assignment.
+    Implement this `find_prime_factor` function. Although you should (obviously) test  your implementation yourself, you do not need to include any test code. Your solution should be minimal in the sense that it doesn't include any unnecessary code.  In particular, error checking in `find_prime_factor` for parameters that do not satisfy the precondtions is not appropriate  for this assignment.
 
 > **Grading Criteria**
 > -   Your individual Piazza post adhers to my instructions. (That is, no  sideways pictures, no oversize pictures, etc.)
 > -  You are in a group.
 > -  Coding: Adherence to instructions. Do what I ask for above, not  something else. Code runs correctly.
 
-## Assignment 2
-
-### Goals: Contracts
-
-For the second assignment, you'll build a *very* small piece of Java
-for a contract with preconditions, transform the contract so that all
-preconditions become postconditions (i.e., make it a *total* contract),
-and then re-implement appropriately.
-
--   Consider a method that calculates the number of months needed to pay
-    off a loan of a given size at a fixed *annual* interest rate and a
-    fixed *monthly* payment. For instance, a \$100,000 loan at an 8%
-    annual rate would take 166 months to discharge at a monthly payment
-    of \$1,000, and 141 months to discharge at a monthly payment of
-    \$1,100. (In both of these cases, the final payment is smaller than
-    the others; I rounded 165.34 up to 166 and 140.20 up to 141.)
-    Continuing the example, the loan would never be paid off at a
-    monthly payment of \$100, since the principal would grow rather than
-    shrink.
+<!-- ## Assignment 2 -->
+
+<!-- ### Goals: Contracts -->
+
+<!-- For the second assignment, you'll build a *very* small piece of Java -->
+<!-- for a contract with preconditions, transform the contract so that all -->
+<!-- preconditions become postconditions (i.e., make it a *total* contract), -->
+<!-- and then re-implement appropriately. -->
+
+<!-- -   Consider a method that calculates the number of months needed to pay -->
+<!--     off a loan of a given size at a fixed *annual* interest rate and a -->
+<!--     fixed *monthly* payment. For instance, a \$100,000 loan at an 8% -->
+<!--     annual rate would take 166 months to discharge at a monthly payment -->
+<!--     of \$1,000, and 141 months to discharge at a monthly payment of -->
+<!--     \$1,100. (In both of these cases, the final payment is smaller than -->
+<!--     the others; I rounded 165.34 up to 166 and 140.20 up to 141.) -->
+<!--     Continuing the example, the loan would never be paid off at a -->
+<!--     monthly payment of \$100, since the principal would grow rather than -->
+<!--     shrink. -->
 
-Define a Java class called `Loan`. In that class, write a
-method that satisfies the following specification:
+<!-- Define a Java class called `Loan`. In that class, write a -->
+<!-- method that satisfies the following specification: -->
 
-``` java
-/*
-  @param principal:  Amount of the initial principal
-  @param rate:       Annual interest rate  (8% rate expressed as rate = 0.08)
-  @param payment:    Amount of the monthly payment
-*/
-public static int months (int principal, double rate, int payment)
-// Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.
-// Effects:  return the number of months required to pay off the principal
-```
-
-Note that the precondition is quite strong, which makes implementing the
-method easy. You should use double precision arithmetic internally, but
-the final result is an integer, not a floating point value. The key step
-in your calculation is to change the principal on each iteration with
-the following formula (which amounts to monthly compounding):
+<!-- ``` java -->
+<!-- /* -->
+<!--   @param principal:  Amount of the initial principal -->
+<!--   @param rate:       Annual interest rate  (8% rate expressed as rate = 0.08) -->
+<!--   @param payment:    Amount of the monthly payment -->
+<!-- */ -->
+<!-- public static int months (int principal, double rate, int payment) -->
+<!-- // Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero. -->
+<!-- // Effects:  return the number of months required to pay off the principal -->
+<!-- ``` -->
+
+<!-- Note that the precondition is quite strong, which makes implementing the -->
+<!-- method easy. You should use double precision arithmetic internally, but -->
+<!-- the final result is an integer, not a floating point value. The key step -->
+<!-- in your calculation is to change the principal on each iteration with -->
+<!-- the following formula (which amounts to monthly compounding): -->
 
-``` java
-newPrincipal = oldPrincipal * (1 + monthlyInterestRate) - payment;
-```
+<!-- ``` java -->
+<!-- newPrincipal = oldPrincipal * (1 + monthlyInterestRate) - payment; -->
+<!-- ``` -->
 
-The variable names here are explanatory, not required. You may want to
-use different variables, which is fine.
+<!-- The variable names here are explanatory, not required. You may want to -->
+<!-- use different variables, which is fine. -->
 
-**To make sure you understand the point about preconditions, your code
-is required to be minimal. Specifically, if it possible to delete parts
-of your implementation and still have it satisfy the requirements,
-you'll earn less than full credit.**
+<!-- **To make sure you understand the point about preconditions, your code -->
+<!-- is required to be minimal. Specifically, if it possible to delete parts -->
+<!-- of your implementation and still have it satisfy the requirements, -->
+<!-- you'll earn less than full credit.** -->
 
--   Now modify `months` so that it handles **all** of its
-    preconditions with exceptions. Use the standard exceptions
-    recommended by Bloch. Document this with a revised contract. You can
-    use JavaDoc or you can simply identify the postconditions.
+<!-- -   Now modify `months` so that it handles **all** of its -->
+<!--     preconditions with exceptions. Use the standard exceptions -->
+<!--     recommended by Bloch. Document this with a revised contract. You can -->
+<!--     use JavaDoc or you can simply identify the postconditions. -->
 
-### Grading Criteria
+<!-- ### Grading Criteria -->
 
--   Adherence to instructions.
--   Minimal implementation.
--   Preconditions are correctly converted to exceptions.
--   Syntax: Java compiles and runs.
+<!-- -   Adherence to instructions. -->
+<!-- -   Minimal implementation. -->
+<!-- -   Preconditions are correctly converted to exceptions. -->
+<!-- -   Syntax: Java compiles and runs. -->
 
-## Assignment 3
+<!-- ## Assignment 3 -->
 
-### Goals: Data Abstraction / Mutability
+<!-- ### Goals: Data Abstraction / Mutability -->
 
-Rewrite [MapPoly](./files/MapPoly.java), my map-based version Liskov's
-Poly so that it is *mutable*. Keep the same representation.
+<!-- Rewrite [MapPoly](./files/MapPoly.java), my map-based version Liskov's -->
+<!-- Poly so that it is *mutable*. Keep the same representation. -->
 
-Rewrite the overview, the method signatures, the method specifications,
-and the methods themselves. You do not need to rewrite the abstraction
-function and representation invariant for this exercise.
+<!-- Rewrite the overview, the method signatures, the method specifications, -->
+<!-- and the methods themselves. You do not need to rewrite the abstraction -->
+<!-- function and representation invariant for this exercise. -->
 
-Turn in a **story**. This means that it is possible to grade your
-assignment simply by reading it, as if it were part of a textbook. In
-particular, every place you make a decision to change something in the
-code (or not), you should have a description of what you did (or didn't
-do) and why you did (or didn't do) it.
+<!-- Turn in a **story**. This means that it is possible to grade your -->
+<!-- assignment simply by reading it, as if it were part of a textbook. In -->
+<!-- particular, every place you make a decision to change something in the -->
+<!-- code (or not), you should have a description of what you did (or didn't -->
+<!-- do) and why you did (or didn't do) it. -->
 
-Remember that part of your group is responsible for synthesizing a
-solution, and part of your group is responsible for checking the result.
+<!-- Remember that part of your group is responsible for synthesizing a -->
+<!-- solution, and part of your group is responsible for checking the result. -->
 
-### Grading Criteria
+<!-- ### Grading Criteria -->
 
--   Correct transformation of Poly
--   Clarity of your story.
--   Reasonable division of synthesis vs. checking.
+<!-- -   Correct transformation of Poly -->
+<!-- -   Clarity of your story. -->
+<!-- -   Reasonable division of synthesis vs. checking. -->
 
-## Assignment 4
+<!-- ## Assignment 4 -->
 
-### Goals: Understanding Program Verification through Hoare Logic
+<!-- ### Goals: Understanding Program Verification through Hoare Logic -->
 
-Do the [in-class exercise](#ic4) with your group and submit it on BB.
-More specifically, you will do the below two tasks:
+<!-- Do the [in-class exercise](#ic4) with your group and submit it on BB. -->
+<!-- More specifically, you will do the below two tasks: -->
 
-1.  Prove the program using the following the loop invariant: `i <= N`.
-    1.  Clearly reason why this is a loop invariant
-    2.  Compute the weakest precondition `wp` of the program
-        wrt the post conditiong `Q`
-    3.  Compute the verification condition
-        `vc (P => wp(..))`, and
-    4.  Analyze the `vc` to dertermine whether the program is
-        proved or not
-2.  Repeat the above task a different loop invariant: `N >= 0`
+<!-- 1.  Prove the program using the following the loop invariant: `i <= N`. -->
+<!--     1.  Clearly reason why this is a loop invariant -->
+<!--     2.  Compute the weakest precondition `wp` of the program -->
+<!--         wrt the post conditiong `Q` -->
+<!--     3.  Compute the verification condition -->
+<!--         `vc (P => wp(..))`, and -->
+<!--     4.  Analyze the `vc` to dertermine whether the program is -->
+<!--         proved or not -->
+<!-- 2.  Repeat the above task a different loop invariant: `N >= 0` -->
 
-### Grading Criteria
+<!-- ### Grading Criteria -->
 
--   Correctness of solution
+<!-- -   Correctness of solution -->
 
-Note: If your group had trouble with the assignment, feel free to appeal
-to your classmates to post a sample solution on Piazza.
+<!-- Note: If your group had trouble with the assignment, feel free to appeal -->
+<!-- to your classmates to post a sample solution on Piazza. -->
 
-## Assignment 5
+<!-- ## Assignment 5 -->
 
-### Goals: Rep-Invariants, contracts, tests
+<!-- ### Goals: Rep-Invariants, contracts, tests -->
 
-Revisit the mutable Poly example from [assignment 3](#a3). That is, use
-the one based on a map, not an array.
+<!-- Revisit the mutable Poly example from [assignment 3](#a3). That is, use -->
+<!-- the one based on a map, not an array. -->
 
-1.  Implement `repOk()`.
-2.  Introduce a fault (i.e. "bug") that breaks the rep-invariant. Try
-    to do this with a small (conceptual) change to the code. Show that
-    the rep-invariant is broken with a JUnit test.
-3.  Analyzed your bug with respect to the various contracts/methods in
-    Poly. Are all/some/none of the contracts violated?
-4.  Do you think your fault is realistic? Why or why not?
+<!-- 1.  Implement `repOk()`. -->
+<!-- 2.  Introduce a fault (i.e. "bug") that breaks the rep-invariant. Try -->
+<!--     to do this with a small (conceptual) change to the code. Show that -->
+<!--     the rep-invariant is broken with a JUnit test. -->
+<!-- 3.  Analyzed your bug with respect to the various contracts/methods in -->
+<!--     Poly. Are all/some/none of the contracts violated? -->
+<!-- 4.  Do you think your fault is realistic? Why or why not? -->
 
-As in assignment 3, your deliverable is a **story**, with exactly the
-same rationale. Take screenshots (e.g. of failing JUnit tests) as
-necessary to make your case.
+<!-- As in assignment 3, your deliverable is a **story**, with exactly the -->
+<!-- same rationale. Take screenshots (e.g. of failing JUnit tests) as -->
+<!-- necessary to make your case. -->
 
-### Grading Criteria
+<!-- ### Grading Criteria -->
 
--   Correctness of solution
--   Clarity of story
+<!-- -   Correctness of solution -->
+<!-- -   Clarity of story -->
 
-Note: If your group had trouble with the previous assignment, feel free
-to appeal to your classmates to post a sample solution on Piazza.
+<!-- Note: If your group had trouble with the previous assignment, feel free -->
+<!-- to appeal to your classmates to post a sample solution on Piazza. -->
 
-## Assignment 6
+<!-- ## Assignment 6 -->
 
-### Goals: Immutablity via Bloch Item 50
+<!-- ### Goals: Immutablity via Bloch Item 50 -->
 
-Revisit the [Period example](#ic6B).
+<!-- Revisit the [Period example](#ic6B). -->
 
-Implement a satisfying solution to question 3. That is, you should not
-only break the immutability of the `Period` class by writing
-a suitable sublcass, but you should also develop a plausible case where
-a client ends up "in trouble" due to the loss of immutability.
+<!-- Implement a satisfying solution to question 3. That is, you should not -->
+<!-- only break the immutability of the `Period` class by writing -->
+<!-- a suitable sublcass, but you should also develop a plausible case where -->
+<!-- a client ends up "in trouble" due to the loss of immutability. -->
 
-Turn in a **story**.
+<!-- Turn in a **story**. -->
 
-### Grading Criteria
+<!-- ### Grading Criteria -->
 
-Grading is in part the technical aspect of breaking immutability, and in
-part that your client case is plausible.
+<!-- Grading is in part the technical aspect of breaking immutability, and in -->
+<!-- part that your client case is plausible. -->
 
-## Assignment 7
+<!-- ## Assignment 7 -->
 
-### Goals: Type Abstraction
+<!-- ### Goals: Type Abstraction -->
 
-Consider the following `Market` class.
+<!-- Consider the following `Market` class. -->
 
-``` java
+<!-- ``` java -->
 
-class Market {
-    private Set<Item> wanted;           // items for which prices are of interest
-    private Bag<Item, Money> offers;    // offers to sell items at specific prices
-    // Note:  Bag isn't a Java data type.  Here, the bag entries are pairs.
+<!-- class Market { -->
+<!--     private Set<Item> wanted;           // items for which prices are of interest -->
+<!--     private Bag<Item, Money> offers;    // offers to sell items at specific prices -->
+<!--     // Note:  Bag isn't a Java data type.  Here, the bag entries are pairs. -->
 
-    public void offer (Item item, Money price)
-    // Requires: item is an element of wanted
-    // Effects:  add (item, price) to offers
+<!--     public void offer (Item item, Money price) -->
+<!--     // Requires: item is an element of wanted -->
+<!--     // Effects:  add (item, price) to offers -->
 
-        public Money buy(Item item)
-    // Requires: item is an element of the domain of offers
-    // Effects: choose and remove some (arbitrary) pair (item, price) from
-    //          offers and return the chosen price
-        }
+<!--         public Money buy(Item item) -->
+<!--     // Requires: item is an element of the domain of offers -->
+<!--     // Effects: choose and remove some (arbitrary) pair (item, price) from -->
+<!--     //          offers and return the chosen price -->
+<!--         } -->
 
-```
+<!-- ``` -->
 
-1.  Suppose that offers are only accepted if they are lower than
-    previous offers.
+<!-- 1.  Suppose that offers are only accepted if they are lower than -->
+<!--     previous offers. -->
 
-    ``` java
-    class Low_Bid_Market extends Market {
-        public void offer (Item item, Money price)
-        // Requires: item is an element of wanted
-        // Effects:  if (item, price) is not cheaper than any existing pair
-        //           (item, existing_price) in offers do nothing
-        //           else add (item, price) to offers
+<!--     ``` java -->
+<!--     class Low_Bid_Market extends Market { -->
+<!--         public void offer (Item item, Money price) -->
+<!--         // Requires: item is an element of wanted -->
+<!--         // Effects:  if (item, price) is not cheaper than any existing pair -->
+<!--         //           (item, existing_price) in offers do nothing -->
+<!--         //           else add (item, price) to offers -->
 
-    ```
+<!--     ``` -->
 
-    Is `Low_Bid_Market` a valid subtype of
-    `Market`? Appeal to the methods rule to back up your
-    answer.
+<!--     Is `Low_Bid_Market` a valid subtype of -->
+<!--     `Market`? Appeal to the methods rule to back up your -->
+<!--     answer. -->
 
-2.  Suppose that the `buy()` method always chooses the lowest
-    price on an item.
+<!-- 2.  Suppose that the `buy()` method always chooses the lowest -->
+<!--     price on an item. -->
 
-    ``` java
-    class Low_Offer_Market extends Market {
-        public Money buy(Item item)
-        // Requires: item is an element the domain of offers
-        // Effects: choose and remove pair (item, price) with the 
-        //          lowest price from offers and return the chosen price
-    ```
+<!--     ``` java -->
+<!--     class Low_Offer_Market extends Market { -->
+<!--         public Money buy(Item item) -->
+<!--         // Requires: item is an element the domain of offers -->
+<!--         // Effects: choose and remove pair (item, price) with the  -->
+<!--         //          lowest price from offers and return the chosen price -->
+<!--     ``` -->
 
-    Is `Low_Offer_Market` a valid subtype of
-    `Market`? Appeal to the methods rule to back up your
-    answer.
+<!--     Is `Low_Offer_Market` a valid subtype of -->
+<!--     `Market`? Appeal to the methods rule to back up your -->
+<!--     answer. -->
 
-### Grading Criteria
+<!-- ### Grading Criteria -->
 
-This is purely a "paper and pencil" exercise. No code is required.
-Write your answer so that it is easily understandable by someone with
-only a passing knowledge of Liskov's rules for subtypes.
+<!-- This is purely a "paper and pencil" exercise. No code is required. -->
+<!-- Write your answer so that it is easily understandable by someone with -->
+<!-- only a passing knowledge of Liskov's rules for subtypes. -->
 
-## Assignment 8
+<!-- ## Assignment 8 -->
 
-### Goals: Polymorphic Abstraction.
+<!-- ### Goals: Polymorphic Abstraction. -->
 
-A `Comparator` based on absolute values is problematic. Code
-up the comparator and then write client code that illustrates the
-problem. Use a *lambda function* to implement the comparator. Explain
-what is wrong in a brief summary statement. Your explanation of the
-problem must be phrased in terms of a violation of the contract for
-`Comparator`.
+<!-- A `Comparator` based on absolute values is problematic. Code -->
+<!-- up the comparator and then write client code that illustrates the -->
+<!-- problem. Use a *lambda function* to implement the comparator. Explain -->
+<!-- what is wrong in a brief summary statement. Your explanation of the -->
+<!-- problem must be phrased in terms of a violation of the contract for -->
+<!-- `Comparator`. -->
 
-To emphasize that this contract problem is real, your code should create
-two Java sets, one a `HashSet`, and the other a
-`TreeSet`. The `TreeSet` should order items with
-your absolute value comparator. Your example should add the same
-integers to both sets, yet still end up with sets that are different.
-Your summary statement should explain why.
+<!-- To emphasize that this contract problem is real, your code should create -->
+<!-- two Java sets, one a `HashSet`, and the other a -->
+<!-- `TreeSet`. The `TreeSet` should order items with -->
+<!-- your absolute value comparator. Your example should add the same -->
+<!-- integers to both sets, yet still end up with sets that are different. -->
+<!-- Your summary statement should explain why. -->
 
-### Grading Criteria
+<!-- ### Grading Criteria -->
 
-As for other recent assignments, your deliverable is a clear, concise
-story that demonstrates completion of the assignment.
+<!-- As for other recent assignments, your deliverable is a clear, concise -->
+<!-- story that demonstrates completion of the assignment. -->
 
-## Assignment 9
+<!-- ## Assignment 9 -->
 
-### Goals: Generics
+<!-- ### Goals: Generics -->
 
-Consider the [BoundedQueue](./files/BoundedQueue.java) example from the
-in-class exercise given [#ic10C](#ic10C).
+<!-- Consider the [BoundedQueue](./files/BoundedQueue.java) example from the -->
+<!-- in-class exercise given [#ic10C](#ic10C). -->
 
-Complete the generic part of the exercise: The result should be fully
-generic, and there should not be any compiler warnings. You should adopt
-Bloch's advice about lists vs. arrays; doing so will eliminate the need
-for many of the instance variables.
+<!-- Complete the generic part of the exercise: The result should be fully -->
+<!-- generic, and there should not be any compiler warnings. You should adopt -->
+<!-- Bloch's advice about lists vs. arrays; doing so will eliminate the need -->
+<!-- for many of the instance variables. -->
 
-Keep the same methods, but update the behavior (and document with
-contracts!) to include exception handling for all cases not on the happy
-path.
+<!-- Keep the same methods, but update the behavior (and document with -->
+<!-- contracts!) to include exception handling for all cases not on the happy -->
+<!-- path. -->
 
-Include the constructor in your considerations. In particular, consider
-whether you think a zero-sized buffer is a reasonable possibility.
-Document your reasoning. This is less about a right vs. wrong answer
-than a careful consideration of the consequences of the decision.
+<!-- Include the constructor in your considerations. In particular, consider -->
+<!-- whether you think a zero-sized buffer is a reasonable possibility. -->
+<!-- Document your reasoning. This is less about a right vs. wrong answer -->
+<!-- than a careful consideration of the consequences of the decision. -->
 
-Add `putAll()` and `getAll()`. Define the method
-signatures carefully. Use exception-handling consistent with that for
-`get()` and `put()`. Use bounded wildcards as
-appropriate. Note that `putAll()` has a special case where
-there isn't sufficient space in the bounded queue. Adopt a solution you
-think Bloch and/or Liskov would approve of. In particular, Bloch prefers
-that when methods throw exceptions, there is no change to the state of
-the object.
+<!-- Add `putAll()` and `getAll()`. Define the method -->
+<!-- signatures carefully. Use exception-handling consistent with that for -->
+<!-- `get()` and `put()`. Use bounded wildcards as -->
+<!-- appropriate. Note that `putAll()` has a special case where -->
+<!-- there isn't sufficient space in the bounded queue. Adopt a solution you -->
+<!-- think Bloch and/or Liskov would approve of. In particular, Bloch prefers -->
+<!-- that when methods throw exceptions, there is no change to the state of -->
+<!-- the object. -->
 
-### Grading Criteria
+<!-- ### Grading Criteria -->
 
-As before, turn in a clear, concise story demonstrating completion of
-the assignment.
+<!-- As before, turn in a clear, concise story demonstrating completion of -->
+<!-- the assignment. -->
 
-## Assignment 10
+<!-- ## Assignment 10 -->
 
-### Goals: `Object` class contracts.
+<!-- ### Goals: `Object` class contracts. -->
 
-As it happens, Liskov's implementation of `clone()` for the
-`IntSet` class (see figure 5.10, page 97) is wrong.
+<!-- As it happens, Liskov's implementation of `clone()` for the -->
+<!-- `IntSet` class (see figure 5.10, page 97) is wrong. -->
 
-1.  Use the [version](./files/IntSet.java) of `IntSet` from
-    the in-class exercise. Implement a subtype of `IntSet` to
-    demonstrate the problem. Your solution should include appropiate
-    executable code in the form of JUnit tests.
-2.  Provide a correct implementation of `clone()` for
-    `IntSet`. Again, give appropriate JUnit tests.
-3.  Correctly override `hashCode()` and
-    `equals()`. Note that the standard recipe is not
-    appropriate in this (unusual) case (why?).
+<!-- 1.  Use the [version](./files/IntSet.java) of `IntSet` from -->
+<!--     the in-class exercise. Implement a subtype of `IntSet` to -->
+<!--     demonstrate the problem. Your solution should include appropiate -->
+<!--     executable code in the form of JUnit tests. -->
+<!-- 2.  Provide a correct implementation of `clone()` for -->
+<!--     `IntSet`. Again, give appropriate JUnit tests. -->
+<!-- 3.  Correctly override `hashCode()` and -->
+<!--     `equals()`. Note that the standard recipe is not -->
+<!--     appropriate in this (unusual) case (why?). -->
 
-### Grading Criteria
+<!-- ### Grading Criteria -->
 
-In addititon to code and tests, your deliverable is a story. Explain
-what is going on at each stage of the exercise. The GTA will primarily
-grade your story.
+<!-- In addititon to code and tests, your deliverable is a story. Explain -->
+<!-- what is going on at each stage of the exercise. The GTA will primarily -->
+<!-- grade your story. -->
 
-## Assignment 11
+<!-- ## Assignment 11 -->
 
-### Goals: Favoring composition over inheritance. Bloch, Item 18.
+<!-- ### Goals: Favoring composition over inheritance. Bloch, Item 18. -->
 
-Consider the `InstrumentedSet` example from Bloch Item 18 (as well as
-in-class exercise [in-class 12A](#ic12A)).
+<!-- Consider the `InstrumentedSet` example from Bloch Item 18 (as well as -->
+<!-- in-class exercise [in-class 12A](#ic12A)). -->
 
-1.  Replace `Set` with `List`. There is no problem with `equals()`. Why
-    not?
-2.  Replace `Set` with `Collection`. Now
-    `equals()` does not satisfy its contract.
-    -   Explain why there is a problem.
-    -   Demonstrate the problem with a suitable JUnit test.
+<!-- 1.  Replace `Set` with `List`. There is no problem with `equals()`. Why -->
+<!--     not? -->
+<!-- 2.  Replace `Set` with `Collection`. Now -->
+<!--     `equals()` does not satisfy its contract. -->
+<!--     -   Explain why there is a problem. -->
+<!--     -   Demonstrate the problem with a suitable JUnit test. -->
 
-### Grading Criteria
+<!-- ### Grading Criteria -->
 
-The GTA will look for correct responses, appropriate JUnit tests, and
-plausible explanations when doing the grading.
+<!-- The GTA will look for correct responses, appropriate JUnit tests, and -->
+<!-- plausible explanations when doing the grading. -->
 
-## Assignment 12
+<!-- ## Assignment 12 -->
 
-### Goals: Applying lessons learned.
+<!-- ### Goals: Applying lessons learned. -->
 
-You have a choice of possible assignments:
+<!-- You have a choice of possible assignments: -->
 
-1.  Consider one of the `copyOf()` methods in the Java
-    [Arrays](https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html)
-    utility class. Bloch uses this method in his `Stack`
-    example. Code a corresponding method in C++, changing the argument
-    list as necessary. Provide a specification for the C++ code by
-    translating the JavaDoc and adding preconditions as necessary.
-    Explain what this exercise demonstrates about C++ type safety.
+<!-- 1.  Consider one of the `copyOf()` methods in the Java -->
+<!--     [Arrays](https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html) -->
+<!--     utility class. Bloch uses this method in his `Stack` -->
+<!--     example. Code a corresponding method in C++, changing the argument -->
+<!--     list as necessary. Provide a specification for the C++ code by -->
+<!--     translating the JavaDoc and adding preconditions as necessary. -->
+<!--     Explain what this exercise demonstrates about C++ type safety. -->
 
-2.  For most of the semester, we have focused on design considerations
-    for constructing software that does something we want it to do. For
-    this last assignment, I would like students to appreciate just how
-    vulnerable software is to malicious parties intent on attacking
-    their software.
+<!-- 2.  For most of the semester, we have focused on design considerations -->
+<!--     for constructing software that does something we want it to do. For -->
+<!--     this last assignment, I would like students to appreciate just how -->
+<!--     vulnerable software is to malicious parties intent on attacking -->
+<!--     their software. -->
 
-    There are two attacks documented in Bloch's Item 88: *Write
-    `readObject()` methods defensively*. One is called
-    `BogusPeriod`, and the other is called
-    `MutablePeriod`. Implement either (your choice) of these
-    attacks (basically involves typing in code from Bloch) and verify
-    that the attack takes place.
+<!--     There are two attacks documented in Bloch's Item 88: *Write -->
+<!--     `readObject()` methods defensively*. One is called -->
+<!--     `BogusPeriod`, and the other is called -->
+<!--     `MutablePeriod`. Implement either (your choice) of these -->
+<!--     attacks (basically involves typing in code from Bloch) and verify -->
+<!--     that the attack takes place. -->
 
-3.  A different source of security vulnerabilities in Java also involve
-    serialization. Bloch (and others) recommend "cross-platform
-    structured data representations" (e.g. JSON or Protocol Buffers) as
-    safe alternatives. Develop a simple serialization example in Java
-    and convert it into a safe alternative (probably, JSON is easier to
-    use, since it is text-based). To make the example more interesting,
-    use some objects types that are not directly supported.
+<!-- 3.  A different source of security vulnerabilities in Java also involve -->
+<!--     serialization. Bloch (and others) recommend "cross-platform -->
+<!--     structured data representations" (e.g. JSON or Protocol Buffers) as -->
+<!--     safe alternatives. Develop a simple serialization example in Java -->
+<!--     and convert it into a safe alternative (probably, JSON is easier to -->
+<!--     use, since it is text-based). To make the example more interesting, -->
+<!--     use some objects types that are not directly supported. -->
 
-4.  Find some existing (Java) code that uses the "int enum pattern"
-    and refactor it to use Java `Enums` instead. Identify any
-    type-safety issue you uncover in the existing code. To make the
-    exercise interesting, extend your enums beyond simple
-    named-constants in one of the ways discussed by Bloch in Item 34.
+<!-- 4.  Find some existing (Java) code that uses the "int enum pattern" -->
+<!--     and refactor it to use Java `Enums` instead. Identify any -->
+<!--     type-safety issue you uncover in the existing code. To make the -->
+<!--     exercise interesting, extend your enums beyond simple -->
+<!--     named-constants in one of the ways discussed by Bloch in Item 34. -->
 
-5.  Where appropriate, code up, as JUnit theories, constraints for
-    classes that implement the Java `Comparable` interface.
-    Note that there is significant overlap with the in-class exercise.
-    Note also that the Comparable interface is generic; hence, you
-    should use generics in your JUnit test class.
+<!-- 5.  Where appropriate, code up, as JUnit theories, constraints for -->
+<!--     classes that implement the Java `Comparable` interface. -->
+<!--     Note that there is significant overlap with the in-class exercise. -->
+<!--     Note also that the Comparable interface is generic; hence, you -->
+<!--     should use generics in your JUnit test class. -->
 
-6.  Gain experience with one of the property-based testing tools. I
-    suggest a Java-based one (such as [jqwik](https://jqwik.net)). One
-    way to do this is work through one of the articles linked on the
-    jqwik site.
+<!-- 6.  Gain experience with one of the property-based testing tools. I -->
+<!--     suggest a Java-based one (such as [jqwik](https://jqwik.net)). One -->
+<!--     way to do this is work through one of the articles linked on the -->
+<!--     jqwik site. -->
 
-### Grading Criteria
+<!-- ### Grading Criteria -->
 
-In each case, the deliverable is a story. Write a brief report, and
-include enough evidence (output, screen shots, etc.) that the GTA can
-figure out that you actually completed the assignment.
+<!-- In each case, the deliverable is a story. Write a brief report, and -->
+<!-- include enough evidence (output, screen shots, etc.) that the GTA can -->
+<!-- figure out that you actually completed the assignment. -->
 
-# Reflection
+<!-- # Reflection -->
 
-For each of the following, answer these two questions first:
+<!-- For each of the following, answer these two questions first: -->
 
-1.  List the names of students in your group.
-2.  Did everyone in your group contribute to the discussion of your
-    solutions to this reading quiz? If not, who did not?
+<!-- 1.  List the names of students in your group. -->
+<!-- 2.  Did everyone in your group contribute to the discussion of your -->
+<!--     solutions to this reading quiz? If not, who did not? -->
 
-## Reflection 1
+<!-- ## Reflection 1 -->
 
-1.  Much of the material explores the connection between preconditions
-    and exception handling. Were there any aspects of this connection
-    that surprised or confused anyone in your group? If so, explain. If
-    not, where did you learn this material?
-2.  Liskov and Bloch have different advice with respect to checked vs.
-    unchecked exceptions. Which approach do you find more persuasive,
-    and why?
-3.  Preconditions are often characterized as "bad" from a security
-    perspective. If you think you know why this is, please explain. If
-    you are unsure, say so and try to explain why the you find the
-    connection between preconditions and security confusing.
+<!-- 1.  Much of the material explores the connection between preconditions -->
+<!--     and exception handling. Were there any aspects of this connection -->
+<!--     that surprised or confused anyone in your group? If so, explain. If -->
+<!--     not, where did you learn this material? -->
+<!-- 2.  Liskov and Bloch have different advice with respect to checked vs. -->
+<!--     unchecked exceptions. Which approach do you find more persuasive, -->
+<!--     and why? -->
+<!-- 3.  Preconditions are often characterized as "bad" from a security -->
+<!--     perspective. If you think you know why this is, please explain. If -->
+<!--     you are unsure, say so and try to explain why the you find the -->
+<!--     connection between preconditions and security confusing. -->
 
-## Reflection 2
+<!-- ## Reflection 2 -->
 
-1.  If you sat down to design a new class, would the result likely be
-    mutable or immutable? Why?
-2.  In her presentation, Liskov doesn't cover all the requirements for
-    immutability. (In fairness, these requirements weren't well
-    understood at the time she wrote her text.) Do you know what she's
-    missing and why it's important? If so, briefly explain. (We'll
-    cover those requirements later in the semester.)
-3.  Based on your experience, what do you think the major advantage is
-    of immutability over mutability? mutability over immutability?
-
-## Reflection 3
-
-1.  Have you ever explicitly considered invariants when deciding how to
-    implement a Java class? If so, can you give an example?
-2.  Please explain what you think it means to to correctly override the
-    toString() method. Base your answer on your understanding **before**
-    enrolling in this class.
-3.  How do you decide whether you have implemented a Java method
-    correctly? Again, base your answer on your understanding **before**
-    enrolling in this class.
-
-## Reflection 4 (reflection 3 redo)
-
-Answer these questions based on your new knowledge on invariants and
-correctness analysis from class lectures and reading assignment.
-
-1.  Have you ever implicitly or explicitly considered invariants when
-    writing code?
-2.  How do you decide whether you have implemented a program or method
-    correctly?
-
-## Reflection 5
-
-1.  Iteration is a basic concept, yet Liskov devotes an entire chapter
-    to it. What, if anything, did you find in Liskov's presentation of
-    iteration abstraction that is new to you?
-2.  Bloch's `Period` class (Item 50) has a lot going on in it. We'll
-    revisit the this example in an in-class exercise. What, if anything,
-    did you find confusing in this example?
-
-## Reflection 6
-
-1.  Liskov 7 develops rules for assessing the correctness of subtypes.
-    What do you think the connection is between these rules and the
-    rules for verification addressed in Chapter 5?
-
-```{=html}
-<!-- -->
-```
-1.  Consider the Java Set interface and two subtypes: HashSet and
-    TreeSet. Do you think the abstract state for these three
-    interfaces/classes are identical or different? (You might want to
-    spend some time in the JavaDoc before jumping to a conclusion; there
-    is a specific answer in there!)
-
-## Reflection 7
-
-1.  Explain why Java has both a Comparable interface and a Comparator
-    interface.
-2.  How familiar is your group with the Java "anonymous class" and
-    "lambda" constructs?
-3.  Can you explain the connection between anonymous classes and lambda
-    expressions?
-
-## Reflection 8
-
-1.  Explain the basic role of generics in the Java language
-2.  Do you have experience generifying Java classes? Explain.
-3.  Bloch explains how bounded wildcards can address certain limitations
-    in the use of generics in inheritance settings. If you can, give a
-    brief description of how this works. (If not, that's fine; we'll
-    address in class.)
-
-## Reflection 9
-
-1.  Have you overridden the equals() or the hashCode() methods? In light
-    of Bloch's discussion of both methods, do you think your
-    implementations were correct?
-2.  Have you overridden the clone() method? Do you understand why
-    inheritance is a particular concern for overridding this method?
-3.  What similarities and differences do you see between how Liskov and
-    Bloch treat the toString() method?
-
-## Reflection 10
-
-1.  Bloch discusses specific rules for making a class immutable. Did you
-    find any of these rules confusing?
-2.  Bloch's InstrumentedHashSet example demonstrates how inheritance
-    can break encapsulation. Does the JavaDoc for HashSet, Set and/or
-    Collection follow the Bloch's Item 19 advice for documenting for
-    inheritances?
-3.  Bloch's InstrumentedSet example has a lot going on in it. What
-    aspects, if any, of this example did you find confusing?
-
-## Reflection 11
-
-1.  How would you rate your experience with writing (ordinary) tests in
-    the JUnit framework? Use a scale from "A few times for class" to
-    "I do that professionally".
-2.  JUnit theories are the JUnit implementation of "property-based"
-    testing. Have you every written a property-based test?
-3.  JUnit theories are included on the syllabus because they show how
-    the precondition/postcondition model applies beyond method
-    contracts. Does the pre/post model for JUnit theories make sense to
-    you?
-
-## Reflection 11
-
-1.  Is there anything about property based testing that you still find
-    confusing?
-2.  Have you ever used a "C style" enum? If so, at the time, did this
-    seem reasonable or ridiculous?
-3.  This week's in-class exercise is a recap. Is there a topic (or two)
-    we've covered that you think you need more practice with?
+<!-- 1.  If you sat down to design a new class, would the result likely be -->
+<!--     mutable or immutable? Why? -->
+<!-- 2.  In her presentation, Liskov doesn't cover all the requirements for -->
+<!--     immutability. (In fairness, these requirements weren't well -->
+<!--     understood at the time she wrote her text.) Do you know what she's -->
+<!--     missing and why it's important? If so, briefly explain. (We'll -->
+<!--     cover those requirements later in the semester.) -->
+<!-- 3.  Based on your experience, what do you think the major advantage is -->
+<!--     of immutability over mutability? mutability over immutability? -->
+
+<!-- ## Reflection 3 -->
+
+<!-- 1.  Have you ever explicitly considered invariants when deciding how to -->
+<!--     implement a Java class? If so, can you give an example? -->
+<!-- 2.  Please explain what you think it means to to correctly override the -->
+<!--     toString() method. Base your answer on your understanding **before** -->
+<!--     enrolling in this class. -->
+<!-- 3.  How do you decide whether you have implemented a Java method -->
+<!--     correctly? Again, base your answer on your understanding **before** -->
+<!--     enrolling in this class. -->
+
+<!-- ## Reflection 4 (reflection 3 redo) -->
+
+<!-- Answer these questions based on your new knowledge on invariants and -->
+<!-- correctness analysis from class lectures and reading assignment. -->
+
+<!-- 1.  Have you ever implicitly or explicitly considered invariants when -->
+<!--     writing code? -->
+<!-- 2.  How do you decide whether you have implemented a program or method -->
+<!--     correctly? -->
+
+<!-- ## Reflection 5 -->
+
+<!-- 1.  Iteration is a basic concept, yet Liskov devotes an entire chapter -->
+<!--     to it. What, if anything, did you find in Liskov's presentation of -->
+<!--     iteration abstraction that is new to you? -->
+<!-- 2.  Bloch's `Period` class (Item 50) has a lot going on in it. We'll -->
+<!--     revisit the this example in an in-class exercise. What, if anything, -->
+<!--     did you find confusing in this example? -->
+
+<!-- ## Reflection 6 -->
+
+<!-- 1.  Liskov 7 develops rules for assessing the correctness of subtypes. -->
+<!--     What do you think the connection is between these rules and the -->
+<!--     rules for verification addressed in Chapter 5? -->
+
+<!-- ```{=html} -->
+<!-- <\!-- -\-> -->
+<!-- ``` -->
+<!-- 1.  Consider the Java Set interface and two subtypes: HashSet and -->
+<!--     TreeSet. Do you think the abstract state for these three -->
+<!--     interfaces/classes are identical or different? (You might want to -->
+<!--     spend some time in the JavaDoc before jumping to a conclusion; there -->
+<!--     is a specific answer in there!) -->
+
+<!-- ## Reflection 7 -->
+
+<!-- 1.  Explain why Java has both a Comparable interface and a Comparator -->
+<!--     interface. -->
+<!-- 2.  How familiar is your group with the Java "anonymous class" and -->
+<!--     "lambda" constructs? -->
+<!-- 3.  Can you explain the connection between anonymous classes and lambda -->
+<!--     expressions? -->
+
+<!-- ## Reflection 8 -->
+
+<!-- 1.  Explain the basic role of generics in the Java language -->
+<!-- 2.  Do you have experience generifying Java classes? Explain. -->
+<!-- 3.  Bloch explains how bounded wildcards can address certain limitations -->
+<!--     in the use of generics in inheritance settings. If you can, give a -->
+<!--     brief description of how this works. (If not, that's fine; we'll -->
+<!--     address in class.) -->
+
+<!-- ## Reflection 9 -->
+
+<!-- 1.  Have you overridden the equals() or the hashCode() methods? In light -->
+<!--     of Bloch's discussion of both methods, do you think your -->
+<!--     implementations were correct? -->
+<!-- 2.  Have you overridden the clone() method? Do you understand why -->
+<!--     inheritance is a particular concern for overridding this method? -->
+<!-- 3.  What similarities and differences do you see between how Liskov and -->
+<!--     Bloch treat the toString() method? -->
+
+<!-- ## Reflection 10 -->
+
+<!-- 1.  Bloch discusses specific rules for making a class immutable. Did you -->
+<!--     find any of these rules confusing? -->
+<!-- 2.  Bloch's InstrumentedHashSet example demonstrates how inheritance -->
+<!--     can break encapsulation. Does the JavaDoc for HashSet, Set and/or -->
+<!--     Collection follow the Bloch's Item 19 advice for documenting for -->
+<!--     inheritances? -->
+<!-- 3.  Bloch's InstrumentedSet example has a lot going on in it. What -->
+<!--     aspects, if any, of this example did you find confusing? -->
+
+<!-- ## Reflection 11 -->
+
+<!-- 1.  How would you rate your experience with writing (ordinary) tests in -->
+<!--     the JUnit framework? Use a scale from "A few times for class" to -->
+<!--     "I do that professionally". -->
+<!-- 2.  JUnit theories are the JUnit implementation of "property-based" -->
+<!--     testing. Have you every written a property-based test? -->
+<!-- 3.  JUnit theories are included on the syllabus because they show how -->
+<!--     the precondition/postcondition model applies beyond method -->
+<!--     contracts. Does the pre/post model for JUnit theories make sense to -->
+<!--     you? -->
+
+<!-- ## Reflection 11 -->
+
+<!-- 1.  Is there anything about property based testing that you still find -->
+<!--     confusing? -->
+<!-- 2.  Have you ever used a "C style" enum? If so, at the time, did this -->
+<!--     seem reasonable or ridiculous? -->
+<!-- 3.  This week's in-class exercise is a recap. Is there a topic (or two) -->
+<!--     we've covered that you think you need more practice with? -->
 
 # Files
 
