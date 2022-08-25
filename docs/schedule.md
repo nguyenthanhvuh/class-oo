@@ -6,8 +6,8 @@
 
     | Meeting | Topic                           | Reading            | Assignment Due | In-Class Exercise          |
     |---------|---------------------------------|--------------------|----------------|----------------------------|
-    | 1       | Class Overview / Specifications | Liskov 1--3        |                | IC 1 [A](#in-class-1A) [B](#ic1B) |
-    | 2       | Exceptions                      | Liskov 4, Bloch 10 | [A1 Due](#assignment-1)  | IC 2 [A](#ic2A) [B](#ic2B) |
+    | 1       | Class Overview / Specifications | Liskov 1--3        |                | IC 1 [A](#in-class-1A) [B](#in-class-1B) |
+    | 2       | Exceptions                      | Liskov 4, Bloch 10 | [A1 Due](#assignment-1)  | IC 2 [A](#in-class-2A) [B](#in-class-2B) |
 
 
 # In class Excercises
@@ -1299,7 +1299,7 @@ interface](https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html).
 3.  Consider the following specification:
 
     ``` Python
-    def find_prime_factor (listA, listB)
+    def find_prime_factor (listA, listB):
     
      # Requires: a not None; b not None;
      # there is some index i where b[i] is 
