@@ -66,8 +66,8 @@ sequence is:
 
 -   Preparation: Complete assigned readings and watch relevant videos,
     if any. No formal submission for this activity.
--   Reading Reflection: This is a formal opportunity for each group to
-    reflect on the reading.
+<!-- -   Reading Reflection: This is a formal opportunity for each group to -->
+<!--     reflect on the reading. -->
 -   Class Meeting:
     -   Combined session on the day's topic, followed by in-class
         exercises (group breakouts)
