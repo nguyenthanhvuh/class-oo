@@ -1,5 +1,6 @@
 # Schedule
 
+
 -   **Notes**: Except for the first class, students are expected to
     complete the reading **prior to class** on listed meeting. Quizzes
     may occasionally take advantage of this expectation. 
@@ -9,6 +10,7 @@
     | 1       | Class Overview / Specifications    | Liskov 1--2 |                         | IC 1 [A](#in-class-1a) [B](#in-class-1b) |
     | 2       | Procedure Abstractions, Exceptions | Liskov 3--4 | [A1 Due](#assignment-1) | IC 2 [A](#in-class-2a) [B](#in-class-2b) |
 
+# [Notes](https://github.com/nguyenthanhvuh/class-oo/wiki/Notes)
 
 # In class Excercises
 
