@@ -28,14 +28,37 @@ Now, address a technical topic. With your group, discuss what
 
 ## In class 1B
 
-Consider the Java [Iterator
-interface](https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html).
+Now address a technical topic. This exercise touches on some of the thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don't worry if it seems confusing today. We'll revisit this example several times over the course of the semester.
 
-1.  For each method, identify all preconditions and postconditions. Pay
-    special attention to possible exceptions.
-2.  For each precondition, identify a specific input that violates the
-    precondition.
-3.  What do you think would happen if the precondition is violated?
+Consider the following (textbook) code:
+
+``` java
+  public class User {
+      private String name;
+      public User (String name) { this.name = name; }
+      @Override public boolean equals (Object obj) {
+          if (!(obj instanceof User)) return false;
+          return ((User) obj).name.equals(this.name);
+      }
+      // other methods omitted
+  }
+  public class SpecialUser extends User {
+      private int id;
+      public SpecialUser (String name, int id) { super(name); this.id = id; }
+      @Override public boolean equals (Object obj) {
+          if (!(obj instanceof SpecialUser)) return false;
+          return super.equals(obj) && ((SpecialUser) obj).id == this.id;
+      }
+      // other methods omitted
+  }
+```
+
+1. Walk though the execution of the `equals()` method in class `User` for a few well-chosen objects as the parameter. What happens at each point in the execution? 
+2. What does it mean for an `equals()` implementation to be *correct*? How do you know? Be as concrete as you can. 
+3. Is the given implementation of `equals()` in class `User` correct? Again, be concrete. If there is a problem, find a specific object (test case!) that demonstrates the problem. 
+4. How does inheritance complicate the correctness discussion for `equals()` in class `SpecialUser`? 
+5. What is your assessment of the `equals()` method in the `SpecialUser` class?
+
 
 ## In class 2A
 
