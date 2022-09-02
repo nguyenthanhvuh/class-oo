@@ -12,7 +12,7 @@
   - Grader: Advait Gogte
     - Email: [[mailto:agogte@gmu.edu][agogte@gmu.edu]]
   - Class:
-    - Mondays 10:30AM--1:10PM, East 122
+    - Friday 10:30AM--1:10PM, East 122
     - Piazza: https://piazza.com/gmu/fall2022/swe419nguyen
     - Syllabus and Schedule (this website): [[https://nguyenthanhvuh.github.io/class-oo][https://nguyenthanhvuh.github.io/class-oo]]
     - Assignment Submission (homework, reflection, quizzes, exams): Blackboard (BB)
