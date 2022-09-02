@@ -7,7 +7,7 @@
 
 * General Information
   - Instructor: [[https://nguyenthanhvuh.github.io][ThanhVu Nguyen]]
-    - Office Hrs: Tuesday 1:30 PM - 2:30PM through ZOOM: https://gmu.zoom.us/j/98393279342 (passcode: 148674)
+    - Office Hrs: Tuesday 1:30 PM - 2:30PM through ZOOM: https://gmu.zoom.us/j/98393279342 (passcode: 148674) or in Engr 4430 (through appointment)
     - Email: [[mailto:tvn@gmu.edu][tvn@gmu.edu]] (Piazza discussion is preferred)
   - Grader: Advait Gogte
     - Email: [[mailto:agogte@gmu.edu][agogte@gmu.edu]]
