@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-09-01 Thu 23:53 -->
+<!-- 2022-09-02 Fri 09:13 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 619 Course Schedule and Assignments</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
@@ -39,18 +39,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgde94472">1. Schedule</a></li>
-<li><a href="#org1e7edd8">2. In class Assignments</a></li>
-<li><a href="#org6304775">3. HW Assignments</a></li>
-<li><a href="#org0cf5d7b">4. Reflection</a></li>
-<li><a href="#org962c289">5. Files</a></li>
-<li><a href="#orgf2c3b4d">6. Links</a></li>
+<li><a href="#org32887c8">1. Schedule</a></li>
+<li><a href="#orgb2f4537">2. In class Assignments</a></li>
+<li><a href="#orgc780284">3. Homework Assignments</a></li>
+<li><a href="#org292c644">4. Reflection</a></li>
+<li><a href="#org597dda5">5. Files</a></li>
+<li><a href="#org800c157">6. Links</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgde94472" class="outline-2">
-<h2 id="orgde94472"><span class="section-number-2">1.</span> Schedule</h2>
+<div id="outline-container-org32887c8" class="outline-2">
+<h2 id="org32887c8"><span class="section-number-2">1.</span> Schedule</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li><b>Notes</b>: Except for the first class, students are expected to complete the reading <b>prior to class</b> on listed meeting. Quizzes may occasionally take advantage of this expectation. Homework assignments are <b>due</b> on the date listed.</li>
@@ -224,8 +224,8 @@
 </div>
 
 
-<div id="outline-container-org1e7edd8" class="outline-2">
-<h2 id="org1e7edd8"><span class="section-number-2">2.</span> In class Assignments</h2>
+<div id="outline-container-orgb2f4537" class="outline-2">
+<h2 id="orgb2f4537"><span class="section-number-2">2.</span> In class Assignments</h2>
 <div class="outline-text-2" id="text-2">
 </div>
 <div id="outline-container-ic1a" class="outline-3">
@@ -260,23 +260,23 @@ Consider the following (textbook) code:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">User</span> {
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">String</span> <span style="color: #dcaeea;">name</span>;
-    <span style="color: #51afef;">public</span> User (<span style="color: #ECBE7B;">String</span> <span style="color: #dcaeea;">name</span>) { <span style="color: #51afef;">this</span>.name = name; }
-    <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">equals</span> (<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">obj</span>) {
-        <span style="color: #51afef;">if</span> (<span style="color: #51afef; font-weight: bold;">!</span>(obj <span style="color: #51afef;">instanceof</span> User)) <span style="color: #51afef;">return</span> <span style="color: #a9a1e1;">false</span>;
-        <span style="color: #51afef;">return</span> ((<span style="color: #ECBE7B;">User</span>) obj).name.equals(<span style="color: #51afef;">this</span>.name);
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">User</span> {
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">String</span> <span style="color: #6a1868;">name</span>;
+    <span style="color: #e45649;">public</span> User (<span style="color: #986801;">String</span> <span style="color: #6a1868;">name</span>) { <span style="color: #e45649;">this</span>.name = name; }
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) {
+        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(obj <span style="color: #e45649;">instanceof</span> User)) <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
+        <span style="color: #e45649;">return</span> ((<span style="color: #986801;">User</span>) obj).name.equals(<span style="color: #e45649;">this</span>.name);
     }
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">other methods omitted</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">other methods omitted</span>
 }
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">SpecialUser</span> <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">User</span> {
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">id</span>;
-    <span style="color: #51afef;">public</span> SpecialUser (<span style="color: #ECBE7B;">String</span> <span style="color: #dcaeea;">name</span>, <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">id</span>) { <span style="color: #51afef;">super</span>(name); <span style="color: #51afef;">this</span>.id = id; }
-    <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">equals</span> (<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">obj</span>) {
-        <span style="color: #51afef;">if</span> (<span style="color: #51afef; font-weight: bold;">!</span>(obj <span style="color: #51afef;">instanceof</span> SpecialUser)) <span style="color: #51afef;">return</span> <span style="color: #a9a1e1;">false</span>;
-        <span style="color: #51afef;">return</span> <span style="color: #51afef;">super</span>.equals(obj) &amp;&amp; ((<span style="color: #ECBE7B;">SpecialUser</span>) obj).id == <span style="color: #51afef;">this</span>.id;
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">SpecialUser</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">User</span> {
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">id</span>;
+    <span style="color: #e45649;">public</span> SpecialUser (<span style="color: #986801;">String</span> <span style="color: #6a1868;">name</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">id</span>) { <span style="color: #e45649;">super</span>(name); <span style="color: #e45649;">this</span>.id = id; }
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) {
+        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(obj <span style="color: #e45649;">instanceof</span> SpecialUser)) <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
+        <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equals(obj) &amp;&amp; ((<span style="color: #986801;">SpecialUser</span>) obj).id == <span style="color: #e45649;">this</span>.id;
     }
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">other methods omitted</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">other methods omitted</span>
 }
 </pre>
 </div>
@@ -300,14 +300,14 @@ Consider the following implementation:
 
 <div class="org-src-container">
 <pre class="src src-java">
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">static</span> <span style="color: #ECBE7B;">List</span>&lt;<span style="color: #ECBE7B;">Integer</span>&gt; <span style="color: #c678dd;">tail</span> (<span style="color: #ECBE7B;">List</span>&lt;<span style="color: #ECBE7B;">Integer</span>&gt; <span style="color: #dcaeea;">list</span>) {
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Integer</span>&gt; <span style="color: #a626a4;">tail</span> (<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Integer</span>&gt; <span style="color: #6a1868;">list</span>) {
 
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">REQUIRES/PRECONDS: ???</span>
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">EFFECTS/POSTCONDS:  ???</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">REQUIRES/PRECONDS: ???</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">EFFECTS/POSTCONDS:  ???</span>
 
-    <span style="color: #ECBE7B;">List</span>&lt;<span style="color: #ECBE7B;">Integer</span>&gt; <span style="color: #dcaeea;">result</span> = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">ArrayList</span>&lt;<span style="color: #ECBE7B;">Integer</span>&gt;(list);
+    <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Integer</span>&gt; <span style="color: #6a1868;">result</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">Integer</span>&gt;(list);
     result.remove(0);
-    <span style="color: #51afef;">return</span> result;
+    <span style="color: #e45649;">return</span> result;
 }
 </pre>
 </div>
@@ -360,31 +360,31 @@ Consider a simple generic <code>Queue</code> implementation.
 </p>
 <div class="org-src-container">
 <pre class="src src-java">
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Queue</span> &lt;<span style="color: #ECBE7B;">E</span>&gt; {
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Queue</span> &lt;<span style="color: #986801;">E</span>&gt; {
 
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">List</span>&lt;<span style="color: #ECBE7B;">E</span>&gt; <span style="color: #dcaeea;">elements</span>;
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">size</span>;
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">elements</span>;
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">size</span>;
 
-    <span style="color: #51afef;">public</span> Queue() {
-        <span style="color: #51afef;">this</span>.elements = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">ArrayList</span>&lt;<span style="color: #ECBE7B;">E</span>&gt;();
-        <span style="color: #51afef;">this</span>.size = 0;
+    <span style="color: #e45649;">public</span> Queue() {
+        <span style="color: #e45649;">this</span>.elements = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">E</span>&gt;();
+        <span style="color: #e45649;">this</span>.size = 0;
     }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">enQueue</span> (<span style="color: #ECBE7B;">E</span> <span style="color: #dcaeea;">e</span>) {
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">enQueue</span> (<span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span>) {
         elements.add(e);
         size++;
     }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">E</span> <span style="color: #c678dd;">deQueue</span> () {
-        <span style="color: #51afef;">if</span> (size == 0) <span style="color: #51afef;">throw</span> <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">IllegalStateException</span>(<span style="color: #98be65;">"Queue.deQueue"</span>);
-        <span style="color: #ECBE7B;">E</span> <span style="color: #dcaeea;">result</span> = elements.get(0);
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">E</span> <span style="color: #a626a4;">deQueue</span> () {
+        <span style="color: #e45649;">if</span> (size == 0) <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IllegalStateException</span>(<span style="color: #50a14f;">"Queue.deQueue"</span>);
+        <span style="color: #986801;">E</span> <span style="color: #6a1868;">result</span> = elements.get(0);
         elements.remove(0);
         size--;
-        <span style="color: #51afef;">return</span> result;
+        <span style="color: #e45649;">return</span> result;
     }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">isEmpty</span>() {
-        <span style="color: #51afef;">return</span> size == 0;
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">isEmpty</span>() {
+        <span style="color: #e45649;">return</span> size == 0;
     }
 }
 
@@ -406,8 +406,8 @@ Consider a simple generic <code>Queue</code> implementation.
 Consider Liskov's Poly example, where an abstract Poly is defined as \(c_0 + c_1x + c_2x^2 + \dots\), and is implemented with two variables:
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">deg</span>;
-<span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span>[] <span style="color: #dcaeea;">trms</span>;
+<pre class="src src-java"><span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">deg</span>;
+<span style="color: #e45649;">private</span> <span style="color: #986801;">int</span>[] <span style="color: #6a1868;">trms</span>;
 </pre>
 </div>
 
@@ -450,13 +450,13 @@ Representation State: (deg, trms)
 <h3 id="ic4"><span class="section-number-3">2.7.</span> In class 4</h3>
 <div class="outline-text-3" id="text-ic4">
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #5B6268;">// </span><span style="color: #5B6268;">{N &gt;= 0}   # P</span>
+<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">{N &gt;= 0}   # P</span>
 i = 0;
-<span style="color: #51afef;">while</span> (i &lt; <span style="color: #ECBE7B;">N</span>){
+<span style="color: #e45649;">while</span> (i &lt; <span style="color: #986801;">N</span>){
     i = i + 1;
 }
 
-<span style="color: #5B6268;">//</span><span style="color: #5B6268;">{i == N}  # Q</span>
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">{i == N}  # Q</span>
 </pre>
 </div>
 
@@ -475,7 +475,7 @@ Consider Liskov's immutable <code>Poly</code> example, where an abstract <code>P
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">Map</span>&lt;<span style="color: #ECBE7B;">Integer</span>, <span style="color: #ECBE7B;">Integer</span>&gt; <span style="color: #dcaeea;">map</span>;
+<pre class="src src-java"><span style="color: #e45649;">private</span> <span style="color: #986801;">Map</span>&lt;<span style="color: #986801;">Integer</span>, <span style="color: #986801;">Integer</span>&gt; <span style="color: #6a1868;">map</span>;
 </pre>
 </div>
 
@@ -523,20 +523,20 @@ Consider the code:
 
 <div class="org-src-container">
 <pre class="src src-java">
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Members</span> {
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Members is a mutable record of organization membership</span>
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">AF: Collect the list as a set</span>
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">rep-inv1: members != null</span>
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">rep-inv2: members != null &amp;&amp; no duplicates in members</span>
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">for simplicity, assume null can be a member...</span>
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Members</span> {
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Members is a mutable record of organization membership</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">AF: Collect the list as a set</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">rep-inv1: members != null</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">rep-inv2: members != null &amp;&amp; no duplicates in members</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">for simplicity, assume null can be a member...</span>
 
-    <span style="color: #ECBE7B;">List</span>&lt;<span style="color: #ECBE7B;">Person</span>&gt; <span style="color: #dcaeea;">members</span>;   <span style="color: #5B6268;">// </span><span style="color: #5B6268;">the representation</span>
+    <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Person</span>&gt; <span style="color: #6a1868;">members</span>;   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">the representation</span>
 
-    <span style="color: #5B6268;">//  </span><span style="color: #5B6268;">Post: person becomes a member</span>
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">join</span> (<span style="color: #ECBE7B;">Person</span> <span style="color: #dcaeea;">person</span>) { members.add   (person);}
+    <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">Post: person becomes a member</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">join</span> (<span style="color: #986801;">Person</span> <span style="color: #6a1868;">person</span>) { members.add   (person);}
 
-    <span style="color: #5B6268;">//  </span><span style="color: #5B6268;">Post: person is no longer a member</span>
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">leave</span>(<span style="color: #ECBE7B;">Person</span> <span style="color: #dcaeea;">person</span>) { members.remove(person);}
+    <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">Post: person is no longer a member</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">leave</span>(<span style="color: #986801;">Person</span> <span style="color: #6a1868;">person</span>) { members.remove(person);}
 
 </pre>
 </div>
@@ -566,9 +566,9 @@ Consider the Java <code>Iterator&lt;E&gt;</code> interface:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">hasNext</span>();
-<span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">E</span> <span style="color: #c678dd;">next</span>() <span style="color: #51afef;">throws</span> <span style="color: #ECBE7B;">NoSuchElementException</span>
-                       <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> remove() <span style="color: #51afef;">throws</span> <span style="color: #ECBE7B;">IllegalStateException</span>
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">hasNext</span>();
+<span style="color: #e45649;">public</span> <span style="color: #986801;">E</span> <span style="color: #a626a4;">next</span>() <span style="color: #e45649;">throws</span> <span style="color: #986801;">NoSuchElementException</span>
+                       <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> remove() <span style="color: #e45649;">throws</span> <span style="color: #986801;">IllegalStateException</span>
 </pre>
 </div>
 
@@ -590,24 +590,24 @@ Consider the example in Bloch's Item 50 (3rd Edition):
 
 <div class="org-src-container">
 <pre class="src src-java">
-<span style="color: #5B6268;">// </span><span style="color: #5B6268;">Broken &#8220;immutable&#8221; time period class</span>
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">final</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Period</span> {               <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Question 3</span>
-    <span style="color: #51afef;">private</span> <span style="color: #51afef;">final</span> <span style="color: #ECBE7B;">Date</span> <span style="color: #dcaeea;">start</span>;
-    <span style="color: #51afef;">private</span> <span style="color: #51afef;">final</span> <span style="color: #ECBE7B;">Date</span> <span style="color: #dcaeea;">end</span>;
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Broken &#8220;immutable&#8221; time period class</span>
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">final</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Period</span> {               <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Question 3</span>
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Date</span> <span style="color: #6a1868;">start</span>;
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Date</span> <span style="color: #6a1868;">end</span>;
 
-    <span style="color: #83898d;">/**</span>
-<span style="color: #83898d;">     * </span><span style="color: #a9a1e1;">@param</span><span style="color: #83898d;"> start the beginning of the period</span>
-<span style="color: #83898d;">     * </span><span style="color: #a9a1e1;">@param</span><span style="color: #83898d;"> end the end of the period; must not precede start</span>
-<span style="color: #83898d;">     * </span><span style="color: #a9a1e1;">@throws</span><span style="color: #83898d;"> IAE if start is after end</span>
-<span style="color: #83898d;">     * </span><span style="color: #a9a1e1;">@throws</span><span style="color: #83898d;"> NPE if start or end null</span>
-<span style="color: #83898d;">     */</span>
+    <span style="color: #84888b; font-style: italic;">/**</span>
+<span style="color: #84888b; font-style: italic;">     * </span><span style="color: #b751b6; font-style: italic;">@param</span><span style="color: #84888b; font-style: italic;"> start the beginning of the period</span>
+<span style="color: #84888b; font-style: italic;">     * </span><span style="color: #b751b6; font-style: italic;">@param</span><span style="color: #84888b; font-style: italic;"> end the end of the period; must not precede start</span>
+<span style="color: #84888b; font-style: italic;">     * </span><span style="color: #b751b6; font-style: italic;">@throws</span><span style="color: #84888b; font-style: italic;"> IAE if start is after end</span>
+<span style="color: #84888b; font-style: italic;">     * </span><span style="color: #b751b6; font-style: italic;">@throws</span><span style="color: #84888b; font-style: italic;"> NPE if start or end null</span>
+<span style="color: #84888b; font-style: italic;">     */</span>
 
-    <span style="color: #51afef;">public</span> Period (<span style="color: #ECBE7B;">Date</span> <span style="color: #dcaeea;">start</span>, <span style="color: #ECBE7B;">Date</span> <span style="color: #dcaeea;">end</span>) {
-        <span style="color: #51afef;">if</span> (start.compareTo(end) &gt; 0) <span style="color: #51afef;">throw</span> <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">IAE</span>();
-        <span style="color: #51afef;">this</span>.start = start; <span style="color: #51afef;">this</span>.end = end;  <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Question 1</span>
+    <span style="color: #e45649;">public</span> Period (<span style="color: #986801;">Date</span> <span style="color: #6a1868;">start</span>, <span style="color: #986801;">Date</span> <span style="color: #6a1868;">end</span>) {
+        <span style="color: #e45649;">if</span> (start.compareTo(end) &gt; 0) <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IAE</span>();
+        <span style="color: #e45649;">this</span>.start = start; <span style="color: #e45649;">this</span>.end = end;  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Question 1</span>
     }
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">Date</span> <span style="color: #c678dd;">start</span>() { <span style="color: #51afef;">return</span> start;}    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Question 2</span>
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">Date</span> <span style="color: #c678dd;">end</span>()   { <span style="color: #51afef;">return</span> end;}      <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Question 2</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Date</span> <span style="color: #a626a4;">start</span>() { <span style="color: #e45649;">return</span> start;}    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Question 2</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Date</span> <span style="color: #a626a4;">end</span>()   { <span style="color: #e45649;">return</span> end;}      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Question 2</span>
 }
 </pre>
 </div>
@@ -620,7 +620,7 @@ Consider the example in Bloch's Item 50 (3rd Edition):
 Suppose that the class declaration were:
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Period</span> { <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Question 3</span>
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Period</span> { <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Question 3</span>
 </pre>
 </div>
 <ul class="org-ul">
@@ -630,11 +630,11 @@ Suppose that the class declaration were:
 Bloch fixes the constructor as follows:
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> Period (<span style="color: #ECBE7B;">Date</span> <span style="color: #dcaeea;">start</span>, <span style="color: #ECBE7B;">Date</span> <span style="color: #dcaeea;">end</span>) {
-    <span style="color: #51afef;">this</span>.start = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Date</span>(start.getTime());  <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Defensive copy</span>
-    <span style="color: #51afef;">this</span>.end   = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Date</span>(end.getTime());    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Defensive copy</span>
+<pre class="src src-java"><span style="color: #e45649;">public</span> Period (<span style="color: #986801;">Date</span> <span style="color: #6a1868;">start</span>, <span style="color: #986801;">Date</span> <span style="color: #6a1868;">end</span>) {
+    <span style="color: #e45649;">this</span>.start = <span style="color: #e45649;">new</span> <span style="color: #986801;">Date</span>(start.getTime());  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Defensive copy</span>
+    <span style="color: #e45649;">this</span>.end   = <span style="color: #e45649;">new</span> <span style="color: #986801;">Date</span>(end.getTime());    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Defensive copy</span>
 
-    <span style="color: #51afef;">if</span> (<span style="color: #51afef;">this</span>.start.compareTo(end) &gt; 0) <span style="color: #51afef;">throw</span> <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">IAE</span>();
+    <span style="color: #e45649;">if</span> (<span style="color: #e45649;">this</span>.start.compareTo(end) &gt; 0) <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IAE</span>();
 </pre>
 </div>
 <ol class="org-ol">
@@ -658,18 +658,18 @@ Consider Liskov's <code>MaxIntSet</code> example with explict <code>repOk()</cod
 
 <div class="org-src-container">
 <pre class="src src-java">
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">IntSet</span> {
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">insert</span>(<span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">x</span>) {...; repOk();}
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">remove</span>(<span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">x</span>) {...; repOk();}
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">repOk</span>() {...}
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">IntSet</span> {
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">insert</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>) {...; repOk();}
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">remove</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>) {...; repOk();}
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">repOk</span>() {...}
 }
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">MaxIntSet</span> <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">IntSet</span> {
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">insert</span>(<span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">x</span>) {...; <span style="color: #51afef;">super</span>.insert(x); repOk();}
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">remove</span>(<span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">x</span>) {<span style="color: #51afef;">super</span>.remove(x); ...; repOk();}
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">repOk</span>() {<span style="color: #51afef;">super</span>.repOk(); ...;}
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">MaxIntSet</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">IntSet</span> {
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">insert</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>) {...; <span style="color: #e45649;">super</span>.insert(x); repOk();}
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">remove</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>) {<span style="color: #e45649;">super</span>.remove(x); ...; repOk();}
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">repOk</span>() {<span style="color: #e45649;">super</span>.repOk(); ...;}
 }
 
-<span style="color: #ECBE7B;">MaxIntSet</span> <span style="color: #dcaeea;">s</span> = {3, 5}; s.remove(5);  <span style="color: #5B6268;">// </span><span style="color: #5B6268;">repOk()????</span>
+<span style="color: #986801;">MaxIntSet</span> <span style="color: #6a1868;">s</span> = {3, 5}; s.remove(5);  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">repOk()????</span>
 </pre>
 </div>
 
@@ -690,23 +690,23 @@ Consider the following:
 
 <div class="org-src-container">
 <pre class="src src-java">
-<span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">A</span>:
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> reduce (<span style="color: #ECBE7B;">Reducer</span> <span style="color: #dcaeea;">x</span>)
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Effects: if x is null throw NPE</span>
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">else if x is not appropriate for this throw IAE</span>
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">else reduce this by x</span>
+<span style="color: #e45649;">class</span> <span style="color: #986801;">A</span>:
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce (<span style="color: #986801;">Reducer</span> <span style="color: #6a1868;">x</span>)
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if x is null throw NPE</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if x is not appropriate for this throw IAE</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else reduce this by x</span>
 
-        <span style="color: #51afef;">class</span> B:
-        <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> reduce (<span style="color: #ECBE7B;">Reducer</span> <span style="color: #dcaeea;">x</span>)
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Requires: x is not null</span>
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Effects: if x is not appropriate for this throw IAE</span>
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">else reduce this by x</span>
+        <span style="color: #e45649;">class</span> B:
+        <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce (<span style="color: #986801;">Reducer</span> <span style="color: #6a1868;">x</span>)
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: x is not null</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if x is not appropriate for this throw IAE</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else reduce this by x</span>
 
-        <span style="color: #51afef;">class</span> C:
-        <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> reduce (<span style="color: #ECBE7B;">Reducer</span> <span style="color: #dcaeea;">x</span>)
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Effects: if x is null return (normally) with no change to this</span>
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">else if x is not appropriate for this throw IAE</span>
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">else reduce this by x</span>
+        <span style="color: #e45649;">class</span> C:
+        <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce (<span style="color: #986801;">Reducer</span> <span style="color: #6a1868;">x</span>)
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if x is null return (normally) with no change to this</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if x is not appropriate for this throw IAE</span>
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else reduce this by x</span>
 </pre>
 </div>
 
@@ -748,18 +748,18 @@ Postcondition Part:
 Consider the following:
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Counter</span>{   <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Liskov 7.8</span>
-    <span style="color: #51afef;">public</span> Counter()     <span style="color: #5B6268;">//</span><span style="color: #5B6268;">EFF: Makes this contain 0</span>
-        <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">int</span> get()     <span style="color: #5B6268;">//</span><span style="color: #5B6268;">EFF: Returns the value of this</span>
-        <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> incr()   <span style="color: #5B6268;">//</span><span style="color: #5B6268;">MOD: this //EFF: makes this larger</span>
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Counter</span>{   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Liskov 7.8</span>
+    <span style="color: #e45649;">public</span> Counter()     <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">EFF: Makes this contain 0</span>
+        <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> get()     <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">EFF: Returns the value of this</span>
+        <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> incr()   <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">MOD: this //EFF: makes this larger</span>
         }
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Counter2</span> <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">Counter</span> { <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Liskov 7.9</span>
-    <span style="color: #51afef;">public</span> Counter2()         <span style="color: #5B6268;">//</span><span style="color: #5B6268;">EFF: Makes this contain 0</span>
-        <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> incr()       <span style="color: #5B6268;">// </span><span style="color: #5B6268;">MOD: this //EFF: double this</span>
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Counter2</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Counter</span> { <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Liskov 7.9</span>
+    <span style="color: #e45649;">public</span> Counter2()         <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">EFF: Makes this contain 0</span>
+        <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> incr()       <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">MOD: this //EFF: double this</span>
         }
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Counter3</span> <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">Counter</span> {  <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Liskov 7.10</span>
-    <span style="color: #51afef;">public</span> Counter3(<span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">n</span>)   <span style="color: #5B6268;">//</span><span style="color: #5B6268;">EFF: Makes this contain n</span>
-        <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> incr(<span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">n</span>)  <span style="color: #5B6268;">// </span><span style="color: #5B6268;">MOD: this //EFF: if n&gt;0 add n to this</span>
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Counter3</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Counter</span> {  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Liskov 7.10</span>
+    <span style="color: #e45649;">public</span> Counter3(<span style="color: #986801;">int</span> <span style="color: #6a1868;">n</span>)   <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">EFF: Makes this contain n</span>
+        <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> incr(<span style="color: #986801;">int</span> <span style="color: #6a1868;">n</span>)  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">MOD: this //EFF: if n&gt;0 add n to this</span>
         }
 </pre>
 </div>
@@ -781,58 +781,58 @@ This is a recap exercise.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">BoundedQueue</span> {
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">rep</span>[];
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">front</span> = 0;
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">back</span> = -1;
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">size</span> = 0;
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">count</span> = 0;
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">BoundedQueue</span> {
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">Object</span> <span style="color: #6a1868;">rep</span>[];
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">front</span> = 0;
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">back</span> = -1;
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">size</span> = 0;
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">count</span> = 0;
 
-    <span style="color: #51afef;">public</span> BoundedQueue(<span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">size</span>) {
-        <span style="color: #51afef;">if</span> (size &gt; 0) {
-            <span style="color: #51afef;">this</span>.size = size;
-            rep = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Object</span>[size];
+    <span style="color: #e45649;">public</span> BoundedQueue(<span style="color: #986801;">int</span> <span style="color: #6a1868;">size</span>) {
+        <span style="color: #e45649;">if</span> (size &gt; 0) {
+            <span style="color: #e45649;">this</span>.size = size;
+            rep = <span style="color: #e45649;">new</span> <span style="color: #986801;">Object</span>[size];
             back = size - 1;
         }  }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">isEmpty</span>() { <span style="color: #51afef;">return</span> (count == 0); }
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">isFull</span>() { <span style="color: #51afef;">return</span> (count == size); }
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">int</span> <span style="color: #c678dd;">getCount</span>() { <span style="color: #51afef;">return</span> count; }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">isEmpty</span>() { <span style="color: #e45649;">return</span> (count == 0); }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">isFull</span>() { <span style="color: #e45649;">return</span> (count == size); }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">getCount</span>() { <span style="color: #e45649;">return</span> count; }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">put</span>(<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">e</span>) {
-        <span style="color: #51afef;">if</span> (e != <span style="color: #a9a1e1;">null</span> &amp;&amp; <span style="color: #51afef; font-weight: bold;">!</span>isFull()) {
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">put</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">e</span>) {
+        <span style="color: #e45649;">if</span> (e != <span style="color: #b751b6;">null</span> &amp;&amp; <span style="color: #4078f2; font-weight: bold;">!</span>isFull()) {
             back++;
-            <span style="color: #51afef;">if</span> (back &gt;= size)
+            <span style="color: #e45649;">if</span> (back &gt;= size)
                 back = 0;
             rep[back] = e;
             count++;
         } }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">Object</span> <span style="color: #c678dd;">get</span>() {
-        <span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">result</span> = <span style="color: #a9a1e1;">null</span>;
-        <span style="color: #51afef;">if</span> (<span style="color: #51afef; font-weight: bold;">!</span>isEmpty()) {
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Object</span> <span style="color: #a626a4;">get</span>() {
+        <span style="color: #986801;">Object</span> <span style="color: #6a1868;">result</span> = <span style="color: #b751b6;">null</span>;
+        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>isEmpty()) {
             result = rep[front];
-            rep[front] = <span style="color: #a9a1e1;">null</span>;
+            rep[front] = <span style="color: #b751b6;">null</span>;
             front++;
-            <span style="color: #51afef;">if</span> (front &gt;= size)
+            <span style="color: #e45649;">if</span> (front &gt;= size)
                 front = 0;
             count--;
         }
-        <span style="color: #51afef;">return</span> result;
+        <span style="color: #e45649;">return</span> result;
     }
-    <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">String</span> <span style="color: #c678dd;">toString</span>() {
-        <span style="color: #ECBE7B;">String</span> <span style="color: #dcaeea;">result</span> = <span style="color: #98be65;">"front = "</span> + front;
-        result += <span style="color: #98be65;">"; back = "</span> + back;
-        result += <span style="color: #98be65;">"; size = "</span> + size;
-        result += <span style="color: #98be65;">"; count = "</span> + count;
-        result += <span style="color: #98be65;">"; rep = ["</span>;
-        <span style="color: #51afef;">for</span> (<span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">i</span> = 0; i &lt; rep.<span style="color: #ECBE7B;">length</span>; i++) {
-            <span style="color: #51afef;">if</span> (i &lt; rep.<span style="color: #ECBE7B;">length</span>-1)
-                result = result + rep[i] + <span style="color: #98be65;">", "</span>;
-            <span style="color: #51afef;">else</span>
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">String</span> <span style="color: #a626a4;">toString</span>() {
+        <span style="color: #986801;">String</span> <span style="color: #6a1868;">result</span> = <span style="color: #50a14f;">"front = "</span> + front;
+        result += <span style="color: #50a14f;">"; back = "</span> + back;
+        result += <span style="color: #50a14f;">"; size = "</span> + size;
+        result += <span style="color: #50a14f;">"; count = "</span> + count;
+        result += <span style="color: #50a14f;">"; rep = ["</span>;
+        <span style="color: #e45649;">for</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = 0; i &lt; rep.<span style="color: #986801;">length</span>; i++) {
+            <span style="color: #e45649;">if</span> (i &lt; rep.<span style="color: #986801;">length</span>-1)
+                result = result + rep[i] + <span style="color: #50a14f;">", "</span>;
+            <span style="color: #e45649;">else</span>
                 result = result + rep[i];
         }
-        <span style="color: #51afef;">return</span> result + <span style="color: #98be65;">"]"</span>;
+        <span style="color: #e45649;">return</span> result + <span style="color: #50a14f;">"]"</span>;
     }
 }
 
@@ -849,7 +849,7 @@ This is a recap exercise.
 Suppose we removed the line
 </p>
 <div class="org-src-container">
-<pre class="src src-java">rep[front] = <span style="color: #a9a1e1;">null</span>;
+<pre class="src src-java">rep[front] = <span style="color: #b751b6;">null</span>;
 </pre>
 </div>
 <p>
@@ -870,22 +870,22 @@ from <code>get()</code>.
 <h3 id="ic9"><span class="section-number-3">2.16.</span> In class 9</h3>
 <div class="outline-text-3" id="text-ic9">
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Person</span> {
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Person</span> {
 
-    <span style="color: #51afef;">public</span> <span style="color: #51afef;">enum</span> <span style="color: #ECBE7B;">Sex</span> {
-        <span style="color: #dcaeea;">MALE</span>, <span style="color: #dcaeea;">FEMALE</span>
+    <span style="color: #e45649;">public</span> <span style="color: #e45649;">enum</span> <span style="color: #986801;">Sex</span> {
+        <span style="color: #6a1868;">MALE</span>, <span style="color: #6a1868;">FEMALE</span>
     }
 
-    <span style="color: #ECBE7B;">String</span> <span style="color: #dcaeea;">name</span>;
-    <span style="color: #ECBE7B;">Sex</span> <span style="color: #dcaeea;">gender</span>;
-    <span style="color: #ECBE7B;">String</span> <span style="color: #dcaeea;">emailAddress</span>;
+    <span style="color: #986801;">String</span> <span style="color: #6a1868;">name</span>;
+    <span style="color: #986801;">Sex</span> <span style="color: #6a1868;">gender</span>;
+    <span style="color: #986801;">String</span> <span style="color: #6a1868;">emailAddress</span>;
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">int</span> <span style="color: #c678dd;">getAge</span>() {
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">...</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">getAge</span>() {
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">...</span>
     }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">printPerson</span>() {
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">...</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">printPerson</span>() {
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">...</span>
     }
 }
 
@@ -893,7 +893,7 @@ from <code>get()</code>.
 </div>
 </div>
 <ol class="org-ol">
-<li><a id="orgeba0bde"></a>Approach 1: Create Methods That Search for Members That Match One Characteristic.<br />
+<li><a id="orgf0b072b"></a>Approach 1: Create Methods That Search for Members That Match One Characteristic.<br />
 <div class="outline-text-5" id="text-2-16-0-1">
 <p>
 One simplistic approach is to create several methods; each method searches for members that match one characteristic, such as gender or age. <b>Create a method that prints members that are older than a specified age</b>.
@@ -905,7 +905,7 @@ Limitation: This approach can potentially make your application brittle, which i
 </div>
 </li>
 
-<li><a id="org0f0010f"></a>Approach 2: Create More Generalized Search Methods.<br />
+<li><a id="org42bfcbd"></a>Approach 2: Create More Generalized Search Methods.<br />
 <div class="outline-text-5" id="text-2-16-0-2">
 <p>
 Create a method is more generic than the one in the previous approach. It prints members within a specified range of ages.
@@ -917,7 +917,7 @@ Limitation: What if you want to print members of a specified sex, or a combinati
 </div>
 </li>
 
-<li><a id="org8909859"></a>Approach 3: Specify Search Criteria Code in a Local Class<br />
+<li><a id="org9e9b0a6"></a>Approach 3: Specify Search Criteria Code in a Local Class<br />
 <div class="outline-text-5" id="text-2-16-0-3">
 <p>
 Instead of writing filtering functions, use a new interface and class for each search you plan. Use the following filtering criteria for example:  filters members that are eligible for Selective Service in the United States: those who are male and between the ages of 18 and 25:
@@ -929,7 +929,7 @@ Limtation: Although this approach is less brittle—you don't have to rewrite me
 </div>
 </li>
 
-<li><a id="orgbc80898"></a>Approach 4: Specify Search Criteria Code in an Anonymous Class<br />
+<li><a id="org1c4b87c"></a>Approach 4: Specify Search Criteria Code in an Anonymous Class<br />
 <div class="outline-text-5" id="text-2-16-0-4">
 <p>
 Use an anonymous class to address the issue with Approach 3.
@@ -941,7 +941,7 @@ Limtation: This approach reduces the amount of code required because you don't h
 </div>
 </li>
 
-<li><a id="org59de054"></a>Approach 5: Specify Search Criteria Code with a Lambda Expression<br />
+<li><a id="org5ebc2b5"></a>Approach 5: Specify Search Criteria Code with a Lambda Expression<br />
 <div class="outline-text-5" id="text-2-16-0-5">
 <p>
 Use lambda expression to address the limitation the previous approach.
@@ -959,12 +959,12 @@ Given the following variable declarations, independently consider the given 6 se
 </p>
 <div class="org-src-container">
 <pre class="src src-java">
-<span style="color: #ECBE7B;">String</span>           <span style="color: #dcaeea;">string</span> = <span style="color: #98be65;">"bat"</span>;
-<span style="color: #ECBE7B;">Integer</span>          <span style="color: #dcaeea;">x</span> = 7;
-<span style="color: #ECBE7B;">Object</span>[]         <span style="color: #dcaeea;">objects</span>;
-<span style="color: #ECBE7B;">List</span>             <span style="color: #dcaeea;">rawList</span>;
-<span style="color: #ECBE7B;">List</span> &lt; <span style="color: #ECBE7B;">Object</span> &gt;  <span style="color: #dcaeea;">objectList</span>;
-<span style="color: #ECBE7B;">List</span> &lt; <span style="color: #ECBE7B;">String</span> &gt;  <span style="color: #dcaeea;">stringList</span>;
+<span style="color: #986801;">String</span>           <span style="color: #6a1868;">string</span> = <span style="color: #50a14f;">"bat"</span>;
+<span style="color: #986801;">Integer</span>          <span style="color: #6a1868;">x</span> = 7;
+<span style="color: #986801;">Object</span>[]         <span style="color: #6a1868;">objects</span>;
+<span style="color: #986801;">List</span>             <span style="color: #6a1868;">rawList</span>;
+<span style="color: #986801;">List</span> &lt; <span style="color: #986801;">Object</span> &gt;  <span style="color: #6a1868;">objectList</span>;
+<span style="color: #986801;">List</span> &lt; <span style="color: #986801;">String</span> &gt;  <span style="color: #6a1868;">stringList</span>;
 
 </pre>
 </div>
@@ -977,40 +977,40 @@ Once a compiler error is noted, you do not need to analyze the sequence further.
 
 <ol class="org-ol">
 <li><div class="org-src-container">
-<pre class="src src-java">objects = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">String</span>[1];
+<pre class="src src-java">objects = <span style="color: #e45649;">new</span> <span style="color: #986801;">String</span>[1];
 objects[0] = string;
 objects[0] = x;
 </pre>
 </div></li>
 
 <li><div class="org-src-container">
-<pre class="src src-java">objects = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Object</span>[1];
+<pre class="src src-java">objects = <span style="color: #e45649;">new</span> <span style="color: #986801;">Object</span>[1];
 objects[0] = string;
 objects[0] = x;
 </pre>
 </div></li>
 
 <li><div class="org-src-container">
-<pre class="src src-java">stringList = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">ArrayList</span> &lt; <span style="color: #ECBE7B;">String</span> &gt;();
+<pre class="src src-java">stringList = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span> &lt; <span style="color: #986801;">String</span> &gt;();
 stringList.add(string) ;
 </pre>
 </div></li>
 
 <li><div class="org-src-container">
-<pre class="src src-java">objectList = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">ArrayList</span> &lt; <span style="color: #ECBE7B;">String</span> &gt;();
+<pre class="src src-java">objectList = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span> &lt; <span style="color: #986801;">String</span> &gt;();
 objectList.add(string) ;
 </pre>
 </div></li>
 
 <li><div class="org-src-container">
-<pre class="src src-java">objectList = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">ArrayList</span> &lt; <span style="color: #ECBE7B;">Object</span> &gt;();
+<pre class="src src-java">objectList = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span> &lt; <span style="color: #986801;">Object</span> &gt;();
 objectList.add(string) ;
 objectList.add(x) ;
 </pre>
 </div></li>
 
 <li><div class="org-src-container">
-<pre class="src src-java">rawList = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">ArrayList</span>();
+<pre class="src src-java">rawList = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>();
 rawList.add(string) ;
 rawList.add(x) ;
 </pre>
@@ -1023,19 +1023,19 @@ rawList.add(x) ;
 <h3 id="ic10B"><span class="section-number-3">2.18.</span> In class 10B</h3>
 <div class="outline-text-3" id="text-ic10B">
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #5B6268;">// </span><span style="color: #5B6268;">Chooser - a class badly in need of generics!</span>
-<span style="color: #5B6268;">// </span><span style="color: #5B6268;">Bloch 3rd edition, Chapter 5, Item 28:  Prefer lists to arrays</span>
+<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Chooser - a class badly in need of generics!</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Bloch 3rd edition, Chapter 5, Item 28:  Prefer lists to arrays</span>
 
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Chooser</span> {
-    <span style="color: #51afef;">private</span> <span style="color: #51afef;">final</span> <span style="color: #ECBE7B;">Object</span>[] <span style="color: #dcaeea;">choiceArray</span>;
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Chooser</span> {
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Object</span>[] <span style="color: #6a1868;">choiceArray</span>;
 
-    <span style="color: #51afef;">public</span> Chooser (<span style="color: #ECBE7B;">Collection</span> <span style="color: #dcaeea;">choices</span>) {
+    <span style="color: #e45649;">public</span> Chooser (<span style="color: #986801;">Collection</span> <span style="color: #6a1868;">choices</span>) {
         choiceArray = choices.toArray();
     }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">Object</span> <span style="color: #c678dd;">choose</span>() {
-        <span style="color: #ECBE7B;">Random</span> <span style="color: #dcaeea;">rnd</span> = ThreadLocalRandom.current();
-        <span style="color: #51afef;">return</span> choiceArray [rnd.nextInt(choiceArray.length)];
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Object</span> <span style="color: #a626a4;">choose</span>() {
+        <span style="color: #986801;">Random</span> <span style="color: #6a1868;">rnd</span> = ThreadLocalRandom.current();
+        <span style="color: #e45649;">return</span> choiceArray [rnd.nextInt(choiceArray.length)];
     }
 }
 </pre>
@@ -1057,47 +1057,47 @@ rawList.add(x) ;
 <h3 id="ic10C"><span class="section-number-3">2.19.</span> In class 10C</h3>
 <div class="outline-text-3" id="text-ic10C">
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">BoundedQueue</span> {
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">BoundedQueue</span> {
 
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">rep</span>[];
-    <span style="color: #51afef;">protected</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">front</span> = 0;
-    <span style="color: #51afef;">protected</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">back</span> = -1;
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">size</span> = 0;
-    <span style="color: #51afef;">protected</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">count</span> = 0;
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">Object</span> <span style="color: #6a1868;">rep</span>[];
+    <span style="color: #e45649;">protected</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">front</span> = 0;
+    <span style="color: #e45649;">protected</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">back</span> = -1;
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">size</span> = 0;
+    <span style="color: #e45649;">protected</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">count</span> = 0;
 
-    <span style="color: #51afef;">public</span> BoundedQueue(<span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">size</span>) {
-        <span style="color: #51afef;">if</span> (size &gt; 0) {
-            <span style="color: #51afef;">this</span>.size = size;
-            rep = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Object</span>[size];
+    <span style="color: #e45649;">public</span> BoundedQueue(<span style="color: #986801;">int</span> <span style="color: #6a1868;">size</span>) {
+        <span style="color: #e45649;">if</span> (size &gt; 0) {
+            <span style="color: #e45649;">this</span>.size = size;
+            rep = <span style="color: #e45649;">new</span> <span style="color: #986801;">Object</span>[size];
             back = size - 1;
         }  }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">isEmpty</span>() { <span style="color: #51afef;">return</span> (count == 0); }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">isEmpty</span>() { <span style="color: #e45649;">return</span> (count == 0); }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">isFull</span>() { <span style="color: #51afef;">return</span> (count == size); }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">isFull</span>() { <span style="color: #e45649;">return</span> (count == size); }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">int</span> <span style="color: #c678dd;">getCount</span>() { <span style="color: #51afef;">return</span> count; }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">getCount</span>() { <span style="color: #e45649;">return</span> count; }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">put</span>(<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">e</span>) {
-        <span style="color: #51afef;">if</span> (e != <span style="color: #a9a1e1;">null</span> &amp;&amp; <span style="color: #51afef; font-weight: bold;">!</span>isFull()) {
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">put</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">e</span>) {
+        <span style="color: #e45649;">if</span> (e != <span style="color: #b751b6;">null</span> &amp;&amp; <span style="color: #4078f2; font-weight: bold;">!</span>isFull()) {
             back++;
-            <span style="color: #51afef;">if</span> (back &gt;= size)
+            <span style="color: #e45649;">if</span> (back &gt;= size)
                 back = 0;
             rep[back] = e;
             count++;
         }  }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">Object</span> <span style="color: #c678dd;">get</span>() {
-        <span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">result</span> = <span style="color: #a9a1e1;">null</span>;
-        <span style="color: #51afef;">if</span> (<span style="color: #51afef; font-weight: bold;">!</span>isEmpty()) {
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Object</span> <span style="color: #a626a4;">get</span>() {
+        <span style="color: #986801;">Object</span> <span style="color: #6a1868;">result</span> = <span style="color: #b751b6;">null</span>;
+        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>isEmpty()) {
             result = rep[front];
-            rep[front] = <span style="color: #a9a1e1;">null</span>;
+            rep[front] = <span style="color: #b751b6;">null</span>;
             front++;
-            <span style="color: #51afef;">if</span> (front &gt;= size)
+            <span style="color: #e45649;">if</span> (front &gt;= size)
                 front = 0;
             count--;
         }
-        <span style="color: #51afef;">return</span> result;
+        <span style="color: #e45649;">return</span> result;
     }
 }
 
@@ -1124,39 +1124,39 @@ Consider Bloch's <code>Point/ColorPoint</code> example. For today, ignore the <c
 
 <div class="org-src-container">
 <pre class="src src-java">
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Point</span> {  <span style="color: #5B6268;">// </span><span style="color: #5B6268;">routine code</span>
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">x</span>; <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">y</span>;
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Point</span> {  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">routine code</span>
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>; <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>;
     ...
-        <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> equals(<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">obj</span>) {  <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Standard recipe</span>
-        <span style="color: #51afef;">if</span> (<span style="color: #51afef; font-weight: bold;">!</span>(obj <span style="color: #51afef;">instanceof</span> Point)) <span style="color: #51afef;">return</span> <span style="color: #a9a1e1;">false</span>;
+        <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) {  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Standard recipe</span>
+        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(obj <span style="color: #e45649;">instanceof</span> Point)) <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
 
-        <span style="color: #ECBE7B;">Point</span> <span style="color: #dcaeea;">p</span> = (<span style="color: #ECBE7B;">Point</span>) obj;
-        <span style="color: #51afef;">return</span> p.x == x &amp;&amp; p.y == y;
+        <span style="color: #986801;">Point</span> <span style="color: #6a1868;">p</span> = (<span style="color: #986801;">Point</span>) obj;
+        <span style="color: #e45649;">return</span> p.x == x &amp;&amp; p.y == y;
     }
 }
 
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">ColorPoint</span> <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">Point</span> {  <span style="color: #5B6268;">// </span><span style="color: #5B6268;">First attempt: Standard recipe</span>
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">COLOR</span> <span style="color: #dcaeea;">color</span>;
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">ColorPoint</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Point</span> {  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">First attempt: Standard recipe</span>
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">COLOR</span> <span style="color: #6a1868;">color</span>;
     ...
-        <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> equals(<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">obj</span>) {
-        <span style="color: #51afef;">if</span> (<span style="color: #51afef; font-weight: bold;">!</span>(obj <span style="color: #51afef;">instanceof</span> ColorPoint)) <span style="color: #51afef;">return</span> <span style="color: #a9a1e1;">false</span>;
+        <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) {
+        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(obj <span style="color: #e45649;">instanceof</span> ColorPoint)) <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
 
-        <span style="color: #ECBE7B;">ColorPoint</span> <span style="color: #dcaeea;">cp</span> = (<span style="color: #ECBE7B;">ColorPoint</span>) obj;
-        <span style="color: #51afef;">return</span> <span style="color: #51afef;">super</span>.equals(obj) &amp;&amp; cp.color == color;
+        <span style="color: #986801;">ColorPoint</span> <span style="color: #6a1868;">cp</span> = (<span style="color: #986801;">ColorPoint</span>) obj;
+        <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equals(obj) &amp;&amp; cp.color == color;
     }
 }
 
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">ColorPoint</span> <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">Point</span> {  <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Second attempt: DON'T DO THIS!</span>
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">COLOR</span> <span style="color: #dcaeea;">color</span>;
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">ColorPoint</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Point</span> {  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Second attempt: DON'T DO THIS!</span>
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">COLOR</span> <span style="color: #6a1868;">color</span>;
     ...
-        <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> equals(<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">obj</span>) {
-        <span style="color: #51afef;">if</span> (<span style="color: #51afef; font-weight: bold;">!</span>(o instance <span style="color: #ECBE7B;">of</span> <span style="color: #dcaeea;">Point</span>)) <span style="color: #51afef;">return</span> <span style="color: #a9a1e1;">false</span>;
+        <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) {
+        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(o instance <span style="color: #986801;">of</span> <span style="color: #6a1868;">Point</span>)) <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
 
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">If obj is a normal Point, be colorblind</span>
-        <span style="color: #51afef;">if</span> (<span style="color: #51afef; font-weight: bold;">!</span>(obj <span style="color: #51afef;">instanceof</span> ColorPoint)) <span style="color: #51afef;">return</span> obj.equals(<span style="color: #51afef;">this</span>);
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">If obj is a normal Point, be colorblind</span>
+        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(obj <span style="color: #e45649;">instanceof</span> ColorPoint)) <span style="color: #e45649;">return</span> obj.equals(<span style="color: #e45649;">this</span>);
 
-        <span style="color: #ECBE7B;">ColorPoint</span> <span style="color: #dcaeea;">cp</span> = (<span style="color: #ECBE7B;">ColorPoint</span>) obj;
-        <span style="color: #51afef;">return</span> <span style="color: #51afef;">super</span>.equals(obj) &amp;&amp; cp.color == color;
+        <span style="color: #986801;">ColorPoint</span> <span style="color: #6a1868;">cp</span> = (<span style="color: #986801;">ColorPoint</span>) obj;
+        <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equals(obj) &amp;&amp; cp.color == color;
     }
 }
 </pre>
@@ -1174,25 +1174,25 @@ Consider Bloch's <code>Point/ColorPoint</code> example. For today, ignore the <c
 Which approach do you want in the following code:
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">CounterPoint</span> <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">Point</span>
-                                  <span style="color: #51afef;">private</span> <span style="color: #51afef;">static</span> <span style="color: #51afef;">final</span> AtomicInteger counter =
-                                  <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">AtomicInteger</span>();
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">CounterPoint</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Point</span>
+                                  <span style="color: #e45649;">private</span> <span style="color: #e45649;">static</span> <span style="color: #e45649;">final</span> AtomicInteger counter =
+                                  <span style="color: #e45649;">new</span> <span style="color: #986801;">AtomicInteger</span>();
 
-<span style="color: #51afef;">public</span> CounterPoint(<span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">x</span>, <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">y</span>) {
-    <span style="color: #51afef;">super</span> (x, y);
+<span style="color: #e45649;">public</span> CounterPoint(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>) {
+    <span style="color: #e45649;">super</span> (x, y);
     counter.incrementAndGet();
 }
-<span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">int</span> <span style="color: #c678dd;">numberCreated</span>() { <span style="color: #51afef;">return</span> counter.get(); }
+<span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">numberCreated</span>() { <span style="color: #e45649;">return</span> counter.get(); }
 
-<span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">equals</span> (<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">obj</span>) { ??? }
+<span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) { ??? }
 }
 
 
-<span style="color: #5B6268;">// </span><span style="color: #5B6268;">Client code:</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Client code:</span>
 
-<span style="color: #ECBE7B;">Point</span> <span style="color: #dcaeea;">p</span> = PointFactory.getPoint();   <span style="color: #5B6268;">// </span><span style="color: #5B6268;">either a Point or a CounterPoint</span>
-<span style="color: #ECBE7B;">Set</span>&lt;<span style="color: #ECBE7B;">Point</span>&gt; <span style="color: #dcaeea;">importantPoints</span> =   <span style="color: #5B6268;">// </span><span style="color: #5B6268;">a set of important points</span>
-    <span style="color: #ECBE7B;">boolean</span> b = PointUtilities.isImportant(p);  <span style="color: #5B6268;">// </span><span style="color: #5B6268;">value?</span>
+<span style="color: #986801;">Point</span> <span style="color: #6a1868;">p</span> = PointFactory.getPoint();   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">either a Point or a CounterPoint</span>
+<span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">Point</span>&gt; <span style="color: #6a1868;">importantPoints</span> =   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a set of important points</span>
+    <span style="color: #986801;">boolean</span> b = PointUtilities.isImportant(p);  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">value?</span>
 
 </pre>
 </div></li>
@@ -1209,29 +1209,29 @@ Consider a variation of Liskov's <code>IntSet</code> example (Figure 5.10, page 
 
 <div class="org-src-container">
 <pre class="src src-java">
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">IntSet</span> <span style="color: #51afef;">implements</span> <span style="color: #ECBE7B;">Cloneable</span> {
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">List</span>&lt;<span style="color: #ECBE7B;">Integer</span>&gt; <span style="color: #dcaeea;">els</span>;
-    <span style="color: #51afef;">public</span> IntSet () { els = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">ArrayList</span>&lt;<span style="color: #ECBE7B;">Integer</span>&gt;(); }
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">IntSet</span> <span style="color: #e45649;">implements</span> <span style="color: #986801;">Cloneable</span> {
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Integer</span>&gt; <span style="color: #6a1868;">els</span>;
+    <span style="color: #e45649;">public</span> IntSet () { els = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">Integer</span>&gt;(); }
     ...
-        <span style="color: #a9a1e1;">@Override</span>
-        <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> equals(<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">obj</span>) {
-        <span style="color: #51afef;">if</span> (<span style="color: #51afef; font-weight: bold;">!</span>(obj <span style="color: #51afef;">instanceof</span> IntSet)) <span style="color: #51afef;">return</span> <span style="color: #a9a1e1;">false</span>;
+        <span style="color: #b751b6;">@Override</span>
+        <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) {
+        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(obj <span style="color: #e45649;">instanceof</span> IntSet)) <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
 
-        <span style="color: #ECBE7B;">IntSet</span> <span style="color: #dcaeea;">s</span> = (<span style="color: #ECBE7B;">IntSet</span>) obj;
-        <span style="color: #51afef;">return</span> ???
+        <span style="color: #986801;">IntSet</span> <span style="color: #6a1868;">s</span> = (<span style="color: #986801;">IntSet</span>) obj;
+        <span style="color: #e45649;">return</span> ???
             }
 
-    <span style="color: #a9a1e1;">@Override</span>
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">int</span> <span style="color: #c678dd;">hashCode</span>() {
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">see below</span>
+    <span style="color: #b751b6;">@Override</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">hashCode</span>() {
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">see below</span>
     }
 
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">adding a private constructor</span>
-    <span style="color: #51afef;">private</span> IntSet (<span style="color: #ECBE7B;">List</span>&lt;<span style="color: #ECBE7B;">Integer</span>&gt; <span style="color: #dcaeea;">list</span>) { els = list; }
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">adding a private constructor</span>
+    <span style="color: #e45649;">private</span> IntSet (<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Integer</span>&gt; <span style="color: #6a1868;">list</span>) { els = list; }
 
-    <span style="color: #a9a1e1;">@Override</span>
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">IntSet</span> <span style="color: #c678dd;">clone</span>() {
-        <span style="color: #51afef;">return</span> <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">IntSet</span> ( <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">ArrayList</span>&lt;<span style="color: #ECBE7B;">Integer</span>&gt;(els));
+    <span style="color: #b751b6;">@Override</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">IntSet</span> <span style="color: #a626a4;">clone</span>() {
+        <span style="color: #e45649;">return</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IntSet</span> ( <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">Integer</span>&gt;(els));
     }
 
 }
@@ -1272,39 +1272,39 @@ Consider Bloch's <code>InstrumentedHashSet</code>, <code>InstrumentedSet</code>,
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">InstrumentedHashSet</span>&lt;<span style="color: #ECBE7B;">E</span>&gt; <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">HashSet</span>&lt;<span style="color: #ECBE7B;">E</span>&gt;{
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">addCount</span> = 0;
-    <span style="color: #51afef;">public</span> InstrumentedHashSet() {}
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">InstrumentedHashSet</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #e45649;">extends</span> <span style="color: #986801;">HashSet</span>&lt;<span style="color: #986801;">E</span>&gt;{
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">addCount</span> = 0;
+    <span style="color: #e45649;">public</span> InstrumentedHashSet() {}
 
-    <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">add</span>(<span style="color: #ECBE7B;">E</span> <span style="color: #dcaeea;">e</span>){
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">add</span>(<span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span>){
         addCount++;
-        <span style="color: #51afef;">return</span> <span style="color: #51afef;">super</span>.add(e);
+        <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.add(e);
     }
-    <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">addAll</span>(<span style="color: #ECBE7B;">Collection</span>&lt;? <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">E</span>&gt; <span style="color: #dcaeea;">c</span>){
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">What to do with addCount?</span>
-        <span style="color: #51afef;">return</span> <span style="color: #51afef;">super</span>.addAll(c);
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">addAll</span>(<span style="color: #986801;">Collection</span>&lt;? <span style="color: #e45649;">extends</span> <span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">c</span>){
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">What to do with addCount?</span>
+        <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.addAll(c);
     }
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">int</span> <span style="color: #c678dd;">getAddCount</span>(){ <span style="color: #51afef;">return</span> addCount; }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">getAddCount</span>(){ <span style="color: #e45649;">return</span> addCount; }
 }
 
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">InstrumentedSet</span>&lt;<span style="color: #ECBE7B;">E</span>&gt; <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">ForwardingSet</span>&lt;<span style="color: #ECBE7B;">E</span>&gt;{
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">addCount</span> = 0;
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">InstrumentedSet</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #e45649;">extends</span> <span style="color: #986801;">ForwardingSet</span>&lt;<span style="color: #986801;">E</span>&gt;{
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">addCount</span> = 0;
 
-    <span style="color: #51afef;">public</span> InstrumentedSet(<span style="color: #ECBE7B;">Set</span>&lt;<span style="color: #ECBE7B;">E</span>&gt; <span style="color: #dcaeea;">s</span>){ <span style="color: #51afef;">super</span>(s); }
-    <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">add</span>(<span style="color: #ECBE7B;">E</span> <span style="color: #dcaeea;">e</span>){ addCount++; <span style="color: #51afef;">return</span> <span style="color: #51afef;">super</span>.add(e); }
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">int</span> <span style="color: #c678dd;">getAddCount</span>(){ <span style="color: #51afef;">return</span> addCount; }
+    <span style="color: #e45649;">public</span> InstrumentedSet(<span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">s</span>){ <span style="color: #e45649;">super</span>(s); }
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">add</span>(<span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span>){ addCount++; <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.add(e); }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">getAddCount</span>(){ <span style="color: #e45649;">return</span> addCount; }
 }
 
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">ForwardingSet</span>&lt;<span style="color: #ECBE7B;">E</span>&gt; <span style="color: #51afef;">implements</span> <span style="color: #ECBE7B;">Set</span>&lt;<span style="color: #ECBE7B;">E</span>&gt; {
-    <span style="color: #51afef;">private</span> <span style="color: #51afef;">final</span> <span style="color: #ECBE7B;">Set</span>&lt;<span style="color: #ECBE7B;">E</span>&gt; <span style="color: #dcaeea;">s</span>;
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">ForwardingSet</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #e45649;">implements</span> <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">E</span>&gt; {
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">s</span>;
 
-    <span style="color: #51afef;">public</span> ForwardingSet(<span style="color: #ECBE7B;">Set</span>&lt;<span style="color: #ECBE7B;">E</span>&gt; <span style="color: #dcaeea;">s</span>){ <span style="color: #51afef;">this</span>.s = s; }
-    <span style="color: #51afef;">public</span>           <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">add</span>(<span style="color: #ECBE7B;">E</span> <span style="color: #dcaeea;">e</span>)        { <span style="color: #51afef;">return</span> s.add(e);     }
-    <span style="color: #51afef;">public</span>           <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">remove</span>(<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">o</span>){ <span style="color: #51afef;">return</span> s.remove(o);  }
-    <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">equals</span>(<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">o</span>){ <span style="color: #51afef;">return</span> s.equals(o);  }
-    <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">int</span>     <span style="color: #c678dd;">hashCode</span>()      { <span style="color: #51afef;">return</span> s.hashCode(); }
-    <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">String</span>  <span style="color: #c678dd;">toString</span>()      { <span style="color: #51afef;">return</span> s.toString(); }
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Other forwarded methods from Set interface omitted</span>
+    <span style="color: #e45649;">public</span> ForwardingSet(<span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">s</span>){ <span style="color: #e45649;">this</span>.s = s; }
+    <span style="color: #e45649;">public</span>           <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">add</span>(<span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span>)        { <span style="color: #e45649;">return</span> s.add(e);     }
+    <span style="color: #e45649;">public</span>           <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">remove</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>){ <span style="color: #e45649;">return</span> s.remove(o);  }
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>){ <span style="color: #e45649;">return</span> s.equals(o);  }
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span>     <span style="color: #a626a4;">hashCode</span>()      { <span style="color: #e45649;">return</span> s.hashCode(); }
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">String</span>  <span style="color: #a626a4;">toString</span>()      { <span style="color: #e45649;">return</span> s.toString(); }
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Other forwarded methods from Set interface omitted</span>
 }
 </pre>
 </div>
@@ -1314,20 +1314,20 @@ Consider also the following client code:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #ECBE7B;">Set</span>&lt;<span style="color: #ECBE7B;">String</span>&gt; <span style="color: #dcaeea;">r</span> = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">HashSet</span>&lt;<span style="color: #ECBE7B;">String</span>&gt;();
-r.add(<span style="color: #98be65;">"ant"</span>); r.add(<span style="color: #98be65;">"bee"</span>);
+<pre class="src src-java"><span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">r</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">HashSet</span>&lt;<span style="color: #986801;">String</span>&gt;();
+r.add(<span style="color: #50a14f;">"ant"</span>); r.add(<span style="color: #50a14f;">"bee"</span>);
 
-<span style="color: #ECBE7B;">Set</span>&lt;<span style="color: #ECBE7B;">String</span>&gt; <span style="color: #dcaeea;">sh</span> = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">InstrumentedHashSet</span>&lt;<span style="color: #ECBE7B;">String</span>&gt;();
+<span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">sh</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">InstrumentedHashSet</span>&lt;<span style="color: #986801;">String</span>&gt;();
 sh.addAll(r);
 
-<span style="color: #ECBE7B;">Set</span>&lt;<span style="color: #ECBE7B;">String</span>&gt; <span style="color: #dcaeea;">s</span> =  <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">InstrumentedSet</span>&lt;<span style="color: #ECBE7B;">String</span>&gt;(r);
-s.add(<span style="color: #98be65;">"ant"</span>); s.add(<span style="color: #98be65;">"cat"</span>);
+<span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">s</span> =  <span style="color: #e45649;">new</span> <span style="color: #986801;">InstrumentedSet</span>&lt;<span style="color: #986801;">String</span>&gt;(r);
+s.add(<span style="color: #50a14f;">"ant"</span>); s.add(<span style="color: #50a14f;">"cat"</span>);
 
-<span style="color: #ECBE7B;">Set</span>&lt;<span style="color: #ECBE7B;">String</span>&gt; <span style="color: #dcaeea;">t</span> = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">InstrumentedSet</span>&lt;<span style="color: #ECBE7B;">String</span>&gt;(s);
-t.add(<span style="color: #98be65;">"dog"</span>);
+<span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">t</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">InstrumentedSet</span>&lt;<span style="color: #986801;">String</span>&gt;(s);
+t.add(<span style="color: #50a14f;">"dog"</span>);
 
-r.remove(<span style="color: #98be65;">"bee"</span>);
-s.remove(<span style="color: #98be65;">"ant"</span>);
+r.remove(<span style="color: #50a14f;">"bee"</span>);
+s.remove(<span style="color: #50a14f;">"ant"</span>);
 </pre>
 </div>
 
@@ -1358,27 +1358,27 @@ s.remove(<span style="color: #98be65;">"ant"</span>);
 <h3 id="ic12B"><span class="section-number-3">2.23.</span> In class 12B</h3>
 <div class="outline-text-3" id="text-ic12B">
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Super</span> {
-    <span style="color: #51afef;">public</span> Super() {
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Super</span> {
+    <span style="color: #e45649;">public</span> Super() {
         overrideMe();
     }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">overrideMe</span> () {
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">overrideMe</span> () {
     }
 }
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">final</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Sub</span> <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">Super</span> {
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">final</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Sub</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Super</span> {
 
-    <span style="color: #51afef;">private</span> <span style="color: #51afef;">final</span> <span style="color: #ECBE7B;">Date</span> <span style="color: #dcaeea;">date</span>;  <span style="color: #5B6268;">// </span><span style="color: #5B6268;">filled in by constructor</span>
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Date</span> <span style="color: #6a1868;">date</span>;  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">filled in by constructor</span>
 
-    <span style="color: #51afef;">public</span> Sub() {
-        date = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Date</span>();
+    <span style="color: #e45649;">public</span> Sub() {
+        date = <span style="color: #e45649;">new</span> <span style="color: #986801;">Date</span>();
     }
-    <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">overrideMe</span> () {
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">overrideMe</span> () {
         System.out.println(date);
     }
 
-    <span style="color: #51afef;">public</span> <span style="color: #51afef;">static</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">main</span> (<span style="color: #ECBE7B;">String</span>[] <span style="color: #dcaeea;">args</span>) {
-        <span style="color: #ECBE7B;">Sub</span> <span style="color: #dcaeea;">sub</span> = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Sub</span>();
+    <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">main</span> (<span style="color: #986801;">String</span>[] <span style="color: #6a1868;">args</span>) {
+        <span style="color: #986801;">Sub</span> <span style="color: #6a1868;">sub</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Sub</span>();
         sub.overrideMe();
     }
 }
@@ -1404,56 +1404,56 @@ Consider a mutable complex number class:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">MComplex</span> {
-    <span style="color: #ECBE7B;">double</span> <span style="color: #dcaeea;">re</span>; <span style="color: #51afef;">protected</span> <span style="color: #ECBE7B;">double</span> <span style="color: #dcaeea;">im</span>;
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">MComplex</span> {
+    <span style="color: #986801;">double</span> <span style="color: #6a1868;">re</span>; <span style="color: #e45649;">protected</span> <span style="color: #986801;">double</span> <span style="color: #6a1868;">im</span>;
 
-    <span style="color: #51afef;">public</span> MComplex (<span style="color: #ECBE7B;">double</span> <span style="color: #dcaeea;">re</span>, <span style="color: #ECBE7B;">double</span> <span style="color: #dcaeea;">im</span>) { <span style="color: #51afef;">this</span>.re = re; <span style="color: #51afef;">this</span>.im = im; }
+    <span style="color: #e45649;">public</span> MComplex (<span style="color: #986801;">double</span> <span style="color: #6a1868;">re</span>, <span style="color: #986801;">double</span> <span style="color: #6a1868;">im</span>) { <span style="color: #e45649;">this</span>.re = re; <span style="color: #e45649;">this</span>.im = im; }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">double</span> <span style="color: #c678dd;">getReal</span>()      { <span style="color: #51afef;">return</span> re; }
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">double</span> <span style="color: #c678dd;">getImaginary</span>() { <span style="color: #51afef;">return</span> im; }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">double</span> <span style="color: #a626a4;">getReal</span>()      { <span style="color: #e45649;">return</span> re; }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">double</span> <span style="color: #a626a4;">getImaginary</span>() { <span style="color: #e45649;">return</span> im; }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">setReal</span>(<span style="color: #ECBE7B;">double</span> <span style="color: #dcaeea;">re</span>)      { <span style="color: #51afef;">this</span>.re = re; }
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">setImaginary</span>(<span style="color: #ECBE7B;">double</span> <span style="color: #dcaeea;">im</span>) { <span style="color: #51afef;">this</span>.im = im; }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">setReal</span>(<span style="color: #986801;">double</span> <span style="color: #6a1868;">re</span>)      { <span style="color: #e45649;">this</span>.re = re; }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">setImaginary</span>(<span style="color: #986801;">double</span> <span style="color: #6a1868;">im</span>) { <span style="color: #e45649;">this</span>.im = im; }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">add</span> (<span style="color: #ECBE7B;">MComplex</span> <span style="color: #dcaeea;">c</span>) { re += c.re; im += c.im; }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">add</span> (<span style="color: #986801;">MComplex</span> <span style="color: #6a1868;">c</span>) { re += c.re; im += c.im; }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">subtract</span> (<span style="color: #ECBE7B;">MComplex</span> <span style="color: #dcaeea;">c</span>) { re -= c.re; im -= c.im; }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">subtract</span> (<span style="color: #986801;">MComplex</span> <span style="color: #6a1868;">c</span>) { re -= c.re; im -= c.im; }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">multiply</span> (<span style="color: #ECBE7B;">MComplex</span> <span style="color: #dcaeea;">c</span>) {
-        <span style="color: #ECBE7B;">double</span> <span style="color: #dcaeea;">r</span> = re * c.re - im * c.im;
-        <span style="color: #ECBE7B;">double</span> <span style="color: #dcaeea;">i</span> = re * c.im + im * c.re;
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">multiply</span> (<span style="color: #986801;">MComplex</span> <span style="color: #6a1868;">c</span>) {
+        <span style="color: #986801;">double</span> <span style="color: #6a1868;">r</span> = re * c.re - im * c.im;
+        <span style="color: #986801;">double</span> <span style="color: #6a1868;">i</span> = re * c.im + im * c.re;
         re = r; im = i;
     }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">divide</span> (<span style="color: #ECBE7B;">MComplex</span> <span style="color: #dcaeea;">c</span>) {
-        <span style="color: #ECBE7B;">double</span> <span style="color: #dcaeea;">den</span> = c.re * c.re + c.im * c.im;
-        <span style="color: #ECBE7B;">double</span> <span style="color: #dcaeea;">r</span> = (re * c.re - im * c.im) / den;
-        <span style="color: #ECBE7B;">double</span> <span style="color: #dcaeea;">i</span> = (re * c.im + im * c.re) / den;
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">divide</span> (<span style="color: #986801;">MComplex</span> <span style="color: #6a1868;">c</span>) {
+        <span style="color: #986801;">double</span> <span style="color: #6a1868;">den</span> = c.re * c.re + c.im * c.im;
+        <span style="color: #986801;">double</span> <span style="color: #6a1868;">r</span> = (re * c.re - im * c.im) / den;
+        <span style="color: #986801;">double</span> <span style="color: #6a1868;">i</span> = (re * c.im + im * c.re) / den;
         re = r; im = i;
     }
 
-    <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">boolean</span> <span style="color: #c678dd;">equals</span> (<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">o</span>) {
-        <span style="color: #51afef;">if</span> (o == <span style="color: #51afef;">this</span>)               <span style="color: #51afef;">return</span> <span style="color: #a9a1e1;">true</span>;
-        <span style="color: #51afef;">if</span> (<span style="color: #51afef; font-weight: bold;">!</span>(o <span style="color: #51afef;">instanceof</span> MComplex)) <span style="color: #51afef;">return</span> <span style="color: #a9a1e1;">false</span>;
-        <span style="color: #ECBE7B;">MComplex</span> <span style="color: #dcaeea;">c</span> = (<span style="color: #ECBE7B;">MComplex</span>) o;
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
+        <span style="color: #e45649;">if</span> (o == <span style="color: #e45649;">this</span>)               <span style="color: #e45649;">return</span> <span style="color: #b751b6;">true</span>;
+        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(o <span style="color: #e45649;">instanceof</span> MComplex)) <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
+        <span style="color: #986801;">MComplex</span> <span style="color: #6a1868;">c</span> = (<span style="color: #986801;">MComplex</span>) o;
 
-        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">See Bloch page 43 to find out why to use compare() instead of ==</span>
-        <span style="color: #51afef;">return</span> Double.compare(re, c.re) == 0 &amp;&amp;
+        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">See Bloch page 43 to find out why to use compare() instead of ==</span>
+        <span style="color: #e45649;">return</span> Double.compare(re, c.re) == 0 &amp;&amp;
             Double.compare(im, c.im) == 0;
     }
 
-    <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">int</span> <span style="color: #c678dd;">hashCode</span> () {
-        <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">result</span> = 17 + hashDouble(re);
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">hashCode</span> () {
+        <span style="color: #986801;">int</span> <span style="color: #6a1868;">result</span> = 17 + hashDouble(re);
         result = 31 * result + hashDouble(im);
-        <span style="color: #51afef;">return</span> result;
+        <span style="color: #e45649;">return</span> result;
     }
 
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #c678dd;">hashDouble</span> (<span style="color: #ECBE7B;">double</span> <span style="color: #dcaeea;">val</span>) {
-        <span style="color: #ECBE7B;">long</span> <span style="color: #dcaeea;">longBits</span> = Double.doubleToLongBits(val);
-        <span style="color: #51afef;">return</span> (<span style="color: #ECBE7B;">int</span>) (longBits ^ (longBits &gt;&gt;&gt;32));
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">hashDouble</span> (<span style="color: #986801;">double</span> <span style="color: #6a1868;">val</span>) {
+        <span style="color: #986801;">long</span> <span style="color: #6a1868;">longBits</span> = Double.doubleToLongBits(val);
+        <span style="color: #e45649;">return</span> (<span style="color: #986801;">int</span>) (longBits ^ (longBits &gt;&gt;&gt;32));
     }
 
-    <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">String</span> <span style="color: #c678dd;">toString</span>() { <span style="color: #51afef;">return</span> <span style="color: #98be65;">"("</span> + re + <span style="color: #98be65;">" + "</span> + im + <span style="color: #98be65;">"i)"</span>; }
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">String</span> <span style="color: #a626a4;">toString</span>() { <span style="color: #e45649;">return</span> <span style="color: #50a14f;">"("</span> + re + <span style="color: #50a14f;">" + "</span> + im + <span style="color: #50a14f;">"i)"</span>; }
 }
 
 </pre>
@@ -1520,11 +1520,11 @@ Consider the following (bad) Java, implementing the "C style" enum pattern:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Coins</span> {
-    <span style="color: #51afef;">public</span> <span style="color: #51afef;">static</span> <span style="color: #51afef;">final</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">PENNY</span> = 1;
-    <span style="color: #51afef;">public</span> <span style="color: #51afef;">static</span> <span style="color: #51afef;">final</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">NICKLE</span> = 5;
-    <span style="color: #51afef;">public</span> <span style="color: #51afef;">static</span> <span style="color: #51afef;">final</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">DIME</span> = 10;
-    <span style="color: #51afef;">public</span> <span style="color: #51afef;">static</span> <span style="color: #51afef;">final</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">QUARTER</span> = 25;
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Coins</span> {
+    <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">PENNY</span> = 1;
+    <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">NICKLE</span> = 5;
+    <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">DIME</span> = 10;
+    <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">QUARTER</span> = 25;
 }
 
 </pre>
@@ -1546,12 +1546,12 @@ Consider Bloch's example:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #5B6268;">// </span><span style="color: #5B6268;">Abuse of ordinal to derive an associated value &#8211; DON&#8217;T DO THIS</span>
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">enum</span> <span style="color: #ECBE7B;">Ensemble</span> {
-    <span style="color: #dcaeea;">SOLO</span>,   <span style="color: #dcaeea;">DUET</span>,   <span style="color: #dcaeea;">TRIO</span>,  <span style="color: #dcaeea;">QUARTET</span>, <span style="color: #dcaeea;">QUINTET</span>, 
-    <span style="color: #dcaeea;">SEXTET</span>, <span style="color: #dcaeea;">SEPTET</span>, <span style="color: #dcaeea;">OCTET</span>, <span style="color: #dcaeea;">NONET</span>,   <span style="color: #dcaeea;">DECTET</span>;
+<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Abuse of ordinal to derive an associated value &#8211; DON&#8217;T DO THIS</span>
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">enum</span> <span style="color: #986801;">Ensemble</span> {
+    <span style="color: #6a1868;">SOLO</span>,   <span style="color: #6a1868;">DUET</span>,   <span style="color: #6a1868;">TRIO</span>,  <span style="color: #6a1868;">QUARTET</span>, <span style="color: #6a1868;">QUINTET</span>, 
+    <span style="color: #6a1868;">SEXTET</span>, <span style="color: #6a1868;">SEPTET</span>, <span style="color: #6a1868;">OCTET</span>, <span style="color: #6a1868;">NONET</span>,   <span style="color: #6a1868;">DECTET</span>;
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">int</span> <span style="color: #c678dd;">numberOfMusicians</span>() { <span style="color: #51afef;">return</span> ordinal() + 1; }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">numberOfMusicians</span>() { <span style="color: #e45649;">return</span> ordinal() + 1; }
 }
 </pre>
 </div>
@@ -1603,35 +1603,35 @@ How well are you prepared for the final? This exercise should help you find out.
 
 <div class="org-src-container">
 <pre class="src src-java">
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Stack</span> {
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">Object</span>[] <span style="color: #dcaeea;">elements</span>; <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">size</span> = 0;
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Stack</span> {
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">Object</span>[] <span style="color: #6a1868;">elements</span>; <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">size</span> = 0;
 
-    <span style="color: #51afef;">public</span> Stack() { <span style="color: #51afef;">this</span>.elements = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Object</span>[0]; }
+    <span style="color: #e45649;">public</span> Stack() { <span style="color: #e45649;">this</span>.elements = <span style="color: #e45649;">new</span> <span style="color: #986801;">Object</span>[0]; }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">push</span> (<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">e</span>) {
-        <span style="color: #51afef;">if</span> (e == <span style="color: #a9a1e1;">null</span>) <span style="color: #51afef;">throw</span> <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">NullPointerException</span>(<span style="color: #98be65;">"Stack.push"</span>);
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">push</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">e</span>) {
+        <span style="color: #e45649;">if</span> (e == <span style="color: #b751b6;">null</span>) <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">NullPointerException</span>(<span style="color: #50a14f;">"Stack.push"</span>);
         ensureCapacity(); elements[size++] = e;  
     }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">pushAll</span> (<span style="color: #ECBE7B;">Object</span>[] <span style="color: #dcaeea;">collection</span>) { <span style="color: #51afef;">for</span> (<span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">obj</span>: collection) { push(obj); } }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">pushAll</span> (<span style="color: #986801;">Object</span>[] <span style="color: #6a1868;">collection</span>) { <span style="color: #e45649;">for</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>: collection) { push(obj); } }
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">Object</span> <span style="color: #c678dd;">pop</span> () {
-        <span style="color: #51afef;">if</span> (size == 0) <span style="color: #51afef;">throw</span> <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">IllegalStateException</span>(<span style="color: #98be65;">"Stack.pop"</span>);
-        <span style="color: #ECBE7B;">Object</span> <span style="color: #dcaeea;">result</span> = elements[--size];
-        elements[size] = <span style="color: #a9a1e1;">null</span>;
-        <span style="color: #51afef;">return</span> result;
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Object</span> <span style="color: #a626a4;">pop</span> () {
+        <span style="color: #e45649;">if</span> (size == 0) <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IllegalStateException</span>(<span style="color: #50a14f;">"Stack.pop"</span>);
+        <span style="color: #986801;">Object</span> <span style="color: #6a1868;">result</span> = elements[--size];
+        elements[size] = <span style="color: #b751b6;">null</span>;
+        <span style="color: #e45649;">return</span> result;
     }
 
-    <span style="color: #a9a1e1;">@Override</span> <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">String</span> <span style="color: #c678dd;">toString</span>() {
-        <span style="color: #ECBE7B;">String</span> <span style="color: #dcaeea;">result</span> = <span style="color: #98be65;">"size = "</span> + size;
-        result += <span style="color: #98be65;">"; elements = ["</span>;
-        <span style="color: #51afef;">for</span> (<span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">i</span> = 0; i &lt; elements.<span style="color: #ECBE7B;">length</span>; i++) {
-            <span style="color: #51afef;">if</span> (i &lt; elements.<span style="color: #ECBE7B;">length</span>-1)
-                result = result + elements[i] + <span style="color: #98be65;">", "</span>;
-            <span style="color: #51afef;">else</span>
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">String</span> <span style="color: #a626a4;">toString</span>() {
+        <span style="color: #986801;">String</span> <span style="color: #6a1868;">result</span> = <span style="color: #50a14f;">"size = "</span> + size;
+        result += <span style="color: #50a14f;">"; elements = ["</span>;
+        <span style="color: #e45649;">for</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = 0; i &lt; elements.<span style="color: #986801;">length</span>; i++) {
+            <span style="color: #e45649;">if</span> (i &lt; elements.<span style="color: #986801;">length</span>-1)
+                result = result + elements[i] + <span style="color: #50a14f;">", "</span>;
+            <span style="color: #e45649;">else</span>
                 result = result + elements[i];
         }
-        <span style="color: #51afef;">return</span> result + <span style="color: #98be65;">"]"</span>;
+        <span style="color: #e45649;">return</span> result + <span style="color: #50a14f;">"]"</span>;
     }
 }
 
@@ -1652,8 +1652,8 @@ How well are you prepared for the final? This exercise should help you find out.
 </div>
 </div>
 
-<div id="outline-container-org6304775" class="outline-2">
-<h2 id="org6304775"><span class="section-number-2">3.</span> HW Assignments</h2>
+<div id="outline-container-orgc780284" class="outline-2">
+<h2 id="orgc780284"><span class="section-number-2">3.</span> Homework Assignments</h2>
 <div class="outline-text-2" id="text-3">
 </div>
 <div id="outline-container-a1" class="outline-3">
@@ -1661,47 +1661,87 @@ How well are you prepared for the final? This exercise should help you find out.
 <div class="outline-text-3" id="text-a1">
 </div>
 
-<div id="outline-container-orgde44545" class="outline-4">
-<h4 id="orgde44545"><span class="section-number-4">3.1.1.</span> Goal</h4>
+
+<div id="outline-container-org2318975" class="outline-4">
+<h4 id="org2318975"><span class="section-number-4">3.1.1.</span> Goals</h4>
 <div class="outline-text-4" id="text-3-1-1">
-<ul class="org-ul">
-<li>Getting started on Piazza.</li>
-<li>Getting your group together.</li>
-</ul>
+<ol class="org-ol">
+<li>Getting started on Piazza; getting your group together.</li>
+<li>Basic familiarity with contracts and coding</li>
+</ol>
+</div>
+</div>
 
-<p>
-There are two parts to this assignment:
-</p>
-
+<div id="outline-container-org32b5796" class="outline-4">
+<h4 id="org32b5796"><span class="section-number-4">3.1.2.</span> Assignment</h4>
+<div class="outline-text-4" id="text-3-1-2">
+<ol class="org-ol">
+<li>Post a brief intro about yourself on the course Piazza page. For any
+credit, the posting must:
 <ul class="org-ul">
-<li>Post a brief intro about yourself on the course Piazza page. For any credit, the posting must:
-<ul class="org-ul">
-<li>be a follow-up to my introduction. In other words, all intros need to be in the same thread.</li>
+<li>be a follow-up to my introduction. In other words, all intros
+need to be in the same thread.</li>
 <li>Include a photo appropriate in size, content, and orientation.</li>
 </ul></li>
-<li>Your <b>group</b> should communicate the composition of your group to me (and the GTA) on Piazza. If you group is sticking with the random assignment, just confirm that. If you have a new group, tell us the composition, and we'll edit the post to reflect the change.</li>
-</ul>
+
+<li>Your <b>group</b> should communicate the composition of your group to
+me (and the grader) on Piazza. If you group is sticking with the
+random assignment, just confirm that. If you have a new group, tell
+us the composition, and we'll edit the post to reflect the change.</li>
+
+<li><p>
+Consider the following specification:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #e45649;">def</span> <span style="color: #a626a4;">find_prime_factor</span> (listA, listB):
+
+ <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">Requires: a not None; b not None;</span>
+ <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">there is some index i where b[i] is </span>
+ <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">both prime and a factor of a[i]</span>
+
+ <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">Effects: return the least index</span>
+ <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">at which b[i] is a prime factor of a[i]</span>
+ <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">E.g. find_prime_factor ([12, 25, 18, 8], [6, 2, 3, 2]) = 2</span>
+ <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">(Note: 6 is a factor of 12, but is not prime,</span>
+ <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">and 2 is prime, but is not a factor of 25.  However,</span>
+ <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">3 is a prime factor of 18. Hence, index "2" is the correct</span>
+ <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">answer.  index "3" is not a possible answer, because the</span>
+ <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">third index is not the least index with the desired property.)</span>
+ <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">Also note that listA and listB need not be of the same length.</span>
+
+</pre>
+</div></li>
+</ol>
+
+
+<p>
+Implement this <code>find_prime_factor</code> function. Although you should (obviously) test  your implementation yourself, you do not need to include any test code. Your solution should be minimal in the sense that it doesn't include any unnecessary code.  In particular, error checking in <code>find_prime_factor</code> for parameters that do not satisfy the precondtions is not appropriate  for this assignment.
+</p>
 </div>
 </div>
 
-<div id="outline-container-orgf433271" class="outline-4">
-<h4 id="orgf433271"><span class="section-number-4">3.1.2.</span> Grading Criteria</h4>
-<div class="outline-text-4" id="text-3-1-2">
+
+<div id="outline-container-orgfc585cc" class="outline-4">
+<h4 id="orgfc585cc"><span class="section-number-4">3.1.3.</span> Grading Criteria</h4>
+<div class="outline-text-4" id="text-3-1-3">
 <ul class="org-ul">
-<li>Your individual Piazza post adhers to my instructions. (That is, no sideways pictures, no oversize pictures, etc.)</li>
+<li>Your individual Piazza post adhers to my instructions. (That is, no  sideways pictures, no oversize pictures, etc.)</li>
 <li>You are in a group.</li>
+<li>Coding: Adherence to instructions. Do what I ask for above, not  something else. Code runs correctly.</li>
 </ul>
 </div>
 </div>
 </div>
+
 
 <div id="outline-container-a2" class="outline-3">
 <h3 id="a2"><span class="section-number-3">3.2.</span> Assignment 2</h3>
 <div class="outline-text-3" id="text-a2">
 </div>
 
-<div id="outline-container-org0898231" class="outline-4">
-<h4 id="org0898231"><span class="section-number-4">3.2.1.</span> Goals: Contracts</h4>
+<div id="outline-container-org45b331f" class="outline-4">
+<h4 id="org45b331f"><span class="section-number-4">3.2.1.</span> Goals: Contracts</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 For the second assignment, you'll build a <i>very</i> small piece of Java for a contract with preconditions, transform the contract so that all preconditions become postconditions (i.e., make it a <i>total</i> contract), and then re-implement appropriately.
@@ -1716,14 +1756,14 @@ Define a Java class called <code>Loan</code>. In that class, write a method that
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #5B6268;">/*</span>
-<span style="color: #5B6268;">  @param principal:  Amount of the initial principal</span>
-<span style="color: #5B6268;">  @param rate:       Annual interest rate  (8% rate expressed as rate = 0.08)</span>
-<span style="color: #5B6268;">  @param payment:    Amount of the monthly payment</span>
-<span style="color: #5B6268;">*/</span>
-<span style="color: #51afef;">public</span> <span style="color: #51afef;">static</span> <span style="color: #ECBE7B;">int</span> <span style="color: #c678dd;">months</span> (<span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">principal</span>, <span style="color: #ECBE7B;">double</span> <span style="color: #dcaeea;">rate</span>, <span style="color: #ECBE7B;">int</span> <span style="color: #dcaeea;">payment</span>)
-<span style="color: #5B6268;">// </span><span style="color: #5B6268;">Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.</span>
-<span style="color: #5B6268;">// </span><span style="color: #5B6268;">Effects:  return the number of months required to pay off the principal</span>
+<pre class="src src-java"><span style="color: #9ca0a4;">/*</span>
+<span style="color: #9ca0a4;">  @param principal:  Amount of the initial principal</span>
+<span style="color: #9ca0a4;">  @param rate:       Annual interest rate  (8% rate expressed as rate = 0.08)</span>
+<span style="color: #9ca0a4;">  @param payment:    Amount of the monthly payment</span>
+<span style="color: #9ca0a4;">*/</span>
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">months</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">principal</span>, <span style="color: #986801;">double</span> <span style="color: #6a1868;">rate</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">payment</span>)
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects:  return the number of months required to pay off the principal</span>
 </pre>
 </div>
 
@@ -1752,8 +1792,8 @@ The variable names here are explanatory, not required. You may want to use diffe
 </div>
 </div>
 
-<div id="outline-container-org08f088d" class="outline-4">
-<h4 id="org08f088d"><span class="section-number-4">3.2.2.</span> Grading Criteria</h4>
+<div id="outline-container-org4092793" class="outline-4">
+<h4 id="org4092793"><span class="section-number-4">3.2.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <ul class="org-ul">
 <li>Adherence to instructions.</li>
@@ -1769,8 +1809,8 @@ The variable names here are explanatory, not required. You may want to use diffe
 <h3 id="a3"><span class="section-number-3">3.3.</span> Assignment 3</h3>
 <div class="outline-text-3" id="text-a3">
 </div>
-<div id="outline-container-org9f2bc75" class="outline-4">
-<h4 id="org9f2bc75"><span class="section-number-4">3.3.1.</span> Goals: Data Abstraction / Mutability</h4>
+<div id="outline-container-org53bc29f" class="outline-4">
+<h4 id="org53bc29f"><span class="section-number-4">3.3.1.</span> Goals: Data Abstraction / Mutability</h4>
 <div class="outline-text-4" id="text-3-3-1">
 <p>
 Rewrite <a href="./files/MapPoly.java">MapPoly</a>, my map-based version Liskov's Poly so that it is <i>mutable</i>. Keep the same representation.
@@ -1790,8 +1830,8 @@ Remember that part of your group is responsible for synthesizing a solution, and
 </div>
 </div>
 
-<div id="outline-container-org4e5e1e0" class="outline-4">
-<h4 id="org4e5e1e0"><span class="section-number-4">3.3.2.</span> Grading Criteria</h4>
+<div id="outline-container-org580edac" class="outline-4">
+<h4 id="org580edac"><span class="section-number-4">3.3.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-3-2">
 <ul class="org-ul">
 <li>Correct transformation of Poly</li>
@@ -1806,8 +1846,8 @@ Remember that part of your group is responsible for synthesizing a solution, and
 <h3 id="a4"><span class="section-number-3">3.4.</span> Assignment 4</h3>
 <div class="outline-text-3" id="text-a4">
 </div>
-<div id="outline-container-orgd82d4fa" class="outline-4">
-<h4 id="orgd82d4fa"><span class="section-number-4">3.4.1.</span> Goals: Understanding Program Verification through Hoare Logic</h4>
+<div id="outline-container-orgaf116cb" class="outline-4">
+<h4 id="orgaf116cb"><span class="section-number-4">3.4.1.</span> Goals: Understanding Program Verification through Hoare Logic</h4>
 <div class="outline-text-4" id="text-3-4-1">
 <p>
 Do the <a href="#ic4">in-class exercise</a> with your group and submit it on BB. More specifically, you will do the below two tasks:
@@ -1825,8 +1865,8 @@ Do the <a href="#ic4">in-class exercise</a> with your group and submit it on BB.
 </div>
 </div>
 
-<div id="outline-container-orgb695b4b" class="outline-4">
-<h4 id="orgb695b4b"><span class="section-number-4">3.4.2.</span> Grading Criteria</h4>
+<div id="outline-container-orgc9bdd38" class="outline-4">
+<h4 id="orgc9bdd38"><span class="section-number-4">3.4.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-4-2">
 <ul class="org-ul">
 <li>Correctness of solution</li>
@@ -1842,8 +1882,8 @@ Note: If your group had trouble with the assignment, feel free to appeal to your
 <h3 id="a5"><span class="section-number-3">3.5.</span> Assignment 5</h3>
 <div class="outline-text-3" id="text-a5">
 </div>
-<div id="outline-container-orgc19e90f" class="outline-4">
-<h4 id="orgc19e90f"><span class="section-number-4">3.5.1.</span> Goals: Rep-Invariants, contracts, tests</h4>
+<div id="outline-container-orga55129d" class="outline-4">
+<h4 id="orga55129d"><span class="section-number-4">3.5.1.</span> Goals: Rep-Invariants, contracts, tests</h4>
 <div class="outline-text-4" id="text-3-5-1">
 <p>
 Revisit the mutable Poly example from <a href="#a3">assignment 3</a>. That is, use the one based on a map, not an array.
@@ -1862,8 +1902,8 @@ As in assignment 3, your deliverable is a <b>story</b>, with exactly the same ra
 </div>
 </div>
 
-<div id="outline-container-org8a4494c" class="outline-4">
-<h4 id="org8a4494c"><span class="section-number-4">3.5.2.</span> Grading Criteria</h4>
+<div id="outline-container-orgcca4ce2" class="outline-4">
+<h4 id="orgcca4ce2"><span class="section-number-4">3.5.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-5-2">
 <ul class="org-ul">
 <li>Correctness of solution</li>
@@ -1880,8 +1920,8 @@ Note: If your group had trouble with the previous assignment, feel free to appea
 <h3 id="a6"><span class="section-number-3">3.6.</span> Assignment 6</h3>
 <div class="outline-text-3" id="text-a6">
 </div>
-<div id="outline-container-orge247320" class="outline-4">
-<h4 id="orge247320"><span class="section-number-4">3.6.1.</span> Goals: Immutablity via Bloch Item 50</h4>
+<div id="outline-container-org4c32f2a" class="outline-4">
+<h4 id="org4c32f2a"><span class="section-number-4">3.6.1.</span> Goals: Immutablity via Bloch Item 50</h4>
 <div class="outline-text-4" id="text-3-6-1">
 <p>
 Revisit the <a href="#ic6B">Period example</a>.
@@ -1897,8 +1937,8 @@ Turn in a <b>story</b>.
 </div>
 </div>
 
-<div id="outline-container-orgb215cee" class="outline-4">
-<h4 id="orgb215cee"><span class="section-number-4">3.6.2.</span> Grading Criteria</h4>
+<div id="outline-container-orge343f96" class="outline-4">
+<h4 id="orge343f96"><span class="section-number-4">3.6.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-6-2">
 <p>
 Grading is in part the technical aspect of breaking immutability, and in part that your client case is plausible.
@@ -1912,8 +1952,8 @@ Grading is in part the technical aspect of breaking immutability, and in part th
 <div class="outline-text-3" id="text-a7">
 </div>
 
-<div id="outline-container-org15846cc" class="outline-4">
-<h4 id="org15846cc"><span class="section-number-4">3.7.1.</span> Goals: Type Abstraction</h4>
+<div id="outline-container-org2707d6a" class="outline-4">
+<h4 id="org2707d6a"><span class="section-number-4">3.7.1.</span> Goals: Type Abstraction</h4>
 <div class="outline-text-4" id="text-3-7-1">
 <p>
 Consider the following <code>Market</code> class.
@@ -1921,19 +1961,19 @@ Consider the following <code>Market</code> class.
 
 <div class="org-src-container">
 <pre class="src src-java">
-<span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Market</span> {
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">Set</span>&lt;<span style="color: #ECBE7B;">Item</span>&gt; <span style="color: #dcaeea;">wanted</span>;           <span style="color: #5B6268;">// </span><span style="color: #5B6268;">items for which prices are of interest</span>
-    <span style="color: #51afef;">private</span> <span style="color: #ECBE7B;">Bag</span>&lt;<span style="color: #ECBE7B;">Item</span>, <span style="color: #ECBE7B;">Money</span>&gt; <span style="color: #dcaeea;">offers</span>;    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">offers to sell items at specific prices</span>
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Note:  Bag isn't a Java data type.  Here, the bag entries are pairs.</span>
+<span style="color: #e45649;">class</span> <span style="color: #986801;">Market</span> {
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">Item</span>&gt; <span style="color: #6a1868;">wanted</span>;           <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">items for which prices are of interest</span>
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">Bag</span>&lt;<span style="color: #986801;">Item</span>, <span style="color: #986801;">Money</span>&gt; <span style="color: #6a1868;">offers</span>;    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">offers to sell items at specific prices</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Note:  Bag isn't a Java data type.  Here, the bag entries are pairs.</span>
 
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">offer</span> (<span style="color: #ECBE7B;">Item</span> <span style="color: #dcaeea;">item</span>, <span style="color: #ECBE7B;">Money</span> <span style="color: #dcaeea;">price</span>)
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Requires: item is an element of wanted</span>
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Effects:  add (item, price) to offers</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">offer</span> (<span style="color: #986801;">Item</span> <span style="color: #6a1868;">item</span>, <span style="color: #986801;">Money</span> <span style="color: #6a1868;">price</span>)
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: item is an element of wanted</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects:  add (item, price) to offers</span>
 
-        <span style="color: #51afef;">public</span> Money buy(<span style="color: #ECBE7B;">Item</span> <span style="color: #dcaeea;">item</span>)
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Requires: item is an element of the domain of offers</span>
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Effects: choose and remove some (arbitrary) pair (item, price) from</span>
-    <span style="color: #5B6268;">//          </span><span style="color: #5B6268;">offers and return the chosen price</span>
+        <span style="color: #e45649;">public</span> Money buy(<span style="color: #986801;">Item</span> <span style="color: #6a1868;">item</span>)
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: item is an element of the domain of offers</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: choose and remove some (arbitrary) pair (item, price) from</span>
+    <span style="color: #9ca0a4;">//          </span><span style="color: #9ca0a4;">offers and return the chosen price</span>
         }
 
 </pre>
@@ -1944,12 +1984,12 @@ Consider the following <code>Market</code> class.
 Suppose that offers are only accepted if they are lower than previous offers.
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Low_Bid_Market</span> <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">Market</span> {
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">void</span> <span style="color: #c678dd;">offer</span> (<span style="color: #ECBE7B;">Item</span> <span style="color: #dcaeea;">item</span>, <span style="color: #ECBE7B;">Money</span> <span style="color: #dcaeea;">price</span>)
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Requires: item is an element of wanted</span>
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Effects:  if (item, price) is not cheaper than any existing pair</span>
-    <span style="color: #5B6268;">//           </span><span style="color: #5B6268;">(item, existing_price) in offers do nothing</span>
-    <span style="color: #5B6268;">//           </span><span style="color: #5B6268;">else add (item, price) to offers</span>
+<pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">Low_Bid_Market</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Market</span> {
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">offer</span> (<span style="color: #986801;">Item</span> <span style="color: #6a1868;">item</span>, <span style="color: #986801;">Money</span> <span style="color: #6a1868;">price</span>)
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: item is an element of wanted</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects:  if (item, price) is not cheaper than any existing pair</span>
+    <span style="color: #9ca0a4;">//           </span><span style="color: #9ca0a4;">(item, existing_price) in offers do nothing</span>
+    <span style="color: #9ca0a4;">//           </span><span style="color: #9ca0a4;">else add (item, price) to offers</span>
 
 </pre>
 </div>
@@ -1961,11 +2001,11 @@ Is <code>Low_Bid_Market</code> a valid subtype of <code>Market</code>? Appeal to
 Suppose that the <code>buy()</code> method always chooses the lowest price on an item.
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #51afef;">class</span> <span style="color: #ECBE7B;">Low_Offer_Market</span> <span style="color: #51afef;">extends</span> <span style="color: #ECBE7B;">Market</span> {
-    <span style="color: #51afef;">public</span> <span style="color: #ECBE7B;">Money</span> <span style="color: #c678dd;">buy</span>(<span style="color: #ECBE7B;">Item</span> <span style="color: #dcaeea;">item</span>)
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Requires: item is an element the domain of offers</span>
-    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">Effects: choose and remove pair (item, price) with the </span>
-    <span style="color: #5B6268;">//          </span><span style="color: #5B6268;">lowest price from offers and return the chosen price</span>
+<pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">Low_Offer_Market</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Market</span> {
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Money</span> <span style="color: #a626a4;">buy</span>(<span style="color: #986801;">Item</span> <span style="color: #6a1868;">item</span>)
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: item is an element the domain of offers</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: choose and remove pair (item, price) with the </span>
+    <span style="color: #9ca0a4;">//          </span><span style="color: #9ca0a4;">lowest price from offers and return the chosen price</span>
 </pre>
 </div>
 <p>
@@ -1975,8 +2015,8 @@ Is <code>Low_Offer_Market</code> a valid subtype of <code>Market</code>? Appeal 
 </div>
 </div>
 
-<div id="outline-container-org101e30b" class="outline-4">
-<h4 id="org101e30b"><span class="section-number-4">3.7.2.</span> Grading Criteria</h4>
+<div id="outline-container-org316fc5e" class="outline-4">
+<h4 id="org316fc5e"><span class="section-number-4">3.7.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-7-2">
 <p>
 This is purely a "paper and pencil" exercise. No code is required. Write your answer so that it is easily understandable by someone with only a passing knowledge of Liskov's rules for subtypes.
@@ -1990,8 +2030,8 @@ This is purely a "paper and pencil" exercise. No code is required. Write your an
 <div class="outline-text-3" id="text-a8">
 </div>
 
-<div id="outline-container-orgc601bf2" class="outline-4">
-<h4 id="orgc601bf2"><span class="section-number-4">3.8.1.</span> Goals: Polymorphic Abstraction.</h4>
+<div id="outline-container-org5ec456c" class="outline-4">
+<h4 id="org5ec456c"><span class="section-number-4">3.8.1.</span> Goals: Polymorphic Abstraction.</h4>
 <div class="outline-text-4" id="text-3-8-1">
 <p>
 A <code>Comparator</code> based on absolute values is problematic. Code up the comparator and then write client code that illustrates the problem. Use a <i>lambda function</i> to implement the comparator. Explain what is wrong in a brief summary statement. Your explanation of the problem must be phrased in terms of a violation of the contract for <code>Comparator</code>.
@@ -2003,8 +2043,8 @@ To emphasize that this contract problem is real, your code should create two Jav
 </div>
 </div>
 
-<div id="outline-container-org88205d0" class="outline-4">
-<h4 id="org88205d0"><span class="section-number-4">3.8.2.</span> Grading Criteria</h4>
+<div id="outline-container-org92afe26" class="outline-4">
+<h4 id="org92afe26"><span class="section-number-4">3.8.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-8-2">
 <p>
 As for other recent assignments, your deliverable is a clear, concise story that demonstrates completion of the assignment.
@@ -2018,8 +2058,8 @@ As for other recent assignments, your deliverable is a clear, concise story that
 <div class="outline-text-3" id="text-a9">
 </div>
 
-<div id="outline-container-orge70cc3a" class="outline-4">
-<h4 id="orge70cc3a"><span class="section-number-4">3.9.1.</span> Goals: Generics</h4>
+<div id="outline-container-org723c5cc" class="outline-4">
+<h4 id="org723c5cc"><span class="section-number-4">3.9.1.</span> Goals: Generics</h4>
 <div class="outline-text-4" id="text-3-9-1">
 <p>
 Consider the <a href="./files/BoundedQueue.java">BoundedQueue</a> example from the in-class exercise given <a href="#ic10C">2.19</a>.
@@ -2043,8 +2083,8 @@ Add <code>putAll()</code> and <code>getAll()</code>. Define the method signature
 </div>
 </div>
 
-<div id="outline-container-org2f4fc9c" class="outline-4">
-<h4 id="org2f4fc9c"><span class="section-number-4">3.9.2.</span> Grading Criteria</h4>
+<div id="outline-container-orge2d249f" class="outline-4">
+<h4 id="orge2d249f"><span class="section-number-4">3.9.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-9-2">
 <p>
 As before, turn in a clear, concise story demonstrating completion of the assignment.
@@ -2058,8 +2098,8 @@ As before, turn in a clear, concise story demonstrating completion of the assign
 <div class="outline-text-3" id="text-a10">
 </div>
 
-<div id="outline-container-org7db62af" class="outline-4">
-<h4 id="org7db62af"><span class="section-number-4">3.10.1.</span> Goals: <code>Object</code> class contracts.</h4>
+<div id="outline-container-orgcb66cc0" class="outline-4">
+<h4 id="orgcb66cc0"><span class="section-number-4">3.10.1.</span> Goals: <code>Object</code> class contracts.</h4>
 <div class="outline-text-4" id="text-3-10-1">
 <p>
 As it happens, Liskov's implementation of <code>clone()</code> for the <code>IntSet</code> class (see figure 5.10, page 97) is wrong.
@@ -2073,8 +2113,8 @@ As it happens, Liskov's implementation of <code>clone()</code> for the <code>Int
 </div>
 </div>
 
-<div id="outline-container-org86bfebc" class="outline-4">
-<h4 id="org86bfebc"><span class="section-number-4">3.10.2.</span> Grading Criteria</h4>
+<div id="outline-container-org9ba6727" class="outline-4">
+<h4 id="org9ba6727"><span class="section-number-4">3.10.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-10-2">
 <p>
 In addititon to code and tests, your deliverable is a story. Explain what is going on at each stage of the exercise. The GTA will primarily grade your story.
@@ -2087,8 +2127,8 @@ In addititon to code and tests, your deliverable is a story. Explain what is goi
 <h3 id="a11"><span class="section-number-3">3.11.</span> Assignment 11</h3>
 <div class="outline-text-3" id="text-a11">
 </div>
-<div id="outline-container-org586015f" class="outline-4">
-<h4 id="org586015f"><span class="section-number-4">3.11.1.</span> Goals: Favoring composition over inheritance. Bloch, Item 18.</h4>
+<div id="outline-container-orgc4aed10" class="outline-4">
+<h4 id="orgc4aed10"><span class="section-number-4">3.11.1.</span> Goals: Favoring composition over inheritance. Bloch, Item 18.</h4>
 <div class="outline-text-4" id="text-3-11-1">
 <p>
 Consider the <code>InstrumentedSet</code> example from Bloch Item 18 (as well as in-class exercise <a href="#ic12A">in-class 12A</a>).
@@ -2106,8 +2146,8 @@ Consider the <code>InstrumentedSet</code> example from Bloch Item 18 (as well as
 
 
 
-<div id="outline-container-orgd765faa" class="outline-4">
-<h4 id="orgd765faa"><span class="section-number-4">3.11.2.</span> Grading Criteria</h4>
+<div id="outline-container-org3117703" class="outline-4">
+<h4 id="org3117703"><span class="section-number-4">3.11.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-11-2">
 <p>
 The GTA will look for correct responses, appropriate JUnit tests, and plausible explanations when doing the grading.
@@ -2121,8 +2161,8 @@ The GTA will look for correct responses, appropriate JUnit tests, and plausible 
 <div class="outline-text-3" id="text-a12">
 </div>
 
-<div id="outline-container-org96b035f" class="outline-4">
-<h4 id="org96b035f"><span class="section-number-4">3.12.1.</span> Goals: Applying lessons learned.</h4>
+<div id="outline-container-orga448e84" class="outline-4">
+<h4 id="orga448e84"><span class="section-number-4">3.12.1.</span> Goals: Applying lessons learned.</h4>
 <div class="outline-text-4" id="text-3-12-1">
 <p>
 You have a choice of possible assignments:
@@ -2151,8 +2191,8 @@ There are two attacks documented in Bloch's Item 88: <i>Write <code>readObject()
 </div>
 
 
-<div id="outline-container-org4608aaf" class="outline-4">
-<h4 id="org4608aaf"><span class="section-number-4">3.12.2.</span> Grading Criteria</h4>
+<div id="outline-container-orga88eb6b" class="outline-4">
+<h4 id="orga88eb6b"><span class="section-number-4">3.12.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-12-2">
 <p>
 In each case, the deliverable is a story. Write a brief report, and include enough evidence (output, screen shots, etc.) that the GTA can figure out that you actually completed the assignment.
@@ -2163,8 +2203,8 @@ In each case, the deliverable is a story. Write a brief report, and include enou
 </div>
 
 
-<div id="outline-container-org0cf5d7b" class="outline-2">
-<h2 id="org0cf5d7b"><span class="section-number-2">4.</span> Reflection</h2>
+<div id="outline-container-org292c644" class="outline-2">
+<h2 id="org292c644"><span class="section-number-2">4.</span> Reflection</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 For each of the following, answer these two questions first:
@@ -2175,8 +2215,8 @@ For each of the following, answer these two questions first:
 </ol>
 </div>
 
-<div id="outline-container-org3f73d7c" class="outline-3">
-<h3 id="org3f73d7c"><span class="section-number-3">4.1.</span> Reflection 1</h3>
+<div id="outline-container-org6cbc10c" class="outline-3">
+<h3 id="org6cbc10c"><span class="section-number-3">4.1.</span> Reflection 1</h3>
 <div class="outline-text-3" id="text-4-1">
 <ol class="org-ol">
 <li>Much of the material explores the connection between preconditions and exception handling. Were there any aspects of this connection that surprised or confused anyone in your group? If so, explain. If not, where did you learn this material?</li>
@@ -2186,8 +2226,8 @@ For each of the following, answer these two questions first:
 </div>
 </div>
 
-<div id="outline-container-org417f3a3" class="outline-3">
-<h3 id="org417f3a3"><span class="section-number-3">4.2.</span> Reflection 2</h3>
+<div id="outline-container-org3b881e7" class="outline-3">
+<h3 id="org3b881e7"><span class="section-number-3">4.2.</span> Reflection 2</h3>
 <div class="outline-text-3" id="text-4-2">
 <ol class="org-ol">
 <li>If you sat down to design a new class, would the result likely be mutable or immutable? Why?</li>
@@ -2198,8 +2238,8 @@ For each of the following, answer these two questions first:
 </div>
 
 
-<div id="outline-container-org78311cc" class="outline-3">
-<h3 id="org78311cc"><span class="section-number-3">4.3.</span> Reflection 3</h3>
+<div id="outline-container-orgd9aa4ff" class="outline-3">
+<h3 id="orgd9aa4ff"><span class="section-number-3">4.3.</span> Reflection 3</h3>
 <div class="outline-text-3" id="text-4-3">
 <ol class="org-ol">
 <li>Have you ever explicitly considered invariants when deciding how to implement a Java class? If so, can you give an example?</li>
@@ -2210,8 +2250,8 @@ For each of the following, answer these two questions first:
 </div>
 
 
-<div id="outline-container-org8bdab9e" class="outline-3">
-<h3 id="org8bdab9e"><span class="section-number-3">4.4.</span> Reflection 4 (reflection 3 redo)</h3>
+<div id="outline-container-orgb5bf069" class="outline-3">
+<h3 id="orgb5bf069"><span class="section-number-3">4.4.</span> Reflection 4 (reflection 3 redo)</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 Answer these questions based on your new knowledge on invariants and correctness analysis from class lectures and reading assignment.
@@ -2223,8 +2263,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 </div>
 
-<div id="outline-container-orgdb9ef34" class="outline-3">
-<h3 id="orgdb9ef34"><span class="section-number-3">4.5.</span> Reflection 5</h3>
+<div id="outline-container-org2606c1c" class="outline-3">
+<h3 id="org2606c1c"><span class="section-number-3">4.5.</span> Reflection 5</h3>
 <div class="outline-text-3" id="text-4-5">
 <ol class="org-ol">
 <li>Iteration is a basic concept, yet Liskov devotes an entire chapter to it. What, if anything, did you find in Liskov's presentation of iteration abstraction that is new to you?</li>
@@ -2233,8 +2273,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 </div>
 
-<div id="outline-container-org9e23332" class="outline-3">
-<h3 id="org9e23332"><span class="section-number-3">4.6.</span> Reflection 6</h3>
+<div id="outline-container-orgc37694c" class="outline-3">
+<h3 id="orgc37694c"><span class="section-number-3">4.6.</span> Reflection 6</h3>
 <div class="outline-text-3" id="text-4-6">
 <ol class="org-ol">
 <li>Liskov 7 develops rules for assessing the correctness of subtypes. What do you think the connection is between these rules and the rules for verification addressed in Chapter 5?</li>
@@ -2247,8 +2287,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 
 
-<div id="outline-container-orgaf94d21" class="outline-3">
-<h3 id="orgaf94d21"><span class="section-number-3">4.7.</span> Reflection 7</h3>
+<div id="outline-container-orgd020939" class="outline-3">
+<h3 id="orgd020939"><span class="section-number-3">4.7.</span> Reflection 7</h3>
 <div class="outline-text-3" id="text-4-7">
 <ol class="org-ol">
 <li>Explain why Java has both a Comparable interface and a Comparator interface.</li>
@@ -2259,8 +2299,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 
 
-<div id="outline-container-org64e385f" class="outline-3">
-<h3 id="org64e385f"><span class="section-number-3">4.8.</span> Reflection 8</h3>
+<div id="outline-container-orgf9aab0f" class="outline-3">
+<h3 id="orgf9aab0f"><span class="section-number-3">4.8.</span> Reflection 8</h3>
 <div class="outline-text-3" id="text-4-8">
 <ol class="org-ol">
 <li>Explain the basic role of generics in the Java language</li>
@@ -2271,8 +2311,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 
 
-<div id="outline-container-org929e230" class="outline-3">
-<h3 id="org929e230"><span class="section-number-3">4.9.</span> Reflection 9</h3>
+<div id="outline-container-org82a47b3" class="outline-3">
+<h3 id="org82a47b3"><span class="section-number-3">4.9.</span> Reflection 9</h3>
 <div class="outline-text-3" id="text-4-9">
 <ol class="org-ol">
 <li>Have you overridden the equals() or the hashCode() methods? In light of Bloch's discussion of both methods, do you think your implementations were correct?</li>
@@ -2283,8 +2323,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 
 
-<div id="outline-container-orgda7e734" class="outline-3">
-<h3 id="orgda7e734"><span class="section-number-3">4.10.</span> Reflection 10</h3>
+<div id="outline-container-orgdaaaf70" class="outline-3">
+<h3 id="orgdaaaf70"><span class="section-number-3">4.10.</span> Reflection 10</h3>
 <div class="outline-text-3" id="text-4-10">
 <ol class="org-ol">
 <li>Bloch discusses specific rules for making a class immutable. Did you find any of these rules confusing?</li>
@@ -2295,8 +2335,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 
 
-<div id="outline-container-org8c305de" class="outline-3">
-<h3 id="org8c305de"><span class="section-number-3">4.11.</span> Reflection 11</h3>
+<div id="outline-container-org8363d90" class="outline-3">
+<h3 id="org8363d90"><span class="section-number-3">4.11.</span> Reflection 11</h3>
 <div class="outline-text-3" id="text-4-11">
 <ol class="org-ol">
 <li>How would you rate your experience with writing (ordinary) tests in the JUnit framework? Use a scale from "A few times for class" to "I do that professionally".</li>
@@ -2307,8 +2347,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 
 
-<div id="outline-container-org437723c" class="outline-3">
-<h3 id="org437723c"><span class="section-number-3">4.12.</span> Reflection 11</h3>
+<div id="outline-container-orgd6b57d1" class="outline-3">
+<h3 id="orgd6b57d1"><span class="section-number-3">4.12.</span> Reflection 11</h3>
 <div class="outline-text-3" id="text-4-12">
 <ol class="org-ol">
 <li>Is there anything about property based testing that you still find confusing?</li>
@@ -2319,8 +2359,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 </div>
 
-<div id="outline-container-org962c289" class="outline-2">
-<h2 id="org962c289"><span class="section-number-2">5.</span> Files</h2>
+<div id="outline-container-org597dda5" class="outline-2">
+<h2 id="org597dda5"><span class="section-number-2">5.</span> Files</h2>
 <div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li><a href="./files/LiskovSet.java">LiskovSet.java</a></li>
@@ -2328,8 +2368,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </ul>
 </div>
 </div>
-<div id="outline-container-orgf2c3b4d" class="outline-2">
-<h2 id="orgf2c3b4d"><span class="section-number-2">6.</span> Links</h2>
+<div id="outline-container-org800c157" class="outline-2">
+<h2 id="org800c157"><span class="section-number-2">6.</span> Links</h2>
 <div class="outline-text-2" id="text-6">
 <ul class="org-ul">
 <li><a href="./index.html">Syllabus</a></li>

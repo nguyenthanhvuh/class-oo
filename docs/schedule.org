@@ -1416,26 +1416,59 @@ Now address a technical topic. This exercise touches on some of the thorny issue
    # 1. Generify. What should happen to the parameter for =pushAll()=? Why?
    # 1. Suppose we decide to implement the =Cloneable()= interface. In what ways would Bloch think we would likely get it wrong? What would Bloch recommend instead?
 
-* HW Assignments
+* Homework Assignments
 ** Assignment 1
    :PROPERTIES:
    :CUSTOM_ID: a1
    :END:
-   
-*** Goal
-    - Getting started on Piazza.
-    - Getting your group together. 
 
-    There are two parts to this assignment:
 
-    - Post a brief intro about yourself on the course Piazza page. For any credit, the posting must:
-      - be a follow-up to my introduction. In other words, all intros need to be in the same thread.
-      - Include a photo appropriate in size, content, and orientation. 
-    - Your *group* should communicate the composition of your group to me (and the GTA) on Piazza. If you group is sticking with the random assignment, just confirm that. If you have a new group, tell us the composition, and we'll edit the post to reflect the change. 
+*** Goals
+   1.  Getting started on Piazza; getting your group together.
+   1.  Basic familiarity with contracts and coding
+      
+*** Assignment
+1.  Post a brief intro about yourself on the course Piazza page. For any
+    credit, the posting must:
+    -   be a follow-up to my introduction. In other words, all intros
+        need to be in the same thread.
+    -   Include a photo appropriate in size, content, and orientation.
+
+2.  Your *group* should communicate the composition of your group to
+    me (and the grader) on Piazza. If you group is sticking with the
+    random assignment, just confirm that. If you have a new group, tell
+    us the composition, and we'll edit the post to reflect the change.
+
+3.  Consider the following specification:
+
+   #+begin_src python
+    def find_prime_factor (listA, listB):
+    
+     # Requires: a not None; b not None;
+     # there is some index i where b[i] is 
+     # both prime and a factor of a[i]
+     
+     # Effects: return the least index
+     # at which b[i] is a prime factor of a[i]
+     # E.g. find_prime_factor ([12, 25, 18, 8], [6, 2, 3, 2]) = 2
+     # (Note: 6 is a factor of 12, but is not prime,
+     # and 2 is prime, but is not a factor of 25.  However,
+     # 3 is a prime factor of 18. Hence, index "2" is the correct
+     # answer.  index "3" is not a possible answer, because the
+     # third index is not the least index with the desired property.)
+     # Also note that listA and listB need not be of the same length.
+
+   #+end_src
+
+
+    Implement this =find_prime_factor= function. Although you should (obviously) test  your implementation yourself, you do not need to include any test code. Your solution should be minimal in the sense that it doesn't include any unnecessary code.  In particular, error checking in =find_prime_factor= for parameters that do not satisfy the precondtions is not appropriate  for this assignment.
+
 
 *** Grading Criteria
-    - Your individual Piazza post adhers to my instructions. (That is, no sideways pictures, no oversize pictures, etc.)
-    - You are in a group.
+-   Your individual Piazza post adhers to my instructions. (That is, no  sideways pictures, no oversize pictures, etc.)
+-  You are in a group.
+-  Coding: Adherence to instructions. Do what I ask for above, not  something else. Code runs correctly.
+    
 
 ** Assignment 2 
    :PROPERTIES:
