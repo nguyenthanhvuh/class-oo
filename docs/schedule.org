@@ -12,11 +12,11 @@
   | Meeting | Topic                                    | Reading                       | Assignment | In-Class Exercise |   |
   |     <r> |                                          | <l>                           |    <c>     |        <c>        |   |
   |---------+------------------------------------------+-------------------------------+------------+-------------------+---|
-  |       1 | Class Overview                           | Liskov 1--2                   |            |       IC 1 [[#ic1a][A]] [[#ic1b][B]]     |   |
-  |       2 | Procedural Abstraction; Exceptions       | Liskov 3--4, Bloch 10         |   [[#a1][A1 Due]]   |     IC 2 [[#ic2A][A]] [[#ic2B][B]]      |   |
+  |       1 | Class Overview                           | Liskov 1--2                   |            |     IC 1 [[#ic1a][A]] [[#ic1b][B]]      |   |
+  |       2 | Procedural Abstraction, Exception        | Liskov 3--4                   |   [[#a1][A1 Due]]   |     IC 2 [[#ic2A][A]] [[#ic2B][B]]      |   |
   |       3 | Data Abstraction; Mutability             | Liskov 5.1--5.4,              |   [[#a2][A2 Due]]   |     IC 3 [[#ic3A][A]] [[#ic3B][B]]      |   |
   |       4 | Imperative Program Verification          | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]]             |   [[#a3][A3 Due]]   |                   |   |
-  |       5 | Imperative Program verification          | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]]             |            |    IC        [[#ic4][4]]    |   |
+  |       5 | Imperative Program verification          | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]]             |            |       IC [[#ic4][4]]        |   |
   |       6 | Reasoning About Data Abstraction         | Liskov 5.5-5.10               |   [[#a4][A4 Due]]   |     IC 5 [[#ic5A][A]] [[#ic5B][B]]      |   |
   |       7 | Iteration Abstraction; Method Guidelines | Liskov 6, Bloch 8             |   [[#a5][A5 Due]]   |     IC 6 [[#ic6A][A]] [[#ic6B][B]]      |   |
   |       8 | Type Abstraction                         | Liskov 7                      |   [[#a6][A6 Due]]   |    IC 7 [[#ic7A][A]] [[#ic7B][B]] [[#ic7C][C]]     |   |
@@ -124,7 +124,7 @@ Now address a technical topic. This exercise touches on some of the thorny issue
       Requires:  nothing
       Effects: removes first element of the list and returns the rest (tail); throws NPE if list is null and IOBE if list is empty
       #+end_comment
-   1. The resulting specification has a problem. What is it? (hint: specification should be more general and not tied to the implementation)
+   1. The resulting specification might have a problem. What is it? (hint: specification should be more general and not tied to the implementation)
       #+begin_comment
       should return IllegalArgumentException instead of IndexOfOfBound (which is tied into this specific implementation).
       #+end_comment

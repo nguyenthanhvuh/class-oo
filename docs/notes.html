@@ -3,2388 +3,66 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-05-04 Wed 10:26 -->
+<!-- 2022-09-02 Fri 10:02 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<title>&lrm;</title>
+<title>SWE 419 Notes</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
 <meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
+<link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 </head>
 <body>
 <div id="content" class="content">
+<h1 class="title">SWE 419 Notes</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org5ae0dcb">0.1. Final Reviews</a>
-<ul>
-<li><a href="#org62fa2a5">0.1.1. 5 questions</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org6afb7b3">1. Classes and Inheritence</a></li>
-<li><a href="#orgf98c2a1">2. Common Java Methods</a>
-<ul>
-<li>
-<ul>
-<li><a href="#org19312bf">2.0.1. Transitivity</a></li>
-</ul>
-</li>
-<li><a href="#org9588cc2">2.1. 9A</a></li>
-</ul>
-</li>
-<li><a href="#org4bf699a">3. Generics</a>
-<ul>
-<li><a href="#org3dd09a7">3.1. Suppress Warnings (Item 27)</a></li>
-<li><a href="#org39d3243">3.2. Prefer Lists over Arrays</a></li>
-<li><a href="#org36167b1">3.3. Prefer Generic Types (Item 29)</a></li>
-<li><a href="#orgf8fbe50">3.4. Prefer Generic Methods (Item 30)</a></li>
-<li><a href="#org77cb102">3.5. Bounded WildCards</a></li>
-</ul>
-</li>
-<li><a href="#orgb4fc421">4. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></a></li>
-<li><a href="#orgc6cb428">5. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></a></li>
-<li><a href="#org51a0b70">6. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></a></li>
-<li><a href="#org926fb02">7. <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></a></div>
-</div>
-<p>
-<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-05-02 Mon&gt;</span></span>
-JUnit Theories
-</p>
-<div class="org-src-container">
-<pre class="src src-java">
-  <span style="color: #b751b6;">@RunWith</span>(Theories.<span style="color: #e45649;">class</span>)
-  <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">MyJunitTheories</span> {
-
-      <span style="color: #b751b6;">@DataPoints</span>
-      <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span>[] <span style="color: #a626a4;">dataPoints</span>() {
-          <span style="color: #e45649;">return</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">int</span>[]{
-                  71, 82, 53, -1
-          };
-      }
-
-      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">For a and b where a,b &gt; 0</span>
-      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">(a+b)^2 = a^2+b^2+2ab </span>
-      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">a+b &gt; a and a+b &gt; b</span>
-
-      <span style="color: #b751b6;">@Theory</span>
-      <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">squareTheory</span>(<span style="color: #986801;">Integer</span> <span style="color: #6a1868;">a</span>, <span style="color: #986801;">Integer</span> <span style="color: #6a1868;">b</span>){
-
-          <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Below assume statement ensures that we are testing only positive numbers</span>
-          Assume.assumeTrue(a &gt; 0 &amp;&amp; b &gt; 0);
-
-          System.out.println(<span style="color: #50a14f;">"Running with Data points - "</span> + a + <span style="color: #50a14f;">" , "</span>+ b);
-
-          <span style="color: #986801;">Double</span> <span style="color: #6a1868;">leftSide</span> = Math.pow(a+b,2);
-          <span style="color: #986801;">Double</span> <span style="color: #6a1868;">rightSide</span> = Double.valueOf(a * a + b * b + 2 * a * b);
-
-          assertEquals(leftSide,rightSide);
-
-          assertTrue(a + b &gt; a);
-          assertTrue(a + b &gt; b);
-      }
-}      
-</pre>
-</div>
-
-<p>
--1,-1
-53,53
-82,82
-71,71
-71,82
-82,71
-82,53
-53,82
-53,-1
--1,53
-71,53
-53,71
-71,-1
--1,71
-82,-1
--1,82
-</p>
-
-<p>
--1,-1
-53,-1
-&#x2026;
-</p>
-
-<p>
-53,71 .. pass
-</p>
-
-
-
-<p>
-pair of points over 5 data points 
-5**2 ?   Cartesian product
-</p>
-
-
-<p>
-2**5 ?
-</p>
-
-
-<p>
-k over n
-n**k   
-n=5,k=2    5x5 = 25
-n=5,k=3    5x5x5 = 1255
-n=100,k=2  100x100 = 10,000
-</p>
-
-<p>
-Inclass 13
-</p>
-<div class="org-src-container">
-<pre class="src src-java">#+begin_src java
-
-    <span style="color: #b751b6;">@DataPoints</span>
-     <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> Point[] points = {<span style="color: #b751b6;">null</span>, <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">a</span>
-         <span style="color: #e45649;">new</span> <span style="color: #986801;">Point</span>(2,2),  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">b</span>
-         <span style="color: #e45649;">new</span> <span style="color: #986801;">ColorPoint</span>(2,2,<span style="color: #b751b6;">COLOR</span>.BLACK), <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">c</span>
-         <span style="color: #e45649;">new</span> <span style="color: #986801;">ColorPoint</span>(2,2 ,<span style="color: #b751b6;">COLOR</span>.RED)}; <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">d</span>
-
-    <span style="color: #b751b6;">@Theory</span>
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">testEquals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">a</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">b</span>) {  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">can also use Point, but Object is more general and just</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">symmetry</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">*if* (a==b) then b==a AND</span>
-
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">if (b==a) then a==b</span>
-        <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">a==b iff b==a</span>
-
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">NOT correct : too strong</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a==b AND b==a</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a.equals(b) == FALSE  =&gt;  b.equals(a) == FALSE</span>
-
-        assumeTrue(a!= <span style="color: #b751b6;">null</span> &amp;&amp; b != <span style="color: #b751b6;">null</span>);
-
-        <span style="color: #e45649;">if</span>(a.equals(b)){assertTrue(b.equals(a));}
-        <span style="color: #e45649;">if</span>(b.equals(a)){assertTrue(a.equals(b));}
-
-        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">or , a shorter version</span>
-        assertTrue(a.equals(b) == b.equals(a));
-
-        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;"># of tests = 4*4 = 16</span>
-        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;"># of tests passing the preconds: 9</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">fail preconds(null,null;  *,null, null,*)</span>
-
-        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">passing tests</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a,a</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a,*</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">*,a</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">b,b</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">c,c</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">d,d</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">c,d because c.equals(d) == FALSE  == d.equals(c) == FALSE </span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">d,c because d.equals(c) == FALSE  == c.equals(d) == FALSE</span>
-
-        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">failing tests</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">b,c  b.equals(c)  == T</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">c.equals(b)  == F</span>
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">c,b  ....</span>
-    }
-
-  <span style="color: #b751b6;">@Theory</span>
-  <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">equalsTransitivity</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">y</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">z</span>){
-      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">(x.equals(y) and y.equals(z)) =&gt; x.equals(z)</span>
-      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if (x.equals(y) and y.equals(z)) then  x.equals(z)</span>
-
-      assumeTrue(x!=<span style="color: #b751b6;">null</span> &amp;&amp; y!=<span style="color: #b751b6;">null</span> &amp;&amp; z!= <span style="color: #b751b6;">null</span>);
-      <span style="color: #e45649;">if</span>(x.equals(y) &amp;&amp; y.equals(z)){
-          assertTrue(x.equals(z))
-      }
-
-      assumeEquals(x,y);
-      assumeEquals(y,z);
-      assertTrue(x,z);
-  }
-
-
-  <span style="color: #b751b6;">@Theory</span>
-  <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">equalsHashCode</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">y</span>){
-      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if(x==y) then x.hash == y.hash</span>
-
-    assumeTrue(x != <span style="color: #b751b6;">null</span>);
-    assumeTrue(y != <span style="color: #b751b6;">null</span>);
-
-    assumeTrue(x.equals(y));
-    assertTrue(x.hashCode() == y.hashCode());
-
-  }
-
-</pre>
-</div>
-
-
-
-<div id="outline-container-org5ae0dcb" class="outline-3">
-<h3 id="org5ae0dcb"><span class="section-number-3">0.1.</span> Final Reviews</h3>
-<div class="outline-text-3" id="text-0-1">
-<ul class="org-ul">
-<li>Format
-Open
-NO COLLABORATION OF ANY KIND</li>
-<li>LOOK at in-class exercise</li>
+<li><a href="#orgb8530ef">1. Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
+<li><a href="#org2a43767">2. Lecture 1 (8/26)</a></li>
 </ul>
 </div>
-
-<div id="outline-container-org62fa2a5" class="outline-4">
-<h4 id="org62fa2a5"><span class="section-number-4">0.1.1.</span> 5 questions</h4>
-<div class="outline-text-4" id="text-0-1-1">
-<ul class="org-ul">
-<li>specifications
-<ul class="org-ul">
-<li>total vs partial contracts</li>
-<li>repr invs</li>
-<li>know when the code violates/satisfies contracts</li>
-</ul></li>
-<li>Hoare logic
-<ul class="org-ul">
-<li>pre/post conditions</li>
-<li>weakest precondition rules</li>
-<li>verification condition (precondition =&gt; wp)</li>
-<li>sufficiently strong loop invariants</li>
-</ul></li>
-</ul>
-
-
-<p>
-contract for push
-precond: none
-<b>postcond</b>:
-iff null throw exception;
-ensure adequate capacity;
-add element to array
-increase size variable by 1
-</p>
-
-
-<p>
-postcond (better, more general, not implementation specific):
-  throw exception if attempt to add a null element, else add element to the top of the stack
-</p>
-
-
-<p>
-<b><b>toString</b></b>
-elements.length -&gt; size
-</p>
-
-<p>
-<b>repr invs</b>
-</p>
-
-<ul class="org-ul">
-<li>elements != null</li>
-<li>0 &lt;= size &lt;= elements.length()</li>
-<li>no null before size</li>
-
-<li>contents of elements cannot contain null : INCORRECT</li>
-</ul>
-
-<p>
-Prefers ArrayList over Array
-</p>
-<ul class="org-ul">
-<li>if we use list,
-<ul class="org-ul">
-<li>pop doesn't need to set elements[size]=null</li>
-<li>doesn't need size</li>
-<li>ensureCapacity: no need</li>
-</ul></li>
-</ul>
-
-<p>
-contract for <b>pop</b>
-</p>
-<ul class="org-ul">
-<li>precond: none</li>
-<li>if stack is empty, throw exception</li>
-<li>otherwise, remove top of the stack and return that</li>
-</ul>
-
-<p>
-pushAll()  
-</p>
-
-
-
-<p>
-<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-04-25 Mon&gt;</span></span>
-</p>
 </div>
-</div>
-</div>
-<div id="outline-container-org6afb7b3" class="outline-2">
-<h2 id="org6afb7b3"><span class="section-number-2">1.</span> Classes and Inheritence</h2>
+
+<div id="outline-container-orgb8530ef" class="outline-2">
+<h2 id="orgb8530ef"><span class="section-number-2">1.</span> Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-1">
-<p>
-Item 17: Minimize Mutability
-</p>
 <ul class="org-ul">
-<li>Thread safe ;  easier for sharing; efficiency; safety;  less prone to error, easier to design</li>
-<li>5 rules:
+<li>Groups: next time:  1 submission per group</li>
+
+<li>Reconsider In-class 1B (class <code>User</code>)</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #986801;">User</span> <span style="color: #6a1868;">u1</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">u1</span>(<span style="color: #50a14f;">"hello"</span>);
+<span style="color: #986801;">User</span> <span style="color: #6a1868;">u2</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #b751b6;">null</span>);
+u2.equals(u1); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">contract:F, impl: F</span>
+u1.equals(v2); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">contract:F (Javadoc does not say it should raise exception), impl: exception</span>
+
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">how to fix this?</span>
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Check for null and return False</span>
+</pre>
+</div>
+
 <ul class="org-ul">
-<li>don't provide mutators</li>
-<li>don't allow methods to be overriden
+<li>Another example on how to obtain specs from documentation
 <ul class="org-ul">
-<li>prevent careless or malicious sublcasses from compromise the immutability of the superclass</li>
-<li>e.g., making class/method final</li>
+<li>consider <code>remove</code> from <code>iterator</code>: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html">https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html</a>
+<ul class="org-ul">
+<li>Removes from the underlying collection the last element returned by this iterator (optional operation). This method can be called only once per call to next(). The behavior of an iterator is unspecified if the underlying collection is modified while the iteration is in progress in any way other than by calling this method.</li>
+<li>Getting contracts/specs from the English description.
+<ul class="org-ul">
+<li>1st sentence: postcondition, specifying behavior</li>
+<li>2nd:  post  or detail implementation</li>
+<li>3rd:  post, side effects,  but could be a <b>precondition</b>:  statement that the collection should not be modified</li>
 </ul></li>
-<li>make all fields final/private</li>
-<li>ensure exlucive access to mutable components:
-don't provide client direct reference to mutable field; make defense copies</li>
-</ul></li>
-
-<li>constructor should not invoke orridable method</li>
-</ul>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Super</span> {
-    <span style="color: #e45649;">public</span> Super() {m();}
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">m</span>() {<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">initialization code</span>
-    }
-
-<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Sub</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Super</span> {
-    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Date</span> <span style="color: #6a1868;">date</span>;
-    <span style="color: #e45649;">public</span> Sub() {
-        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Super() </span>
-        date = <span style="color: #e45649;">new</span> <span style="color: #986801;">Date</span>();
-    }
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">m</span>() {
-        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">access date variable</span>
-    }
-
-<span style="color: #986801;">Sub</span> <span style="color: #6a1868;">s</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Sub</span>();
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Sub(); Super()  ; Sub's m()</span>
-</pre>
-</div>
-
-<ul class="org-ul">
-<li>Inclass 10A</li>
-</ul>
-
-
-<p>
-<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-04-18 Mon&gt;</span></span>
-</p>
-</div>
-</div>
-<div id="outline-container-orgf98c2a1" class="outline-2">
-<h2 id="orgf98c2a1"><span class="section-number-2">2.</span> Common Java Methods</h2>
-<div class="outline-text-2" id="text-2">
-<ul class="org-ul">
-<li>equals, toString, hash, clone, etc</li>
-
-<li>toString(): show abstract states/ things that are useful for the users</li>
-
-<li><p>
-<code>equals()</code>
-</p>
-<ul class="org-ul">
-<li>reflexive:  x.equals(x)</li>
-<li>symmetric:   x.equals(y)  &lt;-&gt;  y.equals(x)</li>
-<li>transitive:  x.equals(y) &amp;&amp; y.equals(z) -&gt; x.equals(z)</li>
-</ul>
-
-<p>
-Mathematical equivalence:
-</p>
-
-<p>
-Liskov Substitution Principle: if a Rectangle is subtype of a Shape, then Rectangle is also a Shape.
-</p></li>
-</ul>
-
-
-<ul class="org-ul">
-<li>consistent: &#x2026;.</li>
-<li></li>
-</ul>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">final</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">CaseInsensitiveString</span> {
-
-    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">String</span> <span style="color: #6a1868;">s</span>;
-
-    <span style="color: #e45649;">public</span> CaseInsensitiveString(<span style="color: #986801;">String</span> <span style="color: #6a1868;">s</span>) {
-        <span style="color: #e45649;">this</span>.s = Objects.requireNonNull(s);
-
-    }
-
-    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
-        <span style="color: #e45649;">if</span> (o <span style="color: #e45649;">instanceof</span> CaseInsensitiveString)
-            <span style="color: #e45649;">return</span> s.equalsIgnoreCase(
-                ((<span style="color: #986801;">CaseInsensitiveString</span>) o).s);
-        <span style="color: #e45649;">if</span> (o <span style="color: #e45649;">instanceof</span> String)  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">One-way interoperability!</span>
-            <span style="color: #e45649;">return</span> s.equalsIgnoreCase((<span style="color: #986801;">String</span>) o);
-        <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;          
-    }
-
-    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
-        <span style="color: #e45649;">return</span> (o <span style="color: #e45649;">instanceof</span> CaseInsensitiveString  &amp;&amp; s.equalsIgnoreCase(
-                ((<span style="color: #986801;">CaseInsensitiveString</span>) o).s))  
-    }      
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #986801;">CaseInsensitiveString</span> <span style="color: #6a1868;">s0</span> =    CaseInsensitiveString(<span style="color: #50a14f;">"Hello"</span>)
-String s1 = <span style="color: #50a14f;">"hello"</span>;
-s0.equals(s1); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">True</span>
-s1.equals(s0); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">False</span>
-
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">using new equal()</span>
-s0.equals(s1); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">False</span>
-s1.equals(s0); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">False</span>
-</pre>
-</div>
-</div>
-
-<div id="outline-container-org19312bf" class="outline-4">
-<h4 id="org19312bf"><span class="section-number-4">2.0.1.</span> Transitivity</h4>
-<div class="outline-text-4" id="text-2-0-1">
-<div class="org-src-container">
-<pre class="src src-java">       <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Point</span> {
-
-           <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>;
-           <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>;
-
-           <span style="color: #e45649;">public</span> Point(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>) {
-               <span style="color: #e45649;">this</span>.x = x;
-               <span style="color: #e45649;">this</span>.y = y;
-           }
-
-           <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
-               <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(o <span style="color: #e45649;">instanceof</span> Point))
-                   <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
-               <span style="color: #986801;">Point</span> <span style="color: #6a1868;">p</span> = (<span style="color: #986801;">Point</span>)o;
-               <span style="color: #e45649;">return</span> p.x == x &amp;&amp; p.y == y;
-           }
-
-
-
-           ...  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Remainder omitted</span>
-
-       }
-   <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">ColorPoint</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Point</span> {
-       <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Color</span> <span style="color: #6a1868;">color</span>;
-
-
-
-       <span style="color: #e45649;">public</span> ColorPoint(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>, <span style="color: #986801;">Color</span> <span style="color: #6a1868;">color</span>) {
-               <span style="color: #e45649;">super</span>(x, y);
-               <span style="color: #e45649;">this</span>.color = color;
-       }
-       ...  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Remainder omitted</span>
-
-   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">breaks symmetry (does not break transitivity)</span>
-   <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
-       <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(o <span style="color: #e45649;">instanceof</span> ColorPoint))
-          <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
-       <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equals(o) &amp;&amp; ((<span style="color: #986801;">ColorPoint</span>) o).color == color;
-   }
-
-   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">does not break symmetry, breaks transitivity</span>
-   <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
-       <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(o <span style="color: #e45649;">instanceof</span> Point))
-          <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
-
-        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(o <span style="color: #e45649;">instanceof</span> ColorPoint)) <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if o instanceof Point</span>
-           <span style="color: #e45649;">return</span> o.equals(<span style="color: #e45649;">this</span>);       <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">then call equals of Point</span>
-
-       <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">o is colorpoint</span>
-       <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equals(o) &amp;&amp; ((<span style="color: #986801;">ColorPoint</span>) o).color == color;
-
-   }
-
-
- <span style="color: #986801;">ColorPoint</span> <span style="color: #a626a4;">a</span> (1,2,<span style="color: #986801;">Blue</span>);
- <span style="color: #986801;">ColorPoint</span> <span style="color: #a626a4;">b</span> (1,2,<span style="color: #986801;">Red</span>);
- <span style="color: #986801;">Point</span> <span style="color: #a626a4;">c</span> (1,2);
-
- c.equals(a);  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">True</span>
- a.equals(c); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">False</span>
-
- <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">new equal      </span>
- c.equals(a);  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">True</span>
- a.equals(c); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">True</span>
-
- a.equals(c); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">True</span>
- c.equals(b); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">True</span>
- a.equals(b); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">False</span>
-
-
- <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
-     <span style="color: #e45649;">if</span> (o == <span style="color: #b751b6;">null</span>)
-         <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
-
-     <span style="color: #e45649;">if</span> (o.getClass() != getClass())
-         <span style="color: #e45649;">return</span> o.equals(<span style="color: #e45649;">this</span>)
-
-     Point p = (<span style="color: #986801;">Point</span>) o;
-     <span style="color: #e45649;">return</span> p.x == x &amp;&amp; p.y == y;
- }
- a.equals(c); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">True</span>
- c.equals(b); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">True</span>
- a.equals(b); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">True</span>
-
-
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">another prob, breaks LSP</span>
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">points = {Point(1,2), Point(3,4)}</span>
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">c1 = ColorPoint(1,2,Blue)</span>
-<span style="color: #9ca0a4;">//</span>
-
-</pre>
-</div>
-</div>
-</div>
-
-
-<div id="outline-container-org9588cc2" class="outline-3">
-<h3 id="org9588cc2"><span class="section-number-3">2.1.</span> 9A</h3>
-<div class="outline-text-3" id="text-2-1">
-<ul class="org-ul">
-<li>equals(): reflexive, transitivity, symmetry, consistency, null-null behavior</li>
-<li>if isinstance of Point,  if not return False</li>
-<li>Cast obj to Point</li>
-<li>compare obj key attributes with your attributes</li>
-</ul>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">ColorPoint</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Point</span> {  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">First attempt: Standard recipe</span>
-    <span style="color: #e45649;">private</span> <span style="color: #986801;">COLOR</span> <span style="color: #6a1868;">color</span>;
-    ...
-        <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) {
-        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(obj <span style="color: #e45649;">instanceof</span> ColorPoint)) <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
-
-        <span style="color: #986801;">ColorPoint</span> <span style="color: #6a1868;">cp</span> = (<span style="color: #986801;">ColorPoint</span>) obj;
-        <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equals(obj) &amp;&amp; cp.color == color;
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #986801;">Point</span> <span style="color: #6a1868;">a</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Point</span>(1,2)
-ColorPoint b = <span style="color: #e45649;">new</span> <span style="color: #986801;">ColorPoint</span>(1,2, <span style="color: #b751b6;">Color</span>.Red)
-a.equals(b); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">return true</span>
-b.equals(a); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">return false  , break symmetry   </span>
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">private</span> <span style="color: #986801;">COLOR</span> <span style="color: #6a1868;">color</span>;
-...
-    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) {
-    <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(o instance <span style="color: #986801;">of</span> <span style="color: #6a1868;">Point</span>)) <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
-
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">If obj is a normal Point, be colorblind</span>
-    <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(obj <span style="color: #e45649;">instanceof</span> ColorPoint)) <span style="color: #e45649;">return</span> obj.equals(<span style="color: #e45649;">this</span>);
-
-    <span style="color: #986801;">ColorPoint</span> <span style="color: #6a1868;">cp</span> = (<span style="color: #986801;">ColorPoint</span>) obj;
-    <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #986801;">Point</span> <span style="color: #6a1868;">a</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Point</span>(1,2)
-ColorPoint b = <span style="color: #e45649;">new</span> <span style="color: #986801;">ColorPoint</span>(1,2, <span style="color: #b751b6;">Color</span>.Red)
-ColorPoint c = <span style="color: #e45649;">new</span> <span style="color: #986801;">ColorPoint</span>(1,2, <span style="color: #b751b6;">Color</span>.Blue)
-a.equals(b); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">return true</span>
-a.equals(c); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">return true</span>
-b.equals(c); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">return false; break transitivity</span>
-</pre>
-</div>
-
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">CounterPoint</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Point</span>
-  <span style="color: #e45649;">private</span> <span style="color: #e45649;">static</span> <span style="color: #e45649;">final</span> AtomicInteger counter =
-                                  <span style="color: #e45649;">new</span> <span style="color: #986801;">AtomicInteger</span>();
-
-  <span style="color: #e45649;">public</span> CounterPoint(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>) {
-    <span style="color: #e45649;">super</span> (x, y);
-    counter.incrementAndGet();
-  }
-  <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">numberCreated</span>() { <span style="color: #e45649;">return</span> counter.get(); }
-
-  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">@Override public boolean equals (Object obj) {</span>
-  <span style="color: #9ca0a4;">//   </span><span style="color: #9ca0a4;">//don't need this ,  not adding anything new</span>
-  <span style="color: #9ca0a4;">//   </span><span style="color: #9ca0a4;">don't care that (1,2,counter=5)  !=  (1,2,counter=6)</span>
-  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">}</span>
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Client code:</span>
-
-  <span style="color: #986801;">Point</span> <span style="color: #6a1868;">p</span> = PointFactory.getPoint();   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">either a Point or a CounterPoint</span>
-  <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">Point</span>&gt; <span style="color: #6a1868;">importantPoints</span> =   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a set of important points</span>
-    <span style="color: #986801;">boolean</span> b = PointUtilities.isImportant(p);  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">value?</span>
-</pre>
-</div>
-
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">IntSet</span> <span style="color: #e45649;">implements</span> <span style="color: #986801;">Cloneable</span> {  
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Integer</span>&gt; <span style="color: #6a1868;">els</span>;
-    <span style="color: #e45649;">public</span> IntSet () { els = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">Integer</span>&gt;(); }
-    ...
-    <span style="color: #b751b6;">@Override</span>
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) {
-        <span style="color: #e45649;">if</span> <span style="color: #e45649;">this</span> == obj <span style="color: #e45649;">return</span> <span style="color: #b751b6;">true</span>;
-
-        <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(obj <span style="color: #e45649;">instanceof</span> IntSet)) <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
-        <span style="color: #986801;">IntSet</span> <span style="color: #6a1868;">s</span> = (<span style="color: #986801;">IntSet</span>) obj;
-        <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equals(obj) &amp;&amp; <span style="color: #e45649;">this</span>.els.equals(obj.els);
-     }
-
-    <span style="color: #b751b6;">@Override</span>
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">hashCode</span>() { 
-        <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">??</span>
-    }
-
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">adding a private constructor</span>
-    <span style="color: #e45649;">private</span> IntSet (<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Integer</span>&gt; <span style="color: #6a1868;">list</span>) { els = list; }
-
-    <span style="color: #b751b6;">@Override</span> 
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">IntSet</span> <span style="color: #a626a4;">clone</span>() { 
-        <span style="color: #e45649;">return</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IntSet</span> ( <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">Integer</span>&gt;(els));
-    }
-
-}
-</pre>
-</div>
-
-<p>
-result = hash(v1)
-result += 31 * v1  + hash(v2)
-result += 31 * v1  + hash(v3)
-</p>
-
-<p>
-<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-04-11 Mon&gt;</span></span>
-</p>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org4bf699a" class="outline-2">
-<h2 id="org4bf699a"><span class="section-number-2">3.</span> Generics</h2>
-<div class="outline-text-2" id="text-3">
-<ul class="org-ul">
-<li>Don't use Raw types (item 26)</li>
-</ul>
-
-<p>
-List&lt;E&gt; : generic type
-List :  raw type
-List&lt;String&gt;:  parameterized type
-</p>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Now a raw collection type &#8211; don&#8217;t do this</span>
-   <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Collection</span> <span style="color: #6a1868;">stamps</span> = &#8230;; <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Contains only Stamps</span>
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Erroneous insertion of coin into stamp collection</span>
-   stamps.add(<span style="color: #e45649;">new</span> <span style="color: #986801;">Coin</span>(&#8230;));   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Oops!  We&#8217;re set up for ClassCastException later</span>
-
- <span style="color: #e45649;">for</span> (<span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">I</span> = stamps.iterator(); i.hasNext(); ) {
-    <span style="color: #986801;">Stamp</span> <span style="color: #6a1868;">s</span> = (<span style="color: #986801;">Stamp</span>) i.next();       <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Throws ClassCastException</span>
-     &#8230;<span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">Do something with the stamp</span>
-  }
-
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Parameterized collection type - typesafe </span>
-   <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Collection</span>&lt;<span style="color: #986801;">Stamp</span>&gt; <span style="color: #6a1868;">stamps</span> = &#8230;;
-   stamps.add(<span style="color: #e45649;">new</span> <span style="color: #986801;">Coin</span>(&#8230;));  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">result is instead a compile time error, which is good</span>
-
-<span style="color: #e45649;">for</span>(<span style="color: #986801;">Stamp</span> <span style="color: #6a1868;">s</span>: stamps){
-  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">do something with the stamp s</span>
-  }
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">strings</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">String</span>&gt;();
-unsafeAdd(strings, <span style="color: #e45649;">new</span> <span style="color: #986801;">Integer</span>(42));
-<span style="color: #986801;">String</span> <span style="color: #6a1868;">s</span> = strings.get(0);  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">can cause error at runtime</span>
-
- <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">note use of raw types</span>
- <span style="color: #e45649;">private</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">unsafeAdd</span>(<span style="color: #986801;">List</span> <span style="color: #6a1868;">list</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
-    list.add(o);
- }
-
-<span style="color: #e45649;">private</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">unsafeAdd</span>( <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Object</span>&gt; <span style="color: #6a1868;">list</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
-    list.add(o);
-}
-</pre>
-</div>
-</div>
-
-<div id="outline-container-org3dd09a7" class="outline-3">
-<h3 id="org3dd09a7"><span class="section-number-3">3.1.</span> Suppress Warnings (Item 27)</h3>
-<div class="outline-text-3" id="text-3-1">
-<div class="org-src-container">
-<pre class="src src-java">  <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">Lark</span>&gt; <span style="color: #6a1868;">exaltation</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">HashSet</span>();              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">warning</span>
-  <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">Lark</span>&gt; <span style="color: #6a1868;">exaltation</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">HashSet</span>&lt;<span style="color: #986801;">Lark</span>&gt;();              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">no warning</span>
-
-
-  <span style="color: #e45649;">public</span> &lt;<span style="color: #986801;">T</span>&gt; <span style="color: #986801;">T</span>[] <span style="color: #a626a4;">toArray</span> (<span style="color: #986801;">T</span>[] <span style="color: #6a1868;">a</span>) {
-    <span style="color: #e45649;">if</span> (a.length &lt; <span style="color: #986801;">size</span>)
-       <span style="color: #b751b6;">@SuppressWarnings</span>(&#8220;unchecked&#8221;)
-           <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">copyOf copyes Objects so it would warn that Objects[] is not the same as T[]</span>
-       T[]results = (<span style="color: #986801;">T</span>[]) Arrays.copyOf(elements, size, a.getClass());
-       <span style="color: #e45649;">return</span> results
-
-    System.arraycopy(elements, 0, a, 0, size);
-    <span style="color: #e45649;">if</span> (a.length &gt; size)  a[size] = <span style="color: #b751b6;">null</span>;
-    <span style="color: #e45649;">return</span> a; }
-
-<span style="color: #9ca0a4;">/*</span>
-<span style="color: #9ca0a4;">  ArrayList.java:305: warning [unchecked] unchecked cast</span>
-<span style="color: #9ca0a4;">found   : Object[], required T[]    </span>
-<span style="color: #9ca0a4;">    return (T[]) Arrays.copyOf(elements, size, a.getClass());</span>
-<span style="color: #9ca0a4;"> */</span>
-
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org39d3243" class="outline-3">
-<h3 id="org39d3243"><span class="section-number-3">3.2.</span> Prefer Lists over Arrays</h3>
-<div class="outline-text-3" id="text-3-2">
-<p>
-Arrays are <b>covariant</b> and Lists are <b>invariant</b>
-</p>
-<ul class="org-ul">
-<li>Array[Subtype] is a subtype of Array[Type]:  covariant</li>
-<li>List[Subtype] has NO relationship with List[Type]:  invariant</li>
-</ul>
-
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Fails at runtime</span>
-<span style="color: #986801;">Object</span>[] <span style="color: #6a1868;">objectArray</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Long</span>[1];
-objectArray[0] = &#8220;I don&#8217;t fit in<span style="color: #4078f2; font-weight: bold;">!</span>&#8221;;           <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Throws ArrayStoreException</span>
-
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Won&#8217;t compile</span>
-<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Object</span>&gt; <span style="color: #6a1868;">o1</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;<span style="color: #986801;">Long</span>&gt;();
-o1.add(&#8220;I don&#8217;t fit in<span style="color: #4078f2; font-weight: bold;">!</span>&#8221;);                           <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">Incompatible types</span>
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org36167b1" class="outline-3">
-<h3 id="org36167b1"><span class="section-number-3">3.3.</span> Prefer Generic Types (Item 29)</h3>
-<div class="outline-text-3" id="text-3-3">
-<p>
-<b>Generify</b> code
-</p>
-
-<p>
-private Object[] elements; // private E[] elements (1st attempt) /=&gt; private List&lt;E&gt; elements ..
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgf8fbe50" class="outline-3">
-<h3 id="orgf8fbe50"><span class="section-number-3">3.4.</span> Prefer Generic Methods (Item 30)</h3>
-<div class="outline-text-3" id="text-3-4">
-<div class="org-src-container">
-<pre class="src src-java">
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Uses raw types &#8211; unacceptable! (Item 23)</span>
-<span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">Set</span> <span style="color: #a626a4;">union</span> (<span style="color: #986801;">Set</span> <span style="color: #6a1868;">s1</span>, <span style="color: #986801;">Set</span> <span style="color: #6a1868;">s2</span>)  {  
-   <span style="color: #986801;">Set</span> <span style="color: #6a1868;">result</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">HashSet</span>(s1);              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Generates a warning              </span>
-   result.addAll(s2);                                 <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Generates a warning</span>
-   <span style="color: #e45649;">return</span> result;
-}
-
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Generic method </span>
-   <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> &lt;<span style="color: #986801;">E</span>&gt; <span style="color: #986801;">Set</span> &lt;<span style="color: #986801;">E</span>&gt; <span style="color: #a626a4;">union</span> (<span style="color: #986801;">Set</span> &lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">s1</span>, <span style="color: #986801;">Set</span>  &lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">s2</span>)  {  
-   <span style="color: #986801;">Set</span> &lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">result</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">HashSet</span> &lt;<span style="color: #986801;">E</span>&gt; (s1);              
-   result.addAll(s2);                                 
-   <span style="color: #e45649;">return</span> result;
-}
-</pre>
-</div>
-</div>
-</div>
-
-
-<div id="outline-container-org77cb102" class="outline-3">
-<h3 id="org77cb102"><span class="section-number-3">3.5.</span> Bounded WildCards</h3>
-<div class="outline-text-3" id="text-3-5">
-<div class="org-src-container">
-<pre class="src src-java">  <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Stack</span> &lt;<span style="color: #986801;">E</span>&gt; {
-     <span style="color: #e45649;">public</span> Stack()
-     <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> push( <span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span> ) 
-     <span style="color: #e45649;">public</span> E pop()
-     <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> isEmpty()
-  }
-
-    <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">pushAll method without a wildcard type &#8211; deficient!</span>
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">only add E  (but not its subtype)</span>
-        <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">pushAll</span>( <span style="color: #986801;">Iterable</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">src</span>) {
-           <span style="color: #e45649;">for</span> (<span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span> : src) { push(e); }
-        }
-
-
-   <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">wildcard type for parameter that serves as an E producer</span>
-   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">allows everything that is subtypes of E</span>
-        <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">pushAll</span>( <span style="color: #986801;">Iterable</span>&lt;? <span style="color: #e45649;">extends</span> <span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">src</span>) {
-           <span style="color: #e45649;">for</span> (<span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span> : src) { push(e); }
-        }
-
-
-     <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">wildcard type for parameter that serves as an E consumer</span>
-       <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">popAll</span> ( <span style="color: #986801;">Collection</span>&lt;? <span style="color: #e45649;">super</span> <span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">dst</span>) {
-           <span style="color: #e45649;">while</span> (<span style="color: #4078f2; font-weight: bold;">!</span>isEmpty()) { dst.add(pop()); }
-      }
-
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">PECS: procer extends and consumer super</span>
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Chooser</span> {
-    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Object</span>[] <span style="color: #6a1868;">choiceArray</span>;
-
-    <span style="color: #e45649;">public</span> Chooser (<span style="color: #986801;">Collection</span> <span style="color: #6a1868;">choices</span>) {
-        choiceArray = choices.toArray();
-    }
-
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">Object</span> <span style="color: #a626a4;">choose</span>() {
-        <span style="color: #986801;">Random</span> <span style="color: #6a1868;">rnd</span> = ThreadLocalRandom.current();
-        <span style="color: #e45649;">return</span> choiceArray [rnd.nextInt(choiceArray.length)];
-</pre>
-</div>
-
-<p>
-First attempt, 
-</p>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Chooser</span>&lt;<span style="color: #986801;">T</span>&gt; {
-    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">T</span>[] <span style="color: #6a1868;">choiceArray</span>;
-
-    <span style="color: #e45649;">public</span> Chooser (<span style="color: #986801;">Collection</span>&lt;<span style="color: #986801;">T</span>&gt; <span style="color: #6a1868;">choices</span>) {
-        choiceArray = choices.toArray();<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">compiler errors: cannot convert to T,</span>
-
-      <span style="color: #b751b6;">@supresswarning</span>..
-        choiceArray = (<span style="color: #986801;">T</span>[]) choices.toArray();  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">cast to (T[]),  got a warning, supress it because we know it is safe because choiceArray is of type T</span>
-    }
-
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">T</span> <span style="color: #a626a4;">choose</span>() { 
-        <span style="color: #986801;">Random</span> <span style="color: #6a1868;">rnd</span> = ThreadLocalRandom.current();
-        <span style="color: #e45649;">return</span> choiceArray [rnd.nextInt(choiceArray.length)];
-</pre>
-</div>
-
-
-<p>
-List attempt
-</p>
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Chooser</span>&lt;<span style="color: #986801;">T</span>&gt; {
-   <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">T</span>&gt; <span style="color: #6a1868;">choiceList</span>; <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">List instead of Array</span>
-
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">repr inv: choiceList != null, cannot be empty</span>
-
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">preconds:  choices != null, choices cannot be empty, choices not containing null</span>
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">postcondition: creates a Chooser from choices</span>
-
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">alternative:</span>
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">preconds: none</span>
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">postcond:</span>
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if choices is empty, then raise IAE</span>
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if choices is null, throw exception</span>
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if choices contain null, throw some exception</span>
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">creates a Chooser from choices</span>
-   <span style="color: #e45649;">public</span> Chooser(<span style="color: #986801;">Collection</span>&lt;<span style="color: #986801;">T</span>&gt; <span style="color: #6a1868;">choices</span>) {
-       <span style="color: #e45649;">if</span> (choice.size() == 0) <span style="color: #e45649;">throw</span> IllegalArException(); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">ADD</span>
-       <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if choice == null throw ...</span>
-       <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">...</span>
-       choiceList = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span>&lt;&gt;(choices);
-   }
-
-   <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">precond: none</span>
-   <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">post: returns a random choice in choicelist</span>
-   <span style="color: #e45649;">public</span> <span style="color: #986801;">T</span> <span style="color: #a626a4;">choose</span>() {
-       <span style="color: #986801;">Random</span> <span style="color: #6a1868;">rnd</span> = ThreadLocalRandom.current();
-       <span style="color: #e45649;">return</span> choiceList.get(rnd.nextInt(choiceList.size()));
-   }
-
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">precond: none</span>
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">postcond:</span>
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if choice is null throw exception ...</span>
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">otherwise add choice to choicelist</span>
-   <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">addChoice</span>(<span style="color: #986801;">T</span> <span style="color: #6a1868;">choice</span>){
-       <span style="color: #e45649;">if</span> (choice == <span style="color: #b751b6;">null</span>) <span style="color: #e45649;">throw</span> ...;
-       choiceList.add(choice);
-   }
-
-</pre>
-</div>
-
-
-<p>
-<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-04-04 Mon&gt;</span></span>
-</p>
-
-<ul class="org-ul">
-<li><p>
-Comparable vs Comparator
-</p>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">Person</span> <span style="color: #e45649;">implements</span> <span style="color: #986801;">Comparable</span>{
-<span style="color: #986801;">int</span> <span style="color: #6a1868;">age</span>;
-<span style="color: #986801;">String</span> <span style="color: #6a1868;">name</span>;
-<span style="color: #986801;">int</span> <span style="color: #6a1868;">years_of_experiences</span>;
-
-<span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">compareTo</span>(<span style="color: #986801;">Person</span> <span style="color: #6a1868;">p</span>){
-  age.compare(p.age);
-}
-
-
-<span style="color: #e45649;">class</span> <span style="color: #986801;">NamePerson</span> <span style="color: #e45649;">implements</span> <span style="color: #986801;">Comparator</span>{
-<span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">compare</span> (<span style="color: #986801;">Person</span> <span style="color: #6a1868;">p1</span>, <span style="color: #986801;">Person</span> <span style="color: #6a1868;">p2</span>){
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">compare name</span>
-}
-
-
-Coolections.sort(collection_of_person, <span style="color: #e45649;">new</span> <span style="color: #986801;">NamePerson</span>())
-</pre>
-</div>
-
-<ul class="org-ul">
-<li><p>
-Lambda Expression
-</p>
-<div class="org-src-container">
-<pre class="src src-python"><span style="color: #6a1868;">my_list</span> = [1, 2, 3, 4, 5, 6]
-
-<span style="color: #e45649;">def</span> <span style="color: #a626a4;">mydouble</span>(x):
-   <span style="color: #e45649;">return</span> x*2
-
-<span style="color: #6a1868;">my_double_list</span> = <span style="color: #a626a4;">map</span>(mydouble, my_list)
-[2,4,6,10,12]
-
-<span style="color: #6a1868;">my_double_list</span> = <span style="color: #a626a4;">map</span>(<span style="color: #e45649;">lambda</span> x: x*2, my_list)
-
-
-<span style="color: #e45649;">def</span> <span style="color: #a626a4;">mymulby</span>(n):
-    <span style="color: #e45649;">return</span> <span style="color: #e45649;">lambda</span> x: x*n
-
- <span style="color: #6a1868;">double</span> = mymulby(2) <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">double = lambda x:x*2</span>
- double(10)=20
- double(11)=22
-
- <span style="color: #6a1868;">triple</span> = mymulby(3)
- triple(10)=30
- triple(-1)=-3
-
-</pre>
-</div></li>
-</ul></li>
-</ul>
-
-
-
-<p>
-Consider the following Market class.
-</p>
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">Market</span> {
-    <span style="color: #e45649;">private</span> <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">Item</span>&gt; <span style="color: #6a1868;">wanted</span>;           <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">items for which prices are of interest</span>
-    <span style="color: #e45649;">private</span> <span style="color: #986801;">Bag</span>&lt;<span style="color: #986801;">Item</span>, <span style="color: #986801;">Money</span>&gt; <span style="color: #6a1868;">offers</span>;    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">offers to sell items at specific prices</span>
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Note:  Bag isn't a Java data type.  Here, the bag entries are pairs.</span>
-
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">offer</span> (<span style="color: #986801;">Item</span> <span style="color: #6a1868;">item</span>, <span style="color: #986801;">Money</span> <span style="color: #6a1868;">price</span>)
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: item is an element of wanted</span>
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects:  add (item, price) to offers</span>
-
-        <span style="color: #e45649;">public</span> Money buy(<span style="color: #986801;">Item</span> <span style="color: #6a1868;">item</span>)
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: item is an element of the domain of offers</span>
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: choose and remove some (arbitrary) pair (item, price) from</span>
-    <span style="color: #9ca0a4;">//          </span><span style="color: #9ca0a4;">offers and return the chosen price</span>
-        }
-</pre>
-</div>
-<p>
-Suppose that offers are only accepted if they are lower than previous offers.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">Low_Bid_Market</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Market</span> {
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">offer</span> (<span style="color: #986801;">Item</span> <span style="color: #6a1868;">item</span>, <span style="color: #986801;">Money</span> <span style="color: #6a1868;">price</span>)
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: item is an element of wanted</span>
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects:  if (item, price) is not cheaper than any existing pair</span>
-    <span style="color: #9ca0a4;">//           </span><span style="color: #9ca0a4;">(item, existing_price) in offers do nothing</span>
-    <span style="color: #9ca0a4;">//           </span><span style="color: #9ca0a4;">else add (item, price) to offers</span>
-
-Is Low_Bid_Market a valid subtype of Market? Appeal to the methods rule to back up your answer.
-</pre>
-</div>
-
-
-
-<p>
-Suppose that the buy() method always chooses the lowest price on an item.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">Low_Offer_Market</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Market</span> {
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">Money</span> <span style="color: #a626a4;">buy</span>(<span style="color: #986801;">Item</span> <span style="color: #6a1868;">item</span>)
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: item is an element the domain of offers</span>
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: choose and remove pair (item, price) with the </span>
-    <span style="color: #9ca0a4;">//          </span><span style="color: #9ca0a4;">lowest price from offers and return the chosen price</span>
-Is Low_Offer_Market a valid subtype of Market? Appeal to the methods rule to back up your answer.
-
-</pre>
-</div>
-
-
-<p>
-In-class 9
-</p>
-
-<p>
-Approach 1
-</p>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">findPersonOlderThan</span>(<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Person</span>&gt; <span style="color: #6a1868;">listOfPerson</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">age</span>) {
-        <span style="color: #e45649;">for</span> (<span style="color: #986801;">Person</span> <span style="color: #6a1868;">p</span> : listOfPerson) {
-                <span style="color: #e45649;">if</span> (p.getAge() &gt;= age) p.printPerson();
-        }
-}
-</pre>
-</div>
-
-<p>
-Approach 2
-</p>
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">findPersonOlderThan</span>(<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Person</span>&gt; <span style="color: #6a1868;">listOfPerson</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">lower</span>, <span style="color: #986801;">upper</span>) {
-        <span style="color: #e45649;">for</span> (<span style="color: #986801;">Person</span> <span style="color: #6a1868;">p</span> : listOfPerson) {
-                <span style="color: #e45649;">if</span> (p.getAge() &gt;= lower &amp;&amp; p.getAge() &lt;= lower) p.printPerson();
-        }
-}
-</pre>
-</div>
-
-<p>
-Approach 3
-</p>
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">printPersons</span>(<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Person</span>&gt; <span style="color: #6a1868;">roster</span>, <span style="color: #986801;">CheckPerson</span> <span style="color: #6a1868;">tester</span>) {
-        <span style="color: #e45649;">for</span> (<span style="color: #986801;">Person</span> <span style="color: #6a1868;">p</span> : roster) {
-            <span style="color: #e45649;">if</span> (tester.test(p)) {
-                p.printPerson();
-            }
-        }
-    }
-
-<span style="color: #e45649;">interface</span> <span style="color: #986801;">CheckPerson</span> {
-    <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">test</span>(<span style="color: #986801;">Person</span> <span style="color: #6a1868;">p</span>);
-}
-
-
-<span style="color: #e45649;">class</span> <span style="color: #986801;">CheckPersonEligibleForSelectiveService</span> <span style="color: #e45649;">implements</span> <span style="color: #986801;">CheckPerson</span> {
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">test</span>(<span style="color: #986801;">Person</span> <span style="color: #6a1868;">p</span>) {
-        <span style="color: #e45649;">return</span> p.gender == <span style="color: #b751b6;">Person</span>.<span style="color: #b751b6;">Sex</span>.MALE &amp;&amp;
-            p.getAge() &gt;= 18 &amp;&amp;
-            p.getAge() &lt;= 25;
-    }
-}
-
-</pre>
-</div>
-
-<p>
-Approach 4
-</p>
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">printPersons</span>(<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Person</span>&gt; <span style="color: #6a1868;">roster</span>,
-                              <span style="color: #e45649;">new</span> <span style="color: #986801;">CheckPerson</span>{
-                                <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">test</span>(<span style="color: #986801;">Person</span> <span style="color: #6a1868;">p</span>){
-                                    <span style="color: #e45649;">return</span> p.gender == <span style="color: #b751b6;">Person</span>.<span style="color: #b751b6;">Sex</span>.MALE &amp;&amp;
-                                        p.getAge() &gt;= 18 &amp;&amp;
-                                        p.getAge() &lt;= 25;
-                                  }
-                                }
-                              )
-</pre>
-</div>
-
-<p>
-Approach 5
-</p>
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">printPersons</span>(<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Person</span>&gt; <span style="color: #6a1868;">roster</span>,
-                              (Person <span style="color: #986801;">p</span>) -&gt; p.getGender() == <span style="color: #b751b6;">Person</span>.<span style="color: #b751b6;">Sex</span>.MALE &amp;&amp;
-                                p.getAge() &gt;= 18 &amp;&amp;
-                                p.getAge() &lt;= 25
-                              )
-</pre>
-</div>
-
-
-<p>
-<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-03-21 Mon&gt; </span></span> Typing / Liskov Substitution Principle
-</p>
-
-
-<ul class="org-ul">
-<li>Likov Substitution Principle (LSP)
-<ul class="org-ul">
-<li>if B is a substype of A (A is a supertype of B)</li>
-<li>foo(a) =&gt; foo(b)</li>
-<li>property(MAMAL)  =&gt; property(CAT)</li>
-</ul></li>
-</ul>
-
-<p>
-B is a subtype of A
-</p>
-<ul class="org-ul">
-<li>B is more precise than A</li>
-<li>strengthens properties of A</li>
-<li>if A has N methods, B also has those N methods + additional methods (specific for B)</li>
-<li>B's methods are superset of A's</li>
-</ul>
-
-
-<ul class="org-ul">
-<li>If B overrides a method of A, then that method (f') must be at least as strong (stronger or equal to) the original method (f).
-<ul class="org-ul">
-<li>the specification of f' is stronger than or equal the specification of f</li>
-<li>specifications = pre/postconditions</li>
-<li>pre    vs   pre':  pre' should weaker than or equal to pre
-<ul class="org-ul">
-<li>pre =&gt; pre' :  (pre: takes even numbers,   pre':  takes any numbers)</li>
-</ul></li>
-<li>post   vs  post':    post'  should be at least as strong as post 
-<ul class="org-ul">
-<li>post' =&gt; post   (post : returns integer , post': returns positive integer,     post<sub>int</sub> =&gt; any<sub>int</sub> )</li>
-</ul></li>
-</ul></li>
-</ul>
-
-<p>
-void f(Mamal m);
-void f'(Dog m);
-Dog =&gt; Mamal
-Pre' =&gt; Pre
-</p>
-
-<p>
-o.f(m) =&gt; o.f(d)
-</p>
-
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">A</span>:
-<span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce (<span style="color: #986801;">Reducer</span> <span style="color: #6a1868;">x</span>)
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if x is null throw NPE</span>
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if x is not appropriate for this throw IAE</span>
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else reduce this by x</span>
-
-<span style="color: #e45649;">class</span> B:
-<span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce (<span style="color: #986801;">Reducer</span> <span style="color: #6a1868;">x</span>)
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: x is not null</span>
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if x is not appropriate for this throw IAE</span>
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else reduce this by x</span>
-
-<span style="color: #e45649;">class</span> C:
-<span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce (<span style="color: #986801;">Reducer</span> <span style="color: #6a1868;">x</span>)
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if x is null return (normally) with no change to this</span>
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if x is not appropriate for this throw IAE</span>
-<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else reduce this by x</span>
-</pre>
-</div>
-
-
-
-<ul class="org-ul">
-<li>B extends A: violates
-<ul class="org-ul">
-<li>preconds: B's precond (x not null) is stronger than A's precond is True &#x2013; violates LSP</li>
-<li>postconds:
-<ul class="org-ul">
-<li>A's post stronger than B &#x2013; violates LSP</li>
-</ul></li>
-</ul></li>
-
-<li>C extends A:
-<ul class="org-ul">
-<li>preconds: both have no pre, i.e., their preconds are the same &#x2013; sat LSP</li>
-<li>postconds:
-<ul class="org-ul">
-<li>since throwing NPE is stronger than returning normall, C is weaker than A</li>
-<li>since returning normally is more preferred than raising exception, A is weaker than C</li>
-<li>since diff behaviors (when x is null), cannot compare &#x2013; violates LSP</li>
-</ul></li>
-</ul></li>
-
-<li>A extends B:
-<ul class="org-ul">
-<li>preconds: A has no pre and therefore is weaker than B &#x2013; satisfies LSP</li>
-<li>postconds:
-<ul class="org-ul">
-<li>Since A is stronger because it handles null (throwing NPE), but B does not &#x2013; satisfies LSP</li>
-<li>if taken into account the precond of B, then we only deal inputs when x is not null, in which case the behaviors of both are the same (i.e., equivalence and satisfies LSP).</li>
 </ul></li>
 </ul></li>
 </ul>
 
 
 <ul class="org-ul">
-<li>C extends B:
-<ul class="org-ul">
-<li>preconds: C is weaker than B - satisfies LSP</li>
-<li>postconds:
-<ul class="org-ul">
-<li>since C can handle null input, C is stronger than B</li>
-<li>since for non-null cases as required by the pre of B, both C and B hae same posts/behaviors</li>
-</ul></li>
-</ul></li>
+<li>Strong Post vs Weak Pre</li>
 </ul>
-
-
-<ul class="org-ul">
-<li>variance vs contravariance: LSP method rule</li>
-</ul>
-
-<p>
-Greyhound is subtype of Dog, subtype of Animal
-</p>
-
-<p>
-Dog -&gt; Dog   (e.g.,  Dog f(Dog))
-</p>
-
-<ul class="org-ul">
-<li><p>
-GH -&gt; GH  (e.g., Greyhound g(Greyhound))
-not OK
-</p>
-
-<p>
-o.f()  -&gt;  o.g(Dog/GermanShepherd)
-</p></li>
-<li>Greyhound -&gt; Animal (e.g., Animal g(Greyhound))
-not OK
-o.f()  -&gt;  o.g(Dog/GermanShepherd)</li>
-
-<li>Animal -&gt; Greyhound (i.e., Greyhound g(Animal))</li>
-</ul>
-
-<p>
-input type:  precondition (contravariance)
-output type: postcondition (variance)
-</p>
-
-<p>
-type-safe
-</p>
-<ul class="org-ul">
-<li>TypeScript:  unsafe</li>
-<li></li>
-</ul>
-
-
-
-
-<p>
-<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-03-07 Mon&gt;</span></span>
-In-Class 6A: Iterator
-</p>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">list</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">List</span>&lt;&gt;();
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">list = ["b", "c", "d"]</span>
-<span style="color: #986801;">Iterator</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">itr</span> = list.iterator(); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">iter = [b,c,d]</span>
-itr.next(); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">returns b, iter = [c,d]</span>
-itr.next(); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">return c, iter = [d]</span>
-itr.next(); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">return d, iter = []</span>
-itr.hasNext() ; <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">return False</span>
-itr.next(); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">throw NoSuchElem exception</span>
-
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">hasNext: observer</span>
-prev();  hasPrev()  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">achieving something like do/undo</span>
-<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">String</span>&gt; list = <span style="color: #e45649;">new</span> <span style="color: #986801;">List</span>&lt;&gt;();
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">list = ["b", "c", "d"], iter.X = [b,c,d], iter.Y = []</span>
-itr.next(); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">returns b, iter.X = [c,d], iter.Y = [b]</span>
-itr.next(); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">return c, iter.X = [d], iter.Y= [c,b]</span>
-itr.prev(); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">return c, iter.X=[c,d], iter.Y = [b]</span>
-itr.prev();  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">return b, iter.X = [b,c,d], iter.Y = []</span>
-itr.prev(); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">throw NSE exception</span>
-
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">remove():  will modify contents of list</span>
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">list = ["b", "c", "d"]</span>
-<span style="color: #986801;">Iterator</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">itr</span> = list.iterator(); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">iter = [b,c,d], list=[b,c,d], nextCalled=False</span>
-itr.next(); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">returns b, iter = [c,d], list=[b,c,d], nextCalled=True</span>
-itr.next(); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">returns c, iter = [d], list=[b,c,d], nextCalled=True</span>
-itr.remove(); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">iter=[d], list=[b,d], nextCalled=False</span>
-itr.remove(); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">raise Illegal State exception </span>
-
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Broken &#8220;immutable&#8221; time period class</span>
-<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Period</span> {               <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Question 3</span>
-    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Date</span> <span style="color: #6a1868;">start</span>;
-    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Date</span> <span style="color: #6a1868;">end</span>;
-    <span style="color: #84888b; font-style: italic;">/**</span>
-<span style="color: #84888b; font-style: italic;">     * </span><span style="color: #b751b6; font-style: italic;">@param</span><span style="color: #84888b; font-style: italic;"> start the beginning of the period</span>
-<span style="color: #84888b; font-style: italic;">     * </span><span style="color: #b751b6; font-style: italic;">@param</span><span style="color: #84888b; font-style: italic;"> end the end of the period; must not precede start</span>
-<span style="color: #84888b; font-style: italic;">     * </span><span style="color: #b751b6; font-style: italic;">@throws</span><span style="color: #84888b; font-style: italic;"> IAE if start is after end</span>
-<span style="color: #84888b; font-style: italic;">     * </span><span style="color: #b751b6; font-style: italic;">@throws</span><span style="color: #84888b; font-style: italic;"> NPE if start or end null</span>
-<span style="color: #84888b; font-style: italic;">     */</span>
-
-    <span style="color: #e45649;">public</span> Period (<span style="color: #986801;">Date</span> <span style="color: #6a1868;">start</span>, <span style="color: #986801;">Date</span> <span style="color: #6a1868;">end</span>) {
-        <span style="color: #e45649;">if</span> (start.compareTo(end) &gt; 0) <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IAE</span>();
-        <span style="color: #e45649;">this</span>.start = start; <span style="color: #e45649;">this</span>.end = end;  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Question 1</span>
-    }
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">Date</span> <span style="color: #a626a4;">start</span>() { <span style="color: #e45649;">return</span> start;}    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Question 2</span>
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">Date</span> <span style="color: #a626a4;">end</span>()   { <span style="color: #e45649;">return</span> end;}      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Question 2</span>
-}
-</pre>
-</div>
-
-
-<div class="org-src-container">
-<pre class="src src-java">    <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">MyClass</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Period</span>{
-      <span style="color: #e45649;">private</span> <span style="color: #986801;">Date</span> <span style="color: #6a1868;">myDate</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Date</span>(0);
-      <span style="color: #b751b6;">@override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">Date</span> <span style="color: #a626a4;">start</span>(){
-           <span style="color: #e45649;">if</span> (itsTime()){
-               <span style="color: #e45649;">return</span> myDate;   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">returning some(bad)thing I define </span>
-           }
-           <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.start()
-       }
-    }
-
-  <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">LoanProvider</span>{
-      <span style="color: #986801;">Period</span> <span style="color: #6a1868;">p</span>;
-      <span style="color: #e45649;">public</span> LoanProvider(<span style="color: #986801;">Period</span> <span style="color: #6a1868;">p</span>, <span style="color: #986801;">other</span> <span style="color: #6a1868;">stuff</span>){
-          <span style="color: #e45649;">this</span>.p = p; <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">no defense copy because Period is immutable</span>
-
-        <span style="color: #e45649;">this</span>.p.start()
-      }
-  }
-
-<span style="color: #986801;">Period</span> <span style="color: #6a1868;">m</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">myClass</span>(); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">instead of the start define in class Period,  this uses start method from my class which uses myDate</span>
-<span style="color: #986801;">LoanProvider</span> <span style="color: #6a1868;">lp</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">LoanProvider</span>(m, ..) <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">will have start from my class</span>
-
-
-
-</pre>
-</div>
-
-<p>
-<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-28 Mon&gt;</span></span>
-</p>
-
-<p>
-HW
-</p>
-<pre class="example">
-//{N&gt;=0}   # P
-
-// 0&lt;=N  WP
-i = 0;
-while(i &lt; N){
-  i = i + 1;
-}
-//{i == N}   #Q
-</pre>
-
-<ul class="org-ul">
-<li>loop invariant: i&lt;=N</li>
-</ul>
-<p>
-WP(S, Q) =
-WP([i = 0, while(i&lt;N){i = i + 1}], i <code>= N)
-WP([i=0], WP(while(i&lt;N){i = i + 1}, i =</code> N))
-</p>
-
-
-<p>
-WP(while(i&lt;N){i = i + 1}, i <code>= N) =
-I &amp; (I &amp; i &lt; N =&gt; wp(i=i+1, I)) &amp; (I &amp; i &gt;</code> N <code>&gt; i =</code> N)
-</p>
-
-<p>
-// I
-i &lt;= N
-</p>
-
-<p>
-// (I &amp; i &lt; N =&gt; wp(i=i+1, I))
-(i&lt;=N &amp; i &lt; N) <code>&gt; wp(i=i+1, i&lt;=N) =
-(i&lt;=N &amp; i &lt; N) =&gt; i+1 &lt;</code> N
- i &lt; N         <code>&gt;  i &lt;</code> N-1
- i &lt; N         =&gt;  i &lt; N
-   TRUE
-</p>
-
-<p>
-// (I &amp; i &gt;= N <code>&gt; i =</code> N)
-(i&lt;=N &amp; i &gt;= N) <code>&gt; i =</code> N
- i <code>= N         =&gt; i =</code> N
- TRUE
-</p>
-
-<p>
-i &lt;= N &amp; TRUE &amp; TRUE  =  i &lt;= N
-</p>
-
-<p>
-WP(while(i&lt;N){i = i + 1}, i <code>= N) =  i &lt;</code> N
-</p>
-
-<p>
-WP(i:=0, i&lt;=N) = 0 &lt;= N
-</p>
-
-<p>
-VC:
-N&gt;=0   <code>&gt;   0 &lt;</code> N
-TRUE (valid),  program is correct wrt to given P and Q; i &lt;= N
-</p>
-
-<p>
-if precondition is given as N &gt;= 5
-N &gt;= 5   <code>&gt;  0 &lt;</code> N
-N &gt;= 5   <code>&gt;   N &gt;</code> 0  (valid)
-</p>
-
-<p>
-if precondition is given as N &gt;= -5
-N &gt;= -5   <code>&gt;  0 &lt;</code> N
-invalid, cex = N = -4
-</p>
-
-<p>
-N=-1
-</p>
-
-<p>
-i=0
-N=-1
-</p>
-
-
-
-<p>
-verification vs testing
-verification (Hoare logic, abstract interpretation):  is to prove if a program is correct
-</p>
-
-<p>
-testing :  is to prove that a program has a bug
-</p>
-
-<p>
-Disjkstra:  testing is to prove the presence of a bug, not its absence
-</p>
-
-<p>
-Linus Torvalds
-</p>
-
-<p>
-Liskov 5.5-5.10
-REasoning about correctness in Object oriented programming is even harder
-</p>
-
-<p>
-Abstract Function (AF)
-</p>
-<ul class="org-ul">
-<li>toString(): {1,5,10}</li>
-</ul>
-
-<p>
-[1,5,10].toString() =&gt; {1,5,10}
-[5,1,10].toString() =&gt; {1,5,10}
-[1,5,1,10].toString() =&gt; {1,5,10}
-</p>
-
-<p>
-Representative Invariant (RepInv)
-</p>
-<ul class="org-ul">
-<li></li>
-
-<li>Binary Tree:
-<ul class="org-ul">
-<li>exact 2 children</li>
-<li>null or exactly 2 children</li>
-<li></li>
-</ul></li>
-
-<li>Binary Search Tree
-<ul class="org-ul">
-<li>values of the nodes in the right part of a tree are &gt;= the values of the nodes in the left part of the tree</li>
-</ul></li>
-</ul>
-
-
-<p>
-BT<sub>removenode</sub>(BT t, Node n){
-  //repr1 :  each node has 2 children
-  //repr1 holds on BT
-</p>
-
-<p>
-// code to traverse t, find n, and remove n
-&#x2026;
-</p>
-
-<p>
-  //ensure that the result preserves the repr inv (repr1)
-}
-</p>
-
-<p>
-induction (repr/loop) invariant
-</p>
-
-<p>
-toString:  abstract function
-bool repOK() :   check if the data satisfies the repr invs
-</p>
-
-<p>
-IntSet
-public boolean repOK(){
-  if (els == null) return False;
-  //no duplicate check
-  &#x2026;
-}
-</p>
-
-<p>
-modular analysis
-M1, M2, M3, M4  &#x2026;.
-</p>
-
-<p>
-M1: satisfies its specification(pre/postconditions, repr)
-M2: satisfies its specification(pre/postconditions, repr)
-</p>
-
-<p>
-In class exercise 5B
-</p>
-
-<div class="org-src-container">
-<pre class="src src-java">                   <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Members</span> {
-                       <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Members is a mutable record of organization membership</span>
-                       <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">AF: Collect the list as a set</span>
-
-                       <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">rep-inv1: members != null</span>
-                       <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">rep-inv2: members != null &amp;&amp; no duplicates in members</span>
-
-                       <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">for simplicity, assume null can be a member...</span>
-
-                       <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Person</span>&gt; <span style="color: #6a1868;">members</span>;   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">the representation</span>
-
-                       <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">Post: person becomes a member</span>
-                       <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">join</span> (<span style="color: #986801;">Person</span> <span style="color: #6a1868;">person</span>) {
-
-                           <span style="color: #e45649;">if</span>(<span style="color: #4078f2; font-weight: bold;">!</span>members.contains(person)){
-  members.add(person);
-}
-                       }
-
-                       <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">Post: person is no longer a member</span>
-                       <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">leave</span>(<span style="color: #986801;">Person</span> <span style="color: #6a1868;">person</span>) {
-        members.remove(person);
-                       }
-
-</pre>
-</div>
-
-<p>
-repr1  members != null
-</p>
-
-<p>
-join: OK,  satisfy contract  
-leave: OK,  satisfy contract
-</p>
-
-<p>
-repr2 members != null &amp;&amp; members cannot have dups
-</p>
-
-<p>
-join: NO,  satisfy contract
-leave: YES, satisfy contract
-</p>
-</div>
-</div>
-</div>
-
-
-
-<div id="outline-container-orgb4fc421" class="outline-2">
-<h2 id="orgb4fc421"><span class="section-number-2">4.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-14 Mon&gt;  </span></span>  <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-21 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-4">
-<p>
-Hoare Tripple
-{P} S {Q}
-{P} : precondition  (e.g.,  0 &lt; x &lt; 5)
-{Q} : postcondition  (e.g.,  output = x * 2)
-S   : your program (a list of statements)  (e.g., [int y = x * 2; return y;])
-</p>
-
-<p>
-Goal: verify that executing S under the assumption that P holds will result in Q (satisfies Q).
-</p>
-
-<p>
-If this goal is met, then S is correct wrt to P and Q.
-</p>
-
-<p>
-<b>Partial correctness</b>:  also assuming that S will terminate  **
-Total correctness: does not make the assumption that S will terminate (halting problem)
-</p>
-
-<p>
-:= assignment
-= , ==  :  equal sign
-</p>
-
-<p>
-{True} x := 5 {x==5 or x== 6 or x &gt; 6}  &#x2026; valid
-{True} x := 5 {x&gt;1}  &#x2026; valid
-{True} x := 5 {x==5}  &#x2026; valid  (preferred, strongest postcondition)
-</p>
-
-<p>
-{True} x := 5 {x&gt;5}  &#x2026; invalid ,  S is INCORRECT wrt P and Q.
-</p>
-
-<p>
-{x = 1 &amp; y = 2} z:= x/y  {z &lt; 1}  .. valid
-{x = 2 &amp; y = 4} z:= x/y  {z &lt; 1}  .. valid
-{0 &lt; x &lt; y &amp; y  != 0 } z:= x/y  {z &lt; 1}  .. valid    (preferred, weakest precondition)
-{0 &lt; x &lt; y } z:= x/y  {z &lt; 1}  .. valid  (preferred, weakest precondition)
-</p>
-
-<p>
-{x &lt; y} z:= x/y  {z &lt; 1} <b>Invalid tripple</b> , counterexample input x=-1, y = 0
-{x = 0 } z:= x/y  {z &lt; 1} <b>Invalid tripple</b> , counterexample input x=0, y = 0
-{y != 0} z:= x/y  {z &lt; 1} <b>Invalid tripple</b> , counterexample x=2, y=1
-{x &lt;y &amp; y != 0} z:= x/y  {z &lt; 1} <b>Invalid tripple</b> , counterexample y=-1, x = -5
-</p>
-
-
-<p>
-To prove {P} S {Q} is valid, we check if <code>P =&gt; WP(S, Q)</code>    
-</p>
-<ul class="org-ul">
-<li>WP: a function returning the weakest precondition allowing the execution of S to achieve Q</li>
-<li>WP({x:=x+1}, x=5) = x=4</li>
-<li>WP({x:=x+1}, x&lt;5)
-=   x &lt; 4  <b>weakest precondition</b>
-=   x &lt; 0          -
-=   x &lt; -100</li>
-
-<li><b>Assignment</b></li>
-<li>WP(x:= E, Q)  =  Q[x/E]
-WP(x:=3, {x+y = 10})  =   {3+y=10  -&gt;   y = 7]
- WP({x:=x+1}, {x&lt;5}) =   {x+1&lt;5 -&gt;  x &lt; 4}</li>
-
-<li><b>List of statements</b></li>
-<li>WP([S1; S2; S3, &#x2026;], Q) = WP(S1, WP([S2; S3; &#x2026;], Q))</li>
-</ul>
-<p>
-WP([x:=x+1, y=y*x], {y==2*z}) =
-   WP(x:=x+1,WP(y=y*x, {y==2*z})) = 
-   WP(x:=x+1, {y*x=2*z}) = 
-   {y*(x+1)==2*z}
-</p>
-
-<ul class="org-ul">
-<li><b>Condition</b></li>
-<li>WP(if b then S1 else S2, {Q})  =
-b =&gt; WP(S1,Q)  &amp;&amp;  !b =&gt; WP(S2, Q)</li>
-</ul>
-
-<p>
-WP(if x &gt; 0 then y :=x  else y:= 0,  {y &gt; 0}) =
-x &gt; 0  =&gt; WP(y:=x, y&gt;0)  &amp;&amp;  x&lt;=0 =&gt; WP(y:=0, y&gt;0)
-x &gt; 0  =&gt; x&gt;0            &amp;&amp;  x&lt;=0 =&gt; 0 &gt; 0
-  True                   &amp;&amp;  x&lt;=0  =&gt; False
-  True                   &amp;&amp;  !(x&lt;=0)
-                    !(x&lt;=0) 
-</p>
-
-<p>
-{x &gt; 0} if x &gt; 0 then y :=x  else y:= 0  {y &gt; 0}
-</p>
-
-
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">x</th>
-<th scope="col" class="org-left">y</th>
-<th scope="col" class="org-left">x &amp;&amp; y</th>
-<th scope="col" class="org-left">x OR y</th>
-<th scope="col" class="org-left">!x</th>
-<th scope="col" class="org-left">!x OR y</th>
-<th scope="col" class="org-left">&#xa0;</th>
-</tr>
-
-<tr>
-<th scope="col" class="org-left">&#xa0;</th>
-<th scope="col" class="org-left">&#xa0;</th>
-<th scope="col" class="org-left">&#xa0;</th>
-<th scope="col" class="org-left">&#xa0;</th>
-<th scope="col" class="org-left">&#xa0;</th>
-<th scope="col" class="org-left">&#xa0;</th>
-<th scope="col" class="org-left">&#xa0;</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left">T</td>
-<td class="org-left">T</td>
-<td class="org-left">T</td>
-<td class="org-left">T</td>
-<td class="org-left">F</td>
-<td class="org-left">T</td>
-<td class="org-left">(F or T = T)</td>
-</tr>
-
-<tr>
-<td class="org-left">T</td>
-<td class="org-left">F</td>
-<td class="org-left">F</td>
-<td class="org-left">T</td>
-<td class="org-left">F</td>
-<td class="org-left">F</td>
-<td class="org-left">(F OR F = F)</td>
-</tr>
-
-<tr>
-<td class="org-left">F</td>
-<td class="org-left">T</td>
-<td class="org-left">F</td>
-<td class="org-left">T</td>
-<td class="org-left">T</td>
-<td class="org-left">T</td>
-<td class="org-left">(T or T = T)</td>
-</tr>
-
-<tr>
-<td class="org-left">F</td>
-<td class="org-left">F</td>
-<td class="org-left">F</td>
-<td class="org-left">F</td>
-<td class="org-left">T</td>
-<td class="org-left">T</td>
-<td class="org-left">(T or F = T)</td>
-</tr>
-</tbody>
-</table>
-
-
-
-<ul class="org-ul">
-<li><b>Loop</b>
-<ul class="org-ul">
-<li>User <b>has to</b> provide Loop invariants to compute WP of loop</li>
-<li>Loop invariant I: captures the meaning of the loop (manually provided by you)
-<ul class="org-ul">
-<li>property that holds when the loop entered</li>
-<li>is preserved after the loop body is executed (inductive loop invariant)</li>
-</ul></li>
-</ul></li>
-</ul>
-
-<p>
-WP(while [I] b do S, {Q}) =
-   I &amp;&amp; (I &amp;&amp; b =&gt; WP(S,I) &amp;&amp; (I &amp;&amp; !b)  =&gt; Q)
-</p>
-
-<div class="org-src-container">
-<pre class="src src-python">{N &gt;= 0}   // precondition
-i := 0
-<span style="color: #e45649;">while</span> (i &lt; N)
-   i := N
-{i == N} // postcondition   
-</pre>
-</div>
-
-
-<ul class="org-ul">
-<li>True / 0 &gt;= 0 // LOOP INV</li>
-<li>N &gt;= i  LOOP INV</li>
-<li>N &gt;= 0  LOOP INV</li>
-<li>i &gt;= 0  LOOP INV</li>
-<li>N &gt;= i &amp;&amp; N &gt;= 0 &amp;&amp; i &gt;= 0</li>
-</ul>
-
-
-<ul class="org-ul">
-<li>N &gt;= 1  X  cex: N = 0</li>
-<li>N &gt; i    X cex: N =0</li>
-</ul>
-
-
-<p>
-I: N &gt;= i
-WP({i := 0; while[i&lt;=N] i &lt; N do i:= N}, {i <code>= N})
-WP({i :</code> 0}; WP(while[i&lt;=N] i &lt; N do i:= N}, {i == N}))
-</p>
-
-
-<p>
-WP(while[i&lt;=N] i &lt; N do i:=N, {i <code>= N}) =
-// WP(while[i&lt;=N] i &lt; N do i:=N, {i =</code> N}) 
-  I &amp;&amp; (I &amp;&amp; b =&gt; WP(S,I) &amp;&amp; (I &amp;&amp; !b)  =&gt; Q)
-</p>
-
-<ol class="org-ol">
-<li>i &lt;= N</li>
-</ol>
-
-<p>
-&amp;&amp;
-</p>
-
-<ol class="org-ol">
-<li>(i&lt;= N &amp;&amp; i&lt; N) <code>&gt; WP(i:=N, {i&lt;=N})
-     (i&lt;</code> N &amp;&amp; i&lt; N) <code>&gt; N &lt;</code> N
-i&lt;N          =&gt;  TRUE
-    TRUE</li>
-</ol>
-<p>
-&amp;&amp;
-</p>
-
-<ol class="org-ol">
-<li>(i&lt;= N &amp;&amp; !(i &lt; N))  <code>&gt; i =</code> N
-(i &lt;=N  &amp;&amp; i&gt;=N)     <code>&gt; i =</code> N
-   i = N    =&gt;  i = N
-   TRUE</li>
-</ol>
-
-<p>
-i &lt;= N &amp;&amp; TRUE &amp;&amp; TRUE = i&lt;=N
-</p>
-
-<p>
-WP({i := 0}; WP(while[i&lt;=N] i &lt; N do i:= N}, {i <code>= N}))
-WP({i :</code> 0}; i&lt;=N)
-=  0 &lt;= N
-</p>
-
-<p>
-N &gt;= 0 =&gt;  0&lt;=N   .. YES
-</p>
-
-<p>
-{N &gt;= -5}  i:=0 ; while (i&lt;N) i:=N  {i=N}
-WP(i:=0 ; while (i&lt;N) i:=N,  {i=N})
- 0&lt;=N
-</p>
-
-<p>
-N&gt;=-5   =&gt;  0&lt;=N
-</p>
-
-<p>
-True because (we can use N=-5)   <code>&gt;   False (b/c 0&lt;</code>-5 is false)
-</p>
-
-<p>
-WP(i:=0; WP(while &#x2026;, i=N))
-WP(i:=0; i&lt;=N)
-0&lt;=N
-N&gt;=0  =&gt; 0&lt;=N  YES
-</p>
-
-<p>
-N&gt;=-5 =&gt;  0&lt;=N  NO
-</p>
-
-
-<ul class="org-ul">
-<li>INVALID HOARE TRIPPLE DOES NOT MEAN THE PROGRAM IS WRONG (i.e., assume pre, execute prog, does not satisfy post)</li>
-<li>VALID HOARE DOES IMPLY THAT THE PROGRAM IS CORRECT</li>
-</ul>
-
-
-
-<p>
-Chosen I = N &gt;= 0
-</p>
-
-<p>
-WP(while[N&gt;=0] i &lt; N do i:=N, {i <code>= N}) =
-// WP(while[N&gt;=0] i &lt; N do i:=N, {i =</code> N}) 
-  I &amp;&amp; (I &amp;&amp; b =&gt; WP(S,I) &amp;&amp; (I &amp;&amp; !b)  =&gt; Q)
-</p>
-
-<ol class="org-ol">
-<li>N&gt;=0</li>
-</ol>
-
-<p>
-&amp;&amp;
-</p>
-
-<ol class="org-ol">
-<li>(N&gt;=0 &amp;&amp; i&lt; N) =&gt; WP(i:=N, {N&gt;=0})
-(N&gt;=0 &amp;&amp; i&lt; N) =&gt; i&gt;=0</li>
-</ol>
-
-<p>
-&amp;&amp;
-</p>
-
-<ol class="org-ol">
-<li>(N&gt;=0  &amp;&amp; !(i &lt; N))  <code>&gt; i =</code> N
-(N&gt;=0  &amp;&amp; i&gt;=N)     <code>&gt; i =</code> N
-i &gt;= 0    <code>&gt;  i =</code> N</li>
-</ol>
-
-<p>
-1 &amp;&amp; 2 &amp;&amp; 3
-R = N &gt;= 0 &amp;&amp; (N &gt;=0 &amp;&amp; i &lt; N <code>&gt; i &gt;</code> 0) &amp;&amp; (i &gt;= 0 <code>&gt; i =</code> N)
-</p>
-
-<p>
-wp(i:=0, R) =
-N &gt;= 0 &amp;&amp; (N &gt;=0 &amp;&amp; 0 &lt; N <code>&gt; 0 &gt;</code> 0) &amp;&amp; (0 &gt;= 0 <code>&gt; 0 =</code> N)
-N &gt;= 0 &amp;&amp;  TRUE  &amp;&amp;  (0 <code>= N)
-N &gt;</code> 0 &amp;&amp; (0 <code>= N)
-0 =</code> N
-</p>
-
-<p>
-N &gt;= 0   <code>&gt;  0 =</code> N   NO  (cex N = 5)
-</p>
-
-<p>
-*
-</p>
-
-<ul class="org-ul">
-<li><p>
-Loop inv location
-</p>
-
-<p>
-while b {
-//body
-}
-</p>
-
-<p>
-while (1) {
- <b><b>[I]</b></b>
- if(!b) break
- //body
-}
-</p></li>
-
-<li>simplification</li>
-</ul>
-
-
-<ul class="org-ul">
-<li><p>
-insufficiently strong
-</p>
-
-<p>
-I1  i &gt; 0
-I2  N &gt; 0 
-I3  
-I4
-</p>
-
-<p>
-N, i , x
-</p></li>
-</ul>
-
-
-<p>
-0 = 0
-</p>
-
-
-<ul class="org-ul">
-<li>(x &lt; y &amp;&amp; y &lt; 10)  =&gt;   x &lt; 101</li>
-<li>x &lt; 100            =&gt; x &lt; 101</li>
-<li>x &lt; 100000         =&gt;  x &lt; 101</li>
-</ul>
-</div>
-</div>
-
-
-<div id="outline-container-orgc6cb428" class="outline-2">
-<h2 id="orgc6cb428"><span class="section-number-2">5.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-02-07 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-5">
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">months</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">principal</span>, <span style="color: #986801;">double</span> <span style="color: #6a1868;">rate</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">payment</span>){
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.</span>
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects:  return the number of months required to pay off the principal</span>
-
-}
-</pre>
-</div>
-
-
-<p>
-check vs unchecked exceptions
-</p>
-<ul class="org-ul">
-<li>Checked exception: exception that should be recoverable (and you should write code (try/catch&#x2026;) to handle it)</li>
-<li>Unchecked exception: exceptrions that we cannot recover from / fatal errors</li>
-</ul>
-
-
-<p>
-Polynomial
-</p>
-<ul class="org-ul">
-<li>10</li>
-<li>ax + bx + 5</li>
-<li>10x + 5x<sup>2</sup> - 4</li>
-
-<li>c<sub>1</sub>*x<sub>1</sub><sup>d</sup><sub>1</sub> + c<sub>2</sub>*x<sub>2</sub><sup>d</sup><sub>2</sub></li>
-</ul>
-
-
-<ul class="org-ul">
-<li>5x*y  # does not allow in Poly implementation</li>
-<li>cannot have negative degree (allows deg &gt;= 0)</li>
-<li>coefficients are integers</li>
-</ul>
-
-<p>
-5+3*x<sup>2</sup>
-Poly(deg=2, trms=[5,3])    5+3*x
-Poly(deg=2, trms=[5,0,3])  5+3x<sup>2</sup>
-</p>
-
-<p>
-Poly(deg=2, trms=[5,0,3,0,0,0,0,0&#x2026;])  not allowed in Poly implementation
-</p>
-
-<p>
-Abstraction
-Abstract representation: 5+3*x
-Concrete/Internal representation:
-Poly(deg=2, trms=[5,0,3],
-Poly(deg=2, trms=[5,0,3,0,0,0,0,0&#x2026;]))
-</p>
-
-<p>
-toString()
-</p>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Poly</span> {
-    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span>[] <span style="color: #6a1868;">trms</span>;
-    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">deg</span>;
-
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: Initializes this to be the zero polynomial</span>
-    <span style="color: #e45649;">public</span> Poly() {
-       trms = <span style="color: #e45649;">new</span> <span style="color: #986801;">int</span>[1]; trms[0] = 0;
-       deg = 0;
-    }
-
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: If n &lt; 0 throws IllegalArgumentException</span>
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else initializes this to be the polynomial c*x^n</span>
-    <span style="color: #e45649;">public</span> Poly(<span style="color: #986801;">int</span> <span style="color: #6a1868;">c</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">n</span>) <span style="color: #e45649;">throws</span> <span style="color: #986801;">IllegalArgumentException</span> {
-       <span style="color: #e45649;">if</span> (n &lt; 0) {
-          <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IllegalArgumentException</span>(<span style="color: #50a14f;">"Poly(int, int) constructor"</span>);
-       }
-       <span style="color: #e45649;">if</span> (c == 0) {
-          trms = <span style="color: #e45649;">new</span> <span style="color: #986801;">int</span>[1]; trms[0] = 0;
-          deg = 0;
-          <span style="color: #e45649;">return</span>;
-       }
-       trms = <span style="color: #e45649;">new</span> <span style="color: #986801;">int</span>[n+1];
-       <span style="color: #e45649;">for</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span>=0; i &lt; <span style="color: #986801;">n</span>; i++) {
-          trms[i] = 0;
-       }
-       trms[n] = c;
-       deg = n;
-    }
-
-    <span style="color: #e45649;">private</span> Poly (<span style="color: #986801;">int</span> <span style="color: #6a1868;">n</span>) {
-       trms = <span style="color: #e45649;">new</span> <span style="color: #986801;">int</span>[n+1];
-       deg = n;
-    }
-
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: returns the degree of this</span>
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">degree</span>() {
-       <span style="color: #e45649;">return</span> deg;
-    }
-
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: returns the coefficent of the term of this whose exponent is d</span>
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">coeff_book</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">d</span>){
-        <span style="color: #e45649;">if</span> (d &lt; 0 || d &gt; deg) <span style="color: #e45649;">return</span> 0 <span style="color: #e45649;">else</span> <span style="color: #e45649;">return</span> terms[d];
-    }
-
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">@throws IAE if d &lt; 0</span>
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: returns the coefficent of the term of this whose exponent is d</span>
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">coeff</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">d</span>) {
-       <span style="color: #e45649;">if</span> (d &lt; 0) <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IAE</span>();
-       <span style="color: #e45649;">return</span> (d &gt; deg) ? 0 : trms[d];
-    }
-
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: If q is null throw NullPointerException</span>
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return the Poly this - q</span>
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">Poly</span> <span style="color: #a626a4;">sub</span>(<span style="color: #986801;">Poly</span> <span style="color: #6a1868;">q</span>) <span style="color: #e45649;">throws</span> <span style="color: #986801;">NullPointerException</span> {
-       <span style="color: #e45649;">return</span> add(q.minus());
-    }
-
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: return the Poly -this</span>
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">Poly</span> <span style="color: #a626a4;">minus</span>() {
-       <span style="color: #986801;">Poly</span> <span style="color: #6a1868;">r</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Poly</span>(deg);
-       <span style="color: #e45649;">for</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span>=0; i &lt;= deg; i++) {
-          r.trms[i] = -trms[i];
-       }
-       <span style="color: #e45649;">return</span> r;
-    }
-
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: If q is null throw NullPointerException</span>
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return the Poly this + q</span>
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">Poly</span> <span style="color: #a626a4;">add</span>(<span style="color: #986801;">Poly</span> <span style="color: #6a1868;">q</span>) {
-       <span style="color: #986801;">Poly</span> <span style="color: #6a1868;">la</span>, <span style="color: #6a1868;">sm</span>;
-       <span style="color: #e45649;">if</span> (deg &gt; q.deg) {
-          la = <span style="color: #e45649;">this</span>; sm = q;
-       }
-       <span style="color: #e45649;">else</span> {
-          la = q; sm = <span style="color: #e45649;">this</span>;
-       }
-       <span style="color: #986801;">int</span> <span style="color: #6a1868;">newdeg</span> = la.deg;
-       <span style="color: #e45649;">if</span> (deg == q.deg) {
-          <span style="color: #e45649;">for</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">k</span> = deg; k &gt; 0; k--) {
-             <span style="color: #e45649;">if</span> (trms[k] + q.trms[k] != 0) {
-                <span style="color: #e45649;">break</span>;
-             }
-             <span style="color: #e45649;">else</span> {
-                newdeg--;
-             }
-          }
-       }
-       <span style="color: #986801;">Poly</span> <span style="color: #6a1868;">r</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Poly</span>(newdeg);
-       <span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span>;
-       <span style="color: #e45649;">for</span> (i = 0; i &lt;= sm.deg &amp;&amp; i &lt;= newdeg; i++) {
-           r.trms[i] = sm.trms[i] + la.trms[i];
-       }
-       <span style="color: #e45649;">for</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">j</span> = i; j &lt;= newdeg; j++) {
-          r.trms[j] = la.trms[j];
-       }
-       <span style="color: #e45649;">return</span> r;
-    }
-
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: If q is null throw NullPointerException</span>
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return the Poly this * q</span>
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">Poly</span> <span style="color: #a626a4;">mul</span>(<span style="color: #986801;">Poly</span> <span style="color: #6a1868;">q</span>) <span style="color: #e45649;">throws</span> <span style="color: #986801;">NullPointerException</span> {
-
-       <span style="color: #e45649;">if</span> ((q.deg == 0 &amp;&amp; q.trms[0] == 0) || (deg == 0 &amp;&amp; trms[0] == 0)) {
-          <span style="color: #e45649;">return</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">Poly</span>();
-       }
-
-       <span style="color: #986801;">Poly</span> <span style="color: #6a1868;">r</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Poly</span>(deg + q.deg);
-       r.trms[deg + q.deg] = 0;
-       <span style="color: #e45649;">for</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = 0; i &lt;= deg; i++) {
-          <span style="color: #e45649;">for</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">j</span> = 0; j &lt;= q.deg; j++) {
-             r.trms[i+j] += trms[i]*q.trms[j];
-          }
-       }
-       <span style="color: #e45649;">return</span> r;
-    }
-
-    <span style="color: #e45649;">public</span> <span style="color: #986801;">String</span> <span style="color: #a626a4;">toString</span>() {
-       <span style="color: #986801;">String</span> <span style="color: #6a1868;">r</span> = <span style="color: #50a14f;">"Poly:"</span>;
-
-       <span style="color: #e45649;">if</span> (deg == 0 || trms[0] != 0) {
-           r += <span style="color: #50a14f;">" "</span> + trms[0];
-       }
-
-       <span style="color: #e45649;">for</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = 1; i &lt;= deg; i++) {
-          <span style="color: #e45649;">if</span> (trms[i] &lt; 0) {
-             r += <span style="color: #50a14f;">" - "</span> + -trms[i] + <span style="color: #50a14f;">"x^"</span> + i;
-          }
-          <span style="color: #e45649;">else</span> <span style="color: #e45649;">if</span> (trms[i] &gt; 0) {
-             r += <span style="color: #50a14f;">" + "</span> +  trms[i] + <span style="color: #50a14f;">"x^"</span> + i;
-          }
-       }
-       <span style="color: #e45649;">return</span> r;
-    }
-}
-</pre>
-</div>
-
-
-<p>
-q = [1,2,3]
-q' = q.enQueue(4)
-q' = [1,2,3,4]   Queue.elements=[1,2,3,4] , Queue.size=4
-q = [1,2,3]
-</p>
-
-<p>
-q = [1,2,3]
-e = q.peek(); //e = 1
-q' = q.deQueue();
-q' = [2,3] 
-</p>
-
-
-<p>
-&#x2014;
-Hoare Logic
-</p>
-<ul class="org-ul">
-<li>Automatic way to <b>verify</b> that an implementation satisfies a given specification (pre/post conditions)</li>
-<li>Imperative programs (the version I am showing you does not deal with advanced OO concepts, no inheritence, no pointers/references)</li>
-<li></li>
-</ul>
-
-
-<p>
-Hoare Tripple
-{P} S {Q}
-{P} : precondition  (e.g.,  0 &lt; x &lt; 5)
-{Q} : postcondition  (e.g.,  output = x * 2)
-S   : your program (a list of statements)  (e.g., [int y = x * 2; return y;])
-</p>
-
-<p>
-Goal: verify that executing S under the assumption that P holds will result in Q (satisfies Q).
-</p>
-
-<p>
-If this goal is met, then S is correct wrt to P and Q.
-</p>
-
-<p>
-<b>Partial correctness</b>:  also assuming that S will terminate  **
-Total correctness: does not make the assumption that S will terminate (halting problem)
-</p>
-
-<p>
-:= assignment
-</p>
-
-
-<p>
-{True} x := 5 {x==5 or x== 6 or x &gt; 6}  &#x2026; valid
-{True} x := 5 {x&gt;1}  &#x2026; valid
-{True} x := 5 {x==5}  &#x2026; valid  (preferred, strongest)
-</p>
-
-<p>
-{True} x := 5 {x&gt;5}  &#x2026; invalid ,  S is INCORRECT wrt P and Q.
-</p>
-</div>
-</div>
-
-
-<div id="outline-container-org51a0b70" class="outline-2">
-<h2 id="org51a0b70"><span class="section-number-2">6.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-31 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-6">
-<ul class="org-ul">
-<li><p>
-Specification/Contract of a program
-</p>
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #986801;">int</span> <span style="color: #a626a4;">add2numbers</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>){
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">requires/preconditions</span>
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">- x and y are integers</span>
-
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">effects/postconditions</span>
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">- z is integer</span>
-    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">- z = x + y</span>
-    <span style="color: #e45649;">return</span> z;
-}
-</pre>
-</div>
-
-<pre class="example">
-
-List sortAscending(List&lt;Int&gt; l){
-   //preconds:  l is a list of integers 
-   //l cannot be null
-   //l cannot contain null
-
-   //postconditions:
-   - l' has an ascending order 
-   - l' is a permutation of l
-   return l';
-}
-</pre></li>
-</ul>
-
-
-<div class="org-src-container">
-<pre class="src src-java"><span style="color: #986801;">User</span> <span style="color: #6a1868;">u</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(&#8220;SWE619&#8221;);
-u.equals(u); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">contract: T, impl: T</span>
-u.equals(<span style="color: #b751b6;">null</span>); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">contract: F, impl: F</span>
-u.equals(<span style="color: #50a14f;">"SWE619"</span>); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">contract: F, impl: F</span>
-
-<span style="color: #986801;">User</span> <span style="color: #6a1868;">v</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #b751b6;">null</span>);
-v.equals(u); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">contract:F, impl: F</span>
-u.equals(v); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">contract:F, impl: exception</span>
-
-</pre>
-</div>
-
-
-<p>
-testing vs verfication
-</p>
-<ul class="org-ul">
-<li>testing:  test if the program works over a <b>finite</b> number of inputs</li>
-<li>verification: formally/mathematically show/guarantee that a program works over <b>all possible</b> inputs
-<ul class="org-ul">
-<li>Nasa rovers</li>
-<li>A318: formally proved that no floating pt errs</li>
-<li>robotic surgical arms</li>
-</ul></li>
-</ul>
-
-
 
 <p>
 Precondition (P):
@@ -2405,39 +83,35 @@ Postcondition (Q)
 <ul class="org-ul">
 <li>if precondition is wrong: blame client</li>
 <li>if (precondition is met) postcondition is wrong: blame developer</li>
+
+<li>Reconsider the intdiv example from previous class</li>
 </ul></li>
 </ul>
 
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #986801;">int</span> <span style="color: #a626a4;">intdiv</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>){
+  <span style="color: #9ca0a4;">/*</span>
+<span style="color: #9ca0a4;">  Return the integer division result x/y. </span>
 
-<ul class="org-ul">
-<li><p>
-sqrt example  :  y = sqrt(x)
-preconditions:
-</p>
-<ul class="org-ul">
-<li>x &gt; 0 (preferred)</li>
-<li>x &gt;= 0 (preferred)</li>
-<li>x is an integer (preferred)</li>
-<li>100 &lt;= x  &lt;= 200  (not preferred)</li>
-<li>x = 101  (not preferred)</li>
+<span style="color: #9ca0a4;">  precond:</span>
+<span style="color: #9ca0a4;">  - x and y are integers # (already given in type)</span>
+<span style="color: #9ca0a4;">  - y cannot be zero   # better if we can remove this</span>
 
-<li>best precondition: no precondition</li>
-</ul>
+<span style="color: #9ca0a4;">  postcond:</span>
+<span style="color: #9ca0a4;">  - z is a number  # weak</span>
+<span style="color: #9ca0a4;">  - z is an integer  # weak</span>
+<span style="color: #9ca0a4;">  - z = x // y  # strong</span>
+<span style="color: #9ca0a4;">  */</span>
 
-<p>
-postconditions:
-</p>
-<ul class="org-ul">
-<li>y is a number</li>
-<li>y &lt;= x</li>
-<li>y*y == x (-/+ epsilon)   ~~ y = x/y  (preferred)</li>
-</ul></li>
-</ul>
+  <span style="color: #e45649;">return</span> z
+}
+</pre>
+</div>
 
 
 
 <ul class="org-ul">
-<li>partial vs total specification
+<li>Total vs Partial contract
 <ul class="org-ul">
 <li>partial specification:  has a precondition</li>
 <li>total specification:  has NO precondition</li>
@@ -2461,7 +135,7 @@ sqrt(x):
 </p>
 
 <p>
-//div<sub>xy</sub>(x,y):   output = x/y
+//div_xy(x,y):   output = x/y
 partial spec:
  precond:  y != 0
  post :   y*output == x
@@ -2473,190 +147,230 @@ total spec:
   postcondition:   if y is 0, raise exception(DivByZero);
   y*output = 
 </p></li>
+
+<li>In-class 2A (<code>tail</code> implementation)
+<ul class="org-ul">
+<li>Discussion</li>
+</ul></li>
+
+<li>If have time, do 2B</li>
+
+<li>If have more time,  do basic logic terminologies</li>
 </ul>
-
-
-
-<p>
-list = null,  NPE
-list = [], IOBE
-list = [1], []  *
-list = [1,2,3] , [2,3] *
-</p>
-
-<p>
-pre: non-empty list and non-null
-post: remove the head, return the rest (tail)
-</p>
-
-<p>
-//total
-pre: 
-post:
-if  (list is []) throw IOBE
-if (list is null) throw NPE
-remove the head, return the rest (tail)
-</p>
-
-<p>
-specification too specific to implentation (remove(0)), to fix: throws IAE instead of IOBE when list is []
-</p>
 </div>
 </div>
 
-<div id="outline-container-org926fb02" class="outline-2">
-<h2 id="org926fb02"><span class="section-number-2">7.</span> <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-01-24 Mon&gt;</span></span></h2>
-<div class="outline-text-2" id="text-7">
+
+<div id="outline-container-org2a43767" class="outline-2">
+<h2 id="org2a43767"><span class="section-number-2">2.</span> Lecture 1 (8/26)</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org3832e58" class="outline-3">
+<h3 id="org3832e58"><span class="section-number-3">2.1.</span> Specification Example</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
-What does it mean to write correct software?
+Sorting (e.g., quicksort)
 </p>
 <ul class="org-ul">
-<li>It conforms to some expectation (software contracts or specificaions)</li>
-<li>Should pass its testsuite  ..</li>
-<li>Should not have exception or performance issues</li>
+<li>Input: a list of integers numbers, e.g., [2,1,5,10]</li>
+
+<li>Output:  
+<ul class="org-ul">
+<li><b>output is a permutation of input</b> and <b>output is in sored sorder (e.g., ascending)</b></li>
+</ul></li>
+
+<li>Alg:
+<ul class="org-ul">
+<li>additional requirements, e.g., (involving pivot, worst case complexity n^2, amortized nlg n)</li>
+</ul></li>
 </ul>
+</div>
+</div>
 
-
+<div id="outline-container-org379b159" class="outline-3">
+<h3 id="org379b159"><span class="section-number-3">2.2.</span> Definitions</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Software Specifications (e.g., specification of a program/methoad/function)
+</p>
 <ul class="org-ul">
-<li>Specifications/contracts (requirements)</li>
-<li>Should not have exception or error</li>
-
-<li>Performance, maintainable, expandable :  desired qualities , but not</li>
+<li><b>Preconditions</b>: properties of the Inputs</li>
+<li><b>Postconditions</b>: properties of the Outputs
+<ul class="org-ul">
+<li>Typically will have some relationships with the inputs</li>
+</ul></li>
 </ul>
-<p>
-required for <b>correctness</b>
-</p>
-
-
-<p>
-f (x, y):   // return output = x  / y
-   //precond:  x,y are reals
-</p>
-
-<p>
-if y == 0:  raise exception
-&#x2026;
-</p>
-
-
-
-<p>
-preconditions
-</p>
 <ul class="org-ul">
-<li>x,y are reals</li>
-<li>y != 0</li>
-<li>x &gt;= 0</li>
-<li>x &gt;=  100</li>
-<li>we want preconditions are are as WEAK as possible
+<li>Additional properties/specifications that are common for all software (desirable, but very hard to achieve)
+<ul class="org-ul">
+<li>secured</li>
+<li>robust</li>
+<li>bugs-free</li>
+<li>efficiently</li>
+</ul></li>
+
+<li>Specification of a program: precondition + postcondition</li>
+<li>Correctness: A program (implementation) is <b>correct</b> if it satifies the given specifications (i.e., pre/post conditions).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga557f4b" class="outline-3">
+<h3 id="orga557f4b"><span class="section-number-3">2.3.</span> Another example</h3>
+<div class="outline-text-3" id="text-2-3">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #a626a4;">int</span> intdiv(<span style="color: #a626a4;">int</span> x, <span style="color: #a626a4;">int</span> y):
+  /*
+  <span style="color: #6a1868;">precond</span>: x <span style="color: #e45649;">and</span> y are integers, y cannot be zero
+  postcond: z = x // y
+  */
+
+
+  <span style="color: #e45649;">return</span> z
+
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org6845b03" class="outline-3">
+<h3 id="org6845b03"><span class="section-number-3">2.4.</span> In class Exercise (User, equals)</h3>
+<div class="outline-text-3" id="text-2-4">
+</div>
+<div id="outline-container-org02aee8c" class="outline-4">
+<h4 id="org02aee8c"><span class="section-number-4">2.4.1.</span> Truth table for Implication (=&gt;)</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">X</th>
+<th scope="col" class="org-left">Y</th>
+<th scope="col" class="org-left">X =&gt; Y</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+</tr>
+
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+</tr>
+
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+</tr>
+
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li>Be careful about implication, the formula `X =&gt; Y` is only False when `X` is True but `Y` is False, in every other cases, the formula is True.</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org036ce9a" class="outline-4">
+<h4 id="org036ce9a"><span class="section-number-4">2.4.2.</span> Expected properties for an implementation of `equals` (according to <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)">https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)</a>)</h4>
+<div class="outline-text-4" id="text-2-4-2">
 <ol class="org-ol">
-<li>x could be any real numbers</li>
-<li>x must be non-negative</li>
-<li>x must be &gt;= 100</li>
-</ol></li>
-</ul>
-
-<p>
-3 is stronger than 2 is stronger 1
-the best precondition is the weakest one, i.e., TRUE  (the function
-has no assumption on the input)
-</p>
-
-
-<ul class="org-ul">
-<li>output : number</li>
-<li>output ~   x /y    (output * y   ~= x)</li>
-
-<li>precondition/requirements:  a condition over the inputs ,</li>
-</ul>
-<p>
-assumptions that we make when the function starts
-</p>
-<ul class="org-ul">
-<li>x,y being real numbers</li>
-<li>y != 0</li>
-</ul>
-<ul class="org-ul">
-<li>postcondition/behaviors:  behavior of the function (the program),</li>
-</ul>
-<p>
-relationshp btw inputs and outputs
-</p>
-
-<ol class="org-ol">
-<li>output is a number (reals,&#x2026; )     weaker</li>
-<li>output * y ~= x                     stronger</li>
+<li>reflexive: `a == a`</li>
+<li>symmetry:   `a <code>= b &lt;=&gt;  b =</code> a`</li>
+<li>transitive: `a <code>= b &amp;&amp; b =</code> c  <code>&gt;  a =</code> c`</li>
 </ol>
 
+
+<ul class="org-ul">
+<li>Examples</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #986801;">User</span> <span style="color: #6a1868;">u1</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #50a14f;">"hello"</span>);
+<span style="color: #986801;">User</span> <span style="color: #6a1868;">u2</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #50a14f;">"world"</span>)
+User u3 = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #50a14f;">"swe419"</span>);
+
+<span style="color: #986801;">User</span> <span style="color: #6a1868;">u1a</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #50a14f;">"hello"</span>);
+<span style="color: #986801;">User</span> <span style="color: #6a1868;">u1b</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #50a14f;">"hello"</span>);
+<span style="color: #986801;">User</span> <span style="color: #6a1868;">u2a</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #50a14f;">"world"</span>);
+
+<span style="color: #986801;">SpecialUser</span> <span style="color: #6a1868;">s1</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">SpecialUser</span>(<span style="color: #50a14f;">"hello"</span>, 1)
+</pre>
+</div>
+
+
 <p>
-the best postcondition is the strongest one,  i.e.,   output * y ~= x
+For the equal implementation in In-class 1B for <code>User</code>.
 </p>
 
 <ul class="org-ul">
-<li>side-effects:
+<li>Reflexive: OK
 <ul class="org-ul">
-<li>can change input X, &#x2026;.</li>
+<li>e.g., <code>u1.equals(u1): contract: T   impl: T</code></li>
+</ul></li>
+
+<li>symmetry: OK
+<ul class="org-ul">
+<li>e.g., <code>u1.equals(u2): False  &amp;&amp; u2.equals(u1): False    contract: F   impl: F</code></li>
+<li><code>u1.equals(u1a): T  &amp;&amp; u1a.equals(u1): T  contract: T  impl: T</code></li>
+</ul></li>
+
+<li>Transitive: OK
+<ul class="org-ul">
+<li>e.g., <code>u1.equals(u2) &amp;&amp;  u2.equals(u3) =&gt;  u1.equals(u3) contract: T impl: T</code>,</li>
+<li><code>u1.equals(u2a) &amp;&amp;  u2a.equals(u2b)  contract: T   impl: T</code></li>
 </ul></li>
 </ul>
 
 
 <p>
-task: sorting a list of numbers in ascending order  (e.g., 1,5,10,&#x2026;)
-</p>
-
-<p>
-g(l):
-  //precondition: a list of numbers
-  //same data types (comparable)
-  //iterable &#x2026;
-  //finite
-</p>
-
-<p>
-<i>/ l is arraylist of integers
-/</i> precondition over l:   none,  true
-</p>
-
-<p>
-postcondition:
-</p>
-<ul class="org-ul">
-<li>|l| == |l'|</li>
-<li>l' same datatype  as l</li>
-<li>[1,2,1,2]   [1,1,1,2]</li>
-<li>l' is a permutation of l</li>
-<li>l' ascending order</li>
-</ul>
-
-
-<p>
-//sort l in ascending order
-return l'
-</p>
-
-
-
-
-<p>
-type checking
+Things become more complicated when involving inheritence
 </p>
 
 <ul class="org-ul">
-<li>void f (int x, int y){
-int o = 3;
-return o;</li>
-</ul>
-<p>
-}
-</p>
-
+<li>Symmetry: Not OK
 <ul class="org-ul">
-<li>type-checker is light-weight analysis and therefore can be built in in comilers,  just check if x and y are integers</li>
-<li>assertion checking is heavy-weight because we can check expressive properties such as y = x ** 2; never built in, have to do some serious program analysis for this.</li>
-</ul>
-<p>
-assertion(y = x**2);
+<li><code>u1.equals(s1)    impl:  T</code></li>
+<li><code>s1.equals(u1)    impl:  F</code></li>
+</ul></li>
+
+<li><p>
+A potential fix (suggested by a student)
 </p>
+<div class="org-src-container">
+<pre class="src src-java">SpecialUser
+      <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) {
+      <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(obj <span style="color: #e45649;">instanceof</span> SpecialUser)) <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equal(obj); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">obj.equals(this)</span>
+       <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equals(obj) &amp;&amp; ((<span style="color: #986801;">SpecialUser</span>) obj).id == <span style="color: #e45649;">this</span>.id;
+      }
+
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
