@@ -81,20 +81,18 @@ public static List<Integer> tail (List<Integer> list) {
 
 Hint: also look at the Javadoc (for remove)
 
-1.  What does the *implementation* of `tail`{.verbatim} do in each of
+1.  What does the *implementation* of `tail` do in each of
     the following cases? How do you know: Running the code or reading an
     API description?
 
-    -   `list = null`{.verbatim}
-    -   `list = []`{.verbatim}
-    -   `list = [1]`{.verbatim}
-    -   `list = [1, 2, 3]`{.verbatim}
+    -   `list = null`
+    -   `list = []`
+    -   `list = [1]`
+    -   `list = [1, 2, 3]`
 
-2.  Write a **partial** specification that matches the "happy path"
-    part of the implementation's behavior.
+2.  Write a **partial** specification that matches the "happy path" part of the implementation's behavior.
 
-3.  Rewrite the specification to be **total**. Use Bloch's standard
-    exceptions.
+3.  Rewrite the specification to be **total**. Use Bloch's standard exceptions.
 
 4.  The resulting specification has a problem. What is it? (hint:
     specification should be more general and not tied to the
@@ -103,24 +101,17 @@ Hint: also look at the Javadoc (for remove)
 5.  *Rewrite* the specification to address this problem. *Rewrite* the
     code to match the new specification.
 
-<!-- ## In class 2B -->
+## In class 2B
 
-<!-- **Goal**: Understanding Contracts -->
+Consider the 3 methods `hasNext` , `next`, and `remove` in the Java [Iterator](https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html) interface:
 
-<!-- Consider the 3 methods `hasNext`{.verbatim} , `next`{.verbatim}, and -->
-<!-- `remove`{.verbatim} in the Java -->
-<!-- [Iterator](https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html) -->
-<!-- interface: -->
-
-<!-- -   For each method, identify all preconditions and postconditions. -->
-<!-- -   For each precondition, identify a specific input that violates the -->
-<!--     precondition. -->
-<!-- -   For each postcondition, identify an input specific to that -->
-<!--     postcondition. -->
+1. For each method, identify all preconditions and postconditions.
+1. For each precondition, identify a specific input that violates the precondition.
+1. For each postcondition, identify an input specific to that postcondition.
 
 <!-- ## In class 3A -->
 
-<!-- Consider a simple generic `Queue`{.verbatim} implementation. -->
+<!-- Consider a simple generic `Queue` implementation. -->
 
 <!-- ``` java -->
 
@@ -154,11 +145,11 @@ Hint: also look at the Javadoc (for remove)
 
 <!-- ``` -->
 
-<!-- 1.  Rewrite `Queue`{.verbatim} to be **immutable**. Keep the -->
-<!--     representation variables `elements`{.verbatim} and -->
-<!--     `size`{.verbatim}. -->
-<!-- 2.  Do the right thing with `enQueue()`{.verbatim}. -->
-<!-- 3.  Do the right thing with `deQueue()`{.verbatim}. -->
+<!-- 1.  Rewrite `Queue` to be **immutable**. Keep the -->
+<!--     representation variables `elements` and -->
+<!--     `size`. -->
+<!-- 2.  Do the right thing with `enQueue()`. -->
+<!-- 3.  Do the right thing with `deQueue()`. -->
 
 <!-- ## In class 3B -->
 
@@ -221,8 +212,8 @@ Hint: also look at the Javadoc (for remove)
 
 <!-- ## In class 5A -->
 
-<!-- Consider Liskov's immutable `Poly`{.verbatim} example, where an -->
-<!-- abstract `Poly`{.verbatim} is defined as $c_0 + c_1x + c_2x^2 + \dots$, -->
+<!-- Consider Liskov's immutable `Poly` example, where an -->
+<!-- abstract `Poly` is defined as $c_0 + c_1x + c_2x^2 + \dots$, -->
 <!-- and is implemented with one variable: -->
 
 <!-- ``` java -->
@@ -254,7 +245,7 @@ Hint: also look at the Javadoc (for remove)
 
 <!-- 1.  Identify representation states that should not be mapped. -->
 <!-- 2.  Try to capture these states with a rule (that is, a rep-invariant). -->
-<!-- 3.  Consider implementing the `degree()`{.verbatim} method. What code -->
+<!-- 3.  Consider implementing the `degree()` method. What code -->
 <!--     would do the job? What more specific type of map would make the -->
 <!--     implementation simpler? -->
 
@@ -282,19 +273,19 @@ Hint: also look at the Javadoc (for remove)
 <!-- ``` -->
 
 <!-- 1.  Analyze these 4 questions for rep-inv 1. -->
-<!--     1.  Does `join()`{.verbatim} maintain rep-inv? -->
-<!--     2.  Does `join()`{.verbatim} satisfy contract? -->
-<!--     3.  Does `leave()`{.verbatim} maintain rep-inv? -->
-<!--     4.  Does `leave()`{.verbatim} satisfy contract? -->
+<!--     1.  Does `join()` maintain rep-inv? -->
+<!--     2.  Does `join()` satisfy contract? -->
+<!--     3.  Does `leave()` maintain rep-inv? -->
+<!--     4.  Does `leave()` satisfy contract? -->
 <!-- 2.  Repeat for rep-inv 2. -->
-<!-- 3.  Recode `join()`{.verbatim} to make the verification go through. -->
+<!-- 3.  Recode `join()` to make the verification go through. -->
 <!--     Which rep-invariant do you use? -->
-<!-- 4.  Recode `leave()`{.verbatim} to make the verification go through. -->
+<!-- 4.  Recode `leave()` to make the verification go through. -->
 <!--     Which rep-invariant do you use? -->
 
 <!-- ## In class 6A -->
 
-<!-- Consider the Java `Iterator<E>`{.verbatim} interface: -->
+<!-- Consider the Java `Iterator<E>` interface: -->
 
 <!-- ``` java -->
 <!-- public boolean hasNext(); -->
@@ -303,13 +294,13 @@ Hint: also look at the Javadoc (for remove)
 <!-- ``` -->
 
 <!-- 1.  What is the abstract state of an iterator without the -->
-<!--     `remove()`{.verbatim} method? -->
+<!--     `remove()` method? -->
 <!-- 2.  Work through an example iterating over a list of strings: -->
-<!--     `["bat", "cat", "dog"]`{.verbatim} -->
+<!--     `["bat", "cat", "dog"]` -->
 <!-- 3.  What is the abstract state of an iterator with a -->
-<!--     `previous()`{.verbatim} method? -->
+<!--     `previous()` method? -->
 <!-- 4.  What is the abstract state of an iterator with the -->
-<!--     `remove()`{.verbatim} method? -->
+<!--     `remove()` method? -->
 
 <!-- ## In class 6B -->
 
@@ -360,7 +351,7 @@ Hint: also look at the Javadoc (for remove)
 <!--         if (this.start.compareTo(end) > 0) throw new IAE(); -->
 <!--     ``` -->
 
-<!--     1.  Bloch states that `clone()`{.verbatim} would be inappropriate -->
+<!--     1.  Bloch states that `clone()` would be inappropriate -->
 <!--         for copying the dates. Write code that shows the problem. -->
 <!--     2.  Bloch defers the exception check until the end, which seems to -->
 <!--         violate normal practice. What's the problem with checking -->
@@ -370,8 +361,8 @@ Hint: also look at the Javadoc (for remove)
 
 <!-- **Goal**: Understanding dynamic dispatching -->
 
-<!-- Consider Liskov's `MaxIntSet`{.verbatim} example with explict -->
-<!-- `repOk()`{.verbatim} calls: (Really, we'd need assertions on these -->
+<!-- Consider Liskov's `MaxIntSet` example with explict -->
+<!-- `repOk()` calls: (Really, we'd need assertions on these -->
 <!-- calls...) -->
 
 <!-- ``` java -->
@@ -390,9 +381,9 @@ Hint: also look at the Javadoc (for remove)
 <!-- MaxIntSet s = {3, 5}; s.remove(5);  // repOk()???? -->
 <!-- ``` -->
 
-<!-- 1.  What do the `"..."`{.verbatim} bits do? -->
+<!-- 1.  What do the `"..."` bits do? -->
 <!-- 2.  How does the call work out? -->
-<!-- 3.  What is the abstract state of a `MaxIntSet`{.verbatim}? There are -->
+<!-- 3.  What is the abstract state of a `MaxIntSet`? There are -->
 <!--     two options. What are they, and what are the consequences of each -->
 <!--     choice? -->
 
@@ -421,7 +412,7 @@ Hint: also look at the Javadoc (for remove)
 <!--         // else reduce this by x -->
 <!-- ``` -->
 
-<!-- Analyze the "methods rule" for `reduce()`{.verbatim} in each of these -->
+<!-- Analyze the "methods rule" for `reduce()` in each of these -->
 <!-- cases: Note: Some analysis may not be necessary. If so, indicate that. -->
 
 <!-- ``` text -->
@@ -470,9 +461,9 @@ Hint: also look at the Javadoc (for remove)
 
 <!-- 1.  Is there a constraint about negative/zero values for this? How do we -->
 <!--     know? -->
-<!-- 2.  What methods are in the `Counter2`{.verbatim} API? -->
-<!-- 3.  Is `Counter2`{.verbatim} a valid subtype of Counter? -->
-<!-- 4.  What methods are in the `Counter3`{.verbatim} API? -->
+<!-- 2.  What methods are in the `Counter2` API? -->
+<!-- 3.  Is `Counter2` a valid subtype of Counter? -->
+<!-- 4.  What methods are in the `Counter3` API? -->
 
 <!-- ## In class 8 -->
 
@@ -536,7 +527,7 @@ Hint: also look at the Javadoc (for remove)
 
 <!-- ``` -->
 
-<!-- 1.  What is wrong with `toString()`{.verbatim}? What needs to be done to -->
+<!-- 1.  What is wrong with `toString()`? What needs to be done to -->
 <!--     fix it? Make it so. -->
 
 <!-- 2.  Write some sample client code to exercise the data structure. -->
@@ -545,7 +536,7 @@ Hint: also look at the Javadoc (for remove)
 <!-- 3.  Write contracts for each method (as written), including the -->
 <!--     constructor. -->
 
-<!-- 4.  Build a rep-invariant. Focus on the code in `get()`{.verbatim}. -->
+<!-- 4.  Build a rep-invariant. Focus on the code in `get()`. -->
 <!--     There are also lots of constraints on the array indices; these are -->
 <!--     quite tricky to get right. The constructor also introduces some -->
 <!--     complexity. -->
@@ -556,7 +547,7 @@ Hint: also look at the Javadoc (for remove)
 <!--     rep[front] = null; -->
 <!--     ``` -->
 
-<!--     from `get()`{.verbatim}. -->
+<!--     from `get()`. -->
 
 <!--     1.  Informally, why is this wrong? -->
 <!--     2.  Formally, where does the correctness proof break down? -->
@@ -739,7 +730,7 @@ Hint: also look at the Javadoc (for remove)
 <!-- -   Add rep invariants and contracts (e.g., throw exceptions in unwanted -->
 <!--     cases); check if code satisfies these; and if not modify code to -->
 <!--     satisfy them. This question will take the most time! -->
-<!-- -   Add a `addChoice`{.verbatim} method to the API and write appropriate -->
+<!-- -   Add a `addChoice` method to the API and write appropriate -->
 <!--     contracts for it -->
 
 <!-- ## In class 10C -->
@@ -799,8 +790,8 @@ Hint: also look at the Javadoc (for remove)
 
 <!-- ## In class 11A -->
 
-<!-- Consider Bloch's `Point/ColorPoint`{.verbatim} example. For today, -->
-<!-- ignore the `hashCode()`{.verbatim} issue. -->
+<!-- Consider Bloch's `Point/ColorPoint` example. For today, -->
+<!-- ignore the `hashCode()` issue. -->
 
 <!-- ``` java -->
 
@@ -841,22 +832,22 @@ Hint: also look at the Javadoc (for remove)
 <!-- } -->
 <!-- ``` -->
 
-<!-- 1.  What is the `equals()`{.verbatim} contract? What is the standard -->
+<!-- 1.  What is the `equals()` contract? What is the standard -->
 <!--     recipe? -->
 
-<!-- 2.  Why does Bloch use the `instanceof`{.verbatim} operator in the -->
+<!-- 2.  Why does Bloch use the `instanceof` operator in the -->
 <!--     standard recipe? -->
 
 <!-- 3.  Write client code that shows a contract problem with the first -->
-<!--     attempt at `ColorPoint`{.verbatim} (i.e., what contract does it -->
+<!--     attempt at `ColorPoint` (i.e., what contract does it -->
 <!--     break?) -->
 
 <!-- 4.  Write client code that shows a contract problem with the second -->
-<!--     attempt at `ColorPoint`{.verbatim} (i.e., what contract does it -->
+<!--     attempt at `ColorPoint` (i.e., what contract does it -->
 <!--     break?). -->
 
 <!-- 5.  Some authors recommend solving this problem by using a different -->
-<!--     standard recipe for `equals()`{.verbatim}. -->
+<!--     standard recipe for `equals()`. -->
 
 <!--     -   What's the key difference? -->
 
@@ -887,7 +878,7 @@ Hint: also look at the Javadoc (for remove)
 
 <!-- ## In class 11B -->
 
-<!-- Consider a variation of Liskov's `IntSet`{.verbatim} example (Figure -->
+<!-- Consider a variation of Liskov's `IntSet` example (Figure -->
 <!-- 5.10, page 97) -->
 
 <!-- ``` java -->
@@ -920,23 +911,23 @@ Hint: also look at the Javadoc (for remove)
 <!-- } -->
 <!-- ``` -->
 
-<!-- 1.  How should the `equals()`{.verbatim} method be completed? -->
+<!-- 1.  How should the `equals()` method be completed? -->
 
-<!-- 2.  Analyze the following ways to implement `hashCode()`{.verbatim}? If -->
+<!-- 2.  Analyze the following ways to implement `hashCode()`? If -->
 <!--     there is a problem, give a test case that shows the problem. -->
 
 <!--     1.  not overridden at all -->
 
 <!--     2.  return 42; -->
 
-<!--     3.  return `els.hashCode()`{.verbatim}; -->
+<!--     3.  return `els.hashCode()`; -->
 
 <!--     4.  `int sum = 0; for (Integer i : els) sum += i.hashCode(); return sum;` -->
 
-<!-- 3.  What's the problem with `clone()`{.verbatim} here (something with -->
+<!-- 3.  What's the problem with `clone()` here (something with -->
 <!--     subtyping)? Give a test case that shows the problem. -->
 
-<!-- 4.  Fix `clone()`{.verbatim} in two very different ways. -->
+<!-- 4.  Fix `clone()` in two very different ways. -->
 
 <!-- ## In class 12A -->
 
@@ -1003,21 +994,21 @@ Hint: also look at the Javadoc (for remove)
 <!--     `addAll()` method in `InstrumentedHashSet`? -->
 <!--     1.  Why is this a hard question? -->
 <!--     2.  What does the answer say about inheritance? -->
-<!--     3.  Does `equals()`{.verbatim} behave correctly in -->
-<!--         `InstrumentedHashSet?`{.verbatim} -->
+<!--     3.  Does `equals()` behave correctly in -->
+<!--         `InstrumentedHashSet?` -->
 <!-- 2.  Given your previous answer, what is the value of -->
-<!--     `sh.addCount`{.verbatim} at the end of the computation? -->
-<!-- 3.  Consider the `InstrumentedSet`{.verbatim} solution. Besides being -->
+<!--     `sh.addCount` at the end of the computation? -->
+<!-- 3.  Consider the `InstrumentedSet` solution. Besides being -->
 <!--     correct (always a plus!) why is it more general than the -->
-<!--     `InstrumentedHashSet`{.verbatim} solution? -->
+<!--     `InstrumentedHashSet` solution? -->
 <!-- 4.  At the end of the computation, what are the values of: -->
-<!--     `r`{.verbatim}, `s`{.verbatim}, and `t`{.verbatim}? -->
-<!-- 5.  What would a call to `s.getAddCount()`{.verbatim} return at the end -->
+<!--     `r`, `s`, and `t`? -->
+<!-- 5.  What would a call to `s.getAddCount()` return at the end -->
 <!--     of the computation? -->
 <!-- 6.  At the end of the computation, what are the values of: -->
-<!--     `r.equals(s)`{.verbatim}, `s.equals(t)`{.verbatim}, and -->
-<!--     `t.equals(s)`{.verbatim}? -->
-<!--     -   Are there any problems with the `equals()`{.verbatim} contract? -->
+<!--     `r.equals(s)`, `s.equals(t)`, and -->
+<!--     `t.equals(s)`? -->
+<!--     -   Are there any problems with the `equals()` contract? -->
 
 <!-- **Note**: There is a lot going on in this example. I highly recommend -->
 <!-- that you play with the code until you understand it. -->
@@ -1054,10 +1045,10 @@ Hint: also look at the Javadoc (for remove)
 <!-- 1.  What is the pattern, and how common is it? -->
 <!-- 2.  What does the main method do, and why? -->
 <!-- 3.  Which of Bloch's rules does this example break? -->
-<!-- 4.  What does this example mean for `Cloneable`{.verbatim} interface and -->
-<!--     the `clone()`{.verbatim} method? -->
-<!-- 5.  What does this example mean for `Serializable`{.verbatim} interface -->
-<!--     and the `readObject()`{.verbatim} method? -->
+<!-- 4.  What does this example mean for `Cloneable` interface and -->
+<!--     the `clone()` method? -->
+<!-- 5.  What does this example mean for `Serializable` interface -->
+<!--     and the `readObject()` method? -->
 <!-- 6.  To what extent does this rule generalize to producer methods? -->
 
 <!-- ## In class 12C -->
@@ -1144,12 +1135,12 @@ Hint: also look at the Javadoc (for remove)
 <!-- This is a JUnit theory exercise. -->
 
 <!-- 1.  Write a JUnit theory that captures the symmetry property of the -->
-<!--     `equals()`{.verbatim} method. -->
-<!--     1.  Create `@DataPoints`{.verbatim} from Bloch's -->
-<!--         `Point`{.verbatim}, `ColorPoint`{.verbatim} classes. So that -->
-<!--         we're all on the same page, create 1 `null`{.verbatim} -->
-<!--         reference, 1 `Point`{.verbatim} object and 2 -->
-<!--         `ColorPoint`{.verbatim} objects. -->
+<!--     `equals()` method. -->
+<!--     1.  Create `@DataPoints` from Bloch's -->
+<!--         `Point`, `ColorPoint` classes. So that -->
+<!--         we're all on the same page, create 1 `null` -->
+<!--         reference, 1 `Point` object and 2 -->
+<!--         `ColorPoint` objects. -->
 <!--     2.  Given this set of data points: -->
 <!--         -   How many combinations are considered by the theory? -->
 <!--         -   How many combinations make it past the preconditions of the -->
@@ -1157,11 +1148,11 @@ Hint: also look at the Javadoc (for remove)
 <!--         -   How many combinations make it to the postcondition of the -->
 <!--             theory? -->
 <!-- 2.  Repeat the exercise for the transitive property for -->
-<!--     `equals()`{.verbatim}. -->
-<!-- 3.  Recall the `equals()`{.verbatim} and `hashCode()`{.verbatim} -->
+<!--     `equals()`. -->
+<!-- 3.  Recall the `equals()` and `hashCode()` -->
 <!--     discussion in Bloch. Write a JUnit theory that encodes the -->
-<!--     consistency property between `equals()`{.verbatim} and -->
-<!--     `hashCode()`{.verbatim}. -->
+<!--     consistency property between `equals()` and -->
+<!--     `hashCode()`. -->
 
 <!-- ## In class 14A -->
 
@@ -1179,7 +1170,7 @@ Hint: also look at the Javadoc (for remove)
 <!-- ``` -->
 
 <!-- 1.  Give example code that illustrates a type safety problem with -->
-<!--     `Coins`{.verbatim}. Work through a range of expressions from -->
+<!--     `Coins`. Work through a range of expressions from -->
 <!--     "probably ok" to "clearly wrong". -->
 <!-- 2.  What code would you need to turn a nickel into a string? Explain how -->
 <!--     this could go wrong at runtime. -->
@@ -1289,17 +1280,17 @@ Hint: also look at the Javadoc (for remove)
 
 <!-- ``` -->
 
-<!-- 1.  Write a contract for `push(Object e)`{.verbatim}. -->
-<!-- 2.  What is wrong with `toString()?`{.verbatim} Fix it. -->
+<!-- 1.  Write a contract for `push(Object e)`. -->
+<!-- 2.  What is wrong with `toString()?` Fix it. -->
 <!-- 3.  What rep-invariant is likely broken? Fix it. This includes writing a -->
 <!--     suitable rep-invariant. -->
 <!-- 4.  How would Bloch's Item 25: *Prefer Lists to Arrays* apply here? -->
 <!--     Would it make the rep-invariant simpler? -->
-<!-- 5.  How would you argue that that `pop()`{.verbatim} is correct (or -->
+<!-- 5.  How would you argue that that `pop()` is correct (or -->
 <!--     not)? -->
-<!-- 6.  What is the problem with `pushAll()`{.verbatim} ? why a contract for -->
+<!-- 6.  What is the problem with `pushAll()` ? why a contract for -->
 <!--     it. What would Bloch suggest as an alternative? -->
-<!-- 7.  Override `equals()`{.verbatim} (for both cases when elements is -->
+<!-- 7.  Override `equals()` (for both cases when elements is -->
 <!--     Array and ArrayList). What else do you have to do? Do that too. -->
 
 # Homework Assignments
@@ -1348,11 +1339,11 @@ Hint: also look at the Javadoc (for remove)
 > -  You are in a group.
 > -  Coding: Adherence to instructions. Do what I ask for above, not  something else. Code runs correctly.
 
-<!-- ## Assignment 2 -->
+## Assignment 2 -->
 
-<!-- ### Goals: Contracts -->
+### Goals: Contracts -->
 
-<!-- For the second assignment, you'll build a *very* small piece of Java -->
+For the second assignment, you'll build a *very* small piece of Java -->
 <!-- for a contract with preconditions, transform the contract so that all -->
 <!-- preconditions become postconditions (i.e., make it a *total* contract), -->
 <!-- and then re-implement appropriately. -->
@@ -1410,7 +1401,7 @@ Hint: also look at the Javadoc (for remove)
 <!-- -   Adherence to instructions. -->
 <!-- -   Minimal implementation. -->
 <!-- -   Preconditions are correctly converted to exceptions. -->
-<!-- -   Syntax: Java compiles and runs. -->
+<!-- -   Syntax: Java compiles and runs.
 
 <!-- ## Assignment 3 -->
 
@@ -1865,7 +1856,7 @@ Hint: also look at the Javadoc (for remove)
 <!-- 2.  Have you ever used a "C style" enum? If so, at the time, did this -->
 <!--     seem reasonable or ridiculous? -->
 <!-- 3.  This week's in-class exercise is a recap. Is there a topic (or two) -->
-<!--     we've covered that you think you need more practice with? -->
+<!--     we've covered that you think you need more practice with?
 
 # Files
 

@@ -1,16 +1,16 @@
 # General Information
 
--   Instructor: [ThanhVu Nguyen](https://nguyenthanhvuh.github.io)
-    -   Office Hrs: Tuesday 1:30 PM - 2:30PM through ZOOM only (https://gmu.zoom.us/j/98393279342, passcode: 148674)
-    -   Email: <tvn@gmu.edu> (Piazza discussion is preferred)
--   Grader: Advait Gogte
-    -   Email: <agogte@gmu.edu>
--   Class:
-    -   Friday 10:30 AM -- 1:10 PM; East 122
-    -   Piazza: <https://piazza.com/gmu/fall2022/swe419nguyen>
-    -   Syllabus and Schedule (this website):
+- Instructor: [ThanhVu Nguyen](https://nguyenthanhvuh.github.io)
+  - Office Hrs: Tuesday 1:30 PM - 2:30PM through ZOOM: https://gmu.zoom.us/j/98393279342 (passcode: 148674)
+  - Email: <tvn@gmu.edu> (Piazza discussion is preferred)
+- Grader: Advait Gogte
+  - Email: <agogte@gmu.edu>
+- Class:
+  - Friday 10:30 AM -- 1:10 PM; East 122
+  - Piazza: <https://piazza.com/gmu/fall2022/swe419nguyen>
+  - Syllabus and Schedule (this website):
         [<https://nguyenthanhvuh.github.io/class-oo>](https://nguyenthanhvuh.github.io/class-oo)
-    -   Assignment Submission (homework, reflection, quizzes, exams):
+  - Assignment Submission (homework, reflection, quizzes, exams):
         Blackboard (BB)
 
 # [Schedule and Assignments](./schedule.md)
@@ -27,17 +27,16 @@ information hiding, data abstraction, and object-based and
 object-oriented software construction are discussed and illustrated.
 This course is part of the core of the SWE program.
 
-
 ## Course Materials
 
-1.  Barbara Liskov with John Guttag. [*Program Development in Java:
+1. Barbara Liskov with John Guttag. [*Program Development in Java:
     Abstraction, Specification, and Object-Oriented
     Design*](https://www.amazon.com/Program-Development-Java-Specification-Object-Oriented/dp/0201657686/ref=sr_1_2?dchild=1&qid=1626231221&refinements=p_27%3ABarbara+Liskov&s=books&sr=1-2&text=Barbara+Liskov).
     Addison Wesley, 2001, ISBN 0-201-65768-6. **Required**. [Read from
     O'Reilly
     Safari](https://learning-oreilly-com.mutex.gmu.edu/library/view/program-development-in/9780768685299/ch1.html)
 
--   Joshua Bloch. [*Effective
+- Joshua Bloch. [*Effective
     Java*](https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=sr_1_1?dchild=1&keywords=effective+java&qid=1626231154&sr=8-1).
     Third Edition. Addison-Wesley Professional, 2017, ISBN
     978-0-13-468599-1. **Required**. [Read from O'Reilly
@@ -64,18 +63,18 @@ activities, homework completion and (possibly) presentation, and
 knowledge assessment. Many of these activities will be group based. The
 sequence is:
 
--   Preparation: Complete assigned readings and watch relevant videos,
+- Preparation: Complete assigned readings and watch relevant videos,
     if any. No formal submission for this activity.
 <!-- -   Reading Reflection: This is a formal opportunity for each group to -->
 <!--     reflect on the reading. -->
--   Class Meeting:
-    -   Combined session on the day's topic, followed by in-class
+- Class Meeting:
+  - Combined session on the day's topic, followed by in-class
         exercises (group breakouts)
-    -   Break
-    -   Combined session on the day's topic, may followed by in-class
+  - Break
+  - Combined session on the day's topic, may followed by in-class
         exercises (group breakouts)
--   Homework (group-based)
--   Assessments via quiz: takes place at the **end** of class the same
+- Homework (group-based)
+- Assessments via quiz: takes place at the **end** of class the same
     day as the homework is due.
 
 ## Grading
@@ -93,7 +92,6 @@ sequence is:
 |:-----------:|:----------:|:------------:|
 | B+    ≥ 86% | B    ≥ 82% | B-    ≥ 79%  |
 | C     ≥ 70% | D    ≥ 60% | F    \< 60%  |
-
 
 ### Group Functioning
 
@@ -129,8 +127,8 @@ in-person, zoom, discord, google docs, etc.
 
 **Important**:
 
--   There are no make-ups.
--   Only one submission per **group**. Everyone in the group gets the
+- There are no make-ups.
+- Only one submission per **group**. Everyone in the group gets the
     same credit.
 
 ### Homework Assignments
@@ -145,41 +143,41 @@ not accepted except in truly exceptional circumstances.
 
 **Important**:
 
--   Each group should be prepared to present their homework solution in
+- Each group should be prepared to present their homework solution in
     class.
--   **Statement of who did what**. Homeworks are group exercises. Each
+- **Statement of who did what**. Homeworks are group exercises. Each
     submission must contain a specific statement of who did what.
 
 ### Weekly Quizzes
 
--   Each quiz happens during the last 15-20 minutes of class.
+- Each quiz happens during the last `15-20` minutes of class.
 
 **Make-up Policy**
 
--   All quizzes count towards the final grade. Each quiz is scored on a
+- All quizzes count towards the final grade. Each quiz is scored on a
     10 point scale. Missed quizzes score 0/10. Students who miss a quiz
     or perform badly on a quiz may choose to take the \"make-up\".
--   The maximum possible score on the make-up is 8/10. (Example: your
+- The maximum possible score on the make-up is 8/10. (Example: your
     quiz grade is 5/10. You take the make-up and correctly answer 9 of
     10 equally weighted questions. Your final score improves from 5/10
     to 8/10.)
--   If you attempt the make-up, that score counts, no matter what your
+- If you attempt the make-up, that score counts, no matter what your
     score was on the quiz. (Example: your quiz grade is 7/10. You take
     the make-up and correctly answer 5 of 10 equally weighted questions.
     Your final score declines from 7/10 to 5/10.)
--   Scheduling: the GTA will offer the make-up during TA office hours.
+- Scheduling: the GTA will offer the make-up during TA office hours.
     The make-up can be different than the quiz given in class, but
     focuses on the same topics.
--   The make-up must be taken promptly and within a window of two class
+- The make-up must be taken promptly and within a window of two class
     meetings from the quiz. (Example: Quiz 1 takes place on Wednesday,
     September 1. The make-up must be taken on or before Wednesday,
     September 15. Another Example: Quiz 11 takes place on Wednesday,
     November 11. Because we don't meet the week of Thanksgiving, the
     make-up must be taken on or before Wednesday, December 1.)
--   Each quiz only has one make-up, and you can only attempt that
+- Each quiz only has one make-up, and you can only attempt that
     make-up once. However, you are free to use the make-up mechanism on
     as many different quizzes as you wish.
--   Quizzes are generally returned one week after the quiz is taken.
+- Quizzes are generally returned one week after the quiz is taken.
     Make-ups are returned after the window has closed.
 
 ### Final Exam
