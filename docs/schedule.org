@@ -9,6 +9,9 @@
   - *Notes*: Except for the first class, students are expected to complete the reading *prior to class* on listed meeting. Quizzes may occasionally take advantage of this expectation. Homework assignments are *due* on the date listed.
 
 
+** [[./notes.html][Notes]]
+  
+
   | Meeting | Topic                                    | Reading                       | Assignment | In-Class Exercise |   |
   |     <r> |                                          | <l>                           |    <c>     |        <c>        |   |
   |---------+------------------------------------------+-------------------------------+------------+-------------------+---|
@@ -59,11 +62,14 @@ Now address a technical topic. This exercise touches on some of the thorny issue
             private String name;
             public User (String name) { this.name = name; }
             @Override public boolean equals (Object obj) {
+                //fix: if obj is null, returns False
+                
                 if (!(obj instanceof User)) return false;
                 return ((User) obj).name.equals(this.name);
             }
             // other methods omitted
         }
+
         public class SpecialUser extends User {
             private int id;
             public SpecialUser (String name, int id) { super(name); this.id = id; }

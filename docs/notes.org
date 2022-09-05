@@ -1,25 +1,27 @@
 #+TITLE: SWE 419 Notes
-
 #+OPTIONS: ^:nil toc:1
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
+
 * Lecture 2 (<2022-09-02 Fri>)
-- Groups: next time:  1 submission per group
-  
-- Reconsider In-class 1B (class =User=)
+
+** Adminstrative: Groups
+  - next time:  1 submission per group
+
+** Reconsider In-class 1B (class =User=)
 #+begin_src java
   User u1 = new u1("hello");
   User u2 = new User(null);
   u2.equals(u1); //contract:F, impl: F
   u1.equals(v2); //contract:F (Javadoc does not say it should raise exception), impl: exception
 
-  //how to fix this?
-  //Check for null and return False
+  //Q: how to fix this?
+  //A: Check for null and return False
 #+end_src  
 
-- Another example on how to obtain specs from documentation
+** Another example on how to obtain specs from documentation
   - consider =remove= from =iterator=: https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html
     - Removes from the underlying collection the last element returned by this iterator (optional operation). This method can be called only once per call to next(). The behavior of an iterator is unspecified if the underlying collection is modified while the iteration is in progress in any way other than by calling this method.
     - Getting contracts/specs from the English description.
@@ -28,78 +30,114 @@
         - 3rd:  post, side effects,  but could be a *precondition*:  statement that the collection should not be modified
 
 
-- Strong Post vs Weak Pre
 
-Precondition (P):
-  - client/customer: establish  P
-Postcondition (Q)
-  - developer/implementation:  establish Q under assumption that P is established
+** Method/Program specifications
+  - Preconditions (=P=): assumptions, properties about the inputs
+    - established by clients (e.g., inputs are strings, unsorted list, ...)
+      
+  - Postconditions (=Q=): properties/behaviors of the method/program (usually related inputs)
+    - done/established by the developers/implementations (e.g., outputs are sorted list, ...)
+
+  - When something goes wrong, who to blame?
+    - If preconditions are incorrect: blame the clients
+    - If preconditions are correct, and the postconditions are not correct: blame developers
 
 
-- If a program is not correct
-  - if precondition is wrong: blame client
-  - if (precondition is met) postcondition is wrong: blame developer
-
-  - Reconsider the intdiv example from previous class
+** Weaker Preconditions and Stronger Postconditions
+  
+  - Reconsider the =intdiv= example from previous class
     
 #+begin_src java
   int intdiv(int x, int y){
     /*
     Return the integer division result x/y. 
 
-    precond:
+    preconds:
     - x and y are integers # (already given in type)
-    - y cannot be zero   # better if we can remove this
+    // - y cannot be zero   # better if we can remove this
 
-    postcond:
+    postconds:
     - z is a number  # weak
     - z is an integer  # weak
-    - z = x // y  # strong
-    */
+    - z = x // y  # *strong*
+    ,*/
+
+    if (y == 0){ // raise ...
+        
+    }
 
     return z
   }
 #+end_src
 
+If we have ~S1 = P => Q~ and ~S2 = P' => Q'~, then 
+- S1 is better than S2 :   if P is weaker than P'
+- S1 is better than S2 :   if Q is stronger than Q'
 
 
-- Total vs Partial contract
-  - partial specification:  has a precondition
-  - total specification:  has NO precondition
+** Total vs Partial contract
+  - *partial* specification:  has a precondition
+  - *total* specification:  has NO precondition
 
-- how to turn a partial into a total specification?
-  //partial spec
-  sqrt(x):
-     precondition: x >= 0
-     postcondition:  y*y == x (-/+ epsilon)
+  - to turn a partial spec into a total spec:
+    - for every precondition, remove and turn it into a new behavior in postcondition (of the form if not precondition, then do something, e.g., raising an excpetion)
+      - E.g., if we have a precondition   =list= cannot be =null=
+      - Then we remove that precondition
+      - And create the postcondition:  if list is null then raise NullPointerExeception
+   - in the implementation, create conditions and raise exception
 
-  //total spec
-  sqrt(x):
-     precondition: 
-     postcondition:
-         //if x < 0:  raise exception
-         //ow.  y*y == x (-/+ epsilon)
 
-  //div_xy(x,y):   output = x/y
-  partial spec:
-   precond:  y != 0
-   post :   y*output == x
+** In-class 2
+  1. null : gives NPE error null pointer
+  2. []   : gives IOB error (result.remove())
 
-  total spec:
-    precond: true
-    postcondition:   if y is 0, raise exception(DivByZero);
-    y*output = 
+  Happy Paths     
+  3. [1]  : []         
+  4. [1,2,3] :  [2, 3]
 
-- In-class 2A (=tail= implementation)
-  - Discussion
 
-- If have time, do 2B    
+-  Partial Specs
+  Preconds:
+     - list not null
+     - list not empty (list has at least 1 elem)
+  Postconds:
+     - return the tail of the original list
 
-- If have more time,  do basic logic terminologies
+-  Total Specs
+  Preconds: 
+  Postconds:
+     - raise NPE if list is null
+     - raise  IllegalArgumentExcdeption if list is empty
+     - return the tail of the original list
+     -   
+  
+#+begin_src java
+  public static List<Integer> tail (List<Integer> list) {
+
+      // REQUIRES/PRECONDS: ???
+      // EFFECTS/POSTCONDS:  ???
+
+      if (list is null){
+          raise NullPointerException;
+      }
+      if (list.size() == 0){
+          raise IllegalArgumentException;
+      }
+
+      .....
+  }
+#+end_src  
+
+- 
+  
+** In-class 2B (=tail= implementation)
+
     
 
 * Lecture 1 (8/26)
-
+** Administrative
+- Syllabus
+    
 ** Specification Example
 
 Sorting (e.g., quicksort)
@@ -128,16 +166,16 @@ Software Specifications (e.g., specification of a program/methoad/function)
 
 ** Another example
 
-#+begin_src python
-int intdiv(int x, int y):
-  /*
-  precond: x and y are integers, y cannot be zero
-  postcond: z = x // y
-  */
-  
+#+begin_src java
+  int intdiv(int x, int y){
+    /*
+    precond: x and y are integers, y cannot be zero
+    postcond: z = x // y
+    ,*/
 
-  return z
 
+    return z
+  }    
 #+end_src
 
 

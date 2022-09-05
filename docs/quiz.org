@@ -11,6 +11,49 @@
 ** Contracts for a Binary Search implementation.
    - specifiy the specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
 # * Quiz 2 (<2022-02-07 Mon>)
 
 # Consider the following 2 specifications, the second of which has an associated implementation:

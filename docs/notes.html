@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-09-02 Fri 10:02 -->
+<!-- 2022-09-05 Mon 10:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 419 Notes</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
@@ -18,33 +18,45 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb8530ef">1. Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
-<li><a href="#org2a43767">2. Lecture 1 (8/26)</a></li>
+<li><a href="#org71ff792">1. Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
+<li><a href="#orgdd968e5">2. Lecture 1 (8/26)</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgb8530ef" class="outline-2">
-<h2 id="orgb8530ef"><span class="section-number-2">1.</span> Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
+
+<div id="outline-container-org71ff792" class="outline-2">
+<h2 id="org71ff792"><span class="section-number-2">1.</span> Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org0b27819" class="outline-3">
+<h3 id="org0b27819"><span class="section-number-3">1.1.</span> Adminstrative: Groups</h3>
+<div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
-<li>Groups: next time:  1 submission per group</li>
-
-<li>Reconsider In-class 1B (class <code>User</code>)</li>
+<li>next time:  1 submission per group</li>
 </ul>
+</div>
+</div>
+
+<div id="outline-container-orge1b57b3" class="outline-3">
+<h3 id="orge1b57b3"><span class="section-number-3">1.2.</span> Reconsider In-class 1B (class <code>User</code>)</h3>
+<div class="outline-text-3" id="text-1-2">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #986801;">User</span> <span style="color: #6a1868;">u1</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">u1</span>(<span style="color: #50a14f;">"hello"</span>);
 <span style="color: #986801;">User</span> <span style="color: #6a1868;">u2</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #b751b6;">null</span>);
 u2.equals(u1); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">contract:F, impl: F</span>
 u1.equals(v2); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">contract:F (Javadoc does not say it should raise exception), impl: exception</span>
 
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">how to fix this?</span>
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Check for null and return False</span>
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Q: how to fix this?</span>
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">A: Check for null and return False</span>
 </pre>
 </div>
+</div>
+</div>
 
-<ul class="org-ul">
-<li>Another example on how to obtain specs from documentation
+<div id="outline-container-orgb97327b" class="outline-3">
+<h3 id="orgb97327b"><span class="section-number-3">1.3.</span> Another example on how to obtain specs from documentation</h3>
+<div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>consider <code>remove</code> from <code>iterator</code>: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html">https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html</a>
 <ul class="org-ul">
@@ -56,36 +68,41 @@ u1.equals(v2); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a
 <li>3rd:  post, side effects,  but could be a <b>precondition</b>:  statement that the collection should not be modified</li>
 </ul></li>
 </ul></li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org9d446d8" class="outline-3">
+<h3 id="org9d446d8"><span class="section-number-3">1.4.</span> Method/Program specifications</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li>Preconditions (<code>P</code>): assumptions, properties about the inputs
+<ul class="org-ul">
+<li>established by clients (e.g., inputs are strings, unsorted list, &#x2026;)</li>
+</ul></li>
+
+<li>Postconditions (<code>Q</code>): properties/behaviors of the method/program (usually related inputs)
+<ul class="org-ul">
+<li>done/established by the developers/implementations (e.g., outputs are sorted list, &#x2026;)</li>
+</ul></li>
+
+<li>When something goes wrong, who to blame?
+<ul class="org-ul">
+<li>If preconditions are incorrect: blame the clients</li>
+<li>If preconditions are correct, and the postconditions are not correct: blame developers</li>
 </ul></li>
 </ul>
+</div>
+</div>
 
 
+<div id="outline-container-org4cb7516" class="outline-3">
+<h3 id="org4cb7516"><span class="section-number-3">1.5.</span> Weaker Preconditions and Stronger Postconditions</h3>
+<div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
-<li>Strong Post vs Weak Pre</li>
-</ul>
-
-<p>
-Precondition (P):
-</p>
-<ul class="org-ul">
-<li>client/customer: establish  P</li>
-</ul>
-<p>
-Postcondition (Q)
-</p>
-<ul class="org-ul">
-<li>developer/implementation:  establish Q under assumption that P is established</li>
-</ul>
-
-
-<ul class="org-ul">
-<li>If a program is not correct
-<ul class="org-ul">
-<li>if precondition is wrong: blame client</li>
-<li>if (precondition is met) postcondition is wrong: blame developer</li>
-
-<li>Reconsider the intdiv example from previous class</li>
-</ul></li>
+<li>Reconsider the <code>intdiv</code> example from previous class</li>
 </ul>
 
 <div class="org-src-container">
@@ -93,81 +110,153 @@ Postcondition (Q)
   <span style="color: #9ca0a4;">/*</span>
 <span style="color: #9ca0a4;">  Return the integer division result x/y. </span>
 
-<span style="color: #9ca0a4;">  precond:</span>
+<span style="color: #9ca0a4;">  preconds:</span>
 <span style="color: #9ca0a4;">  - x and y are integers # (already given in type)</span>
-<span style="color: #9ca0a4;">  - y cannot be zero   # better if we can remove this</span>
+<span style="color: #9ca0a4;">  // - y cannot be zero   # better if we can remove this</span>
 
-<span style="color: #9ca0a4;">  postcond:</span>
+<span style="color: #9ca0a4;">  postconds:</span>
 <span style="color: #9ca0a4;">  - z is a number  # weak</span>
 <span style="color: #9ca0a4;">  - z is an integer  # weak</span>
-<span style="color: #9ca0a4;">  - z = x // y  # strong</span>
+<span style="color: #9ca0a4;">  - z = x // y  # *strong*</span>
 <span style="color: #9ca0a4;">  */</span>
+
+  <span style="color: #e45649;">if</span> (y == 0){ <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">raise ...</span>
+
+  }
 
   <span style="color: #e45649;">return</span> z
 }
 </pre>
 </div>
 
-
-
-<ul class="org-ul">
-<li>Total vs Partial contract
-<ul class="org-ul">
-<li>partial specification:  has a precondition</li>
-<li>total specification:  has NO precondition</li>
-</ul></li>
-
-<li><p>
-how to turn a partial into a total specification?
-//partial spec
-sqrt(x):
-   precondition: x &gt;= 0
-   postcondition:  y*y == x (-/+ epsilon)
-</p>
-
 <p>
-//total spec
-sqrt(x):
-   precondition: 
-   postcondition:
-       //if x &lt; 0:  raise exception
-       //ow.  y*y == x (-/+ epsilon)
+If we have <code>S1 = P =&gt; Q</code> and <code>S2 = P' =&gt; Q'</code>, then 
 </p>
-
-<p>
-//div_xy(x,y):   output = x/y
-partial spec:
- precond:  y != 0
- post :   y*output == x
-</p>
-
-<p>
-total spec:
-  precond: true
-  postcondition:   if y is 0, raise exception(DivByZero);
-  y*output = 
-</p></li>
-
-<li>In-class 2A (<code>tail</code> implementation)
 <ul class="org-ul">
-<li>Discussion</li>
-</ul></li>
-
-<li>If have time, do 2B</li>
-
-<li>If have more time,  do basic logic terminologies</li>
+<li>S1 is better than S2 :   if P is weaker than P'</li>
+<li>S1 is better than S2 :   if Q is stronger than Q'</li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org2a43767" class="outline-2">
-<h2 id="org2a43767"><span class="section-number-2">2.</span> Lecture 1 (8/26)</h2>
+<div id="outline-container-orga1ad97f" class="outline-3">
+<h3 id="orga1ad97f"><span class="section-number-3">1.6.</span> Total vs Partial contract</h3>
+<div class="outline-text-3" id="text-1-6">
+<ul class="org-ul">
+<li><b>partial</b> specification:  has a precondition</li>
+<li><b>total</b> specification:  has NO precondition</li>
+
+<li><p>
+to turn a partial spec into a total spec:
+</p>
+<ul class="org-ul">
+<li>for every precondition, remove and turn it into a new behavior in postcondition (of the form if not precondition, then do something, e.g., raising an excpetion)
+<ul class="org-ul">
+<li>E.g., if we have a precondition   <code>list</code> cannot be <code>null</code></li>
+<li>Then we remove that precondition</li>
+<li>And create the postcondition:  if list is null then raise NullPointerExeception</li>
+</ul></li>
+</ul>
+<ul class="org-ul">
+<li>in the implementation, create conditions and raise exception</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org07a47f4" class="outline-3">
+<h3 id="org07a47f4"><span class="section-number-3">1.7.</span> In-class 2</h3>
+<div class="outline-text-3" id="text-1-7">
+<ol class="org-ol">
+<li>null : gives NPE error null pointer</li>
+<li>[]   : gives IOB error (result.remove())</li>
+</ol>
+
+<p>
+Happy Paths     
+</p>
+<ol class="org-ol">
+<li>[1]  : []</li>
+<li>[1,2,3] :  [2, 3]</li>
+</ol>
+
+
+<ul class="org-ul">
+<li><p>
+Partial Specs
+Preconds:
+</p>
+<ul class="org-ul">
+<li>list not null</li>
+<li>list not empty (list has at least 1 elem)</li>
+</ul>
+<p>
+Postconds:
+</p>
+<ul class="org-ul">
+<li>return the tail of the original list</li>
+</ul></li>
+
+<li>Total Specs
+Preconds: 
+Postconds:
+<ul class="org-ul">
+<li>raise NPE if list is null</li>
+<li>raise  IllegalArgumentExcdeption if list is empty</li>
+<li>return the tail of the original list</li>
+<li></li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Integer</span>&gt; <span style="color: #a626a4;">tail</span> (<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Integer</span>&gt; <span style="color: #6a1868;">list</span>) {
+
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">REQUIRES/PRECONDS: ???</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">EFFECTS/POSTCONDS:  ???</span>
+
+    <span style="color: #e45649;">if</span> (<span style="color: #986801;">list</span> <span style="color: #6a1868;">is</span> <span style="color: #b751b6;">null</span>){
+        <span style="color: #986801;">raise</span> <span style="color: #6a1868;">NullPointerException</span>;
+    }
+    <span style="color: #e45649;">if</span> (list.size() == 0){
+        <span style="color: #986801;">raise</span> <span style="color: #6a1868;">IllegalArgumentException</span>;
+    }
+
+    .....
+}
+</pre>
+</div>
+
+<ul class="org-ul">
+<li></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org94975e3" class="outline-3">
+<h3 id="org94975e3"><span class="section-number-3">1.8.</span> In-class 2B (<code>tail</code> implementation)</h3>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgdd968e5" class="outline-2">
+<h2 id="orgdd968e5"><span class="section-number-2">2.</span> Lecture 1 (8/26)</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org3832e58" class="outline-3">
-<h3 id="org3832e58"><span class="section-number-3">2.1.</span> Specification Example</h3>
+<div id="outline-container-org26dbafd" class="outline-3">
+<h3 id="org26dbafd"><span class="section-number-3">2.1.</span> Administrative</h3>
 <div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>Syllabus</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org732e9ad" class="outline-3">
+<h3 id="org732e9ad"><span class="section-number-3">2.2.</span> Specification Example</h3>
+<div class="outline-text-3" id="text-2-2">
 <p>
 Sorting (e.g., quicksort)
 </p>
@@ -187,9 +276,9 @@ Sorting (e.g., quicksort)
 </div>
 </div>
 
-<div id="outline-container-org379b159" class="outline-3">
-<h3 id="org379b159"><span class="section-number-3">2.2.</span> Definitions</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-orgcd3e3f5" class="outline-3">
+<h3 id="orgcd3e3f5"><span class="section-number-3">2.3.</span> Definitions</h3>
+<div class="outline-text-3" id="text-2-3">
 <p>
 Software Specifications (e.g., specification of a program/methoad/function)
 </p>
@@ -215,19 +304,19 @@ Software Specifications (e.g., specification of a program/methoad/function)
 </div>
 </div>
 
-<div id="outline-container-orga557f4b" class="outline-3">
-<h3 id="orga557f4b"><span class="section-number-3">2.3.</span> Another example</h3>
-<div class="outline-text-3" id="text-2-3">
+<div id="outline-container-org7c2695e" class="outline-3">
+<h3 id="org7c2695e"><span class="section-number-3">2.4.</span> Another example</h3>
+<div class="outline-text-3" id="text-2-4">
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #a626a4;">int</span> intdiv(<span style="color: #a626a4;">int</span> x, <span style="color: #a626a4;">int</span> y):
-  /*
-  <span style="color: #6a1868;">precond</span>: x <span style="color: #e45649;">and</span> y are integers, y cannot be zero
-  postcond: z = x // y
-  */
+<pre class="src src-java"><span style="color: #986801;">int</span> <span style="color: #a626a4;">intdiv</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>){
+  <span style="color: #9ca0a4;">/*</span>
+<span style="color: #9ca0a4;">  precond: x and y are integers, y cannot be zero</span>
+<span style="color: #9ca0a4;">  postcond: z = x // y</span>
+<span style="color: #9ca0a4;">  */</span>
 
 
   <span style="color: #e45649;">return</span> z
-
+}    
 </pre>
 </div>
 </div>
@@ -235,13 +324,13 @@ Software Specifications (e.g., specification of a program/methoad/function)
 
 
 
-<div id="outline-container-org6845b03" class="outline-3">
-<h3 id="org6845b03"><span class="section-number-3">2.4.</span> In class Exercise (User, equals)</h3>
-<div class="outline-text-3" id="text-2-4">
+<div id="outline-container-orgcc59678" class="outline-3">
+<h3 id="orgcc59678"><span class="section-number-3">2.5.</span> In class Exercise (User, equals)</h3>
+<div class="outline-text-3" id="text-2-5">
 </div>
-<div id="outline-container-org02aee8c" class="outline-4">
-<h4 id="org02aee8c"><span class="section-number-4">2.4.1.</span> Truth table for Implication (=&gt;)</h4>
-<div class="outline-text-4" id="text-2-4-1">
+<div id="outline-container-org9c697db" class="outline-4">
+<h4 id="org9c697db"><span class="section-number-4">2.5.1.</span> Truth table for Implication (=&gt;)</h4>
+<div class="outline-text-4" id="text-2-5-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -293,9 +382,9 @@ Software Specifications (e.g., specification of a program/methoad/function)
 </div>
 
 
-<div id="outline-container-org036ce9a" class="outline-4">
-<h4 id="org036ce9a"><span class="section-number-4">2.4.2.</span> Expected properties for an implementation of `equals` (according to <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)">https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)</a>)</h4>
-<div class="outline-text-4" id="text-2-4-2">
+<div id="outline-container-org51910cc" class="outline-4">
+<h4 id="org51910cc"><span class="section-number-4">2.5.2.</span> Expected properties for an implementation of `equals` (according to <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)">https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)</a>)</h4>
+<div class="outline-text-4" id="text-2-5-2">
 <ol class="org-ol">
 <li>reflexive: `a == a`</li>
 <li>symmetry:   `a <code>= b &lt;=&gt;  b =</code> a`</li>
