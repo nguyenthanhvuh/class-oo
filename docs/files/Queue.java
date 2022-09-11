@@ -22,6 +22,13 @@ public class Queue <E> {
      size++;
    }
 
+   public List<E> enQueue_Immutable(E e){
+       List<E> new_elements = copy(elements); 
+        new_elements.add(e);
+        return new_elements;
+    }
+
+
    public E deQueue () {
      if (size == 0) throw new IllegalStateException("Queue.deQueue");
      E result = elements.get(0);
@@ -30,10 +37,23 @@ public class Queue <E> {
      return result;
    }
 
+    public List<E> deQueue_Immutable(){
+        if (size == 0) throw new IllegalStateException("Queue.deQueue");
+        List<E> new_elements = copy(elements);
+        new_elements.remove(0);
+        return new_elements;
+    }
+
+    public E getFirst(){
+        if (size == 0) throw new IllegalStateException("Queue.deQueue");
+        return elements.get(0);
+    }
+
    public boolean isEmpty() {
       return size == 0;
    }
 
+       
   public static void main(String[] args) {
      // Simple exercise to enQueue/deQueue cmd line args
      // Usage:  java Queue item1 item2 item3 ...

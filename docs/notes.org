@@ -4,7 +4,103 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
+* Lecture 3 (<2022-09-09 Fri>)
+** Go over quiz 1
 
+Binary_search(arrays, x)
+- precondition:
+  - arrays: sorted, cannot null, 
+- postcondition:
+  - if x not in arrays: raise someexception ...
+  - ow: returns index of x in array
+    
+ * Recap:
+   - Specification is NOT code/implementation (it is independent of implementation)
+   - Do not look at implementation to write specification (you will write specification for that implementation); write specification FIRST !
+   - Raise exceptions related to the undesirable input, e.g., if you don't want null, then raise something about NullPointerException.  If you don't want bad index to array, then use something about IndexOutOfBoundException. If you don't want some type of inputs, then raise IllegalArgumentException.
+
+** Data Abstraction
+Consider [[./files/Poly.java][Poly.java from Liskov]]
+   - implements a class to represent ~polynomials~
+  - 10*x + 5*x^2 + 3*x^3 + 100*x^11 + 42
+  - 101
+  - c_1*x_1^d_1 + c_2*x_2^d_2    (c_i*x_i^d_i : term,  c_i: coefficients, d_i: degree)
+
+
+- This is a *specific* implementation of Polynomials
+  - uses arrays of ints to represent terms ...
+  - =deg= var to store degree
+
+  - Some additional constraints for polynomials in this implementation
+     - 1 variable (5*x*y not allowed)
+     - no negative degree
+     - coefficients integers
+
+- to represent: =5 + 3*x^2= in this code
+  - Poly(deg=2, trms=[5,3])   
+  - Poly(deg=2, trms=[5,0,3]) 
+    
+  - Poly(deg=2, trms=[5,0,3,0,0,0,0,0...]): not allowed in Poly implementation (last element of the array term cannot be non zero)
+
+    
+- 1st =public Poly= contract: good (no inputs, not modifying any inputs etc)
+- 2nd =public Poly= contract: also good, total contract: raise exception if n < 0, otherwise return this polynomial
+- =private Poly=  :  she did not forget the contract, it is assumed that it will be called by something trusted , so no need to talk about specs of these.
+- =deg=:  highest degree associated with a non-zero cofficient  
+- =coeff_book()= vs =coeff()=  :  which is better? coeff() is better, go back to constructors:  if n < 0 , it throws IAE,  but this coeff_book returns a value (implicitly allow that)
+...
+- *abstraction method/function*: =toString=   -> concrete (implementation) to abstract (polynomial)
+  -  Poly(deg=2, trms=[5,3])   =>  5+3*x
+  -  Poly(deg=2, trms=[5,0,3]) =>  5+3x^2
+  
+*** Immutable
+  - Thread safe ;  easier for sharing; efficiency; safety;  less prone to error, easier to design
+  - really good for concurrency (can do things in parallel)
+
+      
+  - If modifies contents of the data, create a new one instead and also return the newly created one
+  - In other words, it would not modify the contents of the data, instead of modifying the data internally,  it returns a new data (that would have same contents as data in the the mutable version)
+  - In-class 3A
+
+q = [1,2,3]
+q.enQueue(4) #  q.elements = [1,2,3,4]
+
+result = q.deQueue()
+- q.elements = [2,3,4]
+- result = 1
+
+----------------
+
+q = [1,2,3]
+q' = q.enQueue_Immutable(4)  
+- q.elements = [1,2,3]
+- q'.elmenets = [1,2,3,4]
+q = q'
+
+q' = q.deQueue_Immutable()
+result = q.getFirst()
+q = q'
+- q.elements = [2,3,4]
+- result = 1  
+
+
+
+  
+q = [1,2,3]
+q' = q.enQueue(4)
+q' = [1,2,3,4]   Queue.elements=[1,2,3,4] , Queue.size=4
+q = [1,2,3]
+
+q = [1,2,3]
+e = q.peek(); //e = 1
+q' = q.deQueue();
+q' = [2,3] 
+
+
+*** 
+
+*** Start talking about logic
+    
 * Lecture 2 (<2022-09-02 Fri>)
 
 ** Adminstrative: Groups

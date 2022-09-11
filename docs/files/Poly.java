@@ -128,7 +128,7 @@ public class Poly {
        return r;
     }
 
-    public String toString() {
+    public String toString() { //python:__str__
        String r = "Poly:";
 
        if (deg == 0 || trms[0] != 0) {

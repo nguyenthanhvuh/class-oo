@@ -9,7 +9,7 @@
   - *Notes*: Except for the first class, students are expected to complete the reading *prior to class* on listed meeting. Quizzes may occasionally take advantage of this expectation. Homework assignments are *due* on the date listed.
 
 
-** [[./notes.html][Notes]]
+
   
 
   | Meeting | Topic                                    | Reading                       | Assignment | In-Class Exercise |   |
@@ -30,7 +30,9 @@
   |      13 | Classes and Inheritance                  | Bloch 4                       |  [[#a10][A10 Due]]   |   IC 12 [[#ic12A][A]] [[#ic12B][B]]  [[#ic12C][C]]    |   |
   |      14 | Contract Model in Testing                | Advanced JUnit ([[./files/Ch03-automation.pptx ][slides 22-24)]] |  [[#a11][A11 Due]]   |       IC [[#ic13][13]]       |   |
   |      15 | Final Exam                               | [[#ic15][example]]                       |            |                   |   |
-  
+
+
+* [[./notes.html][Notes]]  
 
 * In class Assignments
 
@@ -198,9 +200,9 @@ Now address a technical topic. This exercise touches on some of the thorny issue
 
    #+end_src
 
-   1. Rewrite =Queue= to be *immutable*. Keep the representation variables =elements= and =size=.
-   1. Do the right thing with =enQueue()=.
-   1. Do the right thing with =deQueue()=.
+   1. Rewrite =Queue= to be *immutable* (i.e., =enQueue= and =deQueue=)  Keep the representation variables =elements= and =size=.
+   1. Add contracts to all methods.  
+
 
 ** In class 3B
    :PROPERTIES:
