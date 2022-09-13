@@ -9,9 +9,6 @@
   - *Notes*: Except for the first class, students are expected to complete the reading *prior to class* on listed meeting. Quizzes may occasionally take advantage of this expectation. Homework assignments are *due* on the date listed.
 
 
-
-  
-
   | Meeting | Topic                                    | Reading                       | Assignment | In-Class Exercise |   |
   |     <r> |                                          | <l>                           |    <c>     |        <c>        |   |
   |---------+------------------------------------------+-------------------------------+------------+-------------------+---|
@@ -29,7 +26,7 @@
   |      12 | Common Java Contracts                    | Bloch 3                       |   [[#a9][A9 Due]]   |     IC 11 [[#ic11A][A]] [[#ic11B][B]]     |   |
   |      13 | Classes and Inheritance                  | Bloch 4                       |  [[#a10][A10 Due]]   |   IC 12 [[#ic12A][A]] [[#ic12B][B]]  [[#ic12C][C]]    |   |
   |      14 | Contract Model in Testing                | Advanced JUnit ([[./files/Ch03-automation.pptx ][slides 22-24)]] |  [[#a11][A11 Due]]   |       IC [[#ic13][13]]       |   |
-  |      15 | Final Exam                               | [[#ic15][example]]                       |            |                   |   |
+  |      15 | Final Exam ([[https://registrar.gmu.edu/wp-content/uploads/Fall-2022-Final-Exam-Schedule.pdf][GMU Final Exam Schedule]])     | [[#ic15][example]]                       |            |                   |   |
 
 
 * [[./notes.html][Notes]]  
