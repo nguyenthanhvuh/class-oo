@@ -4,11 +4,58 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
 
+* Quiz 3 <<2022-09-16 Fri>
 
+*Immutatiblity*: Consider a partial version of a /mutable/ ~Stack~ class:
+   #+begin_src java
+     public class Stack {
 
-* Quiz 1 (<2022-09-02 Fri>)
-** Contracts for a Binary Search implementation.
-   - specifiy the specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.
+         private Object[] elements;
+         private int size = 0;
+
+         public Stack() { this.elements = new Object[0]; }
+
+         public void push (Object e) {
+             ensureCapacity();      // implementation omitted from quiz
+             elements[size++] = e;
+         }
+
+         public Object pop () {
+             if (size == 0) throw new IllegalStateException("Stack.pop");
+             Object result = elements[--size];
+             elements[size] = null;
+             return result;
+         }
+     }
+
+   #+end_src
+   Also consider the following client interaction with ~Stack~
+   #+begin_src java
+     Stack s = new Stack();
+     s.push("cat");
+     s.push("dog");
+     System.out.println(s.pop());
+   #+end_src
+   
+     *Q*: What methods would be needed to convert the client interaction into an equivalent interaction with an /immutable/ version called ~IStack~? For each method, give *just the method header* - not the contract or implemetation. Note:  the mutable version of ~pop~ has two behaviors: modifies the ~Stack~ *and* returns the top element.
+
+   
+   #+begin_comment
+     public class IStack{
+     public IStack push(Object e){
+     // return new IStack() .... 
+     }
+
+     public IStack pop (){
+     // return new IStack object
+     }
+
+     public Object top(){
+     // return the top of the stack 
+     }
+
+     }
+   #+end_comment
 
 
 
@@ -66,6 +113,14 @@ Consider the following 2 specifications, the second of which has an associated i
       #+begin_comment
       Answer: No. There are two cases. If the array is not empty, then the implementation returns ~IndexOutOfBoundsException~. However, if the array is empty, then the implementation generates ~IllegalArgumentException~ via the call to ~minIndex()~, which is /not/ ~IndexOutOfBoundsException~.
       #+end_comment
+
+
+* Quiz 1 (<2022-09-02 Fri>)
+** Contracts for a Binary Search implementation.
+   - specifiy the specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.
+
+
+
 
 
 
@@ -155,57 +210,6 @@ Consider the following 2 specifications, the second of which has an associated i
 #       Answer: No. There are two cases. If the array is not empty, then the implementation returns ~IndexOutOfBoundsException~. However, if the array is empty, then the implementation generates ~IllegalArgumentException~ via the call to ~minIndex()~, which is /not/ ~IndexOutOfBoundsException~.
 #       #+end_comment
 
-
-# * Quiz 3: Immutability
-# *Immutatiblity*: Consider a partial version of Bloch's mutable Stack class:
-#    #+begin_src java
-#      public class Stack {
-
-#          private Object[] elements;
-#          private int size = 0;
-
-#          public Stack() { this.elements = new Object[0]; }
-
-#          public void push (Object e) {
-#              ensureCapacity();      // implementation omitted from quiz
-#              elements[size++] = e;
-#          }
-
-#          public Object pop () {
-#              if (size == 0) throw new IllegalStateException("Stack.pop");
-#              Object result = elements[--size];
-#              elements[size] = null;
-#              return result;
-#          }
-#      }
-
-#    #+end_src
-#    Also consider the following client interaction with Stack
-#    #+begin_src java
-#      Stack s = new Stack();
-#      s.push("cat");
-#      s.push("dog");
-#      System.out.println(s.pop());
-#    #+end_src
-#      - What methods would be needed to convert the client interaction into an equivalent interaction with an immutable version called IStack? For each method, give *just the method header* - not the contract or implemetation.
-
-   
-#    #+begin_comment
-#      public class IStack{
-#      public IStack push(Object e){
-#      // return new IStack() .... 
-#      }
-
-#      public IStack pop (){
-#      // return new IStack object
-#      }
-
-#      public Object top(){
-#      // return the top of the stack 
-#      }
-
-#      }
-#    #+end_comment
 
 # ** Quiz 4: Verification using Hoare Logic
 #    Given the program

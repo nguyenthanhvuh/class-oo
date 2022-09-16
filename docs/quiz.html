@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-09-09 Fri 09:28 -->
+<!-- 2022-09-16 Fri 12:32 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 419</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
@@ -18,35 +18,64 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org9905222">1. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
-<li><a href="#org2deb35e">2. Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></a></li>
+<li><a href="#org284da0d">1. Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></a></li>
+<li><a href="#org1fdab5a">2. Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></a></li>
+<li><a href="#org985f61d">3. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
 </ul>
 </div>
 </div>
 
-
-
-<div id="outline-container-org9905222" class="outline-2">
-<h2 id="org9905222"><span class="section-number-2">1.</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
+<div id="outline-container-org284da0d" class="outline-2">
+<h2 id="org284da0d"><span class="section-number-2">1.</span> Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></h2>
 <div class="outline-text-2" id="text-1">
+<p>
+<b>Immutatiblity</b>: Consider a partial version of a <i>mutable</i> <code>Stack</code> class:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Stack</span> {
+
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">Object</span>[] <span style="color: #6a1868;">elements</span>;
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">size</span> = 0;
+
+    <span style="color: #e45649;">public</span> Stack() { <span style="color: #e45649;">this</span>.elements = <span style="color: #e45649;">new</span> <span style="color: #986801;">Object</span>[0]; }
+
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">push</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">e</span>) {
+        ensureCapacity();      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">implementation omitted from quiz</span>
+        elements[size++] = e;
+    }
+
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Object</span> <span style="color: #a626a4;">pop</span> () {
+        <span style="color: #e45649;">if</span> (size == 0) <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IllegalStateException</span>(<span style="color: #50a14f;">"Stack.pop"</span>);
+        <span style="color: #986801;">Object</span> <span style="color: #6a1868;">result</span> = elements[--size];
+        elements[size] = <span style="color: #b751b6;">null</span>;
+        <span style="color: #e45649;">return</span> result;
+    }
+}
+
+</pre>
 </div>
-<div id="outline-container-orge5fbf73" class="outline-3">
-<h3 id="orge5fbf73"><span class="section-number-3">1.1.</span> Contracts for a Binary Search implementation.</h3>
-<div class="outline-text-3" id="text-1-1">
-<ul class="org-ul">
-<li>specifiy the specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.</li>
-</ul>
+<p>
+Also consider the following client interaction with <code>Stack</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #986801;">Stack</span> <span style="color: #6a1868;">s</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Stack</span>();
+s.push(<span style="color: #50a14f;">"cat"</span>);
+s.push(<span style="color: #50a14f;">"dog"</span>);
+System.out.println(s.pop());
+</pre>
+</div>
+
+<p>
+<b>Q</b>: What methods would be needed to convert the client interaction into an equivalent interaction with an <i>immutable</i> version called <code>IStack</code>? For each method, give <b>just the method header</b> - not the contract or implemetation. Note:  the mutable version of <code>pop</code> has two behaviors: modifies the <code>Stack</code> <b>and</b> returns the top element.
+</p>
 </div>
 </div>
-</div>
 
 
 
 
-
-
-<div id="outline-container-org2deb35e" class="outline-2">
-<h2 id="org2deb35e"><span class="section-number-2">2.</span> Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></h2>
+<div id="outline-container-org1fdab5a" class="outline-2">
+<h2 id="org1fdab5a"><span class="section-number-2">2.</span> Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Consider the following 2 specifications, the second of which has an associated implementation (note that the 2nd implementation uses the specification of the first):
@@ -56,7 +85,6 @@ Consider the following 2 specifications, the second of which has an associated i
 <pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">minIndex</span> (<span style="color: #986801;">int</span> [] <span style="color: #6a1868;">a</span>) {... implementation omitted ... }
    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">EFFECTS: if a null throw NullPointerException, else if a.length=0 throw</span>
    <span style="color: #9ca0a4;">//      </span><span style="color: #9ca0a4;">IllegalArgumentException else return index of some min element in a.</span>
-
 
 <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">setSmall</span> (<span style="color: #986801;">int</span> [] <span style="color: #6a1868;">a</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span>) {
    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">REQUIRES: a != null, 0 &lt;= i &lt; a.length</span>
@@ -80,6 +108,21 @@ Consider the following 2 specifications, the second of which has an associated i
 <li>Does the given implementation of <code>setSmall()</code> satisfy this revised specification?</li>
 </ol></li>
 </ol>
+</div>
+</div>
+
+
+<div id="outline-container-org985f61d" class="outline-2">
+<h2 id="org985f61d"><span class="section-number-2">3.</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org5514647" class="outline-3">
+<h3 id="org5514647"><span class="section-number-3">3.1.</span> Contracts for a Binary Search implementation.</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>specifiy the specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.</li>
+</ul>
+</div>
 </div>
 </div>
 </div>

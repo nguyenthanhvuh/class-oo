@@ -4,6 +4,166 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
+
+* Lecture 4 (<2022-09-16 Fri>)
+
+** No class next Friday
+   - will send out details later
+
+** Topic: Automatic Verification
+- Logic
+
+  a => b   :  !a OR b
+  
+  - there is class next Friday :   False
+  - today is September 16:  True
+
+  1. x > 6 and x < 5  : False  (no value of x would satisfy this)
+  2. x > 6  =>  x > 1   :  True
+  3. x > 6  and  y = 3   :  False , counterxample(cex) : (x=5 , y=2)
+  4. x > 6  =>  y = 3   :  False,       cex  : (x=7,  y=4)
+    x <= 6  or  y = 3
+
+  satisfiable:
+    f :  satisfiable   if there is some assignment to the values in f that makes f evaluate to True
+    - x <= 6 or y = 3  is satisfiable (e.g.,  x=4, y=4)
+    - x > 6  and  y = 3 is SAT (e.g.,  x =7, y=3)  
+    - x > 6  =>  x > 1   is SAT (e.g.,  x=7)
+    - x > 6 and x < 5   is UNSAT
+
+  valid (tautology):
+    f : valid, if f evaluates to True for *every* assignment (f is *always* satisfiable)
+    - x > 6  =>  x > 1   is valid
+    - x = x  is valid
+
+  falsification:
+   f : is falsification if f elvalues to False for *every* assignment (f is *always* unsat)
+   -  x > 6 and x < 5
+   - x != x
+   - x = x + 1   (if x = some infinite number, then x = x + 1 would True, so assume x is finite)
+
+
+  Implication   a => b   =  !a or b
+  
+  - f => f      =  Valid    (!f or f)
+  - f => True   =  Valid    (!f or True)
+  - True => f   = Not Valid  !True or f  = False or f   =  f
+  - f => False   =  Not Valid       !f or False   = !f
+  - False => f  =  Valid      !False or f  =  True or f  = True
+  
+Hoare Verification
+   - Tony Hoare: Sir. Hoare, quick sort, verification, ...
+   - automatic verification that a program S is correct with respect to precondition P and postcondition Q
+
+
+   - Hoare tripple
+     {P}  S  {Q}
+     - Precondition: P
+     - Postcond :  Q
+     - S :   program (statements)
+     - Hoare tripple is valid: if P holds, and the successful execution of S results in Q
+       - S is correct with respect to P and Q
+     
+        
+
+
+   - Testing   S,   P , Q
+
+     Goal: given a program S,  {P, Q},  check if S is correct wrt to P, Q
+     - testing: finding some bug:  want to find if there is some (bad) input that satisfy P,  but doesn't satisy Q
+       - pros: quick , test it on some finite number of inputs (K,M,B ..)
+       - cons: if the test shows no bug, DOES NOT mean the program really has no bug
+         
+     - verification: want to show there exist no bad input that ... 
+       - pros: if verify shows no bug,  DOES mean program has bug
+       - cons: runs slowly (have to consider all possible inputs)
+
+
+     - medical (surgeries), airplan, weapons, ...
+     - Hardware design (CPU)
+     - Airbus:  verification to check floating errors do not occur A380 ...
+     - NASA:  Rovers  (symbolic execution)
+     - Facebook Newsfeed :  verification (currency), Instagram
+     - Amazon AWS :  cloud computing 
+       
+       
+Examples of Hoare tripples
+
+- {True} x := 5  {x=5}  : Valid HT # strongest post
+- {True} x := 5  {x > 4} :  Valid HT
+- {True}  x:= 5  {x=5 or x=6}  : Valid HT
+# postcondition:  prefer strongest postcondition
+# precondition: prefer weakest precondition
+
+
+
+
+- {True}  x:= 5  {x > 5}  : Invalid HT
+
+- {x = 1 & y = 2} z:= x/y  {z < 1}   : Valid
+- {x < y} z:= x/y  {z < 1}   :   Invalid
+- {False} x:=3 {x=8}  : Valid
+- {True} while(1){x:=8} {x=3}  : Valid (Partial correct)
+  - Partial () vs Total (you have to check that the program terminates)
+
+- Halting problem
+  - given a program, is it possible to determine if it will halt or not?
+  - Alan Turing
+    - Break Engima (10 years of WW-II)
+    - Father of Computer Science
+      - Show that Halting problem is undecidable
+      - Turing machine - Universal Machine
+      - Turing test
+    - Matrix multiplication (LU-)
+  - Halting: Undecidable problem
+  
+
+How to determine if Hoare Triple is valid or not?
+- Compute *weakest* preconditions (WP)
+- WP(S, Q) = P'
+
+  
+- Skip:WP(skip, {x=3})=  {x=3}
+- Assignment:  
+  - WP(x:=x+1, {x=3})= {x=2}
+    - {x=2} x:= x+1 {x=3}
+  - WP(x:=x+1, {x>3})= x>2
+  - WP(x:=1, {x=3}) = False
+    {False}  x:= 1 {x=3}  
+- Condition
+  - WP(if x > 0 then y := x + 2  else y:= y + 1,  {y > x})
+    x>0  and   (x  < 0 -> y + 1 >x )
+- While loop
+  - loop invariant (I)
+    - true when entering the loop
+#+begin_src python
+  while (b){
+    # loop body
+  }
+
+  while (True){
+    [I]      # loop invariant I is right here
+    if (!b) break
+      # loop body
+  }
+#+end_src
+       
+#+begin_src python
+  {N >= 0} # precondition
+  
+  i := 0
+  while(True):
+    [L]
+    if(!(i < N)):  # i >= N : break
+        break
+    i := N;
+#+end_src       
+
+i = i = True
+N= N
+i >= 0
+i <= N   
+      
 * Lecture 3 (<2022-09-09 Fri>)
 ** Go over quiz 1
 
