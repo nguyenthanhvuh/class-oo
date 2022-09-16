@@ -15,18 +15,17 @@
   |       1 | Class Overview                           | Liskov 1--2                   |            |     IC 1 [[#ic1a][A]] [[#ic1b][B]]      |   |
   |       2 | Procedural Abstraction, Exception        | Liskov 3--4                   |   [[#a1][A1 Due]]   |     IC 2 [[#ic2A][A]] [[#ic2B][B]]      |   |
   |       3 | Data Abstraction; Mutability             | Liskov 5.1--5.4,              |   [[#a2][A2 Due]]   |     IC 3 [[#ic3A][A]] [[#ic3B][B]]      |   |
-  |       4 | Imperative Program Verification          | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]]             |   [[#a3][A3 Due]]   |                   |   |
-  |       5 | Imperative Program verification          | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]]             |            |       IC [[#ic4][4]]        |   |
-  |       6 | Reasoning About Data Abstraction         | Liskov 5.5-5.10               |   [[#a4][A4 Due]]   |     IC 5 [[#ic5A][A]] [[#ic5B][B]]      |   |
-  |       7 | Iteration Abstraction; Method Guidelines | Liskov 6, Bloch 8             |   [[#a5][A5 Due]]   |     IC 6 [[#ic6A][A]] [[#ic6B][B]]      |   |
-  |       8 | Type Abstraction                         | Liskov 7                      |   [[#a6][A6 Due]]   |    IC 7 [[#ic7A][A]] [[#ic7B][B]] [[#ic7C][C]]     |   |
-  |       9 | Mid-semester Recap; [[./files/swe619.pdf][Research slides]]      | /No New Material/             |            |       IC [[#ic8][8]]        |   |
-  |      10 | Polymorphic Abstract; Lambdas            | Liskov 8, Bloch 7 (Item 42)   |   [[#a7][A7 Due]]   |       IC [[#ic9][9]]        |   |
-  |      11 | Generics                                 | Bloch 5                       |   [[#a8][A8 Due]]   |    IC 10 [[#ic10A][A]] [[#ic10B][B]] [[#ic10C][C]]    |   |
-  |      12 | Common Java Contracts                    | Bloch 3                       |   [[#a9][A9 Due]]   |     IC 11 [[#ic11A][A]] [[#ic11B][B]]     |   |
-  |      13 | Classes and Inheritance                  | Bloch 4                       |  [[#a10][A10 Due]]   |   IC 12 [[#ic12A][A]] [[#ic12B][B]]  [[#ic12C][C]]    |   |
-  |      14 | Contract Model in Testing                | Advanced JUnit ([[./files/Ch03-automation.pptx ][slides 22-24)]] |  [[#a11][A11 Due]]   |       IC [[#ic13][13]]       |   |
-  |      15 | Final Exam ([[https://registrar.gmu.edu/wp-content/uploads/Fall-2022-Final-Exam-Schedule.pdf][GMU Final Exam Schedule]])     | [[#ic15][example]]                       |            |                   |   |
+  |       4 | Imperative Program Verification          | [[https://github.com/dynaroars/program_analysis_notes/blob/master/notebooks/hoare-logic.ipynb][Hoare logic notes]]             |   [[#a3][A3 Due]]   |       IC [[#ic4][4]]        |   |
+  |       5 | Reasoning About Data Abstraction         | Liskov 5.5-5.10               |   [[#a4][A4 Due]]   |     IC 5 [[#ic5A][A]] [[#ic5B][B]]      |   |
+  |       6 | Iteration Abstraction; Method Guidelines | Liskov 6, Bloch 8             |   [[#a5][A5 Due]]   |     IC 6 [[#ic6A][A]] [[#ic6B][B]]      |   |
+  |       7 | Type Abstraction                         | Liskov 7                      |   [[#a6][A6 Due]]   |    IC 7 [[#ic7A][A]] [[#ic7B][B]] [[#ic7C][C]]     |   |
+  |       8 | Mid-semester Recap; [[./files/swe619.pdf][Research slides]]      | /No New Material/             |            |       IC [[#ic8][8]]        |   |
+  |       9 | Polymorphic Abstract; Lambdas            | Liskov 8, Bloch 7 (Item 42)   |   [[#a7][A7 Due]]   |       IC [[#ic9][9]]        |   |
+  |      10 | Generics                                 | Bloch 5                       |   [[#a8][A8 Due]]   |    IC 10 [[#ic10A][A]] [[#ic10B][B]] [[#ic10C][C]]    |   |
+  |      11 | Common Java Contracts                    | Bloch 3                       |   [[#a9][A9 Due]]   |     IC 11 [[#ic11A][A]] [[#ic11B][B]]     |   |
+  |      12 | Classes and Inheritance                  | Bloch 4                       |  [[#a10][A10 Due]]   |   IC 12 [[#ic12A][A]] [[#ic12B][B]]  [[#ic12C][C]]    |   |
+  |      13 | Contract Model in Testing                | Advanced JUnit ([[./files/Ch03-automation.pptx ][slides 22-24)]] |  [[#a11][A11 Due]]   |       IC [[#ic13][13]]       |   |
+  |      14 | Final Exam ([[https://registrar.gmu.edu/wp-content/uploads/Fall-2022-Final-Exam-Schedule.pdf][GMU Final Exam Schedule]])     | [[#ic15][example]]                       |            |                   |   |
 
 
 * [[./notes.html][Notes]]  

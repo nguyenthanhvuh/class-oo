@@ -11,7 +11,7 @@ Binary_search(arrays, x)
 - precondition:
   - arrays: sorted, cannot null, 
 - postcondition:
-  - if x not in arrays: raise someexception ...
+  - if x not in arrays: raise some exception ...
   - ow: returns index of x in array
     
  * Recap:
@@ -21,7 +21,7 @@ Binary_search(arrays, x)
 
 ** Data Abstraction
 Consider [[./files/Poly.java][Poly.java from Liskov]]
-   - implements a class to represent ~polynomials~
+  - implements a class to represent ~polynomials~
   - 10*x + 5*x^2 + 3*x^3 + 100*x^11 + 42
   - 101
   - c_1*x_1^d_1 + c_2*x_2^d_2    (c_i*x_i^d_i : term,  c_i: coefficients, d_i: degree)
@@ -37,10 +37,10 @@ Consider [[./files/Poly.java][Poly.java from Liskov]]
      - coefficients integers
 
 - to represent: =5 + 3*x^2= in this code
-  - Poly(deg=2, trms=[5,3])   
-  - Poly(deg=2, trms=[5,0,3]) 
+  - =Poly(deg=2, trms=[5,3])=
+  - =Poly(deg=2, trms=[5,0,3])=
     
-  - Poly(deg=2, trms=[5,0,3,0,0,0,0,0...]): not allowed in Poly implementation (last element of the array term cannot be non zero)
+  - =Poly(deg=2, trms=[5,0,3,0,0,0,0,0...])=: not allowed in Poly implementation (last element of the array term cannot be non zero)
 
     
 - 1st =public Poly= contract: good (no inputs, not modifying any inputs etc)
@@ -50,18 +50,20 @@ Consider [[./files/Poly.java][Poly.java from Liskov]]
 - =coeff_book()= vs =coeff()=  :  which is better? coeff() is better, go back to constructors:  if n < 0 , it throws IAE,  but this coeff_book returns a value (implicitly allow that)
 ...
 - *abstraction method/function*: =toString=   -> concrete (implementation) to abstract (polynomial)
-  -  Poly(deg=2, trms=[5,3])   =>  5+3*x
-  -  Poly(deg=2, trms=[5,0,3]) =>  5+3x^2
+  -  =Poly(deg=2, trms=[5,3])=   =>  5+3*x
+  -  =Poly(deg=2, trms=[5,0,3])= =>  5+3x^2
   
 *** Immutable
   - Thread safe ;  easier for sharing; efficiency; safety;  less prone to error, easier to design
   - really good for concurrency (can do things in parallel)
 
-      
+**** General way to turn mutable to immutable      
   - If modifies contents of the data, create a new one instead and also return the newly created one
   - In other words, it would not modify the contents of the data, instead of modifying the data internally,  it returns a new data (that would have same contents as data in the the mutable version)
-  - In-class 3A
 
+*** In-class 3A
+
+#+begin_src 
 q = [1,2,3]
 q.enQueue(4) #  q.elements = [1,2,3,4]
 
@@ -83,23 +85,8 @@ q = q'
 - q.elements = [2,3,4]
 - result = 1  
 
+#+end_src
 
-
-  
-q = [1,2,3]
-q' = q.enQueue(4)
-q' = [1,2,3,4]   Queue.elements=[1,2,3,4] , Queue.size=4
-q = [1,2,3]
-
-q = [1,2,3]
-e = q.peek(); //e = 1
-q' = q.deQueue();
-q' = [2,3] 
-
-
-*** 
-
-*** Start talking about logic
     
 * Lecture 2 (<2022-09-02 Fri>)
 
