@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-09-15 Thu 22:31 -->
+<!-- 2022-09-22 Thu 15:04 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 619 Course Schedule and Assignments</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
@@ -39,19 +39,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb379a40">1. Schedule</a></li>
-<li><a href="#org6df8fbc">2. Notes</a></li>
-<li><a href="#org0a16a2a">3. In class Assignments</a></li>
-<li><a href="#org8b86760">4. Homework Assignments</a></li>
-<li><a href="#org889541c">5. Reflection</a></li>
-<li><a href="#orgc46c3e8">6. Files</a></li>
-<li><a href="#org2819dc9">7. Links</a></li>
+<li><a href="#org92bbc34">1. Schedule</a></li>
+<li><a href="#orgca7274e">2. Notes</a></li>
+<li><a href="#org0df05e4">3. In class Assignments</a></li>
+<li><a href="#org10cebd6">4. Homework Assignments</a></li>
+<li><a href="#org601b637">5. Reflection</a></li>
+<li><a href="#org0861fa9">6. Files</a></li>
+<li><a href="#orgfbac29d">7. Links</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgb379a40" class="outline-2">
-<h2 id="orgb379a40"><span class="section-number-2">1.</span> Schedule</h2>
+<div id="outline-container-org92bbc34" class="outline-2">
+<h2 id="org92bbc34"><span class="section-number-2">1.</span> Schedule</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li><b>Notes</b>: Except for the first class, students are expected to complete the reading <b>prior to class</b> on listed meeting. Quizzes may occasionally take advantage of this expectation. Homework assignments are <b>due</b> on the date listed.</li>
@@ -115,7 +115,7 @@
 <tr>
 <td class="org-right">4</td>
 <td class="org-left">Imperative Program Verification</td>
-<td class="org-left"><a href="https://github.com/dynaroars/program_analysis_notes/blob/master/notebooks/hoare-logic.ipynb">Hoare logic notes</a></td>
+<td class="org-left"><a href="https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html">Hoare logic notes</a></td>
 <td class="org-center"><a href="#a3">A3 Due</a></td>
 <td class="org-center">IC <a href="#ic4">4</a></td>
 <td class="org-left">&#xa0;</td>
@@ -216,12 +216,12 @@
 </div>
 
 
-<div id="outline-container-org6df8fbc" class="outline-2">
-<h2 id="org6df8fbc"><span class="section-number-2">2.</span> <a href="./notes.html">Notes</a></h2>
+<div id="outline-container-orgca7274e" class="outline-2">
+<h2 id="orgca7274e"><span class="section-number-2">2.</span> <a href="./notes.html">Notes</a></h2>
 </div>
 
-<div id="outline-container-org0a16a2a" class="outline-2">
-<h2 id="org0a16a2a"><span class="section-number-2">3.</span> In class Assignments</h2>
+<div id="outline-container-org0df05e4" class="outline-2">
+<h2 id="org0df05e4"><span class="section-number-2">3.</span> In class Assignments</h2>
 <div class="outline-text-2" id="text-3">
 </div>
 <div id="outline-container-ic1a" class="outline-3">
@@ -892,7 +892,7 @@ from <code>get()</code>.
 </div>
 </div>
 <ol class="org-ol">
-<li><a id="org1cc8fdf"></a>Approach 1: Create Methods That Search for Members That Match One Characteristic.<br />
+<li><a id="orgd379111"></a>Approach 1: Create Methods That Search for Members That Match One Characteristic.<br />
 <div class="outline-text-5" id="text-3-16-0-1">
 <p>
 One simplistic approach is to create several methods; each method searches for members that match one characteristic, such as gender or age. <b>Create a method that prints members that are older than a specified age</b>.
@@ -904,7 +904,7 @@ Limitation: This approach can potentially make your application brittle, which i
 </div>
 </li>
 
-<li><a id="org62cf1c0"></a>Approach 2: Create More Generalized Search Methods.<br />
+<li><a id="org3493655"></a>Approach 2: Create More Generalized Search Methods.<br />
 <div class="outline-text-5" id="text-3-16-0-2">
 <p>
 Create a method is more generic than the one in the previous approach. It prints members within a specified range of ages.
@@ -916,7 +916,7 @@ Limitation: What if you want to print members of a specified sex, or a combinati
 </div>
 </li>
 
-<li><a id="orgbbfa883"></a>Approach 3: Specify Search Criteria Code in a Local Class<br />
+<li><a id="orgd670e10"></a>Approach 3: Specify Search Criteria Code in a Local Class<br />
 <div class="outline-text-5" id="text-3-16-0-3">
 <p>
 Instead of writing filtering functions, use a new interface and class for each search you plan. Use the following filtering criteria for example:  filters members that are eligible for Selective Service in the United States: those who are male and between the ages of 18 and 25:
@@ -928,7 +928,7 @@ Limtation: Although this approach is less brittle—you don't have to rewrite me
 </div>
 </li>
 
-<li><a id="org1a6a25b"></a>Approach 4: Specify Search Criteria Code in an Anonymous Class<br />
+<li><a id="org06bc778"></a>Approach 4: Specify Search Criteria Code in an Anonymous Class<br />
 <div class="outline-text-5" id="text-3-16-0-4">
 <p>
 Use an anonymous class to address the issue with Approach 3.
@@ -940,7 +940,7 @@ Limtation: This approach reduces the amount of code required because you don't h
 </div>
 </li>
 
-<li><a id="orgd2c9519"></a>Approach 5: Specify Search Criteria Code with a Lambda Expression<br />
+<li><a id="org1776fce"></a>Approach 5: Specify Search Criteria Code with a Lambda Expression<br />
 <div class="outline-text-5" id="text-3-16-0-5">
 <p>
 Use lambda expression to address the limitation the previous approach.
@@ -1651,8 +1651,8 @@ How well are you prepared for the final? This exercise should help you find out.
 </div>
 </div>
 
-<div id="outline-container-org8b86760" class="outline-2">
-<h2 id="org8b86760"><span class="section-number-2">4.</span> Homework Assignments</h2>
+<div id="outline-container-org10cebd6" class="outline-2">
+<h2 id="org10cebd6"><span class="section-number-2">4.</span> Homework Assignments</h2>
 <div class="outline-text-2" id="text-4">
 </div>
 <div id="outline-container-a1" class="outline-3">
@@ -1661,8 +1661,8 @@ How well are you prepared for the final? This exercise should help you find out.
 </div>
 
 
-<div id="outline-container-org63e3c54" class="outline-4">
-<h4 id="org63e3c54"><span class="section-number-4">4.1.1.</span> Goals</h4>
+<div id="outline-container-org2ed3c8b" class="outline-4">
+<h4 id="org2ed3c8b"><span class="section-number-4">4.1.1.</span> Goals</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <ol class="org-ol">
 <li>Getting started on Piazza; getting your group together.</li>
@@ -1671,8 +1671,8 @@ How well are you prepared for the final? This exercise should help you find out.
 </div>
 </div>
 
-<div id="outline-container-org98ccc56" class="outline-4">
-<h4 id="org98ccc56"><span class="section-number-4">4.1.2.</span> Assignment</h4>
+<div id="outline-container-org6348e66" class="outline-4">
+<h4 id="org6348e66"><span class="section-number-4">4.1.2.</span> Assignment</h4>
 <div class="outline-text-4" id="text-4-1-2">
 <ol class="org-ol">
 <li>Post a brief intro about yourself on the course Piazza page. For any
@@ -1721,8 +1721,8 @@ Implement this <code>find_prime_factor</code> function. Although you should (obv
 </div>
 
 
-<div id="outline-container-org42db7a6" class="outline-4">
-<h4 id="org42db7a6"><span class="section-number-4">4.1.3.</span> Grading Criteria</h4>
+<div id="outline-container-org43a9f51" class="outline-4">
+<h4 id="org43a9f51"><span class="section-number-4">4.1.3.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-4-1-3">
 <ul class="org-ul">
 <li>Your individual Piazza post adhers to my instructions. (That is, no  sideways pictures, no oversize pictures, etc.)</li>
@@ -1739,8 +1739,8 @@ Implement this <code>find_prime_factor</code> function. Although you should (obv
 <div class="outline-text-3" id="text-a2">
 </div>
 
-<div id="outline-container-orgb762f9f" class="outline-4">
-<h4 id="orgb762f9f"><span class="section-number-4">4.2.1.</span> Goals: Contracts</h4>
+<div id="outline-container-org2452b54" class="outline-4">
+<h4 id="org2452b54"><span class="section-number-4">4.2.1.</span> Goals: Contracts</h4>
 <div class="outline-text-4" id="text-4-2-1">
 <p>
 For the second assignment, you'll build a <i>very</i> small piece of Java for a contract with preconditions, transform the contract so that all preconditions become postconditions (i.e., make it a <i>total</i> contract), and then re-implement appropriately.
@@ -1791,8 +1791,8 @@ The variable names here are explanatory, not required. You may want to use diffe
 </div>
 </div>
 
-<div id="outline-container-org48139cd" class="outline-4">
-<h4 id="org48139cd"><span class="section-number-4">4.2.2.</span> Grading Criteria</h4>
+<div id="outline-container-orgb45ce91" class="outline-4">
+<h4 id="orgb45ce91"><span class="section-number-4">4.2.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-4-2-2">
 <ul class="org-ul">
 <li>Adherence to instructions.</li>
@@ -1808,8 +1808,8 @@ The variable names here are explanatory, not required. You may want to use diffe
 <h3 id="a3"><span class="section-number-3">4.3.</span> Assignment 3</h3>
 <div class="outline-text-3" id="text-a3">
 </div>
-<div id="outline-container-orge01a6cf" class="outline-4">
-<h4 id="orge01a6cf"><span class="section-number-4">4.3.1.</span> Goals: Data Abstraction / Mutability</h4>
+<div id="outline-container-org2ff99b8" class="outline-4">
+<h4 id="org2ff99b8"><span class="section-number-4">4.3.1.</span> Goals: Data Abstraction / Mutability</h4>
 <div class="outline-text-4" id="text-4-3-1">
 <p>
 Rewrite <a href="./files/MapPoly.java">MapPoly</a>, my map-based version Liskov's Poly so that it is <i>mutable</i>. Keep the same representation.
@@ -1829,8 +1829,8 @@ Remember that part of your group is responsible for synthesizing a solution, and
 </div>
 </div>
 
-<div id="outline-container-orgf8c3604" class="outline-4">
-<h4 id="orgf8c3604"><span class="section-number-4">4.3.2.</span> Grading Criteria</h4>
+<div id="outline-container-org3dab859" class="outline-4">
+<h4 id="org3dab859"><span class="section-number-4">4.3.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-4-3-2">
 <ul class="org-ul">
 <li>Correct transformation of Poly</li>
@@ -1845,8 +1845,8 @@ Remember that part of your group is responsible for synthesizing a solution, and
 <h3 id="a4"><span class="section-number-3">4.4.</span> Assignment 4</h3>
 <div class="outline-text-3" id="text-a4">
 </div>
-<div id="outline-container-orgc081c74" class="outline-4">
-<h4 id="orgc081c74"><span class="section-number-4">4.4.1.</span> Goals: Understanding Program Verification through Hoare Logic</h4>
+<div id="outline-container-org10823ac" class="outline-4">
+<h4 id="org10823ac"><span class="section-number-4">4.4.1.</span> Goals: Understanding Program Verification through Hoare Logic</h4>
 <div class="outline-text-4" id="text-4-4-1">
 <p>
 Do the <a href="#ic4">in-class exercise</a> with your group and submit it on BB. More specifically, you will do the below two tasks:
@@ -1864,8 +1864,8 @@ Do the <a href="#ic4">in-class exercise</a> with your group and submit it on BB.
 </div>
 </div>
 
-<div id="outline-container-orge846e16" class="outline-4">
-<h4 id="orge846e16"><span class="section-number-4">4.4.2.</span> Grading Criteria</h4>
+<div id="outline-container-org1e85d84" class="outline-4">
+<h4 id="org1e85d84"><span class="section-number-4">4.4.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-4-4-2">
 <ul class="org-ul">
 <li>Correctness of solution</li>
@@ -1881,8 +1881,8 @@ Note: If your group had trouble with the assignment, feel free to appeal to your
 <h3 id="a5"><span class="section-number-3">4.5.</span> Assignment 5</h3>
 <div class="outline-text-3" id="text-a5">
 </div>
-<div id="outline-container-org32f531f" class="outline-4">
-<h4 id="org32f531f"><span class="section-number-4">4.5.1.</span> Goals: Rep-Invariants, contracts, tests</h4>
+<div id="outline-container-orgb51e311" class="outline-4">
+<h4 id="orgb51e311"><span class="section-number-4">4.5.1.</span> Goals: Rep-Invariants, contracts, tests</h4>
 <div class="outline-text-4" id="text-4-5-1">
 <p>
 Revisit the mutable Poly example from <a href="#a3">assignment 3</a>. That is, use the one based on a map, not an array.
@@ -1901,8 +1901,8 @@ As in assignment 3, your deliverable is a <b>story</b>, with exactly the same ra
 </div>
 </div>
 
-<div id="outline-container-orgba41925" class="outline-4">
-<h4 id="orgba41925"><span class="section-number-4">4.5.2.</span> Grading Criteria</h4>
+<div id="outline-container-orgce4ba7a" class="outline-4">
+<h4 id="orgce4ba7a"><span class="section-number-4">4.5.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-4-5-2">
 <ul class="org-ul">
 <li>Correctness of solution</li>
@@ -1919,8 +1919,8 @@ Note: If your group had trouble with the previous assignment, feel free to appea
 <h3 id="a6"><span class="section-number-3">4.6.</span> Assignment 6</h3>
 <div class="outline-text-3" id="text-a6">
 </div>
-<div id="outline-container-org6671be8" class="outline-4">
-<h4 id="org6671be8"><span class="section-number-4">4.6.1.</span> Goals: Immutablity via Bloch Item 50</h4>
+<div id="outline-container-org052c201" class="outline-4">
+<h4 id="org052c201"><span class="section-number-4">4.6.1.</span> Goals: Immutablity via Bloch Item 50</h4>
 <div class="outline-text-4" id="text-4-6-1">
 <p>
 Revisit the <a href="#ic6B">Period example</a>.
@@ -1936,8 +1936,8 @@ Turn in a <b>story</b>.
 </div>
 </div>
 
-<div id="outline-container-orgbe7f9d2" class="outline-4">
-<h4 id="orgbe7f9d2"><span class="section-number-4">4.6.2.</span> Grading Criteria</h4>
+<div id="outline-container-org20c19be" class="outline-4">
+<h4 id="org20c19be"><span class="section-number-4">4.6.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-4-6-2">
 <p>
 Grading is in part the technical aspect of breaking immutability, and in part that your client case is plausible.
@@ -1951,8 +1951,8 @@ Grading is in part the technical aspect of breaking immutability, and in part th
 <div class="outline-text-3" id="text-a7">
 </div>
 
-<div id="outline-container-org5a4ace2" class="outline-4">
-<h4 id="org5a4ace2"><span class="section-number-4">4.7.1.</span> Goals: Type Abstraction</h4>
+<div id="outline-container-orga7e455c" class="outline-4">
+<h4 id="orga7e455c"><span class="section-number-4">4.7.1.</span> Goals: Type Abstraction</h4>
 <div class="outline-text-4" id="text-4-7-1">
 <p>
 Consider the following <code>Market</code> class.
@@ -2014,8 +2014,8 @@ Is <code>Low_Offer_Market</code> a valid subtype of <code>Market</code>? Appeal 
 </div>
 </div>
 
-<div id="outline-container-org7e1e41b" class="outline-4">
-<h4 id="org7e1e41b"><span class="section-number-4">4.7.2.</span> Grading Criteria</h4>
+<div id="outline-container-orga0a12b3" class="outline-4">
+<h4 id="orga0a12b3"><span class="section-number-4">4.7.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-4-7-2">
 <p>
 This is purely a "paper and pencil" exercise. No code is required. Write your answer so that it is easily understandable by someone with only a passing knowledge of Liskov's rules for subtypes.
@@ -2029,8 +2029,8 @@ This is purely a "paper and pencil" exercise. No code is required. Write your an
 <div class="outline-text-3" id="text-a8">
 </div>
 
-<div id="outline-container-org20d7524" class="outline-4">
-<h4 id="org20d7524"><span class="section-number-4">4.8.1.</span> Goals: Polymorphic Abstraction.</h4>
+<div id="outline-container-org332a06a" class="outline-4">
+<h4 id="org332a06a"><span class="section-number-4">4.8.1.</span> Goals: Polymorphic Abstraction.</h4>
 <div class="outline-text-4" id="text-4-8-1">
 <p>
 A <code>Comparator</code> based on absolute values is problematic. Code up the comparator and then write client code that illustrates the problem. Use a <i>lambda function</i> to implement the comparator. Explain what is wrong in a brief summary statement. Your explanation of the problem must be phrased in terms of a violation of the contract for <code>Comparator</code>.
@@ -2042,8 +2042,8 @@ To emphasize that this contract problem is real, your code should create two Jav
 </div>
 </div>
 
-<div id="outline-container-org8fc725d" class="outline-4">
-<h4 id="org8fc725d"><span class="section-number-4">4.8.2.</span> Grading Criteria</h4>
+<div id="outline-container-org33a280a" class="outline-4">
+<h4 id="org33a280a"><span class="section-number-4">4.8.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-4-8-2">
 <p>
 As for other recent assignments, your deliverable is a clear, concise story that demonstrates completion of the assignment.
@@ -2057,8 +2057,8 @@ As for other recent assignments, your deliverable is a clear, concise story that
 <div class="outline-text-3" id="text-a9">
 </div>
 
-<div id="outline-container-org3069d65" class="outline-4">
-<h4 id="org3069d65"><span class="section-number-4">4.9.1.</span> Goals: Generics</h4>
+<div id="outline-container-orgd6067e5" class="outline-4">
+<h4 id="orgd6067e5"><span class="section-number-4">4.9.1.</span> Goals: Generics</h4>
 <div class="outline-text-4" id="text-4-9-1">
 <p>
 Consider the <a href="./files/BoundedQueue.java">BoundedQueue</a> example from the in-class exercise given <a href="#ic10C">3.19</a>.
@@ -2082,8 +2082,8 @@ Add <code>putAll()</code> and <code>getAll()</code>. Define the method signature
 </div>
 </div>
 
-<div id="outline-container-orgbfea2fc" class="outline-4">
-<h4 id="orgbfea2fc"><span class="section-number-4">4.9.2.</span> Grading Criteria</h4>
+<div id="outline-container-org33cb936" class="outline-4">
+<h4 id="org33cb936"><span class="section-number-4">4.9.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-4-9-2">
 <p>
 As before, turn in a clear, concise story demonstrating completion of the assignment.
@@ -2097,8 +2097,8 @@ As before, turn in a clear, concise story demonstrating completion of the assign
 <div class="outline-text-3" id="text-a10">
 </div>
 
-<div id="outline-container-org8e76679" class="outline-4">
-<h4 id="org8e76679"><span class="section-number-4">4.10.1.</span> Goals: <code>Object</code> class contracts.</h4>
+<div id="outline-container-org0557f24" class="outline-4">
+<h4 id="org0557f24"><span class="section-number-4">4.10.1.</span> Goals: <code>Object</code> class contracts.</h4>
 <div class="outline-text-4" id="text-4-10-1">
 <p>
 As it happens, Liskov's implementation of <code>clone()</code> for the <code>IntSet</code> class (see figure 5.10, page 97) is wrong.
@@ -2112,8 +2112,8 @@ As it happens, Liskov's implementation of <code>clone()</code> for the <code>Int
 </div>
 </div>
 
-<div id="outline-container-orgde0d797" class="outline-4">
-<h4 id="orgde0d797"><span class="section-number-4">4.10.2.</span> Grading Criteria</h4>
+<div id="outline-container-org16fd370" class="outline-4">
+<h4 id="org16fd370"><span class="section-number-4">4.10.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-4-10-2">
 <p>
 In addititon to code and tests, your deliverable is a story. Explain what is going on at each stage of the exercise. The GTA will primarily grade your story.
@@ -2126,8 +2126,8 @@ In addititon to code and tests, your deliverable is a story. Explain what is goi
 <h3 id="a11"><span class="section-number-3">4.11.</span> Assignment 11</h3>
 <div class="outline-text-3" id="text-a11">
 </div>
-<div id="outline-container-org57144e7" class="outline-4">
-<h4 id="org57144e7"><span class="section-number-4">4.11.1.</span> Goals: Favoring composition over inheritance. Bloch, Item 18.</h4>
+<div id="outline-container-org2223253" class="outline-4">
+<h4 id="org2223253"><span class="section-number-4">4.11.1.</span> Goals: Favoring composition over inheritance. Bloch, Item 18.</h4>
 <div class="outline-text-4" id="text-4-11-1">
 <p>
 Consider the <code>InstrumentedSet</code> example from Bloch Item 18 (as well as in-class exercise <a href="#ic12A">in-class 12A</a>).
@@ -2145,8 +2145,8 @@ Consider the <code>InstrumentedSet</code> example from Bloch Item 18 (as well as
 
 
 
-<div id="outline-container-orga6868c8" class="outline-4">
-<h4 id="orga6868c8"><span class="section-number-4">4.11.2.</span> Grading Criteria</h4>
+<div id="outline-container-orga0d2308" class="outline-4">
+<h4 id="orga0d2308"><span class="section-number-4">4.11.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-4-11-2">
 <p>
 The GTA will look for correct responses, appropriate JUnit tests, and plausible explanations when doing the grading.
@@ -2160,8 +2160,8 @@ The GTA will look for correct responses, appropriate JUnit tests, and plausible 
 <div class="outline-text-3" id="text-a12">
 </div>
 
-<div id="outline-container-org996eb91" class="outline-4">
-<h4 id="org996eb91"><span class="section-number-4">4.12.1.</span> Goals: Applying lessons learned.</h4>
+<div id="outline-container-orgbe7f91e" class="outline-4">
+<h4 id="orgbe7f91e"><span class="section-number-4">4.12.1.</span> Goals: Applying lessons learned.</h4>
 <div class="outline-text-4" id="text-4-12-1">
 <p>
 You have a choice of possible assignments:
@@ -2190,8 +2190,8 @@ There are two attacks documented in Bloch's Item 88: <i>Write <code>readObject()
 </div>
 
 
-<div id="outline-container-org723854e" class="outline-4">
-<h4 id="org723854e"><span class="section-number-4">4.12.2.</span> Grading Criteria</h4>
+<div id="outline-container-orgb501e3e" class="outline-4">
+<h4 id="orgb501e3e"><span class="section-number-4">4.12.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-4-12-2">
 <p>
 In each case, the deliverable is a story. Write a brief report, and include enough evidence (output, screen shots, etc.) that the GTA can figure out that you actually completed the assignment.
@@ -2202,8 +2202,8 @@ In each case, the deliverable is a story. Write a brief report, and include enou
 </div>
 
 
-<div id="outline-container-org889541c" class="outline-2">
-<h2 id="org889541c"><span class="section-number-2">5.</span> Reflection</h2>
+<div id="outline-container-org601b637" class="outline-2">
+<h2 id="org601b637"><span class="section-number-2">5.</span> Reflection</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 For each of the following, answer these two questions first:
@@ -2214,8 +2214,8 @@ For each of the following, answer these two questions first:
 </ol>
 </div>
 
-<div id="outline-container-orgb80ab65" class="outline-3">
-<h3 id="orgb80ab65"><span class="section-number-3">5.1.</span> Reflection 1</h3>
+<div id="outline-container-orgc9cda09" class="outline-3">
+<h3 id="orgc9cda09"><span class="section-number-3">5.1.</span> Reflection 1</h3>
 <div class="outline-text-3" id="text-5-1">
 <ol class="org-ol">
 <li>Much of the material explores the connection between preconditions and exception handling. Were there any aspects of this connection that surprised or confused anyone in your group? If so, explain. If not, where did you learn this material?</li>
@@ -2225,8 +2225,8 @@ For each of the following, answer these two questions first:
 </div>
 </div>
 
-<div id="outline-container-org028d74b" class="outline-3">
-<h3 id="org028d74b"><span class="section-number-3">5.2.</span> Reflection 2</h3>
+<div id="outline-container-org08622a1" class="outline-3">
+<h3 id="org08622a1"><span class="section-number-3">5.2.</span> Reflection 2</h3>
 <div class="outline-text-3" id="text-5-2">
 <ol class="org-ol">
 <li>If you sat down to design a new class, would the result likely be mutable or immutable? Why?</li>
@@ -2237,8 +2237,8 @@ For each of the following, answer these two questions first:
 </div>
 
 
-<div id="outline-container-org63547f6" class="outline-3">
-<h3 id="org63547f6"><span class="section-number-3">5.3.</span> Reflection 3</h3>
+<div id="outline-container-org8efb69c" class="outline-3">
+<h3 id="org8efb69c"><span class="section-number-3">5.3.</span> Reflection 3</h3>
 <div class="outline-text-3" id="text-5-3">
 <ol class="org-ol">
 <li>Have you ever explicitly considered invariants when deciding how to implement a Java class? If so, can you give an example?</li>
@@ -2249,8 +2249,8 @@ For each of the following, answer these two questions first:
 </div>
 
 
-<div id="outline-container-orgd956d9d" class="outline-3">
-<h3 id="orgd956d9d"><span class="section-number-3">5.4.</span> Reflection 4 (reflection 3 redo)</h3>
+<div id="outline-container-orge0a43c1" class="outline-3">
+<h3 id="orge0a43c1"><span class="section-number-3">5.4.</span> Reflection 4 (reflection 3 redo)</h3>
 <div class="outline-text-3" id="text-5-4">
 <p>
 Answer these questions based on your new knowledge on invariants and correctness analysis from class lectures and reading assignment.
@@ -2262,8 +2262,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 </div>
 
-<div id="outline-container-orgd7123f3" class="outline-3">
-<h3 id="orgd7123f3"><span class="section-number-3">5.5.</span> Reflection 5</h3>
+<div id="outline-container-org3193231" class="outline-3">
+<h3 id="org3193231"><span class="section-number-3">5.5.</span> Reflection 5</h3>
 <div class="outline-text-3" id="text-5-5">
 <ol class="org-ol">
 <li>Iteration is a basic concept, yet Liskov devotes an entire chapter to it. What, if anything, did you find in Liskov's presentation of iteration abstraction that is new to you?</li>
@@ -2272,8 +2272,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 </div>
 
-<div id="outline-container-org8655b44" class="outline-3">
-<h3 id="org8655b44"><span class="section-number-3">5.6.</span> Reflection 6</h3>
+<div id="outline-container-org5344243" class="outline-3">
+<h3 id="org5344243"><span class="section-number-3">5.6.</span> Reflection 6</h3>
 <div class="outline-text-3" id="text-5-6">
 <ol class="org-ol">
 <li>Liskov 7 develops rules for assessing the correctness of subtypes. What do you think the connection is between these rules and the rules for verification addressed in Chapter 5?</li>
@@ -2286,8 +2286,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 
 
-<div id="outline-container-orgca77d71" class="outline-3">
-<h3 id="orgca77d71"><span class="section-number-3">5.7.</span> Reflection 7</h3>
+<div id="outline-container-org3672263" class="outline-3">
+<h3 id="org3672263"><span class="section-number-3">5.7.</span> Reflection 7</h3>
 <div class="outline-text-3" id="text-5-7">
 <ol class="org-ol">
 <li>Explain why Java has both a Comparable interface and a Comparator interface.</li>
@@ -2298,8 +2298,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 
 
-<div id="outline-container-org8a7738c" class="outline-3">
-<h3 id="org8a7738c"><span class="section-number-3">5.8.</span> Reflection 8</h3>
+<div id="outline-container-org477d3a1" class="outline-3">
+<h3 id="org477d3a1"><span class="section-number-3">5.8.</span> Reflection 8</h3>
 <div class="outline-text-3" id="text-5-8">
 <ol class="org-ol">
 <li>Explain the basic role of generics in the Java language</li>
@@ -2310,8 +2310,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 
 
-<div id="outline-container-orgb81f370" class="outline-3">
-<h3 id="orgb81f370"><span class="section-number-3">5.9.</span> Reflection 9</h3>
+<div id="outline-container-org44c2499" class="outline-3">
+<h3 id="org44c2499"><span class="section-number-3">5.9.</span> Reflection 9</h3>
 <div class="outline-text-3" id="text-5-9">
 <ol class="org-ol">
 <li>Have you overridden the equals() or the hashCode() methods? In light of Bloch's discussion of both methods, do you think your implementations were correct?</li>
@@ -2322,8 +2322,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 
 
-<div id="outline-container-orgcfca1b4" class="outline-3">
-<h3 id="orgcfca1b4"><span class="section-number-3">5.10.</span> Reflection 10</h3>
+<div id="outline-container-orgcff4683" class="outline-3">
+<h3 id="orgcff4683"><span class="section-number-3">5.10.</span> Reflection 10</h3>
 <div class="outline-text-3" id="text-5-10">
 <ol class="org-ol">
 <li>Bloch discusses specific rules for making a class immutable. Did you find any of these rules confusing?</li>
@@ -2334,8 +2334,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 
 
-<div id="outline-container-orgc0edb29" class="outline-3">
-<h3 id="orgc0edb29"><span class="section-number-3">5.11.</span> Reflection 11</h3>
+<div id="outline-container-orgc61c3d8" class="outline-3">
+<h3 id="orgc61c3d8"><span class="section-number-3">5.11.</span> Reflection 11</h3>
 <div class="outline-text-3" id="text-5-11">
 <ol class="org-ol">
 <li>How would you rate your experience with writing (ordinary) tests in the JUnit framework? Use a scale from "A few times for class" to "I do that professionally".</li>
@@ -2346,8 +2346,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 
 
-<div id="outline-container-org8aba58b" class="outline-3">
-<h3 id="org8aba58b"><span class="section-number-3">5.12.</span> Reflection 11</h3>
+<div id="outline-container-orgdfccfc7" class="outline-3">
+<h3 id="orgdfccfc7"><span class="section-number-3">5.12.</span> Reflection 11</h3>
 <div class="outline-text-3" id="text-5-12">
 <ol class="org-ol">
 <li>Is there anything about property based testing that you still find confusing?</li>
@@ -2358,8 +2358,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 </div>
 
-<div id="outline-container-orgc46c3e8" class="outline-2">
-<h2 id="orgc46c3e8"><span class="section-number-2">6.</span> Files</h2>
+<div id="outline-container-org0861fa9" class="outline-2">
+<h2 id="org0861fa9"><span class="section-number-2">6.</span> Files</h2>
 <div class="outline-text-2" id="text-6">
 <ul class="org-ul">
 <li><a href="./files/LiskovSet.java">LiskovSet.java</a></li>
@@ -2367,8 +2367,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </ul>
 </div>
 </div>
-<div id="outline-container-org2819dc9" class="outline-2">
-<h2 id="org2819dc9"><span class="section-number-2">7.</span> Links</h2>
+<div id="outline-container-orgfbac29d" class="outline-2">
+<h2 id="orgfbac29d"><span class="section-number-2">7.</span> Links</h2>
 <div class="outline-text-2" id="text-7">
 <ul class="org-ul">
 <li><a href="./index.html">Syllabus</a></li>
