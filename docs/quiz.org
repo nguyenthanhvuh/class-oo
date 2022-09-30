@@ -4,6 +4,36 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
 
+* Quiz 5 (we skip Quiz 4) <2022-09-30 Fri>
+** Hoare tripple
+- Fill in the ??? and briefly explain your answer
+#+begin_src 
+{???} y := x + 1 {y=43}
+{x + 1 <= N} ??? {x <= N}
+#+end_src
+
+- Is the following a valid Hoar tripple ?  explain
+#+begin_src 
+  {0 <=  x <=  15} if (x<15) then x:=x+1 else x:=0 {0 <= x <= 15}
+#+end_src
+
+
+- For the below loop, give 2 non-trivial (so no True) loop invariants, one of which should involve a relationship of both ~i~ and ~j~. Hint: convert the for loop into a while loop first.
+  
+#+begin_src java
+int j = 9;
+for(int i=0; i<10; i++)  
+  j--;
+#+end_src
+
+#+begin_comment
+In this example it is true (for every iteration) that i + j == 9.
+A weaker invariant that is also true is that i >= 0 && i <= 10.
+#+end_comment
+
+
+
+
 * Quiz 3 <<2022-09-16 Fri>
 
 *Immutatiblity*: Consider a partial version of a /mutable/ ~Stack~ class:

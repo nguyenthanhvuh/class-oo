@@ -4,6 +4,159 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
+* Lecture 5 (<2022-09-30 Fri>)
+
+{y=7} x:=3 {x + y = 10)   y=7 is the weakest precondition
+
+{y=7 AND x= 100} x:=3 {x + y = 10)
+
+
+WP(x := E, Q) = Q[x/E]
+WP(x:=3 , x +y = 10)  
+=  x +y = 10[x/3]
+=  3 +y = 10
+=  y = 7
+
+WP(z:=3, z + y > 0)
+= 3 +y > 0
+{3+y >0} z := 3 {z + y >0}
+
+
+
+WP([x:=x+1; y:=y*x], y = 2*z)
+= WP(x:=x+1, WP(y:=y*x, y=2*z))
+= WP(x:=x+1,  y*x = 2*z)
+= y*(x+1)=2*z
+
+WP(if b then S1 else S2, Q)  =  (b => WP(S1,Q))  &  (!b => WP(S2, Q))
+
+WP(if x > 0 then y := x + 2  else y := y + 1,  y > x)
+x > 0 => WP(y:=x+2, y>x)  & x<=0 => WP(y:=y+1, y>x)
+x > 0 => x+2 > x    & x<=0 => WP(y:=y+1, y>x)
+x > 0 => True       & x<=0 => WP(y:=y+1, y>x)
+True                & x<=0 => WP(y:=y+1, y>x)
+x<=0 => WP(y:=y+1, y>x)
+x<=0 => y+1 > x
+
+
+// {N >= 0}  #P
+i = 0;
+while (i < N){
+    i = i + 1;
+}
+//{i == N}  #Q
+
+
+WP([i:=0; while(i<N) do i:=i+1], i=N)
+WP(i:=0,  WP(while(i<N) do i:=i+1, i=N))
+
+WP(while [I] b do S, Q) =  I & (I & b => WP(S,I) & (I & !b)  => Q)
+let I =   *i<=N*
+
+WP(while(i<N) do i:=i+1, i=N)
+= i<=N  &  i<N => WP( i:=i+1, i<=N)  & (i<=N & i>=N)  => i=N
+= i<=N  &  i<N => i+1 <= N    &  i=N  => i=N
+= i<=N  &  i<N => i+1 <= N    &  True
+= i<=N  &  i<N => i+1 <= N
+
+= i<=N  &  i<=N-1 => i+1 <= N
+= i<=N  &  i<=N-1 => i =N -1
+= i<=N  &  True
+= i<=N  
+
+WP(i:=0, WP(while(i<N) do i:=i+1, i=N))
+WP(i:=0, i<=N)
+= 0<=N
+
+verification condition (vc)
+P => WP([i:=0; while(i<N) do i:=i+1], i=N,Q)
+P => 0<=N
+N >= 0   =>  0 <= N
+True  (i.e.,   program is correct wrt to P and Q)
+
+P1 => 0<=N
+N >= 1   =>  0<=N   
+True  (i.e.,   program is correct wrt to P and Q)
+
+P2 => 0<=N
+True => 0<=N
+0<=N
+
+
+
+--
+let I = true
+WP(while [I] b do S, Q) =  I & (I & b => WP(S,I) & (I & !b)  => Q)
+WP(while(i<N) do i:=i+1, i=N)
+= True &    True & i<N => WP(i:=i+1, True) &    (True & i>=N)  => i=N
+= True &    True & i<N => True  &    (True & i>=N)  => i=N
+= (True & i<N) => True    &     (i>=N  => i=N)
+= (i<N => True)  &   (i>=N  => i=N)
+=     i>=N       &   (i>=N  => i=N)
+
+
+WP(i:=0, i>=N   & (i>=N  => i=N))
+0>=N  &  (0>=N  =>  0=N)
+
+
+VC
+P => 0>=N  &  (0>=N  =>  0=N)
+N>=0   =>  0>=N  &  (0>=N  =>  0=N)
+Not simplified to True
+
+
+
+{True} i:=i+1  {True}
+
+Q[x/E]
+True[i/i+1]
+True
+
+WP(i:=i+1,  x=10)
+x=10[i/i+1]
+x=10
+
+{x=10} {i:=i+1} {x=10}
+
+
+
+// {N >= 0}   # P
+i = 0;
+while (i < N){
+    i = i + 1;
+}
+
+// {N >= 0}   # P
+i = 0;
+while (1){
+    [I]  // 
+    if (!(i < N)) break;
+    i = i + 1;
+}
+
+
+2. i<=N ... loop inv
+3. i>=0  ... loop inv
+
+
+** Repr Invariants
+- things that are true about a data structure
+- binary tree 
+  - at most two children
+  - all nodes except root has a parent
+ 
+- BinTree
+  - add(x)
+  -
+
+- Set
+  - Distinct
+      
+- BinarySearchTree
+  -     
+
+ReprOK()
+RepOK()
 
 * Lecture 4 (<2022-09-16 Fri>)
 
