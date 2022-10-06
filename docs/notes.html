@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-09-30 Fri 13:07 -->
+<!-- 2022-10-06 Thu 09:18 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 419 Notes</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
@@ -18,55 +18,43 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgc533cb3">1. Lecture 5 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span>)</a></li>
-<li><a href="#orgf3a5e2a">2. Lecture 4 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span>)</a></li>
-<li><a href="#orge1e5c54">3. Lecture 3 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span>)</a></li>
-<li><a href="#org7e5d842">4. Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
-<li><a href="#orgfe1612e">5. Lecture 1 (8/26)</a></li>
+<li><a href="#org21ae077">1. Lecture 5 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span>)</a></li>
+<li><a href="#orgb6300e5">2. Lecture 4 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span>)</a></li>
+<li><a href="#org99d9fe4">3. Lecture 3 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span>)</a></li>
+<li><a href="#org63a276a">4. Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
+<li><a href="#org780a8fb">5. Lecture 1 (8/26)</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgc533cb3" class="outline-2">
-<h2 id="orgc533cb3"><span class="section-number-2">1.</span> Lecture 5 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span>)</h2>
+<div id="outline-container-org21ae077" class="outline-2">
+<h2 id="org21ae077"><span class="section-number-2">1.</span> Lecture 5 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-1">
-<p>
+<pre class="example">
 {y=7} x:=3 {x + y = 10)   y=7 is the weakest precondition
-</p>
 
-<p>
 {y=7 AND x= 100} x:=3 {x + y = 10)
-</p>
 
 
-<p>
 WP(x := E, Q) = Q[x/E]
 WP(x:=3 , x +y = 10)  
 =  x +y = 10[x/3]
 =  3 +y = 10
 =  y = 7
-</p>
 
-<p>
 WP(z:=3, z + y &gt; 0)
 = 3 +y &gt; 0
 {3+y &gt;0} z := 3 {z + y &gt;0}
-</p>
 
 
 
-<p>
 WP([x:=x+1; y:=y*x], y = 2*z)
 = WP(x:=x+1, WP(y:=y*x, y=2*z))
 = WP(x:=x+1,  y*x = 2*z)
 = y*(x+1)=2*z
-</p>
 
-<p>
 WP(if b then S1 else S2, Q)  =  (b =&gt; WP(S1,Q))  &amp;  (!b =&gt; WP(S2, Q))
-</p>
 
-<p>
 WP(if x &gt; 0 then y := x + 2  else y := y + 1,  y &gt; x)
 x &gt; 0 =&gt; WP(y:=x+2, y&gt;x)  &amp; x&lt;=0 =&gt; WP(y:=y+1, y&gt;x)
 x &gt; 0 =&gt; x+2 &gt; x    &amp; x&lt;=0 =&gt; WP(y:=y+1, y&gt;x)
@@ -74,74 +62,54 @@ x &gt; 0 =&gt; True       &amp; x&lt;=0 =&gt; WP(y:=y+1, y&gt;x)
 True                &amp; x&lt;=0 =&gt; WP(y:=y+1, y&gt;x)
 x&lt;=0 =&gt; WP(y:=y+1, y&gt;x)
 x&lt;=0 =&gt; y+1 &gt; x
-</p>
 
 
-<p>
 // {N &gt;= 0}  #P
 i = 0;
 while (i &lt; N){
     i = i + 1;
 }
 //{i == N}  #Q
-</p>
 
 
-<p>
 WP([i:=0; while(i&lt;N) do i:=i+1], i=N)
 WP(i:=0,  WP(while(i&lt;N) do i:=i+1, i=N))
-</p>
 
-<p>
 WP(while [I] b do S, Q) =  I &amp; (I &amp; b =&gt; WP(S,I) &amp; (I &amp; !b)  =&gt; Q)
-let I =   <b>i&lt;=N</b>
-</p>
+let I =   *i&lt;=N*
 
-<p>
 WP(while(i&lt;N) do i:=i+1, i=N)
-= i&lt;=N  &amp;  i&lt;N <code>&gt; WP( i:=i+1, i&lt;=N)  &amp; (i&lt;=N &amp; i&gt;=N)  =&gt; i=N
-= i&lt;=N  &amp;  i&lt;N =&gt; i+1 &lt;</code> N    &amp;  i=N  <code>&gt; i=N
-= i&lt;=N  &amp;  i&lt;N =&gt; i+1 &lt;</code> N    &amp;  True
-= i&lt;=N  &amp;  i&lt;N <code>&gt; i+1 &lt;</code> N
-</p>
+= i&lt;=N  &amp;  i&lt;N =&gt; WP( i:=i+1, i&lt;=N)  &amp; (i&lt;=N &amp; i&gt;=N)  =&gt; i=N
+= i&lt;=N  &amp;  i&lt;N =&gt; i+1 &lt;= N    &amp;  i=N  =&gt; i=N
+= i&lt;=N  &amp;  i&lt;N =&gt; i+1 &lt;= N    &amp;  True
+= i&lt;=N  &amp;  i&lt;N =&gt; i+1 &lt;= N
 
-<p>
-= i&lt;=N  &amp;  i&lt;=N-1 <code>&gt; i+1 &lt;</code> N
+= i&lt;=N  &amp;  i&lt;=N-1 =&gt; i+1 &lt;= N
 = i&lt;=N  &amp;  i&lt;=N-1 =&gt; i =N -1
 = i&lt;=N  &amp;  True
 = i&lt;=N  
-</p>
 
-<p>
 WP(i:=0, WP(while(i&lt;N) do i:=i+1, i=N))
 WP(i:=0, i&lt;=N)
 = 0&lt;=N
-</p>
 
-<p>
 verification condition (vc)
 P =&gt; WP([i:=0; while(i&lt;N) do i:=i+1], i=N,Q)
-P <code>&gt; 0&lt;=N
-N &gt;</code> 0   <code>&gt;  0 &lt;</code> N
+P =&gt; 0&lt;=N
+N &gt;= 0   =&gt;  0 &lt;= N
 True  (i.e.,   program is correct wrt to P and Q)
-</p>
 
-<p>
-P1 <code>&gt; 0&lt;=N
-N &gt;</code> 1   =&gt;  0&lt;=N   
+P1 =&gt; 0&lt;=N
+N &gt;= 1   =&gt;  0&lt;=N   
 True  (i.e.,   program is correct wrt to P and Q)
-</p>
 
-<p>
 P2 =&gt; 0&lt;=N
 True =&gt; 0&lt;=N
 0&lt;=N
-</p>
 
 
 
-<p>
-&#x2013;
+--
 let I = true
 WP(while [I] b do S, Q) =  I &amp; (I &amp; b =&gt; WP(S,I) &amp; (I &amp; !b)  =&gt; Q)
 WP(while(i&lt;N) do i:=i+1, i=N)
@@ -150,55 +118,39 @@ WP(while(i&lt;N) do i:=i+1, i=N)
 = (True &amp; i&lt;N) =&gt; True    &amp;     (i&gt;=N  =&gt; i=N)
 = (i&lt;N =&gt; True)  &amp;   (i&gt;=N  =&gt; i=N)
 =     i&gt;=N       &amp;   (i&gt;=N  =&gt; i=N)
-</p>
 
 
-<p>
 WP(i:=0, i&gt;=N   &amp; (i&gt;=N  =&gt; i=N))
 0&gt;=N  &amp;  (0&gt;=N  =&gt;  0=N)
-</p>
 
 
-<p>
 VC
 P =&gt; 0&gt;=N  &amp;  (0&gt;=N  =&gt;  0=N)
 N&gt;=0   =&gt;  0&gt;=N  &amp;  (0&gt;=N  =&gt;  0=N)
 Not simplified to True
-</p>
 
 
 
-<p>
 {True} i:=i+1  {True}
-</p>
 
-<p>
 Q[x/E]
 True[i/i+1]
 True
-</p>
 
-<p>
 WP(i:=i+1,  x=10)
 x=10[i/i+1]
 x=10
-</p>
 
-<p>
 {x=10} {i:=i+1} {x=10}
-</p>
 
 
 
-<p>
 // {N &gt;= 0}   # P
 i = 0;
 while (i &lt; N){
     i = i + 1;
 }
-</p>
 
-<p>
 // {N &gt;= 0}   # P
 i = 0;
 while (1){
@@ -206,18 +158,17 @@ while (1){
     if (!(i &lt; N)) break;
     i = i + 1;
 }
-</p>
 
 
-<ol class="org-ol">
-<li>i&lt;=N &#x2026; loop inv</li>
-<li>i&gt;=0  &#x2026; loop inv</li>
-</ol>
+2. i&lt;=N ... loop inv
+3. i&gt;=0  ... loop inv
+
+</pre>
 </div>
 
 
-<div id="outline-container-orgfa71630" class="outline-3">
-<h3 id="orgfa71630"><span class="section-number-3">1.1.</span> Repr Invariants</h3>
+<div id="outline-container-org86c7bef" class="outline-3">
+<h3 id="org86c7bef"><span class="section-number-3">1.1.</span> Repr Invariants</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>things that are true about a data structure</li>
@@ -252,12 +203,12 @@ RepOK()
 </div>
 </div>
 
-<div id="outline-container-orgf3a5e2a" class="outline-2">
-<h2 id="orgf3a5e2a"><span class="section-number-2">2.</span> Lecture 4 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span>)</h2>
+<div id="outline-container-orgb6300e5" class="outline-2">
+<h2 id="orgb6300e5"><span class="section-number-2">2.</span> Lecture 4 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org6e94594" class="outline-3">
-<h3 id="org6e94594"><span class="section-number-3">2.1.</span> No class next Friday</h3>
+<div id="outline-container-orgc02047b" class="outline-3">
+<h3 id="orgc02047b"><span class="section-number-3">2.1.</span> No class next Friday</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>will send out details later</li>
@@ -265,8 +216,8 @@ RepOK()
 </div>
 </div>
 
-<div id="outline-container-org6362ca7" class="outline-3">
-<h3 id="org6362ca7"><span class="section-number-3">2.2.</span> Topic: Automatic Verification</h3>
+<div id="outline-container-org77918e6" class="outline-3">
+<h3 id="org77918e6"><span class="section-number-3">2.2.</span> Topic: Automatic Verification</h3>
 <div class="outline-text-3" id="text-2-2">
 <ul class="org-ul">
 <li><p>
@@ -470,26 +421,26 @@ x&gt;0  and   (x  &lt; 0 -&gt; y + 1 &gt;x )</li>
 </ul></li>
 </ul>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #e45649;">while</span> (b){
-  <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">loop body</span>
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">while</span> (b){
+  <span style="color: #405A61;"># </span><span style="color: #405A61;">loop body</span>
 }
 
-<span style="color: #e45649;">while</span> (<span style="color: #b751b6;">True</span>){
-  [I]      <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">loop invariant I is right here</span>
-  <span style="color: #e45649;">if</span> (!b) <span style="color: #e45649;">break</span>
-    <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">loop body</span>
+<span style="color: #859900; font-weight: bold;">while</span> (<span style="color: #d33682; font-weight: bold;">True</span>){
+  [I]      <span style="color: #405A61;"># </span><span style="color: #405A61;">loop invariant I is right here</span>
+  <span style="color: #859900; font-weight: bold;">if</span> (!b) <span style="color: #859900; font-weight: bold;">break</span>
+    <span style="color: #405A61;"># </span><span style="color: #405A61;">loop body</span>
 }
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python">{N &gt;= 0} <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">precondition</span>
+<pre class="src src-python">{N &gt;= 0} <span style="color: #405A61;"># </span><span style="color: #405A61;">precondition</span>
 
 i := 0
-<span style="color: #e45649;">while</span>(<span style="color: #b751b6;">True</span>):
+<span style="color: #859900; font-weight: bold;">while</span>(<span style="color: #d33682; font-weight: bold;">True</span>):
   [L]
-  <span style="color: #e45649;">if</span>(!(i &lt; N)):  <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">i &gt;= N : break</span>
-      <span style="color: #e45649;">break</span>
+  <span style="color: #859900; font-weight: bold;">if</span>(!(i &lt; N)):  <span style="color: #405A61;"># </span><span style="color: #405A61;">i &gt;= N : break</span>
+      <span style="color: #859900; font-weight: bold;">break</span>
   i := N;
 </pre>
 </div>
@@ -504,12 +455,12 @@ i &lt;= N
 </div>
 </div>
 
-<div id="outline-container-orge1e5c54" class="outline-2">
-<h2 id="orge1e5c54"><span class="section-number-2">3.</span> Lecture 3 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span>)</h2>
+<div id="outline-container-org99d9fe4" class="outline-2">
+<h2 id="org99d9fe4"><span class="section-number-2">3.</span> Lecture 3 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgc6cb013" class="outline-3">
-<h3 id="orgc6cb013"><span class="section-number-3">3.1.</span> Go over quiz 1</h3>
+<div id="outline-container-org87e2a1b" class="outline-3">
+<h3 id="org87e2a1b"><span class="section-number-3">3.1.</span> Go over quiz 1</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Binary_search(arrays, x)
@@ -538,8 +489,8 @@ postcondition:
 </div>
 </div>
 
-<div id="outline-container-org45096dd" class="outline-3">
-<h3 id="org45096dd"><span class="section-number-3">3.2.</span> Data Abstraction</h3>
+<div id="outline-container-orga0b3351" class="outline-3">
+<h3 id="orga0b3351"><span class="section-number-3">3.2.</span> Data Abstraction</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Consider <a href="./files/Poly.java">Poly.java from Liskov</a>
@@ -595,8 +546,8 @@ Consider <a href="./files/Poly.java">Poly.java from Liskov</a>
 </ul>
 </div>
 
-<div id="outline-container-orgc7db99f" class="outline-4">
-<h4 id="orgc7db99f"><span class="section-number-4">3.2.1.</span> Immutable</h4>
+<div id="outline-container-org5f79ea3" class="outline-4">
+<h4 id="org5f79ea3"><span class="section-number-4">3.2.1.</span> Immutable</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <ul class="org-ul">
 <li>Thread safe ;  easier for sharing; efficiency; safety;  less prone to error, easier to design</li>
@@ -605,7 +556,7 @@ Consider <a href="./files/Poly.java">Poly.java from Liskov</a>
 </div>
 
 <ol class="org-ol">
-<li><a id="org5275e58"></a>General way to turn mutable to immutable<br />
+<li><a id="org02ad168"></a>General way to turn mutable to immutable<br />
 <div class="outline-text-5" id="text-3-2-1-1">
 <ul class="org-ul">
 <li>If modifies contents of the data, create a new one instead and also return the newly created one</li>
@@ -616,8 +567,8 @@ Consider <a href="./files/Poly.java">Poly.java from Liskov</a>
 </ol>
 </div>
 
-<div id="outline-container-org700ead3" class="outline-4">
-<h4 id="org700ead3"><span class="section-number-4">3.2.2.</span> In-class 3A</h4>
+<div id="outline-container-orgd10e136" class="outline-4">
+<h4 id="orgd10e136"><span class="section-number-4">3.2.2.</span> In-class 3A</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <pre class="example">
 q = [1,2,3]
@@ -648,12 +599,12 @@ q = q'
 </div>
 
 
-<div id="outline-container-org7e5d842" class="outline-2">
-<h2 id="org7e5d842"><span class="section-number-2">4.</span> Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
+<div id="outline-container-org63a276a" class="outline-2">
+<h2 id="org63a276a"><span class="section-number-2">4.</span> Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org19549d9" class="outline-3">
-<h3 id="org19549d9"><span class="section-number-3">4.1.</span> Adminstrative: Groups</h3>
+<div id="outline-container-org462f42a" class="outline-3">
+<h3 id="org462f42a"><span class="section-number-3">4.1.</span> Adminstrative: Groups</h3>
 <div class="outline-text-3" id="text-4-1">
 <ul class="org-ul">
 <li>next time:  1 submission per group</li>
@@ -661,24 +612,24 @@ q = q'
 </div>
 </div>
 
-<div id="outline-container-orgf042721" class="outline-3">
-<h3 id="orgf042721"><span class="section-number-3">4.2.</span> Reconsider In-class 1B (class <code>User</code>)</h3>
+<div id="outline-container-orga31f4fa" class="outline-3">
+<h3 id="orga31f4fa"><span class="section-number-3">4.2.</span> Reconsider In-class 1B (class <code>User</code>)</h3>
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #986801;">User</span> <span style="color: #6a1868;">u1</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">u1</span>(<span style="color: #50a14f;">"hello"</span>);
-<span style="color: #986801;">User</span> <span style="color: #6a1868;">u2</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #b751b6;">null</span>);
-u2.equals(u1); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">contract:F, impl: F</span>
-u1.equals(v2); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">contract:F (Javadoc does not say it should raise exception), impl: exception</span>
+<pre class="src src-java"><span style="color: #b58900;">User</span> <span style="color: #6c71c4;">u1</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">u1</span>(<span style="color: #2aa198;">"hello"</span>);
+<span style="color: #b58900;">User</span> <span style="color: #6c71c4;">u2</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">User</span>(<span style="color: #d33682; font-weight: bold;">null</span>);
+u2.equals(u1); <span style="color: #405A61;">//</span><span style="color: #405A61;">contract:F, impl: F</span>
+u1.equals(v2); <span style="color: #405A61;">//</span><span style="color: #405A61;">contract:F (Javadoc does not say it should raise exception), impl: exception</span>
 
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Q: how to fix this?</span>
-<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">A: Check for null and return False</span>
+<span style="color: #405A61;">//</span><span style="color: #405A61;">Q: how to fix this?</span>
+<span style="color: #405A61;">//</span><span style="color: #405A61;">A: Check for null and return False</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orge1f6286" class="outline-3">
-<h3 id="orge1f6286"><span class="section-number-3">4.3.</span> Another example on how to obtain specs from documentation</h3>
+<div id="outline-container-org7635f8b" class="outline-3">
+<h3 id="org7635f8b"><span class="section-number-3">4.3.</span> Another example on how to obtain specs from documentation</h3>
 <div class="outline-text-3" id="text-4-3">
 <ul class="org-ul">
 <li>consider <code>remove</code> from <code>iterator</code>: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html">https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html</a>
@@ -697,8 +648,8 @@ u1.equals(v2); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a
 
 
 
-<div id="outline-container-org8818e9a" class="outline-3">
-<h3 id="org8818e9a"><span class="section-number-3">4.4.</span> Method/Program specifications</h3>
+<div id="outline-container-orgbe5eb1c" class="outline-3">
+<h3 id="orgbe5eb1c"><span class="section-number-3">4.4.</span> Method/Program specifications</h3>
 <div class="outline-text-3" id="text-4-4">
 <ul class="org-ul">
 <li>Preconditions (<code>P</code>): assumptions, properties about the inputs
@@ -721,33 +672,33 @@ u1.equals(v2); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a
 </div>
 
 
-<div id="outline-container-orgf5cab58" class="outline-3">
-<h3 id="orgf5cab58"><span class="section-number-3">4.5.</span> Weaker Preconditions and Stronger Postconditions</h3>
+<div id="outline-container-orgb070028" class="outline-3">
+<h3 id="orgb070028"><span class="section-number-3">4.5.</span> Weaker Preconditions and Stronger Postconditions</h3>
 <div class="outline-text-3" id="text-4-5">
 <ul class="org-ul">
 <li>Reconsider the <code>intdiv</code> example from previous class</li>
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #986801;">int</span> <span style="color: #a626a4;">intdiv</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>){
-  <span style="color: #9ca0a4;">/*</span>
-<span style="color: #9ca0a4;">  Return the integer division result x/y. </span>
+<pre class="src src-java"><span style="color: #b58900;">int</span> <span style="color: #268bd2;">intdiv</span>(<span style="color: #b58900;">int</span> <span style="color: #6c71c4;">x</span>, <span style="color: #b58900;">int</span> <span style="color: #6c71c4;">y</span>){
+  <span style="color: #405A61;">/*</span>
+<span style="color: #405A61;">  Return the integer division result x/y. </span>
 
-<span style="color: #9ca0a4;">  preconds:</span>
-<span style="color: #9ca0a4;">  - x and y are integers # (already given in type)</span>
-<span style="color: #9ca0a4;">  // - y cannot be zero   # better if we can remove this</span>
+<span style="color: #405A61;">  preconds:</span>
+<span style="color: #405A61;">  - x and y are integers # (already given in type)</span>
+<span style="color: #405A61;">  // - y cannot be zero   # better if we can remove this</span>
 
-<span style="color: #9ca0a4;">  postconds:</span>
-<span style="color: #9ca0a4;">  - z is a number  # weak</span>
-<span style="color: #9ca0a4;">  - z is an integer  # weak</span>
-<span style="color: #9ca0a4;">  - z = x // y  # *strong*</span>
-<span style="color: #9ca0a4;">  */</span>
+<span style="color: #405A61;">  postconds:</span>
+<span style="color: #405A61;">  - z is a number  # weak</span>
+<span style="color: #405A61;">  - z is an integer  # weak</span>
+<span style="color: #405A61;">  - z = x // y  # *strong*</span>
+<span style="color: #405A61;">  */</span>
 
-  <span style="color: #e45649;">if</span> (y == 0){ <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">raise ...</span>
+  <span style="color: #859900; font-weight: bold;">if</span> (y == 0){ <span style="color: #405A61;">// </span><span style="color: #405A61;">raise ...</span>
 
   }
 
-  <span style="color: #e45649;">return</span> z
+  <span style="color: #859900; font-weight: bold;">return</span> z
 }
 </pre>
 </div>
@@ -763,8 +714,8 @@ If we have <code>S1 = P =&gt; Q</code> and <code>S2 = P' =&gt; Q'</code>, then
 </div>
 
 
-<div id="outline-container-org17d2c33" class="outline-3">
-<h3 id="org17d2c33"><span class="section-number-3">4.6.</span> Total vs Partial contract</h3>
+<div id="outline-container-orgf294934" class="outline-3">
+<h3 id="orgf294934"><span class="section-number-3">4.6.</span> Total vs Partial contract</h3>
 <div class="outline-text-3" id="text-4-6">
 <ul class="org-ul">
 <li><b>partial</b> specification:  has a precondition</li>
@@ -789,8 +740,8 @@ to turn a partial spec into a total spec:
 </div>
 
 
-<div id="outline-container-org0adde54" class="outline-3">
-<h3 id="org0adde54"><span class="section-number-3">4.7.</span> In-class 2</h3>
+<div id="outline-container-orgd72a1f4" class="outline-3">
+<h3 id="orgd72a1f4"><span class="section-number-3">4.7.</span> In-class 2</h3>
 <div class="outline-text-3" id="text-4-7">
 <ol class="org-ol">
 <li>null : gives NPE error null pointer</li>
@@ -834,16 +785,16 @@ Postconds:
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Integer</span>&gt; <span style="color: #a626a4;">tail</span> (<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Integer</span>&gt; <span style="color: #6a1868;">list</span>) {
+<pre class="src src-java"><span style="color: #859900; font-weight: bold;">public</span> <span style="color: #859900; font-weight: bold;">static</span> <span style="color: #b58900;">List</span>&lt;<span style="color: #b58900;">Integer</span>&gt; <span style="color: #268bd2;">tail</span> (<span style="color: #b58900;">List</span>&lt;<span style="color: #b58900;">Integer</span>&gt; <span style="color: #6c71c4;">list</span>) {
 
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">REQUIRES/PRECONDS: ???</span>
-    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">EFFECTS/POSTCONDS:  ???</span>
+    <span style="color: #405A61;">// </span><span style="color: #405A61;">REQUIRES/PRECONDS: ???</span>
+    <span style="color: #405A61;">// </span><span style="color: #405A61;">EFFECTS/POSTCONDS:  ???</span>
 
-    <span style="color: #e45649;">if</span> (<span style="color: #986801;">list</span> <span style="color: #6a1868;">is</span> <span style="color: #b751b6;">null</span>){
-        <span style="color: #986801;">raise</span> <span style="color: #6a1868;">NullPointerException</span>;
+    <span style="color: #859900; font-weight: bold;">if</span> (<span style="color: #b58900;">list</span> <span style="color: #6c71c4;">is</span> <span style="color: #d33682; font-weight: bold;">null</span>){
+        <span style="color: #b58900;">raise</span> <span style="color: #6c71c4;">NullPointerException</span>;
     }
-    <span style="color: #e45649;">if</span> (list.size() == 0){
-        <span style="color: #986801;">raise</span> <span style="color: #6a1868;">IllegalArgumentException</span>;
+    <span style="color: #859900; font-weight: bold;">if</span> (list.size() == 0){
+        <span style="color: #b58900;">raise</span> <span style="color: #6c71c4;">IllegalArgumentException</span>;
     }
 
     .....
@@ -857,19 +808,19 @@ Postconds:
 </div>
 </div>
 
-<div id="outline-container-org9632665" class="outline-3">
-<h3 id="org9632665"><span class="section-number-3">4.8.</span> In-class 2B (<code>tail</code> implementation)</h3>
+<div id="outline-container-org60f6e56" class="outline-3">
+<h3 id="org60f6e56"><span class="section-number-3">4.8.</span> In-class 2B (<code>tail</code> implementation)</h3>
 </div>
 </div>
 
 
 
-<div id="outline-container-orgfe1612e" class="outline-2">
-<h2 id="orgfe1612e"><span class="section-number-2">5.</span> Lecture 1 (8/26)</h2>
+<div id="outline-container-org780a8fb" class="outline-2">
+<h2 id="org780a8fb"><span class="section-number-2">5.</span> Lecture 1 (8/26)</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org3ba1f3c" class="outline-3">
-<h3 id="org3ba1f3c"><span class="section-number-3">5.1.</span> Administrative</h3>
+<div id="outline-container-org16c68b1" class="outline-3">
+<h3 id="org16c68b1"><span class="section-number-3">5.1.</span> Administrative</h3>
 <div class="outline-text-3" id="text-5-1">
 <ul class="org-ul">
 <li>Syllabus</li>
@@ -877,8 +828,8 @@ Postconds:
 </div>
 </div>
 
-<div id="outline-container-org9a38d25" class="outline-3">
-<h3 id="org9a38d25"><span class="section-number-3">5.2.</span> Specification Example</h3>
+<div id="outline-container-org33253c1" class="outline-3">
+<h3 id="org33253c1"><span class="section-number-3">5.2.</span> Specification Example</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 Sorting (e.g., quicksort)
@@ -899,8 +850,8 @@ Sorting (e.g., quicksort)
 </div>
 </div>
 
-<div id="outline-container-org2487284" class="outline-3">
-<h3 id="org2487284"><span class="section-number-3">5.3.</span> Definitions</h3>
+<div id="outline-container-orgd5b9fa1" class="outline-3">
+<h3 id="orgd5b9fa1"><span class="section-number-3">5.3.</span> Definitions</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 Software Specifications (e.g., specification of a program/methoad/function)
@@ -927,18 +878,18 @@ Software Specifications (e.g., specification of a program/methoad/function)
 </div>
 </div>
 
-<div id="outline-container-orgaacb013" class="outline-3">
-<h3 id="orgaacb013"><span class="section-number-3">5.4.</span> Another example</h3>
+<div id="outline-container-org391986c" class="outline-3">
+<h3 id="org391986c"><span class="section-number-3">5.4.</span> Another example</h3>
 <div class="outline-text-3" id="text-5-4">
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #986801;">int</span> <span style="color: #a626a4;">intdiv</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>){
-  <span style="color: #9ca0a4;">/*</span>
-<span style="color: #9ca0a4;">  precond: x and y are integers, y cannot be zero</span>
-<span style="color: #9ca0a4;">  postcond: z = x // y</span>
-<span style="color: #9ca0a4;">  */</span>
+<pre class="src src-java"><span style="color: #b58900;">int</span> <span style="color: #268bd2;">intdiv</span>(<span style="color: #b58900;">int</span> <span style="color: #6c71c4;">x</span>, <span style="color: #b58900;">int</span> <span style="color: #6c71c4;">y</span>){
+  <span style="color: #405A61;">/*</span>
+<span style="color: #405A61;">  precond: x and y are integers, y cannot be zero</span>
+<span style="color: #405A61;">  postcond: z = x // y</span>
+<span style="color: #405A61;">  */</span>
 
 
-  <span style="color: #e45649;">return</span> z
+  <span style="color: #859900; font-weight: bold;">return</span> z
 }    
 </pre>
 </div>
@@ -947,12 +898,12 @@ Software Specifications (e.g., specification of a program/methoad/function)
 
 
 
-<div id="outline-container-orgab9a06b" class="outline-3">
-<h3 id="orgab9a06b"><span class="section-number-3">5.5.</span> In class Exercise (User, equals)</h3>
+<div id="outline-container-org9c35f3f" class="outline-3">
+<h3 id="org9c35f3f"><span class="section-number-3">5.5.</span> In class Exercise (User, equals)</h3>
 <div class="outline-text-3" id="text-5-5">
 </div>
-<div id="outline-container-org1cb28c6" class="outline-4">
-<h4 id="org1cb28c6"><span class="section-number-4">5.5.1.</span> Truth table for Implication (=&gt;)</h4>
+<div id="outline-container-org34601b8" class="outline-4">
+<h4 id="org34601b8"><span class="section-number-4">5.5.1.</span> Truth table for Implication (=&gt;)</h4>
 <div class="outline-text-4" id="text-5-5-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -1005,8 +956,8 @@ Software Specifications (e.g., specification of a program/methoad/function)
 </div>
 
 
-<div id="outline-container-org24bc17a" class="outline-4">
-<h4 id="org24bc17a"><span class="section-number-4">5.5.2.</span> Expected properties for an implementation of `equals` (according to <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)">https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)</a>)</h4>
+<div id="outline-container-orgc4c537f" class="outline-4">
+<h4 id="orgc4c537f"><span class="section-number-4">5.5.2.</span> Expected properties for an implementation of `equals` (according to <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)">https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)</a>)</h4>
 <div class="outline-text-4" id="text-5-5-2">
 <ol class="org-ol">
 <li>reflexive: `a == a`</li>
@@ -1020,15 +971,15 @@ Software Specifications (e.g., specification of a program/methoad/function)
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #986801;">User</span> <span style="color: #6a1868;">u1</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #50a14f;">"hello"</span>);
-<span style="color: #986801;">User</span> <span style="color: #6a1868;">u2</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #50a14f;">"world"</span>)
-User u3 = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #50a14f;">"swe419"</span>);
+<pre class="src src-java"><span style="color: #b58900;">User</span> <span style="color: #6c71c4;">u1</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">User</span>(<span style="color: #2aa198;">"hello"</span>);
+<span style="color: #b58900;">User</span> <span style="color: #6c71c4;">u2</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">User</span>(<span style="color: #2aa198;">"world"</span>)
+User u3 = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">User</span>(<span style="color: #2aa198;">"swe419"</span>);
 
-<span style="color: #986801;">User</span> <span style="color: #6a1868;">u1a</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #50a14f;">"hello"</span>);
-<span style="color: #986801;">User</span> <span style="color: #6a1868;">u1b</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #50a14f;">"hello"</span>);
-<span style="color: #986801;">User</span> <span style="color: #6a1868;">u2a</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #50a14f;">"world"</span>);
+<span style="color: #b58900;">User</span> <span style="color: #6c71c4;">u1a</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">User</span>(<span style="color: #2aa198;">"hello"</span>);
+<span style="color: #b58900;">User</span> <span style="color: #6c71c4;">u1b</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">User</span>(<span style="color: #2aa198;">"hello"</span>);
+<span style="color: #b58900;">User</span> <span style="color: #6c71c4;">u2a</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">User</span>(<span style="color: #2aa198;">"world"</span>);
 
-<span style="color: #986801;">SpecialUser</span> <span style="color: #6a1868;">s1</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">SpecialUser</span>(<span style="color: #50a14f;">"hello"</span>, 1)
+<span style="color: #b58900;">SpecialUser</span> <span style="color: #6c71c4;">s1</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">SpecialUser</span>(<span style="color: #2aa198;">"hello"</span>, 1)
 </pre>
 </div>
 
@@ -1073,9 +1024,9 @@ A potential fix (suggested by a student)
 </p>
 <div class="org-src-container">
 <pre class="src src-java">SpecialUser
-      <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span>) {
-      <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(obj <span style="color: #e45649;">instanceof</span> SpecialUser)) <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equal(obj); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">obj.equals(this)</span>
-       <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.equals(obj) &amp;&amp; ((<span style="color: #986801;">SpecialUser</span>) obj).id == <span style="color: #e45649;">this</span>.id;
+      <span style="color: #d33682; font-weight: bold;">@Override</span> <span style="color: #859900; font-weight: bold;">public</span> <span style="color: #b58900;">boolean</span> <span style="color: #268bd2;">equals</span> (<span style="color: #b58900;">Object</span> <span style="color: #6c71c4;">obj</span>) {
+      <span style="color: #859900; font-weight: bold;">if</span> (<span style="color: #cb4b16; font-weight: bold;">!</span>(obj <span style="color: #859900; font-weight: bold;">instanceof</span> SpecialUser)) <span style="color: #859900; font-weight: bold;">return</span> <span style="color: #859900; font-weight: bold;">super</span>.equal(obj); <span style="color: #405A61;">//</span><span style="color: #405A61;">obj.equals(this)</span>
+       <span style="color: #859900; font-weight: bold;">return</span> <span style="color: #859900; font-weight: bold;">super</span>.equals(obj) &amp;&amp; ((<span style="color: #b58900;">SpecialUser</span>) obj).id == <span style="color: #859900; font-weight: bold;">this</span>.id;
       }
 
 </pre>

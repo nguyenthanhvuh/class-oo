@@ -5,7 +5,7 @@
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
 * Lecture 5 (<2022-09-30 Fri>)
-
+#+begin_src 
 {y=7} x:=3 {x + y = 10)   y=7 is the weakest precondition
 
 {y=7 AND x= 100} x:=3 {x + y = 10)
@@ -137,6 +137,8 @@ while (1){
 
 2. i<=N ... loop inv
 3. i>=0  ... loop inv
+
+#+end_src
 
 
 ** Repr Invariants
