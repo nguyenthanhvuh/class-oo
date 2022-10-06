@@ -28,9 +28,6 @@ Upon completion of this module’s activities, you should be able to:
 #+end_comment
   
 
-  
-
-
 * Learning Materials [~100 pages, ~3.5 hours]
 ** TEXTBOOK READINGS
 - Hoare logic notes: https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html#hoare
