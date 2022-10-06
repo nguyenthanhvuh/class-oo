@@ -160,7 +160,7 @@ Text.
      #+end_src
 
 
-* Important Concept: Text 
+** Important Concept: Text 
 ** Rules to Computing Weakest Preconditions
 We can automatically verify (partial) program correctness using Hoare Triples and weakest preconditions.
 To prove ~{P} S {Q}~ is valid, i.e., to prove the program ~S~ is correct wrt to the precondition ~P~ and postcondition ~Q~, we check that ~P => wp(S, Q)~ is valid. Here, the function *wp returns the weakest precondition allowing the program ~S~ to achieve the postcondition ~Q~.
