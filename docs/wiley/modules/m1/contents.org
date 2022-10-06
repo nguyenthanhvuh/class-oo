@@ -1,0 +1,273 @@
+#+TITLE: Module 1 - Overview
+
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
+
+* Overview and Objectives 
+** TODO OVERVIEW 
+
+** COURSE LEVEL OBJECTIVES (CLO) 
+Upon completion of this course, you should be able to:
+
+1. Construct modern high quality software systems and reason about them. 
+2. Properly define software specifications and rep-invariants. 
+3. Leverage immutability to properly construct threat safe programs. 
+4. Explain object-oriented concepts such as information hiding, encapsulation, data and type abstraction, and polymorphism. 
+5. Properly use exception handling 
+6. Identify when it is appropriate to use inheritance and generics.  
+ 
+** TODO MODULE LEVEL OBJECTIVES (MLO) 
+Upon completion of this module’s activities, you should be able to: 
+
+1. Able to explain and compare the key concepts of software decomposition and abstraction
+2. Able to to describe and demonstrate specification concepts, e.g., requires and effects of program
+3. Able to find and apply formal specifications for existing software (e.g., through Javadocs)
+
+* Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
+#+begin_comment
+#+end_comment
+  
+
+* Learning Materials [~100 pages, ~3.5 hours]
+** TEXTBOOK READINGS
+- Barbara Liskov with John Guttag. Program Development in Java. Addison Wesley, 2001, ISBN 0-201-65768-6. 
+  - Chapter 1: Introduction
+
+
+* Syllabus Ack
+- Question: what syllabus do we have?
+
+* Group Discussion [0.25 hour]
+
+Work with your group and do the following:
+1. Spend a few minutes getting acquainted.
+   - Explain a bit about yourself: full-time student?, working in software development?, why are you taking this class?, favorite/least favorite thing about writing software?, etc.
+   - Decide on a mechanism for joint communication. Google docs? IDE with screen share? Something else?
+1. Address a technical topic. With your group, discuss what they think program specifications are
+
+
+* TODO Module 1 Learning Unit 2 – Program Decomposition and Abstraction (MLO 1) [0.5 hour]
+- It's very difficult to construct and maintain large /monolithic/ programs.
+
+- Thus, we want to decompose programs into /modules/ (or classes)
+- Terminology: /Module/
+  - independent, so that change to one module can be made without affecting other modules
+  - interact with other modules via well-defined interfaces (specifications)
+
+- Terminology: /Decomposition/
+  - devide and conquer approach to create modules
+  - combinations of modules can help solve original problem
+
+- Terminology: Abstraction
+  - ignoring irrelevant details about programs
+  - enables better decomposition
+  - assist in writing good /program specifications/
+
+
+* TODO Module 1 Learning Unit 2 – Program Specifications (Contracts) (MLO 1, 2) [~2 hour]
+  
+** Terminology 
+  - Specifications (typically written as comments, e.g., =javadocs=)
+    - requires/preconditions: what the program assumes about the inputs (e.g., not null, list of integers).
+      - in many cases we do not have any requirements , i.e., the precondition =True=
+    - effects/postconditions: what the program produces (assuming the preconditions hold).
+      - Typically the output has some relationship with the inputs (e.g.,  the output is the sum of the inputs)
+      - The program raises an exception under certain scenarios.
+
+      
+*** Example 1
+Consider an implementation of some sorting method (e.g., =quicksort=). The typical specifications of such an implementation are
+- Preconditions/Requires: input is list of integers numbers, e.g., [2,1,5,10]
+- Postconditions/Effects:
+  - output is a permutation of input
+  - output is in sored sorder (e.g., ascending)
+  
+*** Example 2
+#+begin_src java
+  float sqrt (float n){
+      //Requires: n > 0
+      //Effects: returns an approximation to the square root of n
+
+
+      // code goes here
+  }
+#+end_src
+
+- requires/preconds: input ~n~ is > 0
+- effects: output is approx ~sqrt(n)~
+  
+** Data abstractions (Data type)
+- A set of objects and operations about that data
+- E.g., for a =Stack= data, we have methods such as =push()= and =pop()= describing the behaviors/operations of =Stack=
+    
+** Different types of abstractions
+- Procedural: describe behaviors of procedures without needing to know its implementation details (e.g., specifications of =sqrt= above)
+- Data: describe data and its operations without needing to know its implementation details (e.g., =stack=)
+- Iteration: iterate over elements of collections without needing to know details about the collections (e.g., whether it is a list or array) or implementation of iteration
+- Type Hierachy: abstract from individual data to classes of related data.  E.g., class =Mamal= consists of classes =Cat= and =Dog=
+
+  
+** Instructor Screencast: TITLE
+** Interactive Element: TITLE  
+** Instructor Screencast: TITLE 
+
+
+* Exercise (MLO 1, 2, 3) [1 hours] 
+
+This exercise touches on some of the thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don't worry if it seems confusing today. We'll revisit this example several times over the course of the semester.
+
+Consider the following (textbook) code:
+
+#+begin_src java
+public class User {
+    private String name;
+    public User (String name) { this.name = name; }
+    @Override public boolean equals (Object obj) {
+        //fix: if obj is null, returns False
+
+        if (!(obj instanceof User)) return false;
+        return ((User) obj).name.equals(this.name);
+    }
+    // other methods omitted
+}
+
+public class SpecialUser extends User {
+    private int id;
+    public SpecialUser (String name, int id) { super(name); this.id = id; }
+    @Override public boolean equals (Object obj) {
+        if (!(obj instanceof SpecialUser)) return false;
+        return super.equals(obj) && ((SpecialUser) obj).id == this.id;
+    }
+    // other methods omitted
+}
+#+end_src
+
+      1. Walk though the execution of the =equals()= method in class =User= for a few well-chosen objects as the parameter. What happens at each point in the execution? 
+      2. What does it mean for an =equals()= implementation to be *correct*? How do you know? Be as concrete as you can.
+
+If the implement adhers to the specifications of =equals=, e.g., as specified in the Java API https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object
+
+1. reflexive: `a == a`
+1. symmetry:   `a == b <=>  b == a`
+1. transitive: `a == b && b == c  =>  a == c`
+
+      3. Is the given implementation of =equals()= in class =User= correct? Again, be concrete. If there is a problem, find a specific object (test case!) that demonstrates the problem.
+
+         Hint: try out some concrete examples
+#+begin_src java
+User u1 = new User("hello");
+User u2 = new User("world")
+User u3 = new User("swe419");
+
+User u1a = new User("hello");
+User u1b = new User("hello");
+User u2a = new User("world");
+
+SpecialUser s1 = new SpecialUser("hello", 1)
+#+end_src         
+
+- Reflexive: OK
+  - e.g., =u1.equals(u1): contract: T   impl: T=
+
+- symmetry: OK
+  - e.g., =u1.equals(u2): False  && u2.equals(u1): False    contract: F   impl: F=
+  - =u1.equals(u1a): T  && u1a.equals(u1): T  contract: T  impl: T=
+
+- Transitive: OK
+  - e.g., =u1.equals(u2) &&  u2.equals(u3) =>  u1.equals(u3) contract: T impl: T=, 
+  - =u1.equals(u2a) &&  u2a.equals(u2b)  contract: T   impl: T=
+
+- Some special cases: not OK
+#+begin_src  java
+  User u1 = new u1("hello");
+  User u2 = new User(null);
+  u2.equals(u1); //contract:F, impl: F
+  u1.equals(v2); //contract:F (Javadoc does not say it should raise exception), impl: exception
+#+end_src  
+      
+
+      4. How does inheritance complicate the correctness discussion for =equals()= in class =SpecialUser=?
+E.g., symmetry is violated
+
+- Symmetry: Not OK
+  - =u1.equals(s1)    impl:  T=  but   =s1.equals(u1)    impl:  F=
+
+
+*** Instructor Screencast: TITLE 
+*** Interactive Element: TITLE 
+*** Instructor Screencast: TITLE 
+Link to MP4 File 
+
+* Module 1 Assignment – (MLO 1, 2) [~2 hours]  
+ 
+** Purpose 
+The purpose of this assignment is to have basic familiarity with program specifications.
+
+
+** Instructions
+
+Consider the following specification:
+
+#+begin_src java
+  int find_prime_factor (listA, listB){
+      /*
+        Requires: a not None; b not None;
+        there is some index i where b[i] is 
+        both prime and a factor of a[i]
+
+        Effects: return the least index
+        at which b[i] is a prime factor of a[i]
+        E.g. find_prime_factor ([12, 25, 18, 8], [6, 2, 3, 2]) = 2
+        (Note: 6 is a factor of 12, but is not prime,
+        and 2 is prime, but is not a factor of 25.  However,
+        3 is a prime factor of 18. Hence, index "2" is the correct
+        answer.  index "3" is not a possible answer, because the
+        third index is not the least index with the desired property.)
+        Also note that listA and listB need not be of the same length.
+      */
+  }
+#+end_src    
+
+Implement this =find_prime_factor= method. Although you should (obviously) test your implementation yourself, you do not need to include any test code. Your solution should be minimal in the sense that it doesn't include any unnecessary code. In particular, error checking in =find_prime_factor= for parameters that do not satisfy the precondtions is not appropriate for this assignment.
+
+
+
+** Deliverable 
+- Submit a =.java= file for your implementation. 
+
+- /Grading Criteria/: Adherence to instructions. Do what I ask for above, not something else. Code runs correctly.
+
+** Due Date 
+Your assignment is due by Sunday 11:59 PM, ET. 
+
+* Module 1 Quiz (MLO 1, 2) [~.5 hour] 
+ 
+** Purpose 
+Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
+
+** Instructions 
+Note the following instructions for your quiz:
+
+*** Contracts for a Binary Search implementation.
+   - specifiy the specifications, i.e., requires and contracts, for a binary search implementation.
+#+begin_comment
+solution:
+#+begin_src java
+Binary_search(arrays, x)
+- precondition:
+  - arrays: sorted, cannot null, 
+- postcondition:
+  - if x not in arrays: raise some exception ...
+  - ow: returns index of x in array
+#+end_src
+#+end_comment
+The quiz is 20 minutes in length. 
+The quiz is closed-book.
+
+** Deliverable 
+Use the link above to take the quiz.
+
+** Due Date 
+Your quiz submission is due by Sunday 11:59 PM, ET. 
+
+ 
