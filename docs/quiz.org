@@ -11,12 +11,28 @@
 {???} y := x + 1 {y=43}
 {x + 1 <= N} ??? {x <= N}
 #+end_src
+#+begin_comment
+{x=42} y := x + 1 {y=43}
+{x + 1 <= N} x=x+1 {x <= N}
+#+end_comment
 
 - Is the following a valid Hoar tripple ?  explain
 #+begin_src 
   {0 <=  x <=  15} if (x<15) then x:=x+1 else x:=0 {0 <= x <= 15}
 #+end_src
 
+#+begin_comment
+WP(if (x<15) then x:=x+1 else x:=0, 0 <= x <= 15)
+= x<15 -> 0 <= x+1 <= 15    &  x >= 15 -> 0<= 0 <= 15
+= x<=14 -> -1 <= x <= 14    &  x >= 15 -> True
+= x<=14 -> -1 <= x <= 14    &  True
+= x<=14 -> -1 <= x <= 14
+
+VC = 0<= x <= 15  -> (x<=14 -> -1 <= x <= 14)
+   = (0<= x <= 15  & x<=14) -> -1 <= x <= 14
+   = (0<= x <= 14) -> -1 <= x <= 14
+   = True
+#+end_comment
 
 - For the below loop, give 2 non-trivial (so no True) loop invariants, one of which should involve a relationship of both ~i~ and ~j~. Hint: convert the for loop into a while loop first.
   
@@ -27,8 +43,36 @@ for(int i=0; i<10; i++)
 #+end_src
 
 #+begin_comment
-In this example it is true (for every iteration) that i + j == 9.
-A weaker invariant that is also true is that i >= 0 && i <= 10.
+int j = 9;
+int i = 0;
+while(1){
+  [I] // loop invariant
+  if (i>=10) break;
+  i++;
+  j--;
+  
+}
+
+j i
+9 0
+8 1
+7 2
+6 3
+5 4
+4 5
+3 6
+2 7
+1 8
+0 9
+-1 10
+#+end_comment
+
+
+
+#+begin_comment
+Here are 2:
+i + j = 9
+i >= 0 && i <= 10
 #+end_comment
 
 
