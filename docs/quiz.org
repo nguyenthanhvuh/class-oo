@@ -4,6 +4,26 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
 
+
+* Quiz 6 <2022-10-07 Fri>
+
+Suppose =C= is an abstract data type that has two =String= fields:
+#+begin_src java
+class C {
+    private String s;
+    private String t;
+    ...
+}
+#+end_src
+
+Assuming you don’t know anything about =C=, which of the following might be statements in a rep invariant for =C=?
+1. ~s~ contains only letters
+2. ~s.length() == t.length()~
+3. ~s~ represents a set of characters
+4. ~s is the reverse of t~
+5. ~s+t~
+
+
 * Quiz 5 (we skip Quiz 4) <2022-09-30 Fri>
 ** Hoare tripple
 - Fill in the ??? and briefly explain your answer

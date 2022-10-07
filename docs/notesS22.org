@@ -911,7 +911,7 @@ B is a subtype of A
 - B's methods are superset of A's
 
   
-- If B overrides a method of A, then that method (f') must be at least as strong (stronger or equal to) the original method (f).
+- If B has a method f' that overrides a method f of A, then f' must be at least as strong (stronger or equal to) the f.
   - the specification of f' is stronger than or equal the specification of f
   - specifications = pre/postconditions
   - pre    vs   pre':  pre' should weaker than or equal to pre
@@ -975,6 +975,7 @@ public void reduce (Reducer x)
     - since for non-null cases as required by the pre of B, both C and B hae same posts/behaviors 
   
 
+Don't talk about variance vs contravariance
 - variance vs contravariance: LSP method rule
 
 Greyhound is subtype of Dog, subtype of Animal
@@ -1009,6 +1010,7 @@ In-Class 6A: Iterator
   //list = ["b", "c", "d"]
   Iterator<String> itr = list.iterator(); //iter = [b,c,d]
   itr.next(); //returns b, iter = [c,d]
+  //can be implemented like a Stack
   itr.next(); //return c, iter = [d]
   itr.next(); //return d, iter = []
   itr.hasNext() ; //return False

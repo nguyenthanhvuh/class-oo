@@ -4,6 +4,144 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
+* Lecture 6 (<2022-10-07 Fri>)
+Recap
+- ADT
+  - Repr invs
+    - invariant:  something that is always true
+      - Binary tree repr inv:  has 2 nodes
+  - Abstract Function
+    - toString()
+    - polynomial:   5x*2 + 10  (array, ... )
+
+- Iterator
+  - hasNext(); next(); remove()
+
+#+begin_src java
+  List<String> list = new List<>(["b", "c", "d"]);
+  Iterator<String> itr = list.iterator(); //list = [b,c,d],  itr=[b,c,d]
+  itr.hasNext() // return True
+  itr.next();  // return b ,  list = [b,c,d], itr=[c,d]
+  itr.next(); //  return c,   list = [b,c,d], itr=[d]
+  itr.hasNext() // return True  
+  itr.next(); // return d,    list = [b,c,d], itr=[]
+  itr.hasNext() // return False
+  itr.next(); // raise NSEE ,  list = [b,c,d], itr=[]  
+
+  //prev()   hasPrev()
+  List<String> list = new List<>(["b", "c", "d"]);
+  Iterator<String> itr = list.iterator(); //list = [b,c,d],  itrN=[b,c,d] iterY=[]
+  itr.next() ;  //return B, itrN=[c,d],  iterY=[b]
+  itr.next();  // return C, itrN=[d], iterY =[c,b]
+  itr.prev() ; // return C, iterN=[c,d], iterY=[b]
+  itr.prev() ; // return B, iterN=[b,c,d], iterY=[]
+  iter.hasPrev(); // return False
+  iter.prev() ; // raise NSEE
+
+  //remove()
+  List<String> list = new List<>(["b", "c", "d"]);
+  Iterator<String> itr = list.iterator(); //list = [b,c,d],  itrN=[b,c,d] iterY=[], nextCalled=False
+  itr.next();  //return B, itrN=[c,d], list =[b,c,d ], nextCalled=True
+  itr.next();  //return C, itrN=[d], list=[b,c,d],  nextCalled=True
+  itr.remove(); //itrN=[d], list=[b,d], nextCalled=False
+  itr.remove(); //raise ISE
+#+end_src
+
+
+    
+- Immutable vulnerabilities
+  - lots of benefits for immutable objects
+  - but if we do it wrong, and it is not immutable
+
+#+begin_src java
+  // Broken “immutable” time period class
+  public class Period {               // Question 3
+      private final Date start;
+      private final Date end;
+      /**
+       ,* @param start the beginning of the period
+       ,* @param end the end of the period; must not precede start
+       ,* @throws IAE if start is after end
+       ,* @throws NPE if start or end null
+       ,*/
+
+      public Period (Date start, Date end) {
+          if (start.compareTo(end) > 0) throw new IAE();
+          this.start = start; this.end = end;  // Question 1
+      }
+      public Date start() { return start;}    // Question 2
+      public Date end()   { return end;}      // Question 2
+  }
+
+
+  public class MyClass extends Period{
+      private Date myDate = new Date(0); //bad, problematic value
+
+      @override public Date start(){
+          if (itsTime()){
+              return myDate;   // returning some(bad)thing I define 
+          }
+          return super.start()
+      }
+
+    public class LoanProvider{
+        Period p;
+        public LoanProvider(Period p, other stuff){
+            this.p = p; // no defense copy because Period is immutable
+
+          this.p.start()
+        }
+    }
+
+  Period m = new myClass(); // instead of the start define in class Period,  this uses start method from my class which uses myDate
+  LoanProvider lp = new LoanProvider(m, ..) //will have start from my class
+      
+
+#+end_src
+
+- LSP:
+  Language server protocol (Python, Java, C#, Rust ...)
+  
+
+- Liskov Substitution Principle (LSP)
+  - if B is a subtype of A (B inherits A  or B extends A), then whenever you use an object of type A, you should be able to use an object of type B instead.
+  - class Mammal  // A
+  - class Human extends Mammal // Human(B) is a subtype of Mammal(A)
+    - speak()
+      
+  - class Whale extends Mammal
+    - echo_location()
+
+  MammalObj1.grow_hair()
+  HumanObj2.grow_hair()
+  WhaleMamal.grow_hair()
+
+  //reverse of LSP is not correct
+  Whale.echo_location()
+  Mamal.echo_location()
+
+
+- if B is a subtype of A, then its specification must be at least stronger than A (B's behaviors is a SUPERSET of A's behaviors)
+
+  A has a method m 
+  B overrides m  :  m'
+  method m' has to be at least as precise as m
+
+  m: pre(takes in an integer)   post (returns an integer)
+  m':  pre'(anything)     post' (return 3)
+
+  want m' to be at least as precise as m
+  post' should be at least as strong
+  pre' should at most as weak
+  
+  
+  
+  
+    
+
+
+
+
 * Lecture 5 (<2022-09-30 Fri>)
 #+begin_src 
 {y=7} x:=3 {x + y = 10)   y=7 is the weakest precondition

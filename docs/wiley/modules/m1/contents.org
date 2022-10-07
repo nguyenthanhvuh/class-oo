@@ -19,9 +19,9 @@ Upon completion of this course, you should be able to:
 ** TODO MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
 
-1. Able to explain and compare the key concepts of software decomposition and abstraction
-2. Able to to describe and demonstrate specification concepts, e.g., requires and effects of program
-3. Able to find and apply formal specifications for existing software (e.g., through Javadocs)
+1. explain and compare the key concepts of software decomposition and abstraction
+2. describe and demonstrate specification concepts, e.g., requires and effects of program
+3. find and apply formal specifications for existing software (e.g., through Javadocs)
 
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
 #+begin_comment
@@ -36,7 +36,8 @@ Upon completion of this module’s activities, you should be able to:
 
 * Syllabus Ack
 - Question: what syllabus do we have?
-
+- 
+  
 * Group Discussion [0.25 hour]
 
 Work with your group and do the following:
@@ -46,7 +47,7 @@ Work with your group and do the following:
 1. Address a technical topic. With your group, discuss what they think program specifications are
 
 
-* TODO Module 1 Learning Unit 2 – Program Decomposition and Abstraction (MLO 1) [0.5 hour]
+* TODO Module 1 Learning Unit 1 – Program Decomposition and Abstraction (MLO 1) [0.5 hour]
 - It's very difficult to construct and maintain large /monolithic/ programs.
 
 - Thus, we want to decompose programs into /modules/ (or classes)
@@ -75,7 +76,7 @@ Work with your group and do the following:
       - The program raises an exception under certain scenarios.
 
       
-*** Example 1
+*** Example 1: Interactive Flip Cards (??)
 Consider an implementation of some sorting method (e.g., =quicksort=). The typical specifications of such an implementation are
 - Preconditions/Requires: input is list of integers numbers, e.g., [2,1,5,10]
 - Postconditions/Effects:
@@ -112,7 +113,7 @@ Consider an implementation of some sorting method (e.g., =quicksort=). The typic
 ** Instructor Screencast: TITLE 
 
 
-* Exercise (MLO 1, 2, 3) [1 hours] 
+* Exercise (MLO 1, 2, 3) [1.5 hours] 
 
 This exercise touches on some of the thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don't worry if it seems confusing today. We'll revisit this example several times over the course of the semester.
 
@@ -249,18 +250,20 @@ Quizzes in this course give you an opportunity to demonstrate your knowledge of 
 Note the following instructions for your quiz:
 
 *** Contracts for a Binary Search implementation.
-   - specifiy the specifications, i.e., requires and contracts, for a binary search implementation.
+   - specifiy the specifications, i.e., requires and effects, for a binary search implementation.
+     
 #+begin_comment
 solution:
 #+begin_src java
 Binary_search(arrays, x)
-- precondition:
-  - arrays: sorted, cannot null, 
-- postcondition:
+- requires/precondition:
+  - arrays: sorted, cannot null 
+- effects/postcondition:
   - if x not in arrays: raise some exception ...
   - ow: returns index of x in array
 #+end_src
 #+end_comment
+
 The quiz is 20 minutes in length. 
 The quiz is closed-book.
 
