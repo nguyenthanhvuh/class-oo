@@ -135,9 +135,56 @@ Recap
   pre' should at most as weak
   
   
+#+begin_src java
+  class A:
+      public void reduce (Reducer x)
+          // Effects: if x is null throw NPE
+          // else if x is not appropriate for this throw IAE
+          // else reduce this by x
+   class B:
+       public void reduce (Reducer x)
+          // Requires: x is not null
+        
+          // Effects: if x is not appropriate for this throw IAE
+          // else reduce this by x
+   class C:
+       public void reduce (Reducer x)
+          // Effects: if x is null return (normally) with no change to this
+          // else if x is not appropriate for this throw IAE
+          // else reduce this by x
+#+end_src
   
-  
-    
+B extends A.
+Precondition Part:  not satisfied LSP because B has stronger pre than A
+Postcondition Part:  not statisfied because A has stronger post
+-----------------------------------
+C extends A.   
+Precondition Part: C's pre <= A's pre ,  satisfied 
+Postcondition Part: C's post >= A's post, 
+- A's post is stronger than C's post because NPE is preferred:  LSP is violated
+- C's post is stronger than A's post because normal return is preferred: LSP is satisfied
+- A and C's behaviors are not comparable :  LSP is violated
+
+-----------------------------------
+A extends B.
+Precondition Part:  A has no pre and therefore is weaker than B -- satisfies LSP     
+Postcondition Part:
+    - Since A is stronger because it handles null (throwing NPE), but B does not -- satisfies LSP
+    - If taken into account the precond of B, which disallow x being null, then the posts of A and B are the same , satisfies LSP
+
+-----------------------------------
+C extends B.
+
+  - preconds: C is weaker than B - satisfies LSP
+  - postconds:
+    - since C can handle null input, C is stronger than B
+    - since for non-null cases as required by the pre of B, both C and B hae same 
+
+-----------------------------------
+A extends C.
+Precondition Part:
+Postcondition Part:
+-----------------------------------    
 
 
 

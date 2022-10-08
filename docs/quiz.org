@@ -5,7 +5,7 @@
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
 
 
-* Quiz 6 <2022-10-07 Fri>
+* Quiz 7 <2022-10-07 Fri>
 
 Suppose =C= is an abstract data type that has two =String= fields:
 #+begin_src java

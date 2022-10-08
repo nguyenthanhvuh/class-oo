@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-09-30 Fri 12:37 -->
+<!-- 2022-10-07 Fri 14:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 419</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
@@ -18,21 +18,52 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2e4dcea">1. Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></a></li>
-<li><a href="#org411e8bd">2. Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></a></li>
-<li><a href="#org72858c2">3. Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></a></li>
-<li><a href="#org28cb5ff">4. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
+<li><a href="#org202e7fe">1. Quiz 7 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span></a></li>
+<li><a href="#orgee97a71">2. Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></a></li>
+<li><a href="#orgd7e6e01">3. Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></a></li>
+<li><a href="#org3435b54">4. Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></a></li>
+<li><a href="#org0a9c174">5. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org2e4dcea" class="outline-2">
-<h2 id="org2e4dcea"><span class="section-number-2">1.</span> Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></h2>
+
+<div id="outline-container-org202e7fe" class="outline-2">
+<h2 id="org202e7fe"><span class="section-number-2">1.</span> Quiz 7 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span></h2>
 <div class="outline-text-2" id="text-1">
+<p>
+Suppose <code>C</code> is an abstract data type that has two <code>String</code> fields:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">C</span> {
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">String</span> <span style="color: #6a1868;">s</span>;
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">String</span> <span style="color: #6a1868;">t</span>;
+    ...
+}
+</pre>
 </div>
-<div id="outline-container-org672133d" class="outline-3">
-<h3 id="org672133d"><span class="section-number-3">1.1.</span> Hoare tripple</h3>
-<div class="outline-text-3" id="text-1-1">
+
+<p>
+Assuming you don’t know anything about <code>C</code>, which of the following might be statements in a rep invariant for <code>C</code>?
+</p>
+<ol class="org-ol">
+<li><code>s</code> contains only letters</li>
+<li><code>s.length() == t.length()</code></li>
+<li><code>s</code> represents a set of characters</li>
+<li><code>s is the reverse of t</code></li>
+<li><code>s+t</code></li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgee97a71" class="outline-2">
+<h2 id="orgee97a71"><span class="section-number-2">2.</span> Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org25f3002" class="outline-3">
+<h3 id="org25f3002"><span class="section-number-3">2.1.</span> Hoare tripple</h3>
+<div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>Fill in the ??? and briefly explain your answer</li>
 </ul>
@@ -47,7 +78,6 @@
 <pre class="example">
 {0 &lt;=  x &lt;=  15} if (x&lt;15) then x:=x+1 else x:=0 {0 &lt;= x &lt;= 15}
 </pre>
-
 
 <ul class="org-ul">
 <li>For the below loop, give 2 non-trivial (so no True) loop invariants, one of which should involve a relationship of both <code>i</code> and <code>j</code>. Hint: convert the for loop into a while loop first.</li>
@@ -66,9 +96,9 @@
 
 
 
-<div id="outline-container-org411e8bd" class="outline-2">
-<h2 id="org411e8bd"><span class="section-number-2">2.</span> Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgd7e6e01" class="outline-2">
+<h2 id="orgd7e6e01"><span class="section-number-2">3.</span> Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-3">
 <p>
 <b>Immutatiblity</b>: Consider a partial version of a <i>mutable</i> <code>Stack</code> class:
 </p>
@@ -115,9 +145,9 @@ System.out.println(s.pop());
 
 
 
-<div id="outline-container-org72858c2" class="outline-2">
-<h2 id="org72858c2"><span class="section-number-2">3.</span> Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org3435b54" class="outline-2">
+<h2 id="org3435b54"><span class="section-number-2">4.</span> Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-4">
 <p>
 Consider the following 2 specifications, the second of which has an associated implementation (note that the 2nd implementation uses the specification of the first):
 </p>
@@ -153,13 +183,13 @@ Consider the following 2 specifications, the second of which has an associated i
 </div>
 
 
-<div id="outline-container-org28cb5ff" class="outline-2">
-<h2 id="org28cb5ff"><span class="section-number-2">4.</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-org0a9c174" class="outline-2">
+<h2 id="org0a9c174"><span class="section-number-2">5.</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
+<div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org729e41a" class="outline-3">
-<h3 id="org729e41a"><span class="section-number-3">4.1.</span> Contracts for a Binary Search implementation.</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-orgcafa981" class="outline-3">
+<h3 id="orgcafa981"><span class="section-number-3">5.1.</span> Contracts for a Binary Search implementation.</h3>
+<div class="outline-text-3" id="text-5-1">
 <ul class="org-ul">
 <li>specifiy the specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.</li>
 </ul>
