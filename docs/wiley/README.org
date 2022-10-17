@@ -5,68 +5,19 @@ https://wiley.sharepoint.com/teams/GeorgeMason/Shared%20Documents/Forms/AllItems
 
 
 
-Getting Started 
-Week 01 
-Week 01 
  
-Module 01 
-Week 01 
-Week 01 
-
-Class Overview 
-Module 02 
-Week 02 
-Week 01 
-Procedural Abstraction 
-Module 03 
-Week 03 
-Week 02 
-Exceptions 
-Module 04 
-Week 04 
-Week 03 
-Data Abstraction; Mutability 
-Module 05 
-Week 05 
-Week 04 
-Reasoning About Data Abstraction 
-Module 06 
-Week 06 
-Week 05 
-Iteration Abstraction; Method Guidelines 
-Module 07 
-Week 07 
-Week 06 
-Type Abstraction 
-Module 08 
-Week 08 
-Week 07 
-Polymorphic Abstraction; Lambdas 
-Module 09 
-Week 09 
-Week 08 
-Generics 
-Module 10 
-Week 10 
-Week 09 
-Hoare Logic 
-Module 11 
-Week 11 
-Week 10 
-Common Java Contracts, Classes and Inheritance 
-Module 12 
-Week 12 
-Week 11 
-Contract Model in Testing 
-Module 13 
-Week 13 
-Week 11 
-Enums and Annotations, 
-Module 14 
-Week 14 
-Week 12 
-Course Wrap Up 
-Module 15 
-Week 15 
-Week 12 
-Final Exam 
+Module 01: Class Overview 
+Module 02: Procedural Abstraction 
+Module 03: Exceptions 
+Module 04: Data Abstraction; Mutability 
+Module 05: Reasoning About Data Abstraction 
+Module 06: Iteration Abstraction; Method Guidelines 
+Module 07: Type Abstraction 
+Module 08: Polymorphic Abstraction; Lambdas 
+Module 09: Generics 
+Module 10: Hoare Logic 
+Module 11: Common Java Contracts, Classes and Inheritance 
+Module 12: Contract Model in Testing 
+Module 13: Enums and Annotations, 
+Module 14: Course Wrap Up 
+Module 15: Final Exam 
