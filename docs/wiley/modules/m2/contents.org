@@ -32,7 +32,7 @@ Upon completion of this module’s activities, you should be able to:
   - Chapter 3: Procedural Abstraction
   
 
-* TODO Module 1 Learning Unit 1 – Benefits of Abstractions (MLO 1) [~0.5 hour]
+* TODO Module 2 Learning Unit 1 – Benefits of Abstractions (MLO 1) [~0.5 hour]
 
 - Abstraction "abstracts” programs from “irrelevant" details,
   - describing only those details that are relevant (e.g., for inputs, we might only care about the types of the input is integer, for an =isPrime= procedure, we only care about "what" it does (check that a number is prime), but we don't care about "how" it is implemented)
@@ -52,7 +52,7 @@ Upon completion of this module’s activities, you should be able to:
       
 
 
-* TODO Module 1 Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
+* TODO Module 2 Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
 
 - Program/Procedural Specifications: abstraction defining program behavior
 - Unlike an implementation, we don't write specification in a programming language (e.g., while the implementation in Java, the specification is not)
@@ -106,7 +106,7 @@ Upon completion of this module’s activities, you should be able to:
 
 ** Instructor Screencast: TITLE
 
-* Implementing Procedures and Designing Procedural Abstraction (1 hrs) (MLO 2,3)
+* Module 2 Learning Unit 3 - Implementing Procedures and Designing Procedural Abstraction (MLO 2,3) (1 hrs) 
 
 ** Implementation Procedures
 - The implementation of a procedure should satisfy the procedural specification, i.e., produce the behavior defined by its specification.
