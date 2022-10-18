@@ -179,12 +179,62 @@ public static int fact (int n) throws NonPositiveException
 ** Due Date 
 Your assignment is due by Sunday 11:59 PM, ET. 
 
-* TODO Module 1 Quiz (MLO 1, 2) [~.5 hour] 
+* TODO Module 3 Quiz (MLO 1, 2, 3) [~.5 hour] 
  
 ** Purpose 
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
 
 ** Instructions 
+Consider the following 2 specifications, the second of which has an associated implementation (note that the 2nd implementation uses the specification of the first):
+
+#+begin_src java
+  public static int minIndex (int [] a) {... implementation omitted ... }
+     // EFFECTS: if a null throw NullPointerException, else if a.length=0 throw
+     //      IllegalArgumentException else return index of some min element in a.
+
+  public static void setSmall (int [] a, int i) {
+     // REQUIRES: a != null, 0 <= i < a.length
+     // MODIFIES a
+     // EFFECTS: rearranges elements in array a so that some smallest element is at index i
+     int j = minIndex(a); int t = a[j]; a[j] = a[i]; a[i] = t;    }
+#+end_src
+
+1. Suppose we wish to transform the ~setSmall~ precondition ~a != null~ into defined behavior with an exception.
+   1. What Java exception would you use for this transformation?
+      #+begin_comment
+      Answer: NullPointerException.
+      #+end_comment
+   2. Rewrite the precondition and postcondition for ~setSmall()~ to achieve this result.
+      #+begin_comment
+         Answer: Note that the predicate a!=null is no longer in the REQUIRES clause.
+         // REQUIRES: 0 <= i < a.length
+         // MODIFIES a
+         // EFFECTS: if a = null throw NullPointerException else
+         //          rearranges elements in array a so that 
+         //          smallest element is at index i
+      #+end_comment
+   3. Does the given implementation of ~setSmall()~ satisfy this revised specification? 
+      #+begin_comment
+      Answer: Yes. Note that the call to ~minIndex()~ generates the correct exception.
+      #+end_comment
+2. Suppose we wish, in addition, to transform the ~setSmall()~ precondition ~0 <= i < a.length~ into defined behavior with an exception.
+   1. What exception would you use this transformation? Hint: Note that ~i~ is described as an "index".
+     #+begin_comment
+     Answer: IndexOutOfBoundsException
+     #+end_comment
+   2. Extend your rewrite of the precondition and postcondition for ~setSmall()~ to achieve this result. 
+      #+begin_comment
+      Answer: Note that the predicate 0 <= i < a.length is no longer in the REQUIRES clause.
+      // MODIFIES a
+      // EFFECTS: if a = null throw NullPointerException else
+      //          if !(0 <= i < a.length) throw IndexOutOfBoundsException else
+      //          rearranges elements in array a so that 
+      //          smallest element is at index i
+      #+end_comment
+   3. Does the given implementation of ~setSmall()~ satisfy this revised specification? 
+      #+begin_comment
+      Answer: No. There are two cases. If the array is not empty, then the implementation returns ~IndexOutOfBoundsException~. However, if the array is empty, then the implementation generates ~IllegalArgumentException~ via the call to ~minIndex()~, which is /not/ ~IndexOutOfBoundsException~.
+      #+end_comment
 
 The quiz is 30 minutes in length. 
 The quiz is closed-book.

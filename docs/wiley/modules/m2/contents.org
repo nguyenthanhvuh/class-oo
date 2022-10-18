@@ -134,7 +134,7 @@ Moreover, if possible, we prefer *total* instead of *partial* procedures
 - When possible, the implementation should check the constraints in the requires clause and throw an exception if they are not satisfied.
 
 
-* Exercise (MLO 1, 2, 3) [.5 hours] 
+* Exercise 1 (MLO 1, 2, 3) [.5 hours] 
    Consider the following implementation:
 
    #+begin_src java
@@ -190,7 +190,7 @@ Moreover, if possible, we prefer *total* instead of *partial* procedures
       Also, possible to do if list is [], return [],  but then needs to update the contract.  In general, as long as you satisfy the contract, you're fine.
       #+end_comment
 
-* Exercise (MLO 1, 2, 3) [.5 hours]
+* Exercise 2 (MLO 1, 2, 3) [.5 hours]
 Understanding Contracts
 
    Consider the 3 methods =hasNext= , =next=, and =remove= in the Java [[https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html][Iterator]] interface:
@@ -254,7 +254,7 @@ For this assignment, you'll build a /very/ small piece of Java for a contract wi
 ** Due Date 
 Your assignment is due by Sunday 11:59 PM, ET. 
 
-* TODO Module 1 Quiz (MLO 1, 2) [~.5 hour] 
+* TODO Module 2 Quiz (MLO 1, 2) [~.5 hour] 
  
 ** Purpose 
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
