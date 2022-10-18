@@ -1,0 +1,78 @@
+#+TITLE: Module 3 - Exceptions
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
+
+* Overview and Objectives 
+** TODO OVERVIEW 
+
+** COURSE LEVEL OBJECTIVES (CLO) 
+Upon completion of this course, you should be able to:
+
+1. Construct modern high quality software systems and reason about them. 
+2. Properly define software specifications and rep-invariants. 
+3. Leverage immutability to properly construct threat safe programs. 
+4. Explain object-oriented concepts such as information hiding, encapsulation, data and type abstraction, and polymorphism. 
+5. Properly use exception handling 
+6. Identify when it is appropriate to use inheritance and generics.  
+ 
+** TODO MODULE LEVEL OBJECTIVES (MLO) 
+Upon completion of this module’s activities, you should be able to: 
+
+* Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
+#+begin_comment
+#+end_comment
+  
+
+* Learning Materials [~100 pages, ~3.5 hours]
+** TEXTBOOK READINGS
+- Barbara Liskov with John Guttag. Program Development in Java. Addison Wesley, 2001, ISBN 0-201-65768-6. 
+  - Chapter 4: Exceptions
+  
+
+* TODO Module 3 Learning Unit 1 – Benefits of Abstractions (MLO 1) [~0.5 hour]
+
+
+
+* TODO Module 3 Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
+
+
+** Instructor Screencast: TITLE
+
+* TODO Module 3 Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
+
+
+* Exercise (MLO 1, 2, 3) [.5 hours] 
+
+* Exercise (MLO 1, 2, 3) [.5 hours]
+
+
+* Module 3 Assignment – (MLO 1, 2) [~2 hours]  
+ 
+** Purpose 
+
+
+** Instructions
+
+** Deliverable 
+- Submit a =.java= file for your implementation. 
+
+** Due Date 
+Your assignment is due by Sunday 11:59 PM, ET. 
+
+* TODO Module 1 Quiz (MLO 1, 2) [~.5 hour] 
+ 
+** Purpose 
+Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
+
+** Instructions 
+
+The quiz is 30 minutes in length. 
+The quiz is closed-book.
+
+** Deliverable 
+Use the link above to take the quiz.
+
+** Due Date 
+Your quiz submission is due by Sunday 11:59 PM, ET. 
+
+ 
