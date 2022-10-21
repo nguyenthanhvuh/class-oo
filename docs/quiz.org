@@ -27,7 +27,7 @@
     // else return generator of itr composed with this
    #+end_src
 
- Analyze the =compose()= method in each of these cases according to Liskove's Principle of Substitution. For each case, state if the precondition and the postcondition parts are satisfied or fail, and *justify*.
+ Analyze the =compose()= method in each of these cases according to Liskov's Principle of Substitution. For each case, state if the precondition and the postcondition parts are satisfied or fail, and *justify*.
 
  1. B extends A. 
  1. C extends A. 
