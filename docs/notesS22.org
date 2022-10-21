@@ -841,9 +841,9 @@ Approach 1
 
 Approach 2
 #+begin_src java
-  public static void findPersonOlderThan(List<Person> listOfPerson, int lower, upper) {
+  public static void findPersonOlderThan(List<Person> listOfPerson, int lower, int upper) {
           for (Person p : listOfPerson) {
-                  if (p.getAge() >= lower && p.getAge() <= lower) p.printPerson();
+                  if (p.getAge() >= lower && p.getAge() <= upper) p.printPerson();
           }
   }
 #+end_src
