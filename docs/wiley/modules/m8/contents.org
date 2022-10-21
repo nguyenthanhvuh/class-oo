@@ -1,4 +1,4 @@
-#+TITLE: Module 3 - Exceptions
+#+TITLE: Module 8 - Polymorphic Abstraction; Lambdas 
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
@@ -46,7 +46,7 @@ Upon completion of this module’s activities, you should be able to:
 * Exercise (MLO 1, 2, 3) [.5 hours]
 
 
-* Module 3 Assignment – (MLO 1, 2) [~2 hours]  
+* Assignment – (MLO 1, 2) [~2 hours]  
  
 ** Purpose 
 
@@ -59,7 +59,7 @@ Upon completion of this module’s activities, you should be able to:
 ** Due Date 
 Your assignment is due by Sunday 11:59 PM, ET. 
 
-* TODO Module 1 Quiz (MLO 1, 2) [~.5 hour] 
+* TODO Quiz (MLO 1, 2) [~.5 hour] 
  
 ** Purpose 
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 

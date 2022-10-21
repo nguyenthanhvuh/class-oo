@@ -16,8 +16,9 @@ Module 07: Type Abstraction
 Module 08: Polymorphic Abstraction; Lambdas 
 Module 09: Generics 
 Module 10: Hoare Logic 
-Module 11: Common Java Contracts, Classes and Inheritance 
-Module 12: Contract Model in Testing 
-Module 13: Enums and Annotations, 
-Module 14: Course Wrap Up 
-Module 15: Final Exam 
+Module 11: Common Java Contracts,
+Module 12: Classes and Inheritance 
+Module 13: Contract Model in Testing 
+Module 14: Enums and Annotations 
+Module 15: Course Wrap Up / Final Exam
+

@@ -1,9 +1,15 @@
-#+TITLE: Module 3 - Exceptions
+#+TITLE: Module 7 - Type Abstraction
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
+#+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
+
 
 * Overview and Objectives 
 ** TODO OVERVIEW 
+
+This modules discusses *types* as a way to enhance the use of data abstraction by defining families (or classes) of related types.
+All members of a family have similar behavior: they all have certain methods, and calls on those methods behave in similar ways.
+Family members may differ by extending the behavior of the common methods or by providing additional methods.
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
@@ -26,30 +32,115 @@ Upon completion of this module’s activities, you should be able to:
 * Learning Materials [~100 pages, ~3.5 hours]
 ** TEXTBOOK READINGS
 - Barbara Liskov with John Guttag. Program Development in Java. Addison Wesley, 2001, ISBN 0-201-65768-6. 
-  - Chapter 4: Exceptions
+  - Chapter 7: Type Hierachy
   
 
-* TODO Module 3 Learning Unit 1 – Benefits of Abstractions (MLO 1) [~0.5 hour]
+* TODO Learning Unit 1 – Benefits of Types (MLO 1) [~0.5 hour]
 
 
-
-* TODO Module 3 Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
+* TODO Learning Unit 2 – (MLO 1, 2) [~2.5 hour]
 
 
 ** Instructor Screencast: TITLE
 
-* TODO Module 3 Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
+* Learning Unit 3 – Interfaces (MLO 1, 2) [1 hour]
 
 
-* Exercise (MLO 1, 2, 3) [.5 hours] 
+* Learning Unit 8 – Example: Polynomials (MLO 1, 2) [1 hour]
 
-* Exercise (MLO 1, 2, 3) [.5 hours]
+* Learning Unit 9 – Subtypes (MLO 1, 2) [1 hour]
 
 
-* Module 3 Assignment – (MLO 1, 2) [~2 hours]  
+** Methods Rule
+** Properties Rule
+
+
+* Group Exercise 1 (MLO 1, 2, 3) [.5 hours] 
+   #+begin_src java
+     class A:
+         public void reduce (Reducer x)
+             // Effects: if x is null throw NPE
+             // else if x is not appropriate for this throw IAE
+             // else reduce this by x
+
+      class B:
+          public void reduce (Reducer x)
+             // Requires: x is not null
+             // Effects: if x is not appropriate for this throw IAE
+             // else reduce this by x
+
+      class C:
+          public void reduce (Reducer x)
+             // Effects: if x is null return (normally) with no change to this
+             // else if x is not appropriate for this throw IAE
+             // else reduce this by x
+   #+end_src
+
+   Analyze the "methods rule" for =reduce()= in each of these cases: Note: Some analysis may not be necessary. If so, indicate that.
+   
+   #+begin_src text
+
+     B extends A.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
+     C extends A.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
+     A extends B.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
+     C extends B.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
+     A extends C.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
+   #+end_src
+
+** Sols:
+B extends A.
+Precondition Part:  not satisfied LSP because B has stronger pre than A
+Postcondition Part:  not statisfied because A has stronger post
+-----------------------------------
+C extends A.   
+Precondition Part: C's pre <= A's pre ,  satisfied 
+Postcondition Part: C's post >= A's post, 
+- A's post is stronger than C's post because NPE is preferred:  LSP is violated
+- C's post is stronger than A's post because normal return is preferred: LSP is satisfied
+- A and C's behaviors are not comparable :  LSP is violated
+
+-----------------------------------
+A extends B.
+Precondition Part:  A has no pre and therefore is weaker than B -- satisfies LSP     
+Postcondition Part:
+    - Since A is stronger because it handles null (throwing NPE), but B does not -- satisfies LSP
+    - If taken into account the precond of B, which disallow x being null, then the posts of A and B are the same , satisfies LSP
+
+-----------------------------------
+C extends B.
+
+  - preconds: C is weaker than B - satisfies LSP
+  - postconds:
+    - since C can handle null input, C is stronger than B
+    - since for non-null cases as required by the pre of B, both C and B hae same 
+
+-----------------------------------
+A extends C.
+Precondition Part:
+Postcondition Part:
+-----------------------------------    
+
+
+* Group Exercise 2 (MLO 1, 2, 3) [.5 hours]
+
+* Assignment – (MLO 1, 2) [~2 hours]  
  
 ** Purpose 
-
 
 ** Instructions
 
@@ -59,7 +150,7 @@ Upon completion of this module’s activities, you should be able to:
 ** Due Date 
 Your assignment is due by Sunday 11:59 PM, ET. 
 
-* TODO Module 1 Quiz (MLO 1, 2) [~.5 hour] 
+* TODO Quiz (MLO 1, 2) [~.5 hour] 
  
 ** Purpose 
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 

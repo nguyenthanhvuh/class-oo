@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-10-07 Fri 14:25 -->
+<!-- 2022-10-21 Fri 10:14 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 419</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
@@ -18,19 +18,59 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org202e7fe">1. Quiz 7 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span></a></li>
-<li><a href="#orgee97a71">2. Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></a></li>
-<li><a href="#orgd7e6e01">3. Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></a></li>
-<li><a href="#org3435b54">4. Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></a></li>
-<li><a href="#org0a9c174">5. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
+<li><a href="#org4bdc46d">1. Quiz 8 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span></a></li>
+<li><a href="#org2065e1e">2. Quiz 7 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span></a></li>
+<li><a href="#org5ee8003">3. Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></a></li>
+<li><a href="#org5236a87">4. Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></a></li>
+<li><a href="#org820822b">5. Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></a></li>
+<li><a href="#org2885752">6. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
 </ul>
 </div>
 </div>
 
-
-<div id="outline-container-org202e7fe" class="outline-2">
-<h2 id="org202e7fe"><span class="section-number-2">1.</span> Quiz 7 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span></h2>
+<div id="outline-container-org4bdc46d" class="outline-2">
+<h2 id="org4bdc46d"><span class="section-number-2">1.</span> Quiz 8 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span></h2>
 <div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">A</span> {
+   <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span> <span style="color: #a626a4;">compose</span> (<span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">itr</span>)
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: itr is not null</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Modifies: itr</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if this is not appropriate for itr throw IAE</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return generator of itr composed with this</span>
+<span style="color: #e45649;">class</span> B {
+   <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span> <span style="color: #a626a4;">compose</span> (<span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">itr</span>)
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Modifies: itr</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if itr is null throw NPE </span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if this is not appropriate for itr throw IAE</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return generator of itr composed with this</span>
+<span style="color: #e45649;">class</span> C {
+   <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span> <span style="color: #a626a4;">compose</span> (<span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">itr</span>)
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Modifies: itr</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if itr is null return iterator equal to this</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if this is not appropriate for itr throw IAE</span>
+   <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return generator of itr composed with this</span>
+</pre>
+</div>
+
+<p>
+Analyze the <code>compose()</code> method in each of these cases according to Liskove's Principle of Substitution. For each case, state if the precondition and the postcondition parts are satisfied or fail, and <b>justify</b>.
+</p>
+
+<ol class="org-ol">
+<li>B extends A.</li>
+<li>C extends A.</li>
+<li>A extends B.</li>
+<li>C extends B.</li>
+<li>B extends C.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org2065e1e" class="outline-2">
+<h2 id="org2065e1e"><span class="section-number-2">2.</span> Quiz 7 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-2">
 <p>
 Suppose <code>C</code> is an abstract data type that has two <code>String</code> fields:
 </p>
@@ -57,13 +97,13 @@ Assuming you don’t know anything about <code>C</code>, which of the following 
 </div>
 
 
-<div id="outline-container-orgee97a71" class="outline-2">
-<h2 id="orgee97a71"><span class="section-number-2">2.</span> Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org5ee8003" class="outline-2">
+<h2 id="org5ee8003"><span class="section-number-2">3.</span> Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org25f3002" class="outline-3">
-<h3 id="org25f3002"><span class="section-number-3">2.1.</span> Hoare tripple</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-org38a504c" class="outline-3">
+<h3 id="org38a504c"><span class="section-number-3">3.1.</span> Hoare tripple</h3>
+<div class="outline-text-3" id="text-3-1">
 <ul class="org-ul">
 <li>Fill in the ??? and briefly explain your answer</li>
 </ul>
@@ -96,9 +136,9 @@ Assuming you don’t know anything about <code>C</code>, which of the following 
 
 
 
-<div id="outline-container-orgd7e6e01" class="outline-2">
-<h2 id="orgd7e6e01"><span class="section-number-2">3.</span> Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org5236a87" class="outline-2">
+<h2 id="org5236a87"><span class="section-number-2">4.</span> Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-4">
 <p>
 <b>Immutatiblity</b>: Consider a partial version of a <i>mutable</i> <code>Stack</code> class:
 </p>
@@ -145,9 +185,9 @@ System.out.println(s.pop());
 
 
 
-<div id="outline-container-org3435b54" class="outline-2">
-<h2 id="org3435b54"><span class="section-number-2">4.</span> Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-org820822b" class="outline-2">
+<h2 id="org820822b"><span class="section-number-2">5.</span> Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-5">
 <p>
 Consider the following 2 specifications, the second of which has an associated implementation (note that the 2nd implementation uses the specification of the first):
 </p>
@@ -183,13 +223,13 @@ Consider the following 2 specifications, the second of which has an associated i
 </div>
 
 
-<div id="outline-container-org0a9c174" class="outline-2">
-<h2 id="org0a9c174"><span class="section-number-2">5.</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-org2885752" class="outline-2">
+<h2 id="org2885752"><span class="section-number-2">6.</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
+<div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-orgcafa981" class="outline-3">
-<h3 id="orgcafa981"><span class="section-number-3">5.1.</span> Contracts for a Binary Search implementation.</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-orgce91608" class="outline-3">
+<h3 id="orgce91608"><span class="section-number-3">6.1.</span> Contracts for a Binary Search implementation.</h3>
+<div class="outline-text-3" id="text-6-1">
 <ul class="org-ul">
 <li>specifiy the specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.</li>
 </ul>

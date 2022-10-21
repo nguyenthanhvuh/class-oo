@@ -4,6 +4,66 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
 
+* Quiz 8 <2022-10-21 Fri>
+
+  #+begin_src java
+ class A {
+    public Iterator compose (Iterator itr)
+    // Requires: itr is not null
+    // Modifies: itr
+    // Effects: if this is not appropriate for itr throw IAE
+    // else return generator of itr composed with this
+ class B {
+    public Iterator compose (Iterator itr)
+    // Modifies: itr
+    // Effects: if itr is null throw NPE 
+    // else if this is not appropriate for itr throw IAE
+    // else return generator of itr composed with this
+ class C {
+    public Iterator compose (Iterator itr)
+    // Modifies: itr
+    // Effects: if itr is null return iterator equal to this
+    // else if this is not appropriate for itr throw IAE
+    // else return generator of itr composed with this
+   #+end_src
+
+ Analyze the =compose()= method in each of these cases according to Liskove's Principle of Substitution. For each case, state if the precondition and the postcondition parts are satisfied or fail, and *justify*.
+
+ 1. B extends A. 
+ 1. C extends A. 
+ 1. A extends B. 
+ 1. C extends B.    
+ 1. B extends C. 
+
+#+begin_comment
+1. B extends A. 
+Precondition Part: 
+Answer: Satisfied: weaker precondition in B 
+Postcondition Part: 
+Answer: Satisfied: Identical behavior where A defined, with additional behavior where A not defined.
+2.C extends A. 
+Precondition Part: 
+Answer: Satisfied: weaker precondition in C 
+Postcondition Part: 
+Answer: Satisfied: Identical behavior where A defined, with additional behavior where A not defined.
+3. A extends B. 
+Precondition Part: 
+Answer: Not satisfied: stronger precondition in A 
+Postcondition Part: 
+Answer: No analysis required
+4. C extends B. 
+Precondition Part: 
+Answer: Satisfied: same preconditions 
+Postcondition Part: 
+Answer A: Not satisfied: Inconsistent behavior in case where itr is null
+Answer B: Satisfied, stronger post (assuming returning a an iterator equal to this)
+5. B extends C. 
+Precondition Part: 
+Answer: Satisfied: same preconditions 
+Postcondition Part: 
+Answer: Not satisfied: Inconsistent behavior in case where itr is null
+#+end_comment
+
 
 * Quiz 7 <2022-10-07 Fri>
 
@@ -435,65 +495,6 @@ Consider the following 2 specifications, the second of which has an associated i
 # #+end_comment
 
 
-# * Quiz 6:  Type
-
-#   #+begin_src java
-#  class A {
-#     public Iterator compose (Iterator itr)
-#     // Requires: itr is not null
-#     // Modifies: itr
-#     // Effects: if this is not appropriate for itr throw IAE
-#     // else return generator of itr composed with this
-#  class B {
-#     public Iterator compose (Iterator itr)
-#     // Modifies: itr
-#     // Effects: if itr is null throw NPE 
-#     // else if this is not appropriate for itr throw IAE
-#     // else return generator of itr composed with this
-#  class C {
-#     public Iterator compose (Iterator itr)
-#     // Modifies: itr
-#     // Effects: if itr is null return iterator equal to this
-#     // else if this is not appropriate for itr throw IAE
-#     // else return generator of itr composed with this
-#    #+end_src
-
-#  Analyze the =compose()= method in each of these cases according to Liskove's Principle of Substitution. For each case, state if the precondition and the postcondition parts are satisfied or fail, and *justify*.
-
-#  1. B extends A. 
-#  1. C extends A. 
-#  1. A extends B. 
-#  1. C extends B.    
-#  1. B extends C. 
-
-# #+begin_comment
-# 1. B extends A. 
-# Precondition Part: 
-# Answer: Satisfied: weaker precondition in B 
-# Postcondition Part: 
-# Answer: Satisfied: Identical behavior where A defined, with additional behavior where A not defined.
-# 2.C extends A. 
-# Precondition Part: 
-# Answer: Satisfied: weaker precondition in C 
-# Postcondition Part: 
-# Answer: Satisfied: Identical behavior where A defined, with additional behavior where A not defined.
-# 3. A extends B. 
-# Precondition Part: 
-# Answer: Not satisfied: stronger precondition in A 
-# Postcondition Part: 
-# Answer: No analysis required
-# 4. C extends B. 
-# Precondition Part: 
-# Answer: Satisfied: same preconditions 
-# Postcondition Part: 
-# Answer A: Not satisfied: Inconsistent behavior in case where itr is null
-# Answer B: Satisfied, stronger post (assuming returning a an iterator equal to this)
-# 5. B extends C. 
-# Precondition Part: 
-# Answer: Satisfied: same preconditions 
-# Postcondition Part: 
-# Answer: Not satisfied: Inconsistent behavior in case where itr is null
-# #+end_comment
 
 # * Quiz 7:
 
