@@ -3,7 +3,7 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
 * Overview and Objectives 
-** TODO OVERVIEW 
+This module focuses on Procedural (or Method) Abstraction, which allows us to "hide" irrelevant details from complicate classes and programs and help reasoning about programs. Specifically, we will look at abstraction by specifications, which reveal essential behaviors of programs without disclosing implementation details. Finally, we will look at designing and implementing effective specifications.
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
@@ -36,7 +36,6 @@ Upon completion of this module’s activities, you should be able to:
 
 - Abstraction "abstracts” programs from “irrelevant" details,
   - describing only those details that are relevant (e.g., for inputs, we might only care about the types of the input is integer, for an =isPrime= procedure, we only care about "what" it does (check that a number is prime), but we don't care about "how" it is implemented)
-  - An abstraction is a many-to-one map.
 
 - Allows for easier reasoning and understanding (only care about relevant details and ignore irrelevant ones)    
 - Also allows us to change to another implementation without affecting the meaning of any program that uses the abstraction
@@ -53,6 +52,11 @@ Upon completion of this module’s activities, you should be able to:
 
 
 * TODO Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
+
+- *Procedural Abstraction using Specifications* allows us to break down the program into modules (procedures) while hiding the details of implementations
+- *The Specifications* reveal the essential information about the behavior of a module (procedure) without disclosing all the details of its implementation
+- *Procedural Abstraction by Specification* allows us to change the implementation of a procedure without affecting the meaning of any code that uses the procedure
+
 
 - Program/Procedural Specifications: abstraction defining program behavior
 - Unlike an implementation, we don't write specification in a programming language (e.g., while the implementation in Java, the specification is not)
@@ -73,12 +77,12 @@ Upon completion of this module’s activities, you should be able to:
     // MODIFIES: This clause identifies all modified inputs
   #+end_src
   
-  - Requires: states the constraints over the inputs (e.g., input =x= in =sqrt= cannot be negative).  If there is no require, then the procedural is *total*.  Otherwise, the procedura ls *partial*
-  - Effects: describes the behavior of the procedure for all inputs satisfies the requires clause.
+  - *Requires*: states the constraints over the inputs (e.g., input =x= in =sqrt= cannot be negative).  If there is no require, then the procedural is *total*.  Otherwise, the procedura ls *partial*
+  - *Effects*: describes the behavior of the procedure for all inputs satisfies the requires clause.
     - Effects only happen under the assumption that the requires clause is satisfied.  If the requires are not satisfied, effects are undefined.
   - Modifies: lists the names of any inputs that are modified by the procedure. If some inputs are modified, we say the procedure has a *side effect*.
 
-** Example
+*** Example
 #+begin_src java
    public class Arrays {
       // OVERVIEW: This class provides a number of standalone procedures that
@@ -103,6 +107,21 @@ Upon completion of this module’s activities, you should be able to:
   - Note the use of an example in the sort specification. Examples can clarify a specification and should be used whenever convenient.
 - =sort= and =search= are =total= (no require); =searchSorted=  is partial; it only does its job if its argument array is sorted.
 
+*** Example: sortedSearch
+#+begin_src java
+    public static int sortedSearch (int[]a, int x)
+    // Requires/Preconds:  a is sorted in ascending order
+    // Effects/Postconds:   if x is in a returns an index where //  x is stored; otherwise, returns -1
+#+end_src
+
+*** Example: sort
+#+begin_src java
+      public static void sort (int[] a)
+      // Modifies:  a
+      // Effects:   rearranges the elements of a into ascending order
+      // E.g. if a = [3,1,6,1] before the call, then
+      //         a = [1,1,3,6] after the call
+#+end_src
 
 ** Instructor Screencast: TITLE
 
@@ -129,7 +148,7 @@ Moreover, if possible, we prefer *total* instead of *partial* procedures
 
 - total :: a procedure is  *total*  if its behavior specified for all legal inputs; otherwise, it is partial. The specification of a partial procedure always contains a requires clause.
 
-- Partial procedures are less safe than total ones. Therefore, they should be used only when the context of use is limited or when they enable a substantial benefit, such as better performance.
+- Partial :: procedures are less safe than total ones. Therefore, they should be used only when the context of use is limited or when they enable a substantial benefit, such as better performance.
 
 - When possible, the implementation should check the constraints in the requires clause and throw an exception if they are not satisfied.
 
