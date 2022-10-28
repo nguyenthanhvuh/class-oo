@@ -242,6 +242,35 @@ Your assignment is due by Sunday 11:59 PM, ET.
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
 
 ** Instructions 
+  #+begin_src java
+    Set<String> t = //  See questions below
+
+    t.add("antelope");
+    t.add("dog");
+    t.add("cat");
+
+ // t.toString() is ???
+  #+end_src  
+
+
+1. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>();~.  At the end of the computation, what is ~t.toString()?~ 
+  #+begin_comment
+  Answer: [antelope, cat, dog]
+  #+end_comment
+2. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> x.length() - y.length());~. At the end of the computation, what is ~t.toString()?~
+  #+begin_comment
+  Answer: [dog, antelope]
+  #+end_comment
+
+# 3. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> y.compareTo(x));~. At the end of the computation, what is ~t.toString()?~
+# #+begin_comment
+# Answer: [dog, cat, antelope]
+# #+end_comment
+
+# 4. Which of the above ~Comparator~ implementations is problematic? and why?
+# #+begin_comment
+# Answer: 2, compare(a,b)  is not consistent with a.equals(b).
+# #+end_comment
 
 The quiz is 30 minutes in length. 
 The quiz is closed-book.

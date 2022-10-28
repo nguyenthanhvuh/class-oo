@@ -3,6 +3,36 @@
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+* Quiz 9 <2022-10-28 Fri>
+  #+begin_src java
+    Set<String> t = //  See questions below
+
+    t.add("antelope");
+    t.add("dog");
+    t.add("cat");
+
+ // t.toString() is ???
+  #+end_src  
+
+
+1. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>();~.  At the end of the computation, what is ~t.toString()?~ 
+  #+begin_comment
+  Answer: [antelope, cat, dog]
+  #+end_comment
+2. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> x.length() - y.length());~. At the end of the computation, what is ~t.toString()?~
+  #+begin_comment
+  Answer: [dog, antelope]
+  #+end_comment
+
+# 3. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> y.compareTo(x));~. At the end of the computation, what is ~t.toString()?~
+# #+begin_comment
+# Answer: [dog, cat, antelope]
+# #+end_comment
+
+# 4. Which of the above ~Comparator~ implementations is problematic? and why?
+# #+begin_comment
+# Answer: 2, compare(a,b)  is not consistent with a.equals(b).
+# #+end_comment
 
 * Quiz 8 <2022-10-21 Fri>
 
@@ -496,37 +526,6 @@ Consider the following 2 specifications, the second of which has an associated i
 
 
 
-# * Quiz 7:
-
-#   #+begin_src java
-#     Set<String> t = //  See questions below
-
-#     t.add("antelope");
-#     t.add("dog");
-#     t.add("cat");
-
-#  // t.toString() is ???
-#   #+end_src  
-
-
-# 1. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>();~.  At the end of the computation, what is ~t.toString()?~ 
-#   #+begin_comment
-#   Answer: [antelope, cat, dog]
-#   #+end_comment
-# 2. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> x.length() - y.length());~. At the end of the computation, what is ~t.toString()?~
-#   #+begin_comment
-#   Answer: [dog, antelope]
-#   #+end_comment
-
-# # 3. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> y.compareTo(x));~. At the end of the computation, what is ~t.toString()?~
-# # #+begin_comment
-# # Answer: [dog, cat, antelope]
-# # #+end_comment
-
-# # 4. Which of the above ~Comparator~ implementations is problematic? and why?
-# # #+begin_comment
-# # Answer: 2, compare(a,b)  is not consistent with a.equals(b).
-# # #+end_comment
 
 
 # * Quiz 8:
