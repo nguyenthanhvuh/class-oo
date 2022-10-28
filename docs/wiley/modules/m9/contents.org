@@ -1,4 +1,4 @@
-#+TITLE: Module 3 - Exceptions
+#+TITLE: Module 9 - Generics
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
@@ -23,30 +23,305 @@ Upon completion of this module’s activities, you should be able to:
 #+end_comment
   
 
-* Learning Materials [~100 pages, ~3.5 hours]
+* Learning Materials [3 hours]
 ** TEXTBOOK READINGS
-- Barbara Liskov with John Guttag. Program Development in Java. Addison Wesley, 2001, ISBN 0-201-65768-6. 
-  - Chapter 4: Exceptions
+
+- Joshua Bloch. Effective Java. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1.
+  - Chapter 5
   
 
-* TODO Module 3 Learning Unit 1 – Benefits of Abstractions (MLO 1) [~0.5 hour]
+* Learning Unit 1 – Intro to Generics (MLO 1) [~0.5 hour]
+
+- So far we talked about *subtype polymorphism* as in relationship between sub and supertype (e.g., Liskov Substitution Principle: supertype operations should work on suptype)
+- Another form of polymorphism is  *Parametric Polymorphism*, in which a function or a type/class can be written generically so that it can handle values/parameters identically regardless of their type
+- A Generic class enables the programmer to specify, with a single class declaration, a set of related types
+  - One can write a generic sorting method that could work with Integer arrays, Double arrays, String arrays and so on, to sort the array elements
+  - But this can be also done with Subtype Polymorphism?!! Why Generics?
+- Generics allow for catching invalid types at *compile time* (instead of runtime)
+  - A generic class or method permits you to specify allowable types.
+  - If you attempt to use the class or method with an incompatible type, a compile error occurs (as opposed to runtime)
+
+- Example
+  #+begin_src java
+    // Before Java 5
+    public interface Comparable{
+        public int compareTo (Object o)
+    }
+    Comparable c = new Date();
+    c.compareTo("red");  // RUNTIME ERROR
+
+    // Java 5
+    public interface Comparable<T>{
+        public int compareTo (T o)
+    }
+    Comparable<Date> c = new Date();
+    c.compareTo("red");  // COMPILE ERROR
+  #+end_src    
+
+- Without generics,  had to cast every object read from a collection.
+- With generics, compiler inserts casts for you automatically and tells compile time if try to insert an object of the wrong type (safer and clearer programs)
+
+* Learning Unit 2
+** Item 26: Don’t Use Raw Types in New Code
+- List is a raw type
+- List<E> is a generic interface
+- List<String> is a parameterized type
+  - String is the actual type parameter corresponding to E
+#+begin_src java
+  // Now a raw collection type – don’t do this
+     private final Collection stamps = ; // Intention: Contains only Stamps
+  // Erroneous insertion of coin into stamp collection
+     stamps.add(new Coin(...));   // Oops!  We’re set up for ClassCastException later
+
+  // Parameterized collection type - typesafe 
+       private final Collection<Stamp> stamps = ...;
+       stamps.add(new Coin(...));  // result is instead a compile time error, which is good
+
+  // Now a raw iterator type – don’t do this!
+     for (Iterator I = stamps.iterator(); i.hasNext(); ) {
+        Stamp s = (Stamp) i.next();       // might throw a ClassCastException
+         ...//  Do something with the stamp
+      }
+  // for-each loop over parameterized collection – typesafe
+     for (Stamp s: stamps) {   // No (explicit) cast – same code as above
+         ...// Do something with the stamp
+  }
+#+end_src    
 
 
+** Item 27: Eliminate Unchecked Warnings
+- Generics result in many compiler warnings (annoying but good)
+- Eliminate them by fixing your code if possible 
 
-* TODO Module 3 Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
+- Some fixes are easy:
+  - Set<Lark> exaltation = new HashSet();              // warning
+  - Set<Lark> exaltation = new HashSet <Lark>();  // no warning
+  - Set<Lark> exaltation = new HashSet <>();  // no warning
+
+- As a last resort, suppress the warnings
+- If you can’t eliminate a warning, but you can prove that the code that provoked the warning is typesafe, then (and only then) suppress the warning with an =@SuppressWarnings("unchecked")= annotation.
+
+  
+** Item 28: Prefer Lists to Arrays
+
+- Lists play well with generics, arrays do not
+  - To support backward compatibility Generics have restrictions
+  - This is illegal: new E[], new List<E>[], new List<String>[]
+    
+- Arrays are *covariant*; generics are *invariant*
+  - Sub[] is a subtype of Super[] -> covariant
+  - List<Sub> is not a subtype of List<Super> -> invariant
+
+- Arrays are reified: This means that arrays know and enforce their element type at runtime.
+  - If you try to put a String into an array of Long, you’ll get an ArrayStoreException.
+  - Generics are erased, they exist at compile time only
+
+- Generics excel at compile time (better). Arrays excel at runtime.
+
+*** Example: Covariance vs Invariance
+#+begin_src java
+Object[] objectArray = new Long[1]; // compiler error? runtime error?
+// Long[] is-a Object[]: covariant
+objectArray[0] = “Do I fit in?”;       // compiler error? runtime error?
+// putting a string in an array of Longs Throws ArrayStoreException: reified
 
 
-** Instructor Screencast: TITLE
+List<Object> o1 = new ArrayList<Long>(); // compiler error? runtime error?
+// does not compile: invariant
+o1.add(“Do I fit in?”);   //  Incompatible types
+#+end_src
+- Not compiling is better than a runtime exception.
+- This is basically an argument for why invariance is preferable to covariance for generics.
 
-* TODO Module 3 Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
 
+*** Do Group Excercise 2 (Chooser)
+
+* In class 1
+
+   Given the following variable declarations, independently consider the given 6 sequences of Java instructions.
+   #+begin_src java
+
+     String           string = "bat";
+     Integer          x = 7;
+     Object[]         objects;
+     List             rawList;
+     List < Object >  objectList;
+     List < String >  stringList;
+
+   #+end_src
+
+   Identify any code that results in a compiler error or warning.
+   Identify any code that raises a runtime exception.
+   Once a compiler error is noted, you do not need to analyze the sequence further.
+
+   1.
+      #+begin_src java
+        objects = new String[1];
+        objects[0] = string;
+        objects[0] = x;
+      #+end_src
+
+   1.
+      #+begin_src java
+        objects = new Object[1];
+        objects[0] = string;
+        objects[0] = x;
+      #+end_src
+
+   1.
+      #+begin_src java
+        stringList = new ArrayList < String >();
+        stringList.add(string) ;
+      #+end_src
+
+   1.
+      #+begin_src java
+        objectList = new ArrayList < String >();
+        objectList.add(string) ;
+      #+end_src
+
+   1.
+      #+begin_src java
+        objectList = new ArrayList < Object >();
+        objectList.add(string) ;
+        objectList.add(x) ;
+      #+end_src
+
+   6.
+      #+begin_src java
+        rawList = new ArrayList();
+        rawList.add(string) ;
+        rawList.add(x) ;
+      #+end_src
+
+* In class 10B
+   :PROPERTIES:
+   :CUSTOM_ID: ic10B
+   :END:
+
+   #+begin_src java
+     // Chooser - a class badly in need of generics!
+     // Bloch 3rd edition, Chapter 5, Item 28:  Prefer lists to arrays
+
+     public class Chooser {
+         private final Object[] choiceArray;
+
+         public Chooser (Collection choices) {
+             choiceArray = choices.toArray();
+         }
+
+         public Object choose() {
+             Random rnd = ThreadLocalRandom.current();
+             return choiceArray [rnd.nextInt(choiceArray.length)];
+         }
+     }
+   #+end_src
+
+
+   - First, simply generify by adding a type to the Chooser class. What is the compiler error with this approach?
+   - How can you turn the compiler error into a compiler warning?
+   - Can this warning be suppressed? Should it?
+   - How can you adopt Bloch's advice about arrays and lists to get a typesafe Chooser class without doing anything else that is complicated?
+   - Add rep invariants and contracts (e.g., throw exceptions in unwanted cases); check if code satisfies these; and if not modify code to satisfy them. This question will take the most time!
+   - Add a =addChoice= method to the API and write appropriate contracts for it
+
+   #+begin_comment
+   #+begin_src java
+   public class Chooser {
+   private final List<T> choiceArray;
+
+   //RepInv: choicearray is not Null and not empty
+
+   //POST: @throw IAE if choices is empty
+   //POST: @throw NPE if choice contains null
+   //Post: create a chooser with choices
+   public Chooser (Collection<T> choices) {
+   if (choices.size() == 0)  throw new IllegalArgumentException(); // ADD
+   if (choices.contains(null)) throw new NullPointerExeption();//ADD
+   choiceArray = new ArrayList<>();
+   }
+
+   //POST: @throws ISE if empty, else return random choice
+   //CHECK: choiceArray never changed so RI maintained,
+   public Object choose() {
+   if(choiceList.size() == 0) throw IllegalStateException(); // NEW CODE
+   Random rnd = ThreadLocalRandom.current();
+   return choiceArray [rnd.nextInt(choiceArray.length)];
+   }
+
+   //Post @throw NPE if choice is null
+   //POST: add choice to this
+   public void addChoice(T choice){
+   if (choice == null) throw new NullPointerException();
+   choiceList.add(choice);
+   }
+   }
+   #+end_src
+   #+end_comment
+     
+* In class 10C
+   :PROPERTIES:
+   :CUSTOM_ID: ic10C
+   :END:
+   
+   #+begin_src java
+     public class BoundedQueue {
+
+         private Object rep[];
+         protected int front = 0;
+         protected int back = -1;
+         private int size = 0;
+         protected int count = 0;
+
+         public BoundedQueue(int size) {
+             if (size > 0) {
+                 this.size = size;
+                 rep = new Object[size];
+                 back = size - 1;
+             }  }
+
+         public boolean isEmpty() { return (count == 0); }
+
+         public boolean isFull() { return (count == size); }
+
+         public int getCount() { return count; }
+
+         public void put(Object e) {
+             if (e != null && !isFull()) {
+                 back++;
+                 if (back >= size)
+                     back = 0;
+                 rep[back] = e;
+                 count++;
+             }  }
+
+         public Object get() {
+             Object result = null;
+             if (!isEmpty()) {
+                 result = rep[front];
+                 rep[front] = null;
+                 front++;
+                 if (front >= size)
+                     front = 0;
+                 count--;
+             }
+             return result;
+         }
+     }
+
+   #+end_src
+
+
+   *Generify*!
+   - Can you add a ~putAll()~ method? A ~getAll()~ method?
+   - Recall that we used this same example in in-class 6 as a vehicle for applying Liskov's ideas to make code easier to understand.
 
 * Exercise (MLO 1, 2, 3) [.5 hours] 
 
 * Exercise (MLO 1, 2, 3) [.5 hours]
 
 
-* Module 3 Assignment – (MLO 1, 2) [~2 hours]  
+* Assignment – (MLO 1, 2) [~2 hours]  
  
 ** Purpose 
 
