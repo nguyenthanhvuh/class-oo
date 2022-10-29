@@ -67,6 +67,7 @@ Upon completion of this module’s activities, you should be able to:
 - List<E> is a generic interface
 - List<String> is a parameterized type
   - String is the actual type parameter corresponding to E
+
 #+begin_src java
   // Now a raw collection type – don’t do this
      private final Collection stamps = ; // Intention: Contains only Stamps
@@ -89,6 +90,22 @@ Upon completion of this module’s activities, you should be able to:
 #+end_src    
 
 
+#+begin_src java
+      List<String> strings = new ArrayList<String>();
+      unsafeAdd(strings, new Integer(42));
+      String s = strings.get(0);  //can cause error at runtime
+
+       // note use of raw types
+       private static void unsafeAdd(List list, Object o) {
+          list.add(o);
+       }
+
+      private static void unsafeAdd( List<Object> list, Object o) {
+          list.add(o);
+      }
+#+end_src
+
+
 ** Item 27: Eliminate Unchecked Warnings
 - Generics result in many compiler warnings (annoying but good)
 - Eliminate them by fixing your code if possible 
@@ -101,6 +118,29 @@ Upon completion of this module’s activities, you should be able to:
 - As a last resort, suppress the warnings
 - If you can’t eliminate a warning, but you can prove that the code that provoked the warning is typesafe, then (and only then) suppress the warning with an =@SuppressWarnings("unchecked")= annotation.
 
+#+begin_src java
+    Set<Lark> exaltation = new HashSet();              // warning
+    Set<Lark> exaltation = new HashSet<Lark>();              // no warning
+
+
+    public <T> T[] toArray (T[] a) {
+      if (a.length < size)
+         @SuppressWarnings(“unchecked”)
+             //copyOf copyes Objects so it would warn that Objects[] is not the same as T[]
+         T[]results = (T[]) Arrays.copyOf(elements, size, a.getClass());
+         return results
+
+      System.arraycopy(elements, 0, a, 0, size);
+      if (a.length > size)  a[size] = null;
+      return a; }
+
+  /*
+    ArrayList.java:305: warning [unchecked] unchecked cast
+  found   : Object[], required T[]    
+      return (T[]) Arrays.copyOf(elements, size, a.getClass());
+   ,*/
+
+#+end_src  
   
 ** Item 28: Prefer Lists to Arrays
 
@@ -111,6 +151,18 @@ Upon completion of this module’s activities, you should be able to:
 - Arrays are *covariant*; generics are *invariant*
   - Sub[] is a subtype of Super[] -> covariant
   - List<Sub> is not a subtype of List<Super> -> invariant
+
+
+#+begin_src java
+// Fails at runtime
+Object[] objectArray = new Long[1];
+objectArray[0] = “I don’t fit in!”;           // Throws ArrayStoreException
+
+// Won’t compile
+List<Object> o1 = new ArrayList<Long>();
+o1.add(“I don’t fit in!”);                           //  Incompatible types
+#+end_src
+    
 
 - Arrays are reified: This means that arrays know and enforce their element type at runtime.
   - If you try to put a String into an array of Long, you’ll get an ArrayStoreException.
@@ -134,7 +186,65 @@ o1.add(“Do I fit in?”);   //  Incompatible types
 - This is basically an argument for why invariance is preferable to covariance for generics.
 
 
-*** Do Group Excercise 2 (Chooser)
+*** At this point, do Group Excercise 2 (Chooser)
+
+** Item 29: Prefer Generic Types 
+
+*Generify* code
+
+private Object[] elements; // private E[] elements (1st attempt) /=> private List<E> elements ..
+
+
+** Prefer Generic Methods (Item 30)
+
+#+begin_src java
+
+  // Uses raw types – unacceptable! (Item 23)
+  public static Set union (Set s1, Set s2)  {  
+     Set result = new HashSet(s1);              // Generates a warning              
+     result.addAll(s2);                                 // Generates a warning
+     return result;
+  }
+  
+  // Generic method 
+     public static <E> Set <E> union (Set <E> s1, Set  <E> s2)  {  
+     Set <E> result = new HashSet <E> (s1);              
+     result.addAll(s2);                                 
+     return result;
+  }
+#+end_src
+
+
+** Bounded WildCards
+#+begin_src java
+    public class Stack <E> {
+       public Stack()
+       public void push( E e ) 
+       public E pop()
+       public boolean isEmpty()
+    }
+
+      //  pushAll method without a wildcard type – deficient!
+      // only add E  (but not its subtype)
+          public void pushAll( Iterable<E> src) {
+             for (E e : src) { push(e); }
+          }
+
+
+     //  wildcard type for parameter that serves as an E producer
+     // allows everything that is subtypes of E
+          public void pushAll( Iterable<? extends E> src) {
+             for (E e : src) { push(e); }
+          }
+
+
+       // wildcard type for parameter that serves as an E consumer
+         public void popAll ( Collection<? super E> dst) {
+             while (!isEmpty()) { dst.add(pop()); }
+        }
+
+  //PECS: procer extends and consumer super
+#+end_src
 
 * In class 1
 
@@ -222,42 +332,61 @@ o1.add(“Do I fit in?”);   //  Incompatible types
    - How can you turn the compiler error into a compiler warning?
    - Can this warning be suppressed? Should it?
    - How can you adopt Bloch's advice about arrays and lists to get a typesafe Chooser class without doing anything else that is complicated?
+     
    - Add rep invariants and contracts (e.g., throw exceptions in unwanted cases); check if code satisfies these; and if not modify code to satisfy them. This question will take the most time!
    - Add a =addChoice= method to the API and write appropriate contracts for it
 
-   #+begin_comment
-   #+begin_src java
-   public class Chooser {
-   private final List<T> choiceArray;
+SOLUTIONS:     
+First attempt 
+#+begin_src java
+  public class Chooser<T> {
+      private final T[] choiceArray;
 
-   //RepInv: choicearray is not Null and not empty
+      public Chooser (Collection<T> choices) {
+          choiceArray = choices.toArray();// compiler errors: cannot convert to T,
 
-   //POST: @throw IAE if choices is empty
-   //POST: @throw NPE if choice contains null
-   //Post: create a chooser with choices
-   public Chooser (Collection<T> choices) {
-   if (choices.size() == 0)  throw new IllegalArgumentException(); // ADD
-   if (choices.contains(null)) throw new NullPointerExeption();//ADD
-   choiceArray = new ArrayList<>();
-   }
+          @supresswarning..
+              choiceArray = (T[]) choices.toArray();  //cast to (T[]),  got a warning, supress it because we know it is safe because choiceArray is of type T
+      }
 
-   //POST: @throws ISE if empty, else return random choice
-   //CHECK: choiceArray never changed so RI maintained,
-   public Object choose() {
-   if(choiceList.size() == 0) throw IllegalStateException(); // NEW CODE
-   Random rnd = ThreadLocalRandom.current();
-   return choiceArray [rnd.nextInt(choiceArray.length)];
-   }
+      public T choose() { 
+          Random rnd = ThreadLocalRandom.current();
+          return choiceArray [rnd.nextInt(choiceArray.length)];
+#+end_src
 
-   //Post @throw NPE if choice is null
-   //POST: add choice to this
-   public void addChoice(T choice){
-   if (choice == null) throw new NullPointerException();
-   choiceList.add(choice);
-   }
-   }
-   #+end_src
-   #+end_comment
+
+List attempt
+#+begin_src java
+  public class Chooser {
+      private final List<T> choiceArray;
+
+      //RepInv: choicearray is not Null and not empty
+
+      //POST: @throw IAE if choices is empty
+      //POST: @throw NPE if choice contains null
+      //Post: create a chooser with choices
+      public Chooser (Collection<T> choices) {
+          if (choices.size() == 0)  throw new IllegalArgumentException(); // ADD
+          if (choices.contains(null)) throw new NullPointerExeption();//ADD
+          choiceArray = new ArrayList<>();
+      }
+
+      //POST: @throws ISE if empty, else return random choice
+      //CHECK: choiceArray never changed so RI maintained,
+      public Object choose() {
+          if(choiceList.size() == 0) throw IllegalStateException(); // NEW CODE
+          Random rnd = ThreadLocalRandom.current();
+          return choiceArray [rnd.nextInt(choiceArray.length)];
+      }
+
+      //Post @throw NPE if choice is null
+      //POST: add choice to this
+      public void addChoice(T choice){
+          if (choice == null) throw new NullPointerException();
+          choiceList.add(choice);
+      }
+  }
+#+end_src
      
 * In class 10C
    :PROPERTIES:

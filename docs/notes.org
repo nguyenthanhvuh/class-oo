@@ -4,6 +4,231 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
+* Lecture 8 (<2022-10-28 Fri>
+- Prev Homework
+  int compare(x,y){
+  -1,0,1
+  }
+
+  Set s= HashSet()
+  s.add(3)
+  s.add(-3)
+  compare(3,-3)
+  //s = [3,-3]
+
+  int AbsCompare(int x, int y){
+    return abs(x).compare(abs(y))
+  }
+  Set s' = HashSet((x,y) -> AbsCompare)
+  s.add(3)
+  s.add(-3)
+  //s = [3]
+  
+- Generics (templates)
+
+  Generics and the *subtype polymorphism* (thing that we did last lecture)
+  - Generics gives a compile time error
+  - subtype polymorphism gives runtime error
+
+  #+begin_src java
+    // Before Java 5
+    public interface Comparable{
+        public int compareTo (Object o)
+    }
+    Comparable c = new Date();
+    c.compareTo("red");  // RUNTIME ERROR
+
+    // Java 5
+    public interface Comparable<T>{
+        public int compareTo (T o)
+    }
+    Comparable<Date> c = new Date();
+    c.compareTo("red");  // COMPILE ERROR
+  #+end_src      
+  
+
+- Item 26: don't use Raw Types in New Code
+  List
+  List<String>
+  Listing<T>
+
+#+begin_src java
+  // Now a raw collection type – don’t do this
+     private final Collection stamps = ; // Intention: Contains only Stamps
+  // Erroneous insertion of coin into stamp collection
+     stamps.add(new Coin(...));   // Oops!  We’re set up for ClassCastException later
+
+  // Parameterized collection type - typesafe 
+       private final Collection<Stamp> stamps = ...;
+       stamps.add(new Coin(...));  // result is instead a compile time error, which is good
+
+  // Now a raw iterator type – don’t do this!
+     for (Iterator I = stamps.iterator(); i.hasNext(); ) {
+        Stamp s = (Stamp) i.next();       // might throw a ClassCastException
+         ...//  Do something with the stamp
+      }
+  // for-each loop over parameterized collection – typesafe
+     for (Stamp s: stamps) {   // No (explicit) cast – same code as above
+         ...// Do something with the stamp
+  }
+#+end_src   
+  
+#+begin_src java
+      List<String> strings = new ArrayList<String>();
+      unsafeAdd(strings, new Integer(42));
+      String s = strings.get(0);  //can cause error at runtime
+
+       // note use of raw types
+       private static void unsafeAdd(List list, Object o) {
+          list.add(o);
+       }
+
+      private static void unsafeAdd( List<Object> list, Object o) {
+          list.add(o);
+      }
+#+end_src
+
+Item 27: Eliminate Unchecked Warnings
+#+begin_src java
+    Set<Lark> exaltation = new HashSet();              // warning
+    Set<Lark> exaltation = new HashSet<Lark>();              // no warning
+
+
+    public <T> T[] toArray (T[] a) {
+      if (a.length < size)
+         @SuppressWarnings(“unchecked”)
+             //copyOf copyes Objects so it would warn that Objects[] is not the same as T[]
+         T[]results = (T[]) Arrays.copyOf(elements, size, a.getClass());
+         return results
+
+      System.arraycopy(elements, 0, a, 0, size);
+      if (a.length > size)  a[size] = null;
+      return a; }
+  
+  /*
+    ArrayList.java:305: warning [unchecked] unchecked cast
+  found   : Object[], required T[]    
+      return (T[]) Arrays.copyOf(elements, size, a.getClass());
+   ,*/
+
+#+end_src  
+
+Item 28: Prefer Lists over Arrays
+
+#+begin_src java
+// Fails at runtime
+Object[] objectArray = new Long[1];
+objectArray[0] = “I don’t fit in!”;           // Throws ArrayStoreException
+
+// Won’t compile
+List<Object> o1 = new ArrayList<Long>();
+o1.add(“I don’t fit in!”);                           //  Incompatible types
+#+end_src
+
+
+covariant vs invariance (not related to loop invariant)
+- Arrays is covariance: Arrays enforces checking at *runtime*
+
+- List is invriance :  List enforces checking at *compile time*
+
+
+
+   #+begin_src java
+     // Chooser - a class badly in need of generics!
+     // Bloch 3rd edition, Chapter 5, Item 28:  Prefer lists to arrays
+
+     public class Chooser {
+         private final Object[] choiceArray;
+
+         public Chooser (Collection choices) {
+             choiceArray = choices.toArray();
+         }
+
+         public Object choose() {
+             Random rnd = ThreadLocalRandom.current();
+             return choiceArray [rnd.nextInt(choiceArray.length)];
+         }
+     }
+   #+end_src
+
+
+
+- Generify
+
+#+begin_src java
+  public class Chooser<T> {
+      private final T[] choiceArray;
+
+      public Chooser (Collection<T> choices) {
+          choiceArray = choices.toArray(); // compiler errors: cannot convert to T,
+
+          @supresswarning..
+          choiceArray = (T[]) choices.toArray();  //cast to (T[]),  got a warning, supress it because we know it is safe because choiceArray is of type T
+      }
+
+      public T choose() { 
+          Random rnd = ThreadLocalRandom.current();
+          return choiceArray [rnd.nextInt(choiceArray.length)];
+#+end_src  
+   
+#+begin_src java
+  public class Chooser {
+      private final List<T> choiceArray;
+
+      //RepInv: choicearray is not Null and not empty
+
+      //POST: @throw IAE if choices is empty
+      //POST: @throw NPE if choice contains null
+      //Post: create a chooser with choices
+      public Chooser (Collection<T> choices) {
+          if (choices.size() == 0)  throw new IllegalArgumentException(); // ADD
+          if (choices.contains(null)) throw new NullPointerExeption();//ADD
+          choiceArray = new ArrayList<>();
+      }
+
+      //POST: @throws ISE if empty, else return random choice
+      //CHECK: choiceArray never changed so RI maintained,
+      public Object choose() {
+          if(choiceList.size() == 0) throw IllegalStateException(); // NEW CODE
+          Random rnd = ThreadLocalRandom.current();
+          return choiceArray [rnd.nextInt(choiceArray.length)];
+      }
+
+      //Post @throw NPE if choice is null
+      //POST: add choice to this
+      public void addChoice(T choice){
+          if (choice == null) throw new NullPointerException();
+          choiceList.add(choice);
+      }
+  }
+#+end_src
+
+
+- Item 29 : Prefer Generic Types
+
+  private Object[] elements ->  private T[] elements  -> private List<E> elements
+
+
+- Item 30: Prefer Generic Methods
+
+#+begin_src java
+  // Uses raw types – unacceptable! (Item 23)
+  public static Set union (Set s1, Set s2)  {  
+     Set result = new HashSet(s1);              // Generates a warning              
+     result.addAll(s2);                                 // Generates a warning
+     return result;
+  }
+
+
+  // Generic method 
+     public static <E> Set <E> union (Set <E> s1, Set <E> s2)  {
+         Set <E> result = new HashSet <E> (s1);              
+         result.addAll(s2);                                 
+         return result;
+  }
+  
+#+end_src
+
 
 * Lecture 7 (<2022-10-21 Fri>)
 - Previous Quiz  on Repr Inv
