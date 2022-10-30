@@ -3,6 +3,80 @@
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+
+* Quiz 10
+
+
+Consider the following code:
+#+begin_src java
+public class Example <E> {
+    String           string = "ant";
+    Integer          seven = 7;
+    E                e = null;
+    Object[]         objects;
+    List < Object >  listObject;
+    List < E >       listE;
+    public void m() {
+          // Java code for questions appears here
+    }
+}
+#+end_src
+
+Independently consider the following 5 sequences of Java instructions. For each sequence, what of the following choices will happen ? (i) compiler warning; (ii) compiler error; (iii) runtime exception; or (iv) normal run
+
+-
+#+begin_src java
+objects = new E[1];
+objects[0] = e;
+#+end_src
+#+begin_comment
+Answer: compiler error
+#+end_comment
+
+-
+#+begin_src java
+listE = new ArrayList < E >();
+listE.add(e);
+listObject = listE;
+#+end_src
+#+begin_comment
+Answer: compiler error
+#+end_comment
+
+
+-
+#+begin_src java
+listObject = new ArrayList < String >();
+listObject.add(string) ;
+listObject.add(seven) ;
+#+end_src
+#+begin_comment
+Answer: compiler error
+#+end_comment
+
+
+-
+#+begin_src java
+objects = new Object[1];
+objects[0] = string;
+objects[0] = seven;
+#+end_src
+#+begin_comment
+Answer: normal run
+#+end_comment
+
+
+-
+#+begin_src java
+objects = new String[1];
+objects[0] = string;
+objects[0] = seven;
+#+end_src
+#+begin_comment
+Answer: runtime exception
+#+end_comment
+
+
 * Quiz 9 <2022-10-28 Fri>
   #+begin_src java
     Set<String> t = //  See questions below
@@ -527,76 +601,6 @@ Consider the following 2 specifications, the second of which has an associated i
 
 
 
-
-# * Quiz 8:
-# Consider the following code:
-# #+begin_src java
-# public class Example <E> {
-#     String           string = "ant";
-#     Integer          seven = 7;
-#     E                e = null;
-#     Object[]         objects;
-#     List < Object >  listObject;
-#     List < E >       listE;
-#     public void m() {
-#           // Java code for questions appears here
-#     }
-# }
-# #+end_src
-
-# Independently consider the following 5 sequences of Java instructions. For each sequence, what of the following choices will happen ? (i) compiler warning; (ii) compiler error; (iii) runtime exception; or (iv) normal run
-
-# -
-# #+begin_src java
-# objects = new E[1];
-# objects[0] = e;
-# #+end_src
-# #+begin_comment
-# Answer: compiler error
-# #+end_comment
-
-# -
-# #+begin_src java
-# listE = new ArrayList < E >();
-# listE.add(e);
-# listObject = listE;
-# #+end_src
-# #+begin_comment
-# Answer: compiler error
-# #+end_comment
-
-
-# -
-# #+begin_src java
-# listObject = new ArrayList < String >();
-# listObject.add(string) ;
-# listObject.add(seven) ;
-# #+end_src
-# #+begin_comment
-# Answer: compiler error
-# #+end_comment
-
-
-# -
-# #+begin_src java
-# objects = new Object[1];
-# objects[0] = string;
-# objects[0] = seven;
-# #+end_src
-# #+begin_comment
-# Answer: normal run
-# #+end_comment
-
-
-# -
-# #+begin_src java
-# objects = new String[1];
-# objects[0] = string;
-# objects[0] = seven;
-# #+end_src
-# #+begin_comment
-# Answer: runtime exception
-# #+end_comment
 
 # * Quiz 9: 
 #   Consider the following code.  

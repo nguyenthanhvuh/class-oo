@@ -15,7 +15,7 @@ Upon completion of this course, you should be able to:
 5. Properly use exception handling 
 6. Identify when it is appropriate to use inheritance and generics.  
  
-** TODO MODULE LEVEL OBJECTIVES (MLO) 
+** MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
 
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
@@ -30,7 +30,7 @@ Upon completion of this module’s activities, you should be able to:
 - Joshua Bloch. Effective Java. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1.
   - Chapter 10  
 
-* TODO Module 3 Learning Unit 1 – Abstractions (MLO 1) [~0.5 hour]
+* Module 3 Learning Unit 1 – Abstractions (MLO 1) [~0.5 hour]
 - Partial procedures, where there are requires (preconditions on inputs), are generally a bad idea. 
   - no guarantee that the procedure will be called on inputs satisfying requires.
   - when run on invalid inputs, the behavior of the procedure is undefined, e.g., it can do anything such as returning errors or run forever.
@@ -44,7 +44,7 @@ Upon completion of this module’s activities, you should be able to:
   - conveys information about unusual situations
   - allows a procedure to terminate either normally, by returning a result, or exceptionally. 
 
-* TODO Module 3 Learning Unit 2 – Specifications with Exceptions (MLO 1, 2) [~1 hour]
+* Learning Unit 2 – Specifications with Exceptions (MLO 1, 2) [~1 hour]
 
 - Has =throw= clause in header
 #+begin_src java
@@ -76,7 +76,7 @@ public static int fact (int n) throws NonPositiveException
       //     element larger than x throws NotSmallException; else adds x to v.
 #+end_src
 
-* TODO Module 3 Learning Unit 2 – Effective Exceptions (MLO 1, 2) [2 hour]
+* Learning Unit 2 – Effective Exceptions (MLO 1, 2) [2 hour]
 
 - Exception types are subtypes of either Exception or RunTimeException
  - This is a brief description of Java exceptions.  The Javadocs (https://docs.oracle.com/javase/8/docs/api/java/lang/Exception.html) has much more details and also might be more up to date.
@@ -161,12 +161,12 @@ public static int fact (int n) throws NonPositiveException
        }
      #+end_src
      
-* Exercise (MLO 1, 2, 3) [.5 hours] 
+* Group Exercise (MLO 1, 2, 3) [.5 hours] 
 
-* Exercise (MLO 1, 2, 3) [.5 hours]
+* Group Exercise (MLO 1, 2, 3) [.5 hours]
 
 
-* Module 3 Assignment – (MLO 1, 2) [~2 hours]  
+* Assignment – (MLO 1, 2) [~2 hours]  
  
 ** Purpose 
 
@@ -179,7 +179,7 @@ public static int fact (int n) throws NonPositiveException
 ** Due Date 
 Your assignment is due by Sunday 11:59 PM, ET. 
 
-* TODO Module 3 Quiz (MLO 1, 2, 3) [~.5 hour] 
+* Module 3 Quiz (MLO 1, 2, 3) [~.5 hour] 
  
 ** Purpose 
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
