@@ -3,7 +3,7 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
 * Overview and Objectives 
-** TODO OVERVIEW 
+** In this module we will learn about Exceptions. While we use the Java Exception system, the knowledge we learn is more general and applicable to other languages. Among various topics on Exceptions, we will learn about how to integrate Exceptions as part of the program specification and how to write specifications with Exceptions to indicate unexpected behaviors. We will also learn how to use Exceptions, such as checked and unchecked ones, properly. 
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
@@ -17,7 +17,10 @@ Upon completion of this course, you should be able to:
  
 ** MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
-
+1. explain and demonstrate the key concepts and reasons for using Exceptions
+2. integrate Exceptions into program specifications and write correct specifications with exceptions
+3. compare and describe exceptions terminologies and concepts (e.g, checked vs. unchecked exceptions)
+      
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
 #+begin_comment
 #+end_comment
@@ -44,7 +47,7 @@ Upon completion of this module’s activities, you should be able to:
   - conveys information about unusual situations
   - allows a procedure to terminate either normally, by returning a result, or exceptionally. 
 
-* Learning Unit 2 – Specifications with Exceptions (MLO 1, 2) [~1 hour]
+* Learning Unit 2 – Specifications with Exceptions (MLO 2) [~1 hour]
 
 - Has =throw= clause in header
 #+begin_src java
@@ -76,7 +79,7 @@ public static int fact (int n) throws NonPositiveException
       //     element larger than x throws NotSmallException; else adds x to v.
 #+end_src
 
-* Learning Unit 2 – Effective Exceptions (MLO 1, 2) [2 hour]
+* Learning Unit 2 – Effective Exceptions (MLO 1, 2, 3) [2 hour]
 
 - Exception types are subtypes of either Exception or RunTimeException
  - This is a brief description of Java exceptions.  The Javadocs (https://docs.oracle.com/javase/8/docs/api/java/lang/Exception.html) has much more details and also might be more up to date.
