@@ -1,9 +1,9 @@
-#+TITLE: Module 3 - Exceptions
+#+TITLE: Module 10 - Common Java Contracts
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
 * Overview and Objectives 
-** TODO OVERVIEW 
+** Understand the importance of nonfinal methods in Object and how to properly override them.
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
@@ -25,25 +25,393 @@ Upon completion of this module’s activities, you should be able to:
 
 * Learning Materials [~100 pages, ~3.5 hours]
 ** TEXTBOOK READINGS
-- Barbara Liskov with John Guttag. Program Development in Java. Addison Wesley, 2001, ISBN 0-201-65768-6. 
-  - Chapter 4: Exceptions
+
+- Joshua Bloch. Effective Java. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1.
+  - Chapter 3
+
   
 
-* TODO Module 3 Learning Unit 1 – Benefits of Abstractions (MLO 1) [~0.5 hour]
+* TODO Module 3 Learning Unit 1 – Intro (MLO 1) [~0.5 hour]
+
+- Object is designed primarily for extension.
+  - Its nonfinal methods (equals, hashCode, toString, clone, and finalize) have explicit general contracts designed to be overridden.
+  - Classes overriding these methods need to obey their general contracts
+  - Otherwise would prevent other classes that depend on the contracts (such as HashMap and HashSet) from functioning proerly
+-  This modules tells us when and how to override nonfinal methods of Object
+
+* Module 3 Learning Unit 2 – Common Methods (MLO 1, 2) [~3 hour]
+** Item 10: Obey the general contract when overriding =equals=
+
+- Equals implements an *equivalence* relation
+  - Reflexive: For any non-null reference value x, x.equals(x) must return true.
+  - Symmetric: For any non-null reference values x and y, x.equals(y) must return true if and only if y.equals(x) returns true.
+  - Transitive: For any non-null reference values x, y, z, if x.equals(y) returns true and y.equals(z) returns true, then x.equals(z) must return true.
+  - Consistent: For any non-null reference values x and y, multiple invocations of x.equals(y) must consistently return true or consistently return false, provided no information used in equals comparisons is modified.
+  - For any non-null reference value x, x.equals(null) must return false.
+
+*** Example: Violating Symmetric    
+#+begin_src java
+  // Broken - violates symmetry!
+  public final class CaseInsensitiveString {
+      private final String s;
+
+      public CaseInsensitiveString(String s) {
+          this.s = Objects.requireNonNull(s);
+      }
+
+      // Broken - violates symmetry!
+      @Override public boolean equals(Object o) {
+          if (o instanceof CaseInsensitiveString)
+              return s.equalsIgnoreCase(
+                                        ((CaseInsensitiveString) o).s);
+          if (o instanceof String)  // One-way interoperability!
+              return s.equalsIgnoreCase((String) o);
+          return false;
+      }
+      ...  // Remainder omitted
+  }
+
+  // example 1
+  CaseInsensitiveString cis = new CaseInsensitiveString("Polish");
+  String s = "polish";
+  cis.equals(s); //returns true.
+  s.equals(cis); // returns false,
+
+  // example 2
+  List<CaseInsensitiveString> list = new ArrayList<>();
+  list.add(cis);
+  list.contains(s); // We don't really know -- implementation dependence.
+                    //Once we violate equal contracts, we simply don't know how things would behave
 
 
+  //a fix : only deal with case when o CaseInsensitiveString
+  @Override public boolean equals(Object o) {
+    return o instanceof CaseInsensitiveString &&
+        ((CaseInsensitiveString) o).s.equalsIgnoreCase(s);
+  }
 
-* TODO Module 3 Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
+*** Example: Violating Transitivity
+
+**** DO Group Exercise 1
+
+#+begin_src java
+  public class Point {
+
+      private final int x;
+      private final int y;
+
+      public Point(int x, int y) {
+          this.x = x;
+          this.y = y;
+      }
+
+      @Override public boolean equals(Object o) {
+          if (!(o instanceof Point))
+              return false;
+          Point p = (Point)o;
+          return p.x == x && p.y == y;
+      }
+
+      ...  // Remainder omitted
+  }
+
+  public class ColorPoint extends Point {
+      private final Color color; // new field
+
+      public ColorPoint(int x, int y, Color color) {
+          super(x, y);
+          this.color = color;
+      }
+      ...  // Remainder omitted
+
+      // breaks symmetry (does not break transitivity)
+      @Override public boolean equals1(Object o) {
+          if (!(o instanceof ColorPoint))
+              return false;
+          return super.equals(o) && ((ColorPoint) o).color == color;
+      }
+
+      // does not break symmetry, breaks transitivity
+      @Override public boolean equals2(Object o) {
+          if (!(o instanceof Point))
+              return false;
+
+          //ignore color when doing mixed comparison
+          if (!(o instanceof ColorPoint)) //if o instanceof Point
+              return o.equals(this);       //then call equals of Point 
+
+          //o is colorpoint
+          return super.equals(o) && ((ColorPoint) o).color == color;
+
+      }
 
 
+      ColorPoint a (1,2,Blue);
+      ColorPoint b (1,2,Red);
+      Point c (1,2);
+
+      //break symmetry
+      c.equals1(a);  //True
+      a.equals1(c); // False
+
+      //break transitivity
+      c.equals2(a);  //True
+      a.equals2(c); // True
+
+      a.equals(c); //True
+      c.equals(b); //True
+      a.equals(b); //False  ; break transitivity
+
+#+end_src
+
+- So how to fix this?
+  - There is *no way* to extend an instantiable class and add a value component while preserving the equals contract, unless you’re willing to forgo the benefits of object-oriented abstraction.
+
+#+begin_src java
+  @Override public boolean equals(Object o) {
+
+      if (o == null || o.getClass() != getClass())
+          return false;
+
+      Point p = (Point) o;
+      return p.x == x && p.y == y;
+  }
+
+  a.equals(c); //True
+  c.equals(b); //True
+  a.equals(b); //True
+
+
+  //But this breaks LSP
+  //points = {Point(1,2), Point(3,4)}
+  //c1 = ColorPoint(1,2,Blue)
+  //c1 should be in points (because c1 is still a point), but using this equals method, c1 is not in points because of diff types
+
+#+end_src    
+
+
+** Item 11: Always override hashCode when you override equals
+  - This is because of a contract of hashCode: equal objects must have equal hash codes
+  - How to *not* write hashCode ?
+   #+begin_src java
+      // The worst possible legal hashCode implementation - never use!
+      @Override public int hashCode() { return 42; } 
+   #+end_src
+    - what's the issue?  It's legal because it ensures that equal objects have the same hash code. It’s bad because it ensures that every object has the same hash code. Therefore, every object hashes to the same bucket, and hash tables degenerate to linked lists. Programs that should run in linear time instead run in quadratic time. For large hash tables, this is the difference between working and not working.
+
+ -  Receipt for writting Hashcode
+   #+begin_src java
+    result = hash(v1)
+    result += 31 * v1  + hash(v2)
+    result += 31 * v1  + hash(v3)
+   #+end_src
+        
+
+** Item 12: Always override toString
+** Item 13: Override clone judiciously
+** Item 14: Consider implementing Comparable
+#+end_src
 ** Instructor Screencast: TITLE
 
 * TODO Module 3 Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
 
 
-* Exercise (MLO 1, 2, 3) [.5 hours] 
+* Exercise 1 (MLO 1, 2, 3) [.5 hours] 
+Consider Bloch's =Point/ColorPoint= example. For today, ignore the =hashCode()= issue.
 
-* Exercise (MLO 1, 2, 3) [.5 hours]
+   #+begin_src java
+
+     public class Point {  // routine code
+         private int x; private int y;
+         ...
+             @Override public boolean equals(Object obj) {  // Standard recipe
+             if (!(obj instanceof Point)) return false;
+
+             Point p = (Point) obj;
+             return p.x == x && p.y == y;
+         }
+     }
+
+     public class ColorPoint extends Point {  // First attempt: Standard recipe
+         private COLOR color;
+         ...
+             @Override public boolean equals(Object obj) {
+             if (!(obj instanceof ColorPoint)) return false;
+
+             ColorPoint cp = (ColorPoint) obj;
+             return super.equals(obj) && cp.color == color;
+         }
+     }
+
+     public class ColorPoint extends Point {  // Second attempt: DON'T DO THIS!
+         private COLOR color;
+         ...
+             @Override public boolean equals(Object obj) {
+             if (!(o instance of Point)) return false;
+
+             // If obj is a normal Point, be colorblind
+             if (!(obj instanceof ColorPoint)) return obj.equals(this);
+
+             ColorPoint cp = (ColorPoint) obj;
+             return super.equals(obj) && cp.color == color;
+         }
+     }
+   #+end_src
+
+   1. What is the =equals()= contract? How do you implement equal in this example?
+      #+begin_comment
+      reflexive, symmetry, transitivity
+      Standard receipt:
+      @Override public boolean equals(Object obj) {
+      if (obj == this) return true
+      if (!(obj instanceof ColorPoint)) return false;
+      ColorPoint cp = (ColorPoint) obj;
+      return super.equals(obj) && cp.color == color;
+      #+end_comment
+   1. Why is the =instanceof= operator for?
+      #+begin_comment
+      preserve type hierchy
+      #+end_comment
+   1. Write client code that shows a contract problem with the first attempt at =ColorPoint= (i.e., what contract does it break?)
+      #+begin_comment
+      #+begin_src java
+      Point a = new Point(1,2)
+      ColorPoint b = new ColorPoint(1,2, Color.Red)
+      a.equals(b); // return true
+      b.equals(a); // return false  , break symmetry
+      #+end_src
+      #+end_comment
+   1. Write client code that shows a contract problem with the second attempt at =ColorPoint= (i.e., what contract does it break?).
+      #+begin_comment
+      Point a = new Point(1,2)
+      ColorPoint b = new ColorPoint(1,2, Color.Red)
+      ColorPoint c = new ColorPoint(1,2, Color.Blue)
+      a.equals(b); // return true
+      a.equals(c); // return true
+      b.equals(c); // return false; break transitivity
+      #+end_comment
+   1. Some authors recommend solving this problem by using a different standard recipe for =equals()=.
+      - What's the key difference?
+      - Which approach do you want in the following code:
+        #+begin_src java
+          public class CounterPoint extends Point
+                                            private static final AtomicInteger counter =
+                                            new AtomicInteger();
+
+          public CounterPoint(int x, int y) {
+              super (x, y);
+              counter.incrementAndGet();
+          }
+          public int numberCreated() { return counter.get(); }
+
+          @Override public boolean equals (Object obj) { ??? }
+          }
+
+
+          // Client code:
+
+          Point p = PointFactory.getPoint();   // either a Point or a CounterPoint
+          Set<Point> importantPoints =   // a set of important points
+              boolean b = PointUtilities.isImportant(p);  // value?
+
+        #+end_src
+        #+begin_comment
+        just leave it alone,  counter is a class variable , not of each object
+        The client code demonstrates, client doesn't care whether it's a point or CounterPont as only x,y are the main things
+
+        getclass approach is wrong
+        if(obj == null || obj.getClass() != this.getClass()) return false;
+        Point p = (Point) obj;
+        return p.x = x && y .y == y;
+
+        client code:  breaks Liskov's example  as we can have a Point and CounterPoint with same x,y but both show up in importantPoints
+        #+end_comment
+
+  
+* Exercise 2 (MLO 1, 2, 3) [.5 hours]
+   Consider a variation of Liskov's =IntSet= example (Figure 5.10, page 97)
+
+   #+begin_src java
+
+     public class IntSet implements Cloneable {
+         private List<Integer> els;
+         public IntSet () { els = new ArrayList<Integer>(); }
+         ...
+             @Override
+             public boolean equals(Object obj) {
+             if (!(obj instanceof IntSet)) return false;
+
+             IntSet s = (IntSet) obj;
+             return ???
+                 }
+
+         @Override
+         public int hashCode() {
+             // see below
+         }
+
+         // adding a private constructor
+         private IntSet (List<Integer> list) { els = list; }
+
+         @Override
+         public IntSet clone() {
+             return new IntSet ( new ArrayList<Integer>(els));
+         }
+
+     }
+   #+end_src
+
+   1. How should the =equals()= method be completed?
+      #+begin_comment
+      - 2 iterations,  1 check that obj contains everything this has,  the other check that this contains everything obj has
+      - converting obj to IntSet doesn't work because repr is implemented on top of ArrayList and [1,2] != [2,1], but they should be since they are used as set
+      #+end_comment
+   1. Analyze the following ways to implement =hashCode()=? If there is a problem, give a test case that shows the problem.
+      1. not overridden at all
+      #+begin_comment
+      return diff number for diff objects (regardless if their contents are the same)
+      #+end_comment
+      1. return 42;
+      #+begin_comment
+      same hash for everything,  so degrade into a linked list
+      #+end_comment
+      1. return =els.hashCode()=;
+      #+begin_comment
+      order now matters
+      #+end_comment
+      1. ~int sum = 0; for (Integer i : els) sum += i.hashCode(); return sum;~
+      #+begin_comment
+      sum(1,3)  == sum(0,4)
+      #+end_comment
+   1. What's the problem with =clone()= here (something with subtyping)? Give a test case that shows the problem.
+      #+begin_comment
+      just create a subclass IntSet2 of IntSet (doesn't do anything, just a subclass)
+
+      # prob with using superclass clone
+      IS2 i = new IS2();
+      IS2 i2 = i.clone();    //use clone of superclass IS,  return IS as a type,  so bad typing
+
+      # another way, closer, but still wrong
+      public IntSet2 clone() {
+      return (IntSet2)super.clone();   // just like constructor, called super to do it
+      }                                  // but this has a CCE, because cannot convert IntSet to InSet2 (cannot cast supertype to subtype)
+      #+end_comment
+   1. Fix =clone()= in two very different ways.
+      #+begin_comment
+
+      #1
+      @Override
+      public IntSet clone() {
+      IntSet result = (Intset) super.clone();
+      results.els = new ArrayList<Intenger>els;
+      return result;
+      }
+
+      #2 disable subtypes (put final in there)
+      @Override
+      public final class IntSet ... {
+      }
+      #+end_comment
 
 
 * Module 3 Assignment – (MLO 1, 2) [~2 hours]  

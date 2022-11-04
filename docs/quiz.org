@@ -4,8 +4,7 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
 
-* Quiz 10
-
+* Quiz 10 <2022-11-04 Fri>
 
 Consider the following code:
 #+begin_src java
