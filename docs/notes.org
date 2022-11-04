@@ -28,10 +28,25 @@ equivalence relationship
   o1.equals(o2) & o2.equals(o3)  => o1.equals(o3)
 
 
+#+begin_src java
+  Point p1 = p(3,4);
+  ColorPoint p2 = ColorPoint(3,4,RED);
+  ColorPoint p3 = ColorPoint(3,4,BLUE);
+
+  p1.equals(p2); //TRUE
+  p2.equals(p1); //FALSE
+  // symmetry: if p1 = p2 then p2 = p1
+
+  p1.equals(p2); //TRUE
+  p2.equals(p1); //TRUE   //OK for symmetry
+
+  p2.equals(p1); // TRUE
+  p1.equals(p3); // TRUE
+  p2.equals(p3); // FALSE  //breaks transitivity
+
+#+end_src
 
 
-
-  
 * Lecture 8 (<2022-10-28 Fri>)
 - Prev Homework
   int compare(x,y){

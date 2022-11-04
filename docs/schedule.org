@@ -880,13 +880,13 @@ Now address a technical topic. This exercise touches on some of the thorny issue
          private COLOR color;
          ...
              @Override public boolean equals(Object obj) {
-             if (!(o instance of Point)) return false;
+             if (!(obj instance of Point)) return false;
 
              // If obj is a normal Point, be colorblind
              if (!(obj instanceof ColorPoint)) return obj.equals(this);
 
              ColorPoint cp = (ColorPoint) obj;
-             return super.equals(obj) && cp.color == color;
+             return super.equals(obj) ;// && cp.color == color;
          }
      }
    #+end_src
@@ -959,6 +959,7 @@ Now address a technical topic. This exercise touches on some of the thorny issue
 
         client code:  breaks Liskov's example  as we can have a Point and CounterPoint with same x,y but both show up in importantPoints
         #+end_comment
+        
 ** In class 11B
    :PROPERTIES:
    :CUSTOM_ID: ic11B
@@ -968,32 +969,39 @@ Now address a technical topic. This exercise touches on some of the thorny issue
 
    #+begin_src java
 
-     public class IntSet implements Cloneable {
-         private List<Integer> els;
-         public IntSet () { els = new ArrayList<Integer>(); }
-         ...
-             @Override
-             public boolean equals(Object obj) {
-             if (!(obj instanceof IntSet)) return false;
+      public class IntSet implements Cloneable {
+          private List<Integer> els;
+          public IntSet () { els = new ArrayList<Integer>(); }
+          ...
+              @Override
+              public boolean equals(Object obj) {
+              if (!(obj instanceof IntSet)) return false;
 
-             IntSet s = (IntSet) obj;
-             return ???
-                 }
+              IntSet s = (IntSet) obj;
+              return ???
+                  }
 
-         @Override
-         public int hashCode() {
-             // see below
-         }
+          @Override
+          public int hashCode() {
+              // see below
 
-         // adding a private constructor
-         private IntSet (List<Integer> list) { els = list; }
+              //return 22;
+              //return product(hashCode(fields)); //does work !
+              result = hash(v1);
+              result += 31 * v1  + hash(v2)
+              result += 31 * v1  + hash(v3)
 
-         @Override
-         public IntSet clone() {
-             return new IntSet ( new ArrayList<Integer>(els));
-         }
+          }
 
-     }
+          // adding a private constructor
+          private IntSet (List<Integer> list) { els = list; }
+
+          @Override
+          public IntSet clone() {
+              return new IntSet ( new ArrayList<Integer>(els));
+          }
+
+      }
    #+end_src
 
    1. How should the =equals()= method be completed?

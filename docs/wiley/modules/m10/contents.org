@@ -3,7 +3,7 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
 * Overview and Objectives 
-** Understand the importance of nonfinal methods in Object and how to properly override them.
+** In this module you will learn about nonfinal methods in Object and when and how to properly override them.  We will look at common issues when attempting to extend these methods and learn standard receipes to properly override them.
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
@@ -17,6 +17,11 @@ Upon completion of this course, you should be able to:
  
 ** TODO MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
+
+1. explain and demonstrate common issues and required contracts associated with overriding common methods, e.g., equals
+2. compare and describe common (flaw) ways of overriding common methods such as equals and hashcode
+3. understand standard receipes and correct ways to override common methods
+
 
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
 #+begin_comment
@@ -39,7 +44,7 @@ Upon completion of this module’s activities, you should be able to:
   - Otherwise would prevent other classes that depend on the contracts (such as HashMap and HashSet) from functioning proerly
 -  This modules tells us when and how to override nonfinal methods of Object
 
-* Module 3 Learning Unit 2 – Common Methods (MLO 1, 2) [~3 hour]
+* Module 3 Learning Unit 2 – Common Methods (MLO 1, 2, 3) [~3 hour]
 ** Item 10: Obey the general contract when overriding =equals=
 
 - Equals implements an *equivalence* relation
@@ -417,10 +422,17 @@ Consider Bloch's =Point/ColorPoint= example. For today, ignore the =hashCode()= 
 * Module 3 Assignment – (MLO 1, 2) [~2 hours]  
  
 ** Purpose 
-
+   Get familiar with common methods including equals, hashcode, and clone and provide correct ways to override them.
 
 ** Instructions
+    As it happens, Liskov's implementation of =clone()= for the =IntSet= class (see figure 5.10, page 97) is wrong.
 
+    1. Use the version of =IntSet= from the in-class exercise. Implement a subtype of =IntSet= to demonstrate the problem. Your solution should include appropiate executable code in the form of JUnit tests.
+    1. Provide a correct implementation of =clone()= for =IntSet=. Again, give appropriate JUnit tests.
+    1. Correctly override =hashCode()= and =equals()=. Note that the standard recipe is not appropriate in this (unusual) case (why?).
+
+
+    Grading Criteria: In addititon to code and tests, your deliverable is a story. Explain what is going on at each stage of the exercise. The GTA will primarily grade your story.    
 ** Deliverable 
 - Submit a =.java= file for your implementation. 
 

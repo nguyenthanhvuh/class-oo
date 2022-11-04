@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-10-28 Fri 12:27 -->
+<!-- 2022-11-04 Fri 12:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 419</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
@@ -18,19 +18,100 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgaabf23c">1. Quiz 9 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span></a></li>
-<li><a href="#orgd147236">2. Quiz 8 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span></a></li>
-<li><a href="#orgda275ec">3. Quiz 7 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span></a></li>
-<li><a href="#org49f673a">4. Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></a></li>
-<li><a href="#org55ddf13">5. Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></a></li>
-<li><a href="#orgc6e4755">6. Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></a></li>
-<li><a href="#org485e14b">7. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
+<li><a href="#orgaeda0d0">1. Quiz 10 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-04 Fri&gt;</span></span></a></li>
+<li><a href="#orgf5c4995">2. Quiz 9 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span></a></li>
+<li><a href="#orgabeea5c">3. Quiz 8 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span></a></li>
+<li><a href="#org57a91fb">4. Quiz 7 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span></a></li>
+<li><a href="#orga8bbf17">5. Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></a></li>
+<li><a href="#org4d92155">6. Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></a></li>
+<li><a href="#orgc8911b0">7. Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></a></li>
+<li><a href="#org1801623">8. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgaabf23c" class="outline-2">
-<h2 id="orgaabf23c"><span class="section-number-2">1.</span> Quiz 9 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span></h2>
+
+<div id="outline-container-orgaeda0d0" class="outline-2">
+<h2 id="orgaeda0d0"><span class="section-number-2">1.</span> Quiz 10 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-04 Fri&gt;</span></span></h2>
 <div class="outline-text-2" id="text-1">
+<p>
+Consider the following code:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Example</span> &lt;<span style="color: #986801;">E</span>&gt; {
+    <span style="color: #986801;">String</span>           <span style="color: #6a1868;">string</span> = <span style="color: #50a14f;">"ant"</span>;
+    <span style="color: #986801;">Integer</span>          <span style="color: #6a1868;">seven</span> = 7;
+    <span style="color: #986801;">E</span>                <span style="color: #6a1868;">e</span> = <span style="color: #b751b6;">null</span>;
+    <span style="color: #986801;">Object</span>[]         <span style="color: #6a1868;">objects</span>;
+    <span style="color: #986801;">List</span> &lt; <span style="color: #986801;">Object</span> &gt;  <span style="color: #6a1868;">listObject</span>;
+    <span style="color: #986801;">List</span> &lt; <span style="color: #986801;">E</span> &gt;       <span style="color: #6a1868;">listE</span>;
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">m</span>() {
+          <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Java code for questions appears here</span>
+    }
+}
+</pre>
+</div>
+
+<p>
+Independently consider the following 5 sequences of Java instructions. For each sequence, what of the following choices will happen ? (i) compiler warning; (ii) compiler error; (iii) runtime exception; or (iv) normal run
+</p>
+
+<ul class="org-ul">
+<li></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-java">objects = <span style="color: #e45649;">new</span> <span style="color: #986801;">E</span>[1];
+objects[0] = e;
+</pre>
+</div>
+
+<ul class="org-ul">
+<li></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-java">listE = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span> &lt; <span style="color: #986801;">E</span> &gt;();
+listE.add(e);
+listObject = listE;
+</pre>
+</div>
+
+
+<ul class="org-ul">
+<li></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-java">listObject = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span> &lt; <span style="color: #986801;">String</span> &gt;();
+listObject.add(string) ;
+listObject.add(seven) ;
+</pre>
+</div>
+
+<ul class="org-ul">
+<li></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-java">objects = <span style="color: #e45649;">new</span> <span style="color: #986801;">Object</span>[1];
+objects[0] = string;
+objects[0] = seven;
+</pre>
+</div>
+
+
+<ul class="org-ul">
+<li></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-java">objects = <span style="color: #e45649;">new</span> <span style="color: #986801;">String</span>[1];
+objects[0] = string;
+objects[0] = seven;
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgf5c4995" class="outline-2">
+<h2 id="orgf5c4995"><span class="section-number-2">2.</span> Quiz 9 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-2">
 <div class="org-src-container">
 <pre class="src src-java">   <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">t</span> = <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">See questions below</span>
 
@@ -50,9 +131,9 @@
 </div>
 </div>
 
-<div id="outline-container-orgd147236" class="outline-2">
-<h2 id="orgd147236"><span class="section-number-2">2.</span> Quiz 8 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgabeea5c" class="outline-2">
+<h2 id="orgabeea5c"><span class="section-number-2">3.</span> Quiz 8 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-3">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">A</span> {
    <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span> <span style="color: #a626a4;">compose</span> (<span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">itr</span>)
@@ -90,9 +171,9 @@ Analyze the <code>compose()</code> method in each of these cases according to Li
 </div>
 
 
-<div id="outline-container-orgda275ec" class="outline-2">
-<h2 id="orgda275ec"><span class="section-number-2">3.</span> Quiz 7 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org57a91fb" class="outline-2">
+<h2 id="org57a91fb"><span class="section-number-2">4.</span> Quiz 7 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-4">
 <p>
 Suppose <code>C</code> is an abstract data type that has two <code>String</code> fields:
 </p>
@@ -119,13 +200,13 @@ Assuming you don’t know anything about <code>C</code>, which of the following 
 </div>
 
 
-<div id="outline-container-org49f673a" class="outline-2">
-<h2 id="org49f673a"><span class="section-number-2">4.</span> Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orga8bbf17" class="outline-2">
+<h2 id="orga8bbf17"><span class="section-number-2">5.</span> Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-orgc3d151c" class="outline-3">
-<h3 id="orgc3d151c"><span class="section-number-3">4.1.</span> Hoare tripple</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-orgc05353f" class="outline-3">
+<h3 id="orgc05353f"><span class="section-number-3">5.1.</span> Hoare tripple</h3>
+<div class="outline-text-3" id="text-5-1">
 <ul class="org-ul">
 <li>Fill in the ??? and briefly explain your answer</li>
 </ul>
@@ -158,9 +239,9 @@ Assuming you don’t know anything about <code>C</code>, which of the following 
 
 
 
-<div id="outline-container-org55ddf13" class="outline-2">
-<h2 id="org55ddf13"><span class="section-number-2">5.</span> Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-org4d92155" class="outline-2">
+<h2 id="org4d92155"><span class="section-number-2">6.</span> Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-6">
 <p>
 <b>Immutatiblity</b>: Consider a partial version of a <i>mutable</i> <code>Stack</code> class:
 </p>
@@ -207,9 +288,9 @@ System.out.println(s.pop());
 
 
 
-<div id="outline-container-orgc6e4755" class="outline-2">
-<h2 id="orgc6e4755"><span class="section-number-2">6.</span> Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-orgc8911b0" class="outline-2">
+<h2 id="orgc8911b0"><span class="section-number-2">7.</span> Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-7">
 <p>
 Consider the following 2 specifications, the second of which has an associated implementation (note that the 2nd implementation uses the specification of the first):
 </p>
@@ -245,13 +326,13 @@ Consider the following 2 specifications, the second of which has an associated i
 </div>
 
 
-<div id="outline-container-org485e14b" class="outline-2">
-<h2 id="org485e14b"><span class="section-number-2">7.</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-org1801623" class="outline-2">
+<h2 id="org1801623"><span class="section-number-2">8.</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
+<div class="outline-text-2" id="text-8">
 </div>
-<div id="outline-container-orgdfb9bc6" class="outline-3">
-<h3 id="orgdfb9bc6"><span class="section-number-3">7.1.</span> Contracts for a Binary Search implementation.</h3>
-<div class="outline-text-3" id="text-7-1">
+<div id="outline-container-org2b8b12b" class="outline-3">
+<h3 id="org2b8b12b"><span class="section-number-3">8.1.</span> Contracts for a Binary Search implementation.</h3>
+<div class="outline-text-3" id="text-8-1">
 <ul class="org-ul">
 <li>specifiy the specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.</li>
 </ul>
