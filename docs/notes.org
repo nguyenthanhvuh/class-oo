@@ -4,7 +4,35 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
-* Lecture 8 (<2022-10-28 Fri>
+
+* Lecture 9 (<2022-11-04 Fri>)
+- Go over Quiz
+- Common Java methods (methods in class Object that should be extended from classes extending Object)
+  - equals
+  - toString
+  - hashCode
+  - clone ...
+- objective of this class: able to overrride these methods correctly
+
+
+o1
+o2
+o3
+
+equivalence relationship
+- reflexive:
+  o1.equals(o1) // TRUE
+- symmetry:
+  o1.equals(o2) == o2.equals(o1)
+- transitive:
+  o1.equals(o2) & o2.equals(o3)  => o1.equals(o3)
+
+
+
+
+
+  
+* Lecture 8 (<2022-10-28 Fri>)
 - Prev Homework
   int compare(x,y){
   -1,0,1

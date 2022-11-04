@@ -868,7 +868,7 @@ Now address a technical topic. This exercise touches on some of the thorny issue
      public class ColorPoint extends Point {  // First attempt: Standard recipe
          private COLOR color;
          ...
-             @Override public boolean equals(Object obj) {
+         @Override public boolean equals(Object obj) {
              if (!(obj instanceof ColorPoint)) return false;
 
              ColorPoint cp = (ColorPoint) obj;
@@ -891,7 +891,7 @@ Now address a technical topic. This exercise touches on some of the thorny issue
      }
    #+end_src
 
-   1. What is the =equals()= contract? What is the standard recipe?
+   1. What is the =equals()= contract? How do you implement equal in this example?
       #+begin_comment
       reflexive, symmetry, transitivity, liskov substitution variable
       Standard receipt:
@@ -901,7 +901,7 @@ Now address a technical topic. This exercise touches on some of the thorny issue
       ColorPoint cp = (ColorPoint) obj;
       return super.equals(obj) && cp.color == color;
       #+end_comment
-   1. Why does Bloch use the =instanceof= operator in the standard recipe?
+   1. Why is the =instanceof= operator used?
       #+begin_comment
       preserve type hierchy
       #+end_comment
