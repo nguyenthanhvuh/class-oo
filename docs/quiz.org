@@ -53,7 +53,6 @@ listObject.add(seven) ;
 Answer: compiler error
 #+end_comment
 
-
 -
 #+begin_src java
 objects = new Object[1];
