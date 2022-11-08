@@ -3,7 +3,7 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
 * Overview and Objectives 
-** In this module you will learn about nonfinal methods in Object and when and how to properly override them.  We will look at common issues when attempting to extend these methods and learn standard receipes to properly override them.
+In this module you will learn about nonfinal methods in Object such as equals, hashCode, and toString, and when and how to properly override them.  We will look at common issues when attempting to extend these methods and learn standard receipes to properly override them.
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
@@ -15,7 +15,7 @@ Upon completion of this course, you should be able to:
 5. Properly use exception handling 
 6. Identify when it is appropriate to use inheritance and generics.  
  
-** TODO MODULE LEVEL OBJECTIVES (MLO) 
+** MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
 
 1. explain and demonstrate common issues and required contracts associated with overriding common methods, e.g., equals
@@ -36,7 +36,7 @@ Upon completion of this module’s activities, you should be able to:
 
   
 
-* TODO Module 3 Learning Unit 1 – Intro (MLO 1) [~0.5 hour]
+*  Learning Unit 1 – Intro (MLO 1) [~0.5 hour]
 
 - Object is designed primarily for extension.
   - Its nonfinal methods (equals, hashCode, toString, clone, and finalize) have explicit general contracts designed to be overridden.
@@ -197,6 +197,7 @@ Upon completion of this module’s activities, you should be able to:
 
 ** Item 11: Always override hashCode when you override equals
   - This is because of a contract of hashCode: equal objects must have equal hash codes
+    
   - How to *not* write hashCode ?
    #+begin_src java
       // The worst possible legal hashCode implementation - never use!
@@ -212,6 +213,7 @@ Upon completion of this module’s activities, you should be able to:
    #+end_src
         
 
+ 
 ** Item 12: Always override toString
 ** Item 13: Override clone judiciously
 ** Item 14: Consider implementing Comparable
@@ -419,7 +421,7 @@ Consider Bloch's =Point/ColorPoint= example. For today, ignore the =hashCode()= 
       #+end_comment
 
 
-* Module 3 Assignment – (MLO 1, 2) [~2 hours]  
+* Assignment – (MLO 1, 2, 3) [~2 hours]  
  
 ** Purpose 
    Get familiar with common methods including equals, hashcode, and clone and provide correct ways to override them.
@@ -439,7 +441,7 @@ Consider Bloch's =Point/ColorPoint= example. For today, ignore the =hashCode()= 
 ** Due Date 
 Your assignment is due by Sunday 11:59 PM, ET. 
 
-* TODO Module 1 Quiz (MLO 1, 2) [~.5 hour] 
+* Quiz (MLO 1, 2, 3) [~.5 hour] 
  
 ** Purpose 
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
@@ -448,6 +450,54 @@ Quizzes in this course give you an opportunity to demonstrate your knowledge of 
 
 The quiz is 30 minutes in length. 
 The quiz is closed-book.
+
+
+  Consider the following code.  
+  #+begin_src java
+class Apple {
+  // rep-inv:  name != null
+  private String name;
+  public Apple (String name) {   
+     if (name == null) throw new NPE(...);
+     this.name = name;
+  }
+  @Override public boolean equals (Object o) {
+     if (!(o instanceof Apple)) { return false; }
+     Apple a = (Apple) o;     
+     return name.equals(a.name);
+  }
+  @Override public int hashCode() { // see questions below }
+  @Override public String toString() { return name; }
+}
+class AppleTracker extends Apple {
+  private static Set<String> inventory = new HashSet<String> ();
+  public AppleTracker (String name) { super(name); inventory.add(name);}
+  public static Set<String> getInventory() { return Collections.unmodifiableSet(inventory);}
+}
+// client code
+Apple a = new Apple("Winesap");
+AppleTracker at1 = new AppleTracker("Winesap");
+AppleTracker at2 = new AppleTracker("Fuji");
+
+  #+end_src
+
+Mark each of the following either *True* or *False*:
+
+1. The ~equals()~ method in the AppleTracker class is inherited from the Apple class. 
+- ~a.equals(at1)~ sometimes returns true and sometimes returns false. 
+- The ~equals()~ method in the Apple class relies on the rep-invariant to satisfy its contract. 
+- ~AppleTracker~ adds client-visible state to Apple objects. 
+- ~a.equals(at1)~ and ~at1.equals(a)~ are both true. 
+- ~a.equals(at2)~ and ~at2.equals(a)~ are both false. 
+- ~at1.equals(a)~ and ~a.equals(at2)~ are both true, but ~at1.equals(at2)~ is false. 
+- It would correct to implement ~hashCode()~ as ~return name.hashCode();~
+- It would correct to inherit ~hashCode()~ from the Object class. 
+- Bloch would object to replacing ~o instanceof Apple~ with a predicate built atop ~getClass()~. 
+
+# #+begin_comment
+# SOLUTION: T,F,T,F,T,T,F,T,F,T
+# #+end_comment
+
 
 ** Deliverable 
 Use the link above to take the quiz.

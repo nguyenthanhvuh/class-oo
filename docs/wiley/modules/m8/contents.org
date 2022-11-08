@@ -4,7 +4,7 @@
 
 * Overview and Objectives 
 ** OVERVIEW
-
+In this module we will learn about polymorphism, an important concept in Object Oriented programming.  We will learn about the benefits of using polymorphism, in particular how they overcome issues when polymorphism was not used. We will also learn about using anonymous classes and especially lambda functions to write more precise and shorter code.    
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
@@ -152,6 +152,7 @@ Upon completion of this module’s activities, you should be able to:
 * Learning Unit 2 – Lambdas (MLO 1, 2) [~1 hour]
 
 - Block 7 Item 42: Prefer lambdas to anonymous classes
+  
   - Sorting a list of string using anonymous class
     #+begin_src java
       // Anonymous class instance as a function object - obsolete!

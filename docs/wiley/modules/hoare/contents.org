@@ -4,7 +4,8 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
 * Overview and Objectives 
-** TODO OVERVIEW 
+** OVERVIEW 
+In this module we will learn about automatic verification, which is a practical and real-world use of the specifications and reasonings --- topics that we have learned throughout the class.  We will start with the basic of logical reasoning and then  learn how to use verify program correctness with respect to given specifications and contracts).
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
@@ -19,9 +20,10 @@ Upon completion of this course, you should be able to:
 ** MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
 
-1. Motivation for using verification to prove program correctness/safety specifications (CLO 1,2)
-2. Able to formalize programs and specifications as logical formulae (CLO 1,2)
-3. Able to automatically verify program automatically using Hoare logic (CLO 1,2)
+1. explain and demonstrate basic logic terminologies and usage (CLO 1,2)
+2. compare and describe key concepts and terminologies in automatic program verification (e.g., loop invariants, partial vs total correctness) (CLO 1,2)
+3. Transform programs and specifications to logical formulae (CLO 1,2)
+4. Construct requirements and setups for verficiation and verify program automatically using Hoare logic (CLO 1,2)
 
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
 #+begin_comment
@@ -40,7 +42,7 @@ CLOSED: [2022-09-29 Thu 10:43]
 - Hoare logic: https://en.wikipedia.org/wiki/Hoare_logic
 
 
-* Module 10 Learning Unit 0 – Motivation (MLO 1) [~15 mins]
+* Introduction (MLO 1) [~15 mins]
 - Previously we have look at program specifications that involve pre and post conditions and  *manually* reason that the program implementation is correct (adheres to) with respect to the specification.
 - As we also have experienced, such manual reasoning is difficult, time consuming, and error-prone, even for short "toy" examples shown class.
 - Automatic testing is popular and widely-used, however not adequate for many domains and situations such as avionic systems and medical systems 
@@ -64,7 +66,7 @@ For this topic, you will learn about
 
 
 
-* TODO Module 10 Learning Unit 1 – Intro to Logic (MLO 2) [~1 hour]
+* Intro to Logic (MLO 2) [~1 hour]
   
 ** Terminology 
   - variables:
@@ -122,7 +124,7 @@ Link to MP4 File
 ** Important Concept: Text 
 Text.
 
-* Module 10 Learning Unit 2 – Program Verification using Hoare logic (MLO 2, 3) [~3 hours] 
+* Learning Unit 2 – Program Verification using Hoare logic (MLO 2, 3, 4) [~3 hours] 
 
 ** Terminology 
 *** Hoare Tripple ~{P} S {Q}~
@@ -160,7 +162,8 @@ Text.
      #+end_src
 
 
-** Important Concept: Text 
+** Important Concept: Text
+
 ** Rules to Computing Weakest Preconditions
 We can automatically verify (partial) program correctness using Hoare Triples and weakest preconditions.
 To prove ~{P} S {Q}~ is valid, i.e., to prove the program ~S~ is correct wrt to the precondition ~P~ and postcondition ~Q~, we check that ~P => wp(S, Q)~ is valid. Here, the function *wp returns the weakest precondition allowing the program ~S~ to achieve the postcondition ~Q~.
@@ -450,7 +453,7 @@ Text.
 *** Instructor Screencast: TITLE 
 Link to MP4 File 
 
-* Module 10 Assignment – Program Verification using Hoare Logic (MLO TODO, TODO) [~2.5 hours]  
+* Assignment – Program Verification using Hoare Logic (MLO 2, 3, 4) [~2.5 hours]  
  
 ** Purpose 
 The purpose of this assignment is to help you practice learned concepts on logical formula, Hoare tripple, and especially program verification using Hoare logic.  
@@ -501,7 +504,7 @@ Submit a short essay (2 pages maximum) with your response to questions above
 ** Due Date 
 Your assignment is due by Sunday 11:59 PM, ET. 
 
-* Module 1 Quiz (MLO TODO, TODO, TODO) [~.5 hour] 
+* Module 1 Quiz (MLO 2, 3, 4) [~.5 hour] 
  
 ** Purpose 
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
@@ -511,17 +514,70 @@ Note the following instructions for your quiz:
 The quiz is 20 minutes in length. 
 The quiz is closed-book.
 
+- Fill in the ??? and briefly explain your answer
+#+begin_src 
+{???} y := x + 1 {y=43}
+{x + 1 <= N} ??? {x <= N}
+#+end_src
+#+begin_comment
+{x=42} y := x + 1 {y=43}
+{x + 1 <= N} x=x+1 {x <= N}
+#+end_comment
+
+- Is the following a valid Hoar tripple ?  explain
+#+begin_src 
+  {0 <=  x <=  15} if (x<15) then x:=x+1 else x:=0 {0 <= x <= 15}
+#+end_src
+
+#+begin_comment
+WP(if (x<15) then x:=x+1 else x:=0, 0 <= x <= 15)
+= x<15 -> 0 <= x+1 <= 15    &  x >= 15 -> 0<= 0 <= 15
+= x<=14 -> -1 <= x <= 14    &  x >= 15 -> True
+= x<=14 -> -1 <= x <= 14    &  True
+= x<=14 -> -1 <= x <= 14
+
+VC = 0<= x <= 15  -> (x<=14 -> -1 <= x <= 14)
+   = (0<= x <= 15  & x<=14) -> -1 <= x <= 14
+   = (0<= x <= 14) -> -1 <= x <= 14
+   = True
+#+end_comment
+
+- For the below loop, give 2 non-trivial (so no True) loop invariants, one of which should involve a relationship of both ~i~ and ~j~. Hint: convert the for loop into a while loop first.
+  
+#+begin_src java
+int j = 9;
+for(int i=0; i<10; i++)  
+  j--;
+#+end_src
+
+#+begin_comment
+int j = 9;
+int i = 0;
+while(1){
+  [I] // loop invariant
+  if (i>=10) break;
+  i++;
+  j--;
+  
+}
+
+j i
+9 0
+8 1
+7 2
+6 3
+5 4
+4 5
+3 6
+2 7
+1 8
+0 9
+-1 10
+#+end_comment
+
+
 ** Deliverable 
 Use the link above to take the quiz.
 
 ** Due Date 
 Your quiz submission is due by Sunday 11:59 PM, ET. 
-
- 
-
-
-
- Questions:
-- what is the CLO? what's the diff btw CLO and MLO ?
-- too details ?   
-- What are these submission deadlines? how to determine?

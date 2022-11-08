@@ -3,7 +3,7 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
 * Overview and Objectives 
-** In this module we will talk about generics, i.e., parametric polymorphism. We will learn the benefits and proper usage of generics. Specifically, we will learn when we should use generics and how to convert code that does not use generics to one that does.
+** In this module we will talk about generics, i.e., parametric polymorphism. We will learn the benefits and proper usage of generics. We will also see the limitations and issues in programs using non-generics.  Finally, we will learn when to use generics and how to convert code that does not use generics to one that does.
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
@@ -15,11 +15,11 @@ Upon completion of this course, you should be able to:
 5. Properly use exception handling 
 6. Identify when it is appropriate to use inheritance and generics.  
  
-** TODO MODULE LEVEL OBJECTIVES (MLO) 
+** MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
-1. explain and demonstrate the benefits and key concepts of generics
-2. Compare and describe specification terminologies and concepts (e.g., raw types vs. generic types, arrays vs. lists, wild cards)
-3. Convert from non-generic code to generic code, from code using arrays to one using lists.
+1. explain and demonstrate the benefits and key concepts of generics (CLO6)
+2. Compare and describe specification terminologies and concepts (e.g., raw types vs. generic types, arrays vs. lists, wild cards) (CLO6)
+3. Convert from non-generic code to generic code, from code using arrays to one using lists. (CLO6)
    
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
 #+begin_comment
@@ -267,6 +267,7 @@ private Object[] elements; // private E[] elements (1st attempt) /=> private Lis
    Identify any code that raises a runtime exception.
    Once a compiler error is noted, you do not need to analyze the sequence further.
 
+   *SOLUTION*: 
    1.
       #+begin_src java
         objects = new String[1];
@@ -339,7 +340,8 @@ private Object[] elements; // private E[] elements (1st attempt) /=> private Lis
    - Add rep invariants and contracts (e.g., throw exceptions in unwanted cases); check if code satisfies these; and if not modify code to satisfy them. This question will take the most time!
    - Add a =addChoice= method to the API and write appropriate contracts for it
 
-SOLUTIONS:     
+*SOLUTIONS*:
+
 First attempt 
 #+begin_src java
   public class Chooser<T> {
