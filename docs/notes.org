@@ -5,6 +5,116 @@
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
 * Lecture 10
+- Constructor must not invoke overridable methods
+
+#+begin_src java
+     public class Super {
+         public Super() {m();}
+         public void m() {
+          //initialization code
+          print("Super m");
+         }
+
+     public class Sub extends Super {
+         private final Date date;
+         public Sub() {
+             //Super()
+             date = new Date();
+         }
+         public void m() {
+             //access date variable
+             print("Sub m");
+         }
+
+     Sub s = new Sub();
+     //"Sub m"
+   ,#+end_src java
+
+
+   - Favor composition over inheritence
+
+   ,#+begin_src java 
+   public class InstrumentedHashSet<E> extends HashSet<E>    {
+           // The number of attempted element insertions
+           private int addCount = 0;
+           public InstrumentedHashSet() { 	}
+           public InstrumentedHashSet(int initCap, float loadFactor) {
+                   super(initCap, loadFactor);
+           }
+           @Override public boolean add(E e) {
+                   addCount++;
+                   return super.add(e);
+           }
+           @Override public boolean addAll(Collection<? extends E> c) {
+                   //addCount += c.size();
+                   return super.addAll(c);
+           }
+           public int getAddCount() { 	return addCount; }
+   }
+
+  //client code
+  InstrumentedHashSet<String> s = new InstrumentedHashSet<>();
+  s.addAll(Arrays.asList("Snap", "Crackle", "Pop"));
+  print(s.getAddCount()); // ??
+
+#+end_src  
+  
+
+
+#+begin_src java
+    // Wrapper class - uses composition in place of inheritance
+    public class InstrumentedSet<E> extends ForwardingSet<E> {
+        private int addCount = 0;
+
+        public InstrumentedSet(Set<E> s) {
+            super(s);
+        }
+        @Override public boolean add(E e) {
+            addCount++;
+            return super.add(e);
+         }
+         @Override public boolean addAll(Collection<? extends E> c) {
+             addCount += c.size();
+             return super.addAll(c);
+         }
+         public int getAddCount() {
+             return addCount;
+         }
+    }
+
+    // Reusable forwarding class
+    public class ForwardingSet<E> implements Set<E> {
+        private final Set<E> s;
+        public ForwardingSet(Set<E> s) {
+            this.s = s;
+        }
+
+        public void clear()               { s.clear();            }
+        public boolean contains(Object o) { return s.contains(o); }
+        public boolean isEmpty()          { return s.isEmpty();   }
+        public int size()                 { return s.size();      }
+        public Iterator<E> iterator()     { return s.iterator();  }
+        public boolean add(E e)           { return s.add(e);      }
+        public boolean remove(Object o)   { return s.remove(o);   }
+        public boolean containsAll(Collection<?> c)
+                                       { return s.containsAll(c); }
+        public boolean addAll(Collection<? extends E> c)
+                                       { return s.addAll(c);      }
+        public boolean removeAll(Collection<?> c)
+                                       { return s.removeAll(c);   }
+        public boolean retainAll(Collection<?> c)
+                                       { return s.retainAll(c);   }
+        public Object[] toArray()          { return s.toArray();  }
+        public <T> T[] toArray(T[] a)      { return s.toArray(a); }
+        @Override public boolean equals(Object o)
+                                           { return s.equals(o);  }
+        @Override public int hashCode()    { return s.hashCode(); }
+        @Override public String toString() { return s.toString(); }
+    }
+#+end_src
+
+
+
 - From Mac Os Notes: Item 17
 - Constructor must not invoke overridable methods
   - super, sub code from notesS22

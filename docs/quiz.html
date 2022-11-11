@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-11-04 Fri 12:39 -->
+<!-- 2022-11-11 Fri 12:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 419</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
@@ -18,21 +18,72 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgaeda0d0">1. Quiz 10 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-04 Fri&gt;</span></span></a></li>
-<li><a href="#orgf5c4995">2. Quiz 9 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span></a></li>
-<li><a href="#orgabeea5c">3. Quiz 8 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span></a></li>
-<li><a href="#org57a91fb">4. Quiz 7 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span></a></li>
-<li><a href="#orga8bbf17">5. Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></a></li>
-<li><a href="#org4d92155">6. Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></a></li>
-<li><a href="#orgc8911b0">7. Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></a></li>
-<li><a href="#org1801623">8. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
+<li><a href="#org309511e">1. Quiz 11 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-11 Fri&gt;</span></span></a></li>
+<li><a href="#orgf6ef56a">2. Quiz 10 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-04 Fri&gt;</span></span></a></li>
+<li><a href="#org9103856">3. Quiz 9 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span></a></li>
+<li><a href="#orgb721fd5">4. Quiz 8 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span></a></li>
+<li><a href="#org09f26a5">5. Quiz 7 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span></a></li>
+<li><a href="#orgbf0ec4d">6. Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></a></li>
+<li><a href="#org5a58a53">7. Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></a></li>
+<li><a href="#org70d3523">8. Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></a></li>
+<li><a href="#org6d3cf6d">9. Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgaeda0d0" class="outline-2">
-<h2 id="orgaeda0d0"><span class="section-number-2">1.</span> Quiz 10 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-04 Fri&gt;</span></span></h2>
+<div id="outline-container-org309511e" class="outline-2">
+<h2 id="org309511e"><span class="section-number-2">1.</span> Quiz 11 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-11 Fri&gt;</span></span></h2>
 <div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">Apple</span> {
+  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">rep-inv:  name != null</span>
+  <span style="color: #e45649;">private</span> <span style="color: #986801;">String</span> <span style="color: #6a1868;">name</span>;
+  <span style="color: #e45649;">public</span> Apple (<span style="color: #986801;">String</span> <span style="color: #6a1868;">name</span>) {   
+     <span style="color: #e45649;">if</span> (name == <span style="color: #b751b6;">null</span>) <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">NPE</span>(...);
+     <span style="color: #e45649;">this</span>.name = name;
+  }
+  <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span> (<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) {
+     <span style="color: #e45649;">if</span> (<span style="color: #4078f2; font-weight: bold;">!</span>(o <span style="color: #e45649;">instanceof</span> Apple)) { <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>; }
+     <span style="color: #986801;">Apple</span> <span style="color: #6a1868;">a</span> = (<span style="color: #986801;">Apple</span>) o;     
+     <span style="color: #e45649;">return</span> name.equals(a.name);
+  }
+  <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">hashCode</span>() { <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">see questions below }</span>
+  <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">String</span> <span style="color: #a626a4;">toString</span>() { <span style="color: #e45649;">return</span> name; }
+}
+<span style="color: #e45649;">class</span> <span style="color: #986801;">AppleTracker</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Apple</span> {
+  <span style="color: #e45649;">private</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">inventory</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">HashSet</span>&lt;<span style="color: #986801;">String</span>&gt; ();
+  <span style="color: #e45649;">public</span> AppleTracker (<span style="color: #986801;">String</span> <span style="color: #6a1868;">name</span>) { <span style="color: #e45649;">super</span>(name); inventory.add(name);}
+  <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #a626a4;">getInventory</span>() { <span style="color: #e45649;">return</span> Collections.unmodifiableSet(inventory);}
+}
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">client code</span>
+<span style="color: #986801;">Apple</span> <span style="color: #6a1868;">a</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Apple</span>(<span style="color: #50a14f;">"Winesap"</span>);
+<span style="color: #986801;">AppleTracker</span> <span style="color: #6a1868;">at1</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">AppleTracker</span>(<span style="color: #50a14f;">"Winesap"</span>);
+<span style="color: #986801;">AppleTracker</span> <span style="color: #6a1868;">at2</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">AppleTracker</span>(<span style="color: #50a14f;">"Fuji"</span>);
+
+</pre>
+</div>
+
+<p>
+Mark each of the following either <b>True</b> or <b>False</b>:
+</p>
+
+<ol class="org-ol">
+<li>The <code>equals()</code> method in the AppleTracker class is inherited from the Apple class.</li>
+<li><code>a.equals(at1)</code> sometimes returns true and sometimes returns false.</li>
+<li>The <code>equals()</code> method in the Apple class relies on the rep-invariant to satisfy its contract.</li>
+<li><code>AppleTracker</code> adds client-visible state to Apple objects.</li>
+<li><code>a.equals(at1)</code> and <code>at1.equals(a)</code> are both true.</li>
+<li><code>a.equals(at2)</code> and <code>at2.equals(a)</code> are both false.</li>
+<li><code>at1.equals(a)</code> and <code>a.equals(at2)</code> are both true, but <code>at1.equals(at2)</code> is false.</li>
+<li>It would correct to implement <code>hashCode()</code> as <code>return name.hashCode();</code></li>
+<li>It would correct to inherit <code>hashCode()</code> from the Object class.</li>
+<li>Bloch would object to replacing <code>o instanceof Apple</code> with a predicate built atop <code>getClass()</code>.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgf6ef56a" class="outline-2">
+<h2 id="orgf6ef56a"><span class="section-number-2">2.</span> Quiz 10 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-04 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-2">
 <p>
 Consider the following code:
 </p>
@@ -109,9 +160,9 @@ objects[0] = seven;
 </div>
 
 
-<div id="outline-container-orgf5c4995" class="outline-2">
-<h2 id="orgf5c4995"><span class="section-number-2">2.</span> Quiz 9 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org9103856" class="outline-2">
+<h2 id="org9103856"><span class="section-number-2">3.</span> Quiz 9 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-3">
 <div class="org-src-container">
 <pre class="src src-java">   <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">t</span> = <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">See questions below</span>
 
@@ -131,9 +182,9 @@ objects[0] = seven;
 </div>
 </div>
 
-<div id="outline-container-orgabeea5c" class="outline-2">
-<h2 id="orgabeea5c"><span class="section-number-2">3.</span> Quiz 8 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-orgb721fd5" class="outline-2">
+<h2 id="orgb721fd5"><span class="section-number-2">4.</span> Quiz 8 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-4">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #e45649;">class</span> <span style="color: #986801;">A</span> {
    <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span> <span style="color: #a626a4;">compose</span> (<span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">itr</span>)
@@ -171,9 +222,9 @@ Analyze the <code>compose()</code> method in each of these cases according to Li
 </div>
 
 
-<div id="outline-container-org57a91fb" class="outline-2">
-<h2 id="org57a91fb"><span class="section-number-2">4.</span> Quiz 7 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-org09f26a5" class="outline-2">
+<h2 id="org09f26a5"><span class="section-number-2">5.</span> Quiz 7 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-5">
 <p>
 Suppose <code>C</code> is an abstract data type that has two <code>String</code> fields:
 </p>
@@ -200,13 +251,13 @@ Assuming you don’t know anything about <code>C</code>, which of the following 
 </div>
 
 
-<div id="outline-container-orga8bbf17" class="outline-2">
-<h2 id="orga8bbf17"><span class="section-number-2">5.</span> Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orgbf0ec4d" class="outline-2">
+<h2 id="orgbf0ec4d"><span class="section-number-2">6.</span> Quiz 5 (we skip Quiz 4) <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-orgc05353f" class="outline-3">
-<h3 id="orgc05353f"><span class="section-number-3">5.1.</span> Hoare tripple</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-org0218c9a" class="outline-3">
+<h3 id="org0218c9a"><span class="section-number-3">6.1.</span> Hoare tripple</h3>
+<div class="outline-text-3" id="text-6-1">
 <ul class="org-ul">
 <li>Fill in the ??? and briefly explain your answer</li>
 </ul>
@@ -239,9 +290,9 @@ Assuming you don’t know anything about <code>C</code>, which of the following 
 
 
 
-<div id="outline-container-org4d92155" class="outline-2">
-<h2 id="org4d92155"><span class="section-number-2">6.</span> Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-org5a58a53" class="outline-2">
+<h2 id="org5a58a53"><span class="section-number-2">7.</span> Quiz 3 &lt;<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-7">
 <p>
 <b>Immutatiblity</b>: Consider a partial version of a <i>mutable</i> <code>Stack</code> class:
 </p>
@@ -288,9 +339,9 @@ System.out.println(s.pop());
 
 
 
-<div id="outline-container-orgc8911b0" class="outline-2">
-<h2 id="orgc8911b0"><span class="section-number-2">7.</span> Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-org70d3523" class="outline-2">
+<h2 id="org70d3523"><span class="section-number-2">8.</span> Quiz 2 <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span></h2>
+<div class="outline-text-2" id="text-8">
 <p>
 Consider the following 2 specifications, the second of which has an associated implementation (note that the 2nd implementation uses the specification of the first):
 </p>
@@ -326,13 +377,13 @@ Consider the following 2 specifications, the second of which has an associated i
 </div>
 
 
-<div id="outline-container-org1801623" class="outline-2">
-<h2 id="org1801623"><span class="section-number-2">8.</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-org6d3cf6d" class="outline-2">
+<h2 id="org6d3cf6d"><span class="section-number-2">9.</span> Quiz 1 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
+<div class="outline-text-2" id="text-9">
 </div>
-<div id="outline-container-org2b8b12b" class="outline-3">
-<h3 id="org2b8b12b"><span class="section-number-3">8.1.</span> Contracts for a Binary Search implementation.</h3>
-<div class="outline-text-3" id="text-8-1">
+<div id="outline-container-orgc3fd46f" class="outline-3">
+<h3 id="orgc3fd46f"><span class="section-number-3">9.1.</span> Contracts for a Binary Search implementation.</h3>
+<div class="outline-text-3" id="text-9-1">
 <ul class="org-ul">
 <li>specifiy the specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.</li>
 </ul>
