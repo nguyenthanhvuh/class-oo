@@ -4,6 +4,33 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
+* Lecture 10
+- From Mac Os Notes: Item 17
+- Constructor must not invoke overridable methods
+  - super, sub code from notesS22
+- Prefers composition over Inheritence
+  - Wes's slides
+    - show incorrect count due by Inheritance
+    - show how it can be fixed with forwarding class
+  - Inclass 12A
+    - - IC A
+    - keep track of how many times add has been called (directly from add() or indirectly from addAll())
+    - Composition instead of inheritence
+    - *Sol*
+        - don’t do anything with addAll in InstrumentedHashSet so that it inherits addAll from HashSet which calls adds() which will call the InstrumentedHashSet’s adds (and therefore increment correctly).  
+        - why hard question: depends on implementations
+        - equals:  does not consider addCount, only considers the contents of the set
+        - Q2: value of sh.addAll()  :   2  
+        - Q3: InstrumentedSet is better because it uses composition instead of inheritence (so doesn’t require knowledge of how things are implemented in details; also can work on any kind of Set (ForwardSet implements Set) whereas InstrumentedHashSet only extends HashSet)
+        - Q4: all true (cat and dog).  Set’s equal contracts require if both are instances of set and they both have same things in them (cat and dog) and so they must be all equal.  
+        - Q5
+    - 11:  s=r=[ant,bee,cat]
+    - 15: s=r=t=[ant,bee,cat,dog]
+    - 18:s=r=t=[bee,ant]
+        - sh.addCount=2
+        - r.addCount = 2
+        - s.addCount=4
+        - t.addCount=1
 
 * Lecture 9 (<2022-11-04 Fri>)
 - Go over Quiz
