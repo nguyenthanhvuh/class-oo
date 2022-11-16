@@ -6,19 +6,25 @@ https://wiley.sharepoint.com/teams/GeorgeMason/Shared%20Documents/Forms/AllItems
 
 
  
-Module 01: Class Overview 
-Module 02: Procedural Abstraction 
-Module 03: Exceptions 
-Module 04: Data Abstraction; Mutability 
-Module 05: Reasoning About Data Abstraction 
-Module 06: Iteration Abstraction; Method Guidelines 
-Module 07: Type Abstraction 
-Module 08: Polymorphic Abstraction; Lambdas 
-Module 09: Generics 
-Module 10: Common Java Contracts,
-Module 11: Classes and Inheritance 
-Module 12: Contract Model in Testing 
-Module 13: Enums and Annotations
-Module 14 (Special): Hoare Logic 
-Module 15: Course Wrap Up / Final Exam
+** DONE Module 01: Class Overview 
+CLOSED: [2022-11-15 Tue 13:11]
+** DONE Module 02: Procedural Abstraction 
+CLOSED: [2022-11-15 Tue 13:11]
+** DONE Module 03: Exceptions 
+CLOSED: [2022-11-15 Tue 13:11]
+** Module 04: Data Abstraction; Mutability 
+** Module 05: Reasoning About Data Abstraction 
+** Module 06: Iteration Abstraction; Method Guidelines 
+** Module 07: Type Abstraction 
+** Module 08: Polymorphic Abstraction; Lambdas 
+** DONE Module 09: Generics 
+CLOSED: [2022-11-15 Tue 13:11]
+** DONE Module 10: Common Java Contracts,
+CLOSED: [2022-11-15 Tue 13:11]
+** Module 11: Classes and Inheritance 
+** Module 12: Contract Model in Testing 
+** Module 13: Enums and Annotations
+** DONE Module 14 (Special): Hoare Logic 
+CLOSED: [2022-11-15 Tue 13:11]
+** Module 15: Course Wrap Up / Final Exam
 
