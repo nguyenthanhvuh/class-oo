@@ -12,7 +12,8 @@ CLOSED: [2022-11-15 Tue 13:11]
 CLOSED: [2022-11-15 Tue 13:11]
 ** DONE Module 03: Exceptions 
 CLOSED: [2022-11-15 Tue 13:11]
-** Module 04: Data Abstraction; Mutability 
+** DONE Module 04: Data Abstraction; Mutability 
+CLOSED: [2022-11-17 Thu 14:15]
 ** Module 05: Reasoning About Data Abstraction 
 ** Module 06: Iteration Abstraction; Method Guidelines 
 ** Module 07: Type Abstraction 

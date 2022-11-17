@@ -1,4 +1,4 @@
-#+TITLE: Module 3 - Exceptions
+#+TITLE: Module 6: Iteration Abstraction; Method Guidelines 
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 

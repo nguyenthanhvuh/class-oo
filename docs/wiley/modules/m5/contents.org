@@ -1,4 +1,4 @@
-#+TITLE: Module 5 - Iteration Abstraction; Method Guidelines
+#+TITLE: Module 5 - Reasoning about Data Abstraction
 
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
@@ -33,10 +33,6 @@ Upon completion of this module’s activities, you should be able to:
 - Barbara Liskov with John Guttag. Program Development in Java. Addison Wesley, 2001, ISBN 0-201-65768-6. 
   - Chapter 1: Introduction
 
-
-* Syllabus Ack
-- Question: what syllabus do we have?
-
 * Group Discussion [0.25 hour]
 
 Work with your group and do the following:
@@ -46,7 +42,7 @@ Work with your group and do the following:
 1. Address a technical topic. With your group, discuss what they think program specifications are
 
 
-* TODO Module 1 Learning Unit 2 – Program Decomposition and Abstraction (MLO 1) [0.5 hour]
+* Learning Unit 1 – Intro (MLO 1) [0.5 hour]
 - It's very difficult to construct and maintain large /monolithic/ programs.
 
 - Thus, we want to decompose programs into /modules/ (or classes)
@@ -64,7 +60,7 @@ Work with your group and do the following:
   - assist in writing good /program specifications/
 
 
-* TODO Module 1 Learning Unit 2 – Program Specifications (Contracts) (MLO 1, 2) [~2 hour]
+* Learning Unit 2 – (Contracts) (MLO 1, 2) [~2 hour]
   
 ** Terminology 
   - Specifications (typically written as comments, e.g., =javadocs=)
@@ -248,19 +244,8 @@ Quizzes in this course give you an opportunity to demonstrate your knowledge of 
 ** Instructions 
 Note the following instructions for your quiz:
 
-*** Contracts for a Binary Search implementation.
-   - specifiy the specifications, i.e., requires and contracts, for a binary search implementation.
-#+begin_comment
-solution:
-#+begin_src java
-Binary_search(arrays, x)
-- precondition:
-  - arrays: sorted, cannot null, 
-- postcondition:
-  - if x not in arrays: raise some exception ...
-  - ow: returns index of x in array
-#+end_src
-#+end_comment
+
+
 The quiz is 20 minutes in length. 
 The quiz is closed-book.
 

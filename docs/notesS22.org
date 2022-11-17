@@ -79,8 +79,6 @@ n=100,k=2  100x100 = 10,000
 
 Inclass 13
 #+begin_src java
-  ,#+begin_src java
-
       @DataPoints
        public static Point[] points = {null, //a
            new Point(2,2),  //b
