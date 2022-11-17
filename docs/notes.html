@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-11-11 Fri 10:47 -->
+<!-- 2022-11-16 Wed 22:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 419 Notes</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
@@ -18,23 +18,137 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb3addfb">1. Lecture 10</a></li>
-<li><a href="#org8cbb06a">2. Lecture 9 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-04 Fri&gt;</span></span>)</a></li>
-<li><a href="#org01847d6">3. Lecture 8 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span>)</a></li>
-<li><a href="#org7efc05c">4. Lecture 7 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span>)</a></li>
-<li><a href="#orgfb99ba0">5. Lecture 6 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span>)</a></li>
-<li><a href="#org7e7b8f4">6. Lecture 5 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span>)</a></li>
-<li><a href="#org9138b4c">7. Lecture 4 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span>)</a></li>
-<li><a href="#orgbc51796">8. Lecture 3 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span>)</a></li>
-<li><a href="#orgf4b7f7b">9. Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
-<li><a href="#orgc234f9b">10. Lecture 1 (8/26)</a></li>
+<li><a href="#org72133d5">1. Lecture 10</a></li>
+<li><a href="#org3166c2e">2. Lecture 9 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-04 Fri&gt;</span></span>)</a></li>
+<li><a href="#org04f97cb">3. Lecture 8 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span>)</a></li>
+<li><a href="#org47ed347">4. Lecture 7 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span>)</a></li>
+<li><a href="#org5084cf2">5. Lecture 6 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span>)</a></li>
+<li><a href="#org1ab230d">6. Lecture 5 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span>)</a></li>
+<li><a href="#org205a20f">7. Lecture 4 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span>)</a></li>
+<li><a href="#org82dfb2c">8. Lecture 3 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span>)</a></li>
+<li><a href="#orgecea065">9. Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
+<li><a href="#org466cc90">10. Lecture 1 (8/26)</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgb3addfb" class="outline-2">
-<h2 id="orgb3addfb"><span class="section-number-2">1.</span> Lecture 10</h2>
+<div id="outline-container-org72133d5" class="outline-2">
+<h2 id="org72133d5"><span class="section-number-2">1.</span> Lecture 10</h2>
 <div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>Constructor must not invoke overridable methods</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-java">   <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Super</span> {
+       <span style="color: #e45649;">public</span> Super() {m();}
+       <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">m</span>() {
+        <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">initialization code</span>
+        print(<span style="color: #50a14f;">"Super m"</span>);
+       }
+
+   <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Sub</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Super</span> {
+       <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Date</span> <span style="color: #6a1868;">date</span>;
+       <span style="color: #e45649;">public</span> Sub() {
+           <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Super()</span>
+           date = <span style="color: #e45649;">new</span> <span style="color: #986801;">Date</span>();
+       }
+       <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">m</span>() {
+           <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">access date variable</span>
+           print(<span style="color: #50a14f;">"Sub m"</span>);
+       }
+
+   <span style="color: #986801;">Sub</span> <span style="color: #6a1868;">s</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Sub</span>();
+   <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">"Sub m"</span>
+ #+end_src java
+
+
+ - Favor composition over inheritence
+
+ #+begin_src java 
+ <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">InstrumentedHashSet</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #e45649;">extends</span> <span style="color: #986801;">HashSet</span>&lt;<span style="color: #986801;">E</span>&gt;    {
+         <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">The number of attempted element insertions</span>
+         <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">addCount</span> = 0;
+         <span style="color: #e45649;">public</span> InstrumentedHashSet() {         }
+         <span style="color: #e45649;">public</span> InstrumentedHashSet(<span style="color: #986801;">int</span> <span style="color: #6a1868;">initCap</span>, <span style="color: #986801;">float</span> <span style="color: #6a1868;">loadFactor</span>) {
+                 <span style="color: #e45649;">super</span>(initCap, loadFactor);
+         }
+         <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">add</span>(<span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span>) {
+                 addCount++;
+                 <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.add(e);
+         }
+         <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">addAll</span>(<span style="color: #986801;">Collection</span>&lt;? <span style="color: #e45649;">extends</span> <span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">c</span>) {
+                 <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">addCount += c.size();</span>
+                 <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.addAll(c);
+         }
+         <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">getAddCount</span>() {     <span style="color: #e45649;">return</span> addCount; }
+ }
+
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">client code</span>
+<span style="color: #986801;">InstrumentedHashSet</span>&lt;<span style="color: #986801;">String</span>&gt; <span style="color: #6a1868;">s</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">InstrumentedHashSet</span>&lt;&gt;();
+s.addAll(Arrays.asList(<span style="color: #50a14f;">"Snap"</span>, <span style="color: #50a14f;">"Crackle"</span>, <span style="color: #50a14f;">"Pop"</span>));
+print(s.getAddCount()); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">??</span>
+
+</pre>
+</div>
+
+
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Wrapper class - uses composition in place of inheritance</span>
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">InstrumentedSet</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #e45649;">extends</span> <span style="color: #986801;">ForwardingSet</span>&lt;<span style="color: #986801;">E</span>&gt; {
+    <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">addCount</span> = 0;
+
+    <span style="color: #e45649;">public</span> InstrumentedSet(<span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">s</span>) {
+        <span style="color: #e45649;">super</span>(s);
+    }
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">add</span>(<span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span>) {
+        addCount++;
+        <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.add(e);
+     }
+     <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">addAll</span>(<span style="color: #986801;">Collection</span>&lt;? <span style="color: #e45649;">extends</span> <span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">c</span>) {
+         addCount += c.size();
+         <span style="color: #e45649;">return</span> <span style="color: #e45649;">super</span>.addAll(c);
+     }
+     <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">getAddCount</span>() {
+         <span style="color: #e45649;">return</span> addCount;
+     }
+}
+
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Reusable forwarding class</span>
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">ForwardingSet</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #e45649;">implements</span> <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">E</span>&gt; {
+    <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">s</span>;
+    <span style="color: #e45649;">public</span> ForwardingSet(<span style="color: #986801;">Set</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">s</span>) {
+        <span style="color: #e45649;">this</span>.s = s;
+    }
+
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">clear</span>()               { s.clear();            }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">contains</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>) { <span style="color: #e45649;">return</span> s.contains(o); }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">isEmpty</span>()          { <span style="color: #e45649;">return</span> s.isEmpty();   }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">size</span>()                 { <span style="color: #e45649;">return</span> s.size();      }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span>&lt;<span style="color: #986801;">E</span>&gt; <span style="color: #a626a4;">iterator</span>()     { <span style="color: #e45649;">return</span> s.iterator();  }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">add</span>(<span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span>)           { <span style="color: #e45649;">return</span> s.add(e);      }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">remove</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>)   { <span style="color: #e45649;">return</span> s.remove(o);   }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">containsAll</span>(<span style="color: #986801;">Collection</span>&lt;?&gt; <span style="color: #6a1868;">c</span>)
+                                   { <span style="color: #e45649;">return</span> s.containsAll(c); }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">addAll</span>(<span style="color: #986801;">Collection</span>&lt;? <span style="color: #e45649;">extends</span> <span style="color: #986801;">E</span>&gt; <span style="color: #6a1868;">c</span>)
+                                   { <span style="color: #e45649;">return</span> s.addAll(c);      }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">removeAll</span>(<span style="color: #986801;">Collection</span>&lt;?&gt; <span style="color: #6a1868;">c</span>)
+                                   { <span style="color: #e45649;">return</span> s.removeAll(c);   }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">retainAll</span>(<span style="color: #986801;">Collection</span>&lt;?&gt; <span style="color: #6a1868;">c</span>)
+                                   { <span style="color: #e45649;">return</span> s.retainAll(c);   }
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Object</span>[] <span style="color: #a626a4;">toArray</span>()          { <span style="color: #e45649;">return</span> s.toArray();  }
+    <span style="color: #e45649;">public</span> &lt;<span style="color: #986801;">T</span>&gt; <span style="color: #986801;">T</span>[] <span style="color: #a626a4;">toArray</span>(<span style="color: #986801;">T</span>[] <span style="color: #6a1868;">a</span>)      { <span style="color: #e45649;">return</span> s.toArray(a); }
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">o</span>)
+                                       { <span style="color: #e45649;">return</span> s.equals(o);  }
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">hashCode</span>()    { <span style="color: #e45649;">return</span> s.hashCode(); }
+    <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">String</span> <span style="color: #a626a4;">toString</span>() { <span style="color: #e45649;">return</span> s.toString(); }
+}
+</pre>
+</div>
+
+
+
 <ul class="org-ul">
 <li>From Mac Os Notes: Item 17</li>
 <li>Constructor must not invoke overridable methods
@@ -78,8 +192,8 @@
 </div>
 </div>
 
-<div id="outline-container-org8cbb06a" class="outline-2">
-<h2 id="org8cbb06a"><span class="section-number-2">2.</span> Lecture 9 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-04 Fri&gt;</span></span>)</h2>
+<div id="outline-container-org3166c2e" class="outline-2">
+<h2 id="org3166c2e"><span class="section-number-2">2.</span> Lecture 9 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-04 Fri&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li>Go over Quiz</li>
@@ -135,8 +249,8 @@ p2.equals(p3); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0
 </div>
 
 
-<div id="outline-container-org01847d6" class="outline-2">
-<h2 id="org01847d6"><span class="section-number-2">3.</span> Lecture 8 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span>)</h2>
+<div id="outline-container-org04f97cb" class="outline-2">
+<h2 id="org04f97cb"><span class="section-number-2">3.</span> Lecture 8 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li><p>
@@ -408,8 +522,8 @@ private Object[] elements -&gt;  private T[] elements  -&gt; private List&lt;E&g
 </div>
 
 
-<div id="outline-container-org7efc05c" class="outline-2">
-<h2 id="org7efc05c"><span class="section-number-2">4.</span> Lecture 7 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span>)</h2>
+<div id="outline-container-org47ed347" class="outline-2">
+<h2 id="org47ed347"><span class="section-number-2">4.</span> Lecture 7 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-4">
 <ul class="org-ul">
 <li>Previous Quiz  on Repr Inv</li>
@@ -604,7 +718,7 @@ In-class 9
 </div>
 </div>
 <ol class="org-ol">
-<li><a id="org9b2652c"></a>Approach 1: Create Methods That Search for Members That Match One Characteristic.<br />
+<li><a id="orgbfc98d3"></a>Approach 1: Create Methods That Search for Members That Match One Characteristic.<br />
 <div class="outline-text-5" id="text-4-0-0-1">
 <p>
 One simplistic approach is to create several methods; each method searches for members that match one characteristic, such as gender or age. <b>Create a method that prints members that are older than a specified age</b>.
@@ -625,7 +739,7 @@ Limitation: This approach can potentially make your application brittle, which i
 </div>
 </li>
 
-<li><a id="orgaa47c13"></a>Approach 2: Create More Generalized Search Methods.<br />
+<li><a id="org465e564"></a>Approach 2: Create More Generalized Search Methods.<br />
 <div class="outline-text-5" id="text-4-0-0-2">
 <p>
 Create a method is more generic than the one in the previous approach. It prints members within a specified range of ages.
@@ -646,7 +760,7 @@ Limitation: What if you want to print members of a specified sex, or a combinati
 </div>
 </li>
 
-<li><a id="org3f9f039"></a>Approach 3: Specify Search Criteria Code in a Local Class<br />
+<li><a id="orgbf9f80b"></a>Approach 3: Specify Search Criteria Code in a Local Class<br />
 <div class="outline-text-5" id="text-4-0-0-3">
 <p>
 Instead of writing filtering functions, use a new interface and class for each search you plan. Use the following filtering criteria for example:  filters members that are eligible for Selective Service in the United States: those who are male and between the ages of 18 and 25:
@@ -680,7 +794,7 @@ Limtation: Although this approach is less brittle—you don't have to rewrite me
 </div>
 </li>
 
-<li><a id="org781d795"></a>Approach 4: Specify Search Criteria Code in an Anonymous Class<br />
+<li><a id="orgb17a88e"></a>Approach 4: Specify Search Criteria Code in an Anonymous Class<br />
 <div class="outline-text-5" id="text-4-0-0-4">
 <p>
 Use an anonymous class to address the issue with Approach 3.
@@ -705,7 +819,7 @@ Limtation: This approach reduces the amount of code required because you don't h
 </div>
 </li>
 
-<li><a id="orgf811a73"></a>Approach 5: Specify Search Criteria Code with a Lambda Expression<br />
+<li><a id="org1008d2e"></a>Approach 5: Specify Search Criteria Code with a Lambda Expression<br />
 <div class="outline-text-5" id="text-4-0-0-5">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">printPersons</span>(<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Person</span>&gt; <span style="color: #6a1868;">roster</span>,
@@ -726,8 +840,8 @@ Use lambda expression to address the limitation the previous approach.
 
 
 
-<div id="outline-container-orgfb99ba0" class="outline-2">
-<h2 id="orgfb99ba0"><span class="section-number-2">5.</span> Lecture 6 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span>)</h2>
+<div id="outline-container-org5084cf2" class="outline-2">
+<h2 id="org5084cf2"><span class="section-number-2">5.</span> Lecture 6 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Recap
@@ -981,8 +1095,8 @@ Postcondition Part:
 
 
 
-<div id="outline-container-org7e7b8f4" class="outline-2">
-<h2 id="org7e7b8f4"><span class="section-number-2">6.</span> Lecture 5 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span>)</h2>
+<div id="outline-container-org1ab230d" class="outline-2">
+<h2 id="org1ab230d"><span class="section-number-2">6.</span> Lecture 5 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-6">
 <pre class="example">
 {y=7} x:=3 {x + y = 10)   y=7 is the weakest precondition
@@ -1121,8 +1235,8 @@ while (1){
 </div>
 
 
-<div id="outline-container-org969f45b" class="outline-3">
-<h3 id="org969f45b"><span class="section-number-3">6.1.</span> Repr Invariants</h3>
+<div id="outline-container-org22028a3" class="outline-3">
+<h3 id="org22028a3"><span class="section-number-3">6.1.</span> Repr Invariants</h3>
 <div class="outline-text-3" id="text-6-1">
 <ul class="org-ul">
 <li>things that are true about a data structure</li>
@@ -1157,12 +1271,12 @@ RepOK()
 </div>
 </div>
 
-<div id="outline-container-org9138b4c" class="outline-2">
-<h2 id="org9138b4c"><span class="section-number-2">7.</span> Lecture 4 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span>)</h2>
+<div id="outline-container-org205a20f" class="outline-2">
+<h2 id="org205a20f"><span class="section-number-2">7.</span> Lecture 4 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-7">
 </div>
-<div id="outline-container-org51c3d05" class="outline-3">
-<h3 id="org51c3d05"><span class="section-number-3">7.1.</span> No class next Friday</h3>
+<div id="outline-container-org96a6419" class="outline-3">
+<h3 id="org96a6419"><span class="section-number-3">7.1.</span> No class next Friday</h3>
 <div class="outline-text-3" id="text-7-1">
 <ul class="org-ul">
 <li>will send out details later</li>
@@ -1170,8 +1284,8 @@ RepOK()
 </div>
 </div>
 
-<div id="outline-container-org419c3fb" class="outline-3">
-<h3 id="org419c3fb"><span class="section-number-3">7.2.</span> Topic: Automatic Verification</h3>
+<div id="outline-container-org6e70296" class="outline-3">
+<h3 id="org6e70296"><span class="section-number-3">7.2.</span> Topic: Automatic Verification</h3>
 <div class="outline-text-3" id="text-7-2">
 <ul class="org-ul">
 <li><p>
@@ -1409,12 +1523,12 @@ i &lt;= N
 </div>
 </div>
 
-<div id="outline-container-orgbc51796" class="outline-2">
-<h2 id="orgbc51796"><span class="section-number-2">8.</span> Lecture 3 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span>)</h2>
+<div id="outline-container-org82dfb2c" class="outline-2">
+<h2 id="org82dfb2c"><span class="section-number-2">8.</span> Lecture 3 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-8">
 </div>
-<div id="outline-container-org26242ae" class="outline-3">
-<h3 id="org26242ae"><span class="section-number-3">8.1.</span> Go over quiz 1</h3>
+<div id="outline-container-orgcc47c8c" class="outline-3">
+<h3 id="orgcc47c8c"><span class="section-number-3">8.1.</span> Go over quiz 1</h3>
 <div class="outline-text-3" id="text-8-1">
 <p>
 Binary_search(arrays, x)
@@ -1443,8 +1557,8 @@ postcondition:
 </div>
 </div>
 
-<div id="outline-container-org7fa71c4" class="outline-3">
-<h3 id="org7fa71c4"><span class="section-number-3">8.2.</span> Data Abstraction</h3>
+<div id="outline-container-org80bc2ab" class="outline-3">
+<h3 id="org80bc2ab"><span class="section-number-3">8.2.</span> Data Abstraction</h3>
 <div class="outline-text-3" id="text-8-2">
 <p>
 Consider <a href="./files/Poly.java">Poly.java from Liskov</a>
@@ -1500,8 +1614,8 @@ Consider <a href="./files/Poly.java">Poly.java from Liskov</a>
 </ul>
 </div>
 
-<div id="outline-container-org7b8519c" class="outline-4">
-<h4 id="org7b8519c"><span class="section-number-4">8.2.1.</span> Immutable</h4>
+<div id="outline-container-orgfbcce94" class="outline-4">
+<h4 id="orgfbcce94"><span class="section-number-4">8.2.1.</span> Immutable</h4>
 <div class="outline-text-4" id="text-8-2-1">
 <ul class="org-ul">
 <li>Thread safe ;  easier for sharing; efficiency; safety;  less prone to error, easier to design</li>
@@ -1510,7 +1624,7 @@ Consider <a href="./files/Poly.java">Poly.java from Liskov</a>
 </div>
 
 <ol class="org-ol">
-<li><a id="org1113431"></a>General way to turn mutable to immutable<br />
+<li><a id="org0185908"></a>General way to turn mutable to immutable<br />
 <div class="outline-text-5" id="text-8-2-1-1">
 <ul class="org-ul">
 <li>If modifies contents of the data, create a new one instead and also return the newly created one</li>
@@ -1521,8 +1635,8 @@ Consider <a href="./files/Poly.java">Poly.java from Liskov</a>
 </ol>
 </div>
 
-<div id="outline-container-org75f91a0" class="outline-4">
-<h4 id="org75f91a0"><span class="section-number-4">8.2.2.</span> In-class 3A</h4>
+<div id="outline-container-org310e89f" class="outline-4">
+<h4 id="org310e89f"><span class="section-number-4">8.2.2.</span> In-class 3A</h4>
 <div class="outline-text-4" id="text-8-2-2">
 <pre class="example">
 q = [1,2,3]
@@ -1553,12 +1667,12 @@ q = q'
 </div>
 
 
-<div id="outline-container-orgf4b7f7b" class="outline-2">
-<h2 id="orgf4b7f7b"><span class="section-number-2">9.</span> Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
+<div id="outline-container-orgecea065" class="outline-2">
+<h2 id="orgecea065"><span class="section-number-2">9.</span> Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
 <div class="outline-text-2" id="text-9">
 </div>
-<div id="outline-container-orga0755a7" class="outline-3">
-<h3 id="orga0755a7"><span class="section-number-3">9.1.</span> Adminstrative: Groups</h3>
+<div id="outline-container-org6391a9e" class="outline-3">
+<h3 id="org6391a9e"><span class="section-number-3">9.1.</span> Adminstrative: Groups</h3>
 <div class="outline-text-3" id="text-9-1">
 <ul class="org-ul">
 <li>next time:  1 submission per group</li>
@@ -1566,8 +1680,8 @@ q = q'
 </div>
 </div>
 
-<div id="outline-container-orgd65365b" class="outline-3">
-<h3 id="orgd65365b"><span class="section-number-3">9.2.</span> Reconsider In-class 1B (class <code>User</code>)</h3>
+<div id="outline-container-orgd6f2e41" class="outline-3">
+<h3 id="orgd6f2e41"><span class="section-number-3">9.2.</span> Reconsider In-class 1B (class <code>User</code>)</h3>
 <div class="outline-text-3" id="text-9-2">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #986801;">User</span> <span style="color: #6a1868;">u1</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">u1</span>(<span style="color: #50a14f;">"hello"</span>);
@@ -1582,8 +1696,8 @@ u1.equals(v2); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a
 </div>
 </div>
 
-<div id="outline-container-orgc5f7774" class="outline-3">
-<h3 id="orgc5f7774"><span class="section-number-3">9.3.</span> Another example on how to obtain specs from documentation</h3>
+<div id="outline-container-org28233b6" class="outline-3">
+<h3 id="org28233b6"><span class="section-number-3">9.3.</span> Another example on how to obtain specs from documentation</h3>
 <div class="outline-text-3" id="text-9-3">
 <ul class="org-ul">
 <li>consider <code>remove</code> from <code>iterator</code>: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html">https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html</a>
@@ -1602,8 +1716,8 @@ u1.equals(v2); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a
 
 
 
-<div id="outline-container-org7cc6f3d" class="outline-3">
-<h3 id="org7cc6f3d"><span class="section-number-3">9.4.</span> Method/Program specifications</h3>
+<div id="outline-container-org2d4a589" class="outline-3">
+<h3 id="org2d4a589"><span class="section-number-3">9.4.</span> Method/Program specifications</h3>
 <div class="outline-text-3" id="text-9-4">
 <ul class="org-ul">
 <li>Preconditions (<code>P</code>): assumptions, properties about the inputs
@@ -1626,8 +1740,8 @@ u1.equals(v2); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a
 </div>
 
 
-<div id="outline-container-orgb404d40" class="outline-3">
-<h3 id="orgb404d40"><span class="section-number-3">9.5.</span> Weaker Preconditions and Stronger Postconditions</h3>
+<div id="outline-container-org09627f7" class="outline-3">
+<h3 id="org09627f7"><span class="section-number-3">9.5.</span> Weaker Preconditions and Stronger Postconditions</h3>
 <div class="outline-text-3" id="text-9-5">
 <ul class="org-ul">
 <li>Reconsider the <code>intdiv</code> example from previous class</li>
@@ -1668,8 +1782,8 @@ If we have <code>S1 = P =&gt; Q</code> and <code>S2 = P' =&gt; Q'</code>, then
 </div>
 
 
-<div id="outline-container-org4ac81e6" class="outline-3">
-<h3 id="org4ac81e6"><span class="section-number-3">9.6.</span> Total vs Partial contract</h3>
+<div id="outline-container-org14fa249" class="outline-3">
+<h3 id="org14fa249"><span class="section-number-3">9.6.</span> Total vs Partial contract</h3>
 <div class="outline-text-3" id="text-9-6">
 <ul class="org-ul">
 <li><b>partial</b> specification:  has a precondition</li>
@@ -1694,8 +1808,8 @@ to turn a partial spec into a total spec:
 </div>
 
 
-<div id="outline-container-org24bcdbf" class="outline-3">
-<h3 id="org24bcdbf"><span class="section-number-3">9.7.</span> In-class 2</h3>
+<div id="outline-container-orgb23e939" class="outline-3">
+<h3 id="orgb23e939"><span class="section-number-3">9.7.</span> In-class 2</h3>
 <div class="outline-text-3" id="text-9-7">
 <ol class="org-ol">
 <li>null : gives NPE error null pointer</li>
@@ -1762,19 +1876,19 @@ Postconds:
 </div>
 </div>
 
-<div id="outline-container-orgbd90fbb" class="outline-3">
-<h3 id="orgbd90fbb"><span class="section-number-3">9.8.</span> In-class 2B (<code>tail</code> implementation)</h3>
+<div id="outline-container-orgf7ea544" class="outline-3">
+<h3 id="orgf7ea544"><span class="section-number-3">9.8.</span> In-class 2B (<code>tail</code> implementation)</h3>
 </div>
 </div>
 
 
 
-<div id="outline-container-orgc234f9b" class="outline-2">
-<h2 id="orgc234f9b"><span class="section-number-2">10.</span> Lecture 1 (8/26)</h2>
+<div id="outline-container-org466cc90" class="outline-2">
+<h2 id="org466cc90"><span class="section-number-2">10.</span> Lecture 1 (8/26)</h2>
 <div class="outline-text-2" id="text-10">
 </div>
-<div id="outline-container-org3dab2d7" class="outline-3">
-<h3 id="org3dab2d7"><span class="section-number-3">10.1.</span> Administrative</h3>
+<div id="outline-container-org8e31997" class="outline-3">
+<h3 id="org8e31997"><span class="section-number-3">10.1.</span> Administrative</h3>
 <div class="outline-text-3" id="text-10-1">
 <ul class="org-ul">
 <li>Syllabus</li>
@@ -1782,8 +1896,8 @@ Postconds:
 </div>
 </div>
 
-<div id="outline-container-orga047363" class="outline-3">
-<h3 id="orga047363"><span class="section-number-3">10.2.</span> Specification Example</h3>
+<div id="outline-container-org9ed7e97" class="outline-3">
+<h3 id="org9ed7e97"><span class="section-number-3">10.2.</span> Specification Example</h3>
 <div class="outline-text-3" id="text-10-2">
 <p>
 Sorting (e.g., quicksort)
@@ -1804,8 +1918,8 @@ Sorting (e.g., quicksort)
 </div>
 </div>
 
-<div id="outline-container-orgb72cb12" class="outline-3">
-<h3 id="orgb72cb12"><span class="section-number-3">10.3.</span> Definitions</h3>
+<div id="outline-container-orgdba9033" class="outline-3">
+<h3 id="orgdba9033"><span class="section-number-3">10.3.</span> Definitions</h3>
 <div class="outline-text-3" id="text-10-3">
 <p>
 Software Specifications (e.g., specification of a program/methoad/function)
@@ -1832,8 +1946,8 @@ Software Specifications (e.g., specification of a program/methoad/function)
 </div>
 </div>
 
-<div id="outline-container-orgac85599" class="outline-3">
-<h3 id="orgac85599"><span class="section-number-3">10.4.</span> Another example</h3>
+<div id="outline-container-org89f769a" class="outline-3">
+<h3 id="org89f769a"><span class="section-number-3">10.4.</span> Another example</h3>
 <div class="outline-text-3" id="text-10-4">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #986801;">int</span> <span style="color: #a626a4;">intdiv</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>){
@@ -1852,12 +1966,12 @@ Software Specifications (e.g., specification of a program/methoad/function)
 
 
 
-<div id="outline-container-org29a8d80" class="outline-3">
-<h3 id="org29a8d80"><span class="section-number-3">10.5.</span> In class Exercise (User, equals)</h3>
+<div id="outline-container-org5139f44" class="outline-3">
+<h3 id="org5139f44"><span class="section-number-3">10.5.</span> In class Exercise (User, equals)</h3>
 <div class="outline-text-3" id="text-10-5">
 </div>
-<div id="outline-container-org95be1a6" class="outline-4">
-<h4 id="org95be1a6"><span class="section-number-4">10.5.1.</span> Truth table for Implication (=&gt;)</h4>
+<div id="outline-container-org9a35ab1" class="outline-4">
+<h4 id="org9a35ab1"><span class="section-number-4">10.5.1.</span> Truth table for Implication (=&gt;)</h4>
 <div class="outline-text-4" id="text-10-5-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -1910,8 +2024,8 @@ Software Specifications (e.g., specification of a program/methoad/function)
 </div>
 
 
-<div id="outline-container-orgbd35397" class="outline-4">
-<h4 id="orgbd35397"><span class="section-number-4">10.5.2.</span> Expected properties for an implementation of `equals` (according to <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)">https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)</a>)</h4>
+<div id="outline-container-org149efc1" class="outline-4">
+<h4 id="org149efc1"><span class="section-number-4">10.5.2.</span> Expected properties for an implementation of `equals` (according to <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)">https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)</a>)</h4>
 <div class="outline-text-4" id="text-10-5-2">
 <ol class="org-ol">
 <li>reflexive: `a == a`</li>

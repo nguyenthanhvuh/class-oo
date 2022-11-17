@@ -640,9 +640,6 @@ Consider a simple generic =Queue= implementation.
 
 #+end_src
 
-
-
-
 1. Rewrite =Queue= to be *immutable* (i.e., =enQueue= and =deQueue=)  Keep the representation variables =elements= and =size=.
 1. Add contracts to all methods.  
 
