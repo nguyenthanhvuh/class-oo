@@ -3,6 +3,45 @@
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
+
+* Quiz 12 <2022-11-17 Thu>
+
+Consider the following code, and suppose the main method in ~Sub~ is executed.
+#+begin_src java
+public class Super {
+  private String y;
+  public Super () { stut();}
+  public void stut() { if (y == null) {y = "cat";} else {y = y + y;}}
+}
+public class Sub extends Super {
+  private String x;
+  public Sub (String s) { x = s;}
+  @Override public void stut() {
+     x = x + x;
+  }
+  public static void main(String[] args) {
+      Super s = new Sub("dog");
+  }
+}
+#+end_src
+
+1. Is the constructor in Super invoked? Why or why not?
+   #+begin_comment
+   Answer: Yes. There is an implicit call to super(); as the very first instruction in the Sub constructor
+   #+end_comment
+1. Is the stut() method in Super invoked? Why or why not?
+   #+begin_comment
+   Answer: No. The stut() method is overridden in class Sub, and so the class Sub stut() method is invoked instead.
+   #+end_comment
+1. Is the stut() method in Sub invoked? Why or why not?
+   #+begin_comment
+   Answer: Yes. See the answer to the previous question.
+   #+end_comment
+1. Which rule in Bloch does this code violate? (Any reasonable phrasing of the principle is fine.)
+   #+begin_comment
+   Answer: The rule that says "Constructors (in classes that may be extended) must not invoke overridable methods."
+    #+end_comment
+
 * Quiz 11 <2022-11-11 Fri>
   #+begin_src java
 class Apple {
@@ -644,93 +683,6 @@ Consider the following 2 specifications, the second of which has an associated i
 
 
 
-
-# * Quiz 9: 
-#   Consider the following code.  
-#   #+begin_src java
-# class Apple {
-#   // rep-inv:  name != null
-#   private String name;
-#   public Apple (String name) {   
-#      if (name == null) throw new NPE(...);
-#      this.name = name;
-#   }
-#   @Override public boolean equals (Object o) {
-#      if (!(o instanceof Apple)) { return false; }
-#      Apple a = (Apple) o;     
-#      return name.equals(a.name);
-#   }
-#   @Override public int hashCode() { // see questions below }
-#   @Override public String toString() { return name; }
-# }
-# class AppleTracker extends Apple {
-#   private static Set<String> inventory = new HashSet<String> ();
-#   public AppleTracker (String name) { super(name); inventory.add(name);}
-#   public static Set<String> getInventory() { return Collections.unmodifiableSet(inventory);}
-# }
-# // client code
-# Apple a = new Apple("Winesap");
-# AppleTracker at1 = new AppleTracker("Winesap");
-# AppleTracker at2 = new AppleTracker("Fuji");
-
-#   #+end_src
-
-# Mark each of the following either *True* or *False*:
-
-# 1. The ~equals()~ method in the AppleTracker class is inherited from the Apple class. 
-# - ~a.equals(at1)~ sometimes returns true and sometimes returns false. 
-# - The ~equals()~ method in the Apple class relies on the rep-invariant to satisfy its contract. 
-# - ~AppleTracker~ adds client-visible state to Apple objects. 
-# - ~a.equals(at1)~ and ~at1.equals(a)~ are both true. 
-# - ~a.equals(at2)~ and ~at2.equals(a)~ are both false. 
-# - ~at1.equals(a)~ and ~a.equals(at2)~ are both true, but ~at1.equals(at2)~ is false. 
-# - It would correct to implement ~hashCode()~ as ~return name.hashCode();~
-# - It would correct to inherit ~hashCode()~ from the Object class. 
-# - Bloch would object to replacing ~o instanceof Apple~ with a predicate built atop ~getClass()~. 
-
-
-# # #+begin_comment
-# # Answer: T,F,T,F,T,T,F,T,F,T
-# # #+end_comment
-
-
-# # * Quiz 10: 11/22
-# # Consider the following code, and suppose the main method in ~Sub~ is executed.
-# # #+begin_src java
-# # public class Super {
-# #   private String y;
-# #   public Super () { stut();}
-# #   public void stut() { if (y == null) {y = "cat";} else {y = y + y;}}
-# # }
-# # public class Sub extends Super {
-# #   private String x;
-# #   public Sub (String s) { x = s;}
-# #   @Override public void stut() {
-# #      x = x + x;
-# #   }
-# #   public static void main(String[] args) {
-# #       Super s = new Sub("dog");
-# #   }
-# # }
-# # #+end_src
-
-
-# # 1. Is the constructor in Super invoked? Why or why not?
-# #    #+begin_comment
-# #    Answer: Yes. There is an implicit call to super(); as the very first instruction in the Sub constructor
-# #    #+end_comment
-# # 1. Is the stut() method in Super invoked? Why or why not?
-# #    #+begin_comment
-# #    Answer: No. The stut() method is overridden in class Sub, and so the class Sub stut() method is invoked instead.
-# #    #+end_comment
-# # 1. Is the stut() method in Sub invoked? Why or why not?
-# #    #+begin_comment
-# #    Answer: Yes. See the answer to the previous question.
-# #    #+end_comment
-# # 1. Which rule in Bloch does this code violate? (Any reasonable phrasing of the principle is fine.)
-# #    #+begin_comment
-# #    Answer: The rule that says "Constructors (in classes that may be extended) must not invoke overridable methods."
-# #     #+end_comment
 
 
 # # * Quiz 11: 11/29
