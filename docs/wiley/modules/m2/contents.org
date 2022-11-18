@@ -15,7 +15,7 @@ Upon completion of this course, you should be able to:
 5. Properly use exception handling 
 6. Identify when it is appropriate to use inheritance and generics.  
  
-** TODO MODULE LEVEL OBJECTIVES (MLO) 
+** MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
 1. explain and demonstrate the benefits and key concepts of procedural (method) abstraction
 2. Compare and describe specification terminologies and concepts (e.g., total vs partial procedurals, requires/effects/modifies)
