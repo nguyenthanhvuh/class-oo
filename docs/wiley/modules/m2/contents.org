@@ -19,7 +19,7 @@ Upon completion of this course, you should be able to:
 Upon completion of this module’s activities, you should be able to: 
 1. explain and demonstrate the benefits and key concepts of procedural (method) abstraction
 2. Compare and describe specification terminologies and concepts (e.g., total vs partial procedurals, requires/effects/modifies)
-3. Consruct correct and desirable formal specifications for procedurals
+3. Construct correct and desirable formal specifications for procedurals
 
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
 #+begin_comment

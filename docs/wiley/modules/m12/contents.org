@@ -1,9 +1,10 @@
-#+TITLE: Module 12: Contract Model in Testing 
+#+TITLE: Module 12: Contract Model in Testing, Unit Testing 
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
 * Overview and Objectives 
-** TODO OVERVIEW 
+** OVERVIEW
+In this module, we look at software testing as a way to find bugs in software. Specifically, we will use the JUnit framework as an example to automate tests for Java programs. We will learn how to use JUnit for simple tests and JUnit theories for more complicated test automations.
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
@@ -15,21 +16,21 @@ Upon completion of this course, you should be able to:
 5. Properly use exception handling 
 6. Identify when it is appropriate to use inheritance and generics.  
  
-** TODO MODULE LEVEL OBJECTIVES (MLO) 
+** MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
 
+1. Explain the key concepts of testing (CLO 1, CLO 2)
+2. Describe and compare terminologies and ideas of JUnit, JUnit Testing, and JUnit Theories (CLO 1, CLO 2)
+3. Construct and use correct JUnit to automate tests for Java programs (CLO 1, CLO 2)
+   
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
 #+begin_comment
 #+end_comment
   
-
 * Learning Materials [~100 pages, ~3.5 hours]
-** TEXTBOOK READINGS
-- Jeff Offut and Paul Amman's Intro to Software Testing slides. 
   
-
-* Learning Unit 1 – Introduction (MLO 1) [~0.5 hour]
-*** Test Automation*
+* Learning Unit 1 – Intro to Testing (MLO 1) [~0.5 hour]
+** Test Automation*
 
 - *Test Automation*
   - The use of software to control the execution of tests, the comparison of actual outcomes to predicted outcomes, the setting up of test preconditions, and other test control and test reporting functions
@@ -56,7 +57,7 @@ Upon completion of this module’s activities, you should be able to:
     - Inputs from hardware sensors or distributed software is harder
   - *Data abstraction* reduces controllability and observability
 
-*** Components of a Test Case
+** Components of a Test Case
 - A test case is a *multipart artifact* with a definite structure
 - Test case values
   - *The input values needed to complete an execution of the software under test*
@@ -64,313 +65,260 @@ Upon completion of this module’s activities, you should be able to:
   - *The result that will be produced by the test if the software behaves as expected*
  – A *test oracle* uses expected results to decide whether a test passed or failed
 
-
-*** Affecting Controllability and Observability
 - Prefix values
-  Inputs necessary to put the software into the appropriate
-                state to receive the test case values
+  - *Inputs necessary to put the software into the appropriate state to receive the test case values*
 - Postfix values
+  - *Any inputs that need to be sent to the software after the test case values are sent*
 
-      Any inputs that need to be sent to the software after the
-                      test case values are sent
-          1. Verification Values : Values needed to see the results of the test
-             case values
-          2. Exit Values : Values or commands needed to terminate the
-             program or otherwise return it to a stable state
+* Learning Unit 2 – Intro to JUnit Testing (MLO 2) [~1 hour]
 
-
-Introduction to Software Testing, Edition 2 (Ch 3)   © Ammann & Offutt            6
-***               Putting Tests Together
-- Test case
-          The test case values, prefix values, postfix values, and
-        expected results necessary for a complete execution and
-                 evaluation of the software under test
-- Test set
-                                                     A set of test cases
-
-- Executable test script
-          A test case that is prepared in a form to be executed
-         automatically on the test software and produce a report
-
-
-Introduction to Software Testing, Edition 2 (Ch 3)               © Ammann & Offutt   7
-    Test Automation Framework (3.3)
-
-
-                     A set of assumptions, concepts, and tools
-                           that support test automation
-
-
-
-
-Introduction to Software Testing, Edition 2 (Ch 3)   © Ammann & Offutt   8
-***                                      What is JUnit?
-- Open source Java testing framework used to write and
-   run repeatable automated tests
-- JUnit is open source (junit.org)
+**  What is JUnit?
+- Open source Java testing framework used to write and run repeatable *automated tests*
+- open source (*junit.org*)
 - A structure for writing test drivers
-- JUnit features include:
-          –      Assertions for testing expected results
-          –      Test features for sharing common test data
-          –      Test suites for easily organizing and running tests
-          –      Graphical and textual test runners
-- JUnit is widely used in industry
-- JUnit can be used as stand alone Java programs (from the
-   command line) or within an IDE such as Eclipse
-Introduction to Software Testing, Edition 2 (Ch 3)           © Ammann & Offutt   9
-***                                      JUnit Tests
--  JUnit can be used to test …
-          – … an entire object
-          – … part of an object – a method or some interacting methods
-          – … interaction between several objects
-- It is primarily intended for unit and integration testing, not
-   system testing
-- Each test is embedded into one test method
-- A test class contains one or more test methods
-- Test classes include :
-          – A collection of test methods
-          – Methods to set up the state before and update the state after
-            each test and before and after all tests
--  Get started at junit.org
-Introduction to Software Testing, Edition 2 (Ch 3)          © Ammann & Offutt   10
-***                  Writing Tests for JUnit
--  Need to use the methods of the junit.framework.assert
-       class
-          – javadoc gives a complete description of its capabilities
-- Each test method checks a condition (assertion) and
-   reports to the test runner whether the test failed or
-   succeeded
-- The test runner uses the result to report to the user (in
-   command line mode) or update the display (in an IDE)
-- All of the methods return void
-- A few representative methods of junit.framework.assert
-          – assertTrue (boolean)
-          – assertTrue (String, boolean)
-          – fail (String)
-Introduction to Software Testing, Edition 2 (Ch 3)   © Ammann & Offutt   11
-***                            JUnit Test Fixtures
--  A test fixture is the state of the test
-          – Objects and variables that are used by more than one test
-          – Initializations (prefix values)
-          – Reset values (postfix values)
-- Different tests can use the objects without sharing the
-   state
-- Objects used in test fixtures should be declared as
-   instance variables
-- They should be initialized in a @Before method
-- Can be deallocated or reset in an @After method
+- JUnit *features* include:
+  – *Assertions* for testing expected results
+  – Test features for sharing *common test data*
+  – Test *suites* for easily organizing and running tests
+  – Graphical and textual *test runners*
+- *widely used* in industry
+- can be used as *stand alone* Java programs (from the command line) or within an *IDE* such as Eclipse
+   
 
+*** JUnit Tests
+- It is primarily intended for unit and integration testing, not system testing
+- Each test is embedded into one *test method*
+- A *test class* contains one or more test methods
+- Test classes *include*:
+   – A collection of *test methods*
+   – Methods to *set up* the state before and *update* the state after each test and before and after all tests
+     
 
+***  Writing Tests for JUnit
+-  Need to use the methods of the ~junit.framework.assert~ class
+- Each test method checks a condition (*assertion*) and reports to the test runner whether the test failed or  succeeded
+- The test runner uses the result to report to the user (in command line mode) or update the display (in an IDE)
+- All of the methods ~return void~
+- A few representative methods of ~junit.framework.assert~
+          – ~assertTrue~ (boolean)
+          – ~assertTrue~ (String, boolean)
+          – ~fail~ (String)
+*** JUnit Test Fixtures
+-  A *test fixture* is the *state* of the test
+  – Objects and variables that are used by more than one test
+  – Initializations (prefix values)
+  – Reset values (postfix values)
+- Different tests can *use* the objects without sharing the state
+- Objects used in test fixtures should be declared as *instance variables*
+- They should be initialized in a ~@Before~ method
+- Can be deallocated or reset in an ~@After~ method
 
-Introduction to Software Testing, Edition 2 (Ch 3)    © Ammann & Offutt   12
-***                    Simple JUnit Example
-                                                                           Note: JUnit 4 syntax
-public class Calc
-                                                              Test
-{
-                                                             values
-  static public int add (int a, int b)
+***  Simple JUnit Example
+
+#+begin_src java
+  //Calc.java
+  public class Calc
   {
-     return a + b;
-                           import org.junit.Test;
+      static public int add (int a, int b)
+      {
+          return a + b;
+      }
   }
-                           import static org.junit.Assert.*;
-}
-                                                     public class CalcTest
-          Printed if                                 {
-         assert fails                                  @Test public void testAdd()
-                                                       {
-                                                          assertTrue (“Calc sum incorrect”,
-          Expected                                             5 == Calc.add (2, 3));
-           output                                      }
-                                                     }
-Introduction to Software Testing, Edition 2 (Ch 3)               © Ammann & Offutt                13
-***                     Testing the Min Class
-   import   java.util.*;
-       public   static <T extends Comparable<? super T>> T min (List<? extends T> list)
-          {
-   public class      Min
-              if (list.size()   == 0)
-   {          {
-     /**         throw new IllegalArgumentException ("Min.min");
-      * Returns
-              }       the mininum element in a list
-      * @param        list Comparable
-              Iterator<?      extends T>list
-                                           itrof= elements     to search
-                                                  list.iterator();
-      * @return
-              T resultthe =minimum     element in the list
-                              itr.next();
-      * @throws NullPointerException if list is null or
-      *          if any list
-              if (result     == elements  are
-                                null) throw    nullNullPointerException ("Min.min");
-                                             new
-      * @throws ClassCastException if list elements are not mutually comparable
-      * @throws
-              while IllegalArgumentException
-                        (itr.hasNext())                if list is empty
-      */ { // throws NPE, CCE as needed
-       …           T comp = itr.next();
-   }               if (comp.compareTo (result) < 0)
-                   {
-                        result = comp;
-              } }
-              return result;
-       }
-Introduction to Software Testing, Edition 2 (Ch 3)   © Ammann & Offutt                    14
-***                                      MinTest Class
-     Standard imports for                               import static org.junit.Assert.*;
-                                                         import org.junit.*;
-      all JUnit classes :                                import java.util.*;
+#+end_src
 
+#+begin_src java
+  //CalcTest.java
+  import org.junit.*;
+  import static org.junit.Assert.*;
 
-     Test fixture and pre-                              private List<String> list; // Test fixture
-
-      test setup method                                  // Set up - Called before every test method.
-      (prefix) :                                         @Before
-                                                          public void setUp()
-                                                          {
-                                                            list = new ArrayList<String>();
-                                                          }
-
-
-     Post test teardown                                 // Tear down - Called after every test method.
-                                                         @After
-      method (postfix) :                                 public void tearDown()
-                                                         {
-                                                           list = null; // redundant in this example
-                                                         }
-Introduction to Software Testing, Edition 2 (Ch 3)                   © Ammann & Offutt                    15
-    Min Test Cases: NullPointerException
-  @Test public void testForNullList()                 This NullPointerException test
-  {                                                   decorates the @Test
-     list = null;                                     annotation with the class of the
-     try {                                            exception
-         Min.min (list);
-     } catch (NullPointerException e) {   @Test (expected = NullPointerException.class)
-          return;                         public void testForNullElement()
-     }                                    {
-     fail (“NullPointerException expected”); list.add (null);
-  }                                          list.add ("cat");
-                                             Min.min (list);
-    This NullPointerException             }
-    test uses the fail assertion
-                                                     @Test (expected = NullPointerException.class)
-                                                     public void testForSoloNullElement()
-                                                     {
-        This NullPointerException                       list.add (null);
-        test catches an easily                          Min.min (list);
-        overlooked special case                      }
-Introduction to Software Testing, Edition 2 (Ch 3)             © Ammann & Offutt                     16
- More Exception Test Cases for Min
-  @Test (expected = ClassCastException.class)                               Note that Java
-  @SuppressWarnings ("unchecked")
-                                                                            generics don’t
-  public void testMutuallyIncomparable()
+  public class CalcTest
   {
-                                                                            prevent clients from
-    List list = new ArrayList();                                            using raw types!
-    list.add ("cat");
-    list.add ("dog");
-    list.add (1);
-    Min.min (list);
-  }
-
-
-                                                     @Test (expected = IllegalArgumentException.class)
-                                                     public void testEmptyList()
-                                                     {
-                                                          Min.min (list);
-                                                     }
-
-                                                                         Special case:Testing for the
-                                                                         empty list
-Introduction to Software Testing, Edition 2 (Ch 3)                      © Ammann & Offutt                17
-              Remaining Test Cases for Min
-    @Test
-    public void testSingleElement()
-    {
-       list.add ("cat");
-       Object obj = Min.min (list);
-       assertTrue ("Single Element List", obj.equals ("cat"));
-    }
-
-    @Test
-    public void testDoubleElement()
-    {
-       list.add ("dog");
-       list.add ("cat");
-       Object obj = Min.min (list);
-       assertTrue ("Double Element List", obj.equals ("cat"));
-    }
-
-                                                     Finally! A couple of
-                                                     “Happy Path” tests
-
-Introduction to Software Testing, Edition 2 (Ch 3)   © Ammann & Offutt      18
-          Summary: Seven Tests for Min
-                          -  Five tests with exceptions
-                                     1.       null list
-                                     2.       null element with multiple elements
-                                     3.       null single element
-                                     4.       incomparable types
-                                     5.       empty elements
-                          -  Two without exceptions
-                                     6. single element
-                                     7. two elements
-
-
-
-
-Introduction to Software Testing, Edition 2 (Ch 3)                © Ammann & Offutt   19
-***                           Data-Driven Tests
-- Problem : Testing a function multiple times with similar
-      values
-          – How to avoid test code bloat?
-- Simple example : Adding two numbers
-          – Adding a given pair of numbers is just like adding any other pair
-          – You really only want to write one test
-- Data-driven unit tests call a constructor for each
-      collection of test values
-          – Same tests are then run on each set of data values
-          – Collection of data values defined by method tagged with
-            @Parameters annotation
-
-
-
-Introduction to Software Testing, Edition 2 (Ch 3)   © Ammann & Offutt          20
- Example JUnit Data-Driven Unit Test
-     import org.junit.*;
-     import org.junit.runner.RunWith;
-     import org.junit.runners.Parameterized;
-     import org.junit.runners.Parameterized.Parameters;
-     import static org.junit.Assert.*;
-     import java.util.*;
-                                                                                 Test 1
-     @RunWith (Parameterized.class) Constructor is                        Test values: 1, 1
-     public class DataDrivenCalcTest called for each                      Expected: 2
-     { public int a, b, sum;         triple of values
-                                                                                       Test 2
-         public DataDrivenCalcTest (int v1, int v2, int expected)
-                                                                  Test values: 2, 3
-         { this.a = v1; this.b = v2; this.sum = expected; }
-                                                                                Expected: 5
-         @Parameters public static Collection<Object[]> parameters()
-         { return Arrays.asList (new Object [][] {{1, 1, 2}, {2, 3, 5}}); }
-
-         @Test public void additionTest()                                           Test method
-         { assertTrue ("Addition Test", sum == Calc.add (a, b)); }
+     @Test public void testAdd()
+     {
+        assertTrue ("Calc sum incorrect", 5 == Calc.add (2, 3));
      }
-Introduction to Software Testing, Edition 2 (Ch 3)    © Ammann & Offutt                           21
-Tests with Parameters: JUnit Theories
-   Unit tests can have actual parameters
+  }
+#+end_src
+
+***  Testing the Min Class
+#+begin_src java
+  //Min.java
+  import java.util.*;
+
+  public class Min
+  {
+    /**
+      ,* Returns the mininum element in a list
+      ,* @param list Comparable list of elements to search
+      ,* @return the minimum element in the list
+      ,* @throws NullPointerException if list is null or
+      ,*         if any list elements are null
+      ,* @throws ClassCastException if list elements are not mutually comparable
+      ,* @throws IllegalArgumentException if list is empty
+      ,*/
+      public static <T extends Comparable<? super T>> T min (List<? extends T> list)
+      {
+         if (list.size() == 0)
+         {
+            throw new IllegalArgumentException ("Min.min");
+         }
+
+         Iterator<? extends T> itr = list.iterator();
+         T result = itr.next();
+
+         if (result == null) throw new NullPointerException ("Min.min");
+
+         while (itr.hasNext())
+         {   // throws NPE, CCE as needed
+             T comp = itr.next();
+             if (comp.compareTo (result) < 0)
+             {
+                 result = comp;
+             }
+         }
+         return result;
+      }
+  }
+#+end_src
+
+
+#+begin_src java
+  //MinTest.java
+  import static org.junit.Assert.*;
+  import org.junit.*;
+  import java.util.*;
+
+  public class MinTest
+  {
+     private List<String> list;   // Test fixture
+
+     @Before      // Set up - Called before every test method.
+     public void setUp()
+     {
+        list = new ArrayList<String>();
+     }
+
+     @After      // Tear down - Called after every test method.
+     public void tearDown()
+     {
+        list = null;  // redundant in this example!
+     }
+
+     @Test
+     public void testForNullList1()
+     {
+        list = null;
+        try {
+           Min.min (list);
+        } catch (NullPointerException e) {
+           return;
+        }
+        fail ("NullPointerException expected");
+     }
+
+     @Test (expected = NullPointerException.class)
+     public void testForNullList2()
+     {
+        list = null;
+        Min.min (list);      
+     }
+
+     @Test (expected = NullPointerException.class)
+     public void testForNullElement()
+     {
+        list.add (null);
+        list.add ("cat");
+        Min.min (list);
+     }
+
+     @Test (expected = NullPointerException.class)
+     public void testForSoloNullElement()
+     {
+        list.add (null);
+        Min.min (list);
+     }
+
+     @Test (expected = ClassCastException.class)
+     @SuppressWarnings ("unchecked")
+     public void testMutuallyIncomparable()
+     {
+        List list = new ArrayList();
+        list.add ("cat");
+        list.add ("dog");
+        list.add (1);
+        Min.min (list);
+     }
+
+     @Test (expected = IllegalArgumentException.class)
+     public void testEmptyList()
+     {
+        Min.min (list);
+     }
+
+     @Test
+     public void testSingleElement()
+     {
+        list.add ("cat");
+        Object obj = Min.min (list);
+        assertTrue ("Single Element List", obj.equals ("cat"));
+     }
+
+     @Test
+     public void testDoubleElement()
+     {
+        list.add ("dog");
+        list.add ("cat");
+        Object obj = Min.min (list);
+        assertTrue ("Double Element List", obj.equals ("cat"));
+     }
+  }
+
+#+end_src
+
+- *Summary*: Seven Tests for Min
+  -  Five tests with exceptions
+     1. null list
+     2. null element with multiple elements
+     3. null single element
+     4. incomparable types
+     5. empty elements
+  -  Two without exceptions
+     6. single element
+     7. two elements
+
+
+
+
+* Learning Unit 3 – Intro to JUnit Theories  (MLO 3) [~1 hour]
+
+** *JUnit theories* are the JUnit implementation of "*property-based*" testing
+  - Property of Stack: ~for all stacks str == pop(push(str))~
+  - Need to write tests to validate the above property
+  - Cannot have an infinite number of tests, we settle for n tests
+  - But why not leverage the fact that the n tests look the same (except for the input values)
+
+- JUnit theories are relevant to this course because they show how the precondition/postcondition model applies beyond method contracts
+  - *Postcondition*: ~for all stacks str == pop(push(str))~
+  - *Precondition*: ~stack is not null~
+
+- Example
+  #+begin_src java
+    @Theory public void StackTheory(Stack s, String str)
+    //Precondition
+    assumeTrue(s != null)
+
+    //Postcondition
+    ... str == s.pop(s.push(str))
+  #+end_src    
+
+** Tests with Parameters: JUnit Theories
+  -  Unit tests can have actual parameters
      – So far, we’ve only seen parameterless test methods
-   Contract model: Assume, Act, Assert
-     – Assumptions (preconditions) limit values appropriately
-     – Action performs activity under scrutiny
-     – Assertions (postconditions) check result
+  -   Contract model: Assume, Act, Assert
+     – *Assumptions* (preconditions) limit values appropriately
+     – *Action* performs activity under scrutiny
+     – *Assertions* (postconditions) check result
+     #+begin_src java
        @Theory public void removeThenAddDoesNotChangeSet (
                           Set<String> someSet, String str) {               //
        Parameters!
@@ -380,143 +328,91 @@ Introduction to Software Testing, Edition 2 (Ch 3)    © Ammann & Offutt        
                  copy.remove (str);
                  copy.add (str);
                  assertTrue (someSet.equals (copy));                       // Assert
-       } to Software Testing, Edition 2 (Ch 3)
-Introduction                                             © Ammann & Offutt             22
-     Question: Where Do The Data
- - Answer: Values Come From?
-           – All combinations of values from @DataPoints annotations
-             where assume clause is true
-           – Four (of nine) combinations in this particular case
-           – Note: @DataPoints format is an array
+       }
+     #+end_src
 
-         @DataPoints
-         public static String[] animals = {"ant", "bat", "cat"};
-                                                                         Nine combinations of
-                                                            animalSets[i].contains (animals[j])
-          @DataPoints                                    is false for five combinations
-          public static Set[] animalSets = {
-             new HashSet (Arrays.asList ("ant", "bat")),
-             new HashSet (Arrays.asList (“bat", “cat", “dog“, “elk”)),
-             new HashSet (Arrays.asList (“Snap”, “Crackle”, “Pop"))
-          };
-Introduction to Software Testing, Edition 2 (Ch 3)   © Ammann & Offutt                          23
-       JUnit Theories Need BoilerPlate
-      import org.junit.*;
-      import org.junit.runner.RunWith;
-      import static org.junit.Assert.*;
-      import static org.junit.Assume.*;
+** *Question*: Where Do The Data Values Come From?
+  - *Answer*: 
+    – All combinations of values from @DataPoints annotations where assume clause is true
+    – Four (of nine) combinations in this particular case
+    – Note: @DataPoints format is an array
+    #+begin_src java
+      @DataPoints
+      public static String[] animals = {"ant", "bat", "cat"};
+      // Nine combinations of animalSets[i].contains (animals[j])
+      // is false for five combinations
+       @DataPoints                                    
+       public static Set[] animalSets = {
+          new HashSet (Arrays.asList ("ant", "bat")),
+          new HashSet (Arrays.asList (“bat", “cat", “dog“, “elk”)),
+          new HashSet (Arrays.asList (“Snap”, “Crackle”, “Pop"))
+       };
+    #+end_src
 
-      import org.junit.experimental.theories.DataPoint;
-      import org.junit.experimental.theories.DataPoints;
-      import org.junit.experimental.theories.Theories;
-      import org.junit.experimental.theories.Theory;
+** JUnit Theories Need BoilerPlate
+#+begin_src java
+  import org.junit.*;
+  import org.junit.runner.RunWith;
+  import static org.junit.Assert.*;
+  import static org.junit.Assume.*;
 
-      import java.util.*;
+  import org.junit.experimental.theories.DataPoint;
+  import org.junit.experimental.theories.DataPoints;
+  import org.junit.experimental.theories.Theories;
+  import org.junit.experimental.theories.Theory;
 
-      @RunWith (Theories.class)
-      public class SetTheoryTest
-      {
-        … // See Earlier Slides
-      }
+  import java.util.*;
 
-Introduction to Software Testing, Edition 2 (Ch 3)   © Ammann & Offutt   24
-          Running from a Command Line
+  @RunWith (Theories.class)
+  public class SetTheoryTest
+  {
+    ...
+  }
+#+end_src
 
+- Then we need a ~main()~ for command line execution
 
+#+begin_src java
+  //AllTests
+  import org.junit.runner.RunWith;
+  import org.junit.runners.Suite;
+  import junit.framework.JUnit4TestAdapter;
 
--  This is all we need to run JUnit in an IDE (like Eclipse)
+  // This section declares all of the test classes in the program.
+  @RunWith (Suite.class)
+  @Suite.SuiteClasses ({ StackTest.class }) // Add test classes here.
 
--  We need a main() for command line execution …
+  public class AllTests
+  {
+    // Execution begins in main(). This test class executes a
+    // test runner that tells the tester if any fail.
+    public static void main (String[] args)
+    {
+       junit.textui.TestRunner.run (suite());
+    }
 
+       // The suite() method helps when using JUnit 3 Test Runners or Ant.
+       public static junit.framework.Test suite()
+       {
+         return new JUnit4TestAdapter (AllTests.class);
+       }
+  }
 
-
-
-Introduction to Software Testing, Edition 2 (Ch 3)   © Ammann & Offutt   25
-***                                      AllTests
-                 import org.junit.runner.RunWith;
-                 import org.junit.runners.Suite;
-                 import junit.framework.JUnit4TestAdapter;
-
-                 // This section declares all of the test classes in the program.
-                 @RunWith (Suite.class)
-                 @Suite.SuiteClasses ({ StackTest.class }) // Add test classes here.
-
-                 public class AllTests
-                 {
-                   // Execution begins in main(). This test class executes a
-                   // test runner that tells the tester if any fail.
-                   public static void main (String[] args)
-                   {
-                      junit.textui.TestRunner.run (suite());
-                   }
-
-                      // The suite() method helps when using JUnit 3 Test Runners or Ant.
-                      public static junit.framework.Test suite()
-                      {
-                        return new JUnit4TestAdapter (AllTests.class);
-                      }
-                 }
-
-     JUnit 5 changes: min() Example
-         -  JUnit 5 uses assertions, not annotations, for exceptions
-        @Test public void testForNullList()
-        {
-          assertThrows(NullPointerException.class, () -> Min.min(null));
-        }
-
-         -  Other JUnit 5 differences
-                    – Java lambda expressions play a role
-                    – @Before, @After change to @BeforeEach, @AfterEach
-                    – imports, some assertions change
-                    – Test runners change (no simple replacement for AllTests.java)
-                    – @Theory construct moved to 3rd party extensions
-                              • google “property based testing”
-         -  See MinTestJUnit5.java on the book website
-
-***                                How to Run Tests
--  JUnit provides test drivers
-          – Character-based test driver runs from the command line
-          – GUI-based test driver-junit.swingui.TestRunner
-                    • Allows programmer to specify the test class to run
-                    • Creates a “Run” button
+#+end_src
 
 
--  If a test fails, JUnit gives the location of the failure and any
-       exceptions that were thrown
+** Summary
+ - The only way to make testing *efficient* as well as *effective* is to *automate* as much as possible
+ - Test frameworks provide very simple ways to *automate* our tests
+ - It is no “silver bullet” however it does not solve the hard problem of testing : *What test values to use ?*
+                                              
+ - This is test design ... the purpose of test *criteria*
 
 
+** Instructor Screencast: TITLE
 
 
-***                                      JUnit Resources
--  Some JUnit tutorials
-          – http://open.ncsu.edu/se/tutorials/junit/
-            (Laurie Williams, Dright Ho, and Sarah Smith )
-          – http://www.laliluna.de/eclipse-junit-testing-tutorial.html
-            (Sascha Wolski and Sebastian Hennebrueder)
-          – http://www.diasparsoftware.com/template.php?content=jUnitStarterGuide
-                    (Diaspar software)
-          – http://www.clarkware.com/articles/JUnitPrimer.html
-                    (Clarkware consulting)
--  JUnit: Download, Documentation
-          – http://www.junit.org/
-
-
-
-*** Summary
- - The only way to make testing efficient as well as effective
-    is to automate as much as possible
- - Test frameworks provide very simple ways to automate
-    our tests
- - It is no “silver bullet” however … it does not solve the
-    hard problem of testing :
-                                              What test values to use ?
-  • This is test design … the purpose of test criteria
-
-
-
-
-
-* Learning Unit 2 – (MLO 1, 2) [~2.5 hour]
+* In Class 1 – (MLO 1, 2, 3) [~.5 hour]
 JUnit Theories
 #+begin_src java
 
@@ -553,8 +449,9 @@ JUnit Theories
   }      
 #+end_src
 
-# tests: 16
+- 16 tests in total
 
+  #+begin_src txt
 -1,-1
 53,53
 82,82
@@ -571,34 +468,33 @@ JUnit Theories
 -1,71
 82,-1
 -1,82
+  #+end_src
 
-# 7 fail preconditions
+- 7 fail preconditions
+  #+begin_src txt
 -1,-1
 53,-1
 ...
+  #+end_src
 
-# 7 pass the tests (fail preconds) + the other 9  = 16
+- 7 pass the tests (fail preconds) + the other 9  = 16
+  #+begin_src txt
 53,71 .. pass
+  #+end_src
 
 
 
-pair of points over 5 data points 
-5**2 ?   Cartesian product
+- pair of points over 5 data points 
+5**2 = 25 (Cartesian product)
 
-
-2**5 ?
-
-
-k over n
+- k over n
 n**k   
 n=5,k=2    5x5 = 25
 n=5,k=3    5x5x5 = 1255
 n=100,k=2  100x100 = 10,000
 
 
-** Instructor Screencast: TITLE
-
-* In class (MLO 1, 2, 3) [.5 hours] 
+* In class 2 (MLO 1, 2, 3) [.5 hours] 
 
 This is a JUnit theory exercise.
 
@@ -693,10 +589,8 @@ This is a JUnit theory exercise.
 
 #+end_src
 
-* In class (MLO 1, 2, 3) [.5 hours]
 
-
-* Assignment – (MLO 1, 2) [~2 hours]  
+* Assignment – (MLO 1, 2, 3) [~2 hours]  
  
 ** Purpose 
    Practing using testing tools and also review ways to identify security vulnerabilities from previous modules.
@@ -731,7 +625,7 @@ This is a JUnit theory exercise.
 ** Due Date 
 Your assignment is due by Sunday 11:59 PM, ET. 
 
-* TODO Module 1 Quiz (MLO 1, 2) [~.5 hour] 
+* Module 1 Quiz (MLO 1, 2, 3) [~.5 hour] 
  
 ** Purpose 
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
