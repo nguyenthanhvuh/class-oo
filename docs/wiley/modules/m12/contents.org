@@ -28,7 +28,9 @@ Upon completion of this module’s activities, you should be able to:
 #+end_comment
   
 * Learning Materials [~100 pages, ~3.5 hours]
-  
+** TEXTBOOK READINGS
+ - None
+   
 * Learning Unit 1 – Intro to Testing (MLO 1) [~0.5 hour]
 ** Test Automation*
 
