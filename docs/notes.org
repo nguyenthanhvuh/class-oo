@@ -4,6 +4,186 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
+* Lecture 11: Testing/ Unit Testing
+
+- Good testing:
+  - high statement coverage
+  - branch coverage
+- Flakiness testing 
+- Test oracle
+  - E.g., post conditions
+- Most developers would manual write tests
+  - We want to automate the task of writing tasks
+
+#+begin_src java
+  //Calc.java
+  public class Calc
+  {
+      static public int add (int a, int b)
+      {
+          return a + b;
+      }
+  }
+#+end_src
+
+#+begin_src java
+  //CalcTest.java
+  import org.junit.*;
+  import static org.junit.Assert.*;
+
+  public class CalcTest
+  {
+     @Test public void testAdd()
+     {
+        assertTrue ("Calc sum incorrect", 5 == Calc.add (2, 3));
+     }
+  }
+#+end_src
+
+
+
+** JUnit Theories
+- *property-based* testing
+  - E.g., ~forall x,y :  result = sum(x,y)~
+  - ~for all stacks str == pop(push(str))~
+    
+#+begin_src java
+
+    @RunWith(Theories.class)
+    public class MyJunitTheories {
+
+        //For a and b where a,b > 0
+        //(a+b)^2 = a^2+b^2+2ab 
+        //a+b > a and a+b > b
+
+        @Theory
+        public void squareTheory(Integer a, Integer b){
+            // (a+b)^2 (LEFT) = a^2 + 2*a*b + b^2 (RIGHT)
+            // precondition:  a , b > 0
+            // postconditions (properties):
+            //  - LEFT == RIGHT
+            //  - LEFT , RIGHT > 0
+            //  - LEFT >= RIGHT
+            //  - a + b > a
+            //  - a + b > b
+
+            //Below assume statement ensures that we are testing only positive numbers
+            Assume.assumeTrue(a > 0 && b > 0);
+
+            System.out.println("Running with Data points - " + a + " , "+ b);
+
+            Double leftSide = Math.pow(a+b,2);
+            Double rightSide = Double.valueOf(a * a + b * b + 2 * a * b);
+
+            //postconditions
+            assertEquals(leftSide,rightSide);
+            assertTrue(a + b > a);
+            assertTrue(a + b > b);
+        }
+
+
+        @DataPoints
+        public static int[] dataPoints() {
+            return new int[]{
+                71, 82, 53, -1
+            };
+        }        
+  }      
+#+end_src
+
+16 tests
+-1,-1
+53,53
+82,82
+71,71
+71,82
+82,71
+82,53
+53,82
+53,-1
+-1,53
+71,53
+53,71
+71,-1
+-1,71
+82,-1
+-1,82
+
+7 would fail the precondition
+
+16 tests would pass (7 failed the precondition and the other 9)
+
+how many possible pairs(2) over 4 numbers?
+- Not(2^4)
+- 4^2  
+
+how many possible tripplets(3) over 4 numbers?
+- 4^3
+- Not(3^4)  
+
+
+k inputs,  n  =    n^k possible tuple of size k
+
+
+#+begin_src java
+      @DataPoints
+       public static Point[] points = {
+       null, //a
+       new Point(2,2),  //b
+       new ColorPoint(2,2,COLOR.BLACK), //c
+       new ColorPoint(2,2 ,COLOR.RED) //d
+       }; 
+       
+      @Theory
+      public void testEqualsSymmetry(Object a, Object b) {  // can also use Point, but
+         // symmetry
+         // if (a==b) then  b == a   Version 1    a == b  ->  b == a
+         // Version 2     a == b -> b == a  and   b == a ->   a == b
+
+         assumeTrue(a!=null && b != null);
+         
+         if(a.equals(b)){assertTrue(b.equals(a));}  // TRUE
+         if(b.equals(a)){assertTrue(a.equals(b));} // TRUE
+
+         return true;
+
+
+      @Theory
+      public void testEqualsTransitivity(Object a, Object b, Object c) {  // can also use Point, but         
+         // transivity
+
+        assumeTrue(a!=null && b != null && c != null);
+        if(a.equals(b) && b.equals(c)){
+            assertTrue(a.equals(c))
+        }
+      }
+      
+#+end_src java
+
+- 16 tests (e.g.,        (a,b) ,  (a,c) ... 
+- null, *  -> pass ;   *, null -> pass
+- c.equals(d) =>  d.equals(c)     (c,d ) => test pass
+     FALSE    =>  FALSE     =  TRUE
+-  d.equals(c) =>  c.equals(d)
+     FALSE   => FALSe      =  TRUE
+
+-  b.equals(c)  = TRUE   c.equals(b) = > FALSE   // (b,c) => test fail
+
+
+- *Fuzzing* :  random testing (adversarial attack)
+  - rfuwekjfsal;kj09234809234u0398fsJLKDFdxkfjlkdj
+
+- *Mutational Testing*
+  - evaluate / score test cases
+  - mutate the program P -> P'
+  - runs testsuite A on P'   ->   I found 3 mutations in P'   *better*
+  - runs testuite B on P'    ->   I found 0 mutations  in P'  
+  
+- Stochastic techniques:  *Genetic Algorithm*
+  - AFL: American Fuzzing LOP 
+
+
+
 * Lecture 10
 - Constructor must not invoke overridable methods
 
