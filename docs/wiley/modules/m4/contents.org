@@ -28,7 +28,7 @@ Upon completion of this module’s activities, you should be able to:
 * Learning Materials [~100 pages, ~5.5 hours]
 ** TEXTBOOK READINGS
 - Barbara Liskov with John Guttag. Program Development in Java. Addison Wesley, 2001, ISBN 0-201-65768-6. 
-  - Chapter 5:  5.1--5.4, 5.8
+  - Chapter 5:  5.1--5.4
 - Joshua Bloch. Effective Java. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1.
   - Item 17
     
