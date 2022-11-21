@@ -4,7 +4,7 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
 * Overview and Objectives 
-** TODO OVERVIEW 
+** OVERVIEW 
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
@@ -33,74 +33,10 @@ Upon completion of this module’s activities, you should be able to:
 - Barbara Liskov with John Guttag. Program Development in Java. Addison Wesley, 2001, ISBN 0-201-65768-6. 
   - Chapter 1: Introduction
 
-* Group Discussion [0.25 hour]
-
-Work with your group and do the following:
-1. Spend a few minutes getting acquainted.
-   - Explain a bit about yourself: full-time student?, working in software development?, why are you taking this class?, favorite/least favorite thing about writing software?, etc.
-   - Decide on a mechanism for joint communication. Google docs? IDE with screen share? Something else?
-1. Address a technical topic. With your group, discuss what they think program specifications are
-
-
 * Learning Unit 1 – Intro (MLO 1) [0.5 hour]
-- It's very difficult to construct and maintain large /monolithic/ programs.
 
-- Thus, we want to decompose programs into /modules/ (or classes)
-- Terminology: /Module/
-  - independent, so that change to one module can be made without affecting other modules
-  - interact with other modules via well-defined interfaces (specifications)
-
-- Terminology: /Decomposition/
-  - devide and conquer approach to create modules
-  - combinations of modules can help solve original problem
-
-- Terminology: Abstraction
-  - ignoring irrelevant details about programs
-  - enables better decomposition
-  - assist in writing good /program specifications/
-
-
-* Learning Unit 2 – (Contracts) (MLO 1, 2) [~2 hour]
+* Learning Unit 2 – (MLO 1, 2) [~2 hour]
   
-** Terminology 
-  - Specifications (typically written as comments, e.g., =javadocs=)
-    - requires/preconditions: what the program assumes about the inputs (e.g., not null, list of integers).
-      - in many cases we do not have any requirements , i.e., the precondition =True=
-    - effects/postconditions: what the program produces (assuming the preconditions hold).
-      - Typically the output has some relationship with the inputs (e.g.,  the output is the sum of the inputs)
-      - The program raises an exception under certain scenarios.
-
-      
-*** Example 1
-Consider an implementation of some sorting method (e.g., =quicksort=). The typical specifications of such an implementation are
-- Preconditions/Requires: input is list of integers numbers, e.g., [2,1,5,10]
-- Postconditions/Effects:
-  - output is a permutation of input
-  - output is in sored sorder (e.g., ascending)
-  
-*** Example 2
-#+begin_src java
-  float sqrt (float n){
-      //Requires: n > 0
-      //Effects: returns an approximation to the square root of n
-
-
-      // code goes here
-  }
-#+end_src
-
-- requires/preconds: input ~n~ is > 0
-- effects: output is approx ~sqrt(n)~
-  
-** Data abstractions (Data type)
-- A set of objects and operations about that data
-- E.g., for a =Stack= data, we have methods such as =push()= and =pop()= describing the behaviors/operations of =Stack=
-    
-** Different types of abstractions
-- Procedural: describe behaviors of procedures without needing to know its implementation details (e.g., specifications of =sqrt= above)
-- Data: describe data and its operations without needing to know its implementation details (e.g., =stack=)
-- Iteration: iterate over elements of collections without needing to know details about the collections (e.g., whether it is a list or array) or implementation of iteration
-- Type Hierachy: abstract from individual data to classes of related data.  E.g., class =Mamal= consists of classes =Cat= and =Dog=
 
   
 ** Instructor Screencast: TITLE
@@ -108,85 +44,45 @@ Consider an implementation of some sorting method (e.g., =quicksort=). The typic
 ** Instructor Screencast: TITLE 
 
 
-* Exercise (MLO 1, 2, 3) [1 hours] 
+* In Class 1 (MLO 1, 2, 3) [1 hours] 
+   Consider the code:
 
-This exercise touches on some of the thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don't worry if it seems confusing today. We'll revisit this example several times over the course of the semester.
+   #+begin_src java
 
-Consider the following (textbook) code:
+     public class Members {
+         // Members is a mutable record of organization membership
+         // AF: Collect the list as a set
+         // rep-inv1: members != null
+         // rep-inv2: members != null && no duplicates in members
+         // for simplicity, assume null can be a member...
 
-#+begin_src java
-public class User {
-    private String name;
-    public User (String name) { this.name = name; }
-    @Override public boolean equals (Object obj) {
-        //fix: if obj is null, returns False
+         List<Person> members;   // the representation
 
-        if (!(obj instanceof User)) return false;
-        return ((User) obj).name.equals(this.name);
-    }
-    // other methods omitted
-}
+         //  Post: person becomes a member
+         public void join (Person person) { members.add(person);}
 
-public class SpecialUser extends User {
-    private int id;
-    public SpecialUser (String name, int id) { super(name); this.id = id; }
-    @Override public boolean equals (Object obj) {
-        if (!(obj instanceof SpecialUser)) return false;
-        return super.equals(obj) && ((SpecialUser) obj).id == this.id;
-    }
-    // other methods omitted
-}
-#+end_src
+         //  Post: person is no longer a member
+         public void leave(Person person) { members.remove(person);}
 
-      1. Walk though the execution of the =equals()= method in class =User= for a few well-chosen objects as the parameter. What happens at each point in the execution? 
-      2. What does it mean for an =equals()= implementation to be *correct*? How do you know? Be as concrete as you can.
+   #+end_src
 
-If the implement adhers to the specifications of =equals=, e.g., as specified in the Java API https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object
 
-1. reflexive: `a == a`
-1. symmetry:   `a == b <=>  b == a`
-1. transitive: `a == b && b == c  =>  a == c`
+   1. Analyze these 4 questions for rep-inv 1.
+      1. Does =join()= maintain rep-inv?   (Answer: YES)
+      1. Does =join()= satisfy contract?   (Answer: YES)
+      1. Does =leave()= maintain rep-inv?  (Answer: YES)
+      1. Does =leave()= satisfy contract?  (Answer: NO)
+   1. Repeat for rep-inv 2.
+      1. Does =join()= maintain rep-inv?  (Answer: NO)
+      1. Does =join()= satisfy contract?  (Answer: YES, but does not matter because already violate rep-inv)
+      1. Does =leave()= maintain rep-inv?  (Answer: YES)
+      1. Does =leave()= satisfy contract? (Answer: YES)
 
-      3. Is the given implementation of =equals()= in class =User= correct? Again, be concrete. If there is a problem, find a specific object (test case!) that demonstrates the problem.
-
-         Hint: try out some concrete examples
-#+begin_src java
-User u1 = new User("hello");
-User u2 = new User("world")
-User u3 = new User("swe419");
-
-User u1a = new User("hello");
-User u1b = new User("hello");
-User u2a = new User("world");
-
-SpecialUser s1 = new SpecialUser("hello", 1)
-#+end_src         
-
-- Reflexive: OK
-  - e.g., =u1.equals(u1): contract: T   impl: T=
-
-- symmetry: OK
-  - e.g., =u1.equals(u2): False  && u2.equals(u1): False    contract: F   impl: F=
-  - =u1.equals(u1a): T  && u1a.equals(u1): T  contract: T  impl: T=
-
-- Transitive: OK
-  - e.g., =u1.equals(u2) &&  u2.equals(u3) =>  u1.equals(u3) contract: T impl: T=, 
-  - =u1.equals(u2a) &&  u2a.equals(u2b)  contract: T   impl: T=
-
-- Some special cases: not OK
-#+begin_src  java
-  User u1 = new u1("hello");
-  User u2 = new User(null);
-  u2.equals(u1); //contract:F, impl: F
-  u1.equals(v2); //contract:F (Javadoc does not say it should raise exception), impl: exception
-#+end_src  
       
+   1. Recode =join()= to make the verification go through. Which rep-invariant do you use?
+      ... add condition to check for duplication
+   1. Recode =leave()= to make the verification go through. Which rep-invariant do you use? 
 
-      4. How does inheritance complicate the correctness discussion for =equals()= in class =SpecialUser=?
-E.g., symmetry is violated
-
-- Symmetry: Not OK
-  - =u1.equals(s1)    impl:  T=  but   =s1.equals(u1)    impl:  F=
 
 
 *** Instructor Screencast: TITLE 
@@ -194,44 +90,159 @@ E.g., symmetry is violated
 *** Instructor Screencast: TITLE 
 Link to MP4 File 
 
-* Module 1 Assignment – (MLO 1, 2) [~2 hours]  
+* Assignment – (MLO 1, 2) [~2 hours]  
  
 ** Purpose 
-The purpose of this assignment is to have basic familiarity with program specifications.
 
+Understand and practice rep-invariants, contracts, tests
 
 ** Instructions
+   Consider following Poly example
+   #+begin_src java
+     /*
+      ,* MapPoly:  Liskov's Poly class, converted to a (Tree)Map rep.
+      ,* Notes:
+      ,*   0) Relies on TreeMap (not just Map) for efficiently finding max nonzero coefficient
+      ,*   1) Private constructor not useful, so deleted
+      ,*   2) No-arg constructor implemented with 2-arg constructor
+      ,*   3) Empty map represents the 0 MapPoly (very different from Poly)
+      ,*   4) Uses TreeMap descending iterator to find degree(); hence no deg variable
+      ,*   5) Code generally shorter.
+      ,*/
+     import java.util.*;
 
-Consider the following specification:
+     public class MapPoly {
 
-#+begin_src java
-  int find_prime_factor (listA, listB){
-      /*
-        Requires: a not None; b not None;
-        there is some index i where b[i] is 
-        both prime and a factor of a[i]
+         private TreeMap<Integer, Integer> trms;
 
-        Effects: return the least index
-        at which b[i] is a prime factor of a[i]
-        E.g. find_prime_factor ([12, 25, 18, 8], [6, 2, 3, 2]) = 2
-        (Note: 6 is a factor of 12, but is not prime,
-        and 2 is prime, but is not a factor of 25.  However,
-        3 is a prime factor of 18. Hence, index "2" is the correct
-        answer.  index "3" is not a possible answer, because the
-        third index is not the least index with the desired property.)
-        Also note that listA and listB need not be of the same length.
-      */
-  }
-#+end_src    
+         // Effects: Initializes this to be the zero polynomial
+         public MapPoly() {
+            this(0,0);
+         }
 
-Implement this =find_prime_factor= method. Although you should (obviously) test your implementation yourself, you do not need to include any test code. Your solution should be minimal in the sense that it doesn't include any unnecessary code. In particular, error checking in =find_prime_factor= for parameters that do not satisfy the precondtions is not appropriate for this assignment.
+         // Effects: If n < 0 throws IllegalArgumentException
+         // else initializes this to be the polynomial c*x^n
+         public MapPoly(int c, int n) throws IllegalArgumentException {
+            if (n < 0) {
+               throw new IllegalArgumentException("MapPoly(int, int) constructor");
+            }
+            trms = new TreeMap<Integer, Integer> ();
+            if (c != 0) { trms.put(n, c); }
+         }
 
+         // Effects: returns the degree of this
+         public int degree() {
+            int result  = 0;
+            if (trms.size() > 0) {
+               result = trms.descendingKeySet().iterator().next();
+            }
+            return result;
+         }
+
+         // Effects: if degree is < 0 then throws IAE;
+         // returns the coefficent of the term of this whose exponent is d (otherwise return 0)
+         public int coeff(int d) {
+            if (d < 0) throw new IllegalArgumentException("MapPoly.coeff");
+            if (trms.containsKey(d)) return trms.get(d);
+            return 0;
+         }
+
+         // Effects: If q is null throw NullPointerException
+         // else return the MapPoly this - q
+         public MapPoly sub(MapPoly q) {
+            return add(q.minus());
+         }
+
+         // Effects: return the MapPoly -this
+         public MapPoly minus() {
+            MapPoly result = new MapPoly();
+            for (Integer i : trms.keySet()) {
+               result.trms.put (i, -trms.get(i));
+            }
+            return result;
+         }
+
+         // Effects: If q is null throw NullPointerException
+         // else return the MapPoly this + q
+         public MapPoly add(MapPoly q) {
+       
+            // find all the nonzero coefficients in either this or q
+            Set<Integer> nonZero = new HashSet<Integer>(q.trms.keySet());
+            nonZero.addAll(trms.keySet());
+
+            // Add the coefficients together; store the nonzero results
+            MapPoly result = new MapPoly();
+            for (Integer i : nonZero) {
+               int newCoeff = coeff(i) + q.coeff(i);
+               if (newCoeff != 0) result.trms.put(i, newCoeff);
+            }
+            return result;
+         }
+
+         // Effects: If q is null throw NullPointerException
+         // else return the MapPoly this * q
+         public MapPoly mul(MapPoly q) {
+            MapPoly result = new MapPoly();
+
+            for (Integer i:  trms.keySet()) {
+               for (Integer j:  q.trms.keySet()) {
+                   result = result.add(new MapPoly (coeff(i) * q.coeff(j), i+j));
+               }
+            }
+            return result;
+         }
+
+         @Override public String toString() {   // Note that TreeMap gets the order right
+            String r = "MapPoly:";
+
+            if (trms.size() == 0) {   // special case for empty Map
+                r += " " + 0;
+            }
+
+            for (Integer i: trms.keySet()) {
+               if (coeff(i) < 0) { r += " - " + -coeff(i) + "x^" + i; }
+               else              { r += " + " +  coeff(i) + "x^" + i; }
+            }
+            return r;
+         }
+
+         public static void main(String[] args) { 
+            System.out.println("Hello");
+            MapPoly mp = new MapPoly();
+            System.out.println("MapPoly mp = " + mp);
+            mp = mp.add(new MapPoly(3,5));
+            System.out.println("MapPoly mp = " + mp);
+            mp = mp.add(new MapPoly(-3,5));
+            System.out.println("MapPoly mp = " + mp);
+            mp = mp.add(new MapPoly(-3,5));
+            System.out.println("MapPoly mp = " + mp);
+            mp = mp.add(new MapPoly(-2,2));
+            System.out.println("MapPoly mp = " + mp);
+            System.out.println("MapPoly -mp = " + mp.minus());
+            System.out.println("MapPoly mp*mp = " + mp.mul(mp));
+         }
+     }
+
+   #+end_src
+
+  
+    1. Implement =repOk()=.
+    1. Introduce a fault (i.e. "bug") that breaks the rep-invariant. Try to do this with a small (conceptual) change to the code. Show that the rep-invariant is broken with a JUnit test.
+    1. Analyzed your bug with respect to the various contracts/methods in Poly. Are all/some/none of the contracts violated?
+    1. Do you think your fault is realistic? Why or why not?
+
+    Your deliverable should be a *story*. Take screenshots (e.g. of failing JUnit tests) as necessary to make your case.
+
+*** Grading Criteria
+    - Correctness of solution
+    - Clarity of story
+    Note: If your group had trouble with the previous assignment, feel free to appeal to your classmates to post a sample solution on Piazza.
 
 
 ** Deliverable 
 - Submit a =.java= file for your implementation. 
 
-- /Grading Criteria/: Adherence to instructions. Do what I ask for above, not something else. Code runs correctly.
+
 
 ** Due Date 
 Your assignment is due by Sunday 11:59 PM, ET. 
@@ -244,6 +255,42 @@ Quizzes in this course give you an opportunity to demonstrate your knowledge of 
 ** Instructions 
 Note the following instructions for your quiz:
 
+  
+  1. Consider the following (supposedly) immutable class:
+
+     #+begin_src java
+       public final class Immutable { 
+           private final String string;
+           private final int x;
+           private final List<String> list;
+
+           public Immutable(String string, int x, List<String> list) {
+               this.string = string;                     // Line A
+               this.x = x;                               // Line B
+               this.list = new ArrayList<String> (list); // Line C
+           }
+
+           public String getString() { return string; }  // Line D
+           public int getInt()    { return x; }       // Line E
+           public List<String> getList() { return list; }    // Line F
+       }
+     #+end_src
+    Which of the lines (A--F) has a problem wrt the immutability of class Immutable?
+  2. For each of the above lines that has problem with immutability, write pseudocode code to demonstrate the issue
+
+    #+begin_comment
+     Only line F (because list is muttable)
+
+     List<String> list = //... supppose list is [cat, dog]
+     Immutable im = new Immutable("bat", 7, list);
+     list = im.getList();
+     list.add("elephant");   // now I've changed the internal state of Immutable
+                             // from
+                             // <bat, 7, [cat, dog]>
+                             // to
+                             // <bat, 7, [cat, dog, elephant]>
+    #+end_comment
+
 
 
 The quiz is 20 minutes in length. 
@@ -255,10 +302,3 @@ Use the link above to take the quiz.
 ** Due Date 
 Your quiz submission is due by Sunday 11:59 PM, ET. 
 
- 
-
-
-Questions:
-- I cannot access shared stuff (it says ask you to add my email tvn@gmu.edu)
-- Can you begin adding materials to blackboard so I can see how it looks?
-- how do we provide solutions (e.g., to quiz?)  

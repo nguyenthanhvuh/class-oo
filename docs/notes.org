@@ -4,6 +4,186 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
+* Lecture 11
+JUnit and Junit Theories
+
+JUnit Theories
+#+begin_src java
+
+    @RunWith(Theories.class)
+    public class MyJunitTheories {
+
+        @DataPoints
+        public static int[] dataPoints() {
+            return new int[]{
+                    71, 82, 53, -1
+            };
+        }
+
+        //For a and b where a,b > 0
+        //(a+b)^2 = a^2+b^2+2ab 
+        //a+b > a and a+b > b
+
+        @Theory
+        public void squareTheory(Integer a, Integer b){
+
+            //Below assume statement ensures that we are testing only positive numbers
+            Assume.assumeTrue(a > 0 && b > 0);
+
+            System.out.println("Running with Data points - " + a + " , "+ b);
+
+            Double leftSide = Math.pow(a+b,2);
+            Double rightSide = Double.valueOf(a * a + b * b + 2 * a * b);
+
+            assertEquals(leftSide,rightSide);
+            
+            assertTrue(a + b > a);
+            assertTrue(a + b > b);
+        }
+  }      
+#+end_src
+
+- 16 tests in total
+
+  #+begin_src txt
+-1,-1
+53,53
+82,82
+71,71
+71,82
+82,71
+82,53
+53,82
+53,-1
+-1,53
+71,53
+53,71
+71,-1
+-1,71
+82,-1
+-1,82
+  #+end_src
+
+- 7 fail preconditions
+  #+begin_src txt
+-1,-1
+53,-1
+...
+  #+end_src
+
+- 7 pass the tests (fail preconds) + the other 9  = 16
+  #+begin_src txt
+53,71 .. pass
+  #+end_src
+
+
+
+- pair of points over 5 data points 
+5**2 = 25 (Cartesian product)
+
+- k over n
+n**k   
+n=5,k=2    5x5 = 25
+n=5,k=3    5x5x5 = 1255
+n=100,k=2  100x100 = 10,000
+
+
+* In class 2 (MLO 1, 2, 3) [.5 hours] 
+
+This is a JUnit theory exercise.
+
+1. Write a JUnit theory that captures the symmetry property of the =equals()= method.
+   1. Create =@DataPoints= from Bloch's =Point=, =ColorPoint= classes. So that we're all on the same page, create 1 =null= reference, 1 =Point= object and 2 =ColorPoint= objects.
+   1. Given this set of data points:
+      - How many combinations are considered by the theory?
+      - How many combinations make it past the preconditions of the theory?
+      - How many combinations make it to the postcondition of the theory? 
+   1. What happens to this theory and the accompanying data points when favoring composition over inheritance?
+1. Repeat the exercise for the transitive property for =equals()=.
+1. Recall the =equals()= and =hashCode()= discussion in Bloch. Write a JUnit theory that encodes the consistency property between =equals()= and =hashCode()=.
+1. Build a toy example that violates the theory. Fix the toy example so that the theory is no longer violated.
+1. Consider the =Comparable= interface: what properties should be checked with theories?
+
+
+*SOLUTION:*
+#+begin_src java
+      @DataPoints
+       public static Point[] points = {null, //a
+           new Point(2,2),  //b
+           new ColorPoint(2,2,COLOR.BLACK), //c
+           new ColorPoint(2,2 ,COLOR.RED)}; //d
+
+      @Theory
+      public void testEquals(Object a, Object b) {  // can also use Point, but Object is more general and just
+          // symmetry
+          // *if* (a==b) then b==a AND
+
+          // if (b==a) then a==b
+          //  a==b iff b==a
+
+          // NOT correct : too strong
+          // a==b AND b==a
+          // a.equals(b) == FALSE  =>  b.equals(a) == FALSE
+
+          assumeTrue(a!= null && b != null);
+
+          if(a.equals(b)){assertTrue(b.equals(a));}
+          if(b.equals(a)){assertTrue(a.equals(b));}
+
+          //or , a shorter version
+          assertTrue(a.equals(b) == b.equals(a));
+
+          //# of tests = 4*4 = 16
+          //# of tests passing the preconds: 9
+          // fail preconds(null,null;  *,null, null,*)
+
+          //passing tests
+          // a,a
+          // a,*
+          // *,a
+          // b,b
+          // c,c
+          // d,d
+          // c,d because c.equals(d) == FALSE  == d.equals(c) == FALSE 
+          // d,c because d.equals(c) == FALSE  == c.equals(d) == FALSE
+
+          //failing tests
+          // b,c  b.equals(c)  == T
+          // c.equals(b)  == F
+          // c,b  ....
+      }
+
+    @Theory
+    public void equalsTransitivity(Object x, Object y, Object z){
+        //(x.equals(y) and y.equals(z)) => x.equals(z)
+        //if (x.equals(y) and y.equals(z)) then  x.equals(z)
+
+        assumeTrue(x!=null && y!=null && z!= null);
+        if(x.equals(y) && y.equals(z)){
+            assertTrue(x.equals(z))
+        }
+
+        assumeEquals(x,y);
+        assumeEquals(y,z);
+        assertTrue(x,z);
+    }
+
+
+    @Theory
+    public void equalsHashCode(Object x, Object y){
+        //if(x==y) then x.hash == y.hash
+
+      assumeTrue(x != null);
+      assumeTrue(y != null);
+
+      assumeTrue(x.equals(y));
+      assertTrue(x.hashCode() == y.hashCode());
+        
+    }
+
+#+end_src
+
+
 * Lecture 10
 - Constructor must not invoke overridable methods
 
