@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-11-16 Wed 22:54 -->
+<!-- 2022-11-21 Mon 09:57 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SWE 419 Notes</title>
 <meta name="author" content="ThanhVu (Vu) Nguyen" />
@@ -18,23 +18,373 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org72133d5">1. Lecture 10</a></li>
-<li><a href="#org3166c2e">2. Lecture 9 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-04 Fri&gt;</span></span>)</a></li>
-<li><a href="#org04f97cb">3. Lecture 8 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span>)</a></li>
-<li><a href="#org47ed347">4. Lecture 7 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span>)</a></li>
-<li><a href="#org5084cf2">5. Lecture 6 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span>)</a></li>
-<li><a href="#org1ab230d">6. Lecture 5 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span>)</a></li>
-<li><a href="#org205a20f">7. Lecture 4 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span>)</a></li>
-<li><a href="#org82dfb2c">8. Lecture 3 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span>)</a></li>
-<li><a href="#orgecea065">9. Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
-<li><a href="#org466cc90">10. Lecture 1 (8/26)</a></li>
+<li><a href="#org53a86e3">1. Lecture 11: Testing/ Unit Testing</a></li>
+<li><a href="#org69330ba">2. In class 2 (MLO 1, 2, 3) [.5 hours]</a></li>
+<li><a href="#org3026aff">3. Lecture 10</a></li>
+<li><a href="#org9c3177d">4. Lecture 9 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-04 Fri&gt;</span></span>)</a></li>
+<li><a href="#org03f4db6">5. Lecture 8 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span>)</a></li>
+<li><a href="#org75be588">6. Lecture 7 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span>)</a></li>
+<li><a href="#org8ea057b">7. Lecture 6 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span>)</a></li>
+<li><a href="#org2efc683">8. Lecture 5 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span>)</a></li>
+<li><a href="#orgb8651e0">9. Lecture 4 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span>)</a></li>
+<li><a href="#org462483e">10. Lecture 3 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span>)</a></li>
+<li><a href="#orgaf5ea83">11. Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</a></li>
+<li><a href="#orgd071341">12. Lecture 1 (8/26)</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org72133d5" class="outline-2">
-<h2 id="org72133d5"><span class="section-number-2">1.</span> Lecture 10</h2>
+
+<div id="outline-container-org53a86e3" class="outline-2">
+<h2 id="org53a86e3"><span class="section-number-2">1.</span> Lecture 11: Testing/ Unit Testing</h2>
 <div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>Good testing:
+<ul class="org-ul">
+<li>high statement coverage</li>
+<li>branch coverage</li>
+</ul></li>
+<li>Flakiness testing</li>
+<li>Test oracle
+<ul class="org-ul">
+<li>E.g., post conditions</li>
+</ul></li>
+<li>Most developers would manual write tests
+<ul class="org-ul">
+<li>We want to automate the task of writing tasks</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Calc.java</span>
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Calc</span>
+{
+    <span style="color: #e45649;">static</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">add</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">a</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">b</span>)
+    {
+        <span style="color: #e45649;">return</span> a + b;
+    }
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">CalcTest.java</span>
+<span style="color: #e45649;">import</span> <span style="color: #b751b6;">org</span>.<span style="color: #b751b6;">junit</span>.*;
+<span style="color: #e45649;">import</span> <span style="color: #e45649;">static</span> <span style="color: #b751b6;">org</span>.<span style="color: #b751b6;">junit</span>.<span style="color: #b751b6;">Assert</span>.*;
+
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">CalcTest</span>
+{
+   <span style="color: #b751b6;">@Test</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">testAdd</span>()
+   {
+      assertTrue (<span style="color: #50a14f;">"Calc sum incorrect"</span>, 5 == Calc.add (2, 3));
+   }
+}
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-org3a6e467" class="outline-3">
+<h3 id="org3a6e467"><span class="section-number-3">1.1.</span> JUnit Theories</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li><b>property-based</b> testing
+<ul class="org-ul">
+<li>E.g., <code>forall x,y :  result = sum(x,y)</code></li>
+<li><code>for all stacks str == pop(push(str))</code></li>
+</ul></li>
+</ul>
+
+
+
+<p>
+JUnit Theories
+</p>
+<div class="org-src-container">
+<pre class="src src-java">
+  <span style="color: #b751b6;">@RunWith</span>(Theories.<span style="color: #e45649;">class</span>)
+  <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">MyJunitTheories</span> {
+
+      <span style="color: #b751b6;">@DataPoints</span>
+      <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span>[] <span style="color: #a626a4;">dataPoints</span>() {
+          <span style="color: #e45649;">return</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">int</span>[]{
+                  71, 82, 53, -1
+          };
+      }
+
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">For a and b where a,b &gt; 0</span>
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">(a+b)^2 = a^2+b^2+2ab </span>
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">a+b &gt; a and a+b &gt; b</span>
+
+      <span style="color: #b751b6;">@Theory</span>
+      <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">squareTheory</span>(<span style="color: #986801;">Integer</span> <span style="color: #6a1868;">a</span>, <span style="color: #986801;">Integer</span> <span style="color: #6a1868;">b</span>){
+
+          <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">(a+b)^2 (LEFT) = a^2 + 2*a*b + b^2 (RIGHT)</span>
+          <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">precondition:  a , b &gt; 0</span>
+          <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">postconditions (properties):</span>
+          <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">- LEFT == RIGHT</span>
+          <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">- LEFT , RIGHT &gt; 0</span>
+          <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">- LEFT &gt;= RIGHT</span>
+          <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">- a + b &gt; a</span>
+          <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">- a + b &gt; b</span>
+          <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Below assume statement ensures that we are testing only positive numbers</span>
+          Assume.assumeTrue(a &gt; 0 &amp;&amp; b &gt; 0);
+
+          System.out.println(<span style="color: #50a14f;">"Running with Data points - "</span> + a + <span style="color: #50a14f;">" , "</span>+ b);
+
+          <span style="color: #986801;">Double</span> <span style="color: #6a1868;">leftSide</span> = Math.pow(a+b,2);
+          <span style="color: #986801;">Double</span> <span style="color: #6a1868;">rightSide</span> = Double.valueOf(a * a + b * b + 2 * a * b);
+
+          <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">postconditions</span>
+          assertEquals(leftSide,rightSide);
+          assertTrue(a + b &gt; a);
+          assertTrue(a + b &gt; b);
+      }
+
+
+      <span style="color: #b751b6;">@DataPoints</span>
+      <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span>[] <span style="color: #a626a4;">dataPoints</span>() {
+          <span style="color: #e45649;">return</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">int</span>[]{
+              71, 82, 53, -1
+          };
+      }        
+}      
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><p>
+16 tests in total
+</p>
+
+<div class="org-src-container">
+<pre class="src src-txt">-1,-1
+53,53
+82,82
+71,71
+71,82
+82,71
+82,53
+53,82
+53,-1
+-1,53
+71,53
+53,71
+71,-1
+-1,71
+82,-1
+-1,82
+
+7 would fail the precondition
+
+16 tests would pass (7 failed the precondition and the other 9)
+
+how many possible pairs(2) over 4 numbers?
+- Not(2^4)
+- 4^2  
+
+how many possible tripplets(3) over 4 numbers?
+- 4^3
+- Not(3^4)  
+
+
+k inputs,  n  =    n^k possible tuple of size k
+
+
+#+begin_src java
+      @DataPoints
+       public static Point[] points = {
+       null, //a
+       new Point(2,2),  //b
+       new ColorPoint(2,2,COLOR.BLACK), //c
+       new ColorPoint(2,2 ,COLOR.RED) //d
+       }; 
+
+      @Theory
+      public void testEqualsSymmetry(Object a, Object b) {  // can also use Point, but
+         // symmetry
+         // if (a==b) then  b == a   Version 1    a == b  -&gt;  b == a
+         // Version 2     a == b -&gt; b == a  and   b == a -&gt;   a == b
+
+         assumeTrue(a!=null &amp;&amp; b != null);
+
+         if(a.equals(b)){assertTrue(b.equals(a));}  // TRUE
+         if(b.equals(a)){assertTrue(a.equals(b));} // TRUE
+
+         return true;
+
+
+      @Theory
+      public void testEqualsTransitivity(Object a, Object b, Object c) {  // can also use Point, but         
+         // transivity
+
+        assumeTrue(a!=null &amp;&amp; b != null &amp;&amp; c != null);
+        if(a.equals(b) &amp;&amp; b.equals(c)){
+            assertTrue(a.equals(c))
+        }
+      }
+
+</pre>
+</div></li>
+
+<li>16 tests (e.g.,        (a,b) ,  (a,c) &#x2026;</li>
+<li>null, *  -&gt; pass ;   *, null -&gt; pass</li>
+<li>c.equals(d) =&gt;  d.equals(c)     (c,d ) =&gt; test pass
+FALSE    =&gt;  FALSE     =  TRUE</li>
+<li>d.equals(c) =&gt;  c.equals(d)
+FALSE   =&gt; FALSe      =  TRUE</li>
+
+<li>b.equals(c)  = TRUE   c.equals(b) = &gt; FALSE   // (b,c) =&gt; test fail</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orge75423e" class="outline-3">
+<h3 id="orge75423e"><span class="section-number-3">1.2.</span> Some common Testing techniques</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li><b>Fuzzing</b> :  random testing (adversarial attack)
+<ul class="org-ul">
+<li>rfuwekjfsal;kj09234809234u0398fsJLKDFdxkfjlkdj</li>
+</ul></li>
+
+<li><b>Mutational Testing</b>
+<ul class="org-ul">
+<li>evaluate / score test cases</li>
+<li>mutate the program P -&gt; P'</li>
+<li>runs testsuite A on P'   -&gt;   I found 3 mutations in P'   <b>better</b></li>
+<li>runs testuite B on P'    -&gt;   I found 0 mutations  in P'</li>
+</ul></li>
+
+<li>Stochastic techniques:  <b>Genetic Algorithm</b>
+<ul class="org-ul">
+<li>AFL: American Fuzzing LOP</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org69330ba" class="outline-2">
+<h2 id="org69330ba"><span class="section-number-2">2.</span> In class 2 (MLO 1, 2, 3) [.5 hours]</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+This is a JUnit theory exercise.
+</p>
+
+<ol class="org-ol">
+<li>Write a JUnit theory that captures the symmetry property of the <code>equals()</code> method.
+<ol class="org-ol">
+<li>Create <code>@DataPoints</code> from Bloch's <code>Point</code>, <code>ColorPoint</code> classes. So that we're all on the same page, create 1 <code>null</code> reference, 1 <code>Point</code> object and 2 <code>ColorPoint</code> objects.</li>
+<li>Given this set of data points:
+<ul class="org-ul">
+<li>How many combinations are considered by the theory?</li>
+<li>How many combinations make it past the preconditions of the theory?</li>
+<li>How many combinations make it to the postcondition of the theory?</li>
+</ul></li>
+<li>What happens to this theory and the accompanying data points when favoring composition over inheritance?</li>
+</ol></li>
+<li>Repeat the exercise for the transitive property for <code>equals()</code>.</li>
+<li>Recall the <code>equals()</code> and <code>hashCode()</code> discussion in Bloch. Write a JUnit theory that encodes the consistency property between <code>equals()</code> and <code>hashCode()</code>.</li>
+<li>Build a toy example that violates the theory. Fix the toy example so that the theory is no longer violated.</li>
+<li>Consider the <code>Comparable</code> interface: what properties should be checked with theories?</li>
+</ol>
+
+
+<p>
+<b>SOLUTION:</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-java">  <span style="color: #b751b6;">@DataPoints</span>
+   <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">Point</span>[] <span style="color: #6a1868;">points</span> = {<span style="color: #b751b6;">null</span>, <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">a</span>
+       <span style="color: #e45649;">new</span> <span style="color: #986801;">Point</span>(2,2),  <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">b</span>
+       <span style="color: #e45649;">new</span> <span style="color: #986801;">ColorPoint</span>(2,2,<span style="color: #b751b6;">COLOR</span>.BLACK), <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">c</span>
+       <span style="color: #e45649;">new</span> <span style="color: #986801;">ColorPoint</span>(2,2 ,<span style="color: #b751b6;">COLOR</span>.RED)}; <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">d</span>
+
+  <span style="color: #b751b6;">@Theory</span>
+  <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">testEquals</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">a</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">b</span>) {  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">can also use Point, but Object is more general and just</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">symmetry</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">*if* (a==b) then b==a AND</span>
+
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">if (b==a) then a==b</span>
+      <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">a==b iff b==a</span>
+
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">NOT correct : too strong</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a==b AND b==a</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a.equals(b) == FALSE  =&gt;  b.equals(a) == FALSE</span>
+
+      assumeTrue(a!= <span style="color: #b751b6;">null</span> &amp;&amp; b != <span style="color: #b751b6;">null</span>);
+
+      <span style="color: #e45649;">if</span>(a.equals(b)){assertTrue(b.equals(a));}
+      <span style="color: #e45649;">if</span>(b.equals(a)){assertTrue(a.equals(b));}
+
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">or , a shorter version</span>
+      assertTrue(a.equals(b) == b.equals(a));
+
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;"># of tests = 4*4 = 16</span>
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;"># of tests passing the preconds: 9</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">fail preconds(null,null;  *,null, null,*)</span>
+
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">passing tests</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a,a</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">a,*</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">*,a</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">b,b</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">c,c</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">d,d</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">c,d because c.equals(d) == FALSE  == d.equals(c) == FALSE </span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">d,c because d.equals(c) == FALSE  == c.equals(d) == FALSE</span>
+
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">failing tests</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">b,c  b.equals(c)  == T</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">c.equals(b)  == F</span>
+      <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">c,b  ....</span>
+  }
+
+<span style="color: #b751b6;">@Theory</span>
+<span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">equalsTransitivity</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">y</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">z</span>){
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">(x.equals(y) and y.equals(z)) =&gt; x.equals(z)</span>
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if (x.equals(y) and y.equals(z)) then  x.equals(z)</span>
+
+    assumeTrue(x!=<span style="color: #b751b6;">null</span> &amp;&amp; y!=<span style="color: #b751b6;">null</span> &amp;&amp; z!= <span style="color: #b751b6;">null</span>);
+    <span style="color: #e45649;">if</span>(x.equals(y) &amp;&amp; y.equals(z)){
+        assertTrue(x.equals(z))
+    }
+
+    assumeEquals(x,y);
+    assumeEquals(y,z);
+    assertTrue(x,z);
+}
+
+
+<span style="color: #b751b6;">@Theory</span>
+<span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">equalsHashCode</span>(<span style="color: #986801;">Object</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">Object</span> <span style="color: #6a1868;">y</span>){
+    <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">if(x==y) then x.hash == y.hash</span>
+
+  assumeTrue(x != <span style="color: #b751b6;">null</span>);
+  assumeTrue(y != <span style="color: #b751b6;">null</span>);
+
+  assumeTrue(x.equals(y));
+  assertTrue(x.hashCode() == y.hashCode());
+
+}
+
+</pre>
+</div>
+<p>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; f70393f3d43828f207d1c04f19517629e7d87160
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org3026aff" class="outline-2">
+<h2 id="org3026aff"><span class="section-number-2">3.</span> Lecture 10</h2>
+<div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li>Constructor must not invoke overridable methods</li>
 </ul>
@@ -192,9 +542,9 @@ print(s.getAddCount()); <span style="color: #9ca0a4;">// </span><span style="col
 </div>
 </div>
 
-<div id="outline-container-org3166c2e" class="outline-2">
-<h2 id="org3166c2e"><span class="section-number-2">2.</span> Lecture 9 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-04 Fri&gt;</span></span>)</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org9c3177d" class="outline-2">
+<h2 id="org9c3177d"><span class="section-number-2">4.</span> Lecture 9 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-11-04 Fri&gt;</span></span>)</h2>
+<div class="outline-text-2" id="text-4">
 <ul class="org-ul">
 <li>Go over Quiz</li>
 <li>Common Java methods (methods in class Object that should be extended from classes extending Object)
@@ -249,9 +599,9 @@ p2.equals(p3); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0
 </div>
 
 
-<div id="outline-container-org04f97cb" class="outline-2">
-<h2 id="org04f97cb"><span class="section-number-2">3.</span> Lecture 8 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span>)</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org03f4db6" class="outline-2">
+<h2 id="org03f4db6"><span class="section-number-2">5.</span> Lecture 8 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-28 Fri&gt;</span></span>)</h2>
+<div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li><p>
 Prev Homework
@@ -522,9 +872,9 @@ private Object[] elements -&gt;  private T[] elements  -&gt; private List&lt;E&g
 </div>
 
 
-<div id="outline-container-org47ed347" class="outline-2">
-<h2 id="org47ed347"><span class="section-number-2">4.</span> Lecture 7 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span>)</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-org75be588" class="outline-2">
+<h2 id="org75be588"><span class="section-number-2">6.</span> Lecture 7 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span>)</h2>
+<div class="outline-text-2" id="text-6">
 <ul class="org-ul">
 <li>Previous Quiz  on Repr Inv</li>
 </ul>
@@ -718,8 +1068,8 @@ In-class 9
 </div>
 </div>
 <ol class="org-ol">
-<li><a id="orgbfc98d3"></a>Approach 1: Create Methods That Search for Members That Match One Characteristic.<br />
-<div class="outline-text-5" id="text-4-0-0-1">
+<li><a id="orgc0b08e0"></a>Approach 1: Create Methods That Search for Members That Match One Characteristic.<br />
+<div class="outline-text-5" id="text-6-0-0-1">
 <p>
 One simplistic approach is to create several methods; each method searches for members that match one characteristic, such as gender or age. <b>Create a method that prints members that are older than a specified age</b>.
 </p>
@@ -739,8 +1089,8 @@ Limitation: This approach can potentially make your application brittle, which i
 </div>
 </li>
 
-<li><a id="org465e564"></a>Approach 2: Create More Generalized Search Methods.<br />
-<div class="outline-text-5" id="text-4-0-0-2">
+<li><a id="org982a7e4"></a>Approach 2: Create More Generalized Search Methods.<br />
+<div class="outline-text-5" id="text-6-0-0-2">
 <p>
 Create a method is more generic than the one in the previous approach. It prints members within a specified range of ages.
 </p>
@@ -760,8 +1110,8 @@ Limitation: What if you want to print members of a specified sex, or a combinati
 </div>
 </li>
 
-<li><a id="orgbf9f80b"></a>Approach 3: Specify Search Criteria Code in a Local Class<br />
-<div class="outline-text-5" id="text-4-0-0-3">
+<li><a id="orge1344f7"></a>Approach 3: Specify Search Criteria Code in a Local Class<br />
+<div class="outline-text-5" id="text-6-0-0-3">
 <p>
 Instead of writing filtering functions, use a new interface and class for each search you plan. Use the following filtering criteria for example:  filters members that are eligible for Selective Service in the United States: those who are male and between the ages of 18 and 25:
 </p>
@@ -794,8 +1144,8 @@ Limtation: Although this approach is less brittle—you don't have to rewrite me
 </div>
 </li>
 
-<li><a id="orgb17a88e"></a>Approach 4: Specify Search Criteria Code in an Anonymous Class<br />
-<div class="outline-text-5" id="text-4-0-0-4">
+<li><a id="orgc3d64af"></a>Approach 4: Specify Search Criteria Code in an Anonymous Class<br />
+<div class="outline-text-5" id="text-6-0-0-4">
 <p>
 Use an anonymous class to address the issue with Approach 3.
 </p>
@@ -819,8 +1169,8 @@ Limtation: This approach reduces the amount of code required because you don't h
 </div>
 </li>
 
-<li><a id="org1008d2e"></a>Approach 5: Specify Search Criteria Code with a Lambda Expression<br />
-<div class="outline-text-5" id="text-4-0-0-5">
+<li><a id="orgb680e0a"></a>Approach 5: Specify Search Criteria Code with a Lambda Expression<br />
+<div class="outline-text-5" id="text-6-0-0-5">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">printPersons</span>(<span style="color: #986801;">List</span>&lt;<span style="color: #986801;">Person</span>&gt; <span style="color: #6a1868;">roster</span>,
                               (Person <span style="color: #986801;">p</span>) -&gt; p.getGender() == <span style="color: #b751b6;">Person</span>.<span style="color: #b751b6;">Sex</span>.MALE &amp;&amp;
@@ -840,9 +1190,9 @@ Use lambda expression to address the limitation the previous approach.
 
 
 
-<div id="outline-container-org5084cf2" class="outline-2">
-<h2 id="org5084cf2"><span class="section-number-2">5.</span> Lecture 6 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span>)</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-org8ea057b" class="outline-2">
+<h2 id="org8ea057b"><span class="section-number-2">7.</span> Lecture 6 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-07 Fri&gt;</span></span>)</h2>
+<div class="outline-text-2" id="text-7">
 <p>
 Recap
 </p>
@@ -1095,9 +1445,9 @@ Postcondition Part:
 
 
 
-<div id="outline-container-org1ab230d" class="outline-2">
-<h2 id="org1ab230d"><span class="section-number-2">6.</span> Lecture 5 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span>)</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-org2efc683" class="outline-2">
+<h2 id="org2efc683"><span class="section-number-2">8.</span> Lecture 5 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-30 Fri&gt;</span></span>)</h2>
+<div class="outline-text-2" id="text-8">
 <pre class="example">
 {y=7} x:=3 {x + y = 10)   y=7 is the weakest precondition
 
@@ -1235,9 +1585,9 @@ while (1){
 </div>
 
 
-<div id="outline-container-org22028a3" class="outline-3">
-<h3 id="org22028a3"><span class="section-number-3">6.1.</span> Repr Invariants</h3>
-<div class="outline-text-3" id="text-6-1">
+<div id="outline-container-orgabed792" class="outline-3">
+<h3 id="orgabed792"><span class="section-number-3">8.1.</span> Repr Invariants</h3>
+<div class="outline-text-3" id="text-8-1">
 <ul class="org-ul">
 <li>things that are true about a data structure</li>
 <li>binary tree 
@@ -1271,22 +1621,22 @@ RepOK()
 </div>
 </div>
 
-<div id="outline-container-org205a20f" class="outline-2">
-<h2 id="org205a20f"><span class="section-number-2">7.</span> Lecture 4 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span>)</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-orgb8651e0" class="outline-2">
+<h2 id="orgb8651e0"><span class="section-number-2">9.</span> Lecture 4 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-16 Fri&gt;</span></span>)</h2>
+<div class="outline-text-2" id="text-9">
 </div>
-<div id="outline-container-org96a6419" class="outline-3">
-<h3 id="org96a6419"><span class="section-number-3">7.1.</span> No class next Friday</h3>
-<div class="outline-text-3" id="text-7-1">
+<div id="outline-container-orgbfd4bc2" class="outline-3">
+<h3 id="orgbfd4bc2"><span class="section-number-3">9.1.</span> No class next Friday</h3>
+<div class="outline-text-3" id="text-9-1">
 <ul class="org-ul">
 <li>will send out details later</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org6e70296" class="outline-3">
-<h3 id="org6e70296"><span class="section-number-3">7.2.</span> Topic: Automatic Verification</h3>
-<div class="outline-text-3" id="text-7-2">
+<div id="outline-container-org9572a83" class="outline-3">
+<h3 id="org9572a83"><span class="section-number-3">9.2.</span> Topic: Automatic Verification</h3>
+<div class="outline-text-3" id="text-9-2">
 <ul class="org-ul">
 <li><p>
 Logic
@@ -1523,13 +1873,13 @@ i &lt;= N
 </div>
 </div>
 
-<div id="outline-container-org82dfb2c" class="outline-2">
-<h2 id="org82dfb2c"><span class="section-number-2">8.</span> Lecture 3 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span>)</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-org462483e" class="outline-2">
+<h2 id="org462483e"><span class="section-number-2">10.</span> Lecture 3 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-09 Fri&gt;</span></span>)</h2>
+<div class="outline-text-2" id="text-10">
 </div>
-<div id="outline-container-orgcc47c8c" class="outline-3">
-<h3 id="orgcc47c8c"><span class="section-number-3">8.1.</span> Go over quiz 1</h3>
-<div class="outline-text-3" id="text-8-1">
+<div id="outline-container-orgc10c1f9" class="outline-3">
+<h3 id="orgc10c1f9"><span class="section-number-3">10.1.</span> Go over quiz 1</h3>
+<div class="outline-text-3" id="text-10-1">
 <p>
 Binary_search(arrays, x)
 </p>
@@ -1557,9 +1907,9 @@ postcondition:
 </div>
 </div>
 
-<div id="outline-container-org80bc2ab" class="outline-3">
-<h3 id="org80bc2ab"><span class="section-number-3">8.2.</span> Data Abstraction</h3>
-<div class="outline-text-3" id="text-8-2">
+<div id="outline-container-org8ae511b" class="outline-3">
+<h3 id="org8ae511b"><span class="section-number-3">10.2.</span> Data Abstraction</h3>
+<div class="outline-text-3" id="text-10-2">
 <p>
 Consider <a href="./files/Poly.java">Poly.java from Liskov</a>
 </p>
@@ -1614,9 +1964,9 @@ Consider <a href="./files/Poly.java">Poly.java from Liskov</a>
 </ul>
 </div>
 
-<div id="outline-container-orgfbcce94" class="outline-4">
-<h4 id="orgfbcce94"><span class="section-number-4">8.2.1.</span> Immutable</h4>
-<div class="outline-text-4" id="text-8-2-1">
+<div id="outline-container-orga6cd713" class="outline-4">
+<h4 id="orga6cd713"><span class="section-number-4">10.2.1.</span> Immutable</h4>
+<div class="outline-text-4" id="text-10-2-1">
 <ul class="org-ul">
 <li>Thread safe ;  easier for sharing; efficiency; safety;  less prone to error, easier to design</li>
 <li>really good for concurrency (can do things in parallel)</li>
@@ -1624,8 +1974,8 @@ Consider <a href="./files/Poly.java">Poly.java from Liskov</a>
 </div>
 
 <ol class="org-ol">
-<li><a id="org0185908"></a>General way to turn mutable to immutable<br />
-<div class="outline-text-5" id="text-8-2-1-1">
+<li><a id="orge3f8cae"></a>General way to turn mutable to immutable<br />
+<div class="outline-text-5" id="text-10-2-1-1">
 <ul class="org-ul">
 <li>If modifies contents of the data, create a new one instead and also return the newly created one</li>
 <li>In other words, it would not modify the contents of the data, instead of modifying the data internally,  it returns a new data (that would have same contents as data in the the mutable version)</li>
@@ -1635,9 +1985,9 @@ Consider <a href="./files/Poly.java">Poly.java from Liskov</a>
 </ol>
 </div>
 
-<div id="outline-container-org310e89f" class="outline-4">
-<h4 id="org310e89f"><span class="section-number-4">8.2.2.</span> In-class 3A</h4>
-<div class="outline-text-4" id="text-8-2-2">
+<div id="outline-container-org8fec5dd" class="outline-4">
+<h4 id="org8fec5dd"><span class="section-number-4">10.2.2.</span> In-class 3A</h4>
+<div class="outline-text-4" id="text-10-2-2">
 <pre class="example">
 q = [1,2,3]
 q.enQueue(4) #  q.elements = [1,2,3,4]
@@ -1667,22 +2017,22 @@ q = q'
 </div>
 
 
-<div id="outline-container-orgecea065" class="outline-2">
-<h2 id="orgecea065"><span class="section-number-2">9.</span> Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
-<div class="outline-text-2" id="text-9">
+<div id="outline-container-orgaf5ea83" class="outline-2">
+<h2 id="orgaf5ea83"><span class="section-number-2">11.</span> Lecture 2 (<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-02 Fri&gt;</span></span>)</h2>
+<div class="outline-text-2" id="text-11">
 </div>
-<div id="outline-container-org6391a9e" class="outline-3">
-<h3 id="org6391a9e"><span class="section-number-3">9.1.</span> Adminstrative: Groups</h3>
-<div class="outline-text-3" id="text-9-1">
+<div id="outline-container-org3f42b07" class="outline-3">
+<h3 id="org3f42b07"><span class="section-number-3">11.1.</span> Adminstrative: Groups</h3>
+<div class="outline-text-3" id="text-11-1">
 <ul class="org-ul">
 <li>next time:  1 submission per group</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgd6f2e41" class="outline-3">
-<h3 id="orgd6f2e41"><span class="section-number-3">9.2.</span> Reconsider In-class 1B (class <code>User</code>)</h3>
-<div class="outline-text-3" id="text-9-2">
+<div id="outline-container-org895493b" class="outline-3">
+<h3 id="org895493b"><span class="section-number-3">11.2.</span> Reconsider In-class 1B (class <code>User</code>)</h3>
+<div class="outline-text-3" id="text-11-2">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #986801;">User</span> <span style="color: #6a1868;">u1</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">u1</span>(<span style="color: #50a14f;">"hello"</span>);
 <span style="color: #986801;">User</span> <span style="color: #6a1868;">u2</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">User</span>(<span style="color: #b751b6;">null</span>);
@@ -1696,9 +2046,9 @@ u1.equals(v2); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a
 </div>
 </div>
 
-<div id="outline-container-org28233b6" class="outline-3">
-<h3 id="org28233b6"><span class="section-number-3">9.3.</span> Another example on how to obtain specs from documentation</h3>
-<div class="outline-text-3" id="text-9-3">
+<div id="outline-container-orge575475" class="outline-3">
+<h3 id="orge575475"><span class="section-number-3">11.3.</span> Another example on how to obtain specs from documentation</h3>
+<div class="outline-text-3" id="text-11-3">
 <ul class="org-ul">
 <li>consider <code>remove</code> from <code>iterator</code>: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html">https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html</a>
 <ul class="org-ul">
@@ -1716,9 +2066,9 @@ u1.equals(v2); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a
 
 
 
-<div id="outline-container-org2d4a589" class="outline-3">
-<h3 id="org2d4a589"><span class="section-number-3">9.4.</span> Method/Program specifications</h3>
-<div class="outline-text-3" id="text-9-4">
+<div id="outline-container-org76fbb8d" class="outline-3">
+<h3 id="org76fbb8d"><span class="section-number-3">11.4.</span> Method/Program specifications</h3>
+<div class="outline-text-3" id="text-11-4">
 <ul class="org-ul">
 <li>Preconditions (<code>P</code>): assumptions, properties about the inputs
 <ul class="org-ul">
@@ -1740,9 +2090,9 @@ u1.equals(v2); <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a
 </div>
 
 
-<div id="outline-container-org09627f7" class="outline-3">
-<h3 id="org09627f7"><span class="section-number-3">9.5.</span> Weaker Preconditions and Stronger Postconditions</h3>
-<div class="outline-text-3" id="text-9-5">
+<div id="outline-container-org4924024" class="outline-3">
+<h3 id="org4924024"><span class="section-number-3">11.5.</span> Weaker Preconditions and Stronger Postconditions</h3>
+<div class="outline-text-3" id="text-11-5">
 <ul class="org-ul">
 <li>Reconsider the <code>intdiv</code> example from previous class</li>
 </ul>
@@ -1782,9 +2132,9 @@ If we have <code>S1 = P =&gt; Q</code> and <code>S2 = P' =&gt; Q'</code>, then
 </div>
 
 
-<div id="outline-container-org14fa249" class="outline-3">
-<h3 id="org14fa249"><span class="section-number-3">9.6.</span> Total vs Partial contract</h3>
-<div class="outline-text-3" id="text-9-6">
+<div id="outline-container-org7e634df" class="outline-3">
+<h3 id="org7e634df"><span class="section-number-3">11.6.</span> Total vs Partial contract</h3>
+<div class="outline-text-3" id="text-11-6">
 <ul class="org-ul">
 <li><b>partial</b> specification:  has a precondition</li>
 <li><b>total</b> specification:  has NO precondition</li>
@@ -1808,9 +2158,9 @@ to turn a partial spec into a total spec:
 </div>
 
 
-<div id="outline-container-orgb23e939" class="outline-3">
-<h3 id="orgb23e939"><span class="section-number-3">9.7.</span> In-class 2</h3>
-<div class="outline-text-3" id="text-9-7">
+<div id="outline-container-org83f9aaa" class="outline-3">
+<h3 id="org83f9aaa"><span class="section-number-3">11.7.</span> In-class 2</h3>
+<div class="outline-text-3" id="text-11-7">
 <ol class="org-ol">
 <li>null : gives NPE error null pointer</li>
 <li>[]   : gives IOB error (result.remove())</li>
@@ -1876,29 +2226,29 @@ Postconds:
 </div>
 </div>
 
-<div id="outline-container-orgf7ea544" class="outline-3">
-<h3 id="orgf7ea544"><span class="section-number-3">9.8.</span> In-class 2B (<code>tail</code> implementation)</h3>
+<div id="outline-container-orgf5fed84" class="outline-3">
+<h3 id="orgf5fed84"><span class="section-number-3">11.8.</span> In-class 2B (<code>tail</code> implementation)</h3>
 </div>
 </div>
 
 
 
-<div id="outline-container-org466cc90" class="outline-2">
-<h2 id="org466cc90"><span class="section-number-2">10.</span> Lecture 1 (8/26)</h2>
-<div class="outline-text-2" id="text-10">
+<div id="outline-container-orgd071341" class="outline-2">
+<h2 id="orgd071341"><span class="section-number-2">12.</span> Lecture 1 (8/26)</h2>
+<div class="outline-text-2" id="text-12">
 </div>
-<div id="outline-container-org8e31997" class="outline-3">
-<h3 id="org8e31997"><span class="section-number-3">10.1.</span> Administrative</h3>
-<div class="outline-text-3" id="text-10-1">
+<div id="outline-container-org06c1868" class="outline-3">
+<h3 id="org06c1868"><span class="section-number-3">12.1.</span> Administrative</h3>
+<div class="outline-text-3" id="text-12-1">
 <ul class="org-ul">
 <li>Syllabus</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org9ed7e97" class="outline-3">
-<h3 id="org9ed7e97"><span class="section-number-3">10.2.</span> Specification Example</h3>
-<div class="outline-text-3" id="text-10-2">
+<div id="outline-container-org6fc1941" class="outline-3">
+<h3 id="org6fc1941"><span class="section-number-3">12.2.</span> Specification Example</h3>
+<div class="outline-text-3" id="text-12-2">
 <p>
 Sorting (e.g., quicksort)
 </p>
@@ -1918,9 +2268,9 @@ Sorting (e.g., quicksort)
 </div>
 </div>
 
-<div id="outline-container-orgdba9033" class="outline-3">
-<h3 id="orgdba9033"><span class="section-number-3">10.3.</span> Definitions</h3>
-<div class="outline-text-3" id="text-10-3">
+<div id="outline-container-org02bf301" class="outline-3">
+<h3 id="org02bf301"><span class="section-number-3">12.3.</span> Definitions</h3>
+<div class="outline-text-3" id="text-12-3">
 <p>
 Software Specifications (e.g., specification of a program/methoad/function)
 </p>
@@ -1946,9 +2296,9 @@ Software Specifications (e.g., specification of a program/methoad/function)
 </div>
 </div>
 
-<div id="outline-container-org89f769a" class="outline-3">
-<h3 id="org89f769a"><span class="section-number-3">10.4.</span> Another example</h3>
-<div class="outline-text-3" id="text-10-4">
+<div id="outline-container-orgf206675" class="outline-3">
+<h3 id="orgf206675"><span class="section-number-3">12.4.</span> Another example</h3>
+<div class="outline-text-3" id="text-12-4">
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #986801;">int</span> <span style="color: #a626a4;">intdiv</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>){
   <span style="color: #9ca0a4;">/*</span>
@@ -1966,13 +2316,13 @@ Software Specifications (e.g., specification of a program/methoad/function)
 
 
 
-<div id="outline-container-org5139f44" class="outline-3">
-<h3 id="org5139f44"><span class="section-number-3">10.5.</span> In class Exercise (User, equals)</h3>
-<div class="outline-text-3" id="text-10-5">
+<div id="outline-container-orgc8e5678" class="outline-3">
+<h3 id="orgc8e5678"><span class="section-number-3">12.5.</span> In class Exercise (User, equals)</h3>
+<div class="outline-text-3" id="text-12-5">
 </div>
-<div id="outline-container-org9a35ab1" class="outline-4">
-<h4 id="org9a35ab1"><span class="section-number-4">10.5.1.</span> Truth table for Implication (=&gt;)</h4>
-<div class="outline-text-4" id="text-10-5-1">
+<div id="outline-container-orgcf861d5" class="outline-4">
+<h4 id="orgcf861d5"><span class="section-number-4">12.5.1.</span> Truth table for Implication (=&gt;)</h4>
+<div class="outline-text-4" id="text-12-5-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -2024,9 +2374,9 @@ Software Specifications (e.g., specification of a program/methoad/function)
 </div>
 
 
-<div id="outline-container-org149efc1" class="outline-4">
-<h4 id="org149efc1"><span class="section-number-4">10.5.2.</span> Expected properties for an implementation of `equals` (according to <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)">https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)</a>)</h4>
-<div class="outline-text-4" id="text-10-5-2">
+<div id="outline-container-org41e2201" class="outline-4">
+<h4 id="org41e2201"><span class="section-number-4">12.5.2.</span> Expected properties for an implementation of `equals` (according to <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)">https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#equals(java.lang.Object)</a>)</h4>
+<div class="outline-text-4" id="text-12-5-2">
 <ol class="org-ol">
 <li>reflexive: `a == a`</li>
 <li>symmetry:   `a <code>= b &lt;=&gt;  b =</code> a`</li>

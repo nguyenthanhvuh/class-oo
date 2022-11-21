@@ -17,8 +17,8 @@ Upon completion of this course, you should be able to:
  
 ** MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
-- explain and demonstrate how to create, implement, and use data type (CLO 1, CL02, CLO4)
-- Distinguish and transform between mutable and immutable types (CLO 3)
+1. Explain and demonstrate how to create, implement, and use data type (CLO 1, CL02, CLO4)
+2. Distinguish and transform between mutable and immutable types (CLO 3)
   
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
 #+begin_comment
