@@ -607,45 +607,66 @@ Your assignment is due by Sunday 11:59 PM, ET.
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
 
 ** Instructions 
-Note the following instructions for your quiz:
+# Note the following instructions for your quiz:
   
-  1. Consider the following (supposedly) immutable class:
+#   1. Consider the following (supposedly) immutable class:
 
-     #+begin_src java
-       public final class Immutable { 
-           private final String string;
-           private final int x;
-           private final List<String> list;
+#      #+begin_src java
+#        public final class Immutable { 
+#            private final String string;
+#            private final int x;
+#            private final List<String> list;
 
-           public Immutable(String string, int x, List<String> list) {
-               this.string = string;                     // Line A
-               this.x = x;                               // Line B
-               this.list = new ArrayList<String> (list); // Line C
-           }
+#            public Immutable(String string, int x, List<String> list) {
+#                this.string = string;                     // Line A
+#                this.x = x;                               // Line B
+#                this.list = new ArrayList<String> (list); // Line C
+#            }
 
-           public String getString() { return string; }  // Line D
-           public int getInt()    { return x; }       // Line E
-           public List<String> getList() { return list; }    // Line F
-       }
-     #+end_src
-    Which of the lines (A--F) has a problem wrt the immutability of class Immutable?
+#            public String getString() { return string; }  // Line D
+#            public int getInt()    { return x; }       // Line E
+#            public List<String> getList() { return list; }    // Line F
+#        }
+#      #+end_src
+#     Which of the lines (A--F) has a problem wrt the immutability of class Immutable?
     
-  2. For each of the above lines that has problem with immutability, write pseudocode code to demonstrate the issue
+#   2. For each of the above lines that has problem with immutability, write pseudocode code to demonstrate the issue
 
-*SOLUTIONS:*
-Only line F (because list is muttable)
+# *SOLUTIONS:*
+# Only line F (because list is muttable)
 
-List<String> list = //... supppose list is [cat, dog]
-Immutable im = new Immutable("bat", 7, list);
-list = im.getList();
-list.add("elephant");   // now I've changed the internal state of Immutable
-                        // from
-                        // <bat, 7, [cat, dog]>
-                        // to
-                        // <bat, 7, [cat, dog, elephant]>
+# List<String> list = //... supppose list is [cat, dog]
+# Immutable im = new Immutable("bat", 7, list);
+# list = im.getList();
+# list.add("elephant");   // now I've changed the internal state of Immutable
+#                         // from
+#                         // <bat, 7, [cat, dog]>
+#                         // to
+#                         // <bat, 7, [cat, dog, elephant]>
 
+Suppose =C= is an abstract data type that has two =String= fields:
+#+begin_src java
+class C {
+    private String s;
+    private String t;
+    ...
+}
+#+end_src
 
+Assuming you don’t know anything about =C=, which of the following might be statements in a rep invariant for =C=?
+1. ~s~ contains only letters
+2. ~s.length() == t.length()~
+3. ~s~ represents a set of characters
+4. ~s is the reverse of t~
+5. ~s+t~
 
+*Solution*
+1. No  (too trivial)
+2. Yes
+3. No (too trivial)      
+4. Yes
+5. No, not even an invariant (not a bool)
+      
 The quiz is 20 minutes in length. 
 The quiz is closed-book.
 
