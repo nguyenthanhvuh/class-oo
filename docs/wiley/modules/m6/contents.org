@@ -3,7 +3,7 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
 * Overview and Objectives 
-** TODO OVERVIEW 
+** In this module we will learn about iterator and its concept and usages in traversing and accessing collections. We will also learn various techniques to effectively create and check methods
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
@@ -17,7 +17,7 @@ Upon completion of this course, you should be able to:
  
 ** TODO MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
-
+1. 
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
 #+begin_comment
 #+end_comment
@@ -536,253 +536,257 @@ dropCourse6 failed! Why? Track the value of index ...
 - However, this doesn’t fix the whole problem. What if there are other Iterators currently active over the same list? They won’t all be informed! 
 
 * Learning Unit 2 –  Methods (Bloch 8) (MLO 1, 2) [~2.5 hour]
-Effective Java, 3rd Edition
-Chapter 8:  Methods
-Items 49-56 
-Last modified Fall 2019
-Paul Ammann
-Bloch Item 49: 
-Check Parameters for Validity
-Check and Document
-Genuine Preconditions – use assert() facility
-Often for nonpublic methods
-Particularly important for parameters that are stored away for later use
-Early detection!
-More Item 49
-Postconditions – use exceptions and @throws tag
-Don’t throw the wrong exception
-E.g. Client passes no index, but sees IOOBE
-Make sure necessary exceptions are thrown
-E.g.Client expects NPE, but gets normal return instead
-More Item 49: Examples
-// Private helper function for a recursive sort
-// Notice the use of assertions for genuine preconditions
-private static void sort (long a[], int offset, int length){
-   assert a != null;
-   assert offset >= 0 && ofset <= a.length;
-   assert length >= 0  && length <= a.length – offset;
-   // Do the computation
+** Item 49: Check Parameters for Validity
+- Check and Document
+  - Genuine Preconditions – use assert() facility
+     - Often for nonpublic methods
+     - Particularly important for parameters that are stored away for later use
+     - Early detection!
+       
+- Postconditions – use exceptions and @throws tag
+- Don’t throw the wrong exception
+   - E.g. Client passes no index, but sees IOOBE
+- Make sure necessary exceptions are thrown
+   - E.g.Client expects NPE, but gets normal return instead
+- Examples
+  #+begin_src java
+    // Private helper function for a recursive sort
+    // Notice the use of assertions for genuine preconditions
+    private static void sort (long a[], int offset, int length){
+       assert a != null;
+       assert offset >= 0 && ofset <= a.length;
+       assert length >= 0  && length <= a.length – offset;
+       // Do the computation
 
 
 
-// Big Integer example of checking for documented exception
-   * @throws ArithmeticException if m is les than or equal to 0
-public BigInteger mod (BigInteger) {
-   if (m.signum() <= 0) throw new ArithmeticException(“Modulus <= 0: “ + m);
-}
+    // Big Integer example of checking for documented exception
+    @throws ArithmeticException if m is les than or equal to 0
+    public BigInteger mod (BigInteger) {
+       if (m.signum() <= 0) throw new ArithmeticException("Modulus <= 0: " + m);
+    }
 
-}
+    }
 
-Bloch Item 50: Make Defensive Copies When Needed
-Java is a safe language
-Yeah!
-No buffer overflow, array overruns, wild pointers, memory corruption as in C, C++
-But you still need to insulate your class from client classes
-Best Approach
-Assume Clients of your class will do their best to destroy your invariants
-This is actually what happens in any type of security attack
-Surprisingly easy to unintentionally provide access to internal state
-More Item 50
-// Broken “immutable” time period class
-public final class Period {
-  private final Date start;
-  private final Date end;
-  public Period (Date start, Date end) {
-    if (start.compareTo(end) > 0) throw new IAE(…);
-    this.start = start; this.end = end;   //oops – should make defensive copies
+
+  #+end_src
+
+** Item 50: Make Defensive Copies When Needed
+- Java is a safe language
+  - No buffer overflow, array overruns, wild pointers, memory corruption as in C, C++
+- But you still need to insulate your class from client classes
+- Best Approach
+  - Assume Clients of your class will do their best to destroy your invariants
+  - This is actually what happens in any type of security attack
+- Surprisingly easy to unintentionally provide access to internal state
+- Example
+  #+begin_src java
+     // Broken “immutable” time period class
+     public final class Period {
+       private final Date start;
+       private final Date end;
+       public Period (Date start, Date end) {
+         if (start.compareTo(end) > 0) throw new IAE(…);
+         this.start = start; this.end = end;   //oops – should make defensive copies
+       }
+       public Date start() { return start;}    // oops again! 
+       public Date end()   { return end;}      // oops yet again!
+     }
+     // Attack code
+     Date start = new Date();
+     Date end   = new Date();
+     Period p   = new Period(start, end);
+     end.setYear(78);     // Attack 1: Modify internals of p via passed reference
+     p.end().setYear(78); // Attack 2: Modify internals of p via returned state
+
+    // Repaired constructor and getters – now Period really is immutable
+    public Period (Date start, Date end) {
+      // Note:   clone() *not* used to make defensive copy
+      // Reason: Date class not final; hence return type may not be java.util.Date
+      this.start = new Date(start.getTime());  // Defensive copy
+      this.end   = new Date(end.getTime());    // Defensive copy
+
+      // Defensive copies made *before* exception check to avoid TOCTOU attack
+      if (this.start.compareTo(end) > 0) throw new IAE(…);
+    }
+
+    // clone also safe here, but constructors or static factories better (Item 11)
+    public Date start() { return new Date(start.getTime()); } 
+    public Date end()   { return new Date(end.getTime());}    
+    }
+
+#+end_src
+
+- Make defensive copies of all mutable data provided by client
+- Make defensive copies of all mutable internal state returned to client
+  - Includes all arrays of length >0
+- Arguably, the lesson is that Immutable objects should be used where possible
+  - No copying necessary, so you can’t forget!
+- Caveat:  Occasionally, you can’t afford the copy 
+  - Heavy performance penalty?
+  - Do you trust the client?  
+    - From a security perspective, trust is a bad thing
+  - Some objects are explicitly handed off
+    - Hence, it is not possible to protect the object
+
+** Item 51: Design Method Signatures Carefully
+- Choose methods names carefully
+- Don’t go overboard providing convenience methods
+- Avoid long parameter lists
+  - May require multiple methods instead of one
+  - View idiom helpful here
+     - Example: Finding first or last element in a sublist
+     - Standalone method requires 3 arguments
+     - java.util.List interface provides a subList() view
+     - indexOf(), lastIndexOf() can be applied to subList() result
+     - Resulting API has very high “power to weight” ratio
+
+- For parameter types, favor interfaces over classes
+  #+begin_src java
+    public static boolean TreeSet<Color> filterPrimary(TreeSet<Color> s)
+    // vs.
+    public static boolean Set<Color> filterPrimary(Set<Color> s)
+  #+end_src
+ 
+- Prefer two-element enum types to boolean parameters
+  #+begin_src java
+    boolean Fahrenheit
+    // vs. 
+    enum TemperatureScale { FAHRENHEIT, CELSIUS }
+  #+end_src
+  - Think about adding Kelvin temperatures to these types
+    
+** Item 52: Use Overloading Judiciously
+- Overriding
+  - Normal OO Pattern
+  - Dynamically determined by runtime system
+- Overloading
+  - Exceptional OO Pattern
+   - Statically determined by compiler
+- Avoid confusing uses of overloading, especially in APIs
+- Overloading documentation in Java Language Specification is 33 pages long!
+- Safe Policy: Don’t export two overloadings with the same number of parameters
+#+begin_src java
+  // Broken! – What does this program print?
+  // Problem:  classify() is overloaded, not overridden
+  public class CollectionClassifier {
+     public static String classify(Set<?> s)        { return “Set”; } 
+     public static String classify(List<?> l)       { return “List”; } 
+     public static String classify(Collection<?> c) { return “Collection”; }
+
+     public static void main(String[] args) {
+        Collection <?>[] collections = {
+           new HashSet<String>(),
+           new ArrayList<BigInteger>(),
+           new HashMap<String, String>().values()
+        };
+        for (Collection <?> c : collections) 
+            System.out.println(classify(c));
+     }
   }
-  public Date start() { return start;}    // oops again! 
-  public Date end()   { return end;}      // oops yet again!
-}
-// Attack code
-Date start = new Date();
-Date end   = new Date();
-Period p   = new Period(start, end);
-end.setYear(78);     // Attack 1: Modify internals of p via passed reference
-p.end().setYear(78); // Attack 2: Modify internals of p via returned state
+#+end_src
 
-More Item 50
-// Repaired constructor and getters – now Period really is immutable
-public Period (Date start, Date end) {
-  // Note:   clone() *not* used to make defensive copy
-  // Reason: Date class not final; hence return type may not be java.util.Date
-  this.start = new Date(start.getTime());  // Defensive copy
-  this.end   = new Date(end.getTime());    // Defensive copy
+#+begin_src java
+  // Broken! – Autoboxing and overloading combine for total confusion!
+  public class SetList {
+     public static void main(String[] args) {
+        Set <Integer> set  = new TreeSet  <Integer>();
+        List<Integer> list = new ArrayList<Integer>();
+        for (int i = -3; i < 3; i++) { 
+            set.add(i); list.add(i);
+        } 
+        for (int i = 0; i < 3; i++) { 
+            set.remove(i); list.remove(i);
+        }
+        System.out.println(set + “ “ + list);
+        // Expect [-3, -2, -1] [-3, -2, -1]
+        // Actual [-3, -2, -1] [-2, 0, 2] 
+        // Key:  List interface overloads remove(E e) and remove(int i)
+        // Prior to generics (Java 1.5), this wasn’t a problem  
+     }
+  }
+#+end_src
 
-  // Defensive copies made *before* exception check to avoid TOCTOU attack
-  if (this.start.compareTo(end) > 0) throw new IAE(…);
-}
+** Item 53: Use Varargs Judiciously	
+- Variable number of argument introduce in Java 1.5 to mimic printf() in C
+- Generally, avoid
+- But sometimes, it’s very useful 
+#+begin_src java
+  // Simple use of varargs
+  static int sum(int ... args) {
+     int sum = 0;
+     for (int arg : args)
+        sum += arg;
+     return sum;
+  }
 
-// clone also safe here, but constructors or static factories better (Item 11)
-public Date start() { return new Date(start.getTime()); } 
-public Date end()   { return new Date(end.getTime());}    
-}
-
-More Item 50
-Make defensive copies of all mutable data provided by client
-Make defensive copies of all mutable internal state returned to client
-Includes all arrays of length >0
-Arguably, the lesson is that Immutable objects should be used where possible
-No copying necessary, so you can’t forget!
-Caveat:  Occasionally, you can’t afford the copy 
-Heavy performance penalty?
-Do you trust the client?  
-From a security perspective, trust is a bad thing
-Some objects are explicitly handed off
-Hence, it is not possible to protect the object
-
-Bloch Item 51: Design Method Signatures Carefully
-Choose methods names carefully
-Don’t go overboard providing convenience methods
-Avoid long parameter lists
-May require multiple methods instead of one
-View idiom helpful here
-Example: Finding first or last element in a sublist
-Standalone method requires 3 arguments
-java.util.List interface provides a subList() view
-indexOf(), lastIndexOf() can be applied to subList() result
-Resulting API has very high “power to weight” ratio
-
-For parameter types, favor interfaces over classes
-public static boolean TreeSet<Color> filterPrimary(TreeSet<Color> s)
-// vs.
-public static boolean Set<Color> filterPrimary(Set<Color> s)
+#+end_src
  
-Prefer two-element enum types to boolean parameters
-boolean Fahrenheit 
-// vs. 
-enum TemperatureScale { FAHRENHEIT, CELSIUS }
+#+begin_src java
+  // Example of WRONG way to use varargs
+  // Runtime (instead of compile time) notice for 0 arguments
+  // Ugly for loop
+  static int min(int ... args) {
+     if (args.length == 0) throw new IAE (“Too Few Arguments”);
+     int min = args[0];
+     for (int i = 1; i < args.length; i++)
+        if (args[i] < min) min = args[i];
+     return min;
+  }
+  // Much better version 
+  static int min(int firstArg, int ... remainingArgs) {
+     int min = firstArg;
+     for (int arg : remainingArgs) 
+        if (arg < min) min = arg;
+     return min;
+  }
 
-Think about adding Kelvin temperatures to these types
-Bloch Item 52: Use Overloading Judiciously
-Overriding
-Normal OO Pattern
-Dynamically determined by runtime system
-Overloading
-Exceptional OO Pattern
-Statically determined by compiler
-Avoid confusing uses of overloading, especially in APIs
-Overloading documentation in Java Language Specification is 33 pages long!
-Safe Policy: Don’t export two overloadings with the same number of parameters
-More Item 52:
-// Broken! – What does this program print?
-// Problem:  classify() is overloaded, not overridden
-public class CollectionClassifier {
-   public static String classify(Set<?> s)        { return “Set”; } 
-   public static String classify(List<?> l)       { return “List”; } 
-   public static String classify(Collection<?> c) { return “Collection”; }
-
-   public static void main(String[] args) {
-      Collection <?>[] collections = {
-         new HashSet<String>(),
-         new ArrayList<BigInteger>(),
-         new HashMap<String, String>().values()
-      };
-      for (Collection <?> c : collections) 
-          System.out.println(classify(c));
-   }
+#+end_src
 
 
+** Item 54: Return Empty Arrays or Collections, Not Nulls
+#+begin_src java
+  // Common example
+  private final List<Cheese> cheesesInStock = . . .;
+  /**
+    ,*@return an array containing all of the cheeses in the shop,
+    ,*    or null if no cheeses are available for purchase
+    ,*/
+  public Cheese[] getCheeses() {
+     if (cheesesInStock.size() == 0) return null;
+     ...
+  // Client code
+  Cheese[] cheeses = shop.getCheeses();
+  if (cheeses != null &&
+      Arrays.asList(cheeses).contains(Cheese.STILTON))
+      System.out.println(“Jolly good, just the thing.”);
+  // vs.
+  if (Arrays.asList(cheeses).contains(Cheese.STILTON))
+     System.out.println(“Jolly good, just the thing.”);
 
-}
+#+end_src
+- Making client handle null as special case is undesirable
+- Performance penalty of creating an empty array is almost always irrelevant  (See Item 67)
+- Null return idiom probably a holdover from C
+  - C programs must separately return arrays and array lengths
+- Model for Lists (which are preferable to Arrays)
+  #+begin_src java
+    // The right way to return a copy of a collection
+    public List<Cheese> getCheeseList() {
+       if (cheesesInStock.isEmpty()) 
+           return Collections.emptyList();  // Always return same list
+       else
+          return new ArrayList<Cheese>(cheesesInStock);
+    }
+  #+end_src
 
-More Item 52:
-// Broken! – Autoboxing and overloading combine for total confusion!
-public class SetList {
-   public static void main(String[] args) {
-      Set <Integer> set  = new TreeSet  <Integer>();
-      List<Integer> list = new ArrayList<Integer>();
-      for (int i = -3; i < 3; i++) { 
-          set.add(i); list.add(i);
-      } 
-      for (int i = 0; i < 3; i++) { 
-          set.remove(i); list.remove(i);
-      }
-      System.out.println(set + “ “ + list);
-      // Expect [-3, -2, -1] [-3, -2, -1]
-      // Actual [-3, -2, -1] [-2, 0, 2] 
-      // Key:  List interface overloads remove(E e) and remove(int i)
-      // Prior to generics (Java 1.5), this wasn’t a problem  
-   }
-
-
-
-}
-
-Bloch Item 53: Use Varargs Judiciously	
-Variable number of argument introduce in Java 1.5 to mimic printf() in C
-Generally, avoid
-But sometimes, it’s very useful 
-
-// Simple use of varargs
-static int sum(int ... args) {
-   int sum = 0;
-   for (int arg : args)
-      sum += arg;
-   return sum;
-} 
- 
-
-
-More Item 53
-// Example of WRONG way to use varargs
-// Runtime (instead of compile time) notice for 0 arguments
-// Ugly for loop
-static int min(int ... args) {
-   if (args.length == 0) throw new IAE (“Too Few Arguments”);
-   int min = args[0];
-   for (int i = 1; i < args.length; i++)
-      if (args[i] < min) min = args[i];
-   return min;
-}
-// Much better version 
-static int min(int firstArg, int ... remainingArgs) {
-   int min = firstArg;
-   for (int arg : remainingArgs) 
-      if (arg < min) min = arg;
-   return min;
-}
-
-Bloch Item 54: Return Empty Arrays or Collections, Not Nulls
-// Common example
-private final List<Cheese> cheesesInStock = . . .;
-/**
-  *@return an array containing all of the cheeses in the shop,
-  *    or null if no cheeses are available for purchase
-  */
-public Cheese[] getCheeses() {
-   if (cheesesInStock.size() == 0) return null;
-   ...
-// Client code
-Cheese[] cheeses = shop.getCheeses();
-if (cheeses != null &&
-    Arrays.asList(cheeses).contains(Cheese.STILTON))
-    System.out.println(“Jolly good, just the thing.”);
-// vs.
-if (Arrays.asList(cheeses).contains(Cheese.STILTON))
-   System.out.println(“Jolly good, just the thing.”);
-
-More Item 54:
-Making client handle null as special case is undesirable
-Performance penalty of creating an empty array is almost always irrelevant  (See Item 67)
-Null return idiom probably a holdover from C
-C programs must separately return arrays and array lengths
-Model for Lists (which are preferable to Arrays)
-// The right way to return a copy of a collection
-public List<Cheese> getCheeseList() {
-   if (cheesesInStock.isEmpty()) 
-       return Collections.emptyList();  // Always return same list
-   else
-      return new ArrayList<Cheese>(cheesesInStock);
-}
-
-Bloch Item 55: Return optionals judiciously
-Java 8 added the a facility for optional returns
-Integrates with the Java stream mechanism
-Optionals are similar in spirit to checked exceptions in that they force the user of an API to confront the fact that there may be no return value.
-Don’t wrap Java containers in optionals 
-Return empty containers instead (Item 54)
-More Item 55
+** Item 55: Return optionals judiciously
+- Java 8 added the a facility for optional returns
+- Integrates with the Java stream mechanism
+- Optionals are similar in spirit to checked exceptions in that they force the user of an API to confront the fact that there may be no return value.
+- Don’t wrap Java containers in optionals 
+  - Return empty containers instead (Item 54)
+#+begin_src java
 // Returns maximum value in collection as an Optional<E>
 public static <E extends Comparable<E>> 
    Optional<E> max(Collection<E> c) {
@@ -797,17 +801,18 @@ public static <E extends Comparable<E>>
    return Optional.of(result);
 }
 // Using an optional to provide a chosen default value
-String lastWordInLexicon = max(words).orElse(“No words…”);
+String lastWordInLexicon = max(words).orElse("No words...");
+#+end_src
 
-Bloch Item 56: Write doc comments for all exposed API Elements
-Precede every exported class, interface, constructor, method, and field description with a doc comment
-Doc comment should describe CONTRACT between method and its client
-No two members or constructors should have the same summary description
-Every method should have
-@param tag for each parameter
-@return tag (unless return type is void)
-@throws tag for each exception (both checked and unchecked)
-More Item 56
+** Item 56: Write doc comments for all exposed API Elements
+- Precede every exported class, interface, constructor, method, and field description with a doc comment
+- Doc comment should describe CONTRACT between method and its client
+- No two members or constructors should have the same summary description
+- Every method should have
+  - @param tag for each parameter
+  - @return tag (unless return type is void)
+  - @throws tag for each exception (both checked and unchecked)
+#+begin_src java
 // Good Example
 /**
   * Returns the element at the specified position in this list
@@ -823,6 +828,7 @@ More Item 56
   */
  E get(int index)
 
+#+end_src
 
 ** Instructor Screencast: TITLE
 
