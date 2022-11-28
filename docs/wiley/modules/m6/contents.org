@@ -952,69 +952,53 @@ Practicing immutablity via Bloch Item 50
 ** Due Date 
 Your assignment is due by Sunday 11:59 PM, ET. 
 
-* TODO Module 1 Quiz (MLO 1, 2) [~.5 hour] 
+* Module 1 Quiz (MLO 1, 2) [~.5 hour] 
  
 ** Purpose 
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
 
 ** Instructions 
 
-  #+begin_src java
- class A {
-    public Iterator compose (Iterator itr)
-    // Requires: itr is not null
-    // Modifies: itr
-    // Effects: if this is not appropriate for itr throw IAE
-    // else return generator of itr composed with this
- class B {
-    public Iterator compose (Iterator itr)
-    // Modifies: itr
-    // Effects: if itr is null throw NPE 
-    // else if this is not appropriate for itr throw IAE
-    // else return generator of itr composed with this
- class C {
-    public Iterator compose (Iterator itr)
-    // Modifies: itr
-    // Effects: if itr is null return iterator equal to this
-    // else if this is not appropriate for itr throw IAE
-    // else return generator of itr composed with this
-   #+end_src
+The specification for Liskov's ~elements()~ method is given below. 
+- Note 1: A Liskov Iterator has only the the ~hasNext()~ and ~next()~ methods. 
+- Note 2: As discussed in class the abstract state for such an ~Iterator~ is a ~Stack~ of objects yet to be produced.
 
- Analyze the =compose()= method in each of these cases according to Liskov's Principle of Substitution. For each case, state if the precondition and the postcondition parts are satisfied or fail, and *justify*.
+    #+begin_src java
+     public Iterator elements() 
+     // EFFECTS: Returns a generator that will produce all the elements of
+     //  this (as Integers), each exactly once, in arbitrary order.
+     // REQUIRES: this must not be modified while the generator is in use
 
- 1. B extends A. 
- 1. C extends A. 
- 1. A extends B. 
- 1. C extends B.    
- 1. B extends C. 
 
-*Solution*
-1. B extends A. 
-Precondition Part: 
-Answer: Satisfied: weaker precondition in B 
-Postcondition Part: 
-Answer: Satisfied: Identical behavior where A defined, with additional behavior where A not defined.
-2.C extends A. 
-Precondition Part: 
-Answer: Satisfied: weaker precondition in C 
-Postcondition Part: 
-Answer: Satisfied: Identical behavior where A defined, with additional behavior where A not defined.
-3. A extends B. 
-Precondition Part: 
-Answer: Not satisfied: stronger precondition in A 
-Postcondition Part: 
-Answer: No analysis required
-4. C extends B. 
-Precondition Part: 
-Answer: Satisfied: same preconditions 
-Postcondition Part: 
-Answer A: Not satisfied: Inconsistent behavior in case where itr is null
-Answer B: Satisfied, stronger post (assuming returning a an iterator equal to this)
-5. B extends C. 
-Precondition Part: 
-Answer: Satisfied: same preconditions 
-Postcondition Part: 
-Answer: Not satisfied: Inconsistent behavior in case where itr is null
+       #+end_src	
+
+Consider the code below which uses ~elements()~. Line numbers have been added for reference purposes.
+  #+begin_src java    
+        0: IntSet s = new IntSet(); 
+
+        1: s.insert(2);
+        2: s.insert(8);
+        3: Iterator itr = s.elements();   
+        4: itr.next();                    
+        5: itr.next();                    
+        6: // See questions below
+        7: itr.next();                   
+
+  #+end_src
+	
+- show the (stack) contents of ~itr~  after line 3
+#+begin_comment
+[2,8]  or [8,2]
+#+end_comment
+- show the contents of ~itr~  after line 5.
+#+begin_comment
+[]
+#+end_comment  
+- If line 6 is ~s.insert(12)~; show the contents of ~itr~ after line 6? 
+#+begin_comment
+Undefined behavior or violating the requirements of iteration
+#+end_comment
+
 
 
 The quiz is 30 minutes in length. 
