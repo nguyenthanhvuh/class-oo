@@ -987,17 +987,12 @@ Consider the code below which uses ~elements()~. Line numbers have been added fo
   #+end_src
 	
 - show the (stack) contents of ~itr~  after line 3
-#+begin_comment
-[2,8]  or [8,2]
-#+end_comment
+*Sol*: [2,8]  or [8,2]
 - show the contents of ~itr~  after line 5.
-#+begin_comment
-[]
-#+end_comment  
+*Sol*: []
 - If line 6 is ~s.insert(12)~; show the contents of ~itr~ after line 6? 
-#+begin_comment
-Undefined behavior or violating the requirements of iteration
-#+end_comment
+*Sol*: Undefined behavior or violating the requirements of iteration
+
 
 
 
