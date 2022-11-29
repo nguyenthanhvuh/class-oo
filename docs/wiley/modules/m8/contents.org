@@ -98,6 +98,191 @@ Upon completion of this module’s activities, you should be able to:
   if (s.isIn(new Container(y))) // will get here
 #+end_src
 
+** Equality of Mutable Types
+- If two distinct List objects contain the same sequence of elements, then equals() reports that they are equal. 
+  - Suppose we make a List , and then drop it into a Set:
+  #+begin_src java
+  List<String> list = new ArrayList<>();
+  list.add("a");
+
+  Set<List<String>> set = new HashSet<List<String>>();
+  set.add(list);
+  #+end_src
+  - We can check that the set contains the list we put in it, and it does: 
+  #+begin_src java
+  set.contains(list) // true
+  #+end_src
+  - But now we mutate the list: s
+  #+begin_src java
+  list.add("goodbye");
+  #+end_src
+  - And it no longer appears in the set! 
+  #+begin_src java
+  set.contains(list) // false!
+  #+end_src
+
+- Using the same example, when we iterate over set, we find the list, but contains() says it’s not there! 
+  #+begin_src java
+  for (List<String> l : set) { 
+      set.contains(l) // false! 
+  }
+  #+end_src
+  - If the set’s own iterator and its own contains() method disagree about whether an element is in the set, then the set clearly is broken. 
+  - What’s going on? 
+    - In Collection classes like List, mutations affect the result of equals() and hashCode(). When the list is first put into the HashSet, it is stored in the hash bucket corresponding to its hashCode() result at that time. When the list is subsequently mutated, its hashCode() changes, but HashSet doesn’t realize it should be moved to a different bucket. So it can never be found again. 
+  #+begin_src java
+  public int hashCode() {  
+      int hashCode = 1;
+      for (E e : this) hashCode = 31*hashCode + (e==null ? 0 : e.hashCode());
+      return hashCode;
+    }
+  #+end_src
+  - When equals() and hashCode() can be affected by mutation  =problem=!
+
+- The specification of java.util.Set states: 
+  - Note: Great care must be exercised if mutable objects are used as set elements. The behavior of a set is not specified if the value of an object is changed in a manner that affects equals comparisons while the object is an element in the set. 
+
+- Solution:
+  - For mutable types, equals() should implement referential equality, or use containers (see Liskov)
+  - For immutable types, equals() should compare contents, i.e., override equals() and hashCode()
+
+** Autoboxing and Equality
+- Autoboxing/Unboxing is meant to let you use primitive types interchangeably with wrapper types. However: 
+  #+begin_src java
+  Integer x = new Integer(3);
+  Integer y = new Integer(3);
+  x.equals(y) // true  // makes sense
+  x == y  false // expected
+  #+end_src
+- But for primitive types like int:
+  #+begin_src java
+  (int)x == (int)y // returns true
+  #+end_src
+- So primitive and wrapper types cannot always be used interchangeably. Consider:
+  #+begin_src java
+  Map<String, Integer> a = new HashMap(), b = new HashMap();
+  a.put("c", 130); 
+  b.put("c", 130);
+  a.get("c") == b.get("c") // false
+  (int)a.get("c") == (int)b.get("c") // true
+  #+end_src
+
+- More examples:
+  #+begin_src java
+  Integer x = new Integer(300);
+  Integer y = new Integer(300);
+  x.equals(y) // true
+  x == y // false 
+
+  Integer x = 300;
+  Integer y = 300;
+  x.equals(y) // true  
+  x == y // false 
+
+  Integer x = 3;
+  Integer y = 3;
+  x.equals(y) // true  
+  x == y // true
+  #+end_src
+
+  #+begin_src java
+  /**
+    * Returns an {@code Integer} instance representing the specified
+    * {@code int} value.  If a new {@code Integer} instance is not
+    * required, this method should generally be used in preference to
+    * the constructor {@link #Integer(int)}, as this method is likely
+    * to yield significantly better space and time performance by
+    * caching frequently requested values.
+    *
+    * This method will always cache values in the range -128 to 127,
+    * inclusive, and may cache other values outside of this range.
+    *
+    * @param  i an {@code int} value.
+    * @return an {@code Integer} instance representing {@code i}.
+    * @since  1.5
+    */
+  public static Integer valueOf(int i) {
+      if (i >= IntegerCache.low && i <= IntegerCache.high)
+          return IntegerCache.cache[i + (-IntegerCache.low)];
+      return new Integer(i);
+  }
+  #+end_src
+
+** Wrapper Classes
+- Warpper Class (1)
+  - Why is sum1() so much slower than sum2()?
+    - =sum1=
+    #+begin_src java
+    public static long sum1() { 
+      Long sum = 0L;
+      for (long i = 0; i <= Integer.MAX_VALUE; i++) {
+              sum = sum + i;
+      }
+      return sum;
+    }
+    // ~7 seconds to run
+    #+end_src
+
+    - =sum2=
+    #+begin_src java
+    public static long sum2() { 
+    long sum = 0L;
+    for (long i = 0; i <= Integer.MAX_VALUE; i++) {
+        sum = sum + i;
+    }
+    return sum;
+  }
+  // ~1 second to run
+    #+end_src
+
+  - bytecode level...
+    - =sum1=
+    #+begin_src java
+    aload_0
+    invokevirtual java/lang/Long/longValue()J // Unboxing
+    lload_1
+    ladd
+    invokestatic java/lang/Long/valueOf(J)Ljava/lang/Long; // Autoboxing
+    astore_0
+    #+end_src
+    - =sum2=
+    #+begin_src java
+    lload_0
+    lload_2
+    ladd
+    lstore_0
+    #+end_src
+
+- Warpper Class (2)
+  - == and != are applicable to references
+  - <, >, <=, >= induce unboxing
+
+#+begin_src java
+public static int compare(Integer i, Integer j) { 
+ return (i < j) ? -1 : (i == j ? 0 : 1); 
+}
+compare(new Integer(32), new Integer(42)) // expecting -1, got -1
+compare(new Integer(52), new Integer(42)) // expecting  1, got 1
+compare(new Integer(42), new Integer(42)) // expecting  0, got 1
+#+end_src
+
+- Suppose that (i < j) is false, then (i==j) is evaluated, if i and j refer to distinct Integer instances that represent the same int value, this comparison will return false.
+  - fix: 
+  #+begin_src java
+  public static int compare(Integer iBoxed, Integer jBoxed) {
+  int i = iBoxed, j = jBoxed; 
+  return i < j ? -1 : (i == j ? 0 : 1);
+  }
+  // Should have used int  instead of Integer in the first place
+  #+end_src
+
+- Warpper Class (3)
+  - When should we use Warpper Class? 
+    - To populate collections and hashmaps
+    - When using generics
+    - When using reflection (method invocation)
+    - Watch out of Caching in general
+
 
 ** Additional Methods
 - Suppose we want to define an =OrderedList= type.  We need a way to /order/ the element.
@@ -320,4 +505,3 @@ Use the link above to take the quiz.
 ** Due Date 
 Your quiz submission is due by Sunday 11:59 PM, ET. 
 
- gaerdff
