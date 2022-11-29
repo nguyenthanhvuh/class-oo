@@ -146,6 +146,15 @@ Upon completion of this module’s activities, you should be able to:
   - For mutable types, equals() should implement referential equality, or use containers (see Liskov)
   - For immutable types, equals() should compare contents, i.e., override equals() and hashCode()
 
+** Overriding equals
+- Object class equals is ‘==‘ check
+- Overriding equals means providing a check other than object identity.
+- Usually it provides object state check
+- Overriding equals in a mutable class
+- A.equals(B) is true/false at different times
+- Immutable classes don’t suffer from this problem
+
+
 ** Autoboxing and Equality
 - Autoboxing/Unboxing is meant to let you use primitive types interchangeably with wrapper types. However: 
   #+begin_src java
