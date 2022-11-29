@@ -284,9 +284,31 @@ compare(new Integer(42), new Integer(42)) // expecting  0, got 1
     - Watch out of Caching in general
 
 
+
+** Polymorphism
+- Polymorphism is expressed through Type Hierarchy
+- A polymorphic variable of type T can reference objects of type T or any of its subtypes
+- A function might be polymorphic with respect to the types of its arguments
+  - E.g., we could define a function to remove an element of an arbitrary type from a Vector
+
+- =Set= stores Object types, IntSet stores =ints=
+  - IntSet is homogeneous: the compiler guarantees that only ints could be inserted in IntSet
+  - No such guarantee is provided for Set. It could contain a mix of types
+  - The use of Generics (“Parametric Polymorphism”) will enable the compiler to disallow different types to populate the Set
+
+- Polymorphic procedures
+  - Procedures can be polymorphic with respect to types of arguments
+  - Intset.insert(int x) becomes Set.Insert(Object x)
+  - What if we need an ordered Set?
+    - This can be achieved by defining a supertype, all of whose subtypes have a comparison method 
+    #+begin_src java
+    java.util.Comparable
+    #+end_src
+
+
 ** Additional Methods
 - Suppose we want to define an =OrderedList= type.  We need a way to /order/ the element.
-  - We can achieve this using the =Comparable= interface, where argume and results are now =Comparable=, e.g., In Fig. 8.5
+  - We can achieve this using the =Comparable= interface, where arguments and results are now =Comparable=, e.g., In Fig. 8.5
     #+begin_src  java
       boolean isIn (Comparable el)
       // effects: if el is in this returns true else false
