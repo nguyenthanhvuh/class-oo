@@ -18,9 +18,9 @@ Upon completion of this course, you should be able to:
 ** MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
 
-1. explain and demonstrate common issues and required contracts associated with overriding common methods, e.g., equals
-2. compare and describe common (flaw) ways of overriding common methods such as equals and hashcode
-3. understand standard receipes and correct ways to override common methods
+1. explain and demonstrate common issues and required contracts associated with overriding common methods, e.g., equals (CL04)
+2. compare and describe common (flaw) ways of overriding common methods such as equals and hashcode (CL04)
+3. understand standard receipes and correct ways to override common methods (CL04)
 
 
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
