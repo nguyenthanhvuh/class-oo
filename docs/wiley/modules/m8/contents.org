@@ -227,9 +227,57 @@ Collections.sort(words,
 *  Assignment – (MLO 1, 2) [~2 hours]  
  
 ** Purpose 
-
+Practing lambdas and anonymous functions
 
 ** Instructions
+   #+begin_src java
+     public class Person {
+
+         public enum Sex {
+             MALE, FEMALE
+         }
+
+         String name;
+         Sex gender;
+         String emailAddress;
+
+         public int getAge() {
+             // ...
+         }
+
+         public void printPerson() {
+             // ...
+         }
+     }
+
+   #+end_src
+**** Approach 1: Create Methods That Search for Members That Match One Characteristic.
+
+
+     One simplistic approach is to create several methods; each method searches for members that match one characteristic, such as gender or age. *Create a method that prints members that are older than a specified age*.
+     
+     Limitation: This approach can potentially make your application brittle, which is the likelihood of an application not working because of the introduction of updates (such as newer data types). Suppose that you upgrade your application and change the structure of the Person class such that it contains different member variables; perhaps the class records and measures ages with a different data type or algorithm. You would have to rewrite a lot of your API to accommodate this change. In addition, this approach is unnecessarily restrictive; what if you wanted to print members younger than a certain age, for example?
+   
+**** Approach 2: Create More Generalized Search Methods.
+
+     Create a method is more generic than the one in the previous approach. It prints members within a specified range of ages.
+     
+     Limitation: What if you want to print members of a specified sex, or a combination of a specified gender and age range? What if you decide to change the Person class and add other attributes such as relationship status or geographical location? Although this method is more generic, trying to create a separate method for each possible search query can still lead to brittle code. You can instead separate the code that specifies the criteria for which you want to search in a different class.
+   
+**** Approach 3: Specify Search Criteria Code in a Local Class
+
+     Instead of writing filtering functions, use a new interface and class for each search you plan. Use the following filtering criteria for example:  filters members that are eligible for Selective Service in the United States: those who are male and between the ages of 18 and 25:
+     
+     Limtation: Although this approach is less brittle—you don't have to rewrite methods if you change the structure of the Person—you still have additional code: a new interface and a local class for each search you plan to perform in your application. Because one of the class implements an interface, you can use an anonymous class instead of a local class and bypass the need to declare a new class for each search.
+     
+**** Approach 4: Specify Search Criteria Code in an Anonymous Class
+     Use an anonymous class to address the issue with Approach 3.
+
+     Limtation: This approach reduces the amount of code required because you don't have to create a new class for each search that you want to perform. However, the syntax of anonymous classes is bulky considering that the CheckPerson interface contains only one method. In this case, you can use a lambda expression instead of an anonymous class, as described in the next section.
+
+**** Approach 5: Specify Search Criteria Code with a Lambda Expression
+
+     Use lambda expression to address the limitation the previous approach.
 
 ** Deliverable 
 - Submit a =.java= file for your implementation. 
@@ -255,23 +303,13 @@ Quizzes in this course give you an opportunity to demonstrate your knowledge of 
 
 
 1. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>();~.  At the end of the computation, what is ~t.toString()?~ 
-  #+begin_comment
-  Answer: [antelope, cat, dog]
-  #+end_comment
+*Answer*: [antelope, cat, dog]
 2. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> x.length() - y.length());~. At the end of the computation, what is ~t.toString()?~
-  #+begin_comment
-  Answer: [dog, antelope]
-  #+end_comment
-
-# 3. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> y.compareTo(x));~. At the end of the computation, what is ~t.toString()?~
-# #+begin_comment
-# Answer: [dog, cat, antelope]
-# #+end_comment
-
-# 4. Which of the above ~Comparator~ implementations is problematic? and why?
-# #+begin_comment
-# Answer: 2, compare(a,b)  is not consistent with a.equals(b).
-# #+end_comment
+*Answer*: [dog, antelope]
+3. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> y.compareTo(x));~. At the end of the computation, what is ~t.toString()?~
+*Answer*: [dog, cat, antelope]
+4. Which of the above ~Comparator~ implementations is problematic? and why?
+*Answer*: 2, compare(a,b)  is not consistent with a.equals(b).
 
 The quiz is 30 minutes in length. 
 The quiz is closed-book.

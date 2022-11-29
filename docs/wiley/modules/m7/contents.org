@@ -5,11 +5,12 @@
 
 
 * Overview and Objectives 
-** TODO OVERVIEW 
+** OVERVIEW 
 
 This modules discusses *types* as a way to enhance the use of data abstraction by defining families (or classes) of related types.
 All members of a family have similar behavior: they all have certain methods, and calls on those methods behave in similar ways.
 Family members may differ by extending the behavior of the common methods or by providing additional methods.
+In particular, these concepts are captured in the classical Liskov Substitution Principle, which will be discussed and practiced throughout this module.  We will also learn about dynamic dispatching, a powerful mechanism in a language such as Java that determines at runtime which methods of a class/type to use.
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
