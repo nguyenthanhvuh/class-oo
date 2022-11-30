@@ -36,7 +36,7 @@ Upon completion of this module’s activities, you should be able to:
   - Chapter 7 - Item 42 
   
 
-* Learning Unit 1 – Motivation (MLO 1) [~0.5 hour]
+* Learning Unit 1 – Motivation (MLO 1,2,3) [~0.5 hour]
 - Previously we define collections of =ints= or =doubles=.  This is rather limiting because they are restricted to specific types (=ints= or =string=).
 - It would be better to define the collection type just once yet have it work for all types of elements
 - *Polymorphic abstractions* is the solution for this. These abstractions are called polymorphic because they work for many types, e.g., =Vector= is polymorphic to its element.
@@ -44,7 +44,7 @@ Upon completion of this module’s activities, you should be able to:
   - A procedure or iterator can be polymorphic with respect to the types of one or more arguments. A data abstraction can be polymorphic with respect to the types of elements its objects contain.
 
     
-* TODO  Learning Unit 2 – (MLO 1, 2) [~2.5 hour]
+* Learning Unit 2 – (MLO 1, 2) [~2.5 hour]
 **  Polymorphic Data Abstraction
 - Fig. 8.1 (Liskov 8) provides a specification of a =Set= abstraction.
   - =Set= objects contain /heterogeneous/ collections of elements (similar to =Vector=).
@@ -161,63 +161,67 @@ Upon completion of this module’s activities, you should be able to:
 ** Autoboxing and Equality
 - Autoboxing/Unboxing is meant to let you use primitive types interchangeably with wrapper types. However: 
   #+begin_src java
-  Integer x = new Integer(3);
-  Integer y = new Integer(3);
-  x.equals(y) // true  // makes sense
-  x == y  false // expected
+    Integer x = new Integer(3);
+    Integer y = new Integer(3);
+    x.equals(y) // true  // makes sense
+    x == y // false // expected
   #+end_src
 - But for primitive types like int:
   #+begin_src java
   (int)x == (int)y // returns true
   #+end_src
+  
 - So primitive and wrapper types cannot always be used interchangeably. Consider:
   #+begin_src java
-  Map<String, Integer> a = new HashMap(), b = new HashMap();
-  a.put("c", 130); 
-  b.put("c", 130);
-  a.get("c") == b.get("c") // false
-  (int)a.get("c") == (int)b.get("c") // true
+    Map<String, Integer> a = new HashMap(), b = new HashMap();
+    a.put("c", 130); 
+    b.put("c", 130);
+    a.get("c") == b.get("c") // false
+    (int)a.get("c") == (int)b.get("c") // true
+        
   #+end_src
 
 - More examples:
   #+begin_src java
-  Integer x = new Integer(300);
-  Integer y = new Integer(300);
-  x.equals(y) // true
-  x == y // false 
+    Integer x = new Integer(300);
+    Integer y = new Integer(300);
+    x.equals(y) // true
+    x == y // false 
 
-  Integer x = 300;
-  Integer y = 300;
-  x.equals(y) // true  
-  x == y // false 
+    Integer x = 300;
+    Integer y = 300;
+    x.equals(y) // true  
+    x == y // false 
 
-  Integer x = 3;
-  Integer y = 3;
-  x.equals(y) // true  
-  x == y // true
+    Integer x = 3;
+    Integer y = 3;
+    x.equals(y) // true  
+    x == y // true
+        
   #+end_src
 
   #+begin_src java
-  /**
-    * Returns an {@code Integer} instance representing the specified
-    * {@code int} value.  If a new {@code Integer} instance is not
-    * required, this method should generally be used in preference to
-    * the constructor {@link #Integer(int)}, as this method is likely
-    * to yield significantly better space and time performance by
-    * caching frequently requested values.
-    *
-    * This method will always cache values in the range -128 to 127,
-    * inclusive, and may cache other values outside of this range.
-    *
-    * @param  i an {@code int} value.
-    * @return an {@code Integer} instance representing {@code i}.
-    * @since  1.5
-    */
-  public static Integer valueOf(int i) {
-      if (i >= IntegerCache.low && i <= IntegerCache.high)
-          return IntegerCache.cache[i + (-IntegerCache.low)];
-      return new Integer(i);
-  }
+    /**
+      ,* Returns an {@code Integer} instance representing the specified
+      ,* {@code int} value.  If a new {@code Integer} instance is not
+      ,* required, this method should generally be used in preference to
+      ,* the constructor {@link #Integer(int)}, as this method is likely
+      ,* to yield significantly better space and time performance by
+      ,* caching frequently requested values.
+      ,*
+      ,* This method will always cache values in the range -128 to 127,
+      ,* inclusive, and may cache other values outside of this range.
+      ,*
+      ,* @param  i an {@code int} value.
+      ,* @return an {@code Integer} instance representing {@code i}.
+      ,* @since  1.5
+      ,*/
+    public static Integer valueOf(int i) {
+        if (i >= IntegerCache.low && i <= IntegerCache.high)
+            return IntegerCache.cache[i + (-IntegerCache.low)];
+        return new Integer(i);
+    }
+    
   #+end_src
 
 ** Wrapper Classes
@@ -225,44 +229,47 @@ Upon completion of this module’s activities, you should be able to:
   - Why is sum1() so much slower than sum2()?
     - =sum1=
     #+begin_src java
-    public static long sum1() { 
-      Long sum = 0L;
-      for (long i = 0; i <= Integer.MAX_VALUE; i++) {
-              sum = sum + i;
+      public static long sum1() { 
+        Long sum = 0L;
+        for (long i = 0; i <= Integer.MAX_VALUE; i++) {
+                sum = sum + i;
+        }
+        return sum;
       }
-      return sum;
-    }
-    // ~7 seconds to run
+      // ~7 seconds to run
     #+end_src
 
     - =sum2=
     #+begin_src java
-    public static long sum2() { 
-    long sum = 0L;
-    for (long i = 0; i <= Integer.MAX_VALUE; i++) {
-        sum = sum + i;
-    }
-    return sum;
-  }
-  // ~1 second to run
+        public static long sum2() { 
+        long sum = 0L;
+        for (long i = 0; i <= Integer.MAX_VALUE; i++) {
+            sum = sum + i;
+        }
+        return sum;
+      }
+      // ~1 second to run
+      
     #+end_src
 
   - bytecode level...
     - =sum1=
     #+begin_src java
-    aload_0
-    invokevirtual java/lang/Long/longValue()J // Unboxing
-    lload_1
-    ladd
-    invokestatic java/lang/Long/valueOf(J)Ljava/lang/Long; // Autoboxing
-    astore_0
+      aload_0
+      invokevirtual java/lang/Long/longValue()J // Unboxing
+      lload_1
+      ladd
+      invokestatic java/lang/Long/valueOf(J)Ljava/lang/Long; // Autoboxing
+      astore_0
+          
     #+end_src
     - =sum2=
     #+begin_src java
-    lload_0
-    lload_2
-    ladd
-    lstore_0
+      lload_0
+      lload_2
+      ladd
+      lstore_0
+          
     #+end_src
 
 - Warpper Class (2)
@@ -270,22 +277,23 @@ Upon completion of this module’s activities, you should be able to:
   - <, >, <=, >= induce unboxing
 
 #+begin_src java
-public static int compare(Integer i, Integer j) { 
- return (i < j) ? -1 : (i == j ? 0 : 1); 
-}
-compare(new Integer(32), new Integer(42)) // expecting -1, got -1
-compare(new Integer(52), new Integer(42)) // expecting  1, got 1
-compare(new Integer(42), new Integer(42)) // expecting  0, got 1
+  public static int compare(Integer i, Integer j) { 
+   return (i < j) ? -1 : (i == j ? 0 : 1); 
+  }
+  compare(new Integer(32), new Integer(42)) // expecting -1, got -1
+  compare(new Integer(52), new Integer(42)) // expecting  1, got 1
+  compare(new Integer(42), new Integer(42)) // expecting  0, got 1
+    
 #+end_src
 
 - Suppose that (i < j) is false, then (i==j) is evaluated, if i and j refer to distinct Integer instances that represent the same int value, this comparison will return false.
   - fix: 
   #+begin_src java
-  public static int compare(Integer iBoxed, Integer jBoxed) {
-  int i = iBoxed, j = jBoxed; 
-  return i < j ? -1 : (i == j ? 0 : 1);
-  }
-  // Should have used int  instead of Integer in the first place
+    public static int compare(Integer iBoxed, Integer jBoxed) {
+    int i = iBoxed, j = jBoxed; 
+    return i < j ? -1 : (i == j ? 0 : 1);
+    }
+    // Should have used int  instead of Integer in the first place
   #+end_src
 
 - Warpper Class (3)
@@ -473,9 +481,9 @@ public class OL {
   
 
 
-* Learning Unit 2 – Lambdas (MLO 1, 2) [~1 hour]
+* Learning Unit 2 – Lambdas (MLO 3) [~1 hour]
 
-- Block 7 Item 42: Prefer lambdas to anonymous classes
+** Block 7 Item 42: Prefer lambdas to anonymous classes
   
   - Sorting a list of string using anonymous class
     #+begin_src java
@@ -545,9 +553,6 @@ Collections.sort(words,
 
 
 
-* In-class Exercise (MLO 1, 2, 3) [.5 hours]
-
-
 *  Assignment – (MLO 1, 2) [~2 hours]  
  
 ** Purpose 
@@ -609,7 +614,7 @@ Practing lambdas and anonymous functions
 ** Due Date 
 Your assignment is due by Sunday 11:59 PM, ET. 
 
-* TODO Module 1 Quiz (MLO 1, 2) [~.5 hour] 
+* Module 1 Quiz (MLO 1, 2) [~.5 hour] 
  
 ** Purpose 
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 

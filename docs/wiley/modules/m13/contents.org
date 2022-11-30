@@ -17,9 +17,8 @@ Upon completion of this course, you should be able to:
  
 ** TODO MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
-1. Explain the key concepts and usage of Annotation
-2. Explain the key concepts and usage of Enums
-3. Define and use Annotations/Enums properly
+1. Explain the key concepts and usage of Annotation and Enums (CL01)
+2. Define and use Annotations/Enums properly (CL01)
 
 
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
@@ -30,10 +29,10 @@ Upon completion of this module’s activities, you should be able to:
 * Learning Materials [~100 pages, ~3.5 hours]
 ** TEXTBOOK READINGS
 - Barbara Liskov with John Guttag. Program Development in Java. Addison Wesley, 2001, ISBN 0-201-65768-6. 
-  - Chapter 4: Exceptions
+  - Chapter 6
   
 
-* TODO Learning Unit 1 – Annotations (MLO 1) [~0.5 hour]
+* Learning Unit 1 – Annotations (MLO 1,2) [~0.5 hour]
 ** Annotations
   - =Annotations= provide data about a program that is not part of the program itself. 
   - They have no direct effect on the operation of the code they annotate.
@@ -727,16 +726,46 @@ System.out.println (herbsByType);
 
 ** Instructor Screencast: TITLE
 
-* TODO Module 3 Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
-
 
 * Exercise (MLO 1, 2, 3) [.5 hours] 
+   Consider the following (bad) Java, implementing the "C style" enum pattern:
 
-* Exercise (MLO 1, 2, 3) [.5 hours]
+   #+begin_src java
+     public class Coins {
+         public static final int PENNY = 1;
+         public static final int NICKLE = 5;
+         public static final int DIME = 10;
+         public static final int QUARTER = 25;
+     }
+
+   #+end_src
+
+   1. Give example code that illustrates a type safety problem with =Coins=. Work through a range of expressions from "probably ok" to "clearly wrong".
+   1. What code would you need to turn a nickel into a string? Explain how this could go wrong at runtime.
+   1. What code would you need to iterate through the coins?
+   1. Would extensions to this particular enum be likely to require recompilation of client code? Explain.
+   1. Write a decent Java Enum for coins.
+   1. Turn a nickle into a string.
+   1. Iterate though the coins.
+
+
+   Consider Bloch's example:
+
+   #+begin_src java
+     // Abuse of ordinal to derive an associated value – DON’T DO THIS
+     public enum Ensemble {
+         SOLO,   DUET,   TRIO,  QUARTET, QUINTET, 
+         SEXTET, SEPTET, OCTET, NONET,   DECTET;
+
+         public int numberOfMusicians() { return ordinal() + 1; }
+     }
+   #+end_src
+
+   Explain why it's wrong, fix it, and add another enum with an overlapping number of musicians.
 
 
 * Assignment – (MLO 1, 2) [~2 hours]  
- 
+ NO ASSIGNMENT
 ** Purpose 
 
 
@@ -748,8 +777,9 @@ System.out.println (herbsByType);
 ** Due Date 
 Your assignment is due by Sunday 11:59 PM, ET. 
 
-* TODO Module 1 Quiz (MLO 1, 2) [~.5 hour] 
- 
+* Quiz (MLO 1, 2) [~.5 hour] 
+NO QUIZ
+
 ** Purpose 
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
 

@@ -17,11 +17,9 @@ Upon completion of this course, you should be able to:
  
 ** TODO MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
-1. 
+1. Explain and use key concepts of iteration abstraction (CLO 1, CLO 4)
+2. Construct and use methods (e.g., overloading, signatures) safely and appropriately   (CLO 1, CLO 2)
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
-#+begin_comment
-#+end_comment
-  
 
 * Learning Materials [~100 pages, ~3.5 hours]
 ** TEXTBOOK READINGS
@@ -391,7 +389,7 @@ Integer y = (Integer) itr.next();		[5,7,9,11,13,17,...]
 ** Mutation and Iterators
 *** Iterating over arrays and lists
 - An iterator is mutable, it traverses a collection and returns the elements one by one.
-- Iterators are used under the covers in Java when you’re using “for (... : ...)”:
+- Iterators are used under the covers in Java when you’re using "for (... : ...)":
   #+begin_src java
     List<String> lst = ...;
     for (String str : lst) {
@@ -535,7 +533,7 @@ dropCourse6 failed! Why? Track the value of index ...
 
 - However, this doesn’t fix the whole problem. What if there are other Iterators currently active over the same list? They won’t all be informed! 
 
-* Learning Unit 2 –  Methods (Bloch 8) (MLO 1, 2) [~2.5 hour]
+* Learning Unit 2 –  Methods (Bloch 8) (MLO 2) [~2.5 hour]
 ** Item 49: Check Parameters for Validity
 - Check and Document
   - Genuine Preconditions – use assert() facility
@@ -902,7 +900,7 @@ Consider the example in Bloch's Item 50 (3rd Edition):
 
 
 
-* Module 3 Assignment – (MLO 1, 2) [~2 hours]  
+* Module 3 Assignment – (MLO 2) [~2 hours]  
  
 ** Purpose 
 Practicing immutablity via Bloch Item 50
@@ -952,7 +950,7 @@ Practicing immutablity via Bloch Item 50
 ** Due Date 
 Your assignment is due by Sunday 11:59 PM, ET. 
 
-* Module 1 Quiz (MLO 1, 2) [~.5 hour] 
+* Module 1 Quiz (MLO 1) [~.5 hour] 
  
 ** Purpose 
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 

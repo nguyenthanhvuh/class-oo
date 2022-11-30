@@ -24,7 +24,10 @@ Upon completion of this course, you should be able to:
  
 ** TODO MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
-
+1. Explain the key concepts of typing hierachy and Liskov Principle of Substitution (CLO 1, CLO 4)
+2. Construct and use specifications according to Liskov Principle of Substitution (CLO 2, CLO 4)
+3. Explain the key concepts of Dynamic Dispatching (CLO 1, CLO 4)   
+   
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
 #+begin_comment
 #+end_comment
@@ -350,7 +353,7 @@ exception to be thrown ... problem!
 # 19
 # change). Client expects return w/o change, but got an NPE
 
-* Learning Unit 2 – (MLO 1, 2) [~2 hours]
+* Learning Unit 2 – Dispatching (MLO 3) [~2 hours]
 
 ** Dispatching
 #+begin_src java
@@ -521,17 +524,6 @@ Which one to choose?
 
 ** Instructor Screencast: TITLE
 
-* Learning Unit 3 – Interfaces (MLO 1, 2) [1 hour]
-
-
-* Learning Unit 8 – Example: Polynomials (MLO 1, 2) [1 hour]
-
-* Learning Unit 9 – Subtypes (MLO 1, 2) [1 hour]
-
-
-** Methods Rule
-** Properties Rule
-
 
 * In Class 1 (MLO 1, 2, 3) [.5 hours] 
    #+begin_src java
@@ -614,7 +606,7 @@ Postcondition Part:
 -----------------------------------    
 
 
-* In Class 2 (MLO 1, 2, 3) [.5 hours]
+* In Class 2 (MLO 1, 2) [.5 hours]
    Consider the following:
    #+begin_src java
      public class Counter{   // Liskov 7.8
@@ -696,7 +688,7 @@ Practicing Type Abstraction
 ** Due Date 
 Your assignment is due by Sunday 11:59 PM, ET. 
 
-* TODO Quiz (MLO 1, 2) [~.5 hour] 
+* Quiz (MLO 1, 2) [~.5 hour] 
  
 ** Purpose 
 Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
