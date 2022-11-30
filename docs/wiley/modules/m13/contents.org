@@ -17,9 +17,9 @@ Upon completion of this course, you should be able to:
  
 ** TODO MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
-1. Explain the key concepts of Annotation
-2. Explain the key concepts of Enums
-3. Construct and use Annotations/Enums correctly
+1. Explain the key concepts and usage of Annotation
+2. Explain the key concepts and usage of Enums
+3. Define and use Annotations/Enums properly
 
 
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
