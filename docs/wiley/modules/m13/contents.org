@@ -1,4 +1,4 @@
-#+TITLE: Module 3 - Exceptions
+#+TITLE: Module 13 - Enums and Annotations 
 
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
@@ -29,11 +29,11 @@ Upon completion of this module’s activities, you should be able to:
   - Chapter 4: Exceptions
   
 
-* TODO Module 3 Learning Unit 1 – Benefits of Abstractions (MLO 1) [~0.5 hour]
+* TODO Learning Unit 1 – Benefits of Abstractions (MLO 1) [~0.5 hour]
 
 
 
-* TODO Module 3 Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
+* TODO Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
 
 
 ** Instructor Screencast: TITLE
@@ -46,7 +46,7 @@ Upon completion of this module’s activities, you should be able to:
 * Exercise (MLO 1, 2, 3) [.5 hours]
 
 
-* Module 3 Assignment – (MLO 1, 2) [~2 hours]  
+* Assignment – (MLO 1, 2) [~2 hours]  
  
 ** Purpose 
 
