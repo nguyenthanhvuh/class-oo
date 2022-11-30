@@ -18,6 +18,9 @@ Upon completion of this course, you should be able to:
  
 ** MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
+1. explain and demonstrate the concept of Polymorphism and use Polymorphic Data Abstraction
+2. understand and properly apply the different ways of checking equalities 
+3. distinguish and proper use of lambda/anonymous functions
 
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
 #+begin_comment
