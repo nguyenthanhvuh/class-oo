@@ -4,7 +4,49 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
 
-* Quiz 12 <2022-11-17 Thu>
+* Quiz 13 <2022-12-02 Fri>
+
+Consider the following incomplete JUnit theory about the consistency of ~compareTo()~ (from the Comparable interface) and equals().
+  #+begin_comment
+  Grading note: Since this quiz is about JUnit theories, and not generics, feel free to ignore generics entirely in this quiz.
+  #+end_comment
+  #+begin_src java
+   @Theory public void compareToConsistentWithEquals( ... ) {
+      assumeTrue (...);   // Assume none of the parameters are null  (i.e. no NPE)
+      assumeTrue (...);   // Assume parameters are mutually comparable (i.e. no CCE)
+      
+      assertTrue (...);   // See question 3
+    }
+
+  #+end_src
+- How many parameters should this theory have? 
+  #+begin_comment
+    Answer: 2
+  #+end_comment  
+- What type should each of the paramters have? 
+  #+begin_comment
+  Answer: Comparable
+  Grading note: Technically, this should be type E, where there is a constraint in the class type:
+  public class SomeJUnitTestClass <E extends Comparable<E>> {
+  Anything that shows that you know that the parameters need to be comparable is fine.
+  #+end_comment
+- What is an appropriate assertion?  Note: assume that the ~assumeTrue(...)~ statements are correctly implemented.
+   #+begin_comment
+     assertTrue (x.equals(y) == (x.compareTo(y) == 0));   // Assert
+     There are other ways of stating this, of course. The key point is that this is an "iff" relationship.
+   #+end_comment
+- Suppose you had the following DataPoints. How many times does JUnit evaluate the ~assertTrue()~ statement in this theory?
+  #+begin_src java
+  @DataPoints
+   public static String[] stuff = { "cat", "cat", "dog"};
+  #+end_src
+  #+begin_comment  
+      3*3 = 9    11,22,33,12,13,23,21,31,32
+  #+end_comment    
+
+
+
+* Quiz 12 <2022-11-18 Fri>
 
 Consider the following code, and suppose the main method in ~Sub~ is executed.
 #+begin_src java
@@ -683,45 +725,4 @@ Consider the following 2 specifications, the second of which has an associated i
 
 
 
-
-
-# # * Quiz 11: 11/29
-
-# # Consider the following incomplete JUnit theory about the consistency of ~compareTo()~ (from the Comparable interface) and equals().
-# #   #+begin_comment
-# #   Grading note: Since this quiz is about JUnit theories, and not generics, feel free to ignore generics entirely in this quiz.
-# #   #+end_comment
-# #   #+begin_src java
-# #    @Theory public void compareToConsistentWithEquals( ... ) {
-# #       assumeTrue (...);   // Assume none of the parameters are null  (i.e. no NPE)
-# #       assumeTrue (...);   // Assume parameters are mutually comparable (i.e. no CCE)
-      
-# #       assertTrue (...);   // See question 3
-# #     }
-
-# #   #+end_src
-# # - How many parameters should this theory have? 
-# #   #+begin_comment
-# #     Answer: 2
-# #   #+end_comment  
-# # - What type should each of the paramters have? 
-# #   #+begin_comment
-# #   Answer: Comparable
-# #   Grading note: Technically, this should be type E, where there is a constraint in the class type:
-# #   public class SomeJUnitTestClass <E extends Comparable<E>> {
-# #   Anything that shows that you know that the parameters need to be comparable is fine.
-# #   #+end_comment
-# # - What is an appropriate assertion?  Note: assume that the ~assumeTrue(...)~ statements are correctly implemented.
-# #    #+begin_comment
-# #      assertTrue (x.equals(y) == (x.compareTo(y) == 0));   // Assert
-# #      There are other ways of stating this, of course. The key point is that this is an "iff" relationship.
-# #    #+end_comment
-# # - Suppose you had the following DataPoints. How many times does JUnit evaluate the ~assertTrue()~ statement in this theory?
-# #   #+begin_src java
-# #   @DataPoints
-# #    public static String[] stuff = { "cat", "cat", "dog"};
-# #   #+end_src
-# #   #+begin_comment  
-# #       3*3 = 9    11,22,33,12,13,23,21,31,32
-# #   #+end_comment    
 

@@ -1452,12 +1452,92 @@ l3
    #+end_src
 
    1. Write a contract for =push(Object e)=.
+#+begin_comment
+version 1
+// Effects: If the Object is null, throw NPE
+Expand the array if more space is needed
+add Object e to the top of the stack (elements)
+// Effects:  throw NPE if attempt to add a null element, else add element to the top of the stack  
+// Modifies: elements, size  # don't go into implementation details,
+// Modifies: this (or modifies the stack representation)
+// Do we want Require (Precondition) ?  In this example, no need (code already include if e == null throw ... ).  In general, if you can, avoid having require/precondition ,  you want the weakest precond (i.e., nothing)
+
+
+version 2
+//precond: none
+// *postcond*: iff null throw exception; ensure adequate capacity; add element to array increase size variable by 1
+// postcond (better, more general, not implementation specific): throw exception if attempt to add a null element, else add element to the top of the stack
+#+end_comment
    1. What is wrong with =toString()?= Fix it.
+#+begin_comment
+code: just want contents up to size  and not elements.length (which outputs everything in the array)
+fix: print "stack" ,  elements.length = size
+#+end_comment
    1. What rep-invariant is likely broken? Fix it. This includes writing a suitable rep-invariant.
+#+begin_comment
+   1. elements != null   ... Correct
+   - contents of elements are not null: INCORRECT (NOT a Repr Inv)
+     size = 2 
+     ["cat", "dog", null, "cow"]
+   2. 0 <= size <= elements.length()     # size != elems.length
+   # The number of elements that are not null equals the size.
+   3. If size > 0 then elements from 0 to size should not be null
+#+end_comment      
    1. How would Bloch's Item 25: /Prefer Lists to Arrays/ apply here? Would it make the rep-invariant simpler?
+#+begin_comment
+   If we use ArrayList,
+   - pop() doesn't need to set elemennts[size] = null
+   - don't even need a separate variable `size` to keep track of Stack size
+   - capacity()  :  no need
+#+end_comment      
    1. How would you argue that that =pop()= is correct (or not)?
+#+begin_comment
+   - correct =  satisfy repr and the contract
+   - contract:
+
+     //effects:  if this (or stack) is already empty, throw ISE
+     //else remove the top of the stack and remove it
+#+end_comment      
    1. What is the problem with =pushAll()= ?  why a contract for it.  What would Bloch suggest as an alternative?
+#+begin_comment
+   contract: if any element is null , then raise exception, otherwise, add everything to this (or the stack)
+   #+begin_src java
+           public void pushAll (Object[] collection) {
+               //check for null element
+               for (Object obj: collection) {if obj == null throw NPE;}
+               for (Object obj: collection) { push(obj); }
+     }
+
+   #+end_src
+   //require: all elements are non-null
+
+   //add vs addAll()
+#+end_comment            
    1. Override =equals()= (for both cases when elements is Array and ArrayList). What else do you have to do? Do that too.
+#+begin_comment
+   - if elements is array,
+
+     size = 1           size = 1
+     ["dog", null]  ==  ["dog"]
+
+
+   - if elements is arraylist, reuse .equals() ..
+
+
+   - hashCode,
+      for arrays: use  Bloch's recipe,   hash()*32 + ..
+      for arrayList  use hashCode()
+     
+     
+   #+begin_src java
+     @Theory public void compareToConsistentWithEquals( ... ) {
+        assumeTrue (...);   // Assume none of the parameters are null  (i.e. no NPE)
+        assumeTrue (...);   // Assume parameters are mutually comparable (i.e. no CCE)
+
+        assertTrue (...);   // See question 3
+      }
+   #+end_src   
+#+end_comment      
    # 1. Generify. What should happen to the parameter for =pushAll()=? Why?
    # 1. Suppose we decide to implement the =Cloneable()= interface. In what ways would Bloch think we would likely get it wrong? What would Bloch recommend instead?
 
