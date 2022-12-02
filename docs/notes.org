@@ -30,10 +30,13 @@
   - sufficiently strong loop invariants
     
 - Unit Test/Theories
+
+
+
   
 - in class/group practice
 
-In-class exam practice (Stack implementation)
+** In-class exam practice (Stack implementation)
 
 
 [1,null]  .size = 1 
@@ -326,105 +329,6 @@ k inputs,  n  =    n^k possible tuple of size k
   
 - Stochastic techniques:  *Genetic Algorithm*
   - AFL: American Fuzzing LOP 
-
-
-
-* In class 2 (MLO 1, 2, 3) [.5 hours] 
-
-This is a JUnit theory exercise.
-
-1. Write a JUnit theory that captures the symmetry property of the =equals()= method.
-   1. Create =@DataPoints= from Bloch's =Point=, =ColorPoint= classes. So that we're all on the same page, create 1 =null= reference, 1 =Point= object and 2 =ColorPoint= objects.
-   1. Given this set of data points:
-      - How many combinations are considered by the theory?
-      - How many combinations make it past the preconditions of the theory?
-      - How many combinations make it to the postcondition of the theory? 
-   1. What happens to this theory and the accompanying data points when favoring composition over inheritance?
-1. Repeat the exercise for the transitive property for =equals()=.
-1. Recall the =equals()= and =hashCode()= discussion in Bloch. Write a JUnit theory that encodes the consistency property between =equals()= and =hashCode()=.
-1. Build a toy example that violates the theory. Fix the toy example so that the theory is no longer violated.
-1. Consider the =Comparable= interface: what properties should be checked with theories?
-
-
-*SOLUTION:*
-#+begin_src java
-      @DataPoints
-       public static Point[] points = {null, //a
-           new Point(2,2),  //b
-           new ColorPoint(2,2,COLOR.BLACK), //c
-           new ColorPoint(2,2 ,COLOR.RED)}; //d
-
-      @Theory
-      public void testEquals(Object a, Object b) {  // can also use Point, but Object is more general and just
-          // symmetry
-          // *if* (a==b) then b==a AND
-
-          // if (b==a) then a==b
-          //  a==b iff b==a
-
-          // NOT correct : too strong
-          // a==b AND b==a
-          // a.equals(b) == FALSE  =>  b.equals(a) == FALSE
-
-          assumeTrue(a!= null && b != null);
-
-          if(a.equals(b)){assertTrue(b.equals(a));}
-          if(b.equals(a)){assertTrue(a.equals(b));}
-
-          //or , a shorter version
-          assertTrue(a.equals(b) == b.equals(a));
-
-          //# of tests = 4*4 = 16
-          //# of tests passing the preconds: 9
-          // fail preconds(null,null;  *,null, null,*)
-
-          //passing tests
-          // a,a
-          // a,*
-          // *,a
-          // b,b
-          // c,c
-          // d,d
-          // c,d because c.equals(d) == FALSE  == d.equals(c) == FALSE 
-          // d,c because d.equals(c) == FALSE  == c.equals(d) == FALSE
-
-          //failing tests
-          // b,c  b.equals(c)  == T
-          // c.equals(b)  == F
-          // c,b  ....
-      }
-
-    @Theory
-    public void equalsTransitivity(Object x, Object y, Object z){
-        //(x.equals(y) and y.equals(z)) => x.equals(z)
-        //if (x.equals(y) and y.equals(z)) then  x.equals(z)
-
-        assumeTrue(x!=null && y!=null && z!= null);
-        if(x.equals(y) && y.equals(z)){
-            assertTrue(x.equals(z))
-        }
-
-        assumeEquals(x,y);
-        assumeEquals(y,z);
-        assertTrue(x,z);
-    }
-
-
-    @Theory
-    public void equalsHashCode(Object x, Object y){
-        //if(x==y) then x.hash == y.hash
-
-      assumeTrue(x != null);
-      assumeTrue(y != null);
-
-      assumeTrue(x.equals(y));
-      assertTrue(x.hashCode() == y.hashCode());
-        
-    }
-
-#+end_src
->>>>>>> f70393f3d43828f207d1c04f19517629e7d87160
-
 
 * Lecture 10
 - Constructor must not invoke overridable methods

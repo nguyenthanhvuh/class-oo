@@ -26,6 +26,8 @@
    
 *Teaching Evaluation*: https://gmu.bluera.com/gmu/
 
+1pt * ratio who did it
+
 
 
 # Consider the following incomplete JUnit theory about the consistency of ~compareTo()~ (from the Comparable interface) and equals().
