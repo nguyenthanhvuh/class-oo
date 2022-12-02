@@ -60,7 +60,7 @@ add Object e to the top of the stack (elements)
    If we use ArrayList,
    - pop() doesn't need to set elemennts[size] = null
    - don't even need a separate variable `size` to keep track of Stack size
-   - capacity()  :  no need
+   - ensureCapacity()  :  no need
 
 5.  Argue pop() is correct (or not)?
    - correct =  satisfy repr and the contract

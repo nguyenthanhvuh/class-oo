@@ -20,15 +20,120 @@
   - total vs partial contracts
   - repr invs
   - know when the code violates/satisfies contracts
-- Liskov principle of substitution    
+    
+- Liskov principle of substitution
+     
 - Hoare logic
   - pre/post conditions
   - weakest precondition rules
   - verification condition (precondition => wp)
   - sufficiently strong loop invariants
+    
 - Unit Test/Theories
   
 - in class/group practice
+
+In-class exam practice (Stack implementation)
+
+
+[1,null]  .size = 1 
+
+[1] 
+
+   
+[1,2,3,4,5,6,7,8,9,10]      .length = 10,  size=10
+[1,2,3,4,5,6,7,8,9,null]    .length =10,  size = 9
+
+toString()  ->   [1,2,3,4,5,6,7,8,9,null]   //incorrect (because toString was using .length instead of size)
+
+contents of elements are not null :  //not a repr 
+contents of elements from 0 to size-1  are not null  //is a repr
+
+*Sols*
+
+1. Contract for push
+   
+// Effects: If the Object is null, throw NPE
+Expand the array if more space is needed
+add Object e to the top of the stack (elements)  
+
+^^^ too detail:  specific to *array*, increase capacity mainly due to the use of array  (imagine someone else try to reimplement this, they might use a different data structure)
+
+
+// Effects:  throw NPE if attempt to add a null element, else add element to the top of the stack  
+
+
+// Modifies: elements, size  # don't go into implementation details,
+
+// Modifies: this (or modifies the stack representation)
+
+// Do we want Require (Precondition) ?  In this example, no need (code already include if e == null throw ... ).  In general, if you can, avoid having require/precondition ,  you want the weakest precond (i.e., nothing)
+
+2. toString()
+
+   code: incorrect: print the whole contents (.length);  in this implementation, we just just want contents up to size  and not elements.length (which outputs everything in the array)
+
+   fix: print "stack" , chanbge from elements.length to size
+
+3. repr inv
+   1. elements != null   ... Correct
+
+     
+   - contents of elements are not null (NOT a Repr Inv, doesn't work for pop)
+     size = 2 
+     ["cat", "dog", null]
+
+     
+   2. 0 <= size <= elements.length()     # size != elems.length
+
+   # The number of elements that are not null equals the size.
+   
+   3. If size > 0 then elements from 0 to size should not be null
+
+
+4. Prefer ArrayList to Array
+   If we use ArrayList,
+   - pop() doesn't need to set elemennts[size] = null
+   - don't even need a separate variable `size` to keep track of Stack size
+   - ensureCapacity()  :  no need
+
+5.  Argue pop() is correct (or not)?
+   - correct =  satisfy repr and the contract
+   - contract:
+
+     //effects:  if this (or stack) is already empty, throw ISE
+     //else remove the top of the stack and return it
+
+     
+6. pushAll:
+   contract: if any element is null , then raise exception, otherwise, add everything to this (or the stack):  either successfull add everything, or don't add anything at all
+   #+begin_src java
+           public void pushAll (Object[] collection) {
+               //check for null element
+               for (Object obj: collection) {if obj == null throw NPE;}
+               for (Object obj: collection) { push(obj); }
+     }
+
+   #+end_src
+   //require: all elements are non-null
+
+   //add vs addAll()
+
+7. equals:
+
+   - if elements is array, use size (cannot use equal because ["dog", null] != ["dog"])
+
+     size = 1           size = 1
+     ["dog", null]  ==  ["dog"]
+
+
+   - if elements is arraylist, reuse .equals() ..
+
+
+   - if need to do separate equal for array and arraylist, then also need to do for =hashCode=,
+      for arrays: use  Bloch's recipe,   hash()*32 + ..
+      for arrayList  use hashCode()
+
 
 * Lecture 11: Testing/ Unit Testing
 
