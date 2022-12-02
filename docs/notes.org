@@ -4,6 +4,31 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
+* Lecture 12: Review and Eval
+
+- problems with grades -> contact Advait immediately (do not wait until the final exam)
+- final exam time and format
+- final exam topics
+
+
+  NO COLLABORATION OF ANY KIND
+- LOOK at in-class exercise
+
+*** ~5 questions
+
+- specifications
+  - total vs partial contracts
+  - repr invs
+  - know when the code violates/satisfies contracts
+- Liskov principle of substitution    
+- Hoare logic
+  - pre/post conditions
+  - weakest precondition rules
+  - verification condition (precondition => wp)
+  - sufficiently strong loop invariants
+- Unit Test/Theories
+  
+- in class/group practice
 
 * Lecture 11: Testing/ Unit Testing
 
