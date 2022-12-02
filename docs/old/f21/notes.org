@@ -15,20 +15,6 @@ Questions:
 In-class 13 (Stack)
 1. Contract for push
    
-// Effects: If the Object is null, throw NPE
-Expand the array if more space is needed
-add Object e to the top of the stack (elements)
-
-
-
-// Effects:  throw NPE if attempt to add a null element, else add element to the top of the stack  
-
-
-// Modifies: elements, size  # don't go into implementation details,
-
-// Modifies: this (or modifies the stack representation)
-
-// Do we want Require (Precondition) ?  In this example, no need (code already include if e == null throw ... ).  In general, if you can, avoid having require/precondition ,  you want the weakest precond (i.e., nothing)
 
 2. toString()
 

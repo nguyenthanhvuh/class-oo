@@ -73,7 +73,7 @@
 
     Group creation mechanism: You will have a chance to form your own group. If you can't find one, we can help. If your group dwindles to just yourself, you'll need to join another group.
 
-    During the final exam, each individual will provide an assessment of the rest of their group. This assessment will determine the "Group Functioning" part of the grade.
+    At the end of the semester, each individual will provide an assessment of the rest of their group. This assessment will determine the "Group Functioning" part of the grade.
 
 *** Homework Assignments
 
