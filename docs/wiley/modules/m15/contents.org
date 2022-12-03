@@ -3,7 +3,8 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
 * Overview and Objectives 
-** TODO OVERVIEW 
+** OVERVIEW
+In this final module we will review and have the final exam
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
@@ -15,71 +16,132 @@ Upon completion of this course, you should be able to:
 5. Properly use exception handling 
 6. Identify when it is appropriate to use inheritance and generics.  
  
-** TODO MODULE LEVEL OBJECTIVES (MLO) 
+** MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
+
+
 
 * Module Video (Wiley-Produced w/Dan Ramos) [3-5 minutes]
 #+begin_comment
 #+end_comment
   
 
-* Learning Materials [~100 pages, ~3.5 hours]
-** TEXTBOOK READINGS
-- Barbara Liskov with John Guttag. Program Development in Java. Addison Wesley, 2001, ISBN 0-201-65768-6. 
-  - Chapter 4: Exceptions
-  
-
-* TODO Module 3 Learning Unit 1 – Benefits of Abstractions (MLO 1) [~0.5 hour]
-
-
-
-* TODO Module 3 Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
-
 
 ** Instructor Screencast: TITLE
 
-* TODO Module 3 Learning Unit 2 – Program Specifications and Abstractions (MLO 1, 2) [~2.5 hour]
+* In-class Exercise (MLO 1, 2, 3) [.5 hours] 
+
+   How well are you prepared for the final? This exercise should help you find out. Piazza discussions encouraged!
+
+   #+begin_src java
+
+     public class Stack {
+         private Object[] elements; private int size = 0;
+
+         public Stack() { this.elements = new Object[0]; }
+
+         public void push (Object e) {
+             if (e == null) throw new NullPointerException("Stack.push");
+             ensureCapacity(); elements[size++] = e;  
+         }
+
+         public void pushAll (Object[] collection) { for (Object obj: collection) { push(obj); } }
+
+         public Object pop () {
+             if (size == 0) throw new IllegalStateException("Stack.pop");
+             Object result = elements[--size];
+             elements[size] = null;
+             return result;
+         }
+
+         @Override public String toString() {
+             String result = "size = " + size;
+             result += "; elements = [";
+             for (int i = 0; i < elements.length; i++) {
+                 if (i < elements.length-1)
+                     result = result + elements[i] + ", ";
+                 else
+                     result = result + elements[i];
+             }
+             return result + "]";
+         }
+     }
 
 
-* Exercise (MLO 1, 2, 3) [.5 hours] 
+   #+end_src
 
-* Exercise (MLO 1, 2, 3) [.5 hours]
+   
+   1. Write a contract for =push(Object e)=.
+*SOLS*:
+version 1
+// Effects: If the Object is null, throw NPE
+Expand the array if more space is needed
+add Object e to the top of the stack (elements)
+// Effects:  throw NPE if attempt to add a null element, else add element to the top of the stack  
+// Modifies: elements, size  # don't go into implementation details,
+// Modifies: this (or modifies the stack representation)
+// Do we want Require (Precondition) ?  In this example, no need (code already include if e == null throw ... ).  In general, if you can, avoid having require/precondition ,  you want the weakest precond (i.e., nothing)
+
+version 2
+//precond: none
+// *postcond*: iff null throw exception; ensure adequate capacity; add element to array increase size variable by 1
+// postcond (better, more general, not implementation specific): throw exception if attempt to add a null element, else add element to the top of the stack
+#+end_comment
+   2. What is wrong with =toString()?= Fix it.
+      *SOLS*:
+       code: just want contents up to size  and not elements.length (which outputs everything in the array)
+       fix: print "stack" ,  elements.length = size
+   3. What rep-invariant is likely broken? Fix it. This includes writing a suitable rep-invariant.
+      SOLS:
+      1. elements != null   ... Correct
+      2. contents of elements are not null: INCORRECT (NOT a Repr Inv)
+         size = 2 
+         ["cat", "dog", null, "cow"]
+      3. 0 <= size <= elements.length()     # size != elems.length
+         # The number of elements that are not null equals the size.
+      4. If size > 0 then elements from 0 to size should not be null
+   4. How would Bloch's Item 25: /Prefer Lists to Arrays/ apply here? Would it make the rep-invariant simpler?
+     *SOLS:*
+       If we use ArrayList,
+        - pop() doesn't need to set elemennts[size] = null
+        - don't even need a separate variable `size` to keep track of Stack size
+        - capacity()  :  no need
+#+end_comment      
+   5. How would you argue that that =pop()= is correct (or not)?
+      *SOLS:*
+     - correct =  satisfy repr and the contract
+     - contract:
+        //effects:  if this (or stack) is already empty, throw ISE
+        //else remove the top of the stack and remove it
+   6. What is the problem with =pushAll()= ?  why a contract for it.  What would Bloch suggest as an alternative?
+      *SOLS:*
+       contract: if any element is null , then raise exception, otherwise, add everything to this (or the stack)
+       #+begin_src java
+               public void pushAll (Object[] collection) {
+                   //check for null element
+                   for (Object obj: collection) {if obj == null throw NPE;}
+                   for (Object obj: collection) { push(obj); }
+         }
+    
+       #+end_src
+      //require: all elements are non-null
+
+   7. Override =equals()= (for both cases when elements is Array and ArrayList). What else do you have to do? Do that too.
+      *SOLS*:
+   - if elements is array, use size (cannot use equal because ["dog", null] != ["dog"])
+     size = 1           size = 1
+     ["dog", null]  ==  ["dog"]
+   - if elements is arraylist, reuse .equals() ..
+   - hashCode,
+      for arrays: use  Bloch's recipe,   hash()*32 + ..
+      for arrayList  use hashCode()
 
 
-* Module 3 Assignment – (MLO 1, 2) [~2 hours]  
+* FINAL EXAM – (MLO 1, 2) [~3 hours]  
  
 ** Purpose 
+   Comprehensive Exam
 
-
-** Instructions
-
-** Deliverable 
-- Submit a =.java= file for your implementation. 
-
-** Due Date 
-Your assignment is due by Sunday 11:59 PM, ET. 
-
-* TODO Module 1 Quiz (MLO 1, 2) [~.5 hour] 
- 
-** Purpose 
-Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
-
-** Instructions 
-
-The quiz is 30 minutes in length. 
-The quiz is closed-book.
-
-** Deliverable 
-Use the link above to take the quiz.
-
-** Due Date 
-Your quiz submission is due by Sunday 11:59 PM, ET. 
-
- 
-
-
-
-= Final = 
 
 ** Instructions
 1. This is an open-book exam. This means that you can access course materials in the book/lecture notes/videos.
@@ -103,6 +165,78 @@ Your quiz submission is due by Sunday 11:59 PM, ET.
 
 ** Question 1
 Consider [[https://nguyenthanhvuh.github.io/class-oo/files/Queue.java][Queue.java]]
+#+begin_src java
+  /**
+   ,* Generic Queue example
+   ,* Mutable Version, without specifications
+   ,* SWE 619
+   ,* @author Paul Ammann
+   ,*/
+
+  import java.util.*;
+
+  public class Queue <E> {
+
+     private List<E> elements;
+     private int size;
+
+     public Queue() {   
+        this.elements = new ArrayList<E>();
+        this.size = 0;
+     }
+
+     public void enQueue (E e) {
+       elements.add(e);
+       size++;
+     }
+
+     public List<E> enQueue_Immutable(E e){
+         List<E> new_elements = copy(elements); 
+          new_elements.add(e);
+          return new_elements;
+      }
+
+
+     public E deQueue () {
+       if (size == 0) throw new IllegalStateException("Queue.deQueue");
+       E result = elements.get(0);
+       elements.remove(0);
+       size--;
+       return result;
+     }
+
+      public List<E> deQueue_Immutable(){
+          if (size == 0) throw new IllegalStateException("Queue.deQueue");
+          List<E> new_elements = copy(elements);
+          new_elements.remove(0);
+          return new_elements;
+      }
+
+      public E getFirst(){
+          if (size == 0) throw new IllegalStateException("Queue.deQueue");
+          return elements.get(0);
+      }
+
+     public boolean isEmpty() {
+        return size == 0;
+     }
+
+
+    public static void main(String[] args) {
+       // Simple exercise to enQueue/deQueue cmd line args
+       // Usage:  java Queue item1 item2 item3 ...
+       Queue <String> q = new Queue <String>();
+       for (String arg : args)
+          q.enQueue(arg);
+       while (!q.isEmpty() )
+          System.out.println(q.deQueue());
+
+    }
+
+  }
+
+#+end_src
+
 1. For enQueue, write (i) a partial contract and (ii) a total contract. For each part, if you need to change the code for the contract, do so and explain what you did
 2. Write the rep invs for this class. Explain what they are.
 3. Write a reasonable toString() implementation. Explain what you did
@@ -114,6 +248,25 @@ Consider [[https://nguyenthanhvuh.github.io/class-oo/files/Queue.java][Queue.jav
 
 ** Question 2
 Consider Bloch’s final version of his Chooser example, namely [[https://nguyenthanhvuh.github.io/class-oo/files/GenericChooser.java][GenericChooser.java]].
+#+begin_src java
+  import java.util.*;
+  import java.util.concurrent.*;
+
+  // Bloch's final version
+  public class GenericChooser<T> {
+     private final List<T> choiceList;
+
+     public GenericChooser (Collection<T> choices) {
+        choiceList = new ArrayList<>(choices);
+     }
+
+     public T choose() { 
+        Random rnd = ThreadLocalRandom.current();
+        return choiceList.get(rnd.nextInt(choiceList.size()));
+     }
+  }
+
+#+end_src
 1. What would be good rep invariants for this class? Explain each.
 2. Supply suitable contracts for the constructor and the choose() method and recode if necessary. The contracts should be consistent with your answer to the previous question. Explain exactly what you are doing and why.
 3. Argue that the choose() method, as documented and possibly updated in your previous answers, is correct. You don’t have to be especially formal, but you do have to ask (and answer) the right questions
@@ -123,6 +276,50 @@ Consider Bloch’s final version of his Chooser example, namely [[https://nguyen
 
 ** Question 3
 Consider [[https://nguyenthanhvuh.github.io/class-oo/files/StackInClass.java][StackInClass.java]]. Note of the push() method is a variation on Bloch’s code.
+#+begin_src java
+
+  import java.util.*;
+
+  public class StackInClass {
+     private Object[] elements; private int size = 0;
+
+     public StackInClass() { this.elements = new Object[0]; }
+
+     public void push (Object e) {
+       if (e == null) throw new NullPointerException("Stack.push");
+       ensureCapacity(); elements[size++] = e;  
+     }
+
+     public void pushAll (Object[] collection) { for (Object obj: collection) { push(obj); } }
+
+     public Object pop () {
+       if (size == 0) throw new IllegalStateException("Stack.pop");
+       Object result = elements[--size];
+       // elements[size] = null;
+       return result;
+     }
+
+     @Override public String toString() {
+        String result = "size = " + size;
+        result += "; elements = [";
+        for (int i = 0; i < elements.length; i++) {
+           if (i < elements.length-1)
+              result = result + elements[i] + ", ";
+           else
+              result = result + elements[i];
+        }
+        return result + "]";
+     }
+    private void ensureCapacity() {
+        if (elements.length == size) {
+           Object oldElements[] = elements;
+           elements = new Object[2*size + 1];
+           System.arraycopy(oldElements, 0, elements, 0, size);
+        }
+     }
+  }
+
+#+end_src
 1. What is wrong with toString()? Fix it.
 2. As written, pushAll() requires documentation that violates encapsulation. Explain why and then write a contract for pushAll().
 3. Rewrite the pop() method for an immutable version of the Stack class. Keep the same instance variables. Rewrite what you did.
@@ -169,9 +366,12 @@ This question helps me determine the grade for group functioning. It does not af
   - B: Occasionally attended, but didn’t contribute reliably
   - C: Regular participant; contributed reliably
 
+** Deliverable 
+- Submit a =.java= file for your implementation. 
 
-** Question 7
-There is no right or wrong answer for the below questions, but they can help me improve the class. I might present your text verbatim (but anonymously) to next year’s students when they are considering taking the course (e.g., in the first week of class) and also add your advice to the project description pages.
-1. What were your favorite and least aspects of this class? Favorite topics?
-2. Favorite things the professor did or didn’t do?
-3. What would you change for next time?
+** Due Date 
+Your assignment is due by Sunday 11:59 PM, ET. 
+
+
+
+

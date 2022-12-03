@@ -172,10 +172,37 @@ public static int fact (int n) throws NonPositiveException
 * Assignment – (MLO 1, 2) [~2 hours]  
  
 ** Purpose 
-
+Practicing using exceptions in code
 
 ** Instructions
+You are given the following exceptions:
+- IllegalArgumentException
+- NumberFormatException
+- NullPointerException
+- IOException
+- IndexOutOfBoundsException
+- OutOfMemoryError
+- StackOverflowError
 
+declare the exceptions in the method signature using throws and handle  approach is that you will be forced to handle the exception 
+
+
+1) For each exception above, write a method whose code throws that exception. 
+You cannot use "throw new ..." inside the method to achieve that. 
+#+begin_src java
+  main() {
+          throwsIAE();
+          throwsNFE();
+          throwsNPE();
+          throwsIOE();
+          throwsIOOBE();
+          throwsOOME();
+          throwsSOE();
+  }
+#+end_src
+
+2) Write appropriate ~try/catch/finally~ statements around each method call.
+   
 ** Deliverable 
 - Submit a =.java= file for your implementation. 
 

@@ -3,7 +3,8 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 
 * Overview and Objectives 
-** TODO OVERVIEW 
+** OVERVIEW
+In this module we learn about two special-purpose families of reference types in Java:  a kind of class called an enum type, and a kind of interface called an annotation type. This module discusses best practices for using these type families.
 
 ** COURSE LEVEL OBJECTIVES (CLO) 
 Upon completion of this course, you should be able to:
@@ -28,7 +29,7 @@ Upon completion of this module’s activities, you should be able to:
 
 * Learning Materials [~100 pages, ~3.5 hours]
 ** TEXTBOOK READINGS
-- Barbara Liskov with John Guttag. Program Development in Java. Addison Wesley, 2001, ISBN 0-201-65768-6. 
+- - Joshua Bloch. Effective Java. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1.
   - Chapter 6
   
 
@@ -770,31 +771,12 @@ System.out.println (herbsByType);
 
 
 ** Instructions
-
-** Deliverable 
-- Submit a =.java= file for your implementation. 
-
-** Due Date 
-Your assignment is due by Sunday 11:59 PM, ET. 
-
-* Quiz (MLO 1, 2) [~.5 hour] 
-NO QUIZ
-
-** Purpose 
-Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
-
-** Instructions 
-
-The quiz is 30 minutes in length. 
-The quiz is closed-book.
-
-** Deliverable 
-Use the link above to take the quiz.
-
-** Due Date 
-Your quiz submission is due by Sunday 11:59 PM, ET. 
-
  
+
+*TO BE UPDATED LATER...*
+
+You are provided with a basic JUnit-like tool (Sample.java and RunTest.java).
+Expand this implementation to support tests that take in parameters.
 
 
 
@@ -858,64 +840,27 @@ Your quiz submission is due by Sunday 11:59 PM, ET.
 #+end_src
 
 
-TO BE UPDATED LATER...
+** Deliverable 
+- Submit a =.java= file for your implementation. 
 
-You are provided with a basic JUnit-like tool (Sample.java and RunTest.java).
-Expand this implementation to support tests that take in parameters.
+** Due Date 
+Your assignment is due by Sunday 11:59 PM, ET. 
 
+* Quiz (MLO 1, 2) [~.5 hour] 
+NO QUIZ
 
+** Purpose 
+Quizzes in this course give you an opportunity to demonstrate your knowledge of the subject material. 
 
- <h1>
-  SWE 619 In Class Exercise Number 12A <br>
- </h1>
-</center>
+** Instructions 
 
-<hr>
+The quiz is 30 minutes in length. 
+The quiz is closed-book.
 
-<font size="+0">
-Consider the following (bad) Java,
-implementing the "C style" enum pattern:
-<pre>public class Coins {
-   public static final int PENNY = 1;
-   public static final int NICKLE = 5;
-   public static final int DIME = 10;
-   public static final int QUARTER = 25;
-}
-</pre>
-<ol>
-	<li> Give example code that illustrates a type safety problem with 
-	<code>Coins</code>.   Work through a range of expressions from 
-	"probably ok" to "clearly wrong".
-<br> <br>
-	</li><li> What code would you need to turn a nickel into a string?
-	Explain how this could go wrong at runtime.
-<br> <br>
-	</li><li> What code would you need to iterate through the coins?
-<br> <br>
-	</li><li> Would extensions to this particular enum be likely to require
-	recompilation of client code?  Explain.
-<br> <br>
-	</li><li> Write a decent Java Enum for coins.
-<br> <br>
-	</li><li> Turn a nickle into a string.
-<br> <br>
-	</li><li> Iterate though the coins.
-<br> <br>
-</li></ol>
-Consider Bloch's example:
-<pre>// Abuse of ordinal to derive an associated value – DON’T DO THIS
-public enum Ensemble {
-   SOLO,   DUET,   TRIO,  QUARTET, QUINTET, 
-   SEXTET, SEPTET, OCTET, NONET,   DECTET;
+** Deliverable 
+Use the link above to take the quiz.
 
-   public int numberOfMusicians() { return ordinal() + 1; }
-}
-</pre>
-
-Explain why it's wrong, fix it, and add another enum with an overlapping number of musicians.
-
-
-
-
+** Due Date 
+Your quiz submission is due by Sunday 11:59 PM, ET. 
 
 
