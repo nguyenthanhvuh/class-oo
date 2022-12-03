@@ -15,7 +15,7 @@ Upon completion of this course, you should be able to:
 5. Properly use exception handling 
 6. Identify when it is appropriate to use inheritance and generics.  
  
-** TODO MODULE LEVEL OBJECTIVES (MLO) 
+** MODULE LEVEL OBJECTIVES (MLO) 
 Upon completion of this module’s activities, you should be able to: 
 1. Explain the key concepts and usage of Annotation and Enums (CL01)
 2. Define and use Annotations/Enums properly (CL01)
@@ -795,3 +795,127 @@ Use the link above to take the quiz.
 Your quiz submission is due by Sunday 11:59 PM, ET. 
 
  
+
+
+
+#+begin_src java
+  //Samples.java
+  // Marker annotation type declaration
+  
+  import java.lang.annotation.*;
+
+  /**
+    ,* Indicates that the annotated method is a test method.
+    ,* Use only on parameterless static methods
+    ,*/
+  @Retention (RetentionPolicy.RUNTIME)
+  @Target(ElementType.METHOD)
+  @interface Test {}
+
+  // Program with annotations
+  public class Sample {
+     @Test public static void m1() {} // Test should pass
+     public static void m2() {}       // Not a @Test
+     @Test public static void m3() {  // Test should fail
+        throw new RuntimeException("Boom"); }
+     public void m4()  { }        
+     @Test public void m5()  { }         // Invalid nonstatic use
+     public static void m6()  { }        
+     @Test public static void m7()  { // fail
+          throw new RuntimeException("Crash");
+     }
+     public static void m8()  { }
+  }
+  
+    //RunTests.java
+    // Sample code processes marker annotations – See Bloch for variations
+    import java.lang.reflect.*;
+
+    public class RunTests {
+
+      public static void main(String[] args) throws ClassNotFoundException{
+       int tests = 0; int passed = 0;
+       Class testClass = Class.forName(args[0]);
+       for (Method m : testClass.getDeclaredMethods()) {
+          if (m.isAnnotationPresent(Test.class)) {
+             tests++;
+             try { m.invoke(null); passed++; }
+             catch (InvocationTargetException ite) {
+                System.out.println(m + " failed: " + ite.getCause()); }
+             catch (Exception e) {
+                System.out.println("Invalid @Test: " + m); 
+                     }
+          }  
+       }
+
+       System.out.printf("Pass: %d, Fail: %d%n", passed, tests-passed);
+
+      }
+
+
+    } 
+
+#+end_src
+
+
+TO BE UPDATED LATER...
+
+You are provided with a basic JUnit-like tool (Sample.java and RunTest.java).
+Expand this implementation to support tests that take in parameters.
+
+
+
+ <h1>
+  SWE 619 In Class Exercise Number 12A <br>
+ </h1>
+</center>
+
+<hr>
+
+<font size="+0">
+Consider the following (bad) Java,
+implementing the "C style" enum pattern:
+<pre>public class Coins {
+   public static final int PENNY = 1;
+   public static final int NICKLE = 5;
+   public static final int DIME = 10;
+   public static final int QUARTER = 25;
+}
+</pre>
+<ol>
+	<li> Give example code that illustrates a type safety problem with 
+	<code>Coins</code>.   Work through a range of expressions from 
+	"probably ok" to "clearly wrong".
+<br> <br>
+	</li><li> What code would you need to turn a nickel into a string?
+	Explain how this could go wrong at runtime.
+<br> <br>
+	</li><li> What code would you need to iterate through the coins?
+<br> <br>
+	</li><li> Would extensions to this particular enum be likely to require
+	recompilation of client code?  Explain.
+<br> <br>
+	</li><li> Write a decent Java Enum for coins.
+<br> <br>
+	</li><li> Turn a nickle into a string.
+<br> <br>
+	</li><li> Iterate though the coins.
+<br> <br>
+</li></ol>
+Consider Bloch's example:
+<pre>// Abuse of ordinal to derive an associated value – DON’T DO THIS
+public enum Ensemble {
+   SOLO,   DUET,   TRIO,  QUARTET, QUINTET, 
+   SEXTET, SEPTET, OCTET, NONET,   DECTET;
+
+   public int numberOfMusicians() { return ordinal() + 1; }
+}
+</pre>
+
+Explain why it's wrong, fix it, and add another enum with an overlapping number of musicians.
+
+
+
+
+
+
