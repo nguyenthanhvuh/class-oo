@@ -38,33 +38,33 @@
 }
 \usepackage{etoolbox}
 \newtoggle{usesol}
-\settoggle{usesol}{true} % not sol version
+\settoggle{usesol}{false} % not sol version
 \newcommand{\sol}[1]{\iftoggle{usesol}{\textbf{Sol:} #1}{}}
 \newcommand{\notsol}[1]{\nottoggle{usesol}{#1}{}}
 \newcommand{\solite}[2]{\iftoggle{usesol}{#1}{#2}}
-\newcommand{\classname}{SWE619--Fall'21}
+\newcommand{\classname}{SWE 419--Fall'22}
 
 \author{Your Name:}
-\date{12/13/2021}
+\date{12/9/2022}
 \title{\classname{}: Final Exam}
 
 \begin{document}
 \maketitle
-\section*{Instructions}
+\section*{Read carefully these instructions}
 
 \begin{enumerate}
 \item This is an open-book exam. This means that you can access course materials in the book/lecture notes/videos.  
 
-\item It is a violation of the honor code to communicate with any other person (except the instructor or TA) about this exam.
-
-\item It is a violation of the honor code to discuss or share the contents of this exam in any way with any student who is currently registered for this course but who has not yet completed this exam.
-
-%When you see a reference to code, you should map that to the relevant Java file I provided as part of your study guide for this exam. 
+\item It is a violation of the honor code to communicate, discuss, or share the contents of this exam with any other person (except the instructor or TA) about this exam.
 
 \item You must type all solutions.  You can use plain text format or markdown.  If you use something else such as Word or LaTeX, you need to export to PDF and submit the PDF.  \textbf{Do Not} submit any code (.java) file.   if you need to change the code, put the modified code directly in your submission.  
 
 \item You need to submit on Blackboard by the deadline. If, for any reason, you have a problem submitting to BB,  submit your final on Piazza in a private post.  Your post should also explain your problem.
 
+\item In the exam, whenever there is a mentioning of a java file (e.g., \href{https://nguyenthanhvuh.github.io/class-oo/files/Queue.java}{Queue.java}), then you can click on it to access the file.  
+
+\item The last two questions of the exam are optional and do not affect the grade of the final.  They help me determine grade for group functioning and to help me improve the class. If you have done them last Friday, you do not need to do them again. Otherwise, I would appreciate your feedback.
+  
 \end{enumerate}
 
 
@@ -73,13 +73,12 @@
     \toprule
     Section		&	Points	&	Score \\
     \midrule
-    Question 1	&	 20	& \\
-    Question 2	&	 20	& \\
-    Question 3 	&	 20	& \\
-    Question 4 	&	 20	& \\
-    Question 5 	&	 20	& \\
+    Question 1	&	 25	& \\
+    Question 2	&	 25	& \\
+    Question 3 	&	 25	& \\
+    Question 4 	&	 25	& \\
+    Question 5 	&	 0	& \\
     Question 6 	&	 0	& \\
-    Question 7 	&	 0	& \\
     \midrule
     Total		&	100	& \\
     \bottomrule
@@ -93,7 +92,7 @@ Consider \href{https://nguyenthanhvuh.github.io/class-oo/files/Queue.java}{Queue
 
 
 \begin{enumerate}
-\item For \texttt{enQueue}, write (i) a partial contract and (ii) a total contract.  For each part, if you need to change the code for the contract, do so and explain what you did
+\item For \texttt{enQueue}, write (i) a partial contract and (ii) a total contract.  For each part, if you need to change the code for the contract, do so and explain what you did.
 
 \sol{\textbf{Partial contract:}  has a precondition/require that \texttt{e} is a valid element (non-null), postcondition/effect is straight forward, e.g., add \textbf{e} to top of stack. 
 \textbf{Total contract:} no precondition/requirement, effects/postcondition: straightforward  but also raise exception when \texttt{e} is invalid.  Would need to change the code to check that \texttt{e} is non-null and raise exception if it is.
@@ -118,7 +117,7 @@ Rewrite the \texttt{deQueue()} method for an immutable version of this class. Ex
 \item
 Write a reasonable implementation of \texttt{clone()}. Explain what you did. 
 
-
+\item Explain the differences between rep invariants, loop invariants, and contract/specifications. Use the answers you provide above to demonstrate the differences.
 \end{enumerate}
 \newpage
 \section{Question 2}
@@ -157,7 +156,7 @@ and then write a contract for {\tt pushAll()}.
 
 \item
 Rewrite the {\tt pop()} method for an immutable version of the {\tt Stack} class.
-Keep the same instance variables. Rewrite what you did.
+Keep the same instance variables. Explain what you did.
 
 \item
 Implementing the {\tt equals()} method for this class is a messy exercise, but would
@@ -183,34 +182,31 @@ while(x < y)
 
 \begin{enumerate}
 \item Informally argue that this program satisfies the given specification (pre/post conditions).
-\item Give 3 loop invariants for the while loop in this program. For each loop invariant, informally argue why it is a loop invariant.  
+\item Provide the steps you would need to do in Hoare logic to verify the pre and post conditions (e.g., starting from the postcondition, what do you do to get to the top and create the verification condition). You do not need to actually do these steps, instead just summarize and give them.
+  
+\item Give 3 loop invariants for the while loop in this program. For each loop invariant, informally argue why it is a loop invariant.  Do not give the trivial loop invariants \texttt{True} and equivalent ones (e.g., if you say $x = y$ is an invariant, then do not give $y = x$ as another one).
+  
 \item \emph{Sufficiently strong loop invariants:}  Use a sufficiently strong loop invariant to formally prove that the program is correct with respect to given specification. This loop invariant can be one of those you computed in the previous question or something new.
   \begin{itemize}
     \item Note: show all works for this step (e.g., obtain weakest preconditions, verification condition, and analyze the verification condition).
   \item Recall that if the loop invariant is strong enough, then you will be able to do the proof. In contrast, if it is not strong enough, then you cannot do the proof.
   \end{itemize}
-\item \emph{Insufficiently strong loop invariants:} Use another loop invariant (could be one of those you computed previously) and show that you cannot use it to prove the program. 
+\item \emph{Insufficiently strong loop invariants:} Use another loop invariant (could be one of those you computed previously) and show that you cannot use it to prove the program . 
   \begin{itemize}
-    \item Note: show all work as the previous question.
-  \end{itemize}
+    \item Note: show all work as the previous question (i.e., obtain wp, verification condition, and analyze the vc).
+    \end{itemize}
+
+  \item Instead of \textbf{proving} the given specifications like above, now you just want to \textbf{test} the program.
+    \begin{itemize}
+    \item Provide some short JUnit Theories code to test this program.
+    \item What are the benefits of using JUnit Theories comparing to (i) JUnit tests and (ii) the Hoare logic proof style above?
+    \end{itemize}
 \end{enumerate}
+
+
 
 \newpage
 \section{Question 5}
-
-\textbf{Note}: you can reuse your answers/examples in previous questions to help you answer the following questions.
-
-\begin{enumerate}
-  \item What does it mean that a program (or a method) is \emph{correct}?  Give (i) an example showing a program (or method) is correct, an (ii) an example showing a program (or method) is incorrect.  
-  \item Explain the difference between rep invariants, loop invariants, and contract/specifications (i.e., pre/post conds).  Use concrete examples to demonstrate the difference.  
-  \item What are the benefits of using JUnit \emph{Theories} comparing to standard JUnit tests. Use examples to demonstrate your understanding.  
-  \item Explain the differences between proving and testing.  In addition, if you \emph{cannot} prove (e.g., using Hoare logic), then what does that mean about the program (e.g., is it wrong)? 
-  \item Explain the Liskov Substitution Principle (LSP).  Use a concrete example to demonstrate LSP. Note: use a different example than the one given in Liskov.  
-\end{enumerate}
-
-
-\newpage
-\section{Question 6}
 
 This question helps me determine the grade for group functioning.  It does not affect the grade of this final.
 
@@ -222,12 +218,13 @@ This question helps me determine the grade for group functioning.  It does not a
   \item Occasionally attended, but didn't contribute reliably
   \item Regular participant; contributed reliably
   \end{enumerate}
+\item If you believe you did not contribute to your group, you can try to explain why here.
 \end{enumerate}
 
 
 
 \newpage
-\section{Question 7}
+\section{Question 6}
 
 
 There is no right or wrong answer for the below questions, but they can help me improve the class. 
