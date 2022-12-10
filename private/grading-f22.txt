@@ -1,0 +1,110 @@
+Rubric
+
+Q1: 20
+Should be fairly simple since we are using ArrayList (not array).
+
+1: 4
+2: 3
+3: 3  
+4: 4
+5: 3
+6: 3
+
+Q4:
+1: 1
+2: 3
+Note:
+x <= y is NOT a loop invariant.  x<=y holds when loop is entered, but after executing x+=2,  x<=y MIGHT NOT hold. For example, assume x = 0 , y = 1, then after the first iteration, you have x = 2 , y =1 , so does not satisfy x <= y.  One of the requirement for loop invariant is that it is preserved after the loop.  -1
+3: 8
+4: 8
+ 
+Q5:
+1. 4:  satisfies contract and preserve rep inv
+2. 4: if the def is correct but the example is wrong, we can be lenient and take out only -0.5 for each wrong example
+3. 4: something about JUnit Theories enumerates all possible combinations and therefore more comprehensive
+4. 4: something about testing is to find bugs, not to prove correctness and the opposite for proving.  Also, not able to prove does not mean the program is incorrect. 
+5. 4:  it's hard to do this one wrong,  mostly just definition from the book.  
+
+---------
+
+
+Qingyang Dai
+Q1 :
+1. OK
+2. OK
+3. didn't do (the question ask for toString,  you did equal)  (-3)
+4. -2
+- need to change size of result, otherwise you have a Queue result with size 0 (-1)
+5. -3  the question didn't ask to make deQueue immutable,  it asks to rewrite deQueue for an immutable version of this Queue class
+6.
+
+
+Q2:
+
+
+Q3:
+
+
+-----------------
+
+
+
+
+
+
+
+Mozhgansadat Momtaz Dargahi
+
+Q4
+1. OK
+2. OK 
+3. -2 I  do not follow how this "y>0 or y>=1 (from the precondition we had) => x+2>=0" becomes True >= True.  We do use any precondition at this point.
+
+4. -2  In step 3,  (y>=1&&x>=y) => x>=y is TRUE,  if you have (a & b)  =>  b,  the whole thing is TRUE.
+
+
+Q5
+1. OK
+2. OK
+3. OK
+4. OK
+5. OK
+
+
+Vaibhav Oza
+
+Q4
+1. OK 
+2. (-0.5) reasoning for y>0 being loop inv is in correct.  The loop will always execute.
+3. -6 Show your work !! what are these weakest preconditions for ?  
+4. -8 Incorrect (if you had shown the work you should see this is incorrect)
+
+
+Q5
+1. OK
+2. OK
+3. OK
+4. -2  I do not follow this explanation.  It sounds like both Proving and testing aim to determine if a program works on the specifications,  so I don't see the difference.  Also, Proving can also help detect memory leaks and bugs and infact proving is used to verify correctness of execution.  
+5. 
+
+
+
+
+
+
+
+
+Srujan Reddy Tekula (G01240653)
+Q4 
+1. OK
+2. OK
+3. -8  did not do 
+4. -8  did not do
+
+Q5
+1. -4 did not do 
+2. OK
+3. OK
+4. -2  cannot prove program doesn't mean the program doesn't do anything
+5. OK
+

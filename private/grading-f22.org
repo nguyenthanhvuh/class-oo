@@ -1,0 +1,44 @@
+
+Q5
+1. 2 pts
+2. 5 pts
+3. 3 pts
+4. 15 pts
+5. 10 pts
+          
+** Bryce Davis
+Q5: 3/35
+1.  The input y is not just 1, it can be anything >= 1.   -1/2
+2.  did not do   -5/5
+3.  missing 1 invariant  -1/3
+4.  did not do -15/15   
+5.  did not do -10/10
+
+
+** Jai Carpenter
+Q5 : 13/35
+1. Unclear,  why post condition fails ?  why the only input must be odd numbers?  -1/2
+2. Incorrect -- not even close               -4/5
+4. ???          -15/15
+5. if the precond fails then you should return TRUE (not False), also the post is x>=y (not x > y). Where are the benefits discussions?  -5/10
+
+** Araba Tawiah-Otoo
+Q5 : 16/35
+1. You need to argue why when y >= 1, the post condition is true.  -1/2
+2. You need to summarize these steps!  Also, assign variables to real values *is not* a part of this    -3/5
+4. Incorrect. you do the assignment WP(x:=E, Q), you need to do  WP(x:=0; while x<y: x += 2, Q). What is the VC? what is p? -10/5
+5. Incorrect. Why testEqualsTransitivity ?  you need to test the given program. What are the benefits of Hoare logic? JUnit theories does not provide enough test cases for copmlete coverage?  -5/10
+
+   
+** Matthew Emo
+Q5: 
+1. OK
+2. You *do not* run code in Hoare logic reasoning. In fact, what you're describing is testing. -4/5 
+3. 0 <= x <= y + 1 is not a loop inv , e.g., x = 0 ,y = 1,  after first iteration x <=y+1 is not preserved as 2 <= 1 is not true.  Same issue with the other 2.    -2/3
+4. Not following any of this. Not even close.  -15
+5. the benefits of Junit theories are incorrect (you cannot run on infinite input data!).  Also, why programmer needs to provide specs ? You still need to give it data points (as you did in the earlier part of the question).  Hoare logic benefits are incorrect  -5/10   
+
+** Yule Zhang
+Q5 33/35
+1. What about the cases when y >= 3 ?  you need to argue it works for all cases  -1/2
+2. what about verification condition and what to do with it ?    -1/5
