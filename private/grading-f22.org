@@ -42,3 +42,23 @@ Q5:
 Q5 33/35
 1. What about the cases when y >= 3 ?  you need to argue it works for all cases  -1/2
 2. what about verification condition and what to do with it ?    -1/5
+
+**  Justin Thomas
+Q5 
+1. What about the cases when y > 2 ?  you need to argue it works for all cases  -1/2
+2. Not Hoare logic method.  -4/5
+3 y <= 2 is not loop inv,  x = y is not loop inv   -2/3
+4. I don't follow most of this,  in general in correct, and also missing verification conditions at the end  -10/15
+5. Not JUnit .. Not sure what these assertions are. Also, in correct discussions about Junit and Hoare logic.  -8/10
+
+
+** Uriel Sejas
+Q5
+3. x <= y is NOT a loop invariant. It is not preserved after the loop body in the last iteration (right before it breaks out of the loop).
+4. did not do   -15/15
+5. missing precond in JUnit theories; Hoare logic does not require user to manually check condition or trace program execution    -3/10
+
+
+**  Samuel Johnson
+Q5
+1. argument 
