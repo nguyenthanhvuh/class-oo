@@ -61,4 +61,31 @@ Q5
 
 **  Samuel Johnson
 Q5
-1. argument 
+1. OK
+2. you have to do more than just computing the wp -2/5
+3.  y>x is not a loop invariant (in the last iteration before exit the loop, x is incremented by 2 and so x can be >= y);  missing 3rd invariant  -2/3
+4. did not do -15/15
+5. did not do JUnit theory code; benefit arguments incomplete, needs to compare to Hoare logic      -7/10
+
+
+**  Iman Azher
+Q5  -1/35
+1. OK
+2. OK
+3. OK
+4. OK
+5. JUnit theories doesnot cover all possible scenarios, they only cover up the number of (combinatorial) tests they generate.    -1/10
+
+** Kyle Russel
+1. Argument only works for y = 1 and y =4; need to argue for all possible values of y   -1/2
+2. Should use Hoare logic terminologies, e.g., wp, verification condition, but ok -1/5
+3. x <= y is not loop inv,  violated in last iteration when x += 2  -1/3
+4. Several mistakes in the computation (e.g., in 2. WP(x+= 2, x >= 0)  is x+2 >= 0 , not x += 2 and certainly not True . Same issue with the one in 3. Incorrect results overall due to these mistakes, but overall have the right idea. -3/15
+5. OK
+   
+** Michael Vittori
+1. OK
+2. Incomplete, what do you do after having the Hoare tripple?  -2/5
+3. x < y is NOT a loop inv, in the last iteration of the loop x += 2 and so x < y is not preserved through the loop body.  -1/3
+4. Several mistakes in the computation (e.g., in 2. WP(x+= 2, x >= 0)  is x+2 >= 0 , not x += 2 and certainly not True . Same issue with the one in 3. Incorrect results overall due to these mistakes, but overall have the right idea. -3/15
+5. Hoare logic can be automated (we just did it by hand in class).  But OK 
