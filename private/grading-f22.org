@@ -61,4 +61,75 @@ Q5
 
 **  Samuel Johnson
 Q5
-1. argument 
+1. OK
+2. you have to do more than just computing the wp -2/5
+3.  y>x is not a loop invariant (in the last iteration before exit the loop, x is incremented by 2 and so x can be >= y);  missing 3rd invariant  -2/3
+4. did not do -15/15
+5. did not do JUnit theory code; benefit arguments incomplete, needs to compare to Hoare logic      -7/10
+
+
+**  Iman Azher
+Q5  -1/35
+1. OK
+2. OK
+3. OK
+4. OK
+5. JUnit theories doesnot cover all possible scenarios, they only cover up the number of (combinatorial) tests they generate.    -1/10
+
+** Kyle Russel
+1. Argument only works for y = 1 and y =4; need to argue for all possible values of y > = 1   -1/2
+2. Should use Hoare logic terminologies, e.g., wp, verification condition, but ok 
+3. x <= y is not loop inv,  violated in last iteration when x += 2  -1/3
+4. Several mistakes in the computation (e.g., in 2. WP(x+= 2, x >= 0)  is x+2 >= 0 , not x += 2 and certainly not True . Same issue with the one in 3. Incorrect results overall due to these mistakes, but overall have the right idea. -3/15
+5. OK
+   
+** Michael Vittori
+1. OK
+2. Incomplete, what do you do after having the Hoare tripple?  -2/5
+3. x < y is NOT a loop inv, in the last iteration of the loop x += 2 and so x < y is not preserved through the loop body.  -1/3
+4. Several mistakes in the computation (e.g., in 2. WP(x+= 2, x >= 0)  is x+2 >= 0 , not x += 2 and certainly not True . Same issue with the one in 3. Incorrect results overall due to these mistakes, but overall have the right idea. -3/15
+5. Hoare logic can be automated (we just did it by hand in class).  But OK 
+
+** Sami Bekuma
+1. Needs to argue for all inputs y >= 1 instead of just y=1.  1/3
+2. Incomplete, how do you prove this Hoare triple?   -2/5
+3. True is a trivial inv;  y <= 2 is not a loop inv   -2/3
+4. Several mistakes in the computation (e.g., in 2. WP(x+= 2, x >= 0)  is x+2 >= 0 , not x += 2 and certainly not True . Same issue with the one in 3. Incorrect results overall due to these mistakes, but overall have the right idea. -3/15
+5.  JUnit theories does not run against infite set of data points. How is JUnit theories compared to JUnit and Hoare logic?   -4/10
+
+** Zachary Saporito
+1. Needs to argue for all inputs y >= 1 instead of just y=1,2,3.  1/3
+2. OK
+3. y >= x-1 is not a loop inv,  in the last iteration of the loop x += 2 and so x < y is not preserved through the loop body.  -1/3    
+4. Several mistakes in the computation (e.g., in 2. WP(x+= 2, x >= 0)  is x+2 >= 0 , not x += 2 and certainly not True . Same issue with the one in 3. Incorrect results overall due to these mistakes, but overall have the right idea. -3/15
+5. I don't follow the comparison of JUnit theories to JUnit and Hoare logic.  -4/10
+
+** Joseph Gong
+1. OK
+2. OK
+3. x >= y  is not a loop inv -1/3
+4. ??  -14/15
+5. missing precond in JUnit theories; comparing JUnit theories to JUnit and HOare logic ?  -5/10   
+
+** Bryce Davis
+1. Need to argue for all y>=1, not just y=1  -1/3
+2. Did not do  -5/5
+3. missing 1 loop inv  -1/3
+4. did not do -15/15
+5. did not do -10/10      
+
+
+** Basil Ok
+1. OK
+2. 2. Not Hoare logic method (e.g., need to compute the wp, verification condition)  -3/5
+3. y % x <= y is undefined when you first enter the loop when x = 0 (y%0 is ?); y n x != null is a trivial invariant because y and x are explicitly assigned to numerical values and never changed    -1/3
+4. I don't follow this computation ??  what loop inv did you use to prove?  -10/15 
+5. no Junit code, also why would you want x>=0 to test loop invariant (there's no concept of testing loop inv in Junit).  -5/10   
+
+
+** Richard Downs
+1. OK
+2. did not do  -5/5
+3. missing 1 loop inv -1/3
+4. Did not do -15/15
+5. Did not do -10/10   
