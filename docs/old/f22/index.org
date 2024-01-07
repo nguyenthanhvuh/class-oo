@@ -9,11 +9,11 @@
   - Instructor: [[https://nguyenthanhvuh.github.io][ThanhVu Nguyen]]
     - Office Hrs: Tuesday 1:30 PM - 2:30PM through ZOOM: https://gmu.zoom.us/j/98393279342 (passcode: 148674) or in Engr 4430 (through appointment)
     - Email: [[mailto:tvn@gmu.edu][tvn@gmu.edu]] (Piazza discussion is preferred)
-  - Grader: TBD
-    - Email: TBD
+  - Grader: Advait Gogte
+    - Email: [[mailto:agogte@gmu.edu][agogte@gmu.edu]]
   - Class:
-    - Wed 4:30PM--7:10PM, BUCHAN D023
-    - Piazza: https://piazza.com/gmu/spring2024/swe619nguyen
+    - Friday 10:30AM--1:10PM, East 122
+    - Piazza: https://piazza.com/gmu/fall2022/swe419nguyen
     - Syllabus and Schedule (this website): [[https://nguyenthanhvuh.github.io/class-oo][https://nguyenthanhvuh.github.io/class-oo]]
     - Assignment Submission (homework, reflection, quizzes, exams): Blackboard (BB)
       
@@ -58,14 +58,13 @@
    | Final exam (individual)            |        30% |
 
 *** Scale
+    
+    |----+-------+---+-------+----+--------|
+    | A+ | \ge 96% | A | \ge 92% | A- | >= 89% |
+    | B+ | \ge 86% | B | \ge 82% | B- | \ge 79%  |
+    | C  | \ge 70% | D | \ge 60% | F  | < 60%  |
 
-
-    |----+--------+---+--------+----+--------|
-    | A+ | >= 97% | A | >= 93% | A- | >= 90% |
-    | B+ | >= 87% | B | >= 83% | B- | >= 80% |
-    | C  | >= 70% | D | >= 60% | F  | < 60%  |
-
-
+   
 *** Group Functioning
 
     Every student needs to be part of a group. I would prefer that groups stay stable throughout the semester, but if there is a good rationale to reconfigure a group or two, we'll do that.
@@ -131,7 +130,7 @@
 
 ** Honor Code
 
-   As with all GMU courses, this class is governed by the [[http://oai.gmu.edu/the-mason-honor-code/][GMU Honor Code]]. In this course, quizzes and the final exam carry with them an implicit statement that it is the sole work of the author.
+   As with all GMU courses, SWE 419 is governed by the [[http://oai.gmu.edu/the-mason-honor-code/][GMU Honor Code]]. In this course, quizzes and the final exam carry with them an implicit statement that it is the sole work of the author.
 
 ** Learning Disabilities
 

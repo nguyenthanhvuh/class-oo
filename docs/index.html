@@ -3,11 +3,196 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-31 Thu 09:55 -->
+<!-- 2024-01-06 Sat 22:09 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>OO Software Specification and Construction @@html:&lt;br&gt;@@ (SWE 419 Course Syllabus -  Fall 2022)</title>
-<meta name="author" content="ThanhVu (Vu) Nguyen" />
+<meta name="author" content="tnguyen" />
 <meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
 <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 </head>
@@ -18,15 +203,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org4aa761f">1. General Information</a></li>
-<li><a href="#orgc9ef262">2. Schedule and Assignments</a></li>
-<li><a href="#org9b3d194">3. Syllabus</a></li>
+<li><a href="#orgdc9b46c">1. General Information</a></li>
+<li><a href="#orgbba746e">2. Schedule and Assignments</a></li>
+<li><a href="#orgfbcbaeb">3. Syllabus</a></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org4aa761f" class="outline-2">
-<h2 id="org4aa761f"><span class="section-number-2">1.</span> General Information</h2>
+<div id="outline-container-orgdc9b46c" class="outline-2">
+<h2 id="orgdc9b46c"><span class="section-number-2">1.</span> General Information</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li>Instructor: <a href="https://nguyenthanhvuh.github.io">ThanhVu Nguyen</a>
@@ -34,31 +218,30 @@
 <li>Office Hrs: Tuesday 1:30 PM - 2:30PM through ZOOM: <a href="https://gmu.zoom.us/j/98393279342">https://gmu.zoom.us/j/98393279342</a> (passcode: 148674) or in Engr 4430 (through appointment)</li>
 <li>Email: <a href="mailto:tvn@gmu.edu">tvn@gmu.edu</a> (Piazza discussion is preferred)</li>
 </ul></li>
-<li>Grader: Advait Gogte
+<li>Grader: TBD
 <ul class="org-ul">
-<li>Email: <a href="mailto:agogte@gmu.edu">agogte@gmu.edu</a></li>
+<li>Email: TBD</li>
 </ul></li>
 <li>Class:
 <ul class="org-ul">
-<li>Friday 10:30AM&#x2013;1:10PM, East 122</li>
-<li>Piazza: <a href="https://piazza.com/gmu/fall2022/swe419nguyen">https://piazza.com/gmu/fall2022/swe419nguyen</a></li>
+<li>Wed 4:30PM&#x2013;7:10PM, BUCHAN D023</li>
+<li>Piazza: <a href="https://piazza.com/gmu/spring2024/swe619nguyen">https://piazza.com/gmu/spring2024/swe619nguyen</a></li>
 <li>Syllabus and Schedule (this website): <a href="https://nguyenthanhvuh.github.io/class-oo">https://nguyenthanhvuh.github.io/class-oo</a></li>
 <li>Assignment Submission (homework, reflection, quizzes, exams): Blackboard (BB)</li>
 </ul></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgc9ef262" class="outline-2">
-<h2 id="orgc9ef262"><span class="section-number-2">2.</span> <a href="./schedule.html">Schedule and Assignments</a></h2>
+<div id="outline-container-orgbba746e" class="outline-2">
+<h2 id="orgbba746e"><span class="section-number-2">2.</span> <a href="./schedule.html">Schedule and Assignments</a></h2>
 </div>
 
-<div id="outline-container-org9b3d194" class="outline-2">
-<h2 id="org9b3d194"><span class="section-number-2">3.</span> Syllabus</h2>
+<div id="outline-container-orgfbcbaeb" class="outline-2">
+<h2 id="orgfbcbaeb"><span class="section-number-2">3.</span> Syllabus</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgac9ad1c" class="outline-3">
-<h3 id="orgac9ad1c"><span class="section-number-3">3.1.</span> Course Description</h3>
+<div id="outline-container-orgaacf2ff" class="outline-3">
+<h3 id="orgaacf2ff"><span class="section-number-3">3.1.</span> Course Description</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 To give the students a solid understanding of modern software construction. To encourage the construction of software systems of high quality. In-depth study of software construction in a modern language including program specifications and OO designs. Concepts such as information hiding, data abstraction, and object-based and object-oriented software construction are discussed and illustrated. This course is part of the core of the SWE program.
@@ -69,24 +252,22 @@ To give the students a solid understanding of modern software construction. To e
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgc4354a7" class="outline-3">
-<h3 id="orgc4354a7"><span class="section-number-3">3.2.</span> Course Materials</h3>
+<div id="outline-container-org7cffc5b" class="outline-3">
+<h3 id="org7cffc5b"><span class="section-number-3">3.2.</span> Course Materials</h3>
 <div class="outline-text-3" id="text-3-2">
 <ol class="org-ol">
-<li>Barbara Liskov with John Guttag. <a href="https://www.amazon.com/Program-Development-Java-Specification-Object-Oriented/dp/0201657686/ref=sr_1_2?dchild=1&amp;qid=1626231221&amp;refinements=p_27%3ABarbara+Liskov&amp;s=books&amp;sr=1-2&amp;text=Barbara+Liskov"><i>Program Development in Java: Abstraction, Specification, and Object-Oriented Design</i></a>. Addison Wesley, 2001, ISBN 0-201-65768-6. <b>Required</b>.  <a href="https://learning-oreilly-com.mutex.gmu.edu/library/view/program-development-in/9780768685299/ch1.html">O'Reilly Link</a></li>
-<li>Joshua Bloch. <a href="https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=sr_1_1?dchild=1&amp;keywords=effective+java&amp;qid=1626231154&amp;sr=8-1"><i>Effective Java</i></a>. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1. <b>Required</b>.  <a href="https://learning-oreilly-com.mutex.gmu.edu/library/view/effective-java-3rd/9780134686097/cover.xhtml">O'Reilly Link</a></li>
+<li>Barbara Liskov with John Guttag. <a href="https://www.amazon.com/Program-Development-Java-Specification-Object-Oriented/dp/0201657686/ref=sr_1_2?dchild=1&amp;qid=1626231221&amp;refinements=p_27%3ABarbara+Liskov&amp;s=books&amp;sr=1-2&amp;text=Barbara+Liskov"><i>Program Development in Java: Abstraction, Specification, and Object-Oriented Design</i></a>. Addison Wesley, 2001, ISBN 0-201-65768-6. <b>Required</b>.  <a href="https://learning-oreilly-com.mutex.gmu.edu/library/view/program-development-in/9780768685299/ch1.html">O&rsquo;Reilly Link</a></li>
+<li>Joshua Bloch. <a href="https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=sr_1_1?dchild=1&amp;keywords=effective+java&amp;qid=1626231154&amp;sr=8-1"><i>Effective Java</i></a>. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1. <b>Required</b>.  <a href="https://learning-oreilly-com.mutex.gmu.edu/library/view/effective-java-3rd/9780134686097/cover.xhtml">O&rsquo;Reilly Link</a></li>
 </ol>
 
 
 <p>
-<b>Note</b>: We'll start with Liskov. Don't worry about the publication date; Liskov is basically a math book, and hence ages remarkably well. We're interested in contracts, mutability, data abstraction, and type abstraction. Bloch is concerned about the same things, but explores them in more detail and in more up-to-date Java. Bloch also corrects some important points that weren't well understood when Liskov's text came out.
+<b>Note</b>: We&rsquo;ll start with Liskov. Don&rsquo;t worry about the publication date; Liskov is basically a math book, and hence ages remarkably well. We&rsquo;re interested in contracts, mutability, data abstraction, and type abstraction. Bloch is concerned about the same things, but explores them in more detail and in more up-to-date Java. Bloch also corrects some important points that weren&rsquo;t well understood when Liskov&rsquo;s text came out.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org0ab4fdd" class="outline-3">
-<h3 id="org0ab4fdd"><span class="section-number-3">3.3.</span> Weekly Schedule</h3>
+<div id="outline-container-org23941e0" class="outline-3">
+<h3 id="org23941e0"><span class="section-number-3">3.3.</span> Weekly Schedule</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 This class is a group-based, <i>in-person</i> offering. You need to be present in class at class time. You will also need to schedule regular meetings with your group.
@@ -101,18 +282,17 @@ Each week will cover a topic, which is a small number of related technical issue
 <li>Reading Reflection: This is a formal opportunity for each group to reflect on the reading.</li>
 <li>Class Meeting:
 <ul class="org-ul">
-<li>Combined session on the day's topic, followed by in-class exercises (group breakouts)</li>
+<li>Combined session on the day&rsquo;s topic, followed by in-class exercises (group breakouts)</li>
 <li>Break</li>
-<li>Combined session on the day's topic, may followed by in-class exercises (group breakouts)</li>
+<li>Combined session on the day&rsquo;s topic, may followed by in-class exercises (group breakouts)</li>
 </ul></li>
 <li>Homework (group-based)</li>
 <li>Assessments via quiz: takes place at the <b>end</b> of class the same day as the homework is due.</li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org62a4bcd" class="outline-3">
-<h3 id="org62a4bcd"><span class="section-number-3">3.4.</span> Grading</h3>
+<div id="outline-container-org38121ce" class="outline-3">
+<h3 id="org38121ce"><span class="section-number-3">3.4.</span> Grading</h3>
 <div class="outline-text-3" id="text-3-4">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -151,9 +331,8 @@ Each week will cover a topic, which is a small number of related technical issue
 </tbody>
 </table>
 </div>
-
-<div id="outline-container-org8ae21b4" class="outline-4">
-<h4 id="org8ae21b4"><span class="section-number-4">3.4.1.</span> Scale</h4>
+<div id="outline-container-orge514c68" class="outline-4">
+<h4 id="orge514c68"><span class="section-number-4">3.4.1.</span> Scale</h4>
 <div class="outline-text-4" id="text-3-4-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -202,13 +381,11 @@ Each week will cover a topic, which is a small number of related technical issue
 </table>
 </div>
 </div>
-
-
-<div id="outline-container-org947cd6e" class="outline-4">
-<h4 id="org947cd6e"><span class="section-number-4">3.4.2.</span> Group Functioning</h4>
+<div id="outline-container-org133fcd0" class="outline-4">
+<h4 id="org133fcd0"><span class="section-number-4">3.4.2.</span> Group Functioning</h4>
 <div class="outline-text-4" id="text-3-4-2">
 <p>
-Every student needs to be part of a group. I would prefer that groups stay stable throughout the semester, but if there is a good rationale to reconfigure a group or two, we'll do that.
+Every student needs to be part of a group. I would prefer that groups stay stable throughout the semester, but if there is a good rationale to reconfigure a group or two, we&rsquo;ll do that.
 </p>
 
 <p>
@@ -216,17 +393,16 @@ Every student needs to be part of a group. I would prefer that groups stay stabl
 </p>
 
 <p>
-Group creation mechanism: You will have a chance to form your own group. If you can't find one, we can help. If your group dwindles to just yourself, you'll need to join another group.
+Group creation mechanism: You will have a chance to form your own group. If you can&rsquo;t find one, we can help. If your group dwindles to just yourself, you&rsquo;ll need to join another group.
 </p>
 
 <p>
-At the end of the semester, each individual will provide an assessment of the rest of their group. This assessment will determine the "Group Functioning" part of the grade.
+At the end of the semester, each individual will provide an assessment of the rest of their group. This assessment will determine the &ldquo;Group Functioning&rdquo; part of the grade.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org5c8a68f" class="outline-4">
-<h4 id="org5c8a68f"><span class="section-number-4">3.4.3.</span> Homework Assignments</h4>
+<div id="outline-container-org4ec7edf" class="outline-4">
+<h4 id="org4ec7edf"><span class="section-number-4">3.4.3.</span> Homework Assignments</h4>
 <div class="outline-text-4" id="text-3-4-3">
 <p>
 There are weekly <b>group</b> homework assighments. I post homework assignments on the class <a href="./schedule.html">schedule web site</a>. Your group will submit assignments via BB.
@@ -247,9 +423,8 @@ Because of the way in which this class is taught, it is important to stay on pac
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgc8a437c" class="outline-4">
-<h4 id="orgc8a437c"><span class="section-number-4">3.4.4.</span> Weekly Quizzes</h4>
+<div id="outline-container-org72bfa20" class="outline-4">
+<h4 id="org72bfa20"><span class="section-number-4">3.4.4.</span> Weekly Quizzes</h4>
 <div class="outline-text-4" id="text-3-4-4">
 <ul class="org-ul">
 <li>Each quiz happens during the last 15-20 minutes of class.</li>
@@ -259,77 +434,71 @@ Because of the way in which this class is taught, it is important to stay on pac
 <b>Make-up Policy</b>
 </p>
 <ul class="org-ul">
-<li>All quizzes count towards the final grade. Each quiz is scored on a 10 point scale. Missed quizzes score 0/10. Students who miss a quiz or perform badly on a quiz may choose to take the "make-up".</li>
+<li>All quizzes count towards the final grade. Each quiz is scored on a 10 point scale. Missed quizzes score 0/10. Students who miss a quiz or perform badly on a quiz may choose to take the &ldquo;make-up&rdquo;.</li>
 <li>The maximum possible score on the make-up is 8/10. (Example: your quiz grade is 5/10. You take the make-up and correctly answer 9 of 10 equally weighted questions. Your final score improves from 5/10 to 8/10.)</li>
 <li>If you attempt the make-up, that score counts, no matter what your score was on the quiz. (Example: your quiz grade is 7/10. You take the make-up and correctly answer 5 of 10 equally weighted questions. Your final score declines from 7/10 to 5/10.)</li>
 <li>Scheduling: the GTA will offer the make-up during TA office hours. The make-up can be different than the quiz given in class, but focuses on the same topics.</li>
-<li>The make-up must be taken promptly and within a window of two class meetings from the quiz. (Example: Quiz 1 takes place on Wednesday, September 1. The make-up must be taken on or before Wednesday, September 15. Another Example: Quiz 11 takes place on Wednesday, November 11. Because we don't meet the week of Thanksgiving, the make-up must be taken on or before Wednesday, December 1.)</li>
+<li>The make-up must be taken promptly and within a window of two class meetings from the quiz. (Example: Quiz 1 takes place on Wednesday, September 1. The make-up must be taken on or before Wednesday, September 15. Another Example: Quiz 11 takes place on Wednesday, November 11. Because we don&rsquo;t meet the week of Thanksgiving, the make-up must be taken on or before Wednesday, December 1.)</li>
 <li>Each quiz only has one make-up, and you can only attempt that make-up once. However, you are free to use the make-up mechanism on as many different quizzes as you wish.</li>
 <li>Quizzes are generally returned one week after the quiz is taken. Make-ups are returned after the window has closed.</li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org3a264d6" class="outline-4">
-<h4 id="org3a264d6"><span class="section-number-4">3.4.5.</span> Final Exam</h4>
+<div id="outline-container-orgf15c665" class="outline-4">
+<h4 id="orgf15c665"><span class="section-number-4">3.4.5.</span> Final Exam</h4>
 <div class="outline-text-4" id="text-3-4-5">
 <p>
-There will be an final exam at the time specified by the university's final exam schedule.
+There will be an final exam at the time specified by the university&rsquo;s final exam schedule.
 </p>
 <hr />
 </div>
 </div>
 </div>
-
-<div id="outline-container-org33735fe" class="outline-3">
-<h3 id="org33735fe"><span class="section-number-3">3.5.</span> Class Attendance</h3>
+<div id="outline-container-org0caea98" class="outline-3">
+<h3 id="org0caea98"><span class="section-number-3">3.5.</span> Class Attendance</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 I place great emphasis on peer learning and interactive engagement. The class is structured to leverage group interactions to the largest extent possible for the purpose of maximizing learning gain through out the semester.
 </p>
 
 <p>
-Bottome line: It's important to be in class.
+Bottome line: It&rsquo;s important to be in class.
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgde900ce" class="outline-3">
-<h3 id="orgde900ce"><span class="section-number-3">3.6.</span> In-Class Exercises</h3>
+<div id="outline-container-org97cb223" class="outline-3">
+<h3 id="org97cb223"><span class="section-number-3">3.6.</span> In-Class Exercises</h3>
 <div class="outline-text-3" id="text-3-6">
 <p>
 I plan an in-class exercise for every class. Students will work in their designated group. Some of these exercises need a Java development environment. Very often, the in-class exercises will be closely related to an upcoming homework assignment.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org5afd813" class="outline-3">
-<h3 id="org5afd813"><span class="section-number-3">3.7.</span> Record Keeping</h3>
+<div id="outline-container-org2cd83d2" class="outline-3">
+<h3 id="org2cd83d2"><span class="section-number-3">3.7.</span> Record Keeping</h3>
 <div class="outline-text-3" id="text-3-7">
 <p>
-We'll use Blackboard to maintain <b>RAW</b> scores and attendance data. Grades are computed according to this syllabus.
+We&rsquo;ll use Blackboard to maintain <b>RAW</b> scores and attendance data. Grades are computed according to this syllabus.
 </p>
 
 <p>
-It's the student's responsibility to ensure that Blackboard records are correct. (I'm happy to correct errors.)
+It&rsquo;s the student&rsquo;s responsibility to ensure that Blackboard records are correct. (I&rsquo;m happy to correct errors.)
 </p>
 
 
 <hr />
 </div>
 </div>
-
-<div id="outline-container-orge7459b8" class="outline-3">
-<h3 id="orge7459b8"><span class="section-number-3">3.8.</span> Honor Code</h3>
+<div id="outline-container-orgdb90997" class="outline-3">
+<h3 id="orgdb90997"><span class="section-number-3">3.8.</span> Honor Code</h3>
 <div class="outline-text-3" id="text-3-8">
 <p>
 As with all GMU courses, SWE 419 is governed by the <a href="http://oai.gmu.edu/the-mason-honor-code/">GMU Honor Code</a>. In this course, quizzes and the final exam carry with them an implicit statement that it is the sole work of the author.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org34ee34e" class="outline-3">
-<h3 id="org34ee34e"><span class="section-number-3">3.9.</span> Learning Disabilities</h3>
+<div id="outline-container-orge7f1ca9" class="outline-3">
+<h3 id="orge7f1ca9"><span class="section-number-3">3.9.</span> Learning Disabilities</h3>
 <div class="outline-text-3" id="text-3-9">
 <p>
 Students with learning disabilities (or other conditions documented with GMU Office of Disability Services) who need academic accommodations should see me and contact the <a href="http://ods.gmu.edu/">Disability Resource Center</a> (DRC) at (703)993-2474. I am more than happy to assist you, but all academic accommodations must be arranged through the DRC.
@@ -338,15 +507,19 @@ Students with learning disabilities (or other conditions documented with GMU Off
 <hr />
 </div>
 </div>
-<div id="outline-container-org5823e5f" class="outline-3">
-<h3 id="org5823e5f"><span class="section-number-3">3.10.</span> Acknowledgement</h3>
+<div id="outline-container-org1f83ffb" class="outline-3">
+<h3 id="org1f83ffb"><span class="section-number-3">3.10.</span> Acknowledgement</h3>
 <div class="outline-text-3" id="text-3-10">
 <p>
-This class is heavily modeled after <a href="https://cs.gmu.edu/~pammann/">Paul Ammann</a>'s <a href="https://cs.gmu.edu/~pammann/419.html">SWE419 course</a>.
+This class is heavily modeled after <a href="https://cs.gmu.edu/~pammann/">Paul Ammann</a>&rsquo;s <a href="https://cs.gmu.edu/~pammann/419.html">SWE419 course</a>.
 </p>
 </div>
 </div>
 </div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: tnguyen</p>
+<p class="date">Created: 2024-01-06 Sat 22:09</p>
 </div>
 </body>
 </html>
