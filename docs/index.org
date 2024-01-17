@@ -7,7 +7,7 @@
 
 * General Information
   - Instructor: [[https://nguyenthanhvuh.github.io][ThanhVu Nguyen]]
-    - Office Hrs: Tuesday 1:30 PM - 2:30PM through ZOOM: https://gmu.zoom.us/j/98393279342 (passcode: 148674) or in Engr 4430 (through appointment)
+    - Office Hrs: Wednesday 3:00 PM - 4:00PM in Engr 4430 (through appointment)
     - Email: [[mailto:tvn@gmu.edu][tvn@gmu.edu]] (Piazza discussion is preferred)
   - Grader: TBD
     - Email: TBD
@@ -31,7 +31,7 @@
    - Joshua Bloch. [[https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=sr_1_1?dchild=1&keywords=effective+java&qid=1626231154&sr=8-1][/Effective Java/]]. Third Edition. Addison-Wesley Professional, 2017, ISBN 978-0-13-468599-1. *Required*.  [[https://learning-oreilly-com.mutex.gmu.edu/library/view/effective-java-3rd/9780134686097/cover.xhtml][O'Reilly Link]]
 
      
-   *Note*: We'll start with Liskov. Don't worry about the publication date; Liskov is basically a math book, and hence ages remarkably well. We're interested in contracts, mutability, data abstraction, and type abstraction. Bloch is concerned about the same things, but explores them in more detail and in more up-to-date Java. Bloch also corrects some important points that weren't well understood when Liskov's text came out.
+   *Note*: We'll start with Liskov. Don't worry about the publication date; Liskov is basically a math book, and hence ages well. We're interested in contracts, mutability, data abstraction, and type abstraction. Bloch is concerned about the same things, but explores them in more detail and in more up-to-date Java. Bloch also corrects some important points that weren't well understood when Liskov's text came out.
 
 ** Weekly Schedule
 
