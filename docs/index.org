@@ -9,8 +9,8 @@
   - Instructor: [[https://nguyenthanhvuh.github.io][ThanhVu Nguyen]]
     - Office Hrs: Wednesday 3:00 PM - 4:00PM in Engr 4430 (through appointment)
     - Email: [[mailto:tvn@gmu.edu][tvn@gmu.edu]] (Piazza discussion is preferred)
-  - Grader: TBD
-    - Email: TBD
+  - Grader: Sultanbek Khassenov
+    - Email: skhassen@gmu.edu
   - Class:
     - Wed 4:30PM--7:10PM, BUCHAN D023
     - Piazza: https://piazza.com/gmu/spring2024/swe619nguyen
