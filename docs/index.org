@@ -7,9 +7,10 @@
 
 * General Information
   - Instructor: [[https://nguyenthanhvuh.github.io][ThanhVu Nguyen]]
-    - Office Hrs: Wednesday 3:00 PM - 4:00PM in Engr 4430 (through appointment)
+    - Office Hrs: Wednesday 3:00PM -- 4:00PM in Engr 4430 (through appointment)
     - Email: [[mailto:tvn@gmu.edu][tvn@gmu.edu]] (Piazza discussion is preferred)
   - Grader: Sultanbek Khassenov
+    - Office Hrs: Monday 2:00PM -- 3:00PM
     - Email: skhassen@gmu.edu
   - Class:
     - Wed 4:30PM--7:10PM, BUCHAN D023
