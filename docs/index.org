@@ -7,13 +7,13 @@
 
 * General Information
   - Instructor: [[https://nguyenthanhvuh.github.io][ThanhVu Nguyen]]
-    - Office Hrs: Wednesday 3:00PM -- 4:00PM in Engr 4430 (through appointment)
+    - Office Hrs: Wednesday 3:00PM -- 4:00PMk Engr 4430 (through appointment)
     - Email: [[mailto:tvn@gmu.edu][tvn@gmu.edu]] (Piazza discussion is preferred)
   - Grader: Sultanbek Khassenov
-    - Office Hrs: Monday 2:00PM -- 3:00PM
+    - Office Hrs: Monday 2:00PM -- 3:00PM,  Buchanan Hall, D2 desk
     - Email: skhassen@gmu.edu
   - Class:
-    - Wed 4:30PM--7:10PM, BUCHAN D023
+    - Wed 4:30PM--7:10PM, Buchanan Hall D023
     - Piazza: https://piazza.com/gmu/spring2024/swe619nguyen
     - Syllabus and Schedule (this website): [[https://nguyenthanhvuh.github.io/class-oo][https://nguyenthanhvuh.github.io/class-oo]]
     - Assignment Submission (homework, reflection, quizzes, exams): Blackboard (BB)
@@ -115,7 +115,7 @@
 
 ** In-Class Exercises
 
-   I plan an in-class exercise for every class. Students will work in their designated group. Some of these exercises need a Java development environment. Very often, the in-class exercises will be closely related to an upcoming homework assignment.
+   I plan an in-class exercise for every class. Students will work in their designated group. Very often, the in-class exercises will be closely related to an upcoming homework assignment.
 
 ** Record Keeping
 
