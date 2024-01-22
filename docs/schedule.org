@@ -112,7 +112,28 @@
      }
    #+end_src
 
-   Hint: also look at the Javadoc (for remove)
+   #+begin_src python
+
+        def tail(my_list):
+            """
+            Removes the first element from the input list and returns the modified list.
+            Parameters:
+            - my_list (List[int]): The input list.
+
+            Returns:
+            - List[int]: The modified list with the first element removed.
+            """
+            # REQUIRES/PRECONDS: ???
+            # EFFECTS/POSTCONDS: ???
+
+            result = my_list.copy()
+            result.pop(0)
+            return result
+
+   #+end_src
+
+
+   _Hint_: also look at the Javadoc (for remove) or Python (for pop)
    
    1. What does the /implementation/ of =tail= do in each of the following cases? How do you know: Running the code or reading an API description?
       - =list = null=
