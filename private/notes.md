@@ -43,11 +43,15 @@
   
   
 
+
+
+## Module 2
+
 ### Weaker Preconditions and Stronger Postconditions
   
   - Reconsider the =intdiv= example from previous class
     
-#+begin_src java
+  ```java
   int intdiv(int x, int y){
     /*
     Return the integer division result x/y. 
@@ -68,16 +72,12 @@
 
     return z
   }
-#+end_src
+  ``` 
 
-If we have ~S1 = P => Q~ and ~S2 = P' => Q'~, then 
+If we have `S1 = P => Q` and `S2 = P' => Q'`, then 
 - S1 is better than S2 :   if P is weaker than P'
 - S1 is better than S2 :   if Q is stronger than Q'
 
-     
-       
-
-## Module 2
 
 ### Partial vs Total Contracts/Specifications
   - *partial* specification:  has a precondition
