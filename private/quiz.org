@@ -1,7 +1,7 @@
 #+TITLE: SWE 619 
 #+OPTIONS: ^:nil toc:1
 
-#+HTML_HEAD: <link rel="stylesheet" href="https://nguyenthanhvuh.github.io/files/org.css">
+#+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://nguyenthanhvuh.github.io/files/org-orig.css">
 * Quiz 1 (<2022-01-31 Mon>)
 # ** equal (the first equal implementation in in-class exercise 1)
