@@ -2856,49 +2856,6 @@ Otherwise, you should use a checked exception.
 
 
      
-** Abstraction
-   - focuses on what (not how)
-     - signature: formal parameters, return types, etc
-     - isPrime:  detemrine if arg is prime is important ,   how this is determine is irrelevant
-** Specifications/Contracts
-   
-   - Informal (English, remove example): easier to write but vague
-** Signatures/Header
-   - requires/modifies/effects   in comments
-   - requires/precond: partial vs total  (partial: only for certain input so have require/preconditions,  total: for all correct type inputs, so precondition is TRUE, i.e. no precondition/require clause)
-   - modifies: input modification -> side-effect
-   - effects/postcond:  under assumption that requires are satisfied  (x' or x_post)
-   - Precondition: weakest is best,  nothing (i.e., True) is even better
-   - weaker vs stronger
-
-** Implementation
-   - Adhere to specifications
-   - weaker vs stronger  , e.g., if specification says return a number, then always return 3 is ok.  but if specification says return an odd number, then cannot return any number.
-   - 
-     
-** Exception (Bloch item 69)
-
-** Checkvs vs Unchecked (Bloch item 70)
-   - check exception:  recoverable
-     - force the caller to handle the exception
-     - IOException:  file not found,  well probably can have a backup , default one       
-   - unchecked exception:
-     - recovery not possible
-     - NPE: if you pass me a null pointer, and I try to dereference it, well then I should get NPE.  Not much I can do to turn a null pointer into a non-null pointer.  
-       
-
-
-
-** Item76: Strive for Failure Atomicity
-   - failed method invocation should leave the object in the state that it was prior to the invocation
-   - ways to achieve this
-     - design immutable objects (tuples, string vs arrays, set)
-       - performance, easy to reason about that (will spend more time later)
-     - check the inputs
-     - order the computation : parts that fail come before modification
-     - write recovery code:  allow objecet to roll back its state
-     - perform the operations on temporary copy of the object
-
 
 
 ** WARNING: will make people share your answers ...

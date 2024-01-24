@@ -14,7 +14,7 @@
   |---------+------------------------------------------+-------------------------------+------------+-------------------+---|
   |       1 | Class Overview                           | Liskov 1--2                   |            |       IC [[#ic1][1]]        |   |
   |       2 | Procedural Abstraction; Exceptions       | Liskov 3--4, Bloch 10         |   [[#a1][A1 Due]]   |     IC 2 [[#ic2A][A]] [[#ic2B][B]]      |   |
-  # |       3 | Data Abstraction; Mutability             | Liskov 5.1--5.4,              |   [[#a2][A2 Due]]   |     IC 3 [[#ic3A][A]] [[#ic3B][B]]      |   |
+  |       3 | Data Abstraction; Mutability             | Liskov 5.1--5.4,              |   [[#a2][A2 Due]]   |     IC 3 [[#ic3A][A]] [[#ic3B][B]]      |   |
   # |       4 | Imperative Program Verification          | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]]             |   [[#a3][A3 Due]]   |                   |   |
   # |       5 | Imperative Program verification          | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]]             |            |    IC        [[#ic4][4]]    |   |
   # |       6 | Reasoning About Data Abstraction         | Liskov 5.5-5.10               |   [[#a4][A4 Due]]   |     IC 5 [[#ic5A][A]] [[#ic5B][B]]      |   |
@@ -85,6 +85,7 @@
                 return super().__eq__(other) and self.nid == other.nid
       #+end_src
 
+_Hint_: also look at the Javadoc for =equals()=
 
       1. Walk though the execution of the =equals()= method in class =User= for a few well-chosen objects as the parameter. What happens at each point in the execution? 
       2. What does it mean for an =equals()= implementation to be *correct*? How do you know? Be as concrete as you can. 
@@ -115,25 +116,16 @@
    #+begin_src python
 
         def tail(my_list):
-            """
-            Removes the first element from the input list and returns the modified list.
-            Parameters:
-            - my_list (List[int]): The input list.
-
-            Returns:
-            - List[int]: The modified list with the first element removed.
-            """
             # REQUIRES/PRECONDS: ???
             # EFFECTS/POSTCONDS: ???
 
             result = my_list.copy()
             result.pop(0)
             return result
-
    #+end_src
 
 
-   _Hint_: also look at the Javadoc (for remove) or Python (for pop)
+   _Hint_: also look at the Javadoc (for =remove=) or Python (for =pop=)
    
    1. What does the /implementation/ of =tail= do in each of the following cases? How do you know: Running the code or reading an API description?
       - =list = null=
@@ -141,8 +133,8 @@
       - =list = [1]=
       - =list = [1, 2, 3]=
         #+begin_comment
-        - =list = null=   returns NPE, from the docs for remove
-        - =list = []=   returns IOBE,  from the docs for ArrayList constructor
+        - =list = null=   returns NPE, from the docs for remove (No copy for NoneType)
+        - =list = []=   returns IOBE,  from the docs for ArrayList constructor (IndexError, cannot pop from empty list)
         - =list = [1]=   happy path, return []
         - =list = [1, 2, 3]=  happy path, return [2, 3]
         #+end_comment
@@ -158,7 +150,7 @@
       #+end_comment
    1. The resulting specification has a problem. What is it? (hint: specification should be more general and not tied to the implementation)
       #+begin_comment
-      should return IllegalArgumentException instead of IndexOfOfBound (which is tied into this specific implementation).
+      should return IllegalArgumentException instead of IndexOfOfBound/IndexError (which is tied into this specific implementation).
       #+end_comment
    1. /Rewrite/ the specification to address this problem. /Rewrite/ the code to match the new specification.
       #+begin_comment
@@ -185,6 +177,7 @@
    - For each method, identify all preconditions and postconditions.
    - For each precondition, identify a specific input that violates the precondition.
    - For each postcondition, identify an input specific to that postcondition.
+
 
 ** In class 3A
    :PROPERTIES:

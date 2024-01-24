@@ -7,531 +7,537 @@
 # ** equal (the first equal implementation in in-class exercise 1)
 #     - Give 2 inputs such that the results from the specs (Javadoc) and implementation agree 
 #     - Give 2 inputs such that the results from the specs (Javadoc) and implementation disagree
+Contracts for a Binary Search implementation. Specifiy the contracts/specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.
 
-** Contracts for a Binary Search implementation.
-   - specifiy the contracts/specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.
-
-* Quiz 2 (<2022-02-07 Mon>)
-
-Consider the following 2 specifications, the second of which has an associated implementation:
-#+begin_src java
-public static int minIndex (int [] a) {... implementation omitted ... }
-   // EFFECTS: if a null throw NullPointerException, else if a.length=0 throw
-   //      IllegalArgumentException else return index of some min element in a.
-public static void setSmall (int [] a, int i) {
-   // REQUIRES: a != null, 0 <= i < a.length
-   // MODIFIES a
-   // EFFECTS: rearranges elements in array a so that some smallest element is at index i
-   int j = minIndex(a); int t = a[j]; a[j] = a[i]; a[i] = t;    }
-#+end_src
-
-1. Suppose we wish to transform the ~setSmall~ precondition ~a != null~ into defined behavior with an exception.
-   1. What Java exception would Bloch recommend for this transformation?
-      #+begin_comment
-      Answer: NullPointerException.
-      #+end_comment
-   2. Rewrite the precondition and postcondition for ~setSmall()~ to achieve this result.
-      #+begin_comment
-         Answer: Note that the predicate a!=null is no longer in the REQUIRES clause.
-         // REQUIRES: 0 <= i < a.length
-         // MODIFIES a
-         // EFFECTS: if a = null throw NullPointerException else
-         //          rearranges elements in array a so that 
-         //          smallest element is at index i
-      #+end_comment
-   3. Does the given implementation of ~setSmall()~ satisfy this revised specification? 
-      #+begin_comment
-      Answer: Yes. Note that the call to ~minIndex()~ generates the correct exception.
-      #+end_comment
-2. Suppose we wish, in addition, to transform the ~setSmall()~ precondition ~0 <= i < a.length~ into defined behavior with an exception.
-   1. What exception would Bloch recommend for this transformation? Hint: Note that ~i~ is described as an "index".
-     #+begin_comment
-     Answer: IndexOutOfBoundsException
-     #+end_comment
-   2. Extend your rewrite of the precondition and postcondition for ~setSmall()~ to achieve this result. 
-      #+begin_comment
-      Answer: Note that the predicate 0 <= i < a.length is no longer in the REQUIRES clause.
-      // MODIFIES a
-      // EFFECTS: if a = null throw NullPointerException else
-      //          if !(0 <= i < a.length) throw IndexOutOfBoundsException else
-      //          rearranges elements in array a so that 
-      //          smallest element is at index i
-      #+end_comment
-   3. Does the given implementation of ~setSmall()~ satisfy this revised specification? 
-      #+begin_comment
-      Answer: No. There are two cases. If the array is not empty, then the implementation returns ~IndexOutOfBoundsException~. However, if the array is empty, then the implementation generates ~IllegalArgumentException~ via the call to ~minIndex()~, which is /not/ ~IndexOutOfBoundsException~.
-      #+end_comment
-
-
-* Quiz 3: Immutability
-*Immutatiblity*: Consider a partial version of Bloch's mutable Stack class:
-   #+begin_src java
-     public class Stack {
-
-         private Object[] elements;
-         private int size = 0;
-
-         public Stack() { this.elements = new Object[0]; }
-
-         public void push (Object e) {
-             ensureCapacity();      // implementation omitted from quiz
-             elements[size++] = e;
-         }
-
-         public Object pop () {
-             if (size == 0) throw new IllegalStateException("Stack.pop");
-             Object result = elements[--size];
-             elements[size] = null;
-             return result;
-         }
-     }
-
-   #+end_src
-   Also consider the following client interaction with Stack
-   #+begin_src java
-     Stack s = new Stack();
-     s.push("cat");
-     s.push("dog");
-     System.out.println(s.pop());
-   #+end_src
-     - What methods would be needed to convert the client interaction into an equivalent interaction with an immutable version called IStack? For each method, give *just the method header* - not the contract or implemetation.
-
-   
-   #+begin_comment
-     public class IStack{
-     public IStack push(Object e){
-     // return new IStack() .... 
-     }
-
-     public IStack pop (){
-     // return new IStack object
-     }
-
-     public Object top(){
-     // return the top of the stack 
-     }
-
-     }
-   #+end_comment
-
-** Quiz 4: Verification using Hoare Logic
-   Given the program
-   #+begin_src java
-     // {x <= 1}   # P1
-     // {x <= 11}  # P2
-
-     while (x != 10){
-         x := x + 1;
-     }
-
-     //{x == 10}  # Q
-   #+end_src
-  
-   1. Informally reason that this program is correct with the given =P1= and =Q=.
-   1. This program *is correct* with respect to the given precondition =P1= and postcondition =Q=.  Prove it by finding a loop invariant and verify the verification condition (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)
-   2. Now, consider a different precondition =P2=. 
-      1. Recompute the VC of the program with respect to =P2=.
-      1. is the VC  =P2 -> WP ..=  valid?  if yes, what does that mean,  if not, what does that mean?
-      
 #+begin_comment
-   loop inv :  x <= 10
-
-   wp(while[x<=10](x != 10){x := x + 1;}, {x == 10}) =
-
-   //conj 1
-   I = 
-   x <=10
-   
-   //conj 2
-   (I & x!=10) => wp(x:= x+1, I)   =
-   (x <= 10 & x!=10) => wp(x:= x+1, x <= 10)
-   (x < 10) => x+1 <= 10
-   (x <= 9) => x <= 9
-   TRUE
-
-   //conj 3
-   (I & !(x!=10) => x == 10) =
-   (x <= 10 & !(x!=10) => x == 10)
-   x == 10 => x == 10
-   True
-
-   //vc
-   x<=10 => x<=10   #for P1,  this implication holds and thus shows the program is correct (wrt to Q and P1)
-
-   //x<=11 => x<=10   #for P2, this implication does not hold (cex x=11), and thus does not show anything other than that we cannot prove it. Important: fail to prove does not mean the program is wrong,  it simplify means we cannot prove it (could be because we picked a weak loop invariant,  could also be that the program is actually wrong)
+Binary_search(arrays, x)
+- precondition:
+  - arrays: sorted, cannot null,
+- postcondition:
+  - if x not in arrays: raise some exception ...
+  - ow: returns index of x in array
 #+end_comment
 
+# * Quiz 2 (<2022-02-07 Mon>)
 
-
-*  Quiz 4: Immutable class
-  
-  1. Consider the following (supposedly) immutable class:
-
-     #+begin_src java
-       public final class Immutable { 
-           private final String string;
-           private final int x;
-           private final List<String> list;
-
-           public Immutable(String string, int x, List<String> list) {
-               this.string = string;                     // Line A
-               this.x = x;                               // Line B
-               this.list = new ArrayList<String> (list); // Line C
-           }
-
-           public String getString() { return string; }  // Line D
-           public int getInt()    { return x; }       // Line E
-           public List<String> getList() { return list; }    // Line F
-       }
-     #+end_src
-    Which of the lines (A--F) has a problem wrt the immutability of class Immutable?
-  2. For each of the above lines that has problem with immutability, write pseudocode code to demonstrate the issue
-
-    #+begin_comment
-     Only line F (because list is muttable)
-
-     List<String> list = //... supppose list is [cat, dog]
-     Immutable im = new Immutable("bat", 7, list);
-     list = im.getList();
-     list.add("elephant");   // now I've changed the internal state of Immutable
-                             // from
-                             // <bat, 7, [cat, dog]>
-                             // to
-                             // <bat, 7, [cat, dog, elephant]>
-    #+end_comment
-
-
-* Quiz 5:  Iterator
-
-The specification for Liskov's ~elements()~ method is given below. 
-- Note 1: A Liskov Iterator has only the the ~hasNext()~ and ~next()~ methods. 
-- Note 2: As discussed in class the abstract state for such an ~Iterator~ is a ~Stack~ of objects yet to be produced.
-
-    #+begin_src java
-     public Iterator elements() 
-     // EFFECTS: Returns a generator that will produce all the elements of
-     //  this (as Integers), each exactly once, in arbitrary order.
-     // REQUIRES: this must not be modified while the generator is in use
-
-
-       #+end_src	
-
-Consider the code below which uses ~elements()~. Line numbers have been added for reference purposes.
-  #+begin_src java    
-        0: IntSet s = new IntSet(); 
-
-        1: s.insert(2);
-        2: s.insert(8);
-        3: Iterator itr = s.elements();   
-        4: itr.next();                    
-        5: itr.next();                    
-        6: // See questions below
-        7: itr.next();                   
-
-  #+end_src
-	
-- show the (stack) contents of ~itr~  after line 3
-#+begin_comment
-[2,8]  or [8,2]
-#+end_comment
-- show the contents of ~itr~  after line 5.
-#+begin_comment
-[]
-#+end_comment  
-- If line 6 is ~s.insert(12)~; show the contents of ~itr~ after line 6? 
-#+begin_comment
-Undefined behavior or violating the requirements of iteration
-#+end_comment
-
-
-* Quiz 6:  Type
-
-  #+begin_src java
- class A {
-    public Iterator compose (Iterator itr)
-    // Requires: itr is not null
-    // Modifies: itr
-    // Effects: if this is not appropriate for itr throw IAE
-    // else return generator of itr composed with this
- class B {
-    public Iterator compose (Iterator itr)
-    // Modifies: itr
-    // Effects: if itr is null throw NPE 
-    // else if this is not appropriate for itr throw IAE
-    // else return generator of itr composed with this
- class C {
-    public Iterator compose (Iterator itr)
-    // Modifies: itr
-    // Effects: if itr is null return iterator equal to this
-    // else if this is not appropriate for itr throw IAE
-    // else return generator of itr composed with this
-   #+end_src
-
- Analyze the =compose()= method in each of these cases according to Liskove's Principle of Substitution. For each case, state if the precondition and the postcondition parts are satisfied or fail, and *justify*.
-
- 1. B extends A. 
- 1. C extends A. 
- 1. A extends B. 
- 1. C extends B.    
- 1. B extends C. 
-
-#+begin_comment
-1. B extends A. 
-Precondition Part: 
-Answer: Satisfied: weaker precondition in B 
-Postcondition Part: 
-Answer: Satisfied: Identical behavior where A defined, with additional behavior where A not defined.
-2.C extends A. 
-Precondition Part: 
-Answer: Satisfied: weaker precondition in C 
-Postcondition Part: 
-Answer: Satisfied: Identical behavior where A defined, with additional behavior where A not defined.
-3. A extends B. 
-Precondition Part: 
-Answer: Not satisfied: stronger precondition in A 
-Postcondition Part: 
-Answer: No analysis required
-4. C extends B. 
-Precondition Part: 
-Answer: Satisfied: same preconditions 
-Postcondition Part: 
-Answer A: Not satisfied: Inconsistent behavior in case where itr is null
-Answer B: Satisfied, stronger post (assuming returning a an iterator equal to this)
-5. B extends C. 
-Precondition Part: 
-Answer: Satisfied: same preconditions 
-Postcondition Part: 
-Answer: Not satisfied: Inconsistent behavior in case where itr is null
-#+end_comment
-
-* Quiz 7:
-
-  #+begin_src java
-    Set<String> t = //  See questions below
-
-    t.add("antelope");
-    t.add("dog");
-    t.add("cat");
-
- // t.toString() is ???
-  #+end_src  
-
-
-1. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>();~.  At the end of the computation, what is ~t.toString()?~ 
-  #+begin_comment
-  Answer: [antelope, cat, dog]
-  #+end_comment
-2. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> x.length() - y.length());~. At the end of the computation, what is ~t.toString()?~
-  #+begin_comment
-  Answer: [dog, antelope]
-  #+end_comment
-
-# 3. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> y.compareTo(x));~. At the end of the computation, what is ~t.toString()?~
-# #+begin_comment
-# Answer: [dog, cat, antelope]
-# #+end_comment
-
-# 4. Which of the above ~Comparator~ implementations is problematic? and why?
-# #+begin_comment
-# Answer: 2, compare(a,b)  is not consistent with a.equals(b).
-# #+end_comment
-
-
-* Quiz 8:
-Consider the following code:
-#+begin_src java
-public class Example <E> {
-    String           string = "ant";
-    Integer          seven = 7;
-    E                e = null;
-    Object[]         objects;
-    List < Object >  listObject;
-    List < E >       listE;
-    public void m() {
-          // Java code for questions appears here
-    }
-}
-#+end_src
-
-Independently consider the following 5 sequences of Java instructions. For each sequence, what of the following choices will happen ? (i) compiler warning; (ii) compiler error; (iii) runtime exception; or (iv) normal run
-
--
-#+begin_src java
-objects = new E[1];
-objects[0] = e;
-#+end_src
-#+begin_comment
-Answer: compiler error
-#+end_comment
-
--
-#+begin_src java
-listE = new ArrayList < E >();
-listE.add(e);
-listObject = listE;
-#+end_src
-#+begin_comment
-Answer: compiler error
-#+end_comment
-
-
--
-#+begin_src java
-listObject = new ArrayList < String >();
-listObject.add(string) ;
-listObject.add(seven) ;
-#+end_src
-#+begin_comment
-Answer: compiler error
-#+end_comment
-
-
--
-#+begin_src java
-objects = new Object[1];
-objects[0] = string;
-objects[0] = seven;
-#+end_src
-#+begin_comment
-Answer: normal run
-#+end_comment
-
-
--
-#+begin_src java
-objects = new String[1];
-objects[0] = string;
-objects[0] = seven;
-#+end_src
-#+begin_comment
-Answer: runtime exception
-#+end_comment
-
-* Quiz 9: 
-  Consider the following code.  
-  #+begin_src java
-class Apple {
-  // rep-inv:  name != null
-  private String name;
-  public Apple (String name) {   
-     if (name == null) throw new NPE(...);
-     this.name = name;
-  }
-  @Override public boolean equals (Object o) {
-     if (!(o instanceof Apple)) { return false; }
-     Apple a = (Apple) o;     
-     return name.equals(a.name);
-  }
-  @Override public int hashCode() { // see questions below }
-  @Override public String toString() { return name; }
-}
-class AppleTracker extends Apple {
-  private static Set<String> inventory = new HashSet<String> ();
-  public AppleTracker (String name) { super(name); inventory.add(name);}
-  public static Set<String> getInventory() { return Collections.unmodifiableSet(inventory);}
-}
-// client code
-Apple a = new Apple("Winesap");
-AppleTracker at1 = new AppleTracker("Winesap");
-AppleTracker at2 = new AppleTracker("Fuji");
-
-  #+end_src
-
-Mark each of the following either *True* or *False*:
-
-1. The ~equals()~ method in the AppleTracker class is inherited from the Apple class. 
-- ~a.equals(at1)~ sometimes returns true and sometimes returns false. 
-- The ~equals()~ method in the Apple class relies on the rep-invariant to satisfy its contract. 
-- ~AppleTracker~ adds client-visible state to Apple objects. 
-- ~a.equals(at1)~ and ~at1.equals(a)~ are both true. 
-- ~a.equals(at2)~ and ~at2.equals(a)~ are both false. 
-- ~at1.equals(a)~ and ~a.equals(at2)~ are both true, but ~at1.equals(at2)~ is false. 
-- It would correct to implement ~hashCode()~ as ~return name.hashCode();~
-- It would correct to inherit ~hashCode()~ from the Object class. 
-- Bloch would object to replacing ~o instanceof Apple~ with a predicate built atop ~getClass()~. 
-
-
-# #+begin_comment
-# Answer: T,F,T,F,T,T,F,T,F,T
-# #+end_comment
-
-
-# * Quiz 10: 11/22
-# Consider the following code, and suppose the main method in ~Sub~ is executed.
+# Consider the following 2 specifications, the second of which has an associated implementation:
 # #+begin_src java
-# public class Super {
-#   private String y;
-#   public Super () { stut();}
-#   public void stut() { if (y == null) {y = "cat";} else {y = y + y;}}
-# }
-# public class Sub extends Super {
-#   private String x;
-#   public Sub (String s) { x = s;}
-#   @Override public void stut() {
-#      x = x + x;
-#   }
-#   public static void main(String[] args) {
-#       Super s = new Sub("dog");
-#   }
-# }
+# public static int minIndex (int [] a) {... implementation omitted ... }
+#    // EFFECTS: if a null throw NullPointerException, else if a.length=0 throw
+#    //      IllegalArgumentException else return index of some min element in a.
+# public static void setSmall (int [] a, int i) {
+#    // REQUIRES: a != null, 0 <= i < a.length
+#    // MODIFIES a
+#    // EFFECTS: rearranges elements in array a so that some smallest element is at index i
+#    int j = minIndex(a); int t = a[j]; a[j] = a[i]; a[i] = t;    }
 # #+end_src
 
+# 1. Suppose we wish to transform the ~setSmall~ precondition ~a != null~ into defined behavior with an exception.
+#    1. What Java exception would Bloch recommend for this transformation?
+#       #+begin_comment
+#       Answer: NullPointerException.
+#       #+end_comment
+#    2. Rewrite the precondition and postcondition for ~setSmall()~ to achieve this result.
+#       #+begin_comment
+#          Answer: Note that the predicate a!=null is no longer in the REQUIRES clause.
+#          // REQUIRES: 0 <= i < a.length
+#          // MODIFIES a
+#          // EFFECTS: if a = null throw NullPointerException else
+#          //          rearranges elements in array a so that
+#          //          smallest element is at index i
+#       #+end_comment
+#    3. Does the given implementation of ~setSmall()~ satisfy this revised specification?
+#       #+begin_comment
+#       Answer: Yes. Note that the call to ~minIndex()~ generates the correct exception.
+#       #+end_comment
+# 2. Suppose we wish, in addition, to transform the ~setSmall()~ precondition ~0 <= i < a.length~ into defined behavior with an exception.
+#    1. What exception would Bloch recommend for this transformation? Hint: Note that ~i~ is described as an "index".
+#      #+begin_comment
+#      Answer: IndexOutOfBoundsException
+#      #+end_comment
+#    2. Extend your rewrite of the precondition and postcondition for ~setSmall()~ to achieve this result.
+#       #+begin_comment
+#       Answer: Note that the predicate 0 <= i < a.length is no longer in the REQUIRES clause.
+#       // MODIFIES a
+#       // EFFECTS: if a = null throw NullPointerException else
+#       //          if !(0 <= i < a.length) throw IndexOutOfBoundsException else
+#       //          rearranges elements in array a so that
+#       //          smallest element is at index i
+#       #+end_comment
+#    3. Does the given implementation of ~setSmall()~ satisfy this revised specification?
+#       #+begin_comment
+#       Answer: No. There are two cases. If the array is not empty, then the implementation returns ~IndexOutOfBoundsException~. However, if the array is empty, then the implementation generates ~IllegalArgumentException~ via the call to ~minIndex()~, which is /not/ ~IndexOutOfBoundsException~.
+#       #+end_comment
 
-# 1. Is the constructor in Super invoked? Why or why not?
+
+# * Quiz 3: Immutability
+# *Immutatiblity*: Consider a partial version of Bloch's mutable Stack class:
+#    #+begin_src java
+#      public class Stack {
+
+#          private Object[] elements;
+#          private int size = 0;
+
+#          public Stack() { this.elements = new Object[0]; }
+
+#          public void push (Object e) {
+#              ensureCapacity();      // implementation omitted from quiz
+#              elements[size++] = e;
+#          }
+
+#          public Object pop () {
+#              if (size == 0) throw new IllegalStateException("Stack.pop");
+#              Object result = elements[--size];
+#              elements[size] = null;
+#              return result;
+#          }
+#      }
+
+#    #+end_src
+#    Also consider the following client interaction with Stack
+#    #+begin_src java
+#      Stack s = new Stack();
+#      s.push("cat");
+#      s.push("dog");
+#      System.out.println(s.pop());
+#    #+end_src
+#      - What methods would be needed to convert the client interaction into an equivalent interaction with an immutable version called IStack? For each method, give *just the method header* - not the contract or implemetation.
+
+   
 #    #+begin_comment
-#    Answer: Yes. There is an implicit call to super(); as the very first instruction in the Sub constructor
+#      public class IStack{
+#      public IStack push(Object e){
+#      // return new IStack() ....
+#      }
+
+#      public IStack pop (){
+#      // return new IStack object
+#      }
+
+#      public Object top(){
+#      // return the top of the stack
+#      }
+
+#      }
 #    #+end_comment
-# 1. Is the stut() method in Super invoked? Why or why not?
-#    #+begin_comment
-#    Answer: No. The stut() method is overridden in class Sub, and so the class Sub stut() method is invoked instead.
-#    #+end_comment
-# 1. Is the stut() method in Sub invoked? Why or why not?
-#    #+begin_comment
-#    Answer: Yes. See the answer to the previous question.
-#    #+end_comment
-# 1. Which rule in Bloch does this code violate? (Any reasonable phrasing of the principle is fine.)
-#    #+begin_comment
-#    Answer: The rule that says "Constructors (in classes that may be extended) must not invoke overridable methods."
+
+# ** Quiz 4: Verification using Hoare Logic
+#    Given the program
+#    #+begin_src java
+#      // {x <= 1}   # P1
+#      // {x <= 11}  # P2
+
+#      while (x != 10){
+#          x := x + 1;
+#      }
+
+#      //{x == 10}  # Q
+#    #+end_src
+  
+#    1. Informally reason that this program is correct with the given =P1= and =Q=.
+#    1. This program *is correct* with respect to the given precondition =P1= and postcondition =Q=.  Prove it by finding a loop invariant and verify the verification condition (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)
+#    2. Now, consider a different precondition =P2=.
+#       1. Recompute the VC of the program with respect to =P2=.
+#       1. is the VC  =P2 -> WP ..=  valid?  if yes, what does that mean,  if not, what does that mean?
+      
+# #+begin_comment
+#    loop inv :  x <= 10
+
+#    wp(while[x<=10](x != 10){x := x + 1;}, {x == 10}) =
+
+#    //conj 1
+#    I =
+#    x <=10
+   
+#    //conj 2
+#    (I & x!=10) => wp(x:= x+1, I)   =
+#    (x <= 10 & x!=10) => wp(x:= x+1, x <= 10)
+#    (x < 10) => x+1 <= 10
+#    (x <= 9) => x <= 9
+#    TRUE
+
+#    //conj 3
+#    (I & !(x!=10) => x == 10) =
+#    (x <= 10 & !(x!=10) => x == 10)
+#    x == 10 => x == 10
+#    True
+
+#    //vc
+#    x<=10 => x<=10   #for P1,  this implication holds and thus shows the program is correct (wrt to Q and P1)
+
+#    //x<=11 => x<=10   #for P2, this implication does not hold (cex x=11), and thus does not show anything other than that we cannot prove it. Important: fail to prove does not mean the program is wrong,  it simplify means we cannot prove it (could be because we picked a weak loop invariant,  could also be that the program is actually wrong)
+# #+end_comment
+
+
+
+# *  Quiz 4: Immutable class
+  
+#   1. Consider the following (supposedly) immutable class:
+
+#      #+begin_src java
+#        public final class Immutable {
+#            private final String string;
+#            private final int x;
+#            private final List<String> list;
+
+#            public Immutable(String string, int x, List<String> list) {
+#                this.string = string;                     // Line A
+#                this.x = x;                               // Line B
+#                this.list = new ArrayList<String> (list); // Line C
+#            }
+
+#            public String getString() { return string; }  // Line D
+#            public int getInt()    { return x; }       // Line E
+#            public List<String> getList() { return list; }    // Line F
+#        }
+#      #+end_src
+#     Which of the lines (A--F) has a problem wrt the immutability of class Immutable?
+#   2. For each of the above lines that has problem with immutability, write pseudocode code to demonstrate the issue
+
+#     #+begin_comment
+#      Only line F (because list is muttable)
+
+#      List<String> list = //... supppose list is [cat, dog]
+#      Immutable im = new Immutable("bat", 7, list);
+#      list = im.getList();
+#      list.add("elephant");   // now I've changed the internal state of Immutable
+#                              // from
+#                              // <bat, 7, [cat, dog]>
+#                              // to
+#                              // <bat, 7, [cat, dog, elephant]>
 #     #+end_comment
 
 
-# * Quiz 11: 11/29
+# * Quiz 5:  Iterator
 
-# Consider the following incomplete JUnit theory about the consistency of ~compareTo()~ (from the Comparable interface) and equals().
-#   #+begin_comment
-#   Grading note: Since this quiz is about JUnit theories, and not generics, feel free to ignore generics entirely in this quiz.
-#   #+end_comment
+# The specification for Liskov's ~elements()~ method is given below.
+# - Note 1: A Liskov Iterator has only the the ~hasNext()~ and ~next()~ methods.
+# - Note 2: As discussed in class the abstract state for such an ~Iterator~ is a ~Stack~ of objects yet to be produced.
+
+#     #+begin_src java
+#      public Iterator elements()
+#      // EFFECTS: Returns a generator that will produce all the elements of
+#      //  this (as Integers), each exactly once, in arbitrary order.
+#      // REQUIRES: this must not be modified while the generator is in use
+
+
+#        #+end_src
+
+# Consider the code below which uses ~elements()~. Line numbers have been added for reference purposes.
 #   #+begin_src java
-#    @Theory public void compareToConsistentWithEquals( ... ) {
-#       assumeTrue (...);   // Assume none of the parameters are null  (i.e. no NPE)
-#       assumeTrue (...);   // Assume parameters are mutually comparable (i.e. no CCE)
-      
-#       assertTrue (...);   // See question 3
+#         0: IntSet s = new IntSet();
+
+#         1: s.insert(2);
+#         2: s.insert(8);
+#         3: Iterator itr = s.elements();
+#         4: itr.next();
+#         5: itr.next();
+#         6: // See questions below
+#         7: itr.next();
+
+#   #+end_src
+	
+# - show the (stack) contents of ~itr~  after line 3
+# #+begin_comment
+# [2,8]  or [8,2]
+# #+end_comment
+# - show the contents of ~itr~  after line 5.
+# #+begin_comment
+# []
+# #+end_comment
+# - If line 6 is ~s.insert(12)~; show the contents of ~itr~ after line 6?
+# #+begin_comment
+# Undefined behavior or violating the requirements of iteration
+# #+end_comment
+
+
+# * Quiz 6:  Type
+
+#   #+begin_src java
+#  class A {
+#     public Iterator compose (Iterator itr)
+#     // Requires: itr is not null
+#     // Modifies: itr
+#     // Effects: if this is not appropriate for itr throw IAE
+#     // else return generator of itr composed with this
+#  class B {
+#     public Iterator compose (Iterator itr)
+#     // Modifies: itr
+#     // Effects: if itr is null throw NPE
+#     // else if this is not appropriate for itr throw IAE
+#     // else return generator of itr composed with this
+#  class C {
+#     public Iterator compose (Iterator itr)
+#     // Modifies: itr
+#     // Effects: if itr is null return iterator equal to this
+#     // else if this is not appropriate for itr throw IAE
+#     // else return generator of itr composed with this
+#    #+end_src
+
+#  Analyze the =compose()= method in each of these cases according to Liskove's Principle of Substitution. For each case, state if the precondition and the postcondition parts are satisfied or fail, and *justify*.
+
+#  1. B extends A.
+#  1. C extends A.
+#  1. A extends B.
+#  1. C extends B.
+#  1. B extends C.
+
+# #+begin_comment
+# 1. B extends A.
+# Precondition Part:
+# Answer: Satisfied: weaker precondition in B
+# Postcondition Part:
+# Answer: Satisfied: Identical behavior where A defined, with additional behavior where A not defined.
+# 2.C extends A.
+# Precondition Part:
+# Answer: Satisfied: weaker precondition in C
+# Postcondition Part:
+# Answer: Satisfied: Identical behavior where A defined, with additional behavior where A not defined.
+# 3. A extends B.
+# Precondition Part:
+# Answer: Not satisfied: stronger precondition in A
+# Postcondition Part:
+# Answer: No analysis required
+# 4. C extends B.
+# Precondition Part:
+# Answer: Satisfied: same preconditions
+# Postcondition Part:
+# Answer A: Not satisfied: Inconsistent behavior in case where itr is null
+# Answer B: Satisfied, stronger post (assuming returning a an iterator equal to this)
+# 5. B extends C.
+# Precondition Part:
+# Answer: Satisfied: same preconditions
+# Postcondition Part:
+# Answer: Not satisfied: Inconsistent behavior in case where itr is null
+# #+end_comment
+
+# * Quiz 7:
+
+#   #+begin_src java
+#     Set<String> t = //  See questions below
+
+#     t.add("antelope");
+#     t.add("dog");
+#     t.add("cat");
+
+#  // t.toString() is ???
+#   #+end_src
+
+
+# 1. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>();~.  At the end of the computation, what is ~t.toString()?~
+#   #+begin_comment
+#   Answer: [antelope, cat, dog]
+#   #+end_comment
+# 2. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> x.length() - y.length());~. At the end of the computation, what is ~t.toString()?~
+#   #+begin_comment
+#   Answer: [dog, antelope]
+#   #+end_comment
+
+# # 3. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> y.compareTo(x));~. At the end of the computation, what is ~t.toString()?~
+# # #+begin_comment
+# # Answer: [dog, cat, antelope]
+# # #+end_comment
+
+# # 4. Which of the above ~Comparator~ implementations is problematic? and why?
+# # #+begin_comment
+# # Answer: 2, compare(a,b)  is not consistent with a.equals(b).
+# # #+end_comment
+
+
+# * Quiz 8:
+# Consider the following code:
+# #+begin_src java
+# public class Example <E> {
+#     String           string = "ant";
+#     Integer          seven = 7;
+#     E                e = null;
+#     Object[]         objects;
+#     List < Object >  listObject;
+#     List < E >       listE;
+#     public void m() {
+#           // Java code for questions appears here
 #     }
+# }
+# #+end_src
 
-#   #+end_src
-# - How many parameters should this theory have? 
-#   #+begin_comment
-#     Answer: 2
-#   #+end_comment  
-# - What type should each of the paramters have? 
-#   #+begin_comment
-#   Answer: Comparable
-#   Grading note: Technically, this should be type E, where there is a constraint in the class type:
-#   public class SomeJUnitTestClass <E extends Comparable<E>> {
-#   Anything that shows that you know that the parameters need to be comparable is fine.
-#   #+end_comment
-# - What is an appropriate assertion?  Note: assume that the ~assumeTrue(...)~ statements are correctly implemented.
-#    #+begin_comment
-#      assertTrue (x.equals(y) == (x.compareTo(y) == 0));   // Assert
-#      There are other ways of stating this, of course. The key point is that this is an "iff" relationship.
-#    #+end_comment
-# - Suppose you had the following DataPoints. How many times does JUnit evaluate the ~assertTrue()~ statement in this theory?
+# Independently consider the following 5 sequences of Java instructions. For each sequence, what of the following choices will happen ? (i) compiler warning; (ii) compiler error; (iii) runtime exception; or (iv) normal run
+
+# -
+# #+begin_src java
+# objects = new E[1];
+# objects[0] = e;
+# #+end_src
+# #+begin_comment
+# Answer: compiler error
+# #+end_comment
+
+# -
+# #+begin_src java
+# listE = new ArrayList < E >();
+# listE.add(e);
+# listObject = listE;
+# #+end_src
+# #+begin_comment
+# Answer: compiler error
+# #+end_comment
+
+
+# -
+# #+begin_src java
+# listObject = new ArrayList < String >();
+# listObject.add(string) ;
+# listObject.add(seven) ;
+# #+end_src
+# #+begin_comment
+# Answer: compiler error
+# #+end_comment
+
+
+# -
+# #+begin_src java
+# objects = new Object[1];
+# objects[0] = string;
+# objects[0] = seven;
+# #+end_src
+# #+begin_comment
+# Answer: normal run
+# #+end_comment
+
+
+# -
+# #+begin_src java
+# objects = new String[1];
+# objects[0] = string;
+# objects[0] = seven;
+# #+end_src
+# #+begin_comment
+# Answer: runtime exception
+# #+end_comment
+
+# * Quiz 9:
+#   Consider the following code.
 #   #+begin_src java
-#   @DataPoints
-#    public static String[] stuff = { "cat", "cat", "dog"};
-#   #+end_src
-#   #+begin_comment  
-#       3*3 = 9    11,22,33,12,13,23,21,31,32
-#   #+end_comment    
+# class Apple {
+#   // rep-inv:  name != null
+#   private String name;
+#   public Apple (String name) {
+#      if (name == null) throw new NPE(...);
+#      this.name = name;
+#   }
+#   @Override public boolean equals (Object o) {
+#      if (!(o instanceof Apple)) { return false; }
+#      Apple a = (Apple) o;
+#      return name.equals(a.name);
+#   }
+#   @Override public int hashCode() { // see questions below }
+#   @Override public String toString() { return name; }
+# }
+# class AppleTracker extends Apple {
+#   private static Set<String> inventory = new HashSet<String> ();
+#   public AppleTracker (String name) { super(name); inventory.add(name);}
+#   public static Set<String> getInventory() { return Collections.unmodifiableSet(inventory);}
+# }
+# // client code
+# Apple a = new Apple("Winesap");
+# AppleTracker at1 = new AppleTracker("Winesap");
+# AppleTracker at2 = new AppleTracker("Fuji");
 
+#   #+end_src
+
+# Mark each of the following either *True* or *False*:
+
+# 1. The ~equals()~ method in the AppleTracker class is inherited from the Apple class.
+# - ~a.equals(at1)~ sometimes returns true and sometimes returns false.
+# - The ~equals()~ method in the Apple class relies on the rep-invariant to satisfy its contract.
+# - ~AppleTracker~ adds client-visible state to Apple objects.
+# - ~a.equals(at1)~ and ~at1.equals(a)~ are both true.
+# - ~a.equals(at2)~ and ~at2.equals(a)~ are both false.
+# - ~at1.equals(a)~ and ~a.equals(at2)~ are both true, but ~at1.equals(at2)~ is false.
+# - It would correct to implement ~hashCode()~ as ~return name.hashCode();~
+# - It would correct to inherit ~hashCode()~ from the Object class.
+# - Bloch would object to replacing ~o instanceof Apple~ with a predicate built atop ~getClass()~.
+
+
+# # #+begin_comment
+# # Answer: T,F,T,F,T,T,F,T,F,T
+# # #+end_comment
+
+
+# # * Quiz 10: 11/22
+# # Consider the following code, and suppose the main method in ~Sub~ is executed.
+# # #+begin_src java
+# # public class Super {
+# #   private String y;
+# #   public Super () { stut();}
+# #   public void stut() { if (y == null) {y = "cat";} else {y = y + y;}}
+# # }
+# # public class Sub extends Super {
+# #   private String x;
+# #   public Sub (String s) { x = s;}
+# #   @Override public void stut() {
+# #      x = x + x;
+# #   }
+# #   public static void main(String[] args) {
+# #       Super s = new Sub("dog");
+# #   }
+# # }
+# # #+end_src
+
+
+# # 1. Is the constructor in Super invoked? Why or why not?
+# #    #+begin_comment
+# #    Answer: Yes. There is an implicit call to super(); as the very first instruction in the Sub constructor
+# #    #+end_comment
+# # 1. Is the stut() method in Super invoked? Why or why not?
+# #    #+begin_comment
+# #    Answer: No. The stut() method is overridden in class Sub, and so the class Sub stut() method is invoked instead.
+# #    #+end_comment
+# # 1. Is the stut() method in Sub invoked? Why or why not?
+# #    #+begin_comment
+# #    Answer: Yes. See the answer to the previous question.
+# #    #+end_comment
+# # 1. Which rule in Bloch does this code violate? (Any reasonable phrasing of the principle is fine.)
+# #    #+begin_comment
+# #    Answer: The rule that says "Constructors (in classes that may be extended) must not invoke overridable methods."
+# #     #+end_comment
+
+
+# # * Quiz 11: 11/29
+
+# # Consider the following incomplete JUnit theory about the consistency of ~compareTo()~ (from the Comparable interface) and equals().
+# #   #+begin_comment
+# #   Grading note: Since this quiz is about JUnit theories, and not generics, feel free to ignore generics entirely in this quiz.
+# #   #+end_comment
+# #   #+begin_src java
+# #    @Theory public void compareToConsistentWithEquals( ... ) {
+# #       assumeTrue (...);   // Assume none of the parameters are null  (i.e. no NPE)
+# #       assumeTrue (...);   // Assume parameters are mutually comparable (i.e. no CCE)
+      
+# #       assertTrue (...);   // See question 3
+# #     }
+
+# #   #+end_src
+# # - How many parameters should this theory have?
+# #   #+begin_comment
+# #     Answer: 2
+# #   #+end_comment
+# # - What type should each of the paramters have?
+# #   #+begin_comment
+# #   Answer: Comparable
+# #   Grading note: Technically, this should be type E, where there is a constraint in the class type:
+# #   public class SomeJUnitTestClass <E extends Comparable<E>> {
+# #   Anything that shows that you know that the parameters need to be comparable is fine.
+# #   #+end_comment
+# # - What is an appropriate assertion?  Note: assume that the ~assumeTrue(...)~ statements are correctly implemented.
+# #    #+begin_comment
+# #      assertTrue (x.equals(y) == (x.compareTo(y) == 0));   // Assert
+# #      There are other ways of stating this, of course. The key point is that this is an "iff" relationship.
+# #    #+end_comment
+# # - Suppose you had the following DataPoints. How many times does JUnit evaluate the ~assertTrue()~ statement in this theory?
+# #   #+begin_src java
+# #   @DataPoints
+# #    public static String[] stuff = { "cat", "cat", "dog"};
+# #   #+end_src
+# #   #+begin_comment
+# #       3*3 = 9    11,22,33,12,13,23,21,31,32
+# #   #+end_comment
