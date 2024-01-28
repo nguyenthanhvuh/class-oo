@@ -54,7 +54,31 @@
   ```java
   int intdiv(int x, int y){
     /*
-    Return the integer division result x/y. 
+    Return the integer division result x/y.
+    
+
+    precondition 
+    - 
+    -
+    
+    postconditions
+    - if x or y are not integers, raise Exception
+    - z is a number
+    - z is an integer
+    - if y is 0, then raise an Exception 
+    - z*y ==  x
+    */
+
+    if not typeof(x, Int): raise 
+    if not typeof(y, Int): raise     
+    if (y == 0){ // raise ...
+       ...     
+    }
+    return z
+  }
+  ``` 
+
+
 
     preconds:
     - x and y are integers # (already given in type)
@@ -66,13 +90,7 @@
     - z = x // y  # *strong*
     ,*/
 
-    if (y == 0){ // raise ...
-        
-    }
 
-    return z
-  }
-  ``` 
 
 If we have `S1 = P => Q` and `S2 = P' => Q'`, then 
 - S1 is better than S2 :   if P is weaker than P'
@@ -90,7 +108,10 @@ If we have `S1 = P => Q` and `S2 = P' => Q'`, then
       - And create the postcondition:  if list is null then raise NullPointerExeception
    - in the implementation, create conditions and raise exception
 
+
+
 ### Check vs Unchecked Exception
+
    - precondition (purely specification):  if violated can gives undefine behavior
    - exception (more implementation): turn undefine behavior into defined ones
    - *checked exception** 
@@ -109,7 +130,8 @@ If we have `S1 = P => Q` and `S2 = P' => Q'`, then
 ### Check vs vs Unchecked (Bloch item 70)
    - check exception:  recoverable
      - force the caller to handle the exception
-     - IOException:  file not found,  well probably can have a backup , default one       
+     - IOException: file not found,  well probably can have a backup , default one
+     
    - unchecked exception:
      - recovery not possible
      - NPE: if you pass me a null pointer, and I try to dereference it, well then I should get NPE.  Not much I can do to turn a null pointer into a non-null pointer.  
@@ -130,9 +152,19 @@ If we have `S1 = P => Q` and `S2 = P' => Q'`, then
    - focuses on what (not how)
      - signature: formal parameters, return types, etc
      - isPrime:  detemrine if arg is prime is important ,   how this is determine is irrelevant
+
 ** Specifications/Contracts
-   
    - Informal (English, remove example): easier to write but vague
+
+int foo(string s, char d): ... 
+ // pre: 
+ // post
+ // modify: s
+ ....
+ //implementation
+  ..
+ return 
+
 ** Signatures/Header
    - requires/modifies/effects   in comments
    - requires/precond: partial vs total  (partial: only for certain input so have require/preconditions,  total: for all correct type inputs, so precondition is TRUE, i.e. no precondition/require clause)
@@ -145,6 +177,50 @@ If we have `S1 = P => Q` and `S2 = P' => Q'`, then
    - Adhere to specifications
    - weaker vs stronger  , e.g., if specification says return a number, then always return 3 is ok.  but if specification says return an odd number, then cannot return any number.
    - 
+
+
+IC2a
+3. total specs
+
+# pre:  Nothing
+# post:
+  1. if input list is null/None, throw NullPointException
+  2. if input list is empty, throw Exception (or return [])
+     - don't say anything about IndexError as that requires an Index-based datastructure in the implementation
+  3. return the original list in the same order without first element
+  4. remove the first element and return the rest: WRONG, X, too implemntation specific
+  
+# side-effects
+  - Nothing
+
+4. 
+
+
+hasNext() Method:
+  -Preconditions: Nothing explicitly mentioned in the Iterator interface documentation. It is generally assumed that the iterator is positioned at a valid element or at the end of the collection.
+
+ - Postconditions:
+   - Returns true if there is at least one more element in the collection; otherwise, returns false.
+
+next() Method:
+ - Preconditions: There is at least one more element in the collection.
+indicating the end of the collection.
+ - Postconditions:
+   Returns the next element in the collection.
+   The iterator is moved to the next position.
+ 
+ - Violation Example: 
+   - Calling next multiple times without calling 
+hasNext to check if there are more elements.
+   - Calling next when hasNext returns false,
+ 
+ 
+remove() Method:
+ - Preconditions: next() has been called at least once after the last call to remove.
+ - Violation Example: Calling remove without first calling next.
+Postconditions:
+  Removes the last element returned by next from the underlying collection.
+- Violation Example: Calling remove multiple times consecutively without calling next in between.
 
 
 ## Module 3
