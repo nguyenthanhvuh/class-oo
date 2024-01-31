@@ -143,7 +143,7 @@ _Hint_: also look at the Javadoc for =equals()=
       Requires:  non-empty and non-null list 
       Effects: removes first element of the list and returns the rest (tail)
       #+end_comment
-   1. Rewrite the specification to be *total*. Use Bloch's standard exceptions.
+   1. Rewrite the specification to be *total*. Use standard exceptions (e.g., as suggested in Bloch's).
       #+begin_comment
       Requires:  nothing
       Effects: removes first element of the list and returns the rest (tail); throws NPE if list is null and IOBE if list is empty
@@ -159,7 +159,6 @@ _Hint_: also look at the Javadoc for =equals()=
 
       if (list.size() == 0) throw IAE
       // no need null checking as the remove(0) will throw that
-
 
       Also, possible to do if list is [], return [],  but then needs to update the contract.  In general, as long as you satisfy the contract, you're fine.
       #+end_comment

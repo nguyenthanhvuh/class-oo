@@ -1,6 +1,6 @@
 # Notes
 
-## Module 1
+## Week 1
 - Syllabus 
   - No cheating 
   
@@ -45,7 +45,7 @@
 
 
 
-## Module 2
+## Week 2
 
 ### Weaker Preconditions and Stronger Postconditions
   
@@ -77,7 +77,6 @@
     return z
   }
   ``` 
-
 
 
     preconds:
@@ -117,14 +116,7 @@ If we have `S1 = P => Q` and `S2 = P' => Q'`, then
    - *checked exception** 
      - things that you should explicitly catch or rethrow
      - Block: throw checked exceptions for __recoverable conditions_ and _unchecked exceptions_ for programming errors. When in doubt, throw unchecked exceptions.
-     <!-- - Liskov: -->
-     <!--   - You should use an unchecked exception only if you expect that users will usually write code that ensures the exception will not happen, because -->
-     <!--    • There is a convenient and inexpensive way to avoid the exception. -->
-     <!--    • The context of use is local. -->
-     <!--   - Otherwise, use checked -->
 
-<!-- Otherwise, you should use a checked exception. -->
-<!--      Most prefer Bloch's ... -->
 
 
 ### Check vs vs Unchecked (Bloch item 70)
@@ -137,25 +129,15 @@ If we have `S1 = P => Q` and `S2 = P' => Q'`, then
      - NPE: if you pass me a null pointer, and I try to dereference it, well then I should get NPE.  Not much I can do to turn a null pointer into a non-null pointer.  
        
 
-### Item76: Strive for Failure Atomicity
-   - failed method invocation should leave the object in the state that it was prior to the invocation
-   - ways to achieve this
-     - design immutable objects (tuples, string vs arrays, set)
-       - performance, easy to reason about that (will spend more time later)
-     - check the inputs
-     - order the computation : parts that fail come before modification
-     - write recovery code:  allow objecet to roll back its state
-     - perform the operations on temporary copy of the object
 
-
-** Abstraction
+### Abstraction
    - focuses on what (not how)
      - signature: formal parameters, return types, etc
      - isPrime:  detemrine if arg is prime is important ,   how this is determine is irrelevant
 
-** Specifications/Contracts
-   - Informal (English, remove example): easier to write but vague
+### Specifications/Contracts
 
+```
 int foo(string s, char d): ... 
  // pre: 
  // post
@@ -164,16 +146,18 @@ int foo(string s, char d): ...
  //implementation
   ..
  return 
+```
 
-** Signatures/Header
-   - requires/modifies/effects   in comments
+
+### Signatures/Header
+   - requires/modifies/effects  in comments
    - requires/precond: partial vs total  (partial: only for certain input so have require/preconditions,  total: for all correct type inputs, so precondition is TRUE, i.e. no precondition/require clause)
    - modifies: input modification -> side-effect
    - effects/postcond:  under assumption that requires are satisfied  (x' or x_post)
    - Precondition: weakest is best,  nothing (i.e., True) is even better
    - weaker vs stronger
 
-** Implementation
+## Implementation
    - Adhere to specifications
    - weaker vs stronger  , e.g., if specification says return a number, then always return 3 is ok.  but if specification says return an odd number, then cannot return any number.
    - 
@@ -223,4 +207,16 @@ Postconditions:
 - Violation Example: Calling remove multiple times consecutively without calling next in between.
 
 
-## Module 3
+## Week 3
+
+### Quiz and HW
+
+
+
+
+### Lecture Notes
+
+
+### In-Class
+
+

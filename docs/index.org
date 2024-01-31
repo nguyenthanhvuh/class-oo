@@ -7,10 +7,10 @@
 
 * General Information
   - Instructor: [[https://nguyenthanhvuh.github.io][ThanhVu Nguyen]]
-    - Office Hrs: Wednesday 3:00PM -- 4:00PMk Engr 4430 (through appointment)
+    - Office Hrs: Wednesday 3:00PM -- 4:00PM Engr 4430 (through appointment)
     - Email: [[mailto:tvn@gmu.edu][tvn@gmu.edu]] (Piazza discussion is preferred)
   - Grader: Sultanbek Khassenov
-    - Office Hrs: Monday 2:00PM -- 3:00PM,  Buchanan Hall, D2 desk
+    - Office Hrs: Monday 2:00PM -- 3:00PM,  Buchanan Hall, CS undergrad office, D2 desk
     - Email: skhassen@gmu.edu
   - Class:
     - Wed 4:30PM--7:10PM, Buchanan Hall D023
@@ -41,7 +41,6 @@
    Each week will cover a topic, which is a small number of related technical issues (see course [[./schedule.html][schedule]]). Each topic will follow roughly the same sequence of preparation, in-class learning activities, homework completion and (possibly) presentation, and knowledge assessment. Many of these activities will be group based. The sequence is:
 
    - Preparation: Complete assigned readings and watch relevant videos, if any.  No formal submission for this activity.
-   - Reading Reflection: This is a formal opportunity for each group to reflect on the reading.
    - Class Meeting:
      + Combined session on the day's topic, followed by in-class exercises (group breakouts)
      + Break
@@ -91,7 +90,7 @@
 
 *** Weekly Quizzes
     - Each quiz happens during the last 15-20 minutes of class.
-#    - "Quiz Guides" posted to the course schedule tell you what to expect on the quiz. Often, they will be closely related to the prior week's homework.
+
 
     *Make-up Policy*
     - All quizzes count towards the final grade. Each quiz is scored on a 10 point scale. Missed quizzes score 0/10. Students who miss a quiz or perform badly on a quiz may choose to take the "make-up".
