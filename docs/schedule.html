@@ -3,11 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-01-24 Wed 13:03 -->
+<!-- 2024-01-31 Wed 22:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SWE 619 Course Schedule and Assignments</title>
-<meta name="author" content="ThanhVu (Vu) Nguyen" />
+<meta name="author" content="tnguyen" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -235,17 +235,17 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgc6d471f">1. Schedule</a></li>
-<li><a href="#org970632a">2. In class Assignments</a></li>
-<li><a href="#org1367f9b">3. HW Assignments</a></li>
-<li><a href="#org052bf0a">4. Reflection</a></li>
-<li><a href="#org6b69b21">5. Files</a></li>
-<li><a href="#org1d431f0">6. Links</a></li>
+<li><a href="#org9a60358">1. Schedule</a></li>
+<li><a href="#orgb262419">2. In class Assignments</a></li>
+<li><a href="#orgf92d137">3. HW Assignments</a></li>
+<li><a href="#org6bfa004">4. Reflection</a></li>
+<li><a href="#org5684985">5. Files</a></li>
+<li><a href="#orgdc724ff">6. Links</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc6d471f" class="outline-2">
-<h2 id="orgc6d471f"><span class="section-number-2">1.</span> Schedule</h2>
+<div id="outline-container-org9a60358" class="outline-2">
+<h2 id="org9a60358"><span class="section-number-2">1.</span> Schedule</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li><b>Notes</b>: Except for the first class, students are expected to complete the reading <b>prior to class</b> on listed meeting. Quizzes may occasionally take advantage of this expectation. Homework assignments are <b>due</b> on the date listed.</li>
@@ -298,19 +298,46 @@
 </tr>
 
 <tr>
+<td class="org-right">4</td>
+<td class="org-left">Imperative Program Verification</td>
+<td class="org-left"><a href="https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html">Hoare logic notes</a></td>
+<td class="org-center"><a href="#a2">A2 Due</a></td>
+<td class="org-center">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">Imperative Program verification</td>
+<td class="org-left"><a href="https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html">Hoare logic notes</a></td>
+<td class="org-center">&#xa0;</td>
+<td class="org-center">IC <a href="#ic4">4</a></td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
 <td class="org-right">3</td>
 <td class="org-left">Data Abstraction; Mutability</td>
 <td class="org-left">Liskov 5.1&#x2013;5.4,</td>
-<td class="org-center"><a href="#a2">A2 Due</a></td>
+<td class="org-center"><a href="#a3">A3 Due</a></td>
 <td class="org-center">IC 3 <a href="#ic3A">A</a> <a href="#ic3B">B</a></td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">Reasoning About Data Abstraction</td>
+<td class="org-left">Liskov 5.5-5.10</td>
+<td class="org-center"><a href="#a4">A4 Due</a></td>
+<td class="org-center">IC 5 <a href="#ic5A">A</a> <a href="#ic5B">B</a></td>
 <td class="org-left">&#xa0;</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="outline-container-org970632a" class="outline-2">
-<h2 id="org970632a"><span class="section-number-2">2.</span> In class Assignments</h2>
+<div id="outline-container-orgb262419" class="outline-2">
+<h2 id="orgb262419"><span class="section-number-2">2.</span> In class Assignments</h2>
 <div class="outline-text-2" id="text-2">
 </div>
 <div id="outline-container-ic1" class="outline-3">
@@ -333,7 +360,7 @@ Consider the following (textbook) code:
 <div class="org-src-container">
 <pre class="src src-java">        <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">User</span> <span style="color: #4078f2;">{</span>
             <span style="color: #e45649;">private</span> <span style="color: #986801;">String</span> <span style="color: #6a1868;">name</span>;
-            <span style="color: #e45649;">public</span> User <span style="color: #a626a4;">(</span>String name<span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span> <span style="color: #e45649;">this</span>.name = name; <span style="color: #a626a4;">}</span>
+            <span style="color: #e45649;">public</span> User <span style="color: #a626a4;">(</span><span style="color: #986801;">String</span> <span style="color: #6a1868;">name</span><span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span> <span style="color: #e45649;">this</span>.name = name; <span style="color: #a626a4;">}</span>
             <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">equals</span> <span style="color: #a626a4;">(</span><span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span><span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
                 <span style="color: #e45649;">if</span> <span style="color: #50a14f;">(</span><span style="color: #4078f2; font-weight: bold;">!</span><span style="color: #b751b6;">(</span>obj <span style="color: #e45649;">instanceof</span> User<span style="color: #b751b6;">)</span><span style="color: #50a14f;">)</span> <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
                 <span style="color: #e45649;">return</span> <span style="color: #50a14f;">(</span><span style="color: #b751b6;">(</span><span style="color: #986801;">User</span><span style="color: #b751b6;">)</span> obj<span style="color: #50a14f;">)</span>.name.equals<span style="color: #50a14f;">(</span><span style="color: #e45649;">this</span>.name<span style="color: #50a14f;">)</span>;
@@ -355,7 +382,7 @@ Consider the following (textbook) code:
 <div class="org-src-container">
 <pre class="src src-python">        <span style="color: #e45649;">class</span> <span style="color: #986801;">User</span>:
             <span style="color: #e45649;">def</span> <span style="color: #a626a4;">__init__</span>(<span style="color: #e45649;">self</span>, name):
-                <span style="color: #e45649;">self</span>.<span style="color: #6a1868;">name</span> = name
+                <span style="color: #e45649;">self</span>.name = name
         <span style="color: #e45649;">def</span> <span style="color: #a626a4;">__eq__</span>(<span style="color: #e45649;">self</span>, other):
             <span style="color: #e45649;">if</span> <span style="color: #e45649;">not</span> <span style="color: #a626a4;">isinstance</span>(other, User):
                 <span style="color: #e45649;">return</span> <span style="color: #b751b6;">False</span>
@@ -415,7 +442,7 @@ Consider the following implementation:
             <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">REQUIRES/PRECONDS: ???</span>
             <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">EFFECTS/POSTCONDS: ???</span>
 
-            <span style="color: #6a1868;">result</span> = my_list.copy()
+            result = my_list.copy()
             result.pop(<span style="color: #da8548; font-weight: bold;">0</span>)
             <span style="color: #e45649;">return</span> result
 </pre>
@@ -435,7 +462,7 @@ Consider the following implementation:
 <li><code>list = [1, 2, 3]</code></li>
 </ul></li>
 <li>Write a <b>partial</b> specification that matches the &ldquo;happy path&rdquo; part of the implementation&rsquo;s behavior.</li>
-<li>Rewrite the specification to be <b>total</b>. Use Bloch&rsquo;s standard exceptions.</li>
+<li>Rewrite the specification to be <b>total</b>. Use standard exceptions (e.g., as suggested in Bloch&rsquo;s).</li>
 <li>The resulting specification has a problem. What is it? (hint: specification should be more general and not tied to the implementation)</li>
 <li><i>Rewrite</i> the specification to address this problem. <i>Rewrite</i> the code to match the new specification.</li>
 </ol>
@@ -704,7 +731,7 @@ Consider the example in Bloch&rsquo;s Item 50 (3rd Edition):
 <span style="color: #84888b; font-style: italic;">          * </span><span style="color: #b751b6; font-style: italic;">@throws</span><span style="color: #84888b; font-style: italic;"> NPE if start or end null</span>
 <span style="color: #84888b; font-style: italic;">          */</span>
 
-         <span style="color: #e45649;">public</span> Period <span style="color: #a626a4;">(</span><span style="color: #986801;">Date</span> <span style="color: #6a1868;">start</span>, Date end<span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
+         <span style="color: #e45649;">public</span> Period <span style="color: #a626a4;">(</span><span style="color: #986801;">Date</span> <span style="color: #6a1868;">start</span>, <span style="color: #986801;">Date</span> <span style="color: #6a1868;">end</span><span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
              <span style="color: #e45649;">if</span> <span style="color: #50a14f;">(</span>start.compareTo<span style="color: #b751b6;">(</span>end<span style="color: #b751b6;">)</span> &gt; <span style="color: #da8548; font-weight: bold;">0</span><span style="color: #50a14f;">)</span> <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IAE</span><span style="color: #50a14f;">()</span>;
              <span style="color: #e45649;">this</span>.start = start; <span style="color: #e45649;">this</span>.end = end;  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Question 1</span>
          <span style="color: #a626a4;">}</span>
@@ -732,7 +759,7 @@ Suppose that the class declaration were:
 Bloch fixes the constructor as follows:
 </p>
 <div class="org-src-container">
-<pre class="src src-java">        <span style="color: #e45649;">public</span> Period <span style="color: #4078f2;">(</span><span style="color: #986801;">Date</span> <span style="color: #6a1868;">start</span>, Date end<span style="color: #4078f2;">)</span> <span style="color: #4078f2;">{</span>
+<pre class="src src-java">        <span style="color: #e45649;">public</span> Period <span style="color: #4078f2;">(</span><span style="color: #986801;">Date</span> <span style="color: #6a1868;">start</span>, <span style="color: #986801;">Date</span> <span style="color: #6a1868;">end</span><span style="color: #4078f2;">)</span> <span style="color: #4078f2;">{</span>
             <span style="color: #e45649;">this</span>.start = <span style="color: #e45649;">new</span> <span style="color: #986801;">Date</span><span style="color: #a626a4;">(</span>start.getTime<span style="color: #50a14f;">()</span><span style="color: #a626a4;">)</span>;  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Defensive copy</span>
             <span style="color: #e45649;">this</span>.end   = <span style="color: #e45649;">new</span> <span style="color: #986801;">Date</span><span style="color: #a626a4;">(</span>end.getTime<span style="color: #50a14f;">()</span><span style="color: #a626a4;">)</span>;    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Defensive copy</span>
 
@@ -791,19 +818,19 @@ Consider the following:
 <div class="org-src-container">
 <pre class="src src-java">
      <span style="color: #e45649;">class</span> <span style="color: #986801;">A</span>:
-         <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce <span style="color: #4078f2;">(</span>Reducer x<span style="color: #4078f2;">)</span>
+         <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce <span style="color: #4078f2;">(</span><span style="color: #986801;">Reducer</span> <span style="color: #6a1868;">x</span><span style="color: #4078f2;">)</span>
              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if x is null throw NPE</span>
              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if x is not appropriate for this throw IAE</span>
              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else reduce this by x</span>
 
              <span style="color: #e45649;">class</span> B:
-             <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce <span style="color: #4078f2;">(</span>Reducer x<span style="color: #4078f2;">)</span>
+             <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce <span style="color: #4078f2;">(</span><span style="color: #986801;">Reducer</span> <span style="color: #6a1868;">x</span><span style="color: #4078f2;">)</span>
              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: x is not null</span>
              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if x is not appropriate for this throw IAE</span>
              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else reduce this by x</span>
 
              <span style="color: #e45649;">class</span> C:
-             <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce <span style="color: #4078f2;">(</span>Reducer x<span style="color: #4078f2;">)</span>
+             <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> reduce <span style="color: #4078f2;">(</span><span style="color: #986801;">Reducer</span> <span style="color: #6a1868;">x</span><span style="color: #4078f2;">)</span>
              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if x is null return (normally) with no change to this</span>
              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if x is not appropriate for this throw IAE</span>
              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else reduce this by x</span>
@@ -990,7 +1017,7 @@ from <code>get()</code>.
 </div>
 </div>
 <ol class="org-ol">
-<li><a id="orgdd72201"></a>Approach 1: Create Methods That Search for Members That Match One Characteristic.<br />
+<li><a id="org3589d57"></a>Approach 1: Create Methods That Search for Members That Match One Characteristic.<br />
 <div class="outline-text-5" id="text-2-15-0-1">
 <p>
 One simplistic approach is to create several methods; each method searches for members that match one characteristic, such as gender or age. <b>Create a method that prints members that are older than a specified age</b>.
@@ -1001,7 +1028,7 @@ Limitation: This approach can potentially make your application brittle, which i
 </p>
 </div>
 </li>
-<li><a id="orgd2332a8"></a>Approach 2: Create More Generalized Search Methods.<br />
+<li><a id="org2cfbd00"></a>Approach 2: Create More Generalized Search Methods.<br />
 <div class="outline-text-5" id="text-2-15-0-2">
 <p>
 Create a method is more generic than the one in the previous approach. It prints members within a specified range of ages.
@@ -1012,7 +1039,7 @@ Limitation: What if you want to print members of a specified sex, or a combinati
 </p>
 </div>
 </li>
-<li><a id="org259ebdf"></a>Approach 3: Specify Search Criteria Code in a Local Class<br />
+<li><a id="orgc321ba7"></a>Approach 3: Specify Search Criteria Code in a Local Class<br />
 <div class="outline-text-5" id="text-2-15-0-3">
 <p>
 Instead of writing filtering functions, use a new interface and class for each search you plan. Use the following filtering criteria for example:  filters members that are eligible for Selective Service in the United States: those who are male and between the ages of 18 and 25:
@@ -1023,7 +1050,7 @@ Limtation: Although this approach is less brittle—you don&rsquo;t have to rewr
 </p>
 </div>
 </li>
-<li><a id="orgbc36086"></a>Approach 4: Specify Search Criteria Code in an Anonymous Class<br />
+<li><a id="org1a29b38"></a>Approach 4: Specify Search Criteria Code in an Anonymous Class<br />
 <div class="outline-text-5" id="text-2-15-0-4">
 <p>
 Use an anonymous class to address the issue with Approach 3.
@@ -1034,7 +1061,7 @@ Limtation: This approach reduces the amount of code required because you don&rsq
 </p>
 </div>
 </li>
-<li><a id="org80b879d"></a>Approach 5: Specify Search Criteria Code with a Lambda Expression<br />
+<li><a id="org133df4e"></a>Approach 5: Specify Search Criteria Code with a Lambda Expression<br />
 <div class="outline-text-5" id="text-2-15-0-5">
 <p>
 Use lambda expression to address the limitation the previous approach.
@@ -1120,7 +1147,7 @@ Once a compiler error is noted, you do not need to analyze the sequence further.
      <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Chooser</span> <span style="color: #4078f2;">{</span>
          <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">Object</span><span style="color: #a626a4;">[]</span> <span style="color: #6a1868;">choiceArray</span>;
 
-         <span style="color: #e45649;">public</span> Chooser <span style="color: #a626a4;">(</span>Collection choices<span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
+         <span style="color: #e45649;">public</span> Chooser <span style="color: #a626a4;">(</span><span style="color: #986801;">Collection</span> <span style="color: #6a1868;">choices</span><span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
              choiceArray = choices.toArray<span style="color: #50a14f;">()</span>;
          <span style="color: #a626a4;">}</span>
 
@@ -1216,7 +1243,7 @@ Consider Bloch&rsquo;s <code>Point/ColorPoint</code> example. For today, ignore 
      <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Point</span> <span style="color: #4078f2;">{</span>  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">routine code</span>
          <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>; <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span>;
          ...
-             <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals<span style="color: #a626a4;">(</span>Object obj<span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Standard recipe</span>
+             <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals<span style="color: #a626a4;">(</span><span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span><span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Standard recipe</span>
              <span style="color: #e45649;">if</span> <span style="color: #50a14f;">(</span><span style="color: #4078f2; font-weight: bold;">!</span><span style="color: #b751b6;">(</span>obj <span style="color: #e45649;">instanceof</span> Point<span style="color: #b751b6;">)</span><span style="color: #50a14f;">)</span> <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
 
              <span style="color: #986801;">Point</span> <span style="color: #6a1868;">p</span> = <span style="color: #50a14f;">(</span><span style="color: #986801;">Point</span><span style="color: #50a14f;">)</span> obj;
@@ -1227,7 +1254,7 @@ Consider Bloch&rsquo;s <code>Point/ColorPoint</code> example. For today, ignore 
      <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">ColorPoint</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Point</span> <span style="color: #4078f2;">{</span>  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">First attempt: Standard recipe</span>
          <span style="color: #e45649;">private</span> <span style="color: #986801;">COLOR</span> <span style="color: #6a1868;">color</span>;
          ...
-             <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals<span style="color: #a626a4;">(</span>Object obj<span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
+             <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals<span style="color: #a626a4;">(</span><span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span><span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
              <span style="color: #e45649;">if</span> <span style="color: #50a14f;">(</span><span style="color: #4078f2; font-weight: bold;">!</span><span style="color: #b751b6;">(</span>obj <span style="color: #e45649;">instanceof</span> ColorPoint<span style="color: #b751b6;">)</span><span style="color: #50a14f;">)</span> <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
 
              <span style="color: #986801;">ColorPoint</span> <span style="color: #6a1868;">cp</span> = <span style="color: #50a14f;">(</span><span style="color: #986801;">ColorPoint</span><span style="color: #50a14f;">)</span> obj;
@@ -1238,8 +1265,8 @@ Consider Bloch&rsquo;s <code>Point/ColorPoint</code> example. For today, ignore 
      <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">ColorPoint</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Point</span> <span style="color: #4078f2;">{</span>  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Second attempt: DON'T DO THIS!</span>
          <span style="color: #e45649;">private</span> <span style="color: #986801;">COLOR</span> <span style="color: #6a1868;">color</span>;
          ...
-             <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals<span style="color: #a626a4;">(</span>Object obj<span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
-             <span style="color: #e45649;">if</span> <span style="color: #50a14f;">(</span><span style="color: #4078f2; font-weight: bold;">!</span><span style="color: #b751b6;">(</span>o instance of Point<span style="color: #b751b6;">)</span><span style="color: #50a14f;">)</span> <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
+             <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals<span style="color: #a626a4;">(</span><span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span><span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
+             <span style="color: #e45649;">if</span> <span style="color: #50a14f;">(</span><span style="color: #4078f2; font-weight: bold;">!</span><span style="color: #b751b6;">(</span>o instance <span style="color: #986801;">of</span> <span style="color: #6a1868;">Point</span><span style="color: #b751b6;">)</span><span style="color: #50a14f;">)</span> <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
 
              <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">If obj is a normal Point, be colorblind</span>
              <span style="color: #e45649;">if</span> <span style="color: #50a14f;">(</span><span style="color: #4078f2; font-weight: bold;">!</span><span style="color: #b751b6;">(</span>obj <span style="color: #e45649;">instanceof</span> ColorPoint<span style="color: #b751b6;">)</span><span style="color: #50a14f;">)</span> <span style="color: #e45649;">return</span> obj.equals<span style="color: #50a14f;">(</span><span style="color: #e45649;">this</span><span style="color: #50a14f;">)</span>;
@@ -1303,7 +1330,7 @@ Consider a variation of Liskov&rsquo;s <code>IntSet</code> example (Figure 5.10,
          <span style="color: #e45649;">public</span> IntSet <span style="color: #a626a4;">()</span> <span style="color: #a626a4;">{</span> els = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span><span style="color: #50a14f;">&lt;</span><span style="color: #986801;">Integer</span><span style="color: #50a14f;">&gt;()</span>; <span style="color: #a626a4;">}</span>
          ...
              <span style="color: #b751b6;">@Override</span>
-             <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals<span style="color: #a626a4;">(</span>Object obj<span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
+             <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> equals<span style="color: #a626a4;">(</span><span style="color: #986801;">Object</span> <span style="color: #6a1868;">obj</span><span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
              <span style="color: #e45649;">if</span> <span style="color: #50a14f;">(</span><span style="color: #4078f2; font-weight: bold;">!</span><span style="color: #b751b6;">(</span>obj <span style="color: #e45649;">instanceof</span> IntSet<span style="color: #b751b6;">)</span><span style="color: #50a14f;">)</span> <span style="color: #e45649;">return</span> <span style="color: #b751b6;">false</span>;
 
              <span style="color: #986801;">IntSet</span> <span style="color: #6a1868;">s</span> = <span style="color: #50a14f;">(</span><span style="color: #986801;">IntSet</span><span style="color: #50a14f;">)</span> obj;
@@ -1730,16 +1757,16 @@ How well are you prepared for the final? This exercise should help you find out.
 </div>
 </div>
 </div>
-<div id="outline-container-org1367f9b" class="outline-2">
-<h2 id="org1367f9b"><span class="section-number-2">3.</span> HW Assignments</h2>
+<div id="outline-container-orgf92d137" class="outline-2">
+<h2 id="orgf92d137"><span class="section-number-2">3.</span> HW Assignments</h2>
 <div class="outline-text-2" id="text-3">
 </div>
 <div id="outline-container-a1" class="outline-3">
 <h3 id="a1"><span class="section-number-3">3.1.</span> Assignment 1</h3>
 <div class="outline-text-3" id="text-a1">
 </div>
-<div id="outline-container-orgba38b8e" class="outline-4">
-<h4 id="orgba38b8e"><span class="section-number-4">3.1.1.</span> Goal</h4>
+<div id="outline-container-orgbd3bafa" class="outline-4">
+<h4 id="orgbd3bafa"><span class="section-number-4">3.1.1.</span> Goal</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <ul class="org-ul">
 <li>Getting started on Piazza.</li>
@@ -1760,8 +1787,8 @@ There are two parts to this assignment:
 </ul>
 </div>
 </div>
-<div id="outline-container-org244c3da" class="outline-4">
-<h4 id="org244c3da"><span class="section-number-4">3.1.2.</span> Grading Criteria</h4>
+<div id="outline-container-orgc6bbbed" class="outline-4">
+<h4 id="orgc6bbbed"><span class="section-number-4">3.1.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-1-2">
 <ul class="org-ul">
 <li>Your individual Piazza post adheres to my instructions. (That is, no sideways pictures, no oversize pictures, etc.)</li>
@@ -1774,8 +1801,8 @@ There are two parts to this assignment:
 <h3 id="a2"><span class="section-number-3">3.2.</span> Assignment 2</h3>
 <div class="outline-text-3" id="text-a2">
 </div>
-<div id="outline-container-org205d125" class="outline-4">
-<h4 id="org205d125"><span class="section-number-4">3.2.1.</span> Goals: Contracts</h4>
+<div id="outline-container-org2062b08" class="outline-4">
+<h4 id="org2062b08"><span class="section-number-4">3.2.1.</span> Goals: Contracts</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 For the second assignment, you&rsquo;ll build a <i>very</i> small piece of Java for a contract with preconditions, transform the contract so that all preconditions become postconditions (i.e., make it a <i>total</i> contract), and then re-implement appropriately.
@@ -1825,8 +1852,8 @@ The variable names here are explanatory, not required. You may want to use diffe
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb78a261" class="outline-4">
-<h4 id="orgb78a261"><span class="section-number-4">3.2.2.</span> Grading Criteria</h4>
+<div id="outline-container-org22a333f" class="outline-4">
+<h4 id="org22a333f"><span class="section-number-4">3.2.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <ul class="org-ul">
 <li>Adherence to instructions.</li>
@@ -1841,9 +1868,43 @@ The variable names here are explanatory, not required. You may want to use diffe
 <h3 id="a3"><span class="section-number-3">3.3.</span> Assignment 3</h3>
 <div class="outline-text-3" id="text-a3">
 </div>
-<div id="outline-container-orge7c7189" class="outline-4">
-<h4 id="orge7c7189"><span class="section-number-4">3.3.1.</span> Goals: Data Abstraction / Mutability</h4>
+<div id="outline-container-org25bf8ae" class="outline-4">
+<h4 id="org25bf8ae"><span class="section-number-4">3.3.1.</span> Goals: Understanding Program Verification through Hoare Logic</h4>
 <div class="outline-text-4" id="text-3-3-1">
+<p>
+Do the <a href="#ic4">in-class exercise</a> with your group and submit it on BB. More specifically, you will do the below two tasks:
+</p>
+<ol class="org-ol">
+<li>Prove the program using the following the loop invariant:  <code>i &lt;= N</code>.
+<ol class="org-ol">
+<li>Clearly reason why this is a loop invariant</li>
+<li>Compute the weakest precondition <code>wp</code> of the program wrt the post conditiong <code>Q</code></li>
+<li>Compute the verification condition <code>vc (P =&gt; wp(..))</code>, and</li>
+<li>Analyze the <code>vc</code> to dertermine whether the program is proved or not</li>
+</ol></li>
+<li>Repeat the above task a different loop invariant:  <code>N &gt;= 0</code></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgebe12dd" class="outline-4">
+<h4 id="orgebe12dd"><span class="section-number-4">3.3.2.</span> Grading Criteria</h4>
+<div class="outline-text-4" id="text-3-3-2">
+<ul class="org-ul">
+<li>Correctness of solution</li>
+</ul>
+<p>
+Note: If your group had trouble with the assignment, feel free to appeal to your classmates to post a sample solution on Piazza.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-a4" class="outline-3">
+<h3 id="a4"><span class="section-number-3">3.4.</span> Assignment 4</h3>
+<div class="outline-text-3" id="text-a4">
+</div>
+<div id="outline-container-orgf61c899" class="outline-4">
+<h4 id="orgf61c899"><span class="section-number-4">3.4.1.</span> Goals: Data Abstraction / Mutability</h4>
+<div class="outline-text-4" id="text-3-4-1">
 <p>
 Rewrite <a href="./files/MapPoly.java">MapPoly</a>, my map-based version Liskov&rsquo;s Poly so that it is <i>mutable</i>. Keep the same representation.
 </p>
@@ -1861,9 +1922,9 @@ Remember that part of your group is responsible for synthesizing a solution, and
 </p>
 </div>
 </div>
-<div id="outline-container-org6acbf86" class="outline-4">
-<h4 id="org6acbf86"><span class="section-number-4">3.3.2.</span> Grading Criteria</h4>
-<div class="outline-text-4" id="text-3-3-2">
+<div id="outline-container-orgf3dc667" class="outline-4">
+<h4 id="orgf3dc667"><span class="section-number-4">3.4.2.</span> Grading Criteria</h4>
+<div class="outline-text-4" id="text-3-4-2">
 <ul class="org-ul">
 <li>Correct transformation of Poly</li>
 <li>Clarity of your story.</li>
@@ -1872,46 +1933,12 @@ Remember that part of your group is responsible for synthesizing a solution, and
 </div>
 </div>
 </div>
-<div id="outline-container-a4" class="outline-3">
-<h3 id="a4"><span class="section-number-3">3.4.</span> Assignment 4</h3>
-<div class="outline-text-3" id="text-a4">
-</div>
-<div id="outline-container-org6ee63b3" class="outline-4">
-<h4 id="org6ee63b3"><span class="section-number-4">3.4.1.</span> Goals: Understanding Program Verification through Hoare Logic</h4>
-<div class="outline-text-4" id="text-3-4-1">
-<p>
-Do the <a href="#ic4">in-class exercise</a> with your group and submit it on BB. More specifically, you will do the below two tasks:
-</p>
-<ol class="org-ol">
-<li>Prove the program using the following the loop invariant:  <code>i &lt;= N</code>.
-<ol class="org-ol">
-<li>Clearly reason why this is a loop invariant</li>
-<li>Compute the weakest precondition <code>wp</code> of the program wrt the post conditiong <code>Q</code></li>
-<li>Compute the verification condition <code>vc (P =&gt; wp(..))</code>, and</li>
-<li>Analyze the <code>vc</code> to dertermine whether the program is proved or not</li>
-</ol></li>
-<li>Repeat the above task a different loop invariant:  <code>N &gt;= 0</code></li>
-</ol>
-</div>
-</div>
-<div id="outline-container-org61fab83" class="outline-4">
-<h4 id="org61fab83"><span class="section-number-4">3.4.2.</span> Grading Criteria</h4>
-<div class="outline-text-4" id="text-3-4-2">
-<ul class="org-ul">
-<li>Correctness of solution</li>
-</ul>
-<p>
-Note: If your group had trouble with the assignment, feel free to appeal to your classmates to post a sample solution on Piazza.
-</p>
-</div>
-</div>
-</div>
 <div id="outline-container-a5" class="outline-3">
 <h3 id="a5"><span class="section-number-3">3.5.</span> Assignment 5</h3>
 <div class="outline-text-3" id="text-a5">
 </div>
-<div id="outline-container-org24b6fea" class="outline-4">
-<h4 id="org24b6fea"><span class="section-number-4">3.5.1.</span> Goals: Rep-Invariants, contracts, tests</h4>
+<div id="outline-container-org03a9276" class="outline-4">
+<h4 id="org03a9276"><span class="section-number-4">3.5.1.</span> Goals: Rep-Invariants, contracts, tests</h4>
 <div class="outline-text-4" id="text-3-5-1">
 <p>
 Revisit the mutable Poly example from <a href="#a3">assignment 3</a>. That is, use the one based on a map, not an array.
@@ -1929,8 +1956,8 @@ As in assignment 3, your deliverable is a <b>story</b>, with exactly the same ra
 </p>
 </div>
 </div>
-<div id="outline-container-org0814cf8" class="outline-4">
-<h4 id="org0814cf8"><span class="section-number-4">3.5.2.</span> Grading Criteria</h4>
+<div id="outline-container-org0bdd40b" class="outline-4">
+<h4 id="org0bdd40b"><span class="section-number-4">3.5.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-5-2">
 <ul class="org-ul">
 <li>Correctness of solution</li>
@@ -1946,8 +1973,8 @@ Note: If your group had trouble with the previous assignment, feel free to appea
 <h3 id="a6"><span class="section-number-3">3.6.</span> Assignment 6</h3>
 <div class="outline-text-3" id="text-a6">
 </div>
-<div id="outline-container-orgbe594fa" class="outline-4">
-<h4 id="orgbe594fa"><span class="section-number-4">3.6.1.</span> Goals: Immutablity via Bloch Item 50</h4>
+<div id="outline-container-orgfc39d60" class="outline-4">
+<h4 id="orgfc39d60"><span class="section-number-4">3.6.1.</span> Goals: Immutablity via Bloch Item 50</h4>
 <div class="outline-text-4" id="text-3-6-1">
 <p>
 Revisit the <a href="#ic6B">Period example</a>.
@@ -1962,8 +1989,8 @@ Turn in a <b>story</b>.
 </p>
 </div>
 </div>
-<div id="outline-container-orge5a9a34" class="outline-4">
-<h4 id="orge5a9a34"><span class="section-number-4">3.6.2.</span> Grading Criteria</h4>
+<div id="outline-container-orga791ebf" class="outline-4">
+<h4 id="orga791ebf"><span class="section-number-4">3.6.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-6-2">
 <p>
 Grading is in part the technical aspect of breaking immutability, and in part that your client case is plausible.
@@ -1975,8 +2002,8 @@ Grading is in part the technical aspect of breaking immutability, and in part th
 <h3 id="a7"><span class="section-number-3">3.7.</span> Assignment 7</h3>
 <div class="outline-text-3" id="text-a7">
 </div>
-<div id="outline-container-org35338ac" class="outline-4">
-<h4 id="org35338ac"><span class="section-number-4">3.7.1.</span> Goals: Type Abstraction</h4>
+<div id="outline-container-orgc7cddfc" class="outline-4">
+<h4 id="orgc7cddfc"><span class="section-number-4">3.7.1.</span> Goals: Type Abstraction</h4>
 <div class="outline-text-4" id="text-3-7-1">
 <p>
 Consider the following <code>Market</code> class.
@@ -1993,7 +2020,7 @@ Consider the following <code>Market</code> class.
           <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: item is an element of wanted</span>
           <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects:  add (item, price) to offers</span>
 
-              <span style="color: #e45649;">public</span> Money buy<span style="color: #a626a4;">(</span>Item item<span style="color: #a626a4;">)</span>
+              <span style="color: #e45649;">public</span> Money buy<span style="color: #a626a4;">(</span><span style="color: #986801;">Item</span> <span style="color: #6a1868;">item</span><span style="color: #a626a4;">)</span>
           <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: item is an element of the domain of offers</span>
           <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: choose and remove some (arbitrary) pair (item, price) from</span>
           <span style="color: #9ca0a4;">//          </span><span style="color: #9ca0a4;">offers and return the chosen price</span>
@@ -2037,8 +2064,8 @@ Is <code>Low_Offer_Market</code> a valid subtype of <code>Market</code>? Appeal 
 </ol>
 </div>
 </div>
-<div id="outline-container-org09a06d6" class="outline-4">
-<h4 id="org09a06d6"><span class="section-number-4">3.7.2.</span> Grading Criteria</h4>
+<div id="outline-container-orge8f4d5e" class="outline-4">
+<h4 id="orge8f4d5e"><span class="section-number-4">3.7.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-7-2">
 <p>
 This is purely a &ldquo;paper and pencil&rdquo; exercise. No code is required. Write your answer so that it is easily understandable by someone with only a passing knowledge of Liskov&rsquo;s rules for subtypes.
@@ -2050,8 +2077,8 @@ This is purely a &ldquo;paper and pencil&rdquo; exercise. No code is required. W
 <h3 id="a8"><span class="section-number-3">3.8.</span> Assignment 8</h3>
 <div class="outline-text-3" id="text-a8">
 </div>
-<div id="outline-container-org82a8bd7" class="outline-4">
-<h4 id="org82a8bd7"><span class="section-number-4">3.8.1.</span> Goals: Polymorphic Abstraction.</h4>
+<div id="outline-container-org1367227" class="outline-4">
+<h4 id="org1367227"><span class="section-number-4">3.8.1.</span> Goals: Polymorphic Abstraction.</h4>
 <div class="outline-text-4" id="text-3-8-1">
 <p>
 A <code>Comparator</code> based on absolute values is problematic. Code up the comparator and then write client code that illustrates the problem. Use a <i>lambda function</i> to implement the comparator. Explain what is wrong in a brief summary statement. Your explanation of the problem must be phrased in terms of a violation of the contract for <code>Comparator</code>.
@@ -2062,8 +2089,8 @@ To emphasize that this contract problem is real, your code should create two Jav
 </p>
 </div>
 </div>
-<div id="outline-container-org94c4c04" class="outline-4">
-<h4 id="org94c4c04"><span class="section-number-4">3.8.2.</span> Grading Criteria</h4>
+<div id="outline-container-org4c90b7f" class="outline-4">
+<h4 id="org4c90b7f"><span class="section-number-4">3.8.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-8-2">
 <p>
 As for other recent assignments, your deliverable is a clear, concise story that demonstrates completion of the assignment.
@@ -2075,8 +2102,8 @@ As for other recent assignments, your deliverable is a clear, concise story that
 <h3 id="a9"><span class="section-number-3">3.9.</span> Assignment 9</h3>
 <div class="outline-text-3" id="text-a9">
 </div>
-<div id="outline-container-orge56b57d" class="outline-4">
-<h4 id="orge56b57d"><span class="section-number-4">3.9.1.</span> Goals: Generics</h4>
+<div id="outline-container-orge0f0f20" class="outline-4">
+<h4 id="orge0f0f20"><span class="section-number-4">3.9.1.</span> Goals: Generics</h4>
 <div class="outline-text-4" id="text-3-9-1">
 <p>
 Consider the <a href="./files/BoundedQueue.java">BoundedQueue</a> example from the in-class exercise given <a href="#ic10C">2.18</a>.
@@ -2099,8 +2126,8 @@ Add <code>putAll()</code> and <code>getAll()</code>. Define the method signature
 </p>
 </div>
 </div>
-<div id="outline-container-org9fe1500" class="outline-4">
-<h4 id="org9fe1500"><span class="section-number-4">3.9.2.</span> Grading Criteria</h4>
+<div id="outline-container-org71c7327" class="outline-4">
+<h4 id="org71c7327"><span class="section-number-4">3.9.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-9-2">
 <p>
 As before, turn in a clear, concise story demonstrating completion of the assignment.
@@ -2112,8 +2139,8 @@ As before, turn in a clear, concise story demonstrating completion of the assign
 <h3 id="a10"><span class="section-number-3">3.10.</span> Assignment 10</h3>
 <div class="outline-text-3" id="text-a10">
 </div>
-<div id="outline-container-orge3e7158" class="outline-4">
-<h4 id="orge3e7158"><span class="section-number-4">3.10.1.</span> Goals: <code>Object</code> class contracts.</h4>
+<div id="outline-container-org71ea0f0" class="outline-4">
+<h4 id="org71ea0f0"><span class="section-number-4">3.10.1.</span> Goals: <code>Object</code> class contracts.</h4>
 <div class="outline-text-4" id="text-3-10-1">
 <p>
 As it happens, Liskov&rsquo;s implementation of <code>clone()</code> for the <code>IntSet</code> class (see figure 5.10, page 97) is wrong.
@@ -2126,8 +2153,8 @@ As it happens, Liskov&rsquo;s implementation of <code>clone()</code> for the <co
 </ol>
 </div>
 </div>
-<div id="outline-container-org462eaab" class="outline-4">
-<h4 id="org462eaab"><span class="section-number-4">3.10.2.</span> Grading Criteria</h4>
+<div id="outline-container-orgfcc1497" class="outline-4">
+<h4 id="orgfcc1497"><span class="section-number-4">3.10.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-10-2">
 <p>
 In addititon to code and tests, your deliverable is a story. Explain what is going on at each stage of the exercise. The GTA will primarily grade your story.
@@ -2139,8 +2166,8 @@ In addititon to code and tests, your deliverable is a story. Explain what is goi
 <h3 id="a11"><span class="section-number-3">3.11.</span> Assignment 11</h3>
 <div class="outline-text-3" id="text-a11">
 </div>
-<div id="outline-container-org866234a" class="outline-4">
-<h4 id="org866234a"><span class="section-number-4">3.11.1.</span> Goals: Favoring composition over inheritance. Bloch, Item 18.</h4>
+<div id="outline-container-org34e3eb2" class="outline-4">
+<h4 id="org34e3eb2"><span class="section-number-4">3.11.1.</span> Goals: Favoring composition over inheritance. Bloch, Item 18.</h4>
 <div class="outline-text-4" id="text-3-11-1">
 <p>
 Consider the <code>InstrumentedSet</code> example from Bloch Item 18 (as well as in-class exercise <a href="#ic12A">in-class 12A</a>).
@@ -2155,8 +2182,8 @@ Consider the <code>InstrumentedSet</code> example from Bloch Item 18 (as well as
 </ol>
 </div>
 </div>
-<div id="outline-container-orgb238425" class="outline-4">
-<h4 id="orgb238425"><span class="section-number-4">3.11.2.</span> Grading Criteria</h4>
+<div id="outline-container-org695f0bf" class="outline-4">
+<h4 id="org695f0bf"><span class="section-number-4">3.11.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-11-2">
 <p>
 The GTA will look for correct responses, appropriate JUnit tests, and plausible explanations when doing the grading.
@@ -2168,8 +2195,8 @@ The GTA will look for correct responses, appropriate JUnit tests, and plausible 
 <h3 id="a12"><span class="section-number-3">3.12.</span> Assignment 12</h3>
 <div class="outline-text-3" id="text-a12">
 </div>
-<div id="outline-container-org86eb082" class="outline-4">
-<h4 id="org86eb082"><span class="section-number-4">3.12.1.</span> Goals: Applying lessons learned.</h4>
+<div id="outline-container-org68f2069" class="outline-4">
+<h4 id="org68f2069"><span class="section-number-4">3.12.1.</span> Goals: Applying lessons learned.</h4>
 <div class="outline-text-4" id="text-3-12-1">
 <p>
 You have a choice of possible assignments:
@@ -2196,8 +2223,8 @@ There are two attacks documented in Bloch&rsquo;s Item 88: <i>Write <code>readOb
 </ol>
 </div>
 </div>
-<div id="outline-container-org7c9d2b4" class="outline-4">
-<h4 id="org7c9d2b4"><span class="section-number-4">3.12.2.</span> Grading Criteria</h4>
+<div id="outline-container-org69dd194" class="outline-4">
+<h4 id="org69dd194"><span class="section-number-4">3.12.2.</span> Grading Criteria</h4>
 <div class="outline-text-4" id="text-3-12-2">
 <p>
 In each case, the deliverable is a story. Write a brief report, and include enough evidence (output, screen shots, etc.) that the GTA can figure out that you actually completed the assignment.
@@ -2206,8 +2233,8 @@ In each case, the deliverable is a story. Write a brief report, and include enou
 </div>
 </div>
 </div>
-<div id="outline-container-org052bf0a" class="outline-2">
-<h2 id="org052bf0a"><span class="section-number-2">4.</span> Reflection</h2>
+<div id="outline-container-org6bfa004" class="outline-2">
+<h2 id="org6bfa004"><span class="section-number-2">4.</span> Reflection</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 For each of the following, answer these two questions first:
@@ -2217,8 +2244,8 @@ For each of the following, answer these two questions first:
 <li>Did everyone in your group contribute to the discussion of your solutions to this reading quiz? If not, who did not?</li>
 </ol>
 </div>
-<div id="outline-container-org178ceee" class="outline-3">
-<h3 id="org178ceee"><span class="section-number-3">4.1.</span> Reflection 1</h3>
+<div id="outline-container-org312d333" class="outline-3">
+<h3 id="org312d333"><span class="section-number-3">4.1.</span> Reflection 1</h3>
 <div class="outline-text-3" id="text-4-1">
 <ol class="org-ol">
 <li>Much of the material explores the connection between preconditions and exception handling. Were there any aspects of this connection that surprised or confused anyone in your group? If so, explain. If not, where did you learn this material?</li>
@@ -2227,8 +2254,8 @@ For each of the following, answer these two questions first:
 </ol>
 </div>
 </div>
-<div id="outline-container-org33c2d63" class="outline-3">
-<h3 id="org33c2d63"><span class="section-number-3">4.2.</span> Reflection 2</h3>
+<div id="outline-container-org72f9760" class="outline-3">
+<h3 id="org72f9760"><span class="section-number-3">4.2.</span> Reflection 2</h3>
 <div class="outline-text-3" id="text-4-2">
 <ol class="org-ol">
 <li>If you sat down to design a new class, would the result likely be mutable or immutable? Why?</li>
@@ -2237,8 +2264,8 @@ For each of the following, answer these two questions first:
 </ol>
 </div>
 </div>
-<div id="outline-container-org4dbf531" class="outline-3">
-<h3 id="org4dbf531"><span class="section-number-3">4.3.</span> Reflection 3</h3>
+<div id="outline-container-org0a7b331" class="outline-3">
+<h3 id="org0a7b331"><span class="section-number-3">4.3.</span> Reflection 3</h3>
 <div class="outline-text-3" id="text-4-3">
 <ol class="org-ol">
 <li>Have you ever explicitly considered invariants when deciding how to implement a Java class? If so, can you give an example?</li>
@@ -2247,8 +2274,8 @@ For each of the following, answer these two questions first:
 </ol>
 </div>
 </div>
-<div id="outline-container-orgad65c27" class="outline-3">
-<h3 id="orgad65c27"><span class="section-number-3">4.4.</span> Reflection 4 (reflection 3 redo)</h3>
+<div id="outline-container-org5dc62f6" class="outline-3">
+<h3 id="org5dc62f6"><span class="section-number-3">4.4.</span> Reflection 4 (reflection 3 redo)</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 Answer these questions based on your new knowledge on invariants and correctness analysis from class lectures and reading assignment.
@@ -2259,8 +2286,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </ol>
 </div>
 </div>
-<div id="outline-container-org20a716b" class="outline-3">
-<h3 id="org20a716b"><span class="section-number-3">4.5.</span> Reflection 5</h3>
+<div id="outline-container-orgc6c6825" class="outline-3">
+<h3 id="orgc6c6825"><span class="section-number-3">4.5.</span> Reflection 5</h3>
 <div class="outline-text-3" id="text-4-5">
 <ol class="org-ol">
 <li>Iteration is a basic concept, yet Liskov devotes an entire chapter to it. What, if anything, did you find in Liskov&rsquo;s presentation of iteration abstraction that is new to you?</li>
@@ -2268,8 +2295,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </ol>
 </div>
 </div>
-<div id="outline-container-org5cc8985" class="outline-3">
-<h3 id="org5cc8985"><span class="section-number-3">4.6.</span> Reflection 6</h3>
+<div id="outline-container-org930e2ab" class="outline-3">
+<h3 id="org930e2ab"><span class="section-number-3">4.6.</span> Reflection 6</h3>
 <div class="outline-text-3" id="text-4-6">
 <ol class="org-ol">
 <li>Liskov 7 develops rules for assessing the correctness of subtypes. What do you think the connection is between these rules and the rules for verification addressed in Chapter 5?</li>
@@ -2280,8 +2307,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </ol>
 </div>
 </div>
-<div id="outline-container-org6208134" class="outline-3">
-<h3 id="org6208134"><span class="section-number-3">4.7.</span> Reflection 7</h3>
+<div id="outline-container-orgb1884ad" class="outline-3">
+<h3 id="orgb1884ad"><span class="section-number-3">4.7.</span> Reflection 7</h3>
 <div class="outline-text-3" id="text-4-7">
 <ol class="org-ol">
 <li>Explain why Java has both a Comparable interface and a Comparator interface.</li>
@@ -2290,8 +2317,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </ol>
 </div>
 </div>
-<div id="outline-container-orgf9bae8d" class="outline-3">
-<h3 id="orgf9bae8d"><span class="section-number-3">4.8.</span> Reflection 8</h3>
+<div id="outline-container-orgba097ba" class="outline-3">
+<h3 id="orgba097ba"><span class="section-number-3">4.8.</span> Reflection 8</h3>
 <div class="outline-text-3" id="text-4-8">
 <ol class="org-ol">
 <li>Explain the basic role of generics in the Java language</li>
@@ -2300,8 +2327,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </ol>
 </div>
 </div>
-<div id="outline-container-org9d13c55" class="outline-3">
-<h3 id="org9d13c55"><span class="section-number-3">4.9.</span> Reflection 9</h3>
+<div id="outline-container-orgd524afb" class="outline-3">
+<h3 id="orgd524afb"><span class="section-number-3">4.9.</span> Reflection 9</h3>
 <div class="outline-text-3" id="text-4-9">
 <ol class="org-ol">
 <li>Have you overridden the equals() or the hashCode() methods? In light of Bloch&rsquo;s discussion of both methods, do you think your implementations were correct?</li>
@@ -2310,8 +2337,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </ol>
 </div>
 </div>
-<div id="outline-container-org15bf63b" class="outline-3">
-<h3 id="org15bf63b"><span class="section-number-3">4.10.</span> Reflection 10</h3>
+<div id="outline-container-org77d126c" class="outline-3">
+<h3 id="org77d126c"><span class="section-number-3">4.10.</span> Reflection 10</h3>
 <div class="outline-text-3" id="text-4-10">
 <ol class="org-ol">
 <li>Bloch discusses specific rules for making a class immutable. Did you find any of these rules confusing?</li>
@@ -2320,8 +2347,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </ol>
 </div>
 </div>
-<div id="outline-container-org7db2f39" class="outline-3">
-<h3 id="org7db2f39"><span class="section-number-3">4.11.</span> Reflection 11</h3>
+<div id="outline-container-org5592e38" class="outline-3">
+<h3 id="org5592e38"><span class="section-number-3">4.11.</span> Reflection 11</h3>
 <div class="outline-text-3" id="text-4-11">
 <ol class="org-ol">
 <li>How would you rate your experience with writing (ordinary) tests in the JUnit framework? Use a scale from &ldquo;A few times for class&rdquo; to &ldquo;I do that professionally&rdquo;.</li>
@@ -2330,8 +2357,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </ol>
 </div>
 </div>
-<div id="outline-container-orgcb00671" class="outline-3">
-<h3 id="orgcb00671"><span class="section-number-3">4.12.</span> Reflection 11</h3>
+<div id="outline-container-orgfe6f2c0" class="outline-3">
+<h3 id="orgfe6f2c0"><span class="section-number-3">4.12.</span> Reflection 11</h3>
 <div class="outline-text-3" id="text-4-12">
 <ol class="org-ol">
 <li>Is there anything about property based testing that you still find confusing?</li>
@@ -2341,8 +2368,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 </div>
 </div>
-<div id="outline-container-org6b69b21" class="outline-2">
-<h2 id="org6b69b21"><span class="section-number-2">5.</span> Files</h2>
+<div id="outline-container-org5684985" class="outline-2">
+<h2 id="org5684985"><span class="section-number-2">5.</span> Files</h2>
 <div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li><a href="./files/LiskovSet.java">LiskovSet.java</a></li>
@@ -2350,8 +2377,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </ul>
 </div>
 </div>
-<div id="outline-container-org1d431f0" class="outline-2">
-<h2 id="org1d431f0"><span class="section-number-2">6.</span> Links</h2>
+<div id="outline-container-orgdc724ff" class="outline-2">
+<h2 id="orgdc724ff"><span class="section-number-2">6.</span> Links</h2>
 <div class="outline-text-2" id="text-6">
 <ul class="org-ul">
 <li><a href="./index.html">Syllabus</a></li>
@@ -2361,8 +2388,8 @@ Answer these questions based on your new knowledge on invariants and correctness
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: ThanhVu (Vu) Nguyen</p>
-<p class="date">Created: 2024-01-24 Wed 13:03</p>
+<p class="author">Author: tnguyen</p>
+<p class="date">Created: 2024-01-31 Wed 22:46</p>
 </div>
 </body>
 </html>

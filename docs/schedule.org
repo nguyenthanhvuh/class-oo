@@ -9,15 +9,15 @@
   - *Notes*: Except for the first class, students are expected to complete the reading *prior to class* on listed meeting. Quizzes may occasionally take advantage of this expectation. Homework assignments are *due* on the date listed.
 
 
-  | Meeting | Topic                                    | Reading                       | Assignment | In-Class Exercise |   |
-  |     <r> |                                          | <l>                           |    <c>     |        <c>        |   |
-  |---------+------------------------------------------+-------------------------------+------------+-------------------+---|
-  |       1 | Class Overview                           | Liskov 1--2                   |            |       IC [[#ic1][1]]        |   |
-  |       2 | Procedural Abstraction; Exceptions       | Liskov 3--4, Bloch 10         |   [[#a1][A1 Due]]   |     IC 2 [[#ic2A][A]] [[#ic2B][B]]      |   |
-  |       3 | Data Abstraction; Mutability             | Liskov 5.1--5.4,              |   [[#a2][A2 Due]]   |     IC 3 [[#ic3A][A]] [[#ic3B][B]]      |   |
-  # |       4 | Imperative Program Verification          | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]]             |   [[#a3][A3 Due]]   |                   |   |
-  # |       5 | Imperative Program verification          | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]]             |            |    IC        [[#ic4][4]]    |   |
-  # |       6 | Reasoning About Data Abstraction         | Liskov 5.5-5.10               |   [[#a4][A4 Due]]   |     IC 5 [[#ic5A][A]] [[#ic5B][B]]      |   |
+  | Meeting | Topic                              | Reading               | Assignment | In-Class Exercise |   |
+  |     <r> |                                    | <l>                   |    <c>     |        <c>        |   |
+  |---------+------------------------------------+-----------------------+------------+-------------------+---|
+  |       1 | Class Overview                     | Liskov 1--2           |            |       IC [[#ic1][1]]        |   |
+  |       2 | Procedural Abstraction; Exceptions | Liskov 3--4, Bloch 10 |   [[#a1][A1 Due]]   |     IC 2 [[#ic2A][A]] [[#ic2B][B]]      |   |
+  |       4 | Imperative Program Verification    | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]]     |   [[#a2][A2 Due]]   |                   |   |
+  |       5 | Imperative Program verification    | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]]     |            |     IC [[#ic4][4]]          |   |
+  |       3 | Data Abstraction; Mutability       | Liskov 5.1--5.4,      |   [[#a3][A3 Due]]   |     IC 3 [[#ic3A][A]] [[#ic3B][B]]      |   |
+  |       6 | Reasoning About Data Abstraction   | Liskov 5.5-5.10       |   [[#a4][A4 Due]]   |     IC 5 [[#ic5A][A]] [[#ic5B][B]]      |   |
   # |       7 | Iteration Abstraction; Method Guidelines | Liskov 6, Bloch 8             |   [[#a5][A5 Due]]   |     IC 6 [[#ic6A][A]] [[#ic6B][B]]      |   |
   # |       8 | Type Abstraction                         | Liskov 7                      |   [[#a6][A6 Due]]   |    IC 7 [[#ic7A][A]] [[#ic7B][B]] [[#ic7C][C]]     |   |
   # |       9 | Mid-semester Recap; [[./files/swe619.pdf][Research slides]]      | /No New Material/             |            |       IC [[#ic8][8]]        |   |
@@ -1445,7 +1445,7 @@ _Hint_: also look at the Javadoc for =equals()=
    :PROPERTIES:
    :CUSTOM_ID: a1
    :END:
-   
+
 *** Goal
     - Getting started on Piazza.
     - Getting your group together. 
@@ -1506,28 +1506,10 @@ _Hint_: also look at the Javadoc for =equals()=
     - Preconditions are correctly converted to exceptions.
     - Syntax: Java compiles and runs.
 
-** Assignment 3 
+
+** Assignment 3
    :PROPERTIES:
    :CUSTOM_ID: a3
-   :END:
-*** Goals: Data Abstraction / Mutability
-
-    Rewrite [[./files/MapPoly.java][MapPoly]], my map-based version Liskov's Poly so that it is /mutable/. Keep the same representation.
-
-    Rewrite the overview, the method signatures, the method specifications, and the methods themselves. You do not need to rewrite the abstraction function and representation invariant for this exercise.
-
-    Turn in a *story*. This means that it is possible to grade your assignment simply by reading it, as if it were part of a textbook. In particular, every place you make a decision to change something in the code (or not), you should have a description of what you did (or didn't do) and why you did (or didn't do) it.
-
-    Remember that part of your group is responsible for synthesizing a solution, and part of your group is responsible for checking the result.
-
-*** Grading Criteria
-    - Correct transformation of Poly
-    - Clarity of your story.
-    - Reasonable division of synthesis vs. checking.  
-
-** Assignment 4 
-   :PROPERTIES:
-   :CUSTOM_ID: a4
    :END:
 *** Goals: Understanding Program Verification through Hoare Logic
   
@@ -1543,7 +1525,26 @@ _Hint_: also look at the Javadoc for =equals()=
   
     - Correctness of solution
     Note: If your group had trouble with the assignment, feel free to appeal to your classmates to post a sample solution on Piazza.
-   
+
+** Assignment 4
+   :PROPERTIES:
+   :CUSTOM_ID: a4
+   :END:
+
+*** Goals: Data Abstraction / Mutability
+
+    Rewrite [[./files/MapPoly.java][MapPoly]], my map-based version Liskov's Poly so that it is /mutable/. Keep the same representation.
+
+    Rewrite the overview, the method signatures, the method specifications, and the methods themselves. You do not need to rewrite the abstraction function and representation invariant for this exercise.
+
+    Turn in a *story*. This means that it is possible to grade your assignment simply by reading it, as if it were part of a textbook. In particular, every place you make a decision to change something in the code (or not), you should have a description of what you did (or didn't do) and why you did (or didn't do) it.
+
+    Remember that part of your group is responsible for synthesizing a solution, and part of your group is responsible for checking the result.
+
+*** Grading Criteria
+    - Correct transformation of Poly
+    - Clarity of your story.
+    - Reasonable division of synthesis vs. checking.
 ** Assignment 5 
    :PROPERTIES:
    :CUSTOM_ID: a5
