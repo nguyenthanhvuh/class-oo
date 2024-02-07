@@ -14,8 +14,8 @@
   |---------+------------------------------------------+-------------------------------+---------------+-------------------+---|
   |       1 | Class Overview                           | Liskov 1--2                   |               |       IC [[#ic1][1]]        |   |
   |       2 | Procedural Abstraction; Exceptions       | Liskov 3--4, Bloch 10         |    [[#a1][A1 Due]]     |     IC 2 [[#ic2A][A]] [[#ic2B][B]]      |   |
-  |       3 | Imperative Program Verification          | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]]             |    [[#a2][A2 Due]]     |                   |   |
-  |       4 | Imperative Program verification          | [[https://nguyenthanhvuh.github.io/posts/program-analysis-notes.html][Hoare logic notes]]             | NO ASSIGNMENT |       IC [[#ic4][4]]        |   |
+  |       3 | Imperative Program Verification          | [[https://github.com/dynaroars/dynaroars.github.io/wiki/notes-hoare-logic][Hoare logic notes]]             |    [[#a2][A2 Due]]     |                   |   |
+  |       4 | Imperative Program verification          | [[https://github.com/dynaroars/dynaroars.github.io/wiki/notes-hoare-logic][Hoare logic notes]]             | NO ASSIGNMENT |       IC [[#ic4][4]]        |   |
   |       5 | Data Abstraction; Mutability             | Liskov 5.1--5.4,              |    [[#a4][A4 Due]]     |     IC 5 [[#ic5A][A]] [[#ic5B][B]]      |   |
   |       6 | Reasoning About Data Abstraction         | Liskov 5.5-5.10               |    [[#a5][A5 Due]]     |     IC 6 [[#ic6A][A]] [[#ic6B][B]]      |   |
   |       7 | Iteration Abstraction; Method Guidelines | Liskov 6, Bloch 8             |    [[#a6][A6 Due]]     |     IC 7 [[#ic7A][A]] [[#ic7B][B]]      |   |
