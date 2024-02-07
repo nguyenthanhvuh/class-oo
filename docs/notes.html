@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-02-06 Tue 21:52 -->
+<!-- 2024-02-06 Tue 21:59 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -227,11 +227,12 @@
 <ul>
 <li><a href="#week-3">4.1. Week 3: Automatic Verification and Hoare Logic</a>
 <ul>
-<li><a href="#org17e7a06">4.1.1. Quiz 1: Binary Search</a></li>
+<li><a href="#orgefb752f">4.1.1. Quiz 1: Binary Search</a></li>
 <li><a href="#logic-primer">4.1.2. Logic Primer</a></li>
-<li><a href="#org2864985">4.1.3. Hoare Logic</a></li>
-<li><a href="#in-class">4.1.4. In-Class</a></li>
-<li><a href="#org8de8850">4.1.5. Quiz</a></li>
+<li><a href="#orge474d0e">4.1.3. Hoare Logic</a></li>
+<li><a href="#orge1aeff7">4.1.4. See complete notes on Hoare logic here</a></li>
+<li><a href="#in-class">4.1.5. In-Class</a></li>
+<li><a href="#org5c72562">4.1.6. Quiz</a></li>
 </ul>
 </li>
 </ul>
@@ -353,7 +354,7 @@ correct: blame developers</li>
 </pre>
 </div>
 
-<pre class="example" id="org8bd7fa6">
+<pre class="example" id="org576543a">
 preconds:
 - x and y are integers # (already given in type)
 // - y cannot be zero   # better if we can remove this
@@ -452,7 +453,7 @@ determine is irrelevant</li>
 <div id="outline-container-specificationscontracts" class="outline-4">
 <h4 id="specificationscontracts"><span class="section-number-4">1.2.6.</span> Specifications/Contracts</h4>
 <div class="outline-text-4" id="text-specificationscontracts">
-<pre class="example" id="org1f1ba39">
+<pre class="example" id="org25cbf1c">
 int foo(string s, char d): ... 
  // pre: 
  // post
@@ -572,8 +573,8 @@ between.
 <h3 id="week-3"><span class="section-number-3">4.1.</span> Week 3: Automatic Verification and Hoare Logic</h3>
 <div class="outline-text-3" id="text-week-3">
 </div>
-<div id="outline-container-org17e7a06" class="outline-4">
-<h4 id="org17e7a06"><span class="section-number-4">4.1.1.</span> Quiz 1: Binary Search</h4>
+<div id="outline-container-orgefb752f" class="outline-4">
+<h4 id="orgefb752f"><span class="section-number-4">4.1.1.</span> Quiz 1: Binary Search</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <ul class="org-ul">
 <li>precondition:
@@ -686,11 +687,11 @@ between.
 </ul>
 </div>
 <ol class="org-ol">
-<li><a id="org1cc32fb"></a>Using Z3 to check satisfiability<br /></li>
+<li><a id="org88ab5f6"></a>Using Z3 to check satisfiability<br /></li>
 </ol>
 </div>
-<div id="outline-container-org2864985" class="outline-4">
-<h4 id="org2864985"><span class="section-number-4">4.1.3.</span> Hoare Logic</h4>
+<div id="outline-container-orge474d0e" class="outline-4">
+<h4 id="orge474d0e"><span class="section-number-4">4.1.3.</span> Hoare Logic</h4>
 <div class="outline-text-4" id="text-4-1-3">
 <ul class="org-ul">
 <li>Tony Hoare: Sir. Hoare, quick sort, verification, &#x2026;
@@ -704,12 +705,10 @@ between.
 </ul></li>
 
 <li>automatic verification that a program <code>S</code> is correct with respect to precondition <code>P</code> and postcondition <code>Q</code></li>
-
-<li><a href="https://github.com/dynaroars/dynaroars.github.io/wiki/notes-hoare-logic">See complete notes on Hoare logic here</a></li>
 </ul>
 </div>
 <ol class="org-ol">
-<li><a id="org5587cac"></a>Hoare tripple: {P}  S  {Q}<br />
+<li><a id="org3810c6d"></a>Hoare tripple: {P}  S  {Q}<br />
 <div class="outline-text-5" id="text-4-1-3-1">
 <ul class="org-ul">
 <li>Precondition: P</li>
@@ -762,144 +761,29 @@ def foo(x:int):
   {x &lt;= y}
   {x == y - 1}
 </p>
-
-
-
-<p>
-Examples of Hoare tripples
-</p>
-
-<ul class="org-ul">
-<li>{True} x := 5  {x==5}  : Valid HT # strongest post</li>
-<li>{True} x := 5  {x &gt; 4} :  Valid HT</li>
-<li>{True} x := 5  {x==5 or x==6}  : Valid HT</li>
-</ul>
-
-
-
-<ul class="org-ul">
-<li>{True}  x:= 5  {x &gt; 5}  : Invalid HT</li>
-
-<li>{x = 1 &amp; y = 2} z:= x/y  {z &lt; 1}   : Valid</li>
-<li>{x &lt; y} z:= x/y  {z &lt; 1}   :   Invalid     counterexample :  x=-2, y=-1</li>
-<li>{False} x:=3 {x=8} : Valid</li>
-<li>{True} x:=8 while(1){x:=8} {x=3}  : Valid (<b>Partial</b> correct)
-<ul class="org-ul">
-<li>Partial vs Total (you have to check that the program terminates)</li>
-</ul></li>
-
-<li>Halting problem
-<ul class="org-ul">
-<li>given a program, is it possible to determine if it will halt or not?</li>
-<li>Alan Turing
-<ul class="org-ul">
-<li>Break Engima (10 years of WW-II)</li>
-<li>Father of Computer Science
-<ul class="org-ul">
-<li>Show that Halting problem is undecidable</li>
-<li>Turing machine - Universal Machine</li>
-<li>Turing test</li>
-</ul></li>
-<li>Matrix multiplication (LU-)</li>
-</ul></li>
-<li>Halting: Undecidable problem</li>
-</ul></li>
-</ul>
-
-<p>
-How to determine if Hoare Triple is valid or not?
-</p>
-<ul class="org-ul">
-<li>Compute <b>weakest</b> preconditions (WP)  &#x2014; Disjkstra</li>
-<li>WP(S, Q) = P&rsquo;</li>
-
-<li>Skip: WP(skip, {x=3})=  {x=3}</li>
-<li>Assignment:
-<ul class="org-ul">
-<li>WP(x:=x+1, {x=3})= {x=2}
-<ul class="org-ul">
-<li>{x=2} x:= x+1 {x=3}</li>
-</ul></li>
-<li>WP(x:=x+1, {x&gt;3})= x&gt;2
-{x &gt; 2} x:=x+1  {x&gt;3}
-{x &gt;= 3} x:=x+1  {x&gt;3}
-{x &gt;= 100} x:=x+1  {x&gt;3}</li>
-
-<li>WP(x:=1, {x=3}) = False
-{False}  x:= 1 {x=3}</li>
-</ul></li>
-
-<li><p>
-Condition
-</p>
-<ul class="org-ul">
-<li>WP(if x &gt; 0 then y := x + 2  else y:= y + 1,  {y &gt; x})</li>
-</ul>
-<p>
-x&gt;0 <code>&gt; WP(y :</code> x +2, {y &gt; x}) AND !(x&gt;0) <code>&gt;  WP(y:</code> y + 1, {y &gt; x})
-x&gt;0 =&gt;  x + 2 &gt; x             AND !(x&gt;0) =&gt;  y+1 &gt; x
-x&gt;0 =&gt;  TRUE
-   TRUE                       AND !(x&gt;0) =&gt;  y+1 &gt; x
-   !(x&gt;0) =&gt;  y+1 &gt; x
-</p></li>
-
-<li>While loop
-<ul class="org-ul">
-<li>loop invariant (I)
-<ul class="org-ul">
-<li>true when entering the loop</li>
-</ul></li>
-</ul></li>
-</ul>
-<div class="org-src-container">
-<pre class="src src-python">  <span style="color: #e45649;">while</span> (b){
-    <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">loop body</span>
-  }
-
-  <span style="color: #e45649;">while</span> (<span style="color: #b751b6;">True</span>){
-    [I]      <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">loop invariant I is right here</span>
-    <span style="color: #e45649;">if</span> (!b) <span style="color: #e45649;">break</span>
-      <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">loop body</span>
-  }
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-python">  {N &gt;= <span style="color: #da8548; font-weight: bold;">0</span>} <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">precondition</span>
-
-  i := <span style="color: #da8548; font-weight: bold;">0</span>
-  <span style="color: #e45649;">while</span>(<span style="color: #b751b6;">True</span>):
-    [L]
-    <span style="color: #e45649;">if</span>(!(i &lt; N)):  <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">i &gt;= N : break</span>
-        <span style="color: #e45649;">break</span>
-    i := N;
-</pre>
-</div>
-
-<p>
-i = i = True
-N= N
-i &gt;= 0
-i &lt;= N
-</p>
 </div>
 </li>
 </ol>
 </div>
+<div id="outline-container-orge1aeff7" class="outline-4">
+<h4 id="orge1aeff7"><span class="section-number-4">4.1.4.</span> <a href="https://github.com/dynaroars/dynaroars.github.io/wiki/notes-hoare-logic">See complete notes on Hoare logic here</a></h4>
+</div>
+
+
 <div id="outline-container-in-class" class="outline-4">
-<h4 id="in-class"><span class="section-number-4">4.1.4.</span> In-Class</h4>
+<h4 id="in-class"><span class="section-number-4">4.1.5.</span> In-Class</h4>
 <div class="outline-text-4" id="text-in-class">
 </div>
 </div>
-<div id="outline-container-org8de8850" class="outline-4">
-<h4 id="org8de8850"><span class="section-number-4">4.1.5.</span> Quiz</h4>
+<div id="outline-container-org5c72562" class="outline-4">
+<h4 id="org5c72562"><span class="section-number-4">4.1.6.</span> Quiz</h4>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: tnguyen</p>
-<p class="date">Created: 2024-02-06 Tue 21:52</p>
+<p class="date">Created: 2024-02-06 Tue 21:59</p>
 </div>
 </body>
 </html>
