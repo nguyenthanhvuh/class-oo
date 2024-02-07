@@ -338,6 +338,8 @@ between.
 
    - automatic verification that a program ~S~ is correct with respect to precondition ~P~ and postcondition ~Q~
 
+   - [[https://github.com/dynaroars/dynaroars.github.io/wiki/notes-hoare-logic][See complete notes on Hoare logic here]]
+
 **** Hoare tripple: {P}  S  {Q}
      - Precondition: P
      - Postcond :  Q

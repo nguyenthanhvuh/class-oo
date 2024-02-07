@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-02-02 Fri 23:02 -->
+<!-- 2024-02-06 Tue 21:52 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -227,11 +227,11 @@
 <ul>
 <li><a href="#week-3">4.1. Week 3: Automatic Verification and Hoare Logic</a>
 <ul>
-<li><a href="#org40f116e">4.1.1. Quiz 1: Binary Search</a></li>
+<li><a href="#org17e7a06">4.1.1. Quiz 1: Binary Search</a></li>
 <li><a href="#logic-primer">4.1.2. Logic Primer</a></li>
-<li><a href="#orgc73cf18">4.1.3. Hoare Logic</a></li>
+<li><a href="#org2864985">4.1.3. Hoare Logic</a></li>
 <li><a href="#in-class">4.1.4. In-Class</a></li>
-<li><a href="#org897feab">4.1.5. Quiz</a></li>
+<li><a href="#org8de8850">4.1.5. Quiz</a></li>
 </ul>
 </li>
 </ul>
@@ -353,7 +353,7 @@ correct: blame developers</li>
 </pre>
 </div>
 
-<pre class="example" id="org52c2081">
+<pre class="example" id="org8bd7fa6">
 preconds:
 - x and y are integers # (already given in type)
 // - y cannot be zero   # better if we can remove this
@@ -452,7 +452,7 @@ determine is irrelevant</li>
 <div id="outline-container-specificationscontracts" class="outline-4">
 <h4 id="specificationscontracts"><span class="section-number-4">1.2.6.</span> Specifications/Contracts</h4>
 <div class="outline-text-4" id="text-specificationscontracts">
-<pre class="example" id="org6cbadbb">
+<pre class="example" id="org1f1ba39">
 int foo(string s, char d): ... 
  // pre: 
  // post
@@ -572,8 +572,8 @@ between.
 <h3 id="week-3"><span class="section-number-3">4.1.</span> Week 3: Automatic Verification and Hoare Logic</h3>
 <div class="outline-text-3" id="text-week-3">
 </div>
-<div id="outline-container-org40f116e" class="outline-4">
-<h4 id="org40f116e"><span class="section-number-4">4.1.1.</span> Quiz 1: Binary Search</h4>
+<div id="outline-container-org17e7a06" class="outline-4">
+<h4 id="org17e7a06"><span class="section-number-4">4.1.1.</span> Quiz 1: Binary Search</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <ul class="org-ul">
 <li>precondition:
@@ -686,11 +686,11 @@ between.
 </ul>
 </div>
 <ol class="org-ol">
-<li><a id="org3a321e6"></a>Using Z3 to check satisfiability<br /></li>
+<li><a id="org1cc32fb"></a>Using Z3 to check satisfiability<br /></li>
 </ol>
 </div>
-<div id="outline-container-orgc73cf18" class="outline-4">
-<h4 id="orgc73cf18"><span class="section-number-4">4.1.3.</span> Hoare Logic</h4>
+<div id="outline-container-org2864985" class="outline-4">
+<h4 id="org2864985"><span class="section-number-4">4.1.3.</span> Hoare Logic</h4>
 <div class="outline-text-4" id="text-4-1-3">
 <ul class="org-ul">
 <li>Tony Hoare: Sir. Hoare, quick sort, verification, &#x2026;
@@ -704,10 +704,12 @@ between.
 </ul></li>
 
 <li>automatic verification that a program <code>S</code> is correct with respect to precondition <code>P</code> and postcondition <code>Q</code></li>
+
+<li><a href="https://github.com/dynaroars/dynaroars.github.io/wiki/notes-hoare-logic">See complete notes on Hoare logic here</a></li>
 </ul>
 </div>
 <ol class="org-ol">
-<li><a id="org269ee01"></a>Hoare tripple: {P}  S  {Q}<br />
+<li><a id="org5587cac"></a>Hoare tripple: {P}  S  {Q}<br />
 <div class="outline-text-5" id="text-4-1-3-1">
 <ul class="org-ul">
 <li>Precondition: P</li>
@@ -889,15 +891,15 @@ i &lt;= N
 <div class="outline-text-4" id="text-in-class">
 </div>
 </div>
-<div id="outline-container-org897feab" class="outline-4">
-<h4 id="org897feab"><span class="section-number-4">4.1.5.</span> Quiz</h4>
+<div id="outline-container-org8de8850" class="outline-4">
+<h4 id="org8de8850"><span class="section-number-4">4.1.5.</span> Quiz</h4>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: tnguyen</p>
-<p class="date">Created: 2024-02-02 Fri 23:02</p>
+<p class="date">Created: 2024-02-06 Tue 21:52</p>
 </div>
 </body>
 </html>
