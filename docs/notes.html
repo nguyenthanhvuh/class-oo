@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-06 Tue 21:59 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="tnguyen" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#notes">1. Notes</a>
+<ul>
+<li><a href="#week-1">1.1. Week 1</a>
+<ul>
+<li><a href="#methodprogram-specifications">1.1.1. Method/Program specifications</a></li>
+</ul>
+</li>
+<li><a href="#week-2">1.2. Week 2 More on Specifications</a>
+<ul>
+<li><a href="#weaker-preconditions-and-stronger-postconditions">1.2.1. Weaker Preconditions and Stronger Postconditions</a></li>
+<li><a href="#partial-vs-total-contractsspecifications">1.2.2. Partial vs Total Contracts/Specifications</a></li>
+<li><a href="#check-vs-unchecked-exception">1.2.3. Check vs Unchecked Exception</a></li>
+<li><a href="#check-vs-vs-unchecked-bloch-item-70">1.2.4. Check vs vs Unchecked (Bloch item 70)</a></li>
+<li><a href="#abstraction">1.2.5. Abstraction</a></li>
+<li><a href="#specificationscontracts">1.2.6. Specifications/Contracts</a></li>
+<li><a href="#signaturesheader">1.2.7. Signatures/Header</a></li>
+</ul>
+</li>
+<li><a href="#implementation">1.3. Implementation</a></li>
+</ul>
+</li>
+<li><a href="#pre-nothing">2. pre: Nothing</a></li>
+<li><a href="#post">3. post:</a></li>
+<li><a href="#side-effects">4. side-effects</a>
+<ul>
+<li><a href="#week-3">4.1. Week 3: Automatic Verification and Hoare Logic</a>
+<ul>
+<li><a href="#orgefb752f">4.1.1. Quiz 1: Binary Search</a></li>
+<li><a href="#logic-primer">4.1.2. Logic Primer</a></li>
+<li><a href="#orge474d0e">4.1.3. Hoare Logic</a></li>
+<li><a href="#orge1aeff7">4.1.4. See complete notes on Hoare logic here</a></li>
+<li><a href="#in-class">4.1.5. In-Class</a></li>
+<li><a href="#org5c72562">4.1.6. Quiz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-notes" class="outline-2">
+<h2 id="notes"><span class="section-number-2">1.</span> Notes</h2>
+<div class="outline-text-2" id="text-notes">
+</div>
+<div id="outline-container-week-1" class="outline-3">
+<h3 id="week-1"><span class="section-number-3">1.1.</span> Week 1</h3>
+<div class="outline-text-3" id="text-week-1">
+<ul class="org-ul">
+<li>Syllabus
+<ul class="org-ul">
+<li>No cheating</li>
+</ul></li>
+<li>Correctness:
+<ul class="org-ul">
+<li>specification or contract &#x2026;</li>
+<li>code is correct if it satisfies the contract</li>
+<li>if you give it no contract, well then anything would be correct</li>
+<li>so we want strong and precise contract</li>
+</ul></li>
+</ul>
+</div>
+<div id="outline-container-methodprogram-specifications" class="outline-4">
+<h4 id="methodprogram-specifications"><span class="section-number-4">1.1.1.</span> Method/Program specifications</h4>
+<div class="outline-text-4" id="text-methodprogram-specifications">
+<ul class="org-ul">
+<li>Preconditions: assumptions, properties about the inputs
+<ul class="org-ul">
+<li>established by clients (e.g., inputs are strings, unsorted list,
+&#x2026;)</li>
+</ul></li>
+<li>Postconditions: properties/behaviors of the method/program (usually
+related inputs)
+<ul class="org-ul">
+<li>done/established by the developers/implementations (e.g., outputs
+are sorted list, &#x2026;)</li>
+</ul></li>
+<li>When something goes wrong, <b>who to blame</b>?
+<ul class="org-ul">
+<li>If preconditions are incorrect: blame the clients</li>
+<li>If preconditions are correct, and the postconditions are not
+correct: blame developers</li>
+</ul></li>
+<li>Pre/Post conditions
+<ul class="org-ul">
+<li>specs/contracts consist of pre and postconditions
+<ul class="org-ul">
+<li>preconds (or requires)</li>
+<li>postconds (or effects)</li>
+</ul></li>
+<li>Example: <span class="underline">_sorting a list</span>
+<ul class="org-ul">
+<li>preconds: input is a list of <i>comparable</i> items</li>
+<li>postcond:
+<ul class="org-ul">
+<li>output is sorted</li>
+<li>output is a <span class="underline">_permutation</span> of data input</li>
+</ul></li>
+</ul></li>
+<li>Precondition
+<ul class="org-ul">
+<li>as weak or general as possible</li>
+</ul></li>
+<li>Postcondition
+<ul class="org-ul">
+<li>as strong or precise as possible</li>
+</ul></li>
+</ul></li>
+<li>In class exercise
+<ul class="org-ul">
+<li>Equality (<code>__equals__</code> in Java or <code>_eq_</code> in Python)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-week-2" class="outline-3">
+<h3 id="week-2"><span class="section-number-3">1.2.</span> Week 2 More on Specifications</h3>
+<div class="outline-text-3" id="text-week-2">
+</div>
+<div id="outline-container-weaker-preconditions-and-stronger-postconditions" class="outline-4">
+<h4 id="weaker-preconditions-and-stronger-postconditions"><span class="section-number-4">1.2.1.</span> Weaker Preconditions and Stronger Postconditions</h4>
+<div class="outline-text-4" id="text-weaker-preconditions-and-stronger-postconditions">
+<ul class="org-ul">
+<li>Reconsider the <code>intdiv</code> example from previous class</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #986801;">int</span> <span style="color: #a626a4;">intdiv</span><span style="color: #4078f2;">(</span><span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">y</span><span style="color: #4078f2;">){</span>
+  <span style="color: #9ca0a4;">/*</span>
+<span style="color: #9ca0a4;">  Return the integer division result x/y.</span>
+<span style="color: #9ca0a4;">  </span>
+
+<span style="color: #9ca0a4;">  precondition </span>
+<span style="color: #9ca0a4;">  - </span>
+<span style="color: #9ca0a4;">  -</span>
+<span style="color: #9ca0a4;">  </span>
+<span style="color: #9ca0a4;">  postconditions</span>
+<span style="color: #9ca0a4;">  - if x or y are not integers, raise Exception</span>
+<span style="color: #9ca0a4;">  - z is a number</span>
+<span style="color: #9ca0a4;">  - z is an integer</span>
+<span style="color: #9ca0a4;">  - if y is 0, then raise an Exception </span>
+<span style="color: #9ca0a4;">  - z*y ==  x</span>
+<span style="color: #9ca0a4;">  */</span>
+
+  <span style="color: #e45649;">if</span> not typeof<span style="color: #a626a4;">(</span>x, Int<span style="color: #a626a4;">)</span>: raise 
+  <span style="color: #e45649;">if</span> not typeof<span style="color: #a626a4;">(</span>y, Int<span style="color: #a626a4;">)</span>: raise     
+  <span style="color: #e45649;">if</span> <span style="color: #a626a4;">(</span>y == <span style="color: #da8548; font-weight: bold;">0</span><span style="color: #a626a4;">){</span> <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">raise ...</span>
+     ...     
+  <span style="color: #a626a4;">}</span>
+  <span style="color: #e45649;">return</span> z
+<span style="color: #4078f2;">}</span>
+</pre>
+</div>
+
+<pre class="example" id="org576543a">
+preconds:
+- x and y are integers # (already given in type)
+// - y cannot be zero   # better if we can remove this
+
+postconds:
+- z is a number  # weak
+- z is an integer  # weak
+- z = x // y  # *strong*
+*/
+</pre>
+
+<p>
+If we have <code>S1 = P =&gt; Q</code> and <code>S2 = P' =&gt; Q'</code>, then - S1 is better than
+S2 : if P is weaker than P&rsquo; - S1 is better than S2 : if Q is stronger
+than Q&rsquo;
+</p>
+</div>
+</div>
+<div id="outline-container-partial-vs-total-contractsspecifications" class="outline-4">
+<h4 id="partial-vs-total-contractsspecifications"><span class="section-number-4">1.2.2.</span> Partial vs Total Contracts/Specifications</h4>
+<div class="outline-text-4" id="text-partial-vs-total-contractsspecifications">
+<ul class="org-ul">
+<li><i>partial</i> specification: has a precondition</li>
+
+<li><i>total</i> specification: has NO precondition</li>
+
+<li>to turn a partial spec into a total spec:
+
+<ul class="org-ul">
+<li>for every precondition, remove and turn it into a new behavior in
+postcondition (of the form if not precondition, then do something,
+e.g., raising an excpetion)
+<ul class="org-ul">
+<li>E.g., if we have a precondition <code>list</code> cannot be <code>null</code></li>
+<li>Then we remove that precondition</li>
+<li>And create the postcondition: if list is null then raise
+NullPointerExeception</li>
+</ul></li>
+</ul></li>
+
+<li>in the implementation, create conditions and raise exception</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-check-vs-unchecked-exception" class="outline-4">
+<h4 id="check-vs-unchecked-exception"><span class="section-number-4">1.2.3.</span> Check vs Unchecked Exception</h4>
+<div class="outline-text-4" id="text-check-vs-unchecked-exception">
+<ul class="org-ul">
+<li>precondition (purely specification): if violated can gives undefine
+behavior</li>
+<li>exception (more implementation): turn undefine behavior into defined
+ones</li>
+<li><b>checked exception*</b>
+<ul class="org-ul">
+<li>things that you should explicitly catch or rethrow</li>
+<li>Block: throw checked exceptions for <span class="underline">_recoverable conditions</span> and
+<i>unchecked exceptions</i> for programming errors. When in doubt, throw
+unchecked exceptions.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-check-vs-vs-unchecked-bloch-item-70" class="outline-4">
+<h4 id="check-vs-vs-unchecked-bloch-item-70"><span class="section-number-4">1.2.4.</span> Check vs vs Unchecked (Bloch item 70)</h4>
+<div class="outline-text-4" id="text-check-vs-vs-unchecked-bloch-item-70">
+<ul class="org-ul">
+<li>check exception: recoverable
+<ul class="org-ul">
+<li>force the caller to handle the exception</li>
+<li>IOException: file not found, well probably can have a backup ,
+default one</li>
+</ul></li>
+<li>unchecked exception:
+<ul class="org-ul">
+<li>recovery not possible</li>
+<li>NPE: if you pass me a null pointer, and I try to dereference it,
+well then I should get NPE. Not much I can do to turn a null pointer
+into a non-null pointer.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-abstraction" class="outline-4">
+<h4 id="abstraction"><span class="section-number-4">1.2.5.</span> Abstraction</h4>
+<div class="outline-text-4" id="text-abstraction">
+<ul class="org-ul">
+<li>focuses on what (not how)
+<ul class="org-ul">
+<li>signature: formal parameters, return types, etc</li>
+<li>isPrime: detemrine if arg is prime is important , how this is
+determine is irrelevant</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-specificationscontracts" class="outline-4">
+<h4 id="specificationscontracts"><span class="section-number-4">1.2.6.</span> Specifications/Contracts</h4>
+<div class="outline-text-4" id="text-specificationscontracts">
+<pre class="example" id="org25cbf1c">
+int foo(string s, char d): ... 
+ // pre: 
+ // post
+ // modify: s
+ ....
+ //implementation
+  ..
+ return 
+</pre>
+</div>
+</div>
+<div id="outline-container-signaturesheader" class="outline-4">
+<h4 id="signaturesheader"><span class="section-number-4">1.2.7.</span> Signatures/Header</h4>
+<div class="outline-text-4" id="text-signaturesheader">
+<ul class="org-ul">
+<li>requires/modifies/effects in comments</li>
+<li>requires/precond: partial vs total (partial: only for certain input so
+have require/preconditions, total: for all correct type inputs, so
+precondition is TRUE, i.e. no precondition/require clause)</li>
+<li>modifies: input modification -&gt; side-effect</li>
+<li>effects/postcond: under assumption that requires are satisfied (x&rsquo; or
+x<sub>post</sub>)</li>
+<li>Precondition: weakest is best, nothing (i.e., True) is even better</li>
+<li>weaker vs stronger</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-implementation" class="outline-3">
+<h3 id="implementation"><span class="section-number-3">1.3.</span> Implementation</h3>
+<div class="outline-text-3" id="text-implementation">
+<ul class="org-ul">
+<li>Adhere to specifications</li>
+<li>weaker vs stronger , e.g., if specification says return a number, then
+always return 3 is ok. but if specification says return an odd number,
+then cannot return any number.</li>
+<li></li>
+</ul>
+
+<p>
+IC2a 3. total specs
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-pre-nothing" class="outline-2">
+<h2 id="pre-nothing"><span class="section-number-2">2.</span> pre: Nothing</h2>
+<div class="outline-text-2" id="text-pre-nothing">
+</div>
+</div>
+<div id="outline-container-post" class="outline-2">
+<h2 id="post"><span class="section-number-2">3.</span> post:</h2>
+<div class="outline-text-2" id="text-post">
+<ol class="org-ol">
+<li>if input list is null/None, throw NullPointException</li>
+<li>if input list is empty, throw Exception (or return [])
+<ul class="org-ul">
+<li>don&rsquo;t say anything about IndexError as that requires an Index-based
+datastructure in the implementation</li>
+</ul></li>
+<li>return the original list in the same order without first element</li>
+<li>remove the first element and return the rest: WRONG, X, too
+implemntation specific</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-side-effects" class="outline-2">
+<h2 id="side-effects"><span class="section-number-2">4.</span> side-effects</h2>
+<div class="outline-text-2" id="text-side-effects">
+<ul class="org-ul">
+<li>Nothing</li>
+
+<li id="4"></li>
+</ul>
+
+<p>
+hasNext() Method: -Preconditions: Nothing explicitly mentioned in the
+Iterator interface documentation. It is generally assumed that the
+iterator is positioned at a valid element or at the end of the
+collection.
+</p>
+
+<ul class="org-ul">
+<li>Postconditions:
+<ul class="org-ul">
+<li>Returns true if there is at least one more element in the
+collection; otherwise, returns false.</li>
+</ul></li>
+</ul>
+
+<p>
+next() Method: - Preconditions: There is at least one more element in
+the collection. indicating the end of the collection. - Postconditions:
+Returns the next element in the collection. The iterator is moved to the
+next position.
+</p>
+
+<ul class="org-ul">
+<li>Violation Example:
+<ul class="org-ul">
+<li>Calling next multiple times without calling hasNext to check if
+there are more elements.</li>
+<li>Calling next when hasNext returns false,</li>
+</ul></li>
+</ul>
+
+<p>
+remove() Method: - Preconditions: next() has been called at least once
+after the last call to remove. - Violation Example: Calling remove
+without first calling next. Postconditions: Removes the last element
+returned by next from the underlying collection. - Violation Example:
+Calling remove multiple times consecutively without calling next in
+between.
+</p>
+</div>
+<div id="outline-container-week-3" class="outline-3">
+<h3 id="week-3"><span class="section-number-3">4.1.</span> Week 3: Automatic Verification and Hoare Logic</h3>
+<div class="outline-text-3" id="text-week-3">
+</div>
+<div id="outline-container-orgefb752f" class="outline-4">
+<h4 id="orgefb752f"><span class="section-number-4">4.1.1.</span> Quiz 1: Binary Search</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<ul class="org-ul">
+<li>precondition:
+<ul class="org-ul">
+<li>arrays: sorted, cannot null,</li>
+</ul></li>
+<li>postcondition:
+<ul class="org-ul">
+<li>if x not in arrays: raise some exception &#x2026;</li>
+<li>ow: returns index of x in array</li>
+</ul></li>
+</ul>
+
+
+<ul class="org-ul">
+<li><b><b>Prev lectures</b></b>: about specifications and contracts
+<ul class="org-ul">
+<li>Written in English, human language</li>
+<li>Manual check that implementation and specification are consistent (e.g., run the program, return exception <code>X</code>, see if <code>X</code> is in the postcondition)
+<ul class="org-ul">
+<li><b><b>Pros</b></b>: easy to do</li>
+<li><b><b>Cons</b></b>: manual, time-consuming, error-prone  (imagine having to do this with real-world programs)</li>
+</ul></li>
+</ul></li>
+<li><b><b>Today</b></b>: automatic verification
+<ul class="org-ul">
+<li>You: provide specifications (pre/postconditions)</li>
+<li>Computer: <b><b>automatically</b></b> check if implementation is correct wrt to specifications</li>
+<li><b><b>Pros</b></b>: automatic, fast, no human error</li>
+<li><b><b>Cons</b></b>: hard to do, requires some knowledge of logic</li>
+<li>Formal Methods</li>
+<li>Industry:  used in many places (e.g., Facebook, Amazon, NASA, Airbus, &#x2026;)</li>
+</ul></li>
+
+<li><b><b>Hoare logic</b></b>: The classicial logic for program verification</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-logic-primer" class="outline-4">
+<h4 id="logic-primer"><span class="section-number-4">4.1.2.</span> Logic Primer</h4>
+<div class="outline-text-4" id="text-logic-primer">
+<ul class="org-ul">
+<li><b><b>Satisfiability</b></b>
+
+<ul class="org-ul">
+<li>formula <code>f</code> is <b><b>satisfiable</b></b> if there is some assignment to the values in <code>f</code> that makes <code>f</code> evaluate to <code>True</code>.</li>
+<li><code>f</code> is <b><b>unsatisfiabile</b></b> is there is no such assignment.</li>
+<li>Examples
+<ul class="org-ul">
+<li>x &lt;= 6 or y = 3  is satisfiable  (e.g., x=4, y=3)</li>
+<li>x &gt; 6  and  y = 3 is SAT (e.g.,  x =7, y=3)</li>
+<li>x &gt; 6  =&gt;  x &gt; 1   is SAT (e.g.,  x=7)
+<ul class="org-ul">
+<li>x = -1</li>
+<li>False =&gt; False: True</li>
+<li>True =&gt; False: Not possible</li>
+</ul></li>
+<li>x &gt; 6 and x &lt; 5  is UNSAT</li>
+
+<li>3-SAT: (x || y | z)  &amp;&amp; (!x || y || w )  &amp;&amp;  &#x2026;..</li>
+<li>NP-Complete: Nondeterministic polynomial
+<ul class="org-ul">
+<li>Graph Coloring</li>
+<li></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+<ul class="org-ul">
+<li><p>
+<b><b>valid (tautology)</b></b>
+</p>
+<ul class="org-ul">
+<li>f is a tautology if f evaluates to True for <b>every</b> assignment (f is <b>always</b> satisfiable)</li>
+<li>Examples
+<ul class="org-ul">
+<li>x &gt; 6  =&gt;  x &gt; 1   is valid</li>
+<li>x = x  is valid</li>
+</ul></li>
+</ul>
+
+<ul class="org-ul">
+<li><b><b>falsification</b></b>
+<ul class="org-ul">
+<li>f is a <b>falsification</b> if f elvalues to False for <b>every</b> assignment (f is <b>always</b> unsat)</li>
+<li>Examples
+<ul class="org-ul">
+<li>x &gt; 6  and  x &lt; 5   is falsification</li>
+<li>x != x  is falsification</li>
+<li>x == x + 1 (assuming x is a finite number,  why ?  because if x = some infinite number, then x = x + 1 would True)</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+<ul class="org-ul">
+<li>Implication can be tricky (e.g., x &gt; 6  =&gt;  x &gt; 1)
+<ul class="org-ul">
+<li>a =&gt; b   =  !a or b</li>
+
+<li>f =&gt; f      =  Valid    (!f or f)</li>
+<li>f =&gt; True   =  Valid    (!f or True)</li>
+<li>True =&gt; f   = Not Valid  !True or f  = False or f   =  f</li>
+<li>f =&gt; False   =  Not Valid       !f or False   = !f</li>
+<li>False =&gt; f  =  Valid      !False or f  =  True or f  = True</li>
+</ul></li>
+</ul>
+</div>
+<ol class="org-ol">
+<li><a id="org88ab5f6"></a>Using Z3 to check satisfiability<br /></li>
+</ol>
+</div>
+<div id="outline-container-orge474d0e" class="outline-4">
+<h4 id="orge474d0e"><span class="section-number-4">4.1.3.</span> Hoare Logic</h4>
+<div class="outline-text-4" id="text-4-1-3">
+<ul class="org-ul">
+<li>Tony Hoare: Sir. Hoare, quick sort, verification, &#x2026;
+<ul class="org-ul">
+<li>medical (surgeries), airplan, weapons, &#x2026;</li>
+<li>Hardware design (CPU)</li>
+<li>Airbus:  verification to check floating errors do not occur A380 &#x2026;</li>
+<li>NASA:  Rovers  (symbolic execution)</li>
+<li>Facebook Newsfeed :  verification (currency), Instagram</li>
+<li>Amazon AWS :  cloud computing</li>
+</ul></li>
+
+<li>automatic verification that a program <code>S</code> is correct with respect to precondition <code>P</code> and postcondition <code>Q</code></li>
+</ul>
+</div>
+<ol class="org-ol">
+<li><a id="org3810c6d"></a>Hoare tripple: {P}  S  {Q}<br />
+<div class="outline-text-5" id="text-4-1-3-1">
+<ul class="org-ul">
+<li>Precondition: P</li>
+<li>Postcond :  Q</li>
+<li>S :  program (a list of statements)</li>
+<li>Hoare tripple is valid: if P holds, and the successful execution of S results in Q
+<ul class="org-ul">
+<li>S is correct with respect to P and Q</li>
+</ul></li>
+</ul>
+
+<ul class="org-ul">
+<li><p>
+Testing  S,  P , Q
+</p>
+
+<p>
+Goal: given a program S,  {P, Q},  check if S is correct wrt to P, Q
+</p>
+<ul class="org-ul">
+<li>testing: finding some bug:  want to find if there is some (bad) input that satisfy P,  but doesn&rsquo;t satisy Q
+<ul class="org-ul">
+<li>pros: quick , test it on some finite number of inputs (K,M,B ..)</li>
+<li>cons: if the test shows no bug, DOES NOT mean the program really has no bug</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>
+&ldquo;Testing shows the presence of bugs, not its absence&rdquo; &#x2013; Dijkstra
+</p>
+
+<p>
+&ldquo;Verification shows the absence of bugs, not its existence&rdquo; &#x2026;
+</p>
+
+<ul class="org-ul">
+<li>verification: want to show there exist no bad input that satisfies P but violates Q
+<ul class="org-ul">
+<li>pros: if verification tool shows no bug, then DOES mean program has no bug</li>
+<li>cons: runs slowly (have to consider all possible inputs)</li>
+</ul></li>
+</ul>
+
+<p>
+def foo(x:int):
+  {True}
+  y = x
+  y += 1;
+  {x &lt;= y}
+  {x == y - 1}
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-orge1aeff7" class="outline-4">
+<h4 id="orge1aeff7"><span class="section-number-4">4.1.4.</span> <a href="https://github.com/dynaroars/dynaroars.github.io/wiki/notes-hoare-logic">See complete notes on Hoare logic here</a></h4>
+</div>
+
+
+<div id="outline-container-in-class" class="outline-4">
+<h4 id="in-class"><span class="section-number-4">4.1.5.</span> In-Class</h4>
+<div class="outline-text-4" id="text-in-class">
+</div>
+</div>
+<div id="outline-container-org5c72562" class="outline-4">
+<h4 id="org5c72562"><span class="section-number-4">4.1.6.</span> Quiz</h4>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: tnguyen</p>
+<p class="date">Created: 2024-02-06 Tue 21:59</p>
+</div>
+</body>
+</html>
