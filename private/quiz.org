@@ -122,24 +122,24 @@ public static void setSmall (int [] a, int i) {
 #      }
 #    #+end_comment
 
-# ** Quiz 4: Verification using Hoare Logic
-#    Given the program
-#    #+begin_src java
-#      // {x <= 1}   # P1
-#      // {x <= 11}  # P2
+** Quiz 3: Verification using Hoare Logic
+   Given the program
+   #+begin_src java
+     // {x <= 1}   # P1
+     // {x <= 11}  # P2
 
-#      while (x != 10){
-#          x := x + 1;
-#      }
+     while (x != 10){
+         x := x + 1;
+     }
 
-#      //{x == 10}  # Q
-#    #+end_src
+     //{x == 10}  # Q
+   #+end_src
   
-#    1. Informally reason that this program is correct with the given =P1= and =Q=.
-#    1. This program *is correct* with respect to the given precondition =P1= and postcondition =Q=.  Prove it by finding a loop invariant and verify the verification condition (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)
-#    2. Now, consider a different precondition =P2=.
-#       1. Recompute the VC of the program with respect to =P2=.
-#       1. is the VC  =P2 -> WP ..=  valid?  if yes, what does that mean,  if not, what does that mean?
+   1. Informally reason that this program is correct with the given =P1= and =Q=.
+   1. This program *is correct* with respect to the given precondition =P1= and postcondition =Q=.  Prove it by finding a loop invariant and verify the verification condition (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)
+   2. Now, consider a different precondition =P2=.
+      1. Recompute the VC of the program with respect to =P2=.
+      1. is the VC  =P2 -> WP ..=  valid?  if yes, what does that mean,  if not, what does that mean?
       
 # #+begin_comment
 #    loop inv :  x <= 10

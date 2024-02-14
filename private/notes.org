@@ -454,9 +454,192 @@ i >= 0
 i <= N
 
 
+{False}
+x := 3
+{x == 4}
+
+wp(x:=3, x==4)
+3==4
+False
+
+
+x <= 0 => 0 > 0
+x <= 0 => False
+x > 0
+
+A => False   = True
 *** In-Class
 :PROPERTIES:
 :CUSTOM_ID: in-class
 :END:
 
-*** Quiz
+
+b => X  &  !b => Y
+(b => X  &  !b => Y)
+(!b V X  &  b V Y)
+
+
+
+// {N >= 0}  {0 <= N}  =>  {N>=0} Can prove
+
+// {N >= 10} ** cannot prove** {0 <= N} => {N >= 10} Cannot prove
+
+
+N= -10
+
+i := 0;
+
+{i <= N}
+while(true){
+  // [I]: loop invariants here
+  if(!i < N) break;
+  i := N;
+}
+
+{i = N} // post condition
+
+
+
+i = 0
+while (true)
+         [I]
+         if(!false) break
+         i = 10
+
+
+
+(N >=0 & i >= N)    =>  i == N
+(N >=0 & N <= i)    =>  i == N
+
+(i >= N >= 0)       =>  i == N
+
+
+
+```
+// {N >= 0}   # P
+i = 0;
+[L1]
+while (i < N){
+    [L2]
+    i = i + 1;
+    [L2']
+}
+[L3]
+//{i == N}  # Q
+
+
+// {N >= 0}   # P
+i = 0;
+while (true){
+    [L]
+    if(!(i < N) break;
+
+    i = i + 1;   //loop body
+}
+// {i == N}  # Q
+```
+
+Candidate loop invariants:
+  - i <= N
+  - N >= 0
+
+
+wp({i := 0; while(...)}, i==N)
+wp(i:=0, wp(while(...), i==N))
+
+wp(while(...), i==N)  // I = i <= N
+
+1. i <= N
+
+2. i <= N & i < N  => WP(i:=i+1, i<=N)
+         i <= N & i < N  => WP(i:=i+1, i<=N)
+         i <= N & i < N  => i+1<=N
+      i < N        =>  i < N
+      True
+
+3. i <= N & !(i < N) => I == N
+   i <= N & i >= N    =>  I == N
+      i == N          =>  I == N
+      True
+
+i <= N  & True  & True
+i <= N
+
+wp(i:=0, i<=N)
+      0<=N
+
+      Verification Condition (VC)
+      P  =>  wp(S, Q)
+      P  =>  0 <= N
+      N >= 0   =>   0 <= N
+      N >= 0   =>   N => 0
+      True    # formally proved that {P} S {Q}
+
+----
+try with loop invariant N >= 0
+wp({i := 0; while(...)}, i==N)
+wp(while(...), i==N)  // I = N >= 0
+
+1. N >= 0
+
+2. N >= 0  & i < N  => WP(i:=i+1, N >= 0)
+   (N >= 0  & i < N) =>  N >= 0
+        True
+
+3. N >=0   & !(i < N)  => i == N
+   N >= 0  &  i >= N   =>  i == N
+   i >= N >= 0         =>  i == N
+
+   (N >= 0)  &  (i >= N >= 0 => i == N)
+
+   wp(i:=0,  wp(while ...))
+   wp(i:=0,  (N >= 0)  &  (i >= N >= 0 => i == N))
+
+   (N >= 0)  &  (0 >= N >= 0    =>  0 == N)
+   (N >= 0)  &   N ==0   =>  N == 0
+   (N >= 0)  & True
+    N >= 0
+
+VC =  N >= 0  =>  N >= 0  = True
+
+---------
+try loop invariant i >= 0
+
+1. i >= 0
+
+2. i >= 0  & i < N  => WP(i:=i+1, i >= 0)
+   (i >= 0  & i < N)  =>  i + 1 >= 0   //  equiv to True
+
+3. i >= 0   & !(i < N)  => i == N
+   (i >= 0   & i>=N)     =>   i == N
+
+i >= 0  & (i >= 0  & i < N)  =>  i + 1 >= 0  &  (i >= 0   & i>=N)     =>   i == N
+
+wp(i := 0, i >= 0  & (i >= 0  & i < N)  =>  i + 1 >= 0  &  (i >= 0   & i>=N)     =>   i == N)
+
+
+0 >= 0  &
+ True
+
+(0 >= 0  & 0 < N)  =>  0 + 1 >= 0  &
+  True  &  0 < N   =>   True
+  0<N  => True
+  !(0 < N) | True
+  True
+
+(0 >= 0   & 0>=N)     =>   0 == N
+0 >= N  =>  0 == N
+
+wp(..) =  0 >= N  =>  0 == N
+
+VC   N >= 0   =>    (0 >= N  =>  0 == N)
+ N >= 0 =>  (0 < N  |  0 == N)
+
+ N >= 0 =>  O <= N
+
+True
+
+VC : True
+
+
+(0 < N  |  0 == N)   ==   0 <= N

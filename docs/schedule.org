@@ -1492,6 +1492,22 @@ _Hint_: also look at the Javadoc for =equals()=
       newPrincipal = oldPrincipal * (1 + monthlyInterestRate) - payment;
     #+end_src
 
+    #+begin_comment
+
+    monthlyInterestRate = rate / 12
+
+    if (principle <= 0 || rate <= 0 || payment <= 0) throw new IllegalArgumentException("...");
+
+    if (payment < principle * rate / 12) throw new IllegalArgumentException("...");
+
+    int month = 0;
+
+    while(principle > 0){
+      principle = principle * (1 + rate / 12) - payment;
+      month++;
+    }
+    #+end_comment
+
 
     The variable names here are explanatory, not required. You may want to use different variables, which is fine.
 

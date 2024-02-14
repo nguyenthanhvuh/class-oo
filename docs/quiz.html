@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-01-31 Wed 15:46 -->
+<!-- 2024-02-14 Wed 18:08 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SWE 619</title>
@@ -203,21 +203,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org1596574">1. Quiz 1</a></li>
-<li><a href="#org4a65518">2. Quiz 2</a></li>
+<li><a href="#orga9e3904">1. Quiz 1</a></li>
+<li><a href="#org7f228b2">2. Quiz 2</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org1596574" class="outline-2">
-<h2 id="org1596574"><span class="section-number-2">1.</span> Quiz 1</h2>
+<div id="outline-container-orga9e3904" class="outline-2">
+<h2 id="orga9e3904"><span class="section-number-2">1.</span> Quiz 1</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Contracts for a Binary Search implementation. Specifiy the contracts/specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.
 </p>
 </div>
 </div>
-<div id="outline-container-org4a65518" class="outline-2">
-<h2 id="org4a65518"><span class="section-number-2">2.</span> Quiz 2</h2>
+<div id="outline-container-org7f228b2" class="outline-2">
+<h2 id="org7f228b2"><span class="section-number-2">2.</span> Quiz 2</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Consider the following 2 specifications, the second of which has an associated implementation:
@@ -250,11 +250,40 @@ Consider the following 2 specifications, the second of which has an associated i
 </ol></li>
 </ol>
 </div>
+<div id="outline-container-orgae73bbb" class="outline-3">
+<h3 id="orgae73bbb"><span class="section-number-3">2.1.</span> Quiz 3: Verification using Hoare Logic</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Given the program
+</p>
+<div class="org-src-container">
+<pre class="src src-java">     <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">{x &lt;= 1}   # P1</span>
+     <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">{x &lt;= 11}  # P2</span>
+
+     <span style="color: #e45649;">while</span> <span style="color: #4078f2;">(</span>x != <span style="color: #dd8844; font-weight: bold;">10</span><span style="color: #4078f2;">){</span>
+         <span style="color: #b751b6;">x</span> := x + <span style="color: #dd8844; font-weight: bold;">1</span>;
+     <span style="color: #4078f2;">}</span>
+
+     <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">{x == 10}  # Q</span>
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>Informally reason that this program is correct with the given <code>P1</code> and <code>Q</code>.</li>
+<li>This program <b>is correct</b> with respect to the given precondition <code>P1</code> and postcondition <code>Q</code>.  Prove it by finding a loop invariant and verify the verification condition (show your work, i.e., generate the <code>wp</code> and the <code>vc</code> of the program, and reason about these)</li>
+<li>Now, consider a different precondition <code>P2</code>.
+<ol class="org-ol">
+<li>Recompute the VC of the program with respect to <code>P2</code>.</li>
+<li>is the VC  <code>P2 -&gt; WP ..</code>  valid?  if yes, what does that mean,  if not, what does that mean?</li>
+</ol></li>
+</ol>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: ThanhVu (Vu) Nguyen</p>
-<p class="date">Created: 2024-01-31 Wed 15:46</p>
+<p class="date">Created: 2024-02-14 Wed 18:08</p>
 </div>
 </body>
 </html>
