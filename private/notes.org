@@ -643,3 +643,28 @@ VC : True
 
 
 (0 < N  |  0 == N)   ==   0 <= N
+
+
+
+try loop invariant True (weakest invariant)
+1.  True
+2.  True &  i < N  => WP(i:=i+1, True)
+     i< N  =>   True     !(i<N)  | True
+     True
+
+3.  True   & !(i < N)  => i == N
+    !(i < N)  => i == N
+    i >= N  => i == N
+
+wp(i:=0, i >= N  => i == N)
+
+0 >= N  => 0 == N
+
+
+VC:  (N>=0)  => (0 >= N  => 0 == N)
+     (N>=0)  => (0 < N | 0 == N)
+     N>=0  => 0 <= N
+     True
+
+
+N >= -10   =>  N >= 0

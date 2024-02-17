@@ -1529,13 +1529,31 @@ _Hint_: also look at the Javadoc for =equals()=
    :END:
 *** Goals: Understanding Program Verification through Hoare Logic
   
-    Do the [[#ic4][in-class exercise]] with your group and submit it on BB. More specifically, you will do the below two tasks:
+1. Do the [[#ic4][in-class exercise]] with your group and submit it on BB. More specifically, you will do the below two tasks:
     1. Prove the program using the following the loop invariant:  ~i <= N~.
        1. Clearly reason why this is a loop invariant
        1. Compute the weakest precondition =wp= of the program wrt the post conditiong =Q=
        1. Compute the verification condition =vc (P => wp(..))=, and
        1. Analyze the =vc= to dertermine whether the program is proved or not
     1. Repeat the above task a different loop invariant:  ~N >= 0~
+2. Given the program
+   #+begin_src java
+     // {x <= 1}   # P1
+     // {x <= 11}  # P2
+
+     while (x != 10){
+         x := x + 1;
+     }
+
+     //{x == 10}  # Q
+   #+end_src
+   1. Informally reason that this program is correct with the given =P1= and =Q=.
+   1. This program *is correct* with respect to the given precondition =P1= and postcondition =Q=.  Prove it by finding a loop invariant and verify the verification condition (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)
+   2. Now, consider a different precondition =P2=.
+      1. Recompute the VC of the program with respect to =P2=.
+      1. is the VC  =P2 -> WP ..=  valid?  if yes, what does that mean,  if not, what does that mean?
+
+
 
 *** Grading Criteria
   
