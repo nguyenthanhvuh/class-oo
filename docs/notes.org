@@ -2,7 +2,7 @@
 :PROPERTIES:
 :CUSTOM_ID: notes
 :END:
-** Week 1
+** Lecture 1
 :PROPERTIES:
 :CUSTOM_ID: week-1
 :END:
@@ -45,7 +45,7 @@
 - In class exercise
   - Equality (=__equals__= in Java or =_eq_= in Python)
 
-** Week 2 More on Specifications
+** Lecture 2 More on Specifications
 :PROPERTIES:
 :CUSTOM_ID: week-2
 :END:
@@ -247,7 +247,7 @@ returned by next from the underlying collection. - Violation Example:
 Calling remove multiple times consecutively without calling next in
 between.
 
-** Week 3: Automatic Verification and Hoare Logic
+** Lecture 3: Automatic Verification and Hoare Logic
 :PROPERTIES:
 :CUSTOM_ID: week-3
 :END:
@@ -668,3 +668,253 @@ VC:  (N>=0)  => (0 >= N  => 0 == N)
 
 
 N >= -10   =>  N >= 0
+
+** Lecture 5:
+
+*** Module/Function abstraction
+- abstract how function are implemented to how they behave
+- focus on behaviors, captured by specifications (pre/post conditions, etc)
+- implementation adheres to specifications (not the other way around)
+
+*** Data Abstraction
+- abstract how objects are implemented to how they behave
+- data specs has 3 parts
+  - **rep** data representation (e.g., using vector for IntSet,  or array for Poly)
+  - constructors  (to properly initialize the rep)
+  - methods to use/modify the rep
+
+*** Data Abstraction
+
+Consider [[./files/Poly.java][Poly.java from Liskov]]
+
+- Poly.java :  show the code
+    - What is a polynomial ? Ask student
+        - Should describe high level (client perspective), not implemented
+        - Wikipedia: expressions consisting of terms, which are variables and coefficients
+        - Also involve operations such as mult, addition, subtraction, non-neg int exponentiation
+    - How to implement polynomial?
+        - Coef:  integer coef
+        - Exponent:  non-neg ints
+        - 1 variable (just x)
+    - Poly code
+        - Effects (Poly constructor):  would it be ok if we say “initialize array to 0 and such”,  no it’s wrong,  it’s implementation level,  not specification
+        - Think about this as “if I change my code,  would the specification still hold?”  If yes, then specification is good, otherwise,  incorrect
+    - ADD:
+        - why so ugly?
+        - Because she has a constraint such that doesn’t trailing zeros …
+        - last thing in array is a non-negative coefficient
+- In class exercise: 2A QUEUE
+    - Queue is currently mutable
+    - convert it to immutable
+    - ALSO put/change the contracts on both the ORIGINAL (mutable version) and immutatable version
+    - 30 mins
+
+
+  - implements a class to represent ~polynomials~
+  - 10*x + 5*x^2 + 3*x^3 + 100*x^11 + 42
+  - 101
+  - c_1*x_1^d_1 + c_2*x_2^d_2    (c_i*x_i^d_i : term,  c_i: coefficients, d_i: degree)
+
+
+- This is a *specific* implementation of Polynomials
+  - uses arrays of ints to represent terms ...
+  - =deg= var to store degree
+
+  - Some additional constraints for polynomials in this implementation
+     - 1 variable (5*x*y not allowed)
+     - no negative degree
+     - coefficients integers
+
+- to represent: =5 + 3*x^2= in this code
+  - =Poly(deg=2, trms=[5,3])=
+  - =Poly(deg=2, trms=[5,0,3])=
+
+  - =Poly(deg=2, trms=[5,0,3,0,0,0,0,0...])=: not allowed in Poly implementation (last element of the array term cannot be non zero)
+
+
+- 1st =public Poly= contract: good (no inputs, not modifying any inputs etc)
+- 2nd =public Poly= contract: also good, total contract: raise exception if n < 0, otherwise return this polynomial
+- =private Poly=  :  she did not forget the contract, it is assumed that it will be called by something trusted , so no need to talk about specs of these.
+- =deg=:  highest degree associated with a non-zero cofficient
+- =coeff_book()= vs =coeff()=  :  which is better? coeff() is better, go back to constructors:  if n < 0 , it throws IAE,  but this coeff_book returns a value (implicitly allow that)
+...
+- *abstraction method/function*: =toString=   -> concrete (implementation) to abstract (polynomial)
+  -  =Poly(deg=2, trms=[5,3])=   =>  5+3*x
+  -  =Poly(deg=2, trms=[5,0,3])= =>  5+3x^2
+
+*** Immutable
+
+Benefits of immutable
+1. Prevents corruption of objects and the data they hold as the object cannot be updated.
+2. Data is predictable. Once created cannot be modified.
+3. Comparing two immutable objects is easier. We can just compare the reference of the object.
+4. Immutable objects are thread safe and is useful to share data in multithreaded applications.
+5. Testing: Testing will be easy for immutable objects.
+
+Benefits of mutability
+1. Mutable objects can be used when we do not know the actual size of the input data. Size can be
+variable which is an advantage of mutable objects over immutable objects.
+2. Objects can be modified post its creation. This memory efficient as we just update the reference
+instead of creating a new object.
+3. Mutable classes provide methods to update the data.
+
+  - Thread safe ;  easier for sharing; efficiency; safety;  less prone to error, easier to design
+  - really good for concurrency (can do things in parallel)
+
+**** General way to turn mutable to immutable
+  - If modifies contents of the data, create a new one instead and also return the newly created one
+  - In other words, it would not modify the contents of the data, instead of modifying the data internally,  it returns a new data (that would have same contents as data in the the mutable version)
+
+
+
+
+
+q = Queue()
+q.enQueue(x)
+//at this point q is [x]
+q.enQueue(y)
+//at this point q is [x, y]
+
+create enQueue_Immutable
+
+Q enQueue_Immutable(E x){... return ..}
+
+q = Queue()
+q = q.enQueue_Immutable(x)
+//at this point q is [x]
+q = q.enQueue_Immutable(y)
+//at this point q is [x, y]
+
+
+*** In-class 3A
+
+#+begin_src
+q = [1,2,3]
+q.enQueue(4) #  q.elements = [1,2,3,4]
+
+result = q.deQueue()
+- q.elements = [2,3,4]
+- result = 1
+
+----------------
+
+q = [1,2,3]
+q' = q.enQueue_Immutable(4)
+- q.elements = [1,2,3]
+- q'.elmenets = [1,2,3,4]
+q = q'
+
+q' = q.deQueue_Immutable()
+result = q.getFirst()
+q = q'
+- q.elements = [2,3,4]
+- result = 1
+
+#+end_src
+
+#+begin_src java
+  public class Queue <E> {
+
+      private List<E> elements;
+      private int size;
+
+      public Queue() {
+          this.elements = new ArrayList<E>();
+          this.size = 0;
+      }
+
+      public void enQueue (E e) {
+          elements.add(e);
+          size++;
+      }
+
+      public Queue<E> enQueueImmutable (E e) {
+
+          Queue<E> queue = new Queue<>();
+          queue.elements.addAll(this.element);
+          queue.elements.add(e);
+          queue.size = this.size + 1;
+          return queue;
+      }
+
+      //Effect: remove and return the front element of queue (this)
+      //Modifies: contents of queue
+      //@throw ISE if queue is empty  (DO NOT USE elements.size()?)
+      public E deQueue () {
+          if (size == 0) throw new IllegalStateException("Queue.deQueue");
+          E result = elements.get(0);
+          elements.remove(0);
+          size--;
+          return result;
+      }
+
+      //Effect: return a queue that is like this but without the front element
+      //Modifies: none
+      //@throw ISE if queue is empty  (DO NOT USE elements.size()?)
+      public Queue<E> deQueueImmutability () {
+          if (size == 0) throw new IllegalStateException("Queue.deQueue");
+
+          Queue<E> queue = new Queue<>();
+          queue.elements.addAll(this.element);
+          //E result = queue.elements.get(0);
+          queue.elements.remove(0);
+          queue.size--;
+          return queue;//return result
+
+
+      }
+
+      public E getTop(){
+          if (size == 0) throw new IllegalStateException("Queue.deQueue");
+          return elements.get(0)
+      }
+      public boolean isEmpty() {
+          return size == 0;
+      }
+
+  }
+#+end_src
+
+
+
+q = Queue()
+q.enque(x)  // q =  [x]
+q.enque(y)  // q =[x,y]
+
+
+ q = Queue()
+ q = q.enqueImmutable(x) // q = [x]
+ q = q.enqueImmutable(y) // q = [x,y]
+
+ q = Queue()
+ q = q.enqueImmutable(x) // q = [x]
+ //equivalent to dequeue
+ e = q.getTop(x)
+ q = q.dequeueImmutable() // q = []
+
+
+ Haskell
+ Ocaml
+ F#
+ Jump Trading, Jane Street
+
+
+
+
+** Abstraction Function
+toString = [0,1,3,-7]  => "x + 3 x* ^2  -7* x^3"
+ __str__() = ...
+
+ IntSet([1,2]).toString()   => 1,2
+ [1,2]
+
+ IntSet([2,1,1,2]).toString()  =>  1,2
+ [2,1,1,2]
+
+
+** Repr Invariants
+Binary Tree
+   - tree w/ at most 2 children
+   - ...
+
+

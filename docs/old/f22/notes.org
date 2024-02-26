@@ -1285,24 +1285,7 @@ while (1){
 #+end_src
 
 
-** Repr Invariants
-- things that are true about a data structure
-- binary tree 
-  - at most two children
-  - all nodes except root has a parent
- 
-- BinTree
-  - add(x)
-  -
 
-- Set
-  - Distinct
-      
-- BinarySearchTree
-  -     
-
-ReprOK()
-RepOK()
 
 * Lecture 4 (<2022-09-16 Fri>)
 

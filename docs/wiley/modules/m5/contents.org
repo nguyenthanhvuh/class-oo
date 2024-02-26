@@ -410,12 +410,25 @@ Upon completion of this module’s activities, you should be able to:
          List<Person> members;   // the representation
 
          //  Post: person becomes a member
-         public void join (Person person) { members.add(person);}
+         public void join (Person person) {
+             members.add(person);
+         }
 
          //  Post: person is no longer a member
-         public void leave(Person person) { members.remove(person);}
+         public void leave(Person person){
+             members.remove(person);
+         }
 
    #+end_src
+
+
+
+
+
+
+
+
+
 
 
    1. Analyze these 4 questions for rep-inv 1.

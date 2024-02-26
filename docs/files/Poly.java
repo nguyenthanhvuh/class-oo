@@ -5,8 +5,7 @@
  * deg: non-neg int 
  * 1 variable ..   (3*x*y not allowed) 
 
-
- * (deg=2, terms=[5,0,3])  ->   5+3*x^2
+ * (deg=2, terms=[5,0,3])  ->   5 + 3*x^2
  * (deg=2, terms=[5,0,3,0,0,0,0...]  -> 5+3*x^2+0*x^3:  is not allowed in this implementation
  */
 
@@ -17,7 +16,7 @@ public class Poly {
     private int deg;
 
     // Effects: Initializes this to be the zero polynomial
-    public Poly() {
+    public Poly() {  //Poly() ->  0
        trms = new int[1]; trms[0] = 0;
        deg = 0;
     }
