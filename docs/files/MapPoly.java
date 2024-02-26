@@ -66,7 +66,7 @@ public class MapPoly {
     public MapPoly add(MapPoly q) {
        
        // find all the nonzero coefficients in either this or q
-       Set<Integer> nonZero = new HashSet<Integer>(q.trms.keySet());
+       Set<Integer> nonZero = new HashSet<Integer>(q.trms.size());
        nonZero.addAll(trms.keySet());
 
        // Add the coefficients together; store the nonzero results
