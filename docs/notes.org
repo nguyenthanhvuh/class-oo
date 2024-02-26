@@ -701,7 +701,7 @@ Consider [[./files/Poly.java][Poly.java from Liskov]]
         - Think about this as “if I change my code,  would the specification still hold?”  If yes, then specification is good, otherwise,  incorrect
     - ADD:
         - why so ugly?
-        - Because she has a constraint such that doesn’t trailing zeros …
+        - Because she has a constraint such that doesn’t trailing zeros
         - last thing in array is a non-negative coefficient
 - In class exercise: 2A QUEUE
     - Queue is currently mutable
@@ -767,7 +767,7 @@ instead of creating a new object.
 
 
 
-
+#+begin_src java
 
 q = Queue()
 q.enQueue(x)
@@ -785,12 +785,13 @@ q = q.enQueue_Immutable(x)
 q = q.enQueue_Immutable(y)
 //at this point q is [x, y]
 
+#+end_src
 
 *** In-class 3A
 
-#+begin_src
+#+begin_src java
 q = [1,2,3]
-q.enQueue(4) #  q.elements = [1,2,3,4]
+q.enQueue(4) //  q.elements = [1,2,3,4]
 
 result = q.deQueue()
 - q.elements = [2,3,4]
@@ -876,7 +877,7 @@ q = q'
 #+end_src
 
 
-
+#+begin_src java
 q = Queue()
 q.enque(x)  // q =  [x]
 q.enque(y)  // q =[x,y]
@@ -892,6 +893,7 @@ q.enque(y)  // q =[x,y]
  e = q.getTop(x)
  q = q.dequeueImmutable() // q = []
 
+ #+end_src
 
  Haskell
  Ocaml

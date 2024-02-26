@@ -3,11 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-02-06 Tue 21:59 -->
+<!-- 2024-02-26 Mon 09:59 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="tnguyen" />
+<meta name="author" content="ThanhVu (Vu) Nguyen" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -202,12 +202,12 @@
 <ul>
 <li><a href="#notes">1. Notes</a>
 <ul>
-<li><a href="#week-1">1.1. Week 1</a>
+<li><a href="#week-1">1.1. Lecture 1</a>
 <ul>
 <li><a href="#methodprogram-specifications">1.1.1. Method/Program specifications</a></li>
 </ul>
 </li>
-<li><a href="#week-2">1.2. Week 2 More on Specifications</a>
+<li><a href="#week-2">1.2. Lecture 2 More on Specifications</a>
 <ul>
 <li><a href="#weaker-preconditions-and-stronger-postconditions">1.2.1. Weaker Preconditions and Stronger Postconditions</a></li>
 <li><a href="#partial-vs-total-contractsspecifications">1.2.2. Partial vs Total Contracts/Specifications</a></li>
@@ -225,16 +225,25 @@
 <li><a href="#post">3. post:</a></li>
 <li><a href="#side-effects">4. side-effects</a>
 <ul>
-<li><a href="#week-3">4.1. Week 3: Automatic Verification and Hoare Logic</a>
+<li><a href="#week-3">4.1. Lecture 3: Automatic Verification and Hoare Logic</a>
 <ul>
-<li><a href="#orgefb752f">4.1.1. Quiz 1: Binary Search</a></li>
+<li><a href="#org4c06a4f">4.1.1. Quiz 1: Binary Search</a></li>
 <li><a href="#logic-primer">4.1.2. Logic Primer</a></li>
-<li><a href="#orge474d0e">4.1.3. Hoare Logic</a></li>
-<li><a href="#orge1aeff7">4.1.4. See complete notes on Hoare logic here</a></li>
-<li><a href="#in-class">4.1.5. In-Class</a></li>
-<li><a href="#org5c72562">4.1.6. Quiz</a></li>
+<li><a href="#org35c6a5c">4.1.3. Hoare Logic</a></li>
+<li><a href="#in-class">4.1.4. In-Class</a></li>
 </ul>
 </li>
+<li><a href="#org3e81e88">4.2. Lecture 5:</a>
+<ul>
+<li><a href="#org80ca307">4.2.1. Module/Function abstraction</a></li>
+<li><a href="#org3d79ab4">4.2.2. Data Abstraction</a></li>
+<li><a href="#orge075f6e">4.2.3. Data Abstraction</a></li>
+<li><a href="#org1374d8c">4.2.4. Immutable</a></li>
+<li><a href="#org7f1981f">4.2.5. In-class 3A</a></li>
+</ul>
+</li>
+<li><a href="#org3b5917a">4.3. Abstraction Function</a></li>
+<li><a href="#org82762d4">4.4. Repr Invariants</a></li>
 </ul>
 </li>
 </ul>
@@ -245,7 +254,7 @@
 <div class="outline-text-2" id="text-notes">
 </div>
 <div id="outline-container-week-1" class="outline-3">
-<h3 id="week-1"><span class="section-number-3">1.1.</span> Week 1</h3>
+<h3 id="week-1"><span class="section-number-3">1.1.</span> Lecture 1</h3>
 <div class="outline-text-3" id="text-week-1">
 <ul class="org-ul">
 <li>Syllabus
@@ -316,7 +325,7 @@ correct: blame developers</li>
 </div>
 </div>
 <div id="outline-container-week-2" class="outline-3">
-<h3 id="week-2"><span class="section-number-3">1.2.</span> Week 2 More on Specifications</h3>
+<h3 id="week-2"><span class="section-number-3">1.2.</span> Lecture 2 More on Specifications</h3>
 <div class="outline-text-3" id="text-week-2">
 </div>
 <div id="outline-container-weaker-preconditions-and-stronger-postconditions" class="outline-4">
@@ -354,7 +363,7 @@ correct: blame developers</li>
 </pre>
 </div>
 
-<pre class="example" id="org576543a">
+<pre class="example" id="org0d7fa9d">
 preconds:
 - x and y are integers # (already given in type)
 // - y cannot be zero   # better if we can remove this
@@ -453,7 +462,7 @@ determine is irrelevant</li>
 <div id="outline-container-specificationscontracts" class="outline-4">
 <h4 id="specificationscontracts"><span class="section-number-4">1.2.6.</span> Specifications/Contracts</h4>
 <div class="outline-text-4" id="text-specificationscontracts">
-<pre class="example" id="org25cbf1c">
+<pre class="example" id="org5d2b6c4">
 int foo(string s, char d): ... 
  // pre: 
  // post
@@ -570,11 +579,11 @@ between.
 </p>
 </div>
 <div id="outline-container-week-3" class="outline-3">
-<h3 id="week-3"><span class="section-number-3">4.1.</span> Week 3: Automatic Verification and Hoare Logic</h3>
+<h3 id="week-3"><span class="section-number-3">4.1.</span> Lecture 3: Automatic Verification and Hoare Logic</h3>
 <div class="outline-text-3" id="text-week-3">
 </div>
-<div id="outline-container-orgefb752f" class="outline-4">
-<h4 id="orgefb752f"><span class="section-number-4">4.1.1.</span> Quiz 1: Binary Search</h4>
+<div id="outline-container-org4c06a4f" class="outline-4">
+<h4 id="org4c06a4f"><span class="section-number-4">4.1.1.</span> Quiz 1: Binary Search</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <ul class="org-ul">
 <li>precondition:
@@ -687,11 +696,11 @@ between.
 </ul>
 </div>
 <ol class="org-ol">
-<li><a id="org88ab5f6"></a>Using Z3 to check satisfiability<br /></li>
+<li><a id="org4ac24f7"></a>Using Z3 to check satisfiability<br /></li>
 </ol>
 </div>
-<div id="outline-container-orge474d0e" class="outline-4">
-<h4 id="orge474d0e"><span class="section-number-4">4.1.3.</span> Hoare Logic</h4>
+<div id="outline-container-org35c6a5c" class="outline-4">
+<h4 id="org35c6a5c"><span class="section-number-4">4.1.3.</span> Hoare Logic</h4>
 <div class="outline-text-4" id="text-4-1-3">
 <ul class="org-ul">
 <li>Tony Hoare: Sir. Hoare, quick sort, verification, &#x2026;
@@ -708,7 +717,7 @@ between.
 </ul>
 </div>
 <ol class="org-ol">
-<li><a id="org3810c6d"></a>Hoare tripple: {P}  S  {Q}<br />
+<li><a id="orgeca04f4"></a>Hoare tripple: {P}  S  {Q}<br />
 <div class="outline-text-5" id="text-4-1-3-1">
 <ul class="org-ul">
 <li>Precondition: P</li>
@@ -761,29 +770,800 @@ def foo(x:int):
   {x &lt;= y}
   {x == y - 1}
 </p>
+
+
+
+<p>
+Examples of Hoare tripples
+</p>
+
+<ul class="org-ul">
+<li>{True} x := 5  {x==5}  : Valid HT # strongest post</li>
+<li>{True} x := 5  {x &gt; 4} :  Valid HT</li>
+<li>{True} x := 5  {x==5 or x==6}  : Valid HT</li>
+</ul>
+
+
+
+<ul class="org-ul">
+<li>{True}  x:= 5  {x &gt; 5}  : Invalid HT</li>
+
+<li>{x = 1 &amp; y = 2} z:= x/y  {z &lt; 1}   : Valid</li>
+<li>{x &lt; y} z:= x/y  {z &lt; 1}   :   Invalid     counterexample :  x=-2, y=-1</li>
+<li>{False} x:=3 {x=8} : Valid</li>
+<li>{True} x:=8 while(1){x:=8} {x=3}  : Valid (<b>Partial</b> correct)
+<ul class="org-ul">
+<li>Partial vs Total (you have to check that the program terminates)</li>
+</ul></li>
+
+<li>Halting problem
+<ul class="org-ul">
+<li>given a program, is it possible to determine if it will halt or not?</li>
+<li>Alan Turing
+<ul class="org-ul">
+<li>Break Engima (10 years of WW-II)</li>
+<li>Father of Computer Science
+<ul class="org-ul">
+<li>Show that Halting problem is undecidable</li>
+<li>Turing machine - Universal Machine</li>
+<li>Turing test</li>
+</ul></li>
+<li>Matrix multiplication (LU-)</li>
+</ul></li>
+<li>Halting: Undecidable problem</li>
+</ul></li>
+</ul>
+
+<p>
+How to determine if Hoare Triple is valid or not?
+</p>
+<ul class="org-ul">
+<li>Compute <b>weakest</b> preconditions (WP)  &#x2014; Disjkstra</li>
+<li>WP(S, Q) = P&rsquo;</li>
+
+<li>Skip: WP(skip, {x=3})=  {x=3}</li>
+<li>Assignment:
+<ul class="org-ul">
+<li>WP(x:=x+1, {x=3})= {x=2}
+<ul class="org-ul">
+<li>{x=2} x:= x+1 {x=3}</li>
+</ul></li>
+<li>WP(x:=x+1, {x&gt;3})= x&gt;2
+{x &gt; 2} x:=x+1  {x&gt;3}
+{x &gt;= 3} x:=x+1  {x&gt;3}
+{x &gt;= 100} x:=x+1  {x&gt;3}</li>
+
+<li>WP(x:=1, {x=3}) = False
+{False}  x:= 1 {x=3}</li>
+</ul></li>
+
+<li><p>
+Condition
+</p>
+<ul class="org-ul">
+<li>WP(if x &gt; 0 then y := x + 2  else y:= y + 1,  {y &gt; x})</li>
+</ul>
+<p>
+x&gt;0 <code>&gt; WP(y :</code> x +2, {y &gt; x}) AND !(x&gt;0) <code>&gt;  WP(y:</code> y + 1, {y &gt; x})
+x&gt;0 =&gt;  x + 2 &gt; x             AND !(x&gt;0) =&gt;  y+1 &gt; x
+x&gt;0 =&gt;  TRUE
+   TRUE                       AND !(x&gt;0) =&gt;  y+1 &gt; x
+   !(x&gt;0) =&gt;  y+1 &gt; x
+</p></li>
+
+<li>While loop
+<ul class="org-ul">
+<li>loop invariant (I)
+<ul class="org-ul">
+<li>true when entering the loop</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-python">  <span style="color: #e45649;">while</span> (b){
+    <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">loop body</span>
+  }
+
+  <span style="color: #e45649;">while</span> (<span style="color: #b751b6;">True</span>){
+    [I]      <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">loop invariant I is right here</span>
+    <span style="color: #e45649;">if</span> (!b) <span style="color: #e45649;">break</span>
+      <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">loop body</span>
+  }
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python">  {N &gt;= <span style="color: #da8548; font-weight: bold;">0</span>} <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">precondition</span>
+
+  i := <span style="color: #da8548; font-weight: bold;">0</span>
+  <span style="color: #e45649;">while</span>(<span style="color: #b751b6;">True</span>):
+    [L]
+    <span style="color: #e45649;">if</span>(!(i &lt; N)):  <span style="color: #9ca0a4;"># </span><span style="color: #9ca0a4;">i &gt;= N : break</span>
+        <span style="color: #e45649;">break</span>
+    i := N;
+</pre>
+</div>
+
+<p>
+i = i = True
+N= N
+i &gt;= 0
+i &lt;= N
+</p>
+
+
+<p>
+{False}
+x := 3
+{x == 4}
+</p>
+
+<p>
+wp(x:=3, x==4)
+3==4
+False
+</p>
+
+
+<p>
+x &lt;= 0 <code>&gt; 0 &gt; 0
+x &lt;</code> 0 =&gt; False
+x &gt; 0
+</p>
+
+<p>
+A =&gt; False   = True
+</p>
 </div>
 </li>
 </ol>
 </div>
-<div id="outline-container-orge1aeff7" class="outline-4">
-<h4 id="orge1aeff7"><span class="section-number-4">4.1.4.</span> <a href="https://github.com/dynaroars/dynaroars.github.io/wiki/notes-hoare-logic">See complete notes on Hoare logic here</a></h4>
-</div>
-
-
 <div id="outline-container-in-class" class="outline-4">
-<h4 id="in-class"><span class="section-number-4">4.1.5.</span> In-Class</h4>
+<h4 id="in-class"><span class="section-number-4">4.1.4.</span> In-Class</h4>
 <div class="outline-text-4" id="text-in-class">
+<p>
+b =&gt; X  &amp;  !b =&gt; Y
+(b =&gt; X  &amp;  !b =&gt; Y)
+(!b V X  &amp;  b V Y)
+</p>
+
+
+
+<p>
+// {N &gt;= 0}  {0 &lt;= N}  =&gt;  {N&gt;=0} Can prove
+</p>
+
+<p>
+// {N &gt;= 10} <b>* cannot prove*</b> {0 &lt;= N} <code>&gt; {N &gt;</code> 10} Cannot prove
+</p>
+
+
+<p>
+N= -10
+</p>
+
+<p>
+i := 0;
+</p>
+
+<p>
+{i &lt;= N}
+while(true){
+  // [I]: loop invariants here
+  if(!i &lt; N) break;
+  i := N;
+}
+</p>
+
+<p>
+{i = N} // post condition
+</p>
+
+
+
+<p>
+i = 0
+while (true)
+         [I]
+         if(!false) break
+         i = 10
+</p>
+
+
+
+<p>
+(N &gt;=0 &amp; i &gt;= N)    <code>&gt;  i =</code> N
+(N &gt;=0 &amp; N &lt;= i)    <code>&gt;  i =</code> N
+</p>
+
+<p>
+(i &gt;= N &gt;= 0)       <code>&gt;  i =</code> N
+</p>
+
+
+
+<p>
+```
+// {N &gt;= 0}   # P
+i = 0;
+[L1]
+while (i &lt; N){
+    [L2]
+    i = i + 1;
+    [L2&rsquo;]
+}
+[L3]
+//{i == N}  # Q
+</p>
+
+
+<p>
+// {N &gt;= 0}   # P
+i = 0;
+while (true){
+    [L]
+    if(!(i &lt; N) break;
+</p>
+
+<p>
+    i = i + 1;   <i>/loop body
+}
+/</i> {i == N}  # Q
+```
+</p>
+
+<p>
+Candidate loop invariants:
+</p>
+<ul class="org-ul">
+<li>i &lt;= N</li>
+<li>N &gt;= 0</li>
+</ul>
+
+
+<p>
+wp({i := 0; while(&#x2026;)}, i==N)
+wp(i:=0, wp(while(&#x2026;), i==N))
+</p>
+
+<p>
+wp(while(&#x2026;), i==N)  // I = i &lt;= N
+</p>
+
+<ol class="org-ol">
+<li>i &lt;= N</li>
+
+<li>i &lt;= N &amp; i &lt; N  <code>&gt; WP(i:=i+1, i&lt;=N)
+         i &lt;</code> N &amp; i &lt; N  <code>&gt; WP(i:=i+1, i&lt;=N)
+         i &lt;</code> N &amp; i &lt; N  =&gt; i+1&lt;=N
+i &lt; N        =&gt;  i &lt; N
+True</li>
+
+<li>i &lt;= N &amp; !(i &lt; N) <code>&gt; I =</code> N
+i &lt;= N &amp; i &gt;= N    <code>&gt;  I =</code> N
+   i <code>= N          =&gt;  I =</code> N
+   True</li>
+</ol>
+
+<p>
+i &lt;= N  &amp; True  &amp; True
+i &lt;= N
+</p>
+
+<p>
+wp(i:=0, i&lt;=N)
+      0&lt;=N
+</p>
+
+<p>
+Verification Condition (VC)
+P  <code>&gt;  wp(S, Q)
+      P  =&gt;  0 &lt;</code> N
+N &gt;= 0   <code>&gt;   0 &lt;</code> N
+N &gt;= 0   =&gt;   N =&gt; 0
+True    # formally proved that {P} S {Q}
+</p>
+
+<p>
+-&#x2014;
+try with loop invariant N &gt;= 0
+wp({i := 0; while(&#x2026;)}, i==N)
+wp(while(&#x2026;), i==N)  // I = N &gt;= 0
+</p>
+
+<ol class="org-ol">
+<li>N &gt;= 0</li>
+
+<li>N &gt;= 0  &amp; i &lt; N  <code>&gt; WP(i:=i+1, N &gt;</code> 0)
+(N &gt;= 0  &amp; i &lt; N) <code>&gt;  N &gt;</code> 0
+     True</li>
+
+<li><p>
+N &gt;=0   &amp; !(i &lt; N)  <code>&gt; i =</code> N
+N &gt;= 0  &amp;  i &gt;= N   <code>&gt;  i =</code> N
+i &gt;= N &gt;= 0         <code>&gt;  i =</code> N
+</p>
+
+<p>
+(N &gt;= 0)  &amp;  (i &gt;= N &gt;= 0 <code>&gt; i =</code> N)
+</p>
+
+<p>
+wp(i:=0,  wp(while &#x2026;))
+wp(i:=0,  (N &gt;= 0)  &amp;  (i &gt;= N &gt;= 0 <code>&gt; i =</code> N))
+</p>
+
+<p>
+(N &gt;= 0)  &amp;  (0 &gt;= N &gt;= 0    <code>&gt;  0 =</code> N)
+(N &gt;= 0)  &amp;   N <code>=0   =&gt;  N =</code> 0
+(N &gt;= 0)  &amp; True
+ N &gt;= 0
+</p></li>
+</ol>
+
+<p>
+VC =  N &gt;= 0  <code>&gt;  N &gt;</code> 0  = True
+</p>
+
+<hr />
+<p>
+try loop invariant i &gt;= 0
+</p>
+
+<ol class="org-ol">
+<li>i &gt;= 0</li>
+
+<li>i &gt;= 0  &amp; i &lt; N  <code>&gt; WP(i:=i+1, i &gt;</code> 0)
+(i &gt;= 0  &amp; i &lt; N)  <code>&gt;  i + 1 &gt;</code> 0   //  equiv to True</li>
+
+<li>i &gt;= 0   &amp; !(i &lt; N)  <code>&gt; i =</code> N
+(i &gt;= 0   &amp; i&gt;=N)     <code>&gt;   i =</code> N</li>
+</ol>
+
+<p>
+i &gt;= 0  &amp; (i &gt;= 0  &amp; i &lt; N)  <code>&gt;  i + 1 &gt;</code> 0  &amp;  (i &gt;= 0   &amp; i&gt;=N)     <code>&gt;   i =</code> N
+</p>
+
+<p>
+wp(i := 0, i &gt;= 0  &amp; (i &gt;= 0  &amp; i &lt; N)  <code>&gt;  i + 1 &gt;</code> 0  &amp;  (i &gt;= 0   &amp; i&gt;=N)     <code>&gt;   i =</code> N)
+</p>
+
+
+<p>
+0 &gt;= 0  &amp;
+ True
+</p>
+
+<p>
+(0 &gt;= 0  &amp; 0 &lt; N)  <code>&gt;  0 + 1 &gt;</code> 0  &amp;
+  True  &amp;  0 &lt; N   =&gt;   True
+  0&lt;N  =&gt; True
+  !(0 &lt; N) | True
+  True
+</p>
+
+<p>
+(0 &gt;= 0   &amp; 0&gt;=N)     <code>&gt;   0 =</code> N
+0 &gt;= N  <code>&gt;  0 =</code> N
+</p>
+
+<p>
+wp(..) =  0 &gt;= N  <code>&gt;  0 =</code> N
+</p>
+
+<p>
+VC   N &gt;= 0   <code>&gt;    (0 &gt;</code> N  <code>&gt;  0 =</code> N)
+ N &gt;= 0 <code>&gt;  (0 &lt; N  |  0 =</code> N)
+</p>
+
+<p>
+N &gt;= 0 <code>&gt;  O &lt;</code> N
+</p>
+
+<p>
+True
+</p>
+
+<p>
+VC : True
+</p>
+
+
+<p>
+(0 &lt; N  |  0 <code>= N)   =</code>   0 &lt;= N
+</p>
+
+
+
+<p>
+try loop invariant True (weakest invariant)
+</p>
+<ol class="org-ol">
+<li>True</li>
+<li>True &amp;  i &lt; N  =&gt; WP(i:=i+1, True)
+i&lt; N  =&gt;   True     !(i&lt;N)  | True
+True</li>
+
+<li>True   &amp; !(i &lt; N)  <code>&gt; i =</code> N
+!(i &lt; N)  <code>&gt; i =</code> N
+i &gt;= N  <code>&gt; i =</code> N</li>
+</ol>
+
+<p>
+wp(i:=0, i &gt;= N  <code>&gt; i =</code> N)
+</p>
+
+<p>
+0 &gt;= N  <code>&gt; 0 =</code> N
+</p>
+
+
+<p>
+VC:  (N&gt;=0)  <code>&gt; (0 &gt;</code> N  <code>&gt; 0 =</code> N)
+     (N&gt;=0)  <code>&gt; (0 &lt; N | 0 =</code> N)
+     N&gt;=0  <code>&gt; 0 &lt;</code> N
+     True
+</p>
+
+
+<p>
+N &gt;= -10   <code>&gt;  N &gt;</code> 0
+</p>
 </div>
 </div>
-<div id="outline-container-org5c72562" class="outline-4">
-<h4 id="org5c72562"><span class="section-number-4">4.1.6.</span> Quiz</h4>
+</div>
+<div id="outline-container-org3e81e88" class="outline-3">
+<h3 id="org3e81e88"><span class="section-number-3">4.2.</span> Lecture 5:</h3>
+<div class="outline-text-3" id="text-4-2">
+</div>
+<div id="outline-container-org80ca307" class="outline-4">
+<h4 id="org80ca307"><span class="section-number-4">4.2.1.</span> Module/Function abstraction</h4>
+<div class="outline-text-4" id="text-4-2-1">
+<ul class="org-ul">
+<li>abstract how function are implemented to how they behave</li>
+<li>focus on behaviors, captured by specifications (pre/post conditions, etc)</li>
+<li>implementation adheres to specifications (not the other way around)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org3d79ab4" class="outline-4">
+<h4 id="org3d79ab4"><span class="section-number-4">4.2.2.</span> Data Abstraction</h4>
+<div class="outline-text-4" id="text-4-2-2">
+<ul class="org-ul">
+<li>abstract how objects are implemented to how they behave</li>
+<li>data specs has 3 parts
+<ul class="org-ul">
+<li><b><b>rep</b></b> data representation (e.g., using vector for IntSet,  or array for Poly)</li>
+<li>constructors  (to properly initialize the rep)</li>
+<li>methods to use/modify the rep</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge075f6e" class="outline-4">
+<h4 id="orge075f6e"><span class="section-number-4">4.2.3.</span> Data Abstraction</h4>
+<div class="outline-text-4" id="text-4-2-3">
+<p>
+Consider <a href="./files/Poly.java">Poly.java from Liskov</a>
+</p>
+
+<ul class="org-ul">
+<li>Poly.java :  show the code
+<ul class="org-ul">
+<li>What is a polynomial ? Ask student
+<ul class="org-ul">
+<li>Should describe high level (client perspective), not implemented</li>
+<li>Wikipedia: expressions consisting of terms, which are variables and coefficients</li>
+<li>Also involve operations such as mult, addition, subtraction, non-neg int exponentiation</li>
+</ul></li>
+<li>How to implement polynomial?
+<ul class="org-ul">
+<li>Coef:  integer coef</li>
+<li>Exponent:  non-neg ints</li>
+<li>1 variable (just x)</li>
+</ul></li>
+<li>Poly code
+<ul class="org-ul">
+<li>Effects (Poly constructor):  would it be ok if we say “initialize array to 0 and such”,  no it’s wrong,  it’s implementation level,  not specification</li>
+<li>Think about this as “if I change my code,  would the specification still hold?”  If yes, then specification is good, otherwise,  incorrect</li>
+</ul></li>
+<li>ADD:
+<ul class="org-ul">
+<li>why so ugly?</li>
+<li>Because she has a constraint such that doesn’t trailing zeros</li>
+<li>last thing in array is a non-negative coefficient</li>
+</ul></li>
+</ul></li>
+<li>In class exercise: 2A QUEUE
+<ul class="org-ul">
+<li>Queue is currently mutable</li>
+<li>convert it to immutable</li>
+<li>ALSO put/change the contracts on both the ORIGINAL (mutable version) and immutatable version</li>
+<li>30 mins</li>
+</ul></li>
+</ul>
+
+
+<ul class="org-ul">
+<li>implements a class to represent <code>polynomials</code></li>
+<li>10*x + 5*x<sup>2</sup> + 3*x<sup>3</sup> + 100*x<sup>11</sup> + 42</li>
+<li>101</li>
+<li>c<sub>1</sub>*x<sub>1</sub><sup>d</sup><sub>1</sub> + c<sub>2</sub>*x<sub>2</sub><sup>d</sup><sub>2</sub>    (c<sub>i</sub>*x<sub>i</sub><sup>d</sup><sub>i</sub> : term,  c<sub>i</sub>: coefficients, d<sub>i</sub>: degree)</li>
+</ul>
+
+
+<ul class="org-ul">
+<li>This is a <b>specific</b> implementation of Polynomials
+<ul class="org-ul">
+<li>uses arrays of ints to represent terms &#x2026;</li>
+<li><code>deg</code> var to store degree</li>
+
+<li>Some additional constraints for polynomials in this implementation
+<ul class="org-ul">
+<li>1 variable (5*x*y not allowed)</li>
+<li>no negative degree</li>
+<li>coefficients integers</li>
+</ul></li>
+</ul></li>
+
+<li>to represent: <code>5 + 3*x^2</code> in this code
+<ul class="org-ul">
+<li><code>Poly(deg=2, trms</code>[5,3])=</li>
+<li><code>Poly(deg=2, trms</code>[5,0,3])=</li>
+
+<li><code>Poly(deg=2, trms</code>[5,0,3,0,0,0,0,0&#x2026;])=: not allowed in Poly implementation (last element of the array term cannot be non zero)</li>
+</ul></li>
+</ul>
+
+
+<ul class="org-ul">
+<li>1st <code>public Poly</code> contract: good (no inputs, not modifying any inputs etc)</li>
+<li>2nd <code>public Poly</code> contract: also good, total contract: raise exception if n &lt; 0, otherwise return this polynomial</li>
+<li><code>private Poly</code>  :  she did not forget the contract, it is assumed that it will be called by something trusted , so no need to talk about specs of these.</li>
+<li><code>deg</code>:  highest degree associated with a non-zero cofficient</li>
+<li><code>coeff_book()</code> vs <code>coeff()</code>  :  which is better? coeff() is better, go back to constructors:  if n &lt; 0 , it throws IAE,  but this coeff<sub>book</sub> returns a value (implicitly allow that)</li>
+</ul>
+<p>
+&#x2026;
+</p>
+<ul class="org-ul">
+<li><b>abstraction method/function</b>: <code>toString</code>   -&gt; concrete (implementation) to abstract (polynomial)
+<ul class="org-ul">
+<li><code>Poly(deg=2, trms</code>[5,3])=   =&gt;  5+3*x</li>
+<li><code>Poly(deg=2, trms</code>[5,0,3])= =&gt;  5+3x<sup>2</sup></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org1374d8c" class="outline-4">
+<h4 id="org1374d8c"><span class="section-number-4">4.2.4.</span> Immutable</h4>
+<div class="outline-text-4" id="text-4-2-4">
+<p>
+Benefits of immutable
+</p>
+<ol class="org-ol">
+<li>Prevents corruption of objects and the data they hold as the object cannot be updated.</li>
+<li>Data is predictable. Once created cannot be modified.</li>
+<li>Comparing two immutable objects is easier. We can just compare the reference of the object.</li>
+<li>Immutable objects are thread safe and is useful to share data in multithreaded applications.</li>
+<li>Testing: Testing will be easy for immutable objects.</li>
+</ol>
+
+<p>
+Benefits of mutability
+</p>
+<ol class="org-ol">
+<li>Mutable objects can be used when we do not know the actual size of the input data. Size can be</li>
+</ol>
+<p>
+variable which is an advantage of mutable objects over immutable objects.
+</p>
+<ol class="org-ol">
+<li>Objects can be modified post its creation. This memory efficient as we just update the reference</li>
+</ol>
+<p>
+instead of creating a new object.
+</p>
+<ol class="org-ol">
+<li>Mutable classes provide methods to update the data.
+
+<ul class="org-ul">
+<li>Thread safe ;  easier for sharing; efficiency; safety;  less prone to error, easier to design</li>
+<li>really good for concurrency (can do things in parallel)</li>
+</ul></li>
+</ol>
+</div>
+<ol class="org-ol">
+<li><a id="org5534587"></a>General way to turn mutable to immutable<br />
+<div class="outline-text-5" id="text-4-2-4-1">
+<ul class="org-ul">
+<li>If modifies contents of the data, create a new one instead and also return the newly created one</li>
+<li>In other words, it would not modify the contents of the data, instead of modifying the data internally,  it returns a new data (that would have same contents as data in the the mutable version)</li>
+</ul>
+
+
+
+<div class="org-src-container">
+<pre class="src src-java">
+q = Queue<span style="color: #4078f2;">()</span>
+q.enQueue<span style="color: #4078f2;">(</span>x<span style="color: #4078f2;">)</span>
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">at this point q is [x]</span>
+q.enQueue<span style="color: #4078f2;">(</span>y<span style="color: #4078f2;">)</span>
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">at this point q is [x, y]</span>
+
+create enQueue_Immutable
+
+Q enQueue_Immutable<span style="color: #4078f2;">(</span>E x<span style="color: #4078f2;">){</span>... <span style="color: #e45649;">return</span> ..<span style="color: #4078f2;">}</span>
+
+q = Queue<span style="color: #4078f2;">()</span>
+q = q.enQueue_Immutable<span style="color: #4078f2;">(</span>x<span style="color: #4078f2;">)</span>
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">at this point q is [x]</span>
+q = q.enQueue_Immutable<span style="color: #4078f2;">(</span>y<span style="color: #4078f2;">)</span>
+<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">at this point q is [x, y]</span>
+
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org7f1981f" class="outline-4">
+<h4 id="org7f1981f"><span class="section-number-4">4.2.5.</span> In-class 3A</h4>
+<div class="outline-text-4" id="text-4-2-5">
+<div class="org-src-container">
+<pre class="src src-java">q = <span style="color: #4078f2;">[</span><span style="color: #da8548; font-weight: bold;">1</span>,<span style="color: #da8548; font-weight: bold;">2</span>,<span style="color: #da8548; font-weight: bold;">3</span><span style="color: #4078f2;">]</span>
+q.enQueue<span style="color: #4078f2;">(</span><span style="color: #da8548; font-weight: bold;">4</span><span style="color: #4078f2;">)</span> <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">q.elements = [1,2,3,4]</span>
+
+result = q.deQueue<span style="color: #4078f2;">()</span>
+- q.elements = <span style="color: #4078f2;">[</span><span style="color: #da8548; font-weight: bold;">2</span>,<span style="color: #da8548; font-weight: bold;">3</span>,<span style="color: #da8548; font-weight: bold;">4</span><span style="color: #4078f2;">]</span>
+- result = <span style="color: #da8548; font-weight: bold;">1</span>
+
+----------------
+
+q = <span style="color: #4078f2;">[</span><span style="color: #da8548; font-weight: bold;">1</span>,<span style="color: #da8548; font-weight: bold;">2</span>,<span style="color: #da8548; font-weight: bold;">3</span><span style="color: #4078f2;">]</span>
+q<span style="color: #986801;">'</span> = q.enQueue_Immutable<span style="color: #4078f2;">(</span><span style="color: #da8548; font-weight: bold;">4</span><span style="color: #4078f2;">)</span>
+- q.elements = <span style="color: #4078f2;">[</span><span style="color: #da8548; font-weight: bold;">1</span>,<span style="color: #da8548; font-weight: bold;">2</span>,<span style="color: #da8548; font-weight: bold;">3</span><span style="color: #4078f2;">]</span>
+- q<span style="color: #986801;">'</span>.elmenets = <span style="color: #4078f2;">[</span><span style="color: #da8548; font-weight: bold;">1</span>,<span style="color: #da8548; font-weight: bold;">2</span>,<span style="color: #da8548; font-weight: bold;">3</span>,<span style="color: #da8548; font-weight: bold;">4</span><span style="color: #4078f2;">]</span>
+q = q<span style="color: #986801;">'</span>
+
+q<span style="color: #986801;">'</span> = q.deQueue_Immutable<span style="color: #4078f2;">()</span>
+result = q.getFirst<span style="color: #4078f2;">()</span>
+q = q<span style="color: #986801;">'</span>
+- q.elements = <span style="color: #4078f2;">[</span><span style="color: #da8548; font-weight: bold;">2</span>,<span style="color: #da8548; font-weight: bold;">3</span>,<span style="color: #da8548; font-weight: bold;">4</span><span style="color: #4078f2;">]</span>
+- result = <span style="color: #da8548; font-weight: bold;">1</span>
+
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-java">  <span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Queue</span> <span style="color: #4078f2;">&lt;</span><span style="color: #986801;">E</span><span style="color: #4078f2;">&gt;</span> <span style="color: #4078f2;">{</span>
+
+      <span style="color: #e45649;">private</span> <span style="color: #986801;">List</span><span style="color: #a626a4;">&lt;</span><span style="color: #986801;">E</span><span style="color: #a626a4;">&gt;</span> <span style="color: #6a1868;">elements</span>;
+      <span style="color: #e45649;">private</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">size</span>;
+
+      <span style="color: #e45649;">public</span> Queue<span style="color: #a626a4;">()</span> <span style="color: #a626a4;">{</span>
+          <span style="color: #e45649;">this</span>.elements = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span><span style="color: #50a14f;">&lt;</span><span style="color: #986801;">E</span><span style="color: #50a14f;">&gt;()</span>;
+          <span style="color: #e45649;">this</span>.size = <span style="color: #da8548; font-weight: bold;">0</span>;
+      <span style="color: #a626a4;">}</span>
+
+      <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">enQueue</span> <span style="color: #a626a4;">(</span><span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span><span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
+          elements.add<span style="color: #50a14f;">(</span>e<span style="color: #50a14f;">)</span>;
+          size++;
+      <span style="color: #a626a4;">}</span>
+
+      <span style="color: #e45649;">public</span> <span style="color: #986801;">Queue</span><span style="color: #a626a4;">&lt;</span><span style="color: #986801;">E</span><span style="color: #a626a4;">&gt;</span> <span style="color: #a626a4;">enQueueImmutable</span> <span style="color: #a626a4;">(</span><span style="color: #986801;">E</span> <span style="color: #6a1868;">e</span><span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
+
+          <span style="color: #986801;">Queue</span><span style="color: #50a14f;">&lt;</span><span style="color: #986801;">E</span><span style="color: #50a14f;">&gt;</span> <span style="color: #6a1868;">queue</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Queue</span><span style="color: #50a14f;">&lt;&gt;()</span>;
+          queue.elements.addAll<span style="color: #50a14f;">(</span><span style="color: #e45649;">this</span>.element<span style="color: #50a14f;">)</span>;
+          queue.elements.add<span style="color: #50a14f;">(</span>e<span style="color: #50a14f;">)</span>;
+          queue.size = <span style="color: #e45649;">this</span>.size + <span style="color: #da8548; font-weight: bold;">1</span>;
+          <span style="color: #e45649;">return</span> queue;
+      <span style="color: #a626a4;">}</span>
+
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Effect: remove and return the front element of queue (this)</span>
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Modifies: contents of queue</span>
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">@throw ISE if queue is empty  (DO NOT USE elements.size()?)</span>
+      <span style="color: #e45649;">public</span> <span style="color: #986801;">E</span> <span style="color: #a626a4;">deQueue</span> <span style="color: #a626a4;">()</span> <span style="color: #a626a4;">{</span>
+          <span style="color: #e45649;">if</span> <span style="color: #50a14f;">(</span>size == <span style="color: #da8548; font-weight: bold;">0</span><span style="color: #50a14f;">)</span> <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IllegalStateException</span><span style="color: #50a14f;">(</span><span style="color: #50a14f;">"Queue.deQueue"</span><span style="color: #50a14f;">)</span>;
+          <span style="color: #986801;">E</span> <span style="color: #6a1868;">result</span> = elements.get<span style="color: #50a14f;">(</span><span style="color: #da8548; font-weight: bold;">0</span><span style="color: #50a14f;">)</span>;
+          elements.remove<span style="color: #50a14f;">(</span><span style="color: #da8548; font-weight: bold;">0</span><span style="color: #50a14f;">)</span>;
+          size--;
+          <span style="color: #e45649;">return</span> result;
+      <span style="color: #a626a4;">}</span>
+
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Effect: return a queue that is like this but without the front element</span>
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">Modifies: none</span>
+      <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">@throw ISE if queue is empty  (DO NOT USE elements.size()?)</span>
+      <span style="color: #e45649;">public</span> <span style="color: #986801;">Queue</span><span style="color: #a626a4;">&lt;</span><span style="color: #986801;">E</span><span style="color: #a626a4;">&gt;</span> <span style="color: #a626a4;">deQueueImmutability</span> <span style="color: #a626a4;">()</span> <span style="color: #a626a4;">{</span>
+          <span style="color: #e45649;">if</span> <span style="color: #50a14f;">(</span>size == <span style="color: #da8548; font-weight: bold;">0</span><span style="color: #50a14f;">)</span> <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IllegalStateException</span><span style="color: #50a14f;">(</span><span style="color: #50a14f;">"Queue.deQueue"</span><span style="color: #50a14f;">)</span>;
+
+          <span style="color: #986801;">Queue</span><span style="color: #50a14f;">&lt;</span><span style="color: #986801;">E</span><span style="color: #50a14f;">&gt;</span> <span style="color: #6a1868;">queue</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Queue</span><span style="color: #50a14f;">&lt;&gt;()</span>;
+          queue.elements.addAll<span style="color: #50a14f;">(</span><span style="color: #e45649;">this</span>.element<span style="color: #50a14f;">)</span>;
+          <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">E result = queue.elements.get(0);</span>
+          queue.elements.remove<span style="color: #50a14f;">(</span><span style="color: #da8548; font-weight: bold;">0</span><span style="color: #50a14f;">)</span>;
+          queue.size--;
+          <span style="color: #e45649;">return</span> queue;<span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">return result</span>
+
+
+      <span style="color: #a626a4;">}</span>
+
+      <span style="color: #e45649;">public</span> <span style="color: #986801;">E</span> <span style="color: #a626a4;">getTop</span><span style="color: #a626a4;">(){</span>
+          <span style="color: #e45649;">if</span> <span style="color: #50a14f;">(</span>size == <span style="color: #da8548; font-weight: bold;">0</span><span style="color: #50a14f;">)</span> <span style="color: #e45649;">throw</span> <span style="color: #e45649;">new</span> <span style="color: #986801;">IllegalStateException</span><span style="color: #50a14f;">(</span><span style="color: #50a14f;">"Queue.deQueue"</span><span style="color: #50a14f;">)</span>;
+          <span style="color: #e45649;">return</span> elements.get<span style="color: #50a14f;">(</span><span style="color: #da8548; font-weight: bold;">0</span><span style="color: #50a14f;">)</span>
+      <span style="color: #a626a4;">}</span>
+      <span style="color: #e45649;">public</span> <span style="color: #986801;">boolean</span> <span style="color: #a626a4;">isEmpty</span><span style="color: #a626a4;">()</span> <span style="color: #a626a4;">{</span>
+          <span style="color: #e45649;">return</span> size == <span style="color: #da8548; font-weight: bold;">0</span>;
+      <span style="color: #a626a4;">}</span>
+
+  <span style="color: #4078f2;">}</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-java">q = Queue<span style="color: #4078f2;">()</span>
+q.enque<span style="color: #4078f2;">(</span>x<span style="color: #4078f2;">)</span>  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">q =  [x]</span>
+q.enque<span style="color: #4078f2;">(</span>y<span style="color: #4078f2;">)</span>  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">q =[x,y]</span>
+
+
+ q = Queue<span style="color: #4078f2;">()</span>
+ q = q.enqueImmutable<span style="color: #4078f2;">(</span>x<span style="color: #4078f2;">)</span> <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">q = [x]</span>
+ q = q.enqueImmutable<span style="color: #4078f2;">(</span>y<span style="color: #4078f2;">)</span> <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">q = [x,y]</span>
+
+ q = Queue<span style="color: #4078f2;">()</span>
+ q = q.enqueImmutable<span style="color: #4078f2;">(</span>x<span style="color: #4078f2;">)</span> <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">q = [x]</span>
+ <span style="color: #9ca0a4;">//</span><span style="color: #9ca0a4;">equivalent to dequeue</span>
+ e = q.getTop<span style="color: #4078f2;">(</span>x<span style="color: #4078f2;">)</span>
+ q = q.dequeueImmutable<span style="color: #4078f2;">()</span> <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">q = []</span>
+
+</pre>
+</div>
+
+<p>
+Haskell
+Ocaml
+F#
+Jump Trading, Jane Street
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org3b5917a" class="outline-3">
+<h3 id="org3b5917a"><span class="section-number-3">4.3.</span> Abstraction Function</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+toString = [0,1,3,-7]  =&gt; &ldquo;x + 3 x* ^2  -7* x<sup>3</sup>&rdquo;
+ _<sub>str</sub>_<sub>()</sub> = &#x2026;
+</p>
+
+<p>
+IntSet([1,2]).toString()   =&gt; 1,2
+[1,2]
+</p>
+
+<p>
+IntSet([2,1,1,2]).toString()  =&gt;  1,2
+[2,1,1,2]
+</p>
+</div>
+</div>
+<div id="outline-container-org82762d4" class="outline-3">
+<h3 id="org82762d4"><span class="section-number-3">4.4.</span> Repr Invariants</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Binary Tree
+</p>
+<ul class="org-ul">
+<li>tree w/ at most 2 children</li>
+<li>&#x2026;</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: tnguyen</p>
-<p class="date">Created: 2024-02-06 Tue 21:59</p>
+<p class="author">Author: ThanhVu (Vu) Nguyen</p>
+<p class="date">Created: 2024-02-26 Mon 09:59</p>
 </div>
 </body>
 </html>
