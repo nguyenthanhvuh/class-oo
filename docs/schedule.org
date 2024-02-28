@@ -9,15 +9,14 @@
   - *Notes*: Except for the first class, students are expected to complete the reading *prior to class* on listed meeting. Quizzes may occasionally take advantage of this expectation. Homework assignments are *due* on the date listed.
 
 
-  | Meeting | Topic                                    | Reading                       |  Assignment   | In-Class Exercise |   |
+  |         | Topic                                    | Reading                       |  Assignment   | In-Class Exercise |   |
   |     <r> |                                          | <l>                           |      <c>      |        <c>        |   |
   |---------+------------------------------------------+-------------------------------+---------------+-------------------+---|
   |       1 | Class Overview                           | Liskov 1--2                   |               |       IC [[#ic1][1]]        |   |
   |       2 | Procedural Abstraction; Exceptions       | Liskov 3--4, Bloch 10         |    [[#a1][A1 Due]]     |     IC 2 [[#ic2A][A]] [[#ic2B][B]]      |   |
   |       3 | Imperative Program Verification          | [[https://github.com/dynaroars/dynaroars.github.io/wiki/notes-hoare-logic][Hoare logic notes]]             |    [[#a2][A2 Due]]     |                   |   |
   |       4 | Imperative Program verification          | [[https://github.com/dynaroars/dynaroars.github.io/wiki/notes-hoare-logic][Hoare logic notes]]             | NO ASSIGNMENT |       IC [[#ic4][4]]        |   |
-  |       5 | Data Abstraction; Mutability             | Liskov 5.1--5.4,              |    [[#a4][A4 Due]]     |     IC 5 [[#ic5A][A]] [[#ic5B][B]]      |   |
-  |       6 | Reasoning About Data Abstraction         | Liskov 5.5-5.10               |    [[#a5][A5 Due]]     |     IC 6 [[#ic6A][A]] [[#ic6B][B]]      |   |
+  |       5 | Data Abstraction; Mutability             | Liskov 5.1--5.10,             |    [[#a4][A4 Due]]     |     IC 5 [[#ic5A][A]] [[#ic5B][B]]      |   |
   |       7 | Iteration Abstraction; Method Guidelines | Liskov 6, Bloch 8             |    [[#a6][A6 Due]]     |     IC 7 [[#ic7A][A]] [[#ic7B][B]]      |   |
   |       8 | Type Abstraction                         | Liskov 7                      |    [[#a7][A7 Due]]     |    IC 8 [[#ic8A][A]] [[#ic8B][B]] [[#ic8C][C]]     |   |
   |       9 | Mid-semester Recap; [[./files/swe619.pdf][Research slides]]      | /No New Material/             |               |       IC [[#ic9][9]]        |   |
@@ -237,7 +236,7 @@ _Hint_: also look at the Javadoc for =equals()=
    1. Do the right thing with =enQueue()=.
    1. Do the right thing with =deQueue()=.
 
-** In class 5B
+** COMMENT In class 5B
    :PROPERTIES:
    :CUSTOM_ID: ic5B
    :END:
@@ -279,49 +278,49 @@ _Hint_: also look at the Javadoc for =equals()=
    1. Devise a representation that is suitable for a mutable version of Poly.
    1. Develop a rep-invariant for that representation.
 
-** In class 6A
-   :PROPERTIES:
-   :CUSTOM_ID: ic6A
-   :END:
+# ** In class 6A
+#    :PROPERTIES:
+#    :CUSTOM_ID: ic6A
+#    :END:
 
 
-   Consider Liskov's immutable =Poly= example, where an abstract =Poly= is defined as $c_0 + c_1x + c_2x^2 + \dots$, and is implemented with one variable:
+#    Consider Liskov's immutable =Poly= example, where an abstract =Poly= is defined as $c_0 + c_1x + c_2x^2 + \dots$, and is implemented with one variable:
 
-   #+begin_src java
-     private Map<Integer, Integer> map;
-   #+end_src
+#    #+begin_src java
+#      private Map<Integer, Integer> map;
+#    #+end_src
    
 
-   Fill in example values that are mapped by the abstraction function.
+#    Fill in example values that are mapped by the abstraction function.
 
-   #+begin_src text
+#    #+begin_src text
 
-     Abstract State: Poly
+#      Abstract State: Poly
 
-     AF
-     /|\
-     |
-     |
-     |
-     |----------------------------------------------------------
-     |
-     |
-     |
-     |
+#      AF
+#      /|\
+#      |
+#      |
+#      |
+#      |----------------------------------------------------------
+#      |
+#      |
+#      |
+#      |
 
 
 
-     Representation State: map
+#      Representation State: map
 
-   #+end_src
+#    #+end_src
 
-   1. Identify representation states that should not be mapped.
-   1. Try to capture these states with a rule (that is, a rep-invariant).
-   1. Consider implementing the =degree()= method. What code would do the job? What more specific type of map would make the implementation simpler?
+#    1. Identify representation states that should not be mapped.
+#    1. Try to capture these states with a rule (that is, a rep-invariant).
+#    1. Consider implementing the =degree()= method. What code would do the job? What more specific type of map would make the implementation simpler?
 
-** In class 6B
+** In class 5B
    :PROPERTIES:
-   :CUSTOM_ID: ic6B
+   :CUSTOM_ID: ic5B
    :END:
 
    Consider the code:
@@ -369,10 +368,11 @@ _Hint_: also look at the Javadoc for =equals()=
                             public void remove() throws IllegalStateException
    #+end_src
 
-   1. What is the abstract state of an iterator without the =remove()= method?
-   1. Work through an example iterating over a list of strings: =["bat", "cat", "dog"]=
-   1. What is the abstract state of an iterator with a =previous()= method?
-   1. What is the abstract state of an iterator with the =remove()= method?
+   1. Work through an example using =next()= iterating over a list of strings: =["bat", "cat", "dog"]=
+      - Example means a a sequence of =next()= calls
+      - clearly indicate the concrete and abstract states after each call
+   1. Do the same thing but with a =prev()= method (combination of =next= and =prev=)?
+   1. Do the same thing but with a =remove()= method (combination of =next= and =remove=)?
    # 1. Design an immutable version of the iterator.
    #    1. How is =hasNext()= handled?
    #    1. How is =next()= handled?
@@ -384,7 +384,7 @@ _Hint_: also look at the Javadoc for =equals()=
    :CUSTOM_ID: ic7B
    :END:
 
-   Consider the example in Bloch's Item 50 (3rd Edition):
+   Consider the =Period= example in Bloch's Item 50 (3rd Edition):
 
    #+begin_src java
 
@@ -1553,8 +1553,6 @@ _Hint_: also look at the Javadoc for =equals()=
       1. Recompute the VC of the program with respect to =P2=.
       1. is the VC  =P2 -> WP ..=  valid?  if yes, what does that mean,  if not, what does that mean?
 
-
-
 *** Grading Criteria
   
     - Correctness of solution
@@ -1605,7 +1603,7 @@ _Hint_: also look at the Javadoc for =equals()=
    :END:
 *** Goals: Immutablity via Bloch Item 50
 
-    Revisit the [[#ic6B][Period example]].
+    Revisit the [[#ic7B][Period example]].
 
     Implement a satisfying solution to question 3. That is, you should not only break the immutability of the =Period= class by writing a suitable sublcass, but you should also develop a plausible case where a client ends up "in trouble" due to the loss of immutability.
 
