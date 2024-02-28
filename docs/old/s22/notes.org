@@ -1061,7 +1061,7 @@ public class Period {               // Question 3
         private Date myDate = new Date(0);
         @override public Date start(){
              if (itsTime()){
-                 return myDate;   // returning some(bad)thing I define 
+                 return myDate;   // returning some(bad)thing I define
              }
              return super.start()
          }
@@ -1072,7 +1072,7 @@ public class Period {               // Question 3
         public LoanProvider(Period p, other stuff){
             this.p = p; // no defense copy because Period is immutable
 
-          this.p.start()
+            this.p.start()
         }
     }
 

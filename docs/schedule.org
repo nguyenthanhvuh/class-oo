@@ -416,17 +416,17 @@ _Hint_: also look at the Javadoc for =equals()=
       #+begin_src java
         public class Period { // Question 3
       #+end_src
-      - Write code that shows the problem.
-   1. Bloch fixes the constructor as follows:
-      #+begin_src java
-        public Period (Date start, Date end) {
-            this.start = new Date(start.getTime());  // Defensive copy
-            this.end   = new Date(end.getTime());    // Defensive copy
+      - Think of a scenario and write code that shows the problem.
+   # 1. Bloch fixes the constructor as follows:
+   #    #+begin_src java
+   #      public Period (Date start, Date end) {
+   #          this.start = new Date(start.getTime());  // Defensive copy
+   #          this.end   = new Date(end.getTime());    // Defensive copy
 
-            if (this.start.compareTo(end) > 0) throw new IAE();
-      #+end_src
-      1. Bloch states that =clone()= would be inappropriate for copying the dates. Write code that shows the problem.
-      1. Bloch defers the exception check until the end, which seems to violate normal practice. What's the problem with checking early? 
+   #          if (this.start.compareTo(end) > 0) throw new IAE();
+   #    #+end_src
+      # 1. Bloch states that =clone()= would be inappropriate for copying the dates. Write code that shows the problem.
+      # 1. Bloch defers the exception check until the end, which seems to violate normal practice. What's the problem with checking early?
 
 ** In class 8A
    :PROPERTIES:

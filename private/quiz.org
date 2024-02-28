@@ -122,7 +122,7 @@ public static void setSmall (int [] a, int i) {
 #      }
 #    #+end_comment
 
-** Quiz 3: Verification using Hoare Logic
+** COMMENT Quiz 3: Verification using Hoare Logic
    Given the program
    #+begin_src java
      // {x <= 1}   # P1
@@ -171,29 +171,29 @@ public static void setSmall (int [] a, int i) {
 
 
 
-# *  Quiz 4: Immutable class
+*  Quiz 4: Immutable class
   
-#   1. Consider the following (supposedly) immutable class:
+  1. Consider the following (supposedly) immutable class:
 
-#      #+begin_src java
-#        public final class Immutable {
-#            private final String string;
-#            private final int x;
-#            private final List<String> list;
+     #+begin_src java
+       public final class Immutable {
+           private final String string;
+           private final int x;
+           private final List<String> list;
 
-#            public Immutable(String string, int x, List<String> list) {
-#                this.string = string;                     // Line A
-#                this.x = x;                               // Line B
-#                this.list = new ArrayList<String> (list); // Line C
-#            }
+           public Immutable(String string, int x, List<String> list) {
+               this.string = string;                     // Line A
+               this.x = x;                               // Line B
+               this.list = new ArrayList<String> (list); // Line C
+           }
 
-#            public String getString() { return string; }  // Line D
-#            public int getInt()    { return x; }       // Line E
-#            public List<String> getList() { return list; }    // Line F
-#        }
-#      #+end_src
-#     Which of the lines (A--F) has a problem wrt the immutability of class Immutable?
-#   2. For each of the above lines that has problem with immutability, write pseudocode code to demonstrate the issue
+           public String getString() { return string; }  // Line D
+           public int getInt()    { return x; }       // Line E
+           public List<String> getList() { return list; }    // Line F
+       }
+     #+end_src
+    Which of the lines (A--F) has a problem wrt the immutability of class Immutable?
+  2. For each of the above lines that has problem with immutability, write pseudocode code to demonstrate the issue
 
 #     #+begin_comment
 #      Only line F (because list is muttable)
