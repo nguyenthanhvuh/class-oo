@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-02-28 Wed 14:42 -->
+<!-- 2024-02-28 Wed 18:37 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SWE 619</title>
@@ -203,21 +203,22 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org548bb6e">1. Quiz 1</a></li>
-<li><a href="#orgb9a5171">2. Quiz 2</a></li>
+<li><a href="#org3d3f20c">1. Quiz 1</a></li>
+<li><a href="#org34ebcb3">2. Quiz 2</a></li>
+<li><a href="#orge11954e">3. Quiz 4: Immutable class</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org548bb6e" class="outline-2">
-<h2 id="org548bb6e"><span class="section-number-2">1.</span> Quiz 1</h2>
+<div id="outline-container-org3d3f20c" class="outline-2">
+<h2 id="org3d3f20c"><span class="section-number-2">1.</span> Quiz 1</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Contracts for a Binary Search implementation. Specifiy the contracts/specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.
 </p>
 </div>
 </div>
-<div id="outline-container-orgb9a5171" class="outline-2">
-<h2 id="orgb9a5171"><span class="section-number-2">2.</span> Quiz 2</h2>
+<div id="outline-container-org34ebcb3" class="outline-2">
+<h2 id="org34ebcb3"><span class="section-number-2">2.</span> Quiz 2</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Consider the following 2 specifications, the second of which has an associated implementation:
@@ -251,10 +252,43 @@ Consider the following 2 specifications, the second of which has an associated i
 </ol>
 </div>
 </div>
+<div id="outline-container-orge11954e" class="outline-2">
+<h2 id="orge11954e"><span class="section-number-2">3.</span> Quiz 4: Immutable class</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li><p>
+Consider the following (supposedly) immutable class:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java">       <span style="color: #e45649;">public</span> <span style="color: #e45649;">final</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Immutable</span> <span style="color: #4078f2;">{</span>
+           <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">String</span> <span style="color: #6a1868;">string</span>;
+           <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>;
+           <span style="color: #e45649;">private</span> <span style="color: #e45649;">final</span> <span style="color: #986801;">List</span><span style="color: #a626a4;">&lt;</span><span style="color: #986801;">String</span><span style="color: #a626a4;">&gt;</span> <span style="color: #6a1868;">list</span>;
+
+           <span style="color: #e45649;">public</span> Immutable<span style="color: #a626a4;">(</span><span style="color: #986801;">String</span> <span style="color: #6a1868;">string</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>, <span style="color: #986801;">List</span><span style="color: #50a14f;">&lt;</span><span style="color: #986801;">String</span><span style="color: #50a14f;">&gt;</span> <span style="color: #6a1868;">list</span><span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
+               <span style="color: #e45649;">this</span>.string = string;                     <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line A</span>
+               <span style="color: #e45649;">this</span>.x = x;                               <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line B</span>
+               <span style="color: #e45649;">this</span>.list = <span style="color: #e45649;">new</span> <span style="color: #986801;">ArrayList</span><span style="color: #50a14f;">&lt;</span><span style="color: #986801;">String</span><span style="color: #50a14f;">&gt;</span> <span style="color: #50a14f;">(</span>list<span style="color: #50a14f;">)</span>; <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line C</span>
+           <span style="color: #a626a4;">}</span>
+
+           <span style="color: #e45649;">public</span> <span style="color: #986801;">String</span> <span style="color: #a626a4;">getString</span><span style="color: #a626a4;">()</span> <span style="color: #a626a4;">{</span> <span style="color: #e45649;">return</span> string; <span style="color: #a626a4;">}</span>  <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line D</span>
+           <span style="color: #e45649;">public</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">getInt</span><span style="color: #a626a4;">()</span>    <span style="color: #a626a4;">{</span> <span style="color: #e45649;">return</span> x; <span style="color: #a626a4;">}</span>       <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line E</span>
+           <span style="color: #e45649;">public</span> <span style="color: #986801;">List</span><span style="color: #a626a4;">&lt;</span><span style="color: #986801;">String</span><span style="color: #a626a4;">&gt;</span> <span style="color: #a626a4;">getList</span><span style="color: #a626a4;">()</span> <span style="color: #a626a4;">{</span> <span style="color: #e45649;">return</span> list; <span style="color: #a626a4;">}</span>    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Line F</span>
+       <span style="color: #4078f2;">}</span>
+</pre>
+</div>
+<p>
+Which of the lines (A&#x2013;F) has a problem wrt the immutability of class Immutable?
+</p></li>
+<li>For each of the above lines that has problem with immutability, write pseudocode code to demonstrate the issue</li>
+</ol>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: ThanhVu (Vu) Nguyen</p>
-<p class="date">Created: 2024-02-28 Wed 14:42</p>
+<p class="date">Created: 2024-02-28 Wed 18:37</p>
 </div>
 </body>
 </html>

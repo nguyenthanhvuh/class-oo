@@ -1913,4 +1913,3 @@ type checking
 - type-checker is light-weight analysis and therefore can be built in in comilers,  just check if x and y are integers 
 - assertion checking is heavy-weight because we can check expressive properties such as y = x ** 2; never built in, have to do some serious program analysis for this.
 assertion(y = x**2);
-
