@@ -4,6 +4,10 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
 #+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
 
+* Notes:
+- [[./notes.html][notes.html]]:  Older, more details, but not very polished
+- [[./notes.ipynb][notes.ipynb]]: Python notebook format, you can download the file and load in VS Code or some other editor.  Or you can read directly from Github
+
 * Schedule
   
   - *Notes*: Except for the first class, students are expected to complete the reading *prior to class* on listed meeting. Quizzes may occasionally take advantage of this expectation. Homework assignments are *due* on the date listed.
