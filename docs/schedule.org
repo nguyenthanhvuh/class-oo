@@ -1580,6 +1580,7 @@ _Hint_: also look at the Javadoc for =equals()=
     - Correct transformation of Poly
     - Clarity of your story.
     - Reasonable division of synthesis vs. checking.
+
 ** Assignment 6
    :PROPERTIES:
    :CUSTOM_ID: a6
@@ -1601,7 +1602,7 @@ _Hint_: also look at the Javadoc for =equals()=
     - Clarity of story
     Note: If your group had trouble with the previous assignment, feel free to appeal to your classmates to post a sample solution on Piazza.
 
-** Assignment 7
+** COMMENT Assignment 7
    :PROPERTIES:
    :CUSTOM_ID: a7
    :END:
