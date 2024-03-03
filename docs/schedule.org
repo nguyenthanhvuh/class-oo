@@ -6,7 +6,7 @@
 
 * Notes:
 - [[./notes.html][notes.html]]:  Older, more details, but not very polished
-- [[./notes.ipynb][notes.ipynb]]: Python notebook format, you can download the file and load in VS Code or some other editor.  Or you can read directly from Github
+- [[./notes.ipynb][notes.ipynb]]: Python notebook format, you can download the file and load in VS Code or some other editor/viewer.
 
 * Schedule
   
