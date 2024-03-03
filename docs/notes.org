@@ -18,30 +18,7 @@
 :PROPERTIES:
 :CUSTOM_ID: methodprogram-specifications
 :END:
-- Preconditions: assumptions, properties about the inputs
-  - established by clients (e.g., inputs are strings, unsorted list,
-    ...)
-- Postconditions: properties/behaviors of the method/program (usually
-  related inputs)
-  - done/established by the developers/implementations (e.g., outputs
-    are sorted list, ...)
-- When something goes wrong, *who to blame*?
-  - If preconditions are incorrect: blame the clients
-  - If preconditions are correct, and the postconditions are not
-    correct: blame developers
-- Pre/Post conditions
-  - specs/contracts consist of pre and postconditions
-    - preconds (or requires)
-    - postconds (or effects)
-  - Example: __sorting a list_
-    - preconds: input is a list of /comparable/ items
-    - postcond:
-      - output is sorted
-      - output is a __permutation_ of data input
-  - Precondition
-    - as weak or general as possible
-  - Postcondition
-    - as strong or precise as possible
+
 - In class exercise
   - Equality (=__equals__= in Java or =_eq_= in Python)
 
