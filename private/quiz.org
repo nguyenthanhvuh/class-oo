@@ -209,47 +209,46 @@ public static void setSmall (int [] a, int i) {
 #     #+end_comment
 
 
-# * Quiz 5:  Iterator
+* Quiz 5:  Iterator
 
-# The specification for Liskov's ~elements()~ method is given below.
-# - Note 1: A Liskov Iterator has only the the ~hasNext()~ and ~next()~ methods.
-# - Note 2: As discussed in class the abstract state for such an ~Iterator~ is a ~Stack~ of objects yet to be produced.
+The specification for Liskov's ~elements()~ method is given below.
+- Note 1: A Liskov Iterator has only the the ~hasNext()~ and ~next()~ methods.
 
-#     #+begin_src java
-#      public Iterator elements()
-#      // EFFECTS: Returns a generator that will produce all the elements of
-#      //  this (as Integers), each exactly once, in arbitrary order.
-#      // REQUIRES: this must not be modified while the generator is in use
+    #+begin_src java
+     public Iterator elements()
+     // EFFECTS: Returns a generator that will produce all the elements of
+     //  this (as Integers), each exactly once, in arbitrary order.
+     // REQUIRES: this must not be modified while the generator is in use
 
 
-#        #+end_src
+       #+end_src
 
-# Consider the code below which uses ~elements()~. Line numbers have been added for reference purposes.
-#   #+begin_src java
-#         0: IntSet s = new IntSet();
+Consider the code below which uses ~elements()~. Line numbers have been added for reference purposes.
+  #+begin_src java
+        0: IntSet s = new IntSet();
 
-#         1: s.insert(2);
-#         2: s.insert(8);
-#         3: Iterator itr = s.elements();
-#         4: itr.next();
-#         5: itr.next();
-#         6: // See questions below
-#         7: itr.next();
+        1: s.insert(2);
+        2: s.insert(8);
+        3: Iterator itr = s.elements();
+        4: itr.next();
+        5: itr.next();
+        6: // See questions below
+        7: itr.next();
 
-#   #+end_src
+  #+end_src
 	
-# - show the (stack) contents of ~itr~  after line 3
-# #+begin_comment
-# [2,8]  or [8,2]
-# #+end_comment
-# - show the contents of ~itr~  after line 5.
-# #+begin_comment
-# []
-# #+end_comment
-# - If line 6 is ~s.insert(12)~; show the contents of ~itr~ after line 6?
-# #+begin_comment
-# Undefined behavior or violating the requirements of iteration
-# #+end_comment
+- show the (stack) contents of ~itr~  after line 3
+#+begin_comment
+[2,8]  or [8,2]
+#+end_comment
+- show the contents of ~itr~  after line 5.
+#+begin_comment
+[]
+#+end_comment
+- If line 6 is ~s.insert(12)~; show the contents of ~itr~ after line 6?
+#+begin_comment
+Undefined behavior or violating the requirements of iteration
+#+end_comment
 
 
 # * Quiz 6:  Type

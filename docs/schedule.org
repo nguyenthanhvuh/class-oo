@@ -439,7 +439,7 @@ _Hint_: also look at the Javadoc for =equals()=
 
    *Goal*: Understanding dynamic dispatching
 
-   Consider Liskov's =MaxIntSet= example with explict =repOk()= calls: (Really, we'd need assertions on these calls...)
+   Consider Liskov's =MaxIntSet= example with explicit =repOk()= calls: (Really, we'd need assertions on these calls...)
 
    #+begin_src java
 
