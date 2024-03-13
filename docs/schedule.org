@@ -478,14 +478,14 @@ _Hint_: also look at the Javadoc for =equals()=
              // else if x is not appropriate for this throw IAE
              // else reduce this by x
 
-             class B:
-             public void reduce (Reducer x)
+      class B:
+          public void reduce (Reducer x)
              // Requires: x is not null
              // Effects: if x is not appropriate for this throw IAE
              // else reduce this by x
 
-             class C:
-             public void reduce (Reducer x)
+      class C:
+           public void reduce (Reducer x)
              // Effects: if x is null return (normally) with no change to this
              // else if x is not appropriate for this throw IAE
              // else reduce this by x
