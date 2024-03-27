@@ -124,15 +124,21 @@ Upon completion of this module’s activities, you should be able to:
   set.contains(list) // false!
   #+end_src
 
-- Using the same example, when we iterate over set, we find the list, but contains() says it’s not there! 
+- Using the same example, when we iterate over set, we find the list, but contains() says it’s not there!
   #+begin_src java
   for (List<String> l : set) { 
       set.contains(l) // false! 
   }
   #+end_src
+
+for x in set:
+   x in set  # True
+
+
   - If the set’s own iterator and its own contains() method disagree about whether an element is in the set, then the set clearly is broken. 
   - What’s going on? 
     - In Collection classes like List, mutations affect the result of equals() and hashCode(). When the list is first put into the HashSet, it is stored in the hash bucket corresponding to its hashCode() result at that time. When the list is subsequently mutated, its hashCode() changes, but HashSet doesn’t realize it should be moved to a different bucket. So it can never be found again. 
+
   #+begin_src java
   public int hashCode() {  
       int hashCode = 1;
