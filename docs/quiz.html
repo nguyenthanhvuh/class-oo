@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-03-13 Wed 17:57 -->
+<!-- 2024-03-27 Wed 18:28 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SWE 619</title>
@@ -203,23 +203,24 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org1e56357">1. Quiz 1</a></li>
-<li><a href="#org60363d9">2. Quiz 2</a></li>
-<li><a href="#orgae5a05e">3. Quiz 4: Immutable class</a></li>
-<li><a href="#orgc26d728">4. Quiz 5:  Iterator</a></li>
+<li><a href="#org9838157">1. Quiz 1</a></li>
+<li><a href="#org349ba34">2. Quiz 2</a></li>
+<li><a href="#orge841ece">3. Quiz 4: Immutable class</a></li>
+<li><a href="#org233a43e">4. Quiz 5:  Iterator</a></li>
+<li><a href="#org2935118">5. Quiz 6:  Type</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org1e56357" class="outline-2">
-<h2 id="org1e56357"><span class="section-number-2">1.</span> Quiz 1</h2>
+<div id="outline-container-org9838157" class="outline-2">
+<h2 id="org9838157"><span class="section-number-2">1.</span> Quiz 1</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Contracts for a Binary Search implementation. Specifiy the contracts/specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.
 </p>
 </div>
 </div>
-<div id="outline-container-org60363d9" class="outline-2">
-<h2 id="org60363d9"><span class="section-number-2">2.</span> Quiz 2</h2>
+<div id="outline-container-org349ba34" class="outline-2">
+<h2 id="org349ba34"><span class="section-number-2">2.</span> Quiz 2</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Consider the following 2 specifications, the second of which has an associated implementation:
@@ -253,8 +254,8 @@ Consider the following 2 specifications, the second of which has an associated i
 </ol>
 </div>
 </div>
-<div id="outline-container-orgae5a05e" class="outline-2">
-<h2 id="orgae5a05e"><span class="section-number-2">3.</span> Quiz 4: Immutable class</h2>
+<div id="outline-container-orge841ece" class="outline-2">
+<h2 id="orge841ece"><span class="section-number-2">3.</span> Quiz 4: Immutable class</h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
 <li><p>
@@ -286,8 +287,8 @@ Which of the lines (A&#x2013;F) has a problem wrt the immutability of class Immu
 </ol>
 </div>
 </div>
-<div id="outline-container-orgc26d728" class="outline-2">
-<h2 id="orgc26d728"><span class="section-number-2">4.</span> Quiz 5:  Iterator</h2>
+<div id="outline-container-org233a43e" class="outline-2">
+<h2 id="org233a43e"><span class="section-number-2">4.</span> Quiz 5:  Iterator</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 The specification for Liskov&rsquo;s <code>elements()</code> method is given below.
@@ -338,10 +339,48 @@ Consider the code below which uses <code>elements()</code>. Line numbers have be
 </ul>
 </div>
 </div>
+<div id="outline-container-org2935118" class="outline-2">
+<h2 id="org2935118"><span class="section-number-2">5.</span> Quiz 6:  Type</h2>
+<div class="outline-text-2" id="text-5">
+<div class="org-src-container">
+<pre class="src src-java"> <span style="color: #e45649;">class</span> <span style="color: #986801;">A</span> <span style="color: #4078f2;">{</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span> <span style="color: #a626a4;">compose</span> <span style="color: #a626a4;">(</span><span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">itr</span><span style="color: #a626a4;">)</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires: itr is not null</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Modifies: itr</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if this is not appropriate for itr throw IAE</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return generator of itr composed with this</span>
+ <span style="color: #e45649;">class</span> B <span style="color: #a626a4;">{</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span> <span style="color: #a626a4;">compose</span> <span style="color: #50a14f;">(</span><span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">itr</span><span style="color: #50a14f;">)</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Modifies: itr</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if itr is null throw NPE</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if this is not appropriate for itr throw IAE</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return generator of itr composed with this</span>
+ <span style="color: #e45649;">class</span> C <span style="color: #50a14f;">{</span>
+    <span style="color: #e45649;">public</span> <span style="color: #986801;">Iterator</span> <span style="color: #a626a4;">compose</span> <span style="color: #b751b6;">(</span><span style="color: #986801;">Iterator</span> <span style="color: #6a1868;">itr</span><span style="color: #b751b6;">)</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Modifies: itr</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects: if itr is null return iterator equal to this</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else if this is not appropriate for itr throw IAE</span>
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">else return generator of itr composed with this</span>
+</pre>
+</div>
+
+<p>
+Analyze the <code>compose()</code> method in each of these cases according to Liskov&rsquo;s Principle of Substitution. For each case, state if the precondition and the postcondition parts are satisfied or fail, and <b>justify</b>.
+</p>
+
+<ol class="org-ol">
+<li>B extends A.</li>
+<li>C extends A.</li>
+<li>A extends B.</li>
+<li>C extends B.</li>
+<li>B extends C.</li>
+</ol>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: ThanhVu (Vu) Nguyen</p>
-<p class="date">Created: 2024-03-13 Wed 17:57</p>
+<p class="date">Created: 2024-03-27 Wed 18:28</p>
 </div>
 </body>
 </html>
