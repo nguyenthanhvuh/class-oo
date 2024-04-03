@@ -311,27 +311,27 @@ Postcondition Part:
 Answer: Not satisfied: Inconsistent behavior in case where itr is null
 #+end_comment
 
-# * Quiz 7:
+* Quiz 7:
 
-#   #+begin_src java
-#     Set<String> t = //  See questions below
+  #+begin_src java
+    Set<String> t = //  See questions below
 
-#     t.add("antelope");
-#     t.add("dog");
-#     t.add("cat");
+    t.add("antelope");
+    t.add("dog");
+    t.add("cat");
 
-#  // t.toString() is ???
-#   #+end_src
+ // t.toString() is ???
+  #+end_src
 
 
-# 1. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>();~.  At the end of the computation, what is ~t.toString()?~
-#   #+begin_comment
-#   Answer: [antelope, cat, dog]
-#   #+end_comment
-# 2. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> x.length() - y.length());~. At the end of the computation, what is ~t.toString()?~
-#   #+begin_comment
-#   Answer: [dog, antelope]
-#   #+end_comment
+1. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>();~.  At the end of the computation, what is ~t.toString()?~
+  #+begin_comment
+  Answer: [antelope, cat, dog]
+  #+end_comment
+2. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> x.length() - y.length());~. At the end of the computation, what is ~t.toString()?~
+  #+begin_comment
+  Answer: [dog, antelope]
+  #+end_comment
 
 # # 3. Suppose ~t~ is instantiated as ~Set<String> t = new TreeSet<String>((x,y) -> y.compareTo(x));~. At the end of the computation, what is ~t.toString()?~
 # # #+begin_comment

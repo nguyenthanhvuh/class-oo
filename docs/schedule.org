@@ -24,7 +24,7 @@
   | +Iteration Abstraction; Method Guidelines+ | Liskov 6, Bloch 8                                                |    [[#a5][A5 Due]]     |     IC 7 [[#ic7A][A]] [[#ic7B][B]]      |
   | +Type Abstraction+                         | Liskov 7                                                         |    [[#a6][A6 Due]]     |    IC 8 [[#ic8A][A]] [[#ic8B][B]] [[#ic8C][C]]     |
   | +Research Talk+ (slides: [[./files/swe619-dig.pdf][DIG]], [[./files/swe619-neuralsat.pdf][NeuralSAT]])   | /No New Material/                                                | NO ASSIGNMENT |       IC [[#ic9][9]]        |
-  | Polymorphic Abstract; Lambdas              | Liskov 8, Bloch 7 (Item 42)                                      |    [[#a8][A8 Due]]     |       IC [[#ic10][10]]       |
+  | +Polymorphic Abstract; Lambdas+            | Liskov 8, Bloch 7 (Item 42)                                      |    [[#a8][A8 Due]]     |       IC [[#ic10][10]]       |
   | Generics                                   | Bloch 5                                                          |    [[#a9][A9 Due]]     |    IC 11 [[#ic11A][A]] [[#ic11B][B]] [[#ic11C][C]]    |
   | Common Java Contracts                      | Bloch 3                                                          |    [[#a10][A10 Due]]    |     IC 12 [[#ic12A][A]] [[#ic12B][B]]     |
   | Classes and Inheritance                    | Bloch 4                                                          |    [[#a11][A11 Due]]    |    IC 12 [[#ic13A][A]] [[#ic13B][B]] [[#ic13C][C]]    |
@@ -524,19 +524,19 @@ _Hint_: also look at the Javadoc for =equals()=
 
    Consider the following:
    #+begin_src java
-     public class Counter{   // Liskov 7.8
+    public class Counter{   // Liskov 7.8
          public Counter()     //EFF: Makes this contain 0
              public int get()     //EFF: Returns the value of this
              public void incr()   //MOD: this //EFF: makes this larger
-             }
+         }
      public class Counter2 extends Counter { // Liskov 7.9
          public Counter2()         //EFF: Makes this contain 0
              public void incr()       // MOD: this //EFF: double this
-             }
+         }
      public class Counter3 extends Counter {  // Liskov 7.10
          public Counter3(int n)   //EFF: Makes this contain n
              public void incr(int n)  // MOD: this //EFF: if n>0 add n to this
-             }
+         }
    #+end_src
 
    1. Is there a constraint about negative/zero values for this? How do we know?
@@ -708,25 +708,26 @@ _Hint_: also look at the Javadoc for =equals()=
         objects[0] = string;
         objects[0] = x;
       #+end_src
-
+      //Runtime error
    1.
       #+begin_src java
         objects = new Object[1];
         objects[0] = string;
         objects[0] = x;
       #+end_src
-
+      //no issue
    1.
       #+begin_src java
         stringList = new ArrayList < String >();
         stringList.add(string) ;
       #+end_src
-
+      //no issue
    1.
       #+begin_src java
         objectList = new ArrayList < String >();
         objectList.add(string) ;
       #+end_src
+      Compile error: incompatiable object String and Object
 
    1.
       #+begin_src java
@@ -734,13 +735,14 @@ _Hint_: also look at the Javadoc for =equals()=
         objectList.add(string) ;
         objectList.add(x) ;
       #+end_src
-
+      No issue
    6.
       #+begin_src java
         rawList = new ArrayList();
         rawList.add(string) ;
         rawList.add(x) ;
       #+end_src
+      Warning
 
 ** In class 11B
    :PROPERTIES:

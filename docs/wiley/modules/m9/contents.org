@@ -267,7 +267,7 @@ private Object[] elements; // private E[] elements (1st attempt) /=> private Lis
    Identify any code that raises a runtime exception.
    Once a compiler error is noted, you do not need to analyze the sequence further.
 
-   *SOLUTION*: 
+
    1.
       #+begin_src java
         objects = new String[1];
@@ -275,26 +275,26 @@ private Object[] elements; // private E[] elements (1st attempt) /=> private Lis
         objects[0] = x;
       #+end_src
 
-   1.
+   2.
       #+begin_src java
         objects = new Object[1];
         objects[0] = string;
         objects[0] = x;
       #+end_src
 
-   1.
+   3.
       #+begin_src java
         stringList = new ArrayList < String >();
         stringList.add(string) ;
       #+end_src
 
-   1.
+   4.
       #+begin_src java
         objectList = new ArrayList < String >();
         objectList.add(string) ;
       #+end_src
 
-   1.
+   5.
       #+begin_src java
         objectList = new ArrayList < Object >();
         objectList.add(string) ;
