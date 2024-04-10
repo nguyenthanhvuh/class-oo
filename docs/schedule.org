@@ -753,16 +753,16 @@ _Hint_: also look at the Javadoc for =equals()=
      // Chooser - a class badly in need of generics!
      // Bloch 3rd edition, Chapter 5, Item 28:  Prefer lists to arrays
 
-     public class Chooser {
-         private final Object[] choiceArray;
+     public class <E>  Chooser {
+         private final List<E> choiceArray;
 
-         public Chooser (Collection choices) {
-             choiceArray = choices.toArray();
+         public Chooser (Collection <E> choices) {
+             choiceArray = new ArrayList<E>(choices);
          }
 
-         public Object choose() {
+         public E choose() {
              Random rnd = ThreadLocalRandom.current();
-             return choiceArray [rnd.nextInt(choiceArray.length)];
+             return choiceArray.get(rnd.nextInt(choiceArray.size()));
          }
      }
    #+end_src
@@ -772,6 +772,7 @@ _Hint_: also look at the Javadoc for =equals()=
    - How can you turn the compiler error into a compiler warning?
    - Can this warning be suppressed? Should it?
    - How can you adopt Bloch's advice about arrays and lists to get a typesafe Chooser class without doing anything else that is complicated?
+
    - Add rep invariants and contracts (e.g., throw exceptions in unwanted cases); check if code satisfies these; and if not modify code to satisfy them. This question will take the most time!
    - Add a =addChoice= method to the API and write appropriate contracts for it
 
@@ -945,6 +946,15 @@ _Hint_: also look at the Javadoc for =equals()=
       b.equals(c); // return false; break transitivity
       #+end_comment
    1. Some authors recommend solving this problem by using a different standard recipe for =equals()=.
+        #+begin_src java
+          boolean equals(Object o){
+              if (o == null | o.getClass() != getClass()) return false;
+              Point p = (Point)o;
+              return p.x == x && p.y == y;
+          }
+        #+end_src
+
+
       - What's the key difference?
       - Which approach do you want in the following code:
         #+begin_src java
@@ -980,6 +990,7 @@ _Hint_: also look at the Javadoc for =equals()=
 
         client code:  breaks Liskov's example  as we can have a Point and CounterPoint with same x,y but both show up in importantPoints
         #+end_comment
+
 ** In class 12B
    :PROPERTIES:
    :CUSTOM_ID: ic12B
