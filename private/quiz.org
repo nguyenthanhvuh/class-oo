@@ -466,7 +466,8 @@ Mark each of the following either *True* or *False*:
 
 
 * Quiz 10: 11/22
-Consider the following code, and suppose the main method in ~Sub~ is executed.
+Consider the following Java code, and suppose the main method in ~Sub~ is executed.
+
 #+begin_src java
 public class Super {
   private String y;

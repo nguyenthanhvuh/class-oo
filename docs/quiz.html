@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-04-17 Wed 15:30 -->
+<!-- 2024-04-24 Wed 18:23 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SWE 619</title>
@@ -203,27 +203,29 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd83942c">1. Quiz 1</a></li>
-<li><a href="#org8156c1e">2. Quiz 2</a></li>
-<li><a href="#org9255f92">3. Quiz 4: Immutable class</a></li>
-<li><a href="#org17d6daa">4. Quiz 5:  Iterator</a></li>
-<li><a href="#org5a829c4">5. Quiz 6:  Type</a></li>
-<li><a href="#orga18fc32">6. Quiz 7:</a></li>
-<li><a href="#org93beb9e">7. Quiz 8:</a></li>
-<li><a href="#orge524b0d">8. Quiz 9:</a></li>
+<li><a href="#orgbf29fd8">1. Quiz 1</a></li>
+<li><a href="#orge6e5fe2">2. Quiz 2</a></li>
+<li><a href="#org7110109">3. Quiz 4: Immutable class</a></li>
+<li><a href="#org595d518">4. Quiz 5:  Iterator</a></li>
+<li><a href="#orgddc5bba">5. Quiz 6:  Type</a></li>
+<li><a href="#orga2eeadc">6. Quiz 7:</a></li>
+<li><a href="#org37f1ec2">7. Quiz 8:</a></li>
+<li><a href="#org88ac4ce">8. Quiz 9:</a></li>
+<li><a href="#org62093dc">9. Quiz 10: 11/22</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd83942c" class="outline-2">
-<h2 id="orgd83942c"><span class="section-number-2">1.</span> Quiz 1</h2>
+<div id="outline-container-orgbf29fd8" class="outline-2">
+<h2 id="orgbf29fd8"><span class="section-number-2">1.</span> Quiz 1</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Contracts for a Binary Search implementation. Specifiy the contracts/specifications for binary search implementation. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.
 </p>
 </div>
 </div>
-<div id="outline-container-org8156c1e" class="outline-2">
-<h2 id="org8156c1e"><span class="section-number-2">2.</span> Quiz 2</h2>
+
+<div id="outline-container-orge6e5fe2" class="outline-2">
+<h2 id="orge6e5fe2"><span class="section-number-2">2.</span> Quiz 2</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Consider the following 2 specifications, the second of which has an associated implementation:
@@ -257,8 +259,9 @@ Consider the following 2 specifications, the second of which has an associated i
 </ol>
 </div>
 </div>
-<div id="outline-container-org9255f92" class="outline-2">
-<h2 id="org9255f92"><span class="section-number-2">3.</span> Quiz 4: Immutable class</h2>
+
+<div id="outline-container-org7110109" class="outline-2">
+<h2 id="org7110109"><span class="section-number-2">3.</span> Quiz 4: Immutable class</h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
 <li><p>
@@ -290,8 +293,10 @@ Which of the lines (A&#x2013;F) has a problem wrt the immutability of class Immu
 </ol>
 </div>
 </div>
-<div id="outline-container-org17d6daa" class="outline-2">
-<h2 id="org17d6daa"><span class="section-number-2">4.</span> Quiz 5:  Iterator</h2>
+
+
+<div id="outline-container-org595d518" class="outline-2">
+<h2 id="org595d518"><span class="section-number-2">4.</span> Quiz 5:  Iterator</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 The specification for Liskov&rsquo;s <code>elements()</code> method is given below.
@@ -342,8 +347,10 @@ Consider the code below which uses <code>elements()</code>. Line numbers have be
 </ul>
 </div>
 </div>
-<div id="outline-container-org5a829c4" class="outline-2">
-<h2 id="org5a829c4"><span class="section-number-2">5.</span> Quiz 6:  Type</h2>
+
+
+<div id="outline-container-orgddc5bba" class="outline-2">
+<h2 id="orgddc5bba"><span class="section-number-2">5.</span> Quiz 6:  Type</h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-java"> <span style="color: #e45649;">class</span> <span style="color: #986801;">A</span> <span style="color: #4078f2;">{</span>
@@ -380,8 +387,9 @@ Analyze the <code>compose()</code> method in each of these cases according to Li
 </ol>
 </div>
 </div>
-<div id="outline-container-orga18fc32" class="outline-2">
-<h2 id="orga18fc32"><span class="section-number-2">6.</span> Quiz 7:</h2>
+
+<div id="outline-container-orga2eeadc" class="outline-2">
+<h2 id="orga2eeadc"><span class="section-number-2">6.</span> Quiz 7:</h2>
 <div class="outline-text-2" id="text-6">
 <div class="org-src-container">
 <pre class="src src-java">    <span style="color: #986801;">Set</span><span style="color: #4078f2;">&lt;</span><span style="color: #986801;">String</span><span style="color: #4078f2;">&gt;</span> <span style="color: #6a1868;">t</span> = <span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">See questions below</span>
@@ -401,8 +409,10 @@ Analyze the <code>compose()</code> method in each of these cases according to Li
 </ol>
 </div>
 </div>
-<div id="outline-container-org93beb9e" class="outline-2">
-<h2 id="org93beb9e"><span class="section-number-2">7.</span> Quiz 8:</h2>
+
+
+<div id="outline-container-org37f1ec2" class="outline-2">
+<h2 id="org37f1ec2"><span class="section-number-2">7.</span> Quiz 8:</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 Consider the following code:
@@ -479,8 +489,11 @@ objects<span style="color: #4078f2;">[</span><span style="color: #da8548; font-w
 </div>
 </div>
 </div>
-<div id="outline-container-orge524b0d" class="outline-2">
-<h2 id="orge524b0d"><span class="section-number-2">8.</span> Quiz 9:</h2>
+
+
+
+<div id="outline-container-org88ac4ce" class="outline-2">
+<h2 id="org88ac4ce"><span class="section-number-2">8.</span> Quiz 9:</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 Consider the following code.
@@ -532,10 +545,47 @@ Mark each of the following either <b>True</b> or <b>False</b>:
 </ol>
 </div>
 </div>
+
+
+<div id="outline-container-org62093dc" class="outline-2">
+<h2 id="org62093dc"><span class="section-number-2">9.</span> Quiz 10: 11/22</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+Consider the following Java code, and suppose the main method in <code>Sub</code> is executed.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Super</span> <span style="color: #4078f2;">{</span>
+  <span style="color: #e45649;">private</span> <span style="color: #986801;">String</span> <span style="color: #6a1868;">y</span>;
+  <span style="color: #e45649;">public</span> Super <span style="color: #a626a4;">()</span> <span style="color: #a626a4;">{</span> stut<span style="color: #50a14f;">()</span>;<span style="color: #a626a4;">}</span>
+  <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">stut</span><span style="color: #a626a4;">()</span> <span style="color: #a626a4;">{</span> <span style="color: #e45649;">if</span> <span style="color: #50a14f;">(</span>y == <span style="color: #b751b6;">null</span><span style="color: #50a14f;">)</span> <span style="color: #50a14f;">{</span>y = <span style="color: #50a14f;">"cat"</span>;<span style="color: #50a14f;">}</span> <span style="color: #e45649;">else</span> <span style="color: #50a14f;">{</span>y = y + y;<span style="color: #50a14f;">}</span><span style="color: #a626a4;">}</span>
+<span style="color: #4078f2;">}</span>
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">class</span> <span style="color: #986801;">Sub</span> <span style="color: #e45649;">extends</span> <span style="color: #986801;">Super</span> <span style="color: #4078f2;">{</span>
+  <span style="color: #e45649;">private</span> <span style="color: #986801;">String</span> <span style="color: #6a1868;">x</span>;
+  <span style="color: #e45649;">public</span> Sub <span style="color: #a626a4;">(</span>String s<span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span> x = s;<span style="color: #a626a4;">}</span>
+  <span style="color: #b751b6;">@Override</span> <span style="color: #e45649;">public</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">stut</span><span style="color: #a626a4;">()</span> <span style="color: #a626a4;">{</span>
+     x = x + x;
+  <span style="color: #a626a4;">}</span>
+  <span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">void</span> <span style="color: #a626a4;">main</span><span style="color: #a626a4;">(</span><span style="color: #986801;">String</span><span style="color: #50a14f;">[]</span> <span style="color: #6a1868;">args</span><span style="color: #a626a4;">)</span> <span style="color: #a626a4;">{</span>
+      <span style="color: #986801;">Super</span> <span style="color: #6a1868;">s</span> = <span style="color: #e45649;">new</span> <span style="color: #986801;">Sub</span><span style="color: #50a14f;">(</span><span style="color: #50a14f;">"dog"</span><span style="color: #50a14f;">)</span>;
+  <span style="color: #a626a4;">}</span>
+<span style="color: #4078f2;">}</span>
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li>Is the constructor in Super invoked? Why or why not?</li>
+<li>Is the stut() method in Super invoked? Why or why not?</li>
+<li>Is the stut() method in Sub invoked? Why or why not?</li>
+<li>Based on this example, what rule do you come up with for invoking methods in constructors?</li>
+</ol>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: ThanhVu (Vu) Nguyen</p>
-<p class="date">Created: 2024-04-17 Wed 15:30</p>
+<p class="date">Created: 2024-04-24 Wed 18:23</p>
 </div>
 </body>
 </html>
