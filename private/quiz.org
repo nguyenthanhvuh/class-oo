@@ -465,7 +465,7 @@ Mark each of the following either *True* or *False*:
 # # #+end_comment
 
 
-* Quiz 10: 11/22
+* Quiz 10:
 Consider the following Java code, and suppose the main method in ~Sub~ is executed.
 
 #+begin_src java
