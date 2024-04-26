@@ -1452,7 +1452,7 @@ _Hint_: also look at the Javadoc for =equals()=
    1. What rep-invariant is likely broken? Fix it. This includes writing a suitable rep-invariant.
    1. How would Bloch's Item 25: /Prefer Lists to Arrays/ apply here? Would it make the rep-invariant simpler?
    1. How would you argue that that =pop()= is correct (or not)?
-   1. What is the problem with =pushAll()= ?  why a contract for it.  What would Bloch suggest as an alternative?
+   1. What is the problem with =pushAll()= ?  write a contract for it.  What would Bloch suggest as an alternative?
    1. Override =equals()= (for both cases when elements is Array and ArrayList). What else do you have to do? Do that too.
    # 1. Generify. What should happen to the parameter for =pushAll()=? Why?
    # 1. Suppose we decide to implement the =Cloneable()= interface. In what ways would Bloch think we would likely get it wrong? What would Bloch recommend instead?
