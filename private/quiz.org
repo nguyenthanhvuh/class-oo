@@ -451,7 +451,6 @@ Mark each of the following either *True* or *False*:
 1. The ~equals()~ method in the AppleTracker class is inherited from the Apple class.
 - ~a.equals(at1)~ sometimes returns true and sometimes returns false.
 - The ~equals()~ method in the Apple class relies on the rep-invariant to satisfy its contract.
-- ~AppleTracker~ adds client-visible state to Apple objects.
 - ~a.equals(at1)~ and ~at1.equals(a)~ are both true.
 - ~a.equals(at2)~ and ~at2.equals(a)~ are both false.
 - ~at1.equals(a)~ and ~a.equals(at2)~ are both true, but ~at1.equals(at2)~ is false.
@@ -461,7 +460,7 @@ Mark each of the following either *True* or *False*:
 
 
 # # #+begin_comment
-# # Answer: T,F,T,F,T,T,F,T,F,T
+# # Answer: 1 T, 2 F, 3 T, 4 T, 5 T, 6 F, 7 T, 8 F, 9 T
 # # #+end_comment
 
 
