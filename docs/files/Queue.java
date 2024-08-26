@@ -2,7 +2,6 @@
   * Generic Queue example
   * Mutable Version, without specifications
   * SWE 619
-  * @author Paul Ammann
   */
 
 import java.util.*;

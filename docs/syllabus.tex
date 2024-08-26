@@ -1,0 +1,264 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[colorlinks,pagebackref,pdfusetitle,urlcolor=blue,citecolor=blue,linkcolor=red,bookmarksnumbered,plainpages=false]{hyperref}
+
+\begin{document}
+\begin{center}
+{\Large \textsc{SWE-419 (Fall '24): OO Software Specification\\ and Construction}}
+\end{center}
+\begin{center}
+Course Page \url{https://nguyenthanhvuh.github.io/class-oo}
+\end{center}
+
+
+
+\begin{minipage}[t]{.75\textwidth}
+    \centering
+\begin{tabular}{llcccll}
+  \toprule
+  \textbf{Meetings:} & Fri 10:30 PM -- 1:10 PM  & & & & \textbf{Place:} & Horizon Hall 2010\\
+\textbf{Instructor:} & \href{https://go.gmu.edu/tvn}{ThanhVu Nguyen} & & &  & \textbf{Email:} &  \href{mailto:tvn@gmu.edu}{tvn@gmu.edu}\\
+\textbf{Office Hr:} & Mon 2:00PM -- 3:00PM & & & & \textbf{Place:} & ENGR 4430\\
+                     &(email to confirm)&&&&&\\
+  \hline
+\textbf{GTA:} & Hamaad Ullah Zuberi & & &  & \textbf{Email:} &  \href{mailto:hzuberi@gmu.edu}{hzuberi@gmu.edu}\\
+\textbf{Office Hr:} & TBD & & & & \textbf{Place:} & TBD \\
+  \hline
+\textbf{UTA:} & Josabeth Zelalem Hailu & & &  & \textbf{Email:} &  \href{mailto:jhailu2@gmu.edu}{jhailu2@gmu.edu}\\
+\bottomrule
+\end{tabular}
+\end{minipage}
+
+
+\section{Description}
+
+   To give the students a solid understanding of modern software construction. To encourage the construction of software systems of high quality. In-depth study of software construction in a modern language including program specifications and OO designs. Concepts such as information hiding, data abstraction, and object-based and object-oriented software construction are discussed and illustrated. This course is part of the core of the SWE program.
+
+\subsection{Prerequisite}
+\begin{itemize}
+\item SWE Foundation Courses or equivalent.
+\item OOP Language (e.g., Python or Java)
+\end{itemize}
+
+
+\subsection{Course Materials}
+\begin{itemize}
+  \item Barbara Liskov with John Guttag. \href{https://www.amazon.com/Program-Development-Java-Specification-Object-Oriented/dp/0201657686/ref=sr_1_2?dchild=1&qid=1626231221&refinements=p_27\%3ABarbara+Liskov&s=books&sr=1-2&text=Barbara+Liskov}{\emph{Program
+  Development in Java: Abstraction, Specification, and Object-Oriented  Design}}. Addison Wesley, 2001, ISBN 0-201-65768-6.  (\textbf{Required}, free through \href{https://learning-oreilly-com.mutex.gmu.edu/library/view/program-development-in/9780768685299/ch1.html}{ O'Reilly}
+
+
+\item Joshua Bloch.
+\href{https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=sr_1_1?dchild=1&keywords=effective+java&qid=1626231154&sr=8-1}{\emph{Effective
+  Java}}. Third Edition. Addison-Wesley Professional, 2017, ISBN
+  978-0-13-468599-1. (\textbf{Recommended}, free through
+        \href{https://learning-oreilly-com.mutex.gmu.edu/library/view/effective-java-3rd/9780134686097/cover.xhtml}{O'Reilly})
+
+\end{itemize}
+
+\paragraph{Note:} Don't worry about the publication date of Liskov, which is basically a math book and therefore ages well.
+
+\section{Weekly Schedule}
+
+
+
+This class is a group-based, \emph{in-person} offering. You need to be
+present in class at class time. You will also need to schedule regular
+meetings with your group.
+
+Each week will cover a topic, which is a small number of related
+technical issues (see course \href{./schedule.html}{schedule}). Each
+topic will follow roughly the same sequence of preparation, in-class
+learning activities, homework completion and (possibly) presentation,
+and knowledge assessment. Many of these activities will be group based.
+The sequence is:
+
+\begin{itemize}
+\item
+  Preparation: Complete assigned readings and watch relevant videos, if
+  any. No formal submission for this activity.
+\item
+  Class Meeting:
+
+  \begin{itemize}
+  \item
+    Combined session on the day\textquotesingle s topic, followed by
+    in-class exercises (group breakouts)
+  \item
+    Break
+  \item
+    Combined session on the day\textquotesingle s topic, may followed by
+    in-class exercises (group breakouts)
+  \end{itemize}
+\item
+  Homework (group-based)
+\item
+  Assessments via quiz: takes place at the \textbf{end} of class the
+  same day as the homework is due.
+\end{itemize}
+
+\subsection{Grading}\label{grading}
+
+\begin{tabular}{lr}
+\textbf{Assignments} & \textbf{Percentage} \\
+\hline
+Group Functioning (group-based) & 5\% \\
+Homework assignments (group-based) & 35\% \\
+Weekly Quizzes (individual) & 35\% \\
+  Final exam (individual) & 25\% \\
+  \hline
+    \textbf{Total} & 100\% \\
+\end{tabular}
+
+\subsubsection{Scale}\label{scale}
+
+\begin{tabular}{llllll}
+A+ & $\ge$ 97\% & A & $\ge$  93\% & A- & $\ge$
+90\% \\
+B+ & $\ge$  87\% & B & $\ge$  83\% & B- & $\ge$
+80\% \\
+C & $\ge$  70\% & D & $\ge$  60\% & F & $<$
+60\% \\
+\end{tabular}
+
+\subsubsection{Group Functioning}\label{group-functioning}
+
+Every student needs to be part of a group. I would prefer that groups
+stay stable throughout the semester, but if there is a good rationale to
+reconfigure a group, we'll do that.
+
+
+
+\paragraph{Creating groups} You will have a chance to form your own group.
+If you can't find one, we can help. Each has should have \textbf{2 to 4 students}. If your group dwindles to just yourself, you'll need to join another group.
+
+At the end of the semester, each individual will provide an assessment
+of the rest of their group. This assessment will determine the ``Group Functioning'' part of the grade.
+
+\subsubsection{Homework Assignments}\label{homework-assignments}
+
+There are weekly \emph{group homework assighments}. I post homework
+assignments on the class \href{./schedule.html}{schedule web site}. Your
+group will submit assignments online.
+
+Because of the way in which this class is taught, it is important to
+stay on pace. Homeworks are due \textbf{before class}. Late submissions
+are not accepted except in truly exceptional circumstances.
+
+Some important notes:
+
+\begin{itemize}
+\item
+Each group should be prepared to present their homework solution in
+class.
+
+\item
+  \textbf{Statement of who did what}. Homeworks are group exercises.
+  Each submission must contain a specific statement of who did what.
+\item
+  There are \textbf{no make-ups}.
+\item
+  Other than the first assignment (where we might not have formed all
+  groups), only one submission per \textbf{\textbf{group}}. Everyone in
+  the group gets the same credit.
+\end{itemize}
+
+\subsubsection{Weekly Quizzes}\label{weekly-quizzes}
+
+We will have a quiz every week. The quiz will be based on the material covered in the previous weeks.
+Each quiz happens during the last 15--20 minutes of class.
+
+
+\paragraph{Grading Make-up Policy} You will have the opportunity to make up a quiz if you miss it or do poorly. The grading and make-up policy is as follows:
+
+\begin{itemize}
+\item
+  All quizzes count towards the final grade. Each quiz is scored on a 10
+  point scale. Missed quizzes score 0/10. Students who miss a quiz or
+  perform badly on a quiz may choose to take the ``make-up''.
+\item
+  The maximum possible score on the make-up is 8/10. (Example: your quiz
+  grade is 5/10. You take the make-up and correctly answer 9 of 10
+  equally weighted questions. Your final score improves from 5/10 to
+  8/10.)
+\item
+  If you attempt the make-up, that score counts, no matter what your
+  score was on the quiz. (Example: your quiz grade is 7/10. You take the
+  make-up and correctly answer 5 of 10 equally weighted questions. Your
+  final score declines from 7/10 to 5/10.)
+\item
+  Scheduling: the GTA will offer the make-up during TA office hours. The
+  make-up can be different than the quiz given in class, but focuses on
+  the same topics.
+\item
+  The make-up must be taken promptly and within a window of two class
+  meetings from the quiz. (Example: Quiz 1 takes place on Wednesday,
+  September 1. The make-up must be taken on or before Wednesday,
+  September 15. Another Example: Quiz 11 takes place on Wednesday,
+  November 11. Because we don't meet the week of
+  Thanksgiving, the make-up must be taken on or before Wednesday,
+  December 1.)
+\item
+  Each quiz only has one make-up, and you can only attempt that make-up
+  once. However, you are free to use the make-up mechanism on as many
+  different quizzes as you wish.
+\item
+  Quizzes are generally returned one week after the quiz is taken.
+  Make-ups are returned after the window has closed.
+\end{itemize}
+
+\subsubsection{Final Exam}\label{final-exam}
+
+There will be an final exam at the time specified by the
+university's final exam schedule.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Class Attendance}\label{class-attendance}
+
+I place great emphasis on peer learning and interactive engagement. The
+class is structured to leverage group interactions to the largest extent
+possible for the purpose of maximizing learning gain through out the
+semester.
+
+\textbf{Bottome line}: It's important to be in class.
+
+\subsection{In-Class Exercises}\label{in-class-exercises}
+
+I plan an in-class exercise for every class. Students will work in their
+designated group. Very often, the in-class exercises will be closely
+related to an upcoming homework assignment.
+
+\subsection{Record Keeping}\label{record-keeping}
+
+We'll use Blackboard (or Canvas) to maintain scores and
+attendance data. Grades are computed according to this syllabus.
+It's the student's responsibility to
+ensure that your grade records are correct.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+
+% \section{Links}
+% \label{sec:org63a886d}
+% \begin{itemize}
+% \item \href{assignments.org}{Schedule and Assignments}
+% \item \href{project.org}{Project Info}
+% \end{itemize}
+
+% \subsection{Related courses}
+% \begin{itemize}
+% \item \href{https://www.sri.inf.ethz.ch/teaching/reliableai21}{Eth Zurich Reliable and Trustworthy Artificial  Intelligence}
+% \end{itemize}
+
+\section{Honor Code}\label{sec:honor-code}
+
+As with all GMU courses, this class governed by the \href{http://oai.gmu.edu/the-mason-honor-code/}{GMU Honor Code}. In this course, all assignments carry with them an implicit statement that it is the sole work of the author.
+
+\section{Learning Disabilities}
+
+
+Students with learning disabilities (or other conditions documented with GMU Office of Disability Services) who need academic accommodations should see me and contact the \href{http://ods.gmu.edu/}{Disability Resource Center} (DRC) at (703) 993-2474. I am more than happy to assist you, but all academic accommodations must be arranged through the DRC.
+
+\end{document} 
