@@ -3,6 +3,16 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage[colorlinks,pagebackref,pdfusetitle,urlcolor=blue,citecolor=blue,linkcolor=red,bookmarksnumbered,plainpages=false]{hyperref}
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+\def\Section{\S}
+\renewcommand{\figureautorefname}{Fig.}
+\renewcommand{\tableautorefname}{Tab.}
+\makeatletter
+\renewcommand{\chapterautorefname}{\S\@gobble}
+\renewcommand{\sectionautorefname}{\S\@gobble}
+\renewcommand{\subsectionautorefname}{\S\@gobble}
+\renewcommand{\appendixautorefname}{\S\@gobble}
 
 \begin{document}
 \begin{center}
@@ -19,7 +29,7 @@ Course Page \url{https://nguyenthanhvuh.github.io/class-oo}
 \begin{tabular}{llcccll}
   \toprule
   \textbf{Meetings:} & Fri 10:30 PM -- 1:10 PM  & & & & \textbf{Place:} & Horizon Hall 2010 and \href{https://piazza.com/gmu/fall2024/swe419nguyen}{Piazza}\\
-\textbf{Instructor:} & \href{https://go.gmu.edu/tvn}{ThanhVu Nguyen} & & &  & \textbf{Email:} &  \href{mailto:tvn@gmu.edu}{tvn@gmu.edu}\\
+\textbf{Instructor:} & \href{https://go.gmu.edu/tvn}{ThanhVu Nguyen} & & &  & \textbf{Email:} &  \href{mailto:tvn@gmu.edu}{tvn@gmu.edu} (Piazza is preferred)\\
 \textbf{Office Hr:} & Mon 2:00PM -- 3:00PM & & & & \textbf{Place:} & ENGR 4430\\
                      &(email to confirm)&&&&&\\
   \hline
@@ -34,7 +44,7 @@ Course Page \url{https://nguyenthanhvuh.github.io/class-oo}
 
 \section{Description}
 
-   To give the students a solid understanding of modern software construction. To encourage the construction of software systems of high quality. In-depth study of software construction in a modern language including program specifications and OO designs. Concepts such as information hiding, data abstraction, and object-based and object-oriented software construction are discussed and illustrated. This course is part of the core of the SWE program.
+   To give students a solid understanding of modern software construction. To encourage the construction of software systems of high quality. In-depth study of software construction in a modern language including program specifications and OO designs. Concepts such as information hiding, data abstraction, and object-based and object-oriented software construction are discussed and illustrated. This course is part of the core of the SWE program.
 
 \subsection{Prerequisite}
 \begin{itemize}
@@ -59,6 +69,18 @@ Course Page \url{https://nguyenthanhvuh.github.io/class-oo}
 
 \paragraph{Note:} Don't worry about the publication date of Liskov, which is basically a math book and therefore ages well.
 
+\subsection{Assignment Submission and Communication}
+We will use \textbf{Canvas} for submitting assignments and quizzes, and to keep track of grades (\autoref{sec:grading}). 
+It's the student's responsibility to
+ensure that your grade records are correct.
+
+We will use Piazza for class discussion. The system is highly catered to getting you help fast and efficiently from classmates, the TA, and myself. Rather than emailing questions, I encourage you to post your questions on Piazza. 
+
+Sign up for Piazza using the website \url{https://piazza.com/gmu/fall2024/swe419nguyen} and access code \textbf{fhbkh}.
+
+
+
+
 \section{Weekly Schedule}
 
 
@@ -68,7 +90,7 @@ present in class at class time. You will also need to schedule regular
 meetings with your group.
 
 Each week will cover a topic, which is a small number of related
-technical issues (see course \href{./schedule.html}{schedule}). Each
+technical issues (see course \href{https://github.com/nguyenthanhvuh/class-oo/wiki/Assignments}{schedule}). Each
 topic will follow roughly the same sequence of preparation, in-class
 learning activities, homework completion and (possibly) presentation,
 and knowledge assessment. Many of these activities will be group based.
@@ -98,7 +120,7 @@ The sequence is:
   same day as the homework is due.
 \end{itemize}
 
-\subsection{Grading}\label{grading}
+\section{Grading}\label{sec:grading}
 
 \begin{tabular}{lr}
 \textbf{Assignments} & \textbf{Percentage} \\
@@ -111,7 +133,7 @@ Weekly Quizzes (individual) & 35\% \\
     \textbf{Total} & 100\% \\
 \end{tabular}
 
-\subsubsection{Scale}\label{scale}
+\subsection{Scale}\label{scale}
 
 \begin{tabular}{llllll}
 A+ & $\ge$ 97\% & A & $\ge$  93\% & A- & $\ge$
@@ -122,7 +144,7 @@ C & $\ge$  70\% & D & $\ge$  60\% & F & $<$
 60\% \\
 \end{tabular}
 
-\subsubsection{Group Functioning}\label{group-functioning}
+\subsection{Group Functioning}\label{group-functioning}
 
 Every student needs to be part of a group. I would prefer that groups
 stay stable throughout the semester, but if there is a good rationale to
@@ -136,9 +158,9 @@ If you can't find one, we can help. Each has should have \textbf{2 to 4 students
 At the end of the semester, each individual will provide an assessment
 of the rest of their group. This assessment will determine the ``Group Functioning'' part of the grade.
 
-\subsubsection{Homework Assignments}\label{homework-assignments}
+\subsection{Homework Assignments}\label{homework-assignments}
 
-There are weekly \emph{group homework assignments}, which are given through the class \href{./schedule.html}{schedule web site}. Your group will submit assignments online.
+There are weekly \emph{group homework assignments}, which are given through the class \href{https://github.com/nguyenthanhvuh/class-oo/wiki/Assignments}{schedule web site}. Your group will submit assignments via \textbf{Canvas}.
 
 Because of the way in which this class is taught, it is important to
 stay on pace. Homework assignments are due \textbf{before class}. Late submissions
@@ -162,7 +184,7 @@ class.
   the group gets the same credit.
 \end{itemize}
 
-\subsubsection{Weekly Quizzes}\label{weekly-quizzes}
+\subsection{Weekly Quizzes}\label{weekly-quizzes}
 
 We will have a quiz every week. The quiz will be based on the material covered in the previous weeks.
 Each quiz happens during the last 15--20 minutes of class.
@@ -206,7 +228,7 @@ Each quiz happens during the last 15--20 minutes of class.
   Make-ups are returned after the window has closed.
 \end{itemize}
 
-\subsubsection{Final Exam}\label{final-exam}
+\subsection{Final Exam}\label{final-exam}
 
 There will be an final exam at the time specified by the
 university's final exam schedule.
@@ -228,12 +250,7 @@ I plan an in-class exercise for every class. Students will work in their
 designated group. Very often, the in-class exercises will be closely
 related to an upcoming homework assignment.
 
-\subsection{Record Keeping}\label{record-keeping}
 
-We'll use Blackboard (or Canvas) to maintain scores and
-attendance data. Grades are computed according to this syllabus.
-It's the student's responsibility to
-ensure that your grade records are correct.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
