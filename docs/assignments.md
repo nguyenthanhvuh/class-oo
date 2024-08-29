@@ -1,5 +1,5 @@
 
-# Schedule
+# Schedule (Tentative)
 ## Week 1
 - Topic: Class Overview
 - Reading:  Liskov 1--2
@@ -11,6 +11,13 @@
 - Reading: Liskov 3
 - In-class: [IC2](#IC2-A)
 - HW Assignment: [HW2](#HW2)
+
+## Week 3
+- Topic: Procedural Abstraction
+- Reading: Liskov 3
+- In-class: [IC2](#IC2-A)
+- HW Assignment: [HW2](#HW2)
+
 
 # In-Class Exercises
 
