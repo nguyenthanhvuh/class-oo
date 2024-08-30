@@ -3,7 +3,7 @@
 ## Week 1
 - Topic: Class Overview
 - Reading:  Liskov 1--2
-- In-class:  [IC1](#IC1)
+- In-class:  [IC1A](#IC1A), [IC1B](#IC1B), 
 - HW Assignment: [HW1](#HW1)
 
 ## Week 2
@@ -21,11 +21,25 @@
 
 # In-Class Exercises
 
-## IC1
+## IC1A
 - Form a group of 3--4 students. 
 - Work with your group and do the following:
     - Spend a few minutes getting acquainted. Explain a bit about yourself: full-time student?, working in software development?, why are you taking this class?, most/least favorite thing about writing software?, etc.
     - Decide on a mechanism for joint communication. Google docs? IDE with screen share? Something else?
+- Consider a generic sorting method
+
+```python
+def sort(my_list):
+    # pre: 
+    # post: 
+    ...
+```
+    - Write the specification for the `sort` method (pre- and post-conditions).
+
+    
+
+
+## IC1B
 - Now address a technical topic. This exercise touches on some thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don’t worry if it seems confusing today. We’ll revisit this topic several times this semester.
 
 Consider the following (textbook) code:
