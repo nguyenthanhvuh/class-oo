@@ -21,7 +21,7 @@
 
 # In-Class Exercises
 
-## IC1A
+## IC1-A
 - Form a group of 3--4 students. 
 - Work with your group and do the following:
     - Spend a few minutes getting acquainted. Explain a bit about yourself: full-time student?, working in software development?, why are you taking this class?, most/least favorite thing about writing software?, etc.
@@ -39,7 +39,7 @@ def sort(my_list):
     
 
 
-## IC1B
+## IC1-B
 - Now address a technical topic. This exercise touches on some thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don’t worry if it seems confusing today. We’ll revisit this topic several times this semester.
 
 Consider the following (textbook) code:
