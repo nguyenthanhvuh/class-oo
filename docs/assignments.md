@@ -3,20 +3,20 @@
 ## Week 1
 - Topic: Class Overview
 - Reading:  Liskov 1--2
-- In-class:  [IC1A](#IC1A), [IC1B](#IC1B), 
-- HW Assignment: [HW1](#HW1)
+- In-class:  [IC1-A](#ic1-a), [IC1-B](#ic1-b) 
+- HW Assignment: [HW1](#hw1)
 
 ## Week 2
 - Topic: Procedural Abstraction
 - Reading: Liskov 3
-- In-class: [IC2](#IC2-A)
-- HW Assignment: [HW2](#HW2)
+- In-class: [IC2-A](#ic2-a)
+- HW Assignment: [HW2](#hw2)
 
 ## Week 3
 - Topic: Procedural Abstraction
 - Reading: Liskov 3
-- In-class: [IC2](#IC2-A)
-- HW Assignment: [HW2](#HW2)
+- In-class: [IC3-A](#ic3-a)
+- HW Assignment: [HW3](#hw3)
 
 
 # In-Class Exercises
@@ -123,3 +123,8 @@ def tail(my_list):
 1. Your individual Piazza post adheres to my instructions. (That is, no sideways pictures, no oversize pictures, etc.) 
 1. You are in a group.
 
+## HW2
+TBD
+
+## HW3
+TBD
