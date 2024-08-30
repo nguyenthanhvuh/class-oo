@@ -27,20 +27,20 @@
     - Spend a few minutes getting acquainted. Explain a bit about yourself: full-time student?, working in software development?, why are you taking this class?, most/least favorite thing about writing software?, etc.
     - Decide on a mechanism for joint communication. Google docs? IDE with screen share? Something else?
 - Consider a generic sorting method
-
-```python
-def sort(my_list):
-    # pre: 
-    # post: 
-    ...
-```
-    - Write the specification for the `sort` method (pre- and post-conditions).
-
+    ```python
+    def sort(my_list):
+        # pre: 
+        # post: 
+        ...
+    ```
     
+    - Write the specification for the `sort` method (pre- and post-conditions).
+    - Come up with several versions of pre and post-conditions. Discuss the pros and cons of each.
 
 
 ## IC1-B
-- Now address a technical topic. This exercise touches on some thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don’t worry if it seems confusing today. We’ll revisit this topic several times this semester.
+
+This exercise touches on some thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don’t worry if it seems confusing today. We’ll revisit this topic several times this semester.
 
 Consider the following (textbook) code:
 
@@ -65,9 +65,8 @@ class SpecialUser(User):
         return super().__eq__(other) and self.id == other.id
 ```
 
-1. Walk though the execution of the `equals()` method in class `User` for a few well-chosen objects as the parameter. What happens at each point in the execution?
-1. What does it mean for an `equals()` implementation to be correct? How do you know? Be as concrete as you can.
-    - Hint: look at the [Javadoc](https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-) for `equals()`
+1. Look at the [Javadoc](https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-) to understand the behaviors `equals()` (while this is in Java, the concept is the same in Python).
+1. What does it mean for an `equals()` implementation to be correct? Be as concrete as you can.
 1. Is the given implementation of `equals()` in class User correct? Again, be concrete. If there is a problem, find a specific object (test case!) that demonstrates the problem.
 1. How does inheritance complicate the correctness discussion for `equals()` in class `SpecialUser?`
 1. What is your assessment of the `equals()` method in the `SpecialUser` class?
