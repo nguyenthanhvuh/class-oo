@@ -67,7 +67,7 @@ class SpecialUser(User):
 
 1. Look at the [Javadoc](https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-) to understand the behaviors `equals()` (while this is in Java, the concept is the same in Python).
 1. What does it mean for an `equals()` implementation to be correct? Be as concrete as you can.
-1. Is the given implementation of `equals()` in class User correct? Again, be concrete. If there is a problem, find a specific object (test case!) that demonstrates the problem.
+1. Is the given implementation of `equals()` in class User correct? Again, be concrete (e.g., is it symmetric, reflexive, transitive?). If there is a problem, find a specific object (test case!) that demonstrates the problem.
 1. How does inheritance complicate the correctness discussion for `equals()` in class `SpecialUser?`
 1. What is your assessment of the `equals()` method in the `SpecialUser` class?
 
@@ -113,9 +113,9 @@ def tail(my_list):
 
 1. Sign up for Piazza (if you haven't already) and join our class page. The link and access code are in the syllabus.
 1. Post a brief intro about yourself on the course Piazza page. For any credit, the posting must:
-    - be a *follow-up* to my introduction post. In other words, all intros need to be in the same thread.
+    - be a *follow-up* to my [introduction post](https://piazza.com/class/m0cjblb8hvd1qb/post/6). In other words, all intros need to be in the same thread.
     - Include a proper photo of yourself. (No sideways pictures, no oversize pictures, etc.)
-1. Your group should communicate the composition of your group to me (and the GTA) on Piazza.
+1. Post your group on Piazza as a *follow-up* to my group [post](https://piazza.com/class/m0cjblb8hvd1qb/post/8).
 
 ### Grading Criteria
 

@@ -1,20 +1,47 @@
 
 
-## Data Abstraction
+```
+def div(a:Float, b:Float) -> Float:
+    
+    return the result of a/b
+    
+    
+    Precondition (Requires): b has to be non-zero
+    Postcondition (Effects): c = a/b  :   c*b  + r = a
+    
+    ...
+    
 
-*Motivation**: Data abstraction allows us to abstract from the *details of how data objects are implemented* to *how the objects behave*.
+    return c
+
+```
 
 
-### Specs of Data Abstraction
-- the representation of the data; e.g., using `vector` to represent `IntSet`, and `list of ints` (of terms) to represent `Poly`
-- the constructors to initialize new objects (e.g., empty vector for `IntSet`)
-- the methods define access and modification of the objects 
+```
+def sort(inputs):
 
-## Mutability
+pre: 
+- inputs should have comparable types
 
-- Pros and Consts of Immutability vs Mutability
-
-
-- Transforming from Mutable to Immutable
+post:
+- outputs is a permutation of input
+- sorted (ascending)
 
 
+outputs
+
+... 
+
+```
+
+
+
+- 4 scenarios: 
+  - pre is statisfied, post is satisfied :   OK 
+  - pre is satisfied, post is not :    WRONG
+  - pre is not satisfied, post is not satisfied:   OK 
+  - pre is not satisfied, post is satisfied: OK 
+  
+  
+  
+  
