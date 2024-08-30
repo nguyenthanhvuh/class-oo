@@ -73,10 +73,11 @@ class SpecialUser(User):
 ```
 
 1. Look at the [Javadoc](https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-) to understand the behaviors `equals()` (while this is in Java, the concept is the same in Python).
-1. What does it mean for an `equals()` implementation to be correct? Be as concrete as you can.
-1. Is the given implementation of `equals()` in class User correct? Again, be concrete (e.g., is it symmetric, reflexive, transitive?). If there is a problem, find a specific object (test case!) that demonstrates the problem.
-1. How does inheritance complicate the correctness discussion for `equals()` in class `SpecialUser?`
-1. What is your assessment of the `equals()` method in the `SpecialUser` class?
+    - Specifically, read carefully the symmetric, reflexive, and transitive properties of `equals()` 
+    - You can ignore the `consistency` property, which requires that if two objects are equal, they remain equal.
+1. Is the given implementation of `equals()` in class `User` satisfy the 3 equivalence relation properties? If not, what is the problem?  Be concrete: find a specific object (test case!) that demonstrates the problem.
+1. Is the given implementation of `equals()` in class `SpecialUser` satisfy the 3 equivalence relation properties? If not, what is the problem? Be concrete: find a specific object (test case!) that demonstrates the problem. How does *inheritance* makes `equals()` in class `SpecialUser` harder to get right?
+
 
 
 ## IC2-A
