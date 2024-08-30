@@ -45,6 +45,9 @@ This exercise touches on some thorny issues in data abstraction and inheritance.
 Consider the following (textbook) code:
 
 ```python
+
+# Do User first before doing SuperUser (much harder)
+
 class User:
     def __init__(self, name):
         self.name = name
@@ -54,7 +57,11 @@ class User:
             return False
         return self.name == other.name
 
+
+
 class SpecialUser(User):
+    """Don't do this until you've done with User"""
+
     def __init__(self, name, id):
         super().__init__(name)
         self.id = id
