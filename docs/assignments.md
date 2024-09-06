@@ -96,7 +96,7 @@ def tail(my_list):
 - Hint: also look at the Javadoc (for remove) or Python (for pop)
 
 1. What does the implementation of `tail` do in each of the following cases? You might want to see the [Python document](https://docs.python.org/3/tutorial/datastructures.html) for `pop`.  How do you know: Running the code or reading Python document?
-    1. `list = null`
+    1. `list = None`
     1. `list = []`
     1. `list = [1]`
     1. `list = [1, 2, 3]`
@@ -104,7 +104,6 @@ def tail(my_list):
 1. Rewrite the specification to be **total**. Use standard **exceptions** as needed.
 1. The resulting specification has a problem. What is it? (hint: specification should be more general and not tied to the implementation)
 1. Rewrite the specification to address this problem. Rewrite the code to match the new specification.
-
 
 
 # HW Assignments
