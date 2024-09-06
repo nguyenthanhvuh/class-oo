@@ -57,8 +57,6 @@ class User:
             return False
         return self.name == other.name
 
-
-
 class SpecialUser(User):
     """Don't do this until you've done with User"""
 
@@ -86,10 +84,10 @@ Consider the following code:
 
 ```python
 def tail(my_list):
-    # pre: my_list must not be None
-    # post: returns a copy of my_list with the first element removed,
-    #       or raises an IndexError if my_list is empty.
-
+    """
+    PRE: ???
+    POST: ??
+    """
     result = my_list.copy()
     result.pop(0)
     return result
