@@ -84,11 +84,17 @@ Consider the following code:
 
 ```python
 def tail(my_list):
-    """
-    PRE: ???
-    POST: ??
-    """
     
+    # pre:  None
+    # post: returns a copy of my_list with first element remove. Raise typeError if mylist is not a list and raise Exception if my list is empty
+
+    if not isinstance(my_list, list): 
+        raise TypeError
+    
+    if not my_list:
+        returns Exception
+
+
     result = my_list.copy()
     result.pop(0)
     return result
@@ -96,14 +102,17 @@ def tail(my_list):
 - Hint: also look at the Javadoc (for remove) or Python (for pop)
 
 1. What does the implementation of `tail` do in each of the following cases? You might want to see the [Python document](https://docs.python.org/3/tutorial/datastructures.html) for `pop`.  How do you know: Running the code or reading Python document?
-    1. `list = None`
-    1. `list = []`
-    1. `list = [1]`
-    1. `list = [1, 2, 3]`
+    1. `list = null`   # returns NullPtrException
+    1. `list = []`     # returns IndexError
+    1. `list = [1]`   #   return []
+    1. `list = [1, 2, 3]`  #   return [2, 3]
+
 1. Write a partial specification that matches the **happy path** part of the implementation’s behavior.
+
 1. Rewrite the specification to be **total**. Use standard **exceptions** as needed.
 1. The resulting specification has a problem. What is it? (hint: specification should be more general and not tied to the implementation)
 1. Rewrite the specification to address this problem. Rewrite the code to match the new specification.
+
 
 
 # HW Assignments
