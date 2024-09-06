@@ -88,6 +88,7 @@ def tail(my_list):
     PRE: ???
     POST: ??
     """
+    
     result = my_list.copy()
     result.pop(0)
     return result
