@@ -1,0 +1,447 @@
+\documentclass[oneside,11pt,dvipsnames]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1.5in]{geometry}
+\usepackage{soul}
+% \usepackage[small,compact]{titlesec} %very powerful
+\usepackage[most]{tcolorbox}
+% \setsecnumdepth{subsection}
+% \setcounter{tocdepth}{3}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{epigraph}
+\usepackage{cite}
+\usepackage{caption}
+\captionsetup{font=small}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\setlength\intextsep{0pt} % remove extra space above and below in-line float
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks,
+  citecolor=black,
+  filecolor=black,
+  linkcolor=blue,
+  urlcolor=blue,
+}
+\usepackage{booktabs}
+\usepackage{listings}
+
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{xcolor}
+
+\usepackage{anyfontsize}
+\usepackage{sectsty}
+
+\usepackage[makeroom]{cancel}
+
+\newtcolorbox{mybox}{
+  enhanced,
+  boxrule=0pt,frame hidden,
+  borderline west={2pt}{0pt}{green!75!black},
+  colback=green!10!white,
+  sharp corners
+}
+
+\newenvironment{commentbox}[1][]{
+  \small
+  \begin{mybox}
+    {\small \textbf{#1}}
+  }{
+  \end{mybox}
+}
+
+\newtcolorbox{mydomesticbox}{
+  enhanced,
+  boxrule=0pt,frame hidden,
+  borderline west={2pt}{0pt}{red!75!black},
+  colback=blue!10!white,
+  sharp corners
+}
+
+\newenvironment{domesticbox}[1][]{
+  \small
+  \begin{mydomesticbox}
+    {\small \textbf{#1}}
+  }{
+  \end{mydomesticbox}
+}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
+\def\Section{\S}
+\renewcommand{\figureautorefname}{Fig.}
+\renewcommand{\tableautorefname}{Tab.}
+\makeatletter
+\renewcommand{\chapterautorefname}{\S\@gobble}
+\renewcommand{\sectionautorefname}{\S\@gobble}
+\renewcommand{\subsectionautorefname}{\S\@gobble}
+\renewcommand{\appendixautorefname}{\S\@gobble}
+\makeatother
+
+\newcommand{\mycomment}[3][\color{blue}]{{#1{{#2}: {#3}}}}
+\newcommand{\tvn}[1]{\mycomment{TVN}{#1}}{}
+\newcommand{\didi}[1]{\mycomment{Didier}{#1}}{}
+\newcommand{\tl}[1]{\mycomment{ThanhLe}{#1}}{}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\xz}[1]{\mycomment{Xiaokuan}{[#1]}}{}
+
+
+\begin{document}
+
+\pagestyle{empty}
+\begin{tikzpicture}[overlay,remember picture]
+
+    % Background color
+    \fill[
+    black!2]
+    (current page.south west) rectangle (current page.north east);
+
+    % Rectangles
+    \shade[
+    left color=Dandelion,
+    right color=Dandelion!40,
+    transform canvas ={rotate around ={45:($(current page.north west)+(0,-6)$)}}]
+    ($(current page.north west)+(0,-6)$) rectangle ++(9,1.5);
+
+    \shade[
+    left color=lightgray,
+    right color=lightgray!50,
+    rounded corners=0.75cm,
+    transform canvas ={rotate around ={45:($(current page.north west)+(.5,-10)$)}}]
+    ($(current page.north west)+(0.5,-10)$) rectangle ++(15,1.5);
+
+    \shade[
+    left color=lightgray,
+    rounded corners=0.3cm,
+    transform canvas ={rotate around ={45:($(current page.north west)+(.5,-10)$)}}] ($(current page.north west)+(1.5,-9.55)$) rectangle ++(7,.6);
+
+    \shade[
+    left color=orange!80,
+    right color=orange!60,
+    rounded corners=0.4cm,
+    transform canvas ={rotate around ={45:($(current page.north)+(-1.5,-3)$)}}]
+    ($(current page.north)+(-1.5,-3)$) rectangle ++(9,0.8);
+
+    \shade[
+    left color=red!80,
+    right color=red!80,
+    rounded corners=0.9cm,
+    transform canvas ={rotate around ={45:($(current page.north)+(-3,-8)$)}}] ($(current page.north)+(-3,-8)$) rectangle ++(15,1.8);
+
+    \shade[
+    left color=orange,
+    right color=Dandelion,
+    rounded corners=0.9cm,
+    transform canvas ={rotate around ={45:($(current page.north west)+(4,-15.5)$)}}]
+    ($(current page.north west)+(4,-15.5)$) rectangle ++(30,1.8);
+
+    \shade[
+    left color=RoyalBlue,
+    right color=Emerald,
+    rounded corners=0.75cm,
+    transform canvas ={rotate around ={45:($(current page.north west)+(13,-10)$)}}]
+    ($(current page.north west)+(13,-10)$) rectangle ++(15,1.5);
+
+    \shade[
+    left color=ForestGreen,
+    rounded corners=0.3cm,
+    transform canvas ={rotate around ={45:($(current page.north west)+(18,-8)$)}}]
+    ($(current page.north west)+(18,-8)$) rectangle ++(15,0.6);
+
+    \shade[
+    left color=ForestGreen,
+    rounded corners=0.4cm,
+    transform canvas ={rotate around ={45:($(current page.north west)+(19,-5.65)$)}}]
+    ($(current page.north west)+(19,-5.65)$) rectangle ++(15,0.8);
+
+    \shade[
+    left color=OrangeRed,
+    right color=red!80,
+    rounded corners=0.6cm,
+    transform canvas ={rotate around ={45:($(current page.north west)+(20,-9)$)}}]
+    ($(current page.north west)+(20,-9)$) rectangle ++(14,1.2);
+
+
+
+    % Title
+    \node[align=center] at ($(current page.center)+(0,-5)$)
+    {
+    {\fontsize{38}{1} \selectfont {{OOP Design and Specification}}}\\[0.5in]
+
+    {\fontsize{14}{19.2} \selectfont \textcolor{ForestGreen}{ \bf ThanhVu (Vu) Nguyen}}\\[0.1in]
+    \today{} (latest version available on  \href{https://nguyenthanhvuh.github.io/class-oo/oop.pdf}{nguyenthanhvuh.github.io/class-oo/oop.pdf})
+    };
+    \end{tikzpicture}
+
+
+\chapter*{Preface}
+
+
+
+\newpage
+\tableofcontents
+
+
+\chapter{Introduction}\label{sec:intro}
+
+This book will guide you through the fundamentals of constructing high-quality software using a modern \textbf{object-oriented programming} (OOP) approach.  We will use \emph{Python} for demonstration, but the concepts can be applied to any object-oriented programming language.  The goal is to develop programs that are reliable, efficient, and easy to understand, modify, and maintain.
+
+
+\section{Decomposition}\label{sec:decomposition}
+
+As the size of a program increases, it becomes essential to \emph{decompose} the program into smaller, independent programs (or functions or modules). This decomposition process allows for easier management of the program, especially when multiple developers are involved.   This makes the program easier to understand and maintain.
+
+
+
+
+%\subsection{Decomposition}
+
+Decomposition is the process of breaking a complex program into smaller, independent, more manageable programs, i.e., ``divide and conquer''. It allows programmer to focus on one part of the problem at a time, without worrying about the rest of the program.
+
+\paragraph{Example} \autoref{ex:mergesort} shows a Python implementation of \emph{Merge Sort}, a classic example of problem decomposition. It breaks the problem of sorting a list into simpler problems of sorting smaller lists and merging them.
+
+\begin{figure}[t]
+\begin{lstlisting}[multicols=2, language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+def merge_sort(lst):
+    if len(lst) <= 1:
+        return lst
+
+    mid = len(lst) // 2
+    left = merge_sort(lst[:mid])
+    right = merge_sort(lst[mid:])
+    return merge(left, right)
+
+
+
+
+
+
+def merge(left, right):
+    result = []
+    i = j = 0
+
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+\end{lstlisting}
+ \caption{Decomposition example: Mergesort}\label{ex:mergesort}
+\end{figure}
+
+
+\section{Abstraction}\label{sec:abstraction}
+\emph{Abstraction} is a key concept in OOP that allows programmers to hide the implementation details of a program and focus on the essential features.
+In an OOP language such as Python, you can abstract problems by creating functions, classes, and modules that hide the underlying implementation details.
+
+\paragraph{Example} \autoref{ex:mamal} demonstrates an abstraction for different types of mammals. Mamals such as Dog and Cat share common behaviors such as making noise (speak). We can create a class `Mamal'' that defines these common behaviors, and then create subclasses \texttt{Dog} and \texttt{Cat} that inherit from \texttt{Mamal} and define their own unique behaviors.
+
+\begin{figure}[t]
+\begin{lstlisting}[multicols=2, language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+
+class Mammal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self): pass
+
+class Dog(Mammal):
+    def speak(self): return "Woof!"
+
+class Cat(Mammal):
+    def speak(self): return "Meow!"
+\end{lstlisting}
+ \caption{Decomposition example: Mergesort}\label{ex:mamal}
+\end{figure}
+
+\chapter{Procedural Abstraction}
+One common mechanism to \emph{procedural abstraction}, which achieves abstraction is through the use of functions (procedures). By separating procedure definition and invocation, we make two important methods of abstraction: abstraction by parameterization and abstraction by specification.
+
+\paragraph{Abstraction by Parameterization}
+
+This allows you to generalize a function by using parameters. By abstracting away the specific data with \emph{parameters}, the function becomes more versatile and can be reused in different situations. \autoref{ex:abs-parameterization} shows an example of abstract parameterization. The \texttt{cal\_area} function calculates the area of a rectangle given its length and width, which are passed as parameters.
+
+\begin{figure}
+\begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+
+def cal_area(length, width):
+    return length * width
+
+# can be used with different values for length and width.
+area1 = cal_area(5, 10)
+area2 = cal_area(7, 3)
+\end{lstlisting}
+ \caption{Example: Abstract Parameterization}\label{ex:abs-parameterization}
+
+\end{figure}
+
+
+
+\paragraph{Abstraction by Specification} This focuses on what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms). By defining a function's behavior through \emph{specifications}, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details. 
+
+\autoref{ex:abs-specification} shows an example of abstraction by specification. The \texttt{exists} method return true if the item is found in a list of sorted items. The user only needs to provide a sorted list, but does not need to know what algorithm is used or implemented to determine if the item exists in the list.
+
+\begin{figure}
+\begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+
+def exists(items):
+    """
+    Find an item in a list of sorted items.
+
+    Pre: List of sorted items
+    Post: True if the item is found, False otherwise.
+    """
+    return sorted(items)
+
+# The user of this function only needs to know that it sorts items,
+# without needing to understand the sorting algorithm used.
+sorted_list = sort_items([5, 3, 8, 1])
+\end{lstlisting}
+\caption{Abstraction by Specification: sorting}\label{ex:abs-specification}
+\end{figure}
+
+\section{Specifications}\label{sec:specifications}
+
+We define abstractions through specifications, which describe what the abstraction is intended to do rather than how it should be implemented. This allows specifications to be much more concise and easier to read than the corresponding code.
+
+Specifications which can be written in either \emph{formal} or \emph{informal languages}. Formal specifications have the advantage of being precise and unambiguous. However, in practice, we often use informal specifications, describing the behavior of the abstraction in plain English (e.g., the \texttt{sorting} example in \autoref{ex:abs-specification}).  Note that a specification is not a programming language or a program. Thus, our specifications won’t be written in code (e.g., in Python or Java)
+
+\subsection{Specifications of a Function}
+%3.3 Liskov
+
+The specification of a function consists of a \emph{header} and a \emph{description} of its behavior. 
+The header gives the signature of the function, including its name, parameters, and return type. The description describes the function's behavior, including its preconditions and postconditions.
+
+\paragraph{Header} The header provides the \emph{name} of the function, the number, order, and types of its \emph{parameters} (inputs), and the type of its return value (output). For instance, the headers for the \texttt{sort\_items} function in \autoref{ex:abs-specification} and the \texttt{cal\_area} function in \autoref{ex:abs-parameterization} are as follows
+
+\begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+    def exists(items: list) -> bool: ...
+
+    def calc_area(length: float, width: float) -> float: ...
+\end{lstlisting}
+
+Note that in a language like Java, the header also provides \emph{exceptions} that the function may throw.
+
+\paragraph{Preconditions and Postconditions}
+
+A typical function specification in an OOP language such as Python includes: \emph{Preconditions} (also called the ``requires'' clause) and \emph{Postconditions} (also called the ``effects'' clause). Preconditions describe the conditions that must be true before the function is called. Typically these state the constraints or assumptions about the input parameters. If there are no preconditions, the clause is often written as \texttt{None}.
+
+Postconditions, under the assumption that the preconditions are satisfied, describe the conditions that will be true after the function is called. These typically state the expected results or outcomes of the function. Moreover, they often describe the relationship between the inputs and outputs.
+
+
+The clauses are usually written as \emph{comments} above the function definition, making them easily accessible within the code.
+
+
+\begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+    def calc_area(length: float, width: float) -> float:
+        """
+        Calculates the area of a rectangle given its length and width.
+
+        Pre: None
+        Post: The area of the rectangle.
+        """
+        ...
+\end{lstlisting}
+
+For example, the specification of the \texttt{calc\_area} function in \autoref{ex:abs-parameterization} has (i) no preconditions and (ii) the postcondition that the function returns the area of a rectangle given its length and width.  Similarly, the \texttt{exists} function in \autoref{ex:abs-specification} has the specification that given a list of sorted items (precondition), it returns true if the item is found in the list, and false otherwise (postcondition).  Note how the specification is written in plain English, making it easy to understand for both developers and users of the function. 
+
+
+\paragraph{Modifies} Another common clause in a function specification is \emph{modifies}, which describes the inputs that the function modifies. This is particularly useful for functions that modify their input parameters. 
+
+\begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+    def add_to_list(input_list, value):
+    """
+    Adds a value to the input list.
+
+    Pre: None
+    Post: Value is added to the input list.
+    Modifies: the input list
+    """
+    ... 
+
+\end{lstlisting}
+
+
+\subsection{In-class Exercise}
+See \href{https://nguyenthanhvuh.github.io/class-oo/assignments#ic1-b}{IC1-B} for in-class exercises on specifications.
+
+\section{Designing Specifications}\label{sec:design-specifications}
+%Liskov 3.5
+
+\subsection{Weaker Preconditions}
+A condition is weaker than another if it is implied by the other or having less constraints than the other. For example, the condition that the input $x \le 5$ is weaker than $x \le 10$ or that the input list is not sorted is weaker than the list is sorted (which is weaker than the list that is both sorted and has no duplicates).  A function with a weaker precondition is preferred because it can handle a larger class of inputs (e.g., can handle both sorted and unsorted lists). The weakest precondition is \emph{None}, which means the function can be called with any input.
+
+\paragraph{Total vs Partial Functions}
+
+A function is \emph{total} if it is defined for all legal inputs; otherwise, it is \emph{partial}. Thus a function with no precondition is total, while a function with the strongest possible precondition is partial.  Total functions are preferred because they can be used in more situations.
+
+The \texttt{calc\_area} function in \autoref{ex:abs-parameterization} and \texttt{add\_to\_list} function in \autoref{ex:abs-specification} are total because they can be called with any input. The \texttt{exists} function in \autoref{ex:abs-specification} is partial because it only works with sorted lists.
+
+
+
+
+
+
+
+\appendix
+\chapter{Lectures}
+
+\section{Module 1: Overview}
+\begin{itemize}
+\item \href{https://nguyenthanhvuh.github.io/class-oo/syllabus.pdf}{Syllabus}  (no cheating)
+\item Overview 
+\begin{itemize}
+    \item Decomposition (\autoref{sec:decomposition})
+    \item Abstraction (\autoref{sec:abstraction})
+    \item Abstraction by Parameterization (\autoref{ex:abs-parameterization})
+    \item Abstraction by Specification (\autoref{ex:abs-specification})
+    \item Specifications (\autoref{sec:specifications})
+\end{itemize}\item 
+
+
+\item Break 1 (25 mins):  5 min break,  20 min \href{https://nguyenthanhvuh.github.io/class-oo/assignments#ic1-a}{IC1-A} exercise
+
+% - preconds: input is a list of /comparable/ items
+% - postcond:
+%   - output is sorted
+%   - output is a __permutation_ of data input
+
+\item{Correctness Overview}
+\begin{itemize}
+    \item Ideally: Satisfies preconditions and postconditions
+    \item 4 scenarios to consider
+    \begin{enumerate}
+        \item Precondition is satisfied, postcondition is satisfied: correct
+        \item Precondition is satisfied, but postcondition is not: incorrect
+        \item Precondition not satisfied, but postcondition is: correct
+        \item Precondition not satisfied, but postcondition is not: correct
+    \end{enumerate}
+    \item Preconditions are the responsibility of the caller (the client)
+    \item Postconditions are the responsibility of the developer (the supplier, i.e., you)
+    \item For many non-OOP programs, this is relatively straightforward and can be checked automatically.  Things become quite thorny when dealing with OOPs (e.g., inheritence)
+\end{itemize}
+
+\item Break 2 (25 mins) :  5 min break,  20 min \href{https://nguyenthanhvuh.github.io/class-oo/assignments#ic1-b}{IC1-B} exercise
+
+\end{itemize}
+
+
+
+\section{Module 2:}
+
+\bibliographystyle{abbrv}
+\bibliography{demystify.bib}
+
+\end{document}

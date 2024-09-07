@@ -2,16 +2,15 @@
 
 ## Specifications of Binary Search.
 
-- Specify the specifications for a binary search implementation whose header is given below. Remember for precondition you want something as weak as possible and for postcondition as strong as possible.
+- Come up with the specifications for a binary search implementation whose header is given below. Remember for precondition you want something as weak as possible and for postcondition as strong as possible. Note that binary search returns the `location` (an integer) of the `target` value if found. It returns -1 if the `target` is not found. 
 
 ```python
 def binary_search(arr: List[int], target: int) -> int:
-
     """
     PRE/REQUIRES: 
     POST/EFFECTS: 
     """
-    pass
+    ... 
 ```
 
 
