@@ -291,25 +291,25 @@ area2 = cal_area(7, 3)
 
 \paragraph{Abstraction by Specification} This focuses on what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms). By defining a function's behavior through \emph{specifications}, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details. 
 
-\autoref{ex:abs-specification} shows an example of abstraction by specification. The \texttt{exists} method return true if the item is found in a list of sorted items. The user only needs to provide a sorted list, but does not need to know what algorithm is used or implemented to determine if the item exists in the list.
+\autoref{ex:abs-specification} shows an example of abstraction by specification. The \texttt{exists} method return true if the \texttt{target} item is found in a list of sorted \texttt{items}. The user only needs to provide a sorted list and a target, but does not need to know what algorithm is used or implemented to determine if the item exists in the list.
 
 \begin{figure}
 \begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
 
-def exists(items):
+def exists(items:List[int], target:int) -> bool:
     """
     Find an item in a list of sorted items.
 
     Pre: List of sorted items
-    Post: True if the item is found, False otherwise.
+    Post: True if the target is found, False otherwise.
     """
-    return sorted(items)
+    ...
 
-# The user of this function only needs to know that it sorts items,
-# without needing to understand the sorting algorithm used.
-sorted_list = sort_items([5, 3, 8, 1])
+# The user only needs to know that this function checks for the existence of an item
+#  in a sorted list, without needing to understand the search algorithm/implementation.
+
 \end{lstlisting}
-\caption{Abstraction by Specification: sorting}\label{ex:abs-specification}
+\caption{Abstraction by Specification}\label{ex:abs-specification}
 \end{figure}
 
 \section{Specifications}\label{sec:specifications}
@@ -381,21 +381,97 @@ See \href{https://nguyenthanhvuh.github.io/class-oo/assignments#ic1-b}{IC1-B} fo
 %Liskov 3.5
 
 \subsection{Weaker Preconditions}
-A condition is weaker than another if it is implied by the other or having less constraints than the other. For example, the condition that the input $x \le 5$ is weaker than $x \le 10$ or that the input list is not sorted is weaker than the list is sorted (which is weaker than the list that is both sorted and has no duplicates).  A function with a weaker precondition is preferred because it can handle a larger class of inputs (e.g., can handle both sorted and unsorted lists). The weakest precondition is \emph{None}, which means the function can be called with any input.
+For preconditions, we want as weak a constraint as possible to make the function more versatile, allowing it to handle a larger class of inputs. 
+A condition is weaker than another if it is implied by the other or having less constraints than the other. For example, the condition $x \le 5$ is weaker than $x \le 10$ or that the input list is not sorted is weaker than the list is sorted (which is weaker than the list that is both sorted and has no duplicates). 
+The \emph{weakest} precondition is \emph{True}, which indicates no constraints on the input.
 
-\paragraph{Total vs Partial Functions}
 
-A function is \emph{total} if it is defined for all legal inputs; otherwise, it is \emph{partial}. Thus a function with no precondition is total, while a function with the strongest possible precondition is partial.  Total functions are preferred because they can be used in more situations.
+\subsection{Strongest Postconditions}
+
+In constrast, for postconditions, we want as strong a condition as possible to ensure that the function behaves as expected. A condition is stronger than another if it implies the other or that its constraints are a strict subset of the other. For example, the condition $x \le 10$ is stronger than $x \le 5$ or that the input list is sorted is stronger than the list is not sorted.
+
+
+\subsection{Total vs Partial Functions}
+
+A function is \emph{total} if it is defined for all legal inputs; otherwise, it is \emph{partial}. Thus a function with no precondition is total, while a function with the strongest possible precondition is partial.  Total functions are preferred because they can be used in more situations, especially when the function is used publicly or in a library where the user may not know the input constraints. Partial functions can be used when the function is used internally, e.g., a helper or auxiliary function and the caller is knowledgeable and can ensure its preconditions are satisfied.
 
 The \texttt{calc\_area} function in \autoref{ex:abs-parameterization} and \texttt{add\_to\_list} function in \autoref{ex:abs-specification} are total because they can be called with any input. The \texttt{exists} function in \autoref{ex:abs-specification} is partial because it only works with sorted lists.
 
 
+\paragraph{Turning Partial Functions into Total Functions} It is often possible to turn a partial function into a total function in two steps. First, we move preconditions into postconditions and specify the expected behavior when the precondition is not satisfied. Second, we modify the function to handle the cases when the preconditions are not satisfied. For example, the \texttt{exists} function in \autoref{ex:abs-specification} is turned into the total function shown in \autoref{ex:abs-total}.
+
+\begin{figure}
+    \begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+    
+    def exists(items: List[int], target: int) -> bool:
+        """
+        Find an item in a list of sorted items.
+    
+        Pre: True
+        Post: If the input items are not sorted, raise an exception.
+              Return True if the item is found, False otherwise.
+        
+    
+        """
+
+        if not is_sorted(items):
+            raise Exception(...)
+
+    \end{lstlisting}
+    \caption{Total Specification for the program in \autoref{ex:abs-specification}}\label{ex:abs-total}
+    \end{figure}
 
 
 
+\subsection{No implementation details}
+The specification should not include any implementation details, such as the algorithm used or the data structures employed. 
+This allows the function to be implemented in different ways as long as it satisfies the specification. For example, the \texttt{exists} function in \autoref{ex:abs-specification} does not specify the search algorithm used to find the item in the list.
+
+Some common examples to avoid include the mentioning of specific data structures (e.g., arrays), algorithms (e.g., quicksort or mergesort). Also avoid specifications mentioning indices because this implies the use of arrays.
 
 
+\chapter{Exception}
+%Liskov 4 ,  but won't follow this because it talks about checked vs unchecked exceptions, which are not really applicable in Python.
+
+\chapter{Data Abstraction}
+%Liskov 5 
+This chapter focuses on \emph{abstract data type} (ADT), a key concept in programming that allows developers to separate how data is implemented from how it behaves. Data abstraction forms the foundation of OOP. Through ADT, programmers can create new data types relevant to their application. These ADTs consist of objects and associated operations.
+
+An ADT has two main components: \emph{parameterization} and \emph{specification}. Parameterization involves using parameters for flexibility, while specification means including operations as part of the data type, which abstracts away the underlying data representation. This ensures that even if the data structure changes, programs that rely on it remain unaffected, as they only interact with the operations rather than the data's internal structure.
+
+By abstracting data, developers can postpone decisions about data structures until they fully understand how the data will be used, leading to more efficient programs. ADT is also beneficial during program maintenance, as changes to the data structure affect only the type's implementation, not the modules using it.
+
+
+\section{Specifications of an ADT}
+
+In a modern OOP language such as Python or Java, data abstractions are defined using classes. A specification defines the behavior of an ADT without being tied to a specific implementation. The specification explains what the operations on the data type do, allowing users to interact with objects only via methods, rather than accessing the internal representation.
+
+\paragraph{Structure of an ADT}
+A typical specification consists of three main parts:
+\begin{enumerate}
+\item An overview of the type.
+\item Specifications for constructors (which create objects).
+\item Specifications for methods (which operate on the objects).
+\end{enumerate}
+
+% The form of the data abstraction in Python can be described as follows:
+
+% 1. Overview
+
+% The overview describes the abstract data type in terms of well-understood concepts, like mathematical models or real-world entities. For example, a stack could be described using mathematical sequences. It also indicates whether the objects of this type are mutable (their state can change) or immutable (their state cannot change).
+
+% 2. Constructors
+
+% Constructors in Python are defined using the \texttt{\_\_init\_\_} method. The constructor initializes a new object, setting up any initial state required for the instance.
+
+% 3. Methods
+
+% Methods are the operations users can perform on the objects. These methods allow users to interact with the object without needing to know its internal representation. The specifications of methods in Python resemble function specifications, where self is used to refer to the instance of the object on which the method is called (analogous to this in Java).
+\section{Reasoning}
 \appendix
+
+\chapter{In-Class exercises}\label{sec:in-class-exercises}
+
 \chapter{Lectures}
 
 \section{Module 1: Overview}
