@@ -136,7 +136,7 @@ def tail(my_list):
 
 ## HW2
 
-## Goals: Contracts
+## Goals: Using Specifications
 
 You'll build a small piece of Python from a given (partial) specification. Next, you will change the specification to **total** and modify your code accordingly.
 
