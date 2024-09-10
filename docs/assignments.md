@@ -17,8 +17,8 @@
 
 ## Week 3
 
-- Topic: Procedural Abstraction
-- Reading: Liskov 3
+- Topic: Data Abstraction and Abstract Data Type (ADT)
+- Reading: Liskov 5
 - In-class: [IC3-A](#ic3-a)
 - HW Assignment: [HW3](#hw3)
 
@@ -81,8 +81,6 @@ class SpecialUser(User):
 1. Is the given implementation of `equals()` in class `User` satisfy the 3 equivalence relation properties? If not, what is the problem?  Be concrete: find a specific object (test case!) that demonstrates the problem.
 1. Is the given implementation of `equals()` in class `SpecialUser` satisfy the 3 equivalence relation properties? If not, what is the problem? Be concrete: find a specific object (test case!) that demonstrates the problem. How does *inheritance* makes `equals()` in class `SpecialUser` harder to get right?
 
-
-
 ## IC2-A
 
 Consider the following code:
@@ -113,8 +111,105 @@ def tail(my_list):
 1. Write a partial specification that matches the **happy path** part of the implementation’s behavior.
 1. Rewrite the specification to be **total**. Use standard **exceptions** as needed.
 
+## IC3-A
+
+Consider a simple generic `Queue` implementation.
+
+```python
+class Queue:
+    """
+    A generic Queue implementation using a list.
+    """
+
+    def __init__(self):
+        """
+        Constructor
+        Initializes an empty queue.
+        """
+        self.elements = []
+        self.size = 0
+
+    def enqueue(self, e):
+        """
+        MODIFIES: self
+        EFFECTS: Adds element e to the end of the queue.
+        """
+        self.elements.append(e)
+        self.size += 1
+
+    def dequeue(self):
+        """
+        MODIFIES: self
+        EFFECTS: Removes and returns the element at the front of the queue.
+        If the queue is empty, raises an IllegalStateException.
+        """
+        if self.size == 0:
+            raise IllegalStateException("Queue.dequeue")
+        
+        result = self.elements.pop(0)  # Removes and returns the first element
+        self.size -= 1
+        return result
+
+    def is_empty(self):
+        """
+        EFFECTS: Returns True if the queue is empty, False otherwise.
+        """
+        return self.size == 0
 
 
+class IllegalStateException(Exception):
+    """Exception raised when an invalid operation is attempted on an empty queue."""
+    pass
+
+```
+
+1. Rewrite Queue to be *immutable*. Keep the representation variables `elements` and `size`.
+1. Do the right thing with `enQueue()`.
+1. Do the right thing with `deQueue()`.
+
+## IC3-B
+
+Consider the code 
+
+```python
+class Members:
+    """
+    Members is a mutable record of organization membership.
+    AF: Collect the list as a set.
+    rep-inv1: members != None
+    rep-inv2: members != None and no duplicates in members.
+    For simplicity, assume None can be a member.
+    """
+
+    def __init__(self):
+        """Constructor: Initializes the membership list."""
+        self.members = []  # The representation
+
+    def join(self, person):
+        """
+        Post: person becomes a member.
+        MODIFIES: self
+        EFFECTS: Adds a person to the membership list.
+        """
+        self.members.append(person)
+
+    def leave(self, person):
+        """
+        Post: person is no longer a member.
+        MODIFIES: self
+        EFFECTS: Removes a person from the membership list.
+        """
+        self.members.remove(person)
+```
+
+1. Analyze these four questions for *rep-inv 1*.
+    1. Does `join()` maintain rep-inv?
+    1. Does `join()` satisfy contract?
+    1. Does `leave()` maintain rep-inv?
+    1. Does `leave()` satisfy contract?
+1. Repeat for *rep-inv 2*.
+1. Recode `join()` to make the verification go through. Which rep-invariant do you use?
+1. Recode `leave()` to make the verification go through. Which rep-invariant do you use?
 
 # HW Assignments
 
@@ -174,10 +269,11 @@ Consider a function that calculates the number of months needed to pay off a loa
 1. *Total specification*: Now change the specification to **total** in which the postcondition handles violations of the preconditions using *exceptions*. In addition, provide a new implementation `month` that satisfies the new specification.
 
 ### Grading Criteria
-    - Adherence to instructions.
-    - Minimal implementation.
-    - Preconditions are correctly converted to exceptions.
-    - Python code runs correctly
+
+1. Adherence to instructions.
+1. Minimal implementation.
+1. Preconditions are correctly converted to exceptions.
+1. Python code runs correctly
 
 
 ## HW3
