@@ -266,7 +266,8 @@ class Cat(Mammal):
  \caption{Decomposition example: Mergesort}\label{ex:mamal}
 \end{figure}
 
-\chapter{Procedural Abstraction}
+\chapter{Procedural Abstraction}\label{chap:procedural-abstraction}
+
 One common mechanism to \emph{procedural abstraction}, which achieves abstraction is through the use of functions (procedures). By separating procedure definition and invocation, we make two important methods of abstraction: abstraction by parameterization and abstraction by specification.
 
 \paragraph{Abstraction by Parameterization}
@@ -381,14 +382,14 @@ See \href{https://nguyenthanhvuh.github.io/class-oo/assignments#ic1-b}{IC1-B} fo
 %Liskov 3.5
 
 \subsection{Weaker Preconditions}
-For preconditions, we want as weak a constraint as possible to make the function more versatile, allowing it to handle a larger class of inputs. 
+For pre-conditions, we want as weak a constraint as possible to make the function more versatile, allowing it to handle a larger class of inputs. 
 A condition is weaker than another if it is implied by the other or having less constraints than the other. For example, the condition $x \le 5$ is weaker than $x \le 10$ or that the input list is not sorted is weaker than the list is sorted (which is weaker than the list that is both sorted and has no duplicates). 
 The \emph{weakest} precondition is \emph{True}, which indicates no constraints on the input.
 
 
 \subsection{Strongest Postconditions}
 
-In constrast, for postconditions, we want as strong a condition as possible to ensure that the function behaves as expected. A condition is stronger than another if it implies the other or that its constraints are a strict subset of the other. For example, the condition $x \le 10$ is stronger than $x \le 5$ or that the input list is sorted is stronger than the list is not sorted.
+In contrast, for post-conditions, we want as strong a condition as possible to ensure that the function behaves as expected. A condition is stronger than another if it implies the other or that its constraints are a strict subset of the other. For example, the condition $x \le 10$ is stronger than $x \le 5$ or that the input list is sorted is stronger than the list is not sorted.
 
 
 \subsection{Total vs Partial Functions}
@@ -435,7 +436,8 @@ Some common examples to avoid include the mentioning of specific data structures
 
 \chapter{Data Abstraction}
 %Liskov 5 
-This chapter focuses on \emph{abstract data type} (ADT), a key concept in programming that allows developers to separate how data is implemented from how it behaves. Data abstraction forms the foundation of OOP. Through ADT, programmers can create new data types relevant to their application. These ADTs consist of objects and associated operations.
+
+This chapter focuses on \emph{abstract data type} (ADT), a foundation of OOP and key concept in programming that allows developers to separate how data is implemented from how it behaves. Through ADT, programmers can create new data types relevant to their application. These ADTs consist of objects and associated operations.
 
 An ADT has two main components: \emph{parameterization} and \emph{specification}. Parameterization involves using parameters for flexibility, while specification means including operations as part of the data type, which abstracts away the underlying data representation. This ensures that even if the data structure changes, programs that rely on it remain unaffected, as they only interact with the operations rather than the data's internal structure.
 
@@ -444,30 +446,102 @@ By abstracting data, developers can postpone decisions about data structures unt
 
 \section{Specifications of an ADT}
 
-In a modern OOP language such as Python or Java, data abstractions are defined using classes. A specification defines the behavior of an ADT without being tied to a specific implementation. The specification explains what the operations on the data type do, allowing users to interact with objects only via methods, rather than accessing the internal representation.
+As with functions (\autoref{chap:procedural-abstraction}, the specification for an ADT defines its behavior without being tied to a specific implementation. The specification explains what the operations on the data type do, allowing users to interact with objects only via methods, rather than accessing the internal representation. 
 
-\paragraph{Structure of an ADT}
-A typical specification consists of three main parts:
-\begin{enumerate}
-\item An overview of the type.
-\item Specifications for constructors (which create objects).
-\item Specifications for methods (which operate on the objects).
-\end{enumerate}
 
-% The form of the data abstraction in Python can be described as follows:
+\paragraph{Structure of an ADT} In a modern OOP language such as Python or Java, data abstractions are defined using \emph{classes}. Each class defines a name for the data type, along with its constructors and methods.  
 
-% 1. Overview
+\begin{figure}
+    \begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+class DataType:
+    """
+    OVERVIEW: A brief description of the data type and its objects.
+    """
 
-% The overview describes the abstract data type in terms of well-understood concepts, like mathematical models or real-world entities. For example, a stack could be described using mathematical sequences. It also indicates whether the objects of this type are mutable (their state can change) or immutable (their state cannot change).
+    def __init__(self, ...):
+        """
+        Constructor to initialize a new object.
+        """
 
-% 2. Constructors
+    def method1(self, ...):
+        """
+        Method to perform an operation on the object.
+        """
+    \end{lstlisting}
+    \caption{Abstract Data Type template}\label{ex:adt-template}
+\end{figure}
 
-% Constructors in Python are defined using the \texttt{\_\_init\_\_} method. The constructor initializes a new object, setting up any initial state required for the instance.
 
-% 3. Methods
 
-% Methods are the operations users can perform on the objects. These methods allow users to interact with the object without needing to know its internal representation. The specifications of methods in Python resemble function specifications, where self is used to refer to the instance of the object on which the method is called (analogous to this in Java).
+\autoref{ex:adt-template} shows a class template in Python, which consists of three main parts. The \emph{overview} describes the abstract data type in terms of well-understood concepts, like mathematical models or real-world entities. For example, a stack could be described using mathematical sequences. It also indicates whether the objects of this type are mutable (their state can change) or immutable (their state cannot change).
+The \emph{Constructor} initializes a new object, setting up any initial state required for the instance.
+Finally, \emph{methods} define operations users can perform on the objects. These methods allow users to interact with the object without needing to know its internal representation. In Python, \texttt{self} is used to refer to the object itself, similar to \texttt{this} in Java or C++.
+
+Note that as with procedural specification (\autoref{chap:procedural-abstraction}), the specifications of constructors and methods of an ADT do not include implementation details. They only describe what the operation does, not how it is done. Moreover, they are written in plain English as code comment.
+
+
+\subsection{Example: \texttt{IntSet} ADT}
+
+\autoref{ex:intset} gives a specification for an \texttt{IntSet} ADT, which represents unbounded set of integers. The ADT is \emph{mutable}, i.e., its state can change, and includes a constructor to initialize an empty set, and methods to insert, remove, check membership, get the size, and choose an element from the set. 
+\begin{figure}
+    \begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+        class IntSet:
+        """
+        OVERVIEW: IntSet represents a mutable, unbounded set of integers.
+        A typical IntSet is {x1, x2, ..., xn}, where x1, x2, ..., xn are unique integers.
+        """
+    
+        def __init__(self):
+            """
+            Constructor
+            EFFECTS: Initializes this to be an empty set.
+            """
+            self.set = set()
+    
+        def insert(self, x: int):
+            """
+            MODIFIES: self
+            EFFECTS: Adds x to the elements of this set.
+            If x is already present, it does nothing.
+            """
+    
+        def remove(self, x: int):
+            """
+            MODIFIES: self
+            EFFECTS: Removes x from this set.
+            If x is not in the set, it does nothing.
+            """
+            self.set.discard(x)  # discard avoids errors if x is not in the set
+    
+        def is_in(self, x: int) -> bool:
+            """
+            EFFECTS: Returns True if x is an element of this set, False otherwise.
+            """
+            ...
+
+        def size(self) -> int:
+            """
+            EFFECTS: Returns the number of elements in this set (its cardinality).
+            """
+            ...
+    
+        def choose(self) -> int:
+            """
+            EFFECTS: Returns an arbitrary element from this set.
+            If the set is empty, raises an Exception.
+            """
+            ...
+
+    
+    \end{lstlisting}
+    \caption{The IntSet ADT}\label{ex:intset}
+\end{figure}
+
+\section{Implementing ADT}
+\paragraph{The Representation (rep)}
 \section{Reasoning}
+\paragraph{Repr Invariant} The \emph{representation invariant} (repr-inv) is a condition that must be true for all objects of a class. It is a key part of the specification of an ADT, ensuring that the object's internal representation is consistent with the ADT's behavior. For example, the representation invariant for the \texttt{IntSet} ADT in \autoref{ex:intset} is that all elements in the set are unique.
+
 \appendix
 
 \chapter{In-Class exercises}\label{sec:in-class-exercises}

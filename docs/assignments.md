@@ -1,18 +1,22 @@
 
 # Schedule (Tentative)
+
 ## Week 1
+
 - Topic: Class Overview
 - Reading:  Liskov 1--2
 - In-class:  [IC1-A](#ic1-a), [IC1-B](#ic1-b) 
 - HW Assignment: [HW1](#hw1)
 
 ## Week 2
-- Topic: Procedural Abstraction
+
+- Topic: Procedural Abstraction (Specifications)
 - Reading: Liskov 3
 - In-class: [IC2-A](#ic2-a)
 - HW Assignment: [HW2](#hw2)
 
 ## Week 3
+
 - Topic: Procedural Abstraction
 - Reading: Liskov 3
 - In-class: [IC3-A](#ic3-a)
@@ -119,7 +123,7 @@ def tail(my_list):
 ### Goal
 
 1. getting started on Piazza
-1. getting your group together.
+1. getting your group together
 
 ### Instructions
 
