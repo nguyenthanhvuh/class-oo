@@ -29,7 +29,21 @@
 }
 \usepackage{booktabs}
 \usepackage{listings}
-
+\lstset{basicstyle=\ttfamily\scriptsize,
+  language=python,
+  morekeywords={assert},
+  keywordstyle=\color{blue},
+  commentstyle=\color{magenta},
+  numbers=none,
+  mathescape,
+  stepnumber=1,
+  numbersep=8pt,
+  tabsize=4,
+  showspaces=false,
+  showstringspaces=false,
+  emph={},
+  emphstyle=\color{red}\bfseries
+}
 
 \usepackage{tikz}
 \usetikzlibrary{calc}
@@ -86,10 +100,18 @@
 
 \newcommand{\mycomment}[3][\color{blue}]{{#1{{#2}: {#3}}}}
 \newcommand{\tvn}[1]{\mycomment{TVN}{#1}}{}
-\newcommand{\didi}[1]{\mycomment{Didier}{#1}}{}
-\newcommand{\tl}[1]{\mycomment{ThanhLe}{#1}}{}
 \newcommand{\red}[1]{{\color{red}{#1}}}
-\newcommand{\xz}[1]{\mycomment{Xiaokuan}{[#1]}}{}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\newcommand{\pycode}[1]{
+\begin{lstlisting}[multicols=2, language=Python,
+keywordstyle=\color{blue},
+commentstyle=\color{green!60!black},
+stringstyle=\color{red},
+basicstyle=\ttfamily\scriptsize]
+#1
+\end{lstlisting}
+}
 
 
 \begin{document}
@@ -246,7 +268,7 @@ def merge(left, right):
 \emph{Abstraction} is a key concept in OOP that allows programmers to hide the implementation details of a program and focus on the essential features.
 In an OOP language such as Python, you can abstract problems by creating functions, classes, and modules that hide the underlying implementation details.
 
-\paragraph{Example} \autoref{ex:mamal} demonstrates an abstraction for different types of mammals. Mamals such as Dog and Cat share common behaviors such as making noise (speak). We can create a class `Mamal'' that defines these common behaviors, and then create subclasses \texttt{Dog} and \texttt{Cat} that inherit from \texttt{Mamal} and define their own unique behaviors.
+\paragraph{Example} \autoref{ex:mammal} demonstrates an abstraction for different types of mammals. Mammals such as Dog and Cat share common behaviors such as making noise (speak). We can create a class \code{Mammal} that defines these common behaviors, and then subclasses \code{Dog} and \code{Cat} that inherit from \code{Mammal} and define their own unique behaviors.
 
 \begin{figure}[t]
 \begin{lstlisting}[multicols=2, language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
@@ -263,7 +285,7 @@ class Dog(Mammal):
 class Cat(Mammal):
     def speak(self): return "Meow!"
 \end{lstlisting}
- \caption{Decomposition example: Mergesort}\label{ex:mamal}
+ \caption{Decomposition example: Mergesort}\label{ex:mammal}
 \end{figure}
 
 \chapter{Procedural Abstraction}\label{chap:procedural-abstraction}
@@ -272,31 +294,30 @@ One common mechanism to \emph{procedural abstraction}, which achieves abstractio
 
 \paragraph{Abstraction by Parameterization}
 
-This allows you to generalize a function by using parameters. By abstracting away the specific data with \emph{parameters}, the function becomes more versatile and can be reused in different situations. \autoref{ex:abs-parameterization} shows an example of abstract parameterization. The \texttt{cal\_area} function calculates the area of a rectangle given its length and width, which are passed as parameters.
+This allows you to generalize a function by using parameters. By abstracting away the specific data with \emph{parameters}, the function becomes more versatile and can be reused in different situations. \autoref{ex:abs-parameterization} shows an example of abstract parameterization. The \code{cal\_area} function calculates the area of a rectangle given its length and width, which are passed as parameters.
+
 
 \begin{figure}
-\begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
-
+\begin{lstlisting}
 def cal_area(length, width):
     return length * width
 
 # can be used with different values for length and width.
 area1 = cal_area(5, 10)
 area2 = cal_area(7, 3)
-\end{lstlisting}
- \caption{Example: Abstract Parameterization}\label{ex:abs-parameterization}
 
+\end{lstlisting}
+\caption{Example: Abstract Parameterization}\label{ex:abs-parameterization}
 \end{figure}
 
 
 
-\paragraph{Abstraction by Specification} This focuses on what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms). By defining a function's behavior through \emph{specifications}, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details. 
+\paragraph{Abstraction by Specification} This focuses on what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms). By defining a function's behavior through \emph{specifications}, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details.
 
-\autoref{ex:abs-specification} shows an example of abstraction by specification. The \texttt{exists} method return true if the \texttt{target} item is found in a list of sorted \texttt{items}. The user only needs to provide a sorted list and a target, but does not need to know what algorithm is used or implemented to determine if the item exists in the list.
+\autoref{ex:abs-specification} shows an example of abstraction by specification. The \code{exists} method return true if the \code{target} item is found in a list of sorted \code{items}. The user only needs to provide a sorted list and a target, but does not need to know what algorithm is used or implemented to determine if the item exists in the list.
 
 \begin{figure}
-\begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
-
+\begin{lstlisting}
 def exists(items:List[int], target:int) -> bool:
     """
     Find an item in a list of sorted items.
@@ -317,15 +338,15 @@ def exists(items:List[int], target:int) -> bool:
 
 We define abstractions through specifications, which describe what the abstraction is intended to do rather than how it should be implemented. This allows specifications to be much more concise and easier to read than the corresponding code.
 
-Specifications which can be written in either \emph{formal} or \emph{informal languages}. Formal specifications have the advantage of being precise and unambiguous. However, in practice, we often use informal specifications, describing the behavior of the abstraction in plain English (e.g., the \texttt{sorting} example in \autoref{ex:abs-specification}).  Note that a specification is not a programming language or a program. Thus, our specifications won’t be written in code (e.g., in Python or Java)
+Specifications which can be written in either \emph{formal} or \emph{informal languages}. Formal specifications have the advantage of being precise and unambiguous. However, in practice, we often use informal specifications, describing the behavior of the abstraction in plain English (e.g., the \code{sorting} example in \autoref{ex:abs-specification}).  Note that a specification is not a programming language or a program. Thus, our specifications won’t be written in code (e.g., in Python or Java)
 
 \subsection{Specifications of a Function}
 %3.3 Liskov
 
-The specification of a function consists of a \emph{header} and a \emph{description} of its behavior. 
+The specification of a function consists of a \emph{header} and a \emph{description} of its behavior.
 The header gives the signature of the function, including its name, parameters, and return type. The description describes the function's behavior, including its preconditions and postconditions.
 
-\paragraph{Header} The header provides the \emph{name} of the function, the number, order, and types of its \emph{parameters} (inputs), and the type of its return value (output). For instance, the headers for the \texttt{sort\_items} function in \autoref{ex:abs-specification} and the \texttt{cal\_area} function in \autoref{ex:abs-parameterization} are as follows
+\paragraph{Header} The header provides the \emph{name} of the function, the number, order, and types of its \emph{parameters} (inputs), and the type of its return value (output). For instance, the headers for the \code{sort\_items} function in \autoref{ex:abs-specification} and the \code{cal\_area} function in \autoref{ex:abs-parameterization} are as follows
 
 \begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
     def exists(items: list) -> bool: ...
@@ -337,7 +358,7 @@ Note that in a language like Java, the header also provides \emph{exceptions} th
 
 \paragraph{Preconditions and Postconditions}
 
-A typical function specification in an OOP language such as Python includes: \emph{Preconditions} (also called the ``requires'' clause) and \emph{Postconditions} (also called the ``effects'' clause). Preconditions describe the conditions that must be true before the function is called. Typically these state the constraints or assumptions about the input parameters. If there are no preconditions, the clause is often written as \texttt{None}.
+A typical function specification in an OOP language such as Python includes: \emph{Preconditions} (also called the ``requires'' clause) and \emph{Postconditions} (also called the ``effects'' clause). Preconditions describe the conditions that must be true before the function is called. Typically these state the constraints or assumptions about the input parameters. If there are no preconditions, the clause is often written as \code{None}.
 
 Postconditions, under the assumption that the preconditions are satisfied, describe the conditions that will be true after the function is called. These typically state the expected results or outcomes of the function. Moreover, they often describe the relationship between the inputs and outputs.
 
@@ -356,12 +377,12 @@ The clauses are usually written as \emph{comments} above the function definition
         ...
 \end{lstlisting}
 
-For example, the specification of the \texttt{calc\_area} function in \autoref{ex:abs-parameterization} has (i) no preconditions and (ii) the postcondition that the function returns the area of a rectangle given its length and width.  Similarly, the \texttt{exists} function in \autoref{ex:abs-specification} has the specification that given a list of sorted items (precondition), it returns true if the item is found in the list, and false otherwise (postcondition).  Note how the specification is written in plain English, making it easy to understand for both developers and users of the function. 
+For example, the specification of the \code{calc\_area} function in \autoref{ex:abs-parameterization} has (i) no preconditions and (ii) the postcondition that the function returns the area of a rectangle given its length and width.  Similarly, the \code{exists} function in \autoref{ex:abs-specification} has the specification that given a list of sorted items (precondition), it returns true if the item is found in the list, and false otherwise (postcondition).  Note how the specification is written in plain English, making it easy to understand for both developers and users of the function.
 
 
-\paragraph{Modifies} Another common clause in a function specification is \emph{modifies}, which describes the inputs that the function modifies. This is particularly useful for functions that modify their input parameters. 
+\paragraph{Modifies} Another common clause in a function specification is \emph{modifies}, which describes the inputs that the function modifies. This is particularly useful for functions that modify their input parameters.
 
-\begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+\begin{lstlisting}
     def add_to_list(input_list, value):
     """
     Adds a value to the input list.
@@ -370,8 +391,7 @@ For example, the specification of the \texttt{calc\_area} function in \autoref{e
     Post: Value is added to the input list.
     Modifies: the input list
     """
-    ... 
-
+    ...
 \end{lstlisting}
 
 
@@ -381,13 +401,13 @@ See \href{https://nguyenthanhvuh.github.io/class-oo/assignments#ic1-b}{IC1-B} fo
 \section{Designing Specifications}\label{sec:design-specifications}
 %Liskov 3.5
 
-\subsection{Weaker Preconditions}
-For pre-conditions, we want as weak a constraint as possible to make the function more versatile, allowing it to handle a larger class of inputs. 
-A condition is weaker than another if it is implied by the other or having less constraints than the other. For example, the condition $x \le 5$ is weaker than $x \le 10$ or that the input list is not sorted is weaker than the list is sorted (which is weaker than the list that is both sorted and has no duplicates). 
+\subsection{Weak Pre-conditions}
+For pre-conditions, we want as weak a constraint as possible to make the function more versatile, allowing it to handle a larger class of inputs.
+A condition is weaker than another if it is implied by the other or having less constraints than the other. For example, the condition $x \le 5$ is weaker than $x \le 10$ or that the input list is not sorted is weaker than the list is sorted (which is weaker than the list that is both sorted and has no duplicates).
 The \emph{weakest} precondition is \emph{True}, which indicates no constraints on the input.
 
 
-\subsection{Strongest Postconditions}
+\subsection{Strong Post-conditions}
 
 In contrast, for post-conditions, we want as strong a condition as possible to ensure that the function behaves as expected. A condition is stronger than another if it implies the other or that its constraints are a strict subset of the other. For example, the condition $x \le 10$ is stronger than $x \le 5$ or that the input list is sorted is stronger than the list is not sorted.
 
@@ -396,46 +416,44 @@ In contrast, for post-conditions, we want as strong a condition as possible to e
 
 A function is \emph{total} if it is defined for all legal inputs; otherwise, it is \emph{partial}. Thus a function with no precondition is total, while a function with the strongest possible precondition is partial.  Total functions are preferred because they can be used in more situations, especially when the function is used publicly or in a library where the user may not know the input constraints. Partial functions can be used when the function is used internally, e.g., a helper or auxiliary function and the caller is knowledgeable and can ensure its preconditions are satisfied.
 
-The \texttt{calc\_area} function in \autoref{ex:abs-parameterization} and \texttt{add\_to\_list} function in \autoref{ex:abs-specification} are total because they can be called with any input. The \texttt{exists} function in \autoref{ex:abs-specification} is partial because it only works with sorted lists.
+The \code{calc\_area} function in \autoref{ex:abs-parameterization} and \code{add\_to\_list} function in \autoref{ex:abs-specification} are total because they can be called with any input. The \code{exists} function in \autoref{ex:abs-specification} is partial because it only works with sorted lists.
 
 
-\paragraph{Turning Partial Functions into Total Functions} It is often possible to turn a partial function into a total function in two steps. First, we move preconditions into postconditions and specify the expected behavior when the precondition is not satisfied. Second, we modify the function to handle the cases when the preconditions are not satisfied. For example, the \texttt{exists} function in \autoref{ex:abs-specification} is turned into the total function shown in \autoref{ex:abs-total}.
+\paragraph{Turning Partial Functions into Total Functions} It is often possible to turn a partial function into a total function in two steps. First, we move preconditions into postconditions and specify the expected behavior when the precondition is not satisfied. Second, we modify the function to handle the cases when the preconditions are not satisfied. For example, the \code{exists} function in \autoref{ex:abs-specification} is turned into the total function shown in \autoref{ex:abs-total}.
 
 \begin{figure}
-    \begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
-    
-    def exists(items: List[int], target: int) -> bool:
-        """
-        Find an item in a list of sorted items.
-    
-        Pre: True
-        Post: If the input items are not sorted, raise an exception.
-              Return True if the item is found, False otherwise.
-        
-    
-        """
+\begin{lstlisting}
+def exists(items: List[int], target: int) -> bool:
+    """
+    Find an item in a list of sorted items.
 
-        if not is_sorted(items):
-            raise Exception(...)
+    Pre: True
+    Post: If the input items are not sorted, raise an exception.
+          Return True if the item is found, False otherwise.
 
-    \end{lstlisting}
-    \caption{Total Specification for the program in \autoref{ex:abs-specification}}\label{ex:abs-total}
-    \end{figure}
+
+    """
+
+    if not is_sorted(items):
+        raise Exception(...)
+\end{lstlisting}
+\caption{Total Specification for the program in \autoref{ex:abs-specification}}\label{ex:abs-total}
+\end{figure}
 
 
 
 \subsection{No implementation details}
-The specification should not include any implementation details, such as the algorithm used or the data structures employed. 
-This allows the function to be implemented in different ways as long as it satisfies the specification. For example, the \texttt{exists} function in \autoref{ex:abs-specification} does not specify the search algorithm used to find the item in the list.
+The specification should not include any implementation details, such as the algorithm used or the data structures employed.
+This allows the function to be implemented in different ways as long as it satisfies the specification. For example, the \code{exists} function in \autoref{ex:abs-specification} does not specify the search algorithm used to find the item in the list.
 
 Some common examples to avoid include the mentioning of specific data structures (e.g., arrays), algorithms (e.g., quicksort or mergesort). Also avoid specifications mentioning indices because this implies the use of arrays.
 
 
-\chapter{Exception}
+%\chapter{Exception}
 %Liskov 4 ,  but won't follow this because it talks about checked vs unchecked exceptions, which are not really applicable in Python.
 
 \chapter{Data Abstraction}
-%Liskov 5 
+%Liskov 5
 
 This chapter focuses on \emph{abstract data type} (ADT), a foundation of OOP and key concept in programming that allows developers to separate how data is implemented from how it behaves. Through ADT, programmers can create new data types relevant to their application. These ADTs consist of objects and associated operations.
 
@@ -446,10 +464,10 @@ By abstracting data, developers can postpone decisions about data structures unt
 
 \section{Specifications of an ADT}
 
-As with functions (\autoref{chap:procedural-abstraction}, the specification for an ADT defines its behavior without being tied to a specific implementation. The specification explains what the operations on the data type do, allowing users to interact with objects only via methods, rather than accessing the internal representation. 
+As with functions (\autoref{chap:procedural-abstraction}, the specification for an ADT defines its behavior without being tied to a specific implementation. The specification explains what the operations on the data type do, allowing users to interact with objects only via methods, rather than accessing the internal representation.
 
 
-\paragraph{Structure of an ADT} In a modern OOP language such as Python or Java, data abstractions are defined using \emph{classes}. Each class defines a name for the data type, along with its constructors and methods.  
+\paragraph{Structure of an ADT} In a modern OOP language such as Python or Java, data abstractions are defined using \emph{classes}. Each class defines a name for the data type, along with its constructors and methods.
 
 \begin{figure}
     \begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
@@ -475,72 +493,153 @@ class DataType:
 
 \autoref{ex:adt-template} shows a class template in Python, which consists of three main parts. The \emph{overview} describes the abstract data type in terms of well-understood concepts, like mathematical models or real-world entities. For example, a stack could be described using mathematical sequences. It also indicates whether the objects of this type are mutable (their state can change) or immutable (their state cannot change).
 The \emph{Constructor} initializes a new object, setting up any initial state required for the instance.
-Finally, \emph{methods} define operations users can perform on the objects. These methods allow users to interact with the object without needing to know its internal representation. In Python, \texttt{self} is used to refer to the object itself, similar to \texttt{this} in Java or C++.
+Finally, \emph{methods} define operations users can perform on the objects. These methods allow users to interact with the object without needing to know its internal representation. In Python, \code{self} is used to refer to the object itself, similar to \code{this} in Java or C++.
 
 Note that as with procedural specification (\autoref{chap:procedural-abstraction}), the specifications of constructors and methods of an ADT do not include implementation details. They only describe what the operation does, not how it is done. Moreover, they are written in plain English as code comment.
 
 
-\subsection{Example: \texttt{IntSet} ADT}
+\subsection{Example: \code{IntSet} ADT}
 
-\autoref{ex:intset} gives a specification for an \texttt{IntSet} ADT, which represents unbounded set of integers. The ADT is \emph{mutable}, i.e., its state can change, and includes a constructor to initialize an empty set, and methods to insert, remove, check membership, get the size, and choose an element from the set. 
+\autoref{ex:intset} gives a specification for an \code{IntSet} ADT, which represents unbounded set of integers. The ADT is \emph{mutable}, i.e., its state can change, and includes a constructor to initialize an empty set, and methods to insert, remove, check membership, get the size, and choose an element from the set.
 \begin{figure}
-    \begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
-        class IntSet:
+    \begin{lstlisting}
+    
+class IntSet:
+    """
+    OVERVIEW: IntSets are unbounded, mutable sets of integers.
+    This implementation uses a list to store the elements, ensuring no duplicates.
+    """
+    def __init__(self):
         """
-        OVERVIEW: IntSet represents a mutable, unbounded set of integers.
-        A typical IntSet is {x1, x2, ..., xn}, where x1, x2, ..., xn are unique integers.
+        Constructor
+        EFFECTS: Initializes this to be an empty set.
         """
-    
-        def __init__(self):
-            """
-            Constructor
-            EFFECTS: Initializes this to be an empty set.
-            """
-            self.set = set()
-    
-        def insert(self, x: int):
-            """
-            MODIFIES: self
-            EFFECTS: Adds x to the elements of this set.
-            If x is already present, it does nothing.
-            """
-    
-        def remove(self, x: int):
-            """
-            MODIFIES: self
-            EFFECTS: Removes x from this set.
-            If x is not in the set, it does nothing.
-            """
-            self.set.discard(x)  # discard avoids errors if x is not in the set
-    
-        def is_in(self, x: int) -> bool:
-            """
-            EFFECTS: Returns True if x is an element of this set, False otherwise.
-            """
-            ...
+        self.els = []  # the representation (list)
 
-        def size(self) -> int:
-            """
-            EFFECTS: Returns the number of elements in this set (its cardinality).
-            """
-            ...
-    
-        def choose(self) -> int:
-            """
-            EFFECTS: Returns an arbitrary element from this set.
-            If the set is empty, raises an Exception.
-            """
-            ...
+    def insert(self, x: int):
+        """
+        MODIFIES: self
+        EFFECTS: Adds x to the elements of this set if not already present.
+        """
+        if self.get_index(x) < 0:
+            self.els.append(x)
 
-    
-    \end{lstlisting}
-    \caption{The IntSet ADT}\label{ex:intset}
+    def remove(self, x: int):
+        """
+        MODIFIES: self
+        EFFECTS: Removes x from this set if it exists.
+        """
+        i = self.get_index(x)
+        if i < 0:
+            return
+        self.els[i] = self.els[-1]  # Replace with the last element
+        self.els.pop()  # Remove the last element
+
+    def is_in(self, x: int) -> bool:
+        """
+        EFFECTS: Returns True if x is in this set, otherwise False.
+        """
+        return self.get_index(x) >= 0
+
+    def get_index(self, x: int) -> int:
+        """
+        EFFECTS: If x is in this set, returns the its index, else returns -1.
+        """
+        for i, element in enumerate(self.els):
+            if x == element:
+                return i
+        return -1
+
+    def size(self) -> int:
+        """
+        EFFECTS: Returns the number of elements in this set (its cardinality).
+        """
+        return len(self.els)
+
+    def choose(self) -> int:
+        """
+        EFFECTS: If this set is empty, raises an Exception. 
+        Otherwise, returns an arbitrary element of this set.
+        """
+        if len(self.els) == 0:
+            raise Exception(...)
+        return self.els[-1]  # Returns the last element arbitrarily
+\end{lstlisting}
+\caption{The IntSet ADT}\label{ex:intset}
 \end{figure}
 
-\section{Implementing ADT}
-\paragraph{The Representation (rep)}
+\section{Implementing ADT}\label{sec:implementing-adt}
+
+To implement an ADT, we first choose a \emph{representation} (\textbf{rep}) for its objects, then design constructors to initialize it correctly, and methods to interact with and modify the rep. 
+For example, we can use a \code{list} (or vector) as the rep of \code{IntSet} in \autoref{ex:intset}. 
+
+%immutable
+%toString abstraction function
+%rep inv,  repOK
+
 \section{Reasoning}
-\paragraph{Repr Invariant} The \emph{representation invariant} (repr-inv) is a condition that must be true for all objects of a class. It is a key part of the specification of an ADT, ensuring that the object's internal representation is consistent with the ADT's behavior. For example, the representation invariant for the \texttt{IntSet} ADT in \autoref{ex:intset} is that all elements in the set are unique.
+\paragraph{Repr Invariant} The \emph{representation invariant} (repr-inv) is a condition that must be true for all objects of a class. It is a key part of the specification of an ADT, ensuring that the object's internal representation is consistent with the ADT's behavior. For example, the representation invariant for the \code{IntSet} ADT in \autoref{ex:intset} is that all elements in the set are unique.
+
+
+\section{Mutability}
+
+\subsection{In-class Exercise: Immutable Queue}\label{ic:immutable-queue}
+
+
+\begin{figure}
+    \begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+
+class Queue:
+    """
+    A generic Queue implementation using a list.
+    """
+
+    def __init__(self):
+        """
+        Constructor
+        Initializes an empty queue.
+        """
+        self.elements = []
+        self.size = 0
+
+    def enqueue(self, e):
+        """
+        MODIFIES: self
+        EFFECTS: Adds element e to the end of the queue.
+        """
+        self.elements.append(e)
+        self.size += 1
+
+    def dequeue(self):
+        """
+        MODIFIES: self
+        EFFECTS: Removes and returns the element at the front of the queue.
+        If the queue is empty, raises an IllegalStateException.
+        """
+        if self.size == 0:
+            raise Exception(...)
+
+        result = self.elements.pop(0)  # Removes and returns the first element
+        self.size -= 1
+        return result
+
+    def is_empty(self):
+        """
+        EFFECTS: Returns True if the queue is empty, False otherwise.
+        """
+        return self.size == 0
+
+    \end{lstlisting}
+    \caption{Mutable Queue}\label{ex:mutable-queue}
+\end{figure}
+
+Consider the mutable \code{Queue} implementation in \autoref{ex:mutable-queue}.
+\begin{enumerate}
+\item Rewrite Queue to be \emph{immutable}. Keep the representation variables \code{elements} and \code{size}.
+\item Do the right thing with \code{enQueue()}.
+\item Do the right thing with \code{deQueue()}.
+\end{enumerate}
+
 
 \appendix
 
@@ -551,14 +650,14 @@ Note that as with procedural specification (\autoref{chap:procedural-abstraction
 \section{Module 1: Overview}
 \begin{itemize}
 \item \href{https://nguyenthanhvuh.github.io/class-oo/syllabus.pdf}{Syllabus}  (no cheating)
-\item Overview 
+\item Overview
 \begin{itemize}
     \item Decomposition (\autoref{sec:decomposition})
     \item Abstraction (\autoref{sec:abstraction})
     \item Abstraction by Parameterization (\autoref{ex:abs-parameterization})
     \item Abstraction by Specification (\autoref{ex:abs-specification})
     \item Specifications (\autoref{sec:specifications})
-\end{itemize}\item 
+\end{itemize}\item
 
 
 \item Break 1 (25 mins):  5 min break,  20 min \href{https://nguyenthanhvuh.github.io/class-oo/assignments#ic1-a}{IC1-A} exercise
