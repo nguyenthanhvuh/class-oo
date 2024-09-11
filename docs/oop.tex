@@ -416,10 +416,10 @@ In contrast, for post-conditions, we want as strong a condition as possible to e
 
 A function is \emph{total} if it is defined for all legal inputs; otherwise, it is \emph{partial}. Thus a function with no precondition is total, while a function with the strongest possible precondition is partial.  Total functions are preferred because they can be used in more situations, especially when the function is used publicly or in a library where the user may not know the input constraints. Partial functions can be used when the function is used internally, e.g., a helper or auxiliary function and the caller is knowledgeable and can ensure its preconditions are satisfied.
 
-The \code{calc\_area} function in \autoref{ex:abs-parameterization} and \code{add\_to\_list} function in \autoref{ex:abs-specification} are total because they can be called with any input. The \code{exists} function in \autoref{ex:abs-specification} is partial because it only works with sorted lists.
+The functions \code{calc\_area} function in \autoref{ex:abs-parameterization} and \code{add\_to\_list} in \autoref{ex:abs-specification} are total because they can be called with any input. The \code{exists} function in \autoref{ex:abs-specification} is partial because it only works with sorted lists.
 
 
-\paragraph{Turning Partial Functions into Total Functions} It is often possible to turn a partial function into a total function in two steps. First, we move preconditions into postconditions and specify the expected behavior when the precondition is not satisfied. Second, we modify the function to handle the cases when the preconditions are not satisfied. For example, the \code{exists} function in \autoref{ex:abs-specification} is turned into the total function shown in \autoref{ex:abs-total}.
+\paragraph{Turning Partial Functions into Total Functions} It is often possible to turn a partial function into a total function in two steps. First, we move preconditions into postconditions and specify the expected behavior when the precondition is not satisfied. Second, we modify the function to satisfy the new specification, i.e., handling the cases when the preconditions are not satisfied. For example, the \code{exists} function in \autoref{ex:abs-specification} is turned into the total function shown in \autoref{ex:abs-total}.
 
 \begin{figure}
 \begin{lstlisting}
@@ -464,7 +464,7 @@ By abstracting data, developers can postpone decisions about data structures unt
 
 \section{Specifications of an ADT}
 
-As with functions (\autoref{chap:procedural-abstraction}, the specification for an ADT defines its behavior without being tied to a specific implementation. The specification explains what the operations on the data type do, allowing users to interact with objects only via methods, rather than accessing the internal representation.
+As with functions (\autoref{chap:procedural-abstraction}, the specification for an ADT defines its behaviors without being tied to a specific implementation. The specification explains what the operations on the data type do, allowing users to interact with objects only via methods, rather than accessing the internal representation.
 
 
 \paragraph{Structure of an ADT} In a modern OOP language such as Python or Java, data abstractions are defined using \emph{classes}. Each class defines a name for the data type, along with its constructors and methods.
@@ -490,8 +490,8 @@ class DataType:
 \end{figure}
 
 
-
-\autoref{ex:adt-template} shows a class template in Python, which consists of three main parts. The \emph{overview} describes the abstract data type in terms of well-understood concepts, like mathematical models or real-world entities. For example, a stack could be described using mathematical sequences. It also indicates whether the objects of this type are mutable (their state can change) or immutable (their state cannot change).
+\autoref{ex:adt-template} shows a class template in Python, which consists of three main parts. The \emph{overview} describes the abstract data type in terms of well-understood concepts, like mathematical models or real-world entities. For example, a stack could be described using mathematical sequences.
+The overview can also indicate whether the objects of this type are \emph{mutable} (their state can change) or \emph{immutable}.
 The \emph{Constructor} initializes a new object, setting up any initial state required for the instance.
 Finally, \emph{methods} define operations users can perform on the objects. These methods allow users to interact with the object without needing to know its internal representation. In Python, \code{self} is used to refer to the object itself, similar to \code{this} in Java or C++.
 
@@ -500,7 +500,8 @@ Note that as with procedural specification (\autoref{chap:procedural-abstraction
 
 \subsection{Example: \code{IntSet} ADT}
 
-\autoref{ex:intset} gives a specification for an \code{IntSet} ADT, which represents unbounded set of integers. The ADT is \emph{mutable}, i.e., its state can change, and includes a constructor to initialize an empty set, and methods to insert, remove, check membership, get the size, and choose an element from the set.
+\autoref{ex:intset} gives the specification for an \code{IntSet} ADT, which represents unbounded set of integers. \code{IntSet} includes a constructor to initialize an empty set, and methods to insert, remove, check membership, get the size, and choose an element from the set. \code{IntSet} is also mutable, as it allows elements to be added or removed. \emph{mutator} \code{insert} and \code{remmove} are mutator methods and have a \code{MODIFIES} clause.  In contrast, \code{is\_in}, \code{size}, and \code{choose} are \emph{observer} methods that do not modify the object.
+
 \begin{figure}
     \begin{lstlisting}
     
@@ -508,6 +509,7 @@ class IntSet:
     """
     OVERVIEW: IntSets are unbounded, mutable sets of integers.
     This implementation uses a list to store the elements, ensuring no duplicates.
+
     """
     def __init__(self):
         """
@@ -521,17 +523,14 @@ class IntSet:
         MODIFIES: self
         EFFECTS: Adds x to the elements of this set if not already present.
         """
-        if self.get_index(x) < 0:
-            self.els.append(x)
-
+        if not self.is_in(x): self.els.append(x)
+            
     def remove(self, x: int):
         """
         MODIFIES: self
         EFFECTS: Removes x from this set if it exists.
         """
-        i = self.get_index(x)
-        if i < 0:
-            return
+        if not(is_in(x): return
         self.els[i] = self.els[-1]  # Replace with the last element
         self.els.pop()  # Remove the last element
 
@@ -539,16 +538,10 @@ class IntSet:
         """
         EFFECTS: Returns True if x is in this set, otherwise False.
         """
-        return self.get_index(x) >= 0
-
-    def get_index(self, x: int) -> int:
-        """
-        EFFECTS: If x is in this set, returns the its index, else returns -1.
-        """
         for i, element in enumerate(self.els):
             if x == element:
-                return i
-        return -1
+                return True
+        return False
 
     def size(self) -> int:
         """
@@ -564,24 +557,143 @@ class IntSet:
         if len(self.els) == 0:
             raise Exception(...)
         return self.els[-1]  # Returns the last element arbitrarily
+
+    def __str__(self) -> str:
+        """
+        Abstract function (AF) that returns a string representation of this set.
+        EFFECTS: Returns a string representation of this set.
+        """
+        return str(self.els)
 \end{lstlisting}
 \caption{The IntSet ADT}\label{ex:intset}
 \end{figure}
 
+%\subsection{Example: \code{Polynomial} ADT}
+
 \section{Implementing ADT}\label{sec:implementing-adt}
 
 To implement an ADT, we first choose a \emph{representation} (\textbf{rep}) for its objects, then design constructors to initialize it correctly, and methods to interact with and modify the rep. 
-For example, we can use a \code{list} (or vector) as the rep of \code{IntSet} in \autoref{ex:intset}. 
+For example, we can use a \code{list} (or vector) as the rep of \code{IntSet} in \autoref{ex:intset}. We could use other data structures, such as a \code{set} or \code{dict}, as the rep, but a list is a simple choice for demonstration.
+
+
+To aid understanding and reasoning of the rep of an ADT, we use two key concepts: \emph{representation invariant} and \emph{abstraction function}.
+
+\subsection{Representation Invariant (Rep-Inv)} Because the rep might not be necessarily related to the ADT itself (e.g., the list has different properties compared to a set), we need to ensure that our use of the rep is consistent with the ADT's behavior. 
+To do this, we use \emph{representation invariant} (\textbf{rep-inv}) to specify the constraints for the rep of the ADT to capture its behavior. 
+
+For example, the rep-inv for a stack is that the last element added is the first to be removed and the rep-inv for a binary search tree is that the left child is less than the parent, and the right child is greater. 
+The rep-inv for our \code{IntSet} ADT in \autoref{ex:intset} is that all elements in the list are unique. 
+\begin{lstlisting}
+    # Rep-inv:
+    # els is not null, only contains integers and has no duplicates.
+\end{lstlisting}
+
+The rep-inv must be preserved by all methods (more precisely, \emph{mutator} methods). It must hold true before and after the method is called. The rep-inv might be violated temporarily during the method execution, but it must be restored before the method returns. For \code{IntSet} Notice that the mutator \code{insert} method ensures that the element is not already in the list before adding it. 
+
+The rep-inv is decided by the designer and specified in the ADT documentation as part of the specification (just like pre/post conditions) so that it is ensured at the end of each method (like the postcondition). Moreover, because rep-inv is so important, it is not only documented in comments but also checked at runtime.  This is done by invoking a \code{repOK}, discussed later, method at the start and end of each method.
+
+
+\subsection{Abstraction Function (AF)} It is difficult to understand the ADT by looking at the rep directly. For example, we might not be able to visualize or reason about a binary tree or a graph ADT when using list as the rep. To aid understanding, \emph{abstraction function} (\textbf{AF}) provides a mapping between the rep and the ADT. 
+Specifically, the AF maps from a \emph{concrete state} (i.e., the \code{else} \code{els}) to an \emph{abstract state} (i.e., the set). AF is also a \emph{many-to-one} mapping, as multiple concrete states can map to the same abstract state, e.g., the list \code{[1, 2, 3]} and \code{[3, 2, 1]} both map to the same set \code{\{1, 2, 3\}}. 
+
+Just as with rep-inv, the AF is documented in the class specification. Modern OOP languages often provide methods implementing the AF, in particular developer overrides the \code{\_\_str\_\_} method in Python and \code{toString} in Java to return a string representation of the object. For example, the \code{\_\_str\_\_} method in \autoref{ex:intset} returns a string representation of the set.
+
+
+
+\subsection{In-Class Excercise}
+
+In this exercise, you will implement a \code{Stack} ADT. A stack is a common data structure that follows the Last-In-First-Out (LIFO) principle. You will:
+\begin{enumerate}
+\item Choose a Representation (rep) for the stack.
+\item Define a Representation invariant (rep-inv)
+\item Write a \code{repOK} method
+\item Provide the specifications of basic stack operations (\code{push}, \code{pop}, \code{is\_empty}) and implement these methods accordingly.
+\item Define an Abstraction Function (AF)
+\item Implement \code{\_\_str\_\_()} to return a string representation of the stack based on the AF
+\end{enumerate}
+
+
+\begin{lstlisting}
+    class Stack:
+    """
+    OVERVIEW: Stack is a mutable ADT that represents a collection of elements in LIFO.
+    AF(c) = the sequence of elements in the stack in sorted order from bottom to top.
+    rep-inv: 
+        1. elements is a list (could be empty list, which represents and empty stack).
+        2. The top of the stack is always the last element in the list.
+    """
+
+    def __init__(self):
+        """
+        Constructor
+        EFFECTS: Initializes an empty stack.
+        MODIFIES: self
+        """
+        self.elements = []
+
+    def repOK(self):
+        """
+        EFFECTS: Returns True if the rep-invariant holds, otherwise False.
+        The invariant checks:
+        1. elements is a list.
+        2. If the stack is non-empty, the top of the stack is the last element in the list.
+        """
+        # Check that elements is a list
+        if not isinstance(self.elements, list):
+            return False
+        
+        # If the stack is not empty, ensure that the top is the last element in the list.
+        # This is implicitly guaranteed by the use of `list.append` for push and `list.pop` for pop,
+        # so no further explicit check is needed for the "top as last element."
+        return True
+
+    def push(self, value):
+        """
+        MODIFIES: self
+        EFFECTS: Adds value to the top of the stack.
+        """
+        self.elements.append(value)
+
+    def pop(self):
+        """
+        MODIFIES: self
+        EFFECTS: Removes and returns the top element from the stack. 
+        Raises an exception if the stack is empty.
+        """
+        if self.is_empty():
+            raise Exception("Stack is empty")
+        return self.elements.pop()
+
+    def is_empty(self):
+        """
+        EFFECTS: Returns True if the stack is empty, otherwise False.
+        """
+        return len(self.elements) == 0
+
+    def __str__(self):
+        """
+        EFFECTS: Returns a string representation of the stack,
+                 showing the elements from bottom to top.
+        """
+        # The abstraction function maps the list of elements to a stack view
+        return f"Stack({self.elements})"
+\end{lstlisting}
 
 %immutable
 %toString abstraction function
 %rep inv,  repOK
 
-\section{Reasoning}
-\paragraph{Repr Invariant} The \emph{representation invariant} (repr-inv) is a condition that must be true for all objects of a class. It is a key part of the specification of an ADT, ensuring that the object's internal representation is consistent with the ADT's behavior. For example, the representation invariant for the \code{IntSet} ADT in \autoref{ex:intset} is that all elements in the set are unique.
+\section{ADT Design Issues}
+\subsection{Mutability vs. Immutability}\label{sec:mutability-vs-immutability}
 
+An ADT can be either mutable or immutable, depending on whether their objects' values can change over time. An ADT should be immutable if the objects it models naturally have unchanging values, such as mathematical objects like integers, polynomials (Polys), or complex numbers. On the other hand, an ADT should be mutable if it models real-world entities that undergo changes, such as an automobile in a simulation, which might be running or stopped, or contain passengers, or if the ADT models data storage, like arrays or sets.
 
-\section{Mutability}
+Immutability is beneficial ecause it offers greater safety and allows sharing of subparts without the risk of unexpected changes. Moreover, immutability can simplify the design by ensuring the object’s state is fixed once created. However, immutable objects can be less efficient, as creating a new object for each change can be costly in terms of memory and time.
+
+\paragraph{Converting from mutable to immutable} 
+Given a mutable ADT, it is possible to convert it to an immutable one by ensuring that the rep is not modified by any method. This can be achieved by making the rep private and only allowing read-only access to it. Moreover, for the mutator methods, they should return a new object with the updated rep, rather than modifying the existing object. If the mutator returns a value, then create two methods, one return the new object and the other return the value. For example, a mutator \code{pop} method of a Stack would result into two methods: \code{pop2} returns the top element and \code{pop3} returns the new stack with the top element removed.
+
+Finally, it is important that while it is possible to convert a mutable ADT to an immutable one as shown, mutability or immutability should be the property of the ADT type itself, not its implementation. Thus, it should be decided at the design stage and documented in the ADT specification.
 
 \subsection{In-class Exercise: Immutable Queue}\label{ic:immutable-queue}
 
@@ -639,6 +751,15 @@ Consider the mutable \code{Queue} implementation in \autoref{ex:mutable-queue}.
 \item Do the right thing with \code{enQueue()}.
 \item Do the right thing with \code{deQueue()}.
 \end{enumerate}
+
+
+
+\subsection{Locality and Modifiability}\label{sec:locality-modifiability}
+
+\emph{Locality} (the ability to reason about an ADT indepepdently of other code) and \emph{modifiability} (the ability to change an implementation without affecting other parts of the code) are two important concepts in writing code. It applies to functions (we want the function to be independent of other functions) and certain to data abstractions. For ADT implementation, this requires that the rep should be modifiable only within the ADT implementation and not outside of the ADT. This is achieved by making the rep \emph{private} and providing methods to access and modify the rep.
+
+Modifiability goes further than locality. To achieve modifiability, not only must modifications be restricted to the ADT implementation, but all access to the internal representation—-even for reading immutable components--must also be confined to the implementation. If other modules can access the internal representation, then changing the representation may affect those modules, violating modifiability. To ensure modifiability, instance variables must be declared private and cannot be exposed outside the ADT.
+Thus, it is essential that access to the internal representation is restricted to the ADT implementation. %Programming languages like Python allow encapsulation, ensuring that the representation is hidden and protected. If access to the representation is unrestricted, it becomes an additional property that must be proven about the code manually.
 
 
 \appendix
