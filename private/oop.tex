@@ -497,17 +497,37 @@ def exists(items: List[int], target: int) -> bool:
 \end{figure}
 
 
-
 \subsection{No implementation details}
-The specification should not include any implementation details, such as the algorithm used or the data structures employed.
-This allows the function to be implemented in different ways as long as it satisfies the specification. For example, the \code{exists} function in \autoref{ex:abs-specification} does not specify the search algorithm used to find the item in the list.
+The specification should not include any implementation details, such as the algorithm used or the data structures employed. This allows the function to be implemented in different ways as long as it satisfies the specification. For example, the \code{exists} function in \autoref{ex:abs-specification} does not specify the search algorithm used to find the item in the list.
 
 Some common examples to avoid include the mentioning of specific data structures (e.g., arrays), algorithms (e.g., quicksort or mergesort). Also avoid specifications mentioning indices because this implies the use of arrays.
 
 
 %\chapter{Exception}
 %Liskov 4 ,  but won't follow this because it talks about checked vs unchecked exceptions, which are not really applicable in Python.
-\section{Excercises}
+\section{Excercise}
+\subsection{Specifications for Sorting}
+Write the specification for the generic \code{ascending\_sort} method below. The specification should include preconditions and postconditions.
+\begin{lstlisting}
+    def ascending_sort(my_list):
+        # REQUIRES/PRE: 
+        # EFFECTS/POST: 
+        ...
+\end{lstlisting}
+    
+
+
+\subsection{Specifications of Binary Search }
+Come up with the specification for a \emph{binary search} implementation whose header is given below. Remember for precondition you want something as weak as possible and for postcondition as strong as possible. Note that binary search returns the \emph{location} (an non-neg integer) of the \code{target} value if found, and returns -1 if \code{target} is not found. 
+
+\begin{lstlisting}
+def binary_search(arr: List[int], target: int) -> int:
+    """
+    PRE/REQUIRES: 
+    POST/EFFECTS: 
+    """
+    ... 
+\end{lstlisting}
 
 \chapter{Data Abstraction}
 %Liskov 5
