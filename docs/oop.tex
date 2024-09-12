@@ -395,11 +395,67 @@ For example, the specification of the \code{calc\_area} function in \autoref{ex:
 \end{lstlisting}
 
 
-\subsection{In-class Exercise}
-See \href{https://nguyenthanhvuh.github.io/class-oo/assignments#ic1-b}{IC1-B} for in-class exercises on specifications.
+\subsection{In-class Exercise: Equality}
+This exercise touches on some thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don’t worry if it seems confusing today. We’ll revisit this topic several times this semester.
+
+\begin{enumerate}
+    \item First, look at the \href{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-}{Javadoc} to understand the behaviors \code{equals()} (while this is in Java, the concept is the same in Python).
+    \begin{itemize}
+        \item Specifically, read carefully the \emph{symmetric}, \emph{reflexive}, and \emph{transitive} properties of \code{equals()}.
+        \item Ignore \emph{consistency}, which requires that if two objects are equal, they remain equal.
+    \end{itemize}    
+    \item For the \code{User} class in \autoref{ex:user}, does \code{equals()} satisfy the three equivalence relation properties? If not, what is the problem?
+    \begin{itemize}
+        \item Come up with several concrete test cases (e.g., create various \code{User} instances) to check the properties.
+        \item If there is a problem, show the test case that demonstrates the problem.
+        \item Explain why the problem occurs and come up with a fix.
+    \end{itemize}
+    \item So the same analysis for the \code{SpecialUser} class in \autoref{ex:specialuser}.
+    \end{enumerate}
+    
+    % 1. Is the given implementation of `equals()` in class `SpecialUser` satisfy the 3 equivalence relation properties? If not, what is the problem? Be concrete: find a specific object (test case!) that demonstrates the problem. How does *inheritance* makes `equals()` in class `SpecialUser` harder to get right?
+    
+
+\begin{figure}
+\begin{lstlisting}
+# Do User first before doing SuperUser (much harder)
+
+class User:
+    def __init__(self, name):
+        self.name = name
+
+    def __eq__(self, other):
+        if not isinstance(other, User):
+            return False
+        return self.name == other.name
+\end{lstlisting}
+\caption{User class}\label{ex:user}
+\end{figure}
+
+
+\begin{figure}
+\begin{lstlisting}
+class SpecialUser(User):
+    """Don't do this until you've done with User"""
+
+    def __init__(self, name, id):
+        super().__init__(name)
+        self.id = id
+
+    def __eq__(self, other):
+        if not isinstance(other, SpecialUser):
+            return False
+        return super().__eq__(other) and self.id == other.id
+\end{lstlisting}
+\caption{SpecialUser class}\label{ex:specialuser}
+\end{figure}
+
+
 
 \section{Designing Specifications}\label{sec:design-specifications}
 %Liskov 3.5
+
+When designing specifications, it is important to consider several factors to ensure that the function is well-defined and can be used effectively. These factors include the \emph{strength} of the pre- and post-conditions, whether the function is \emph{total} or \emph{partial}, and the \emph{avoiding implementation details} in the specification.
 
 \subsection{Weak Pre-conditions}
 For pre-conditions, we want as weak a constraint as possible to make the function more versatile, allowing it to handle a larger class of inputs.
