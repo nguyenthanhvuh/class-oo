@@ -277,4 +277,4 @@ Consider a function that calculates the number of months needed to pay off a loa
 
 
 ## HW3
-TBD
+- Do the Polynomial ADT assignment in Section 3 from the OOP book (3.4.1)

@@ -47,3 +47,92 @@ tail_test()
 
 
 
+
+
+class Stack:
+    """
+    Rep-inv: 
+    - contents cannot be null/None
+    - stack is first in last out (FILO)
+    - Def 1: if contents = [1,2,3], then that means 1 goes in first, then 2, then 3.  The last element of contents is the "top".
+    - Def 2: if contents = [1,2,3], then that means 3 goes in first, then 2, then 1.  The first element of contents is the top
+    """
+    
+    def __init__(self, l=[]):
+        """
+        constructor
+        PRE: none
+        POST: successfully creates an instance of Stack
+        """
+        self.contents = l
+        
+    def repOK(self):
+        if not isinstance(self.contents, list):
+            return False
+        if not list: 
+            return False
+        
+        #FILO
+        #because push() uses Python append, it already correctly preserve the FILO order (e.g., [1,2,3].append(4) WILL result in [1,2,3,4])
+        
+        return True
+    
+    def push(self, x): 
+        """
+        MODIFIES: self
+        PRE: none
+        POST: append x to the top of the stack
+        
+        - [] -> [1]  
+        - Stack([1,2,3]).push(4) ->  [1,2,3,4]
+        """
+        
+        self.contents.append(x) # good for Def 1
+        
+    def push_immutable(self, x):
+        """
+        MODIFIES: NONE
+        """
+        new_obj = copy(self)
+        new_obj.contents.append(x)
+        return new_obj
+        
+    def pop(self):
+        """
+        PRE: none
+        POST: remove the top of the stack and return the top of the stack
+        
+        - [] -> [1]  
+        - Stack([1,2,3]).push(4) ->  [1,2,3,4]
+        """
+        
+        ret = self.top()        
+        self.contents.pop()
+        return ret
+    
+    def pop_immutable(self):
+        new_obj = copy(self)
+        ret = self.top
+        new_obj.contents.pop()
+        
+        return new_obj
+    
+    def return_top(self):
+        return self.top
+    
+    def top(self):
+
+        if not self:
+            raise Exception(...)
+        return self.contents[-1]
+        
+    
+    def __str__(self):
+        return str(self.contents)
+
+        
+        
+# To Change from a Mutable ADT to Immutable, do these 2 steps:
+
+# 1. change rep to private  (e.g., using private keyword in Java/C, and uses underscore __contents for Python)
+# 2. for every mutator methods (e.g., push, pop in Stack), change it so that it returns the new object
