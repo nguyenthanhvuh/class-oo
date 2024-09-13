@@ -273,6 +273,9 @@ def merge(left, right):
 
 
 \section{Abstraction}\label{sec:abstraction}
+
+
+
 \emph{Abstraction} is a key concept in OOP that allows programmers to hide the implementation details of a program and focus on the essential features.
 In an OOP language such as Python, you can abstract problems by creating functions, classes, and modules that hide the underlying implementation details.
 
@@ -537,7 +540,34 @@ def binary_search(arr: List[int], target: int) -> int:
     ... 
 \end{lstlisting}
 
-\chapter{Data Abstraction}
+
+\subsection{Partial and Total Functions}
+
+\begin{enumerate}
+    \item Write the \emph{partial} specifications for the below two functions.
+    \item Modify the specifications to make them \emph{total} function.
+    \item Implement the two functions to satisfy the total specification.
+\end{enumerate}
+
+
+\begin{lstlisting}
+def divide(a, b):
+    """
+    PRE:
+    POST:
+    """
+    return a / b
+
+def get_average(numbers):
+    """
+    PRE:
+    POST:
+    """
+    total = sum(numbers)
+    return divide(total, len(numbers))
+\end{lstlisting}
+
+    \chapter{Data Abstraction}
 %Liskov 5
 
 This chapter focuses on \emph{abstract data type} (ADT), a foundation of OOP and key concept in programming that allows developers to separate how data is implemented from how it behaves. Through ADT, programmers can create new data types relevant to their application. These ADTs consist of objects and associated operations.
