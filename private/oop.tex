@@ -111,17 +111,6 @@
 \newcommand{\red}[1]{{\color{red}{#1}}}
 \newcommand{\code}[1]{\texttt{#1}}
 
-\newcommand{\pycode}[1]{
-\begin{lstlisting}[multicols=2, language=Python,
-keywordstyle=\color{blue},
-commentstyle=\color{green!60!black},
-stringstyle=\color{red},
-basicstyle=\ttfamily\scriptsize]
-#1
-\end{lstlisting}
-}
-
-
 \begin{document}
 
 \pagestyle{empty}
@@ -237,7 +226,7 @@ Decomposition is the process of breaking a complex program into smaller, indepen
 \paragraph{Example} \autoref{ex:mergesort} shows a Python implementation of \emph{Merge Sort}, a classic example of problem decomposition. It breaks the problem of sorting a list into simpler problems of sorting smaller lists and merging them.
 
 \begin{figure}[t]
-\begin{lstlisting}[multicols=2, language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+\begin{lstlisting}[multicols=2]
 def merge_sort(lst):
     if len(lst) <= 1:
         return lst
@@ -246,6 +235,7 @@ def merge_sort(lst):
     left = merge_sort(lst[:mid])
     right = merge_sort(lst[mid:])
     return merge(left, right)
+
 
 
 
@@ -282,8 +272,7 @@ In an OOP language such as Python, you can abstract problems by creating functio
 \paragraph{Example} \autoref{ex:mammal} demonstrates an abstraction for different types of mammals. Mammals such as Dog and Cat share common behaviors such as making noise (speak). We can create a class \code{Mammal} that defines these common behaviors, and then subclasses \code{Dog} and \code{Cat} that inherit from \code{Mammal} and define their own unique behaviors.
 
 \begin{figure}[t]
-\begin{lstlisting}[multicols=2, language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
-
+\begin{lstlisting}[multicols=2]
 class Mammal:
     def __init__(self, name):
         self.name = name
@@ -359,10 +348,9 @@ The header gives the signature of the function, including its name, parameters, 
 
 \paragraph{Header} The header provides the \emph{name} of the function, the number, order, and types of its \emph{parameters} (inputs), and the type of its return value (output). For instance, the headers for the \code{sort\_items} function in \autoref{ex:abs-specification} and the \code{cal\_area} function in \autoref{ex:abs-parameterization} are as follows
 
-\begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
-    def exists(items: list) -> bool: ...
-
-    def calc_area(length: float, width: float) -> float: ...
+\begin{lstlisting}
+def exists(items: list) -> bool: ...
+def calc_area(length: float, width: float) -> float: ...
 \end{lstlisting}
 
 Note that in a language like Java, the header also provides \emph{exceptions} that the function may throw.
@@ -377,15 +365,15 @@ Postconditions, under the assumption that the preconditions are satisfied, descr
 The clauses are usually written as \emph{comments} above the function definition, making them easily accessible within the code.
 
 
-\begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
-    def calc_area(length: float, width: float) -> float:
-        """
-        Calculates the area of a rectangle given its length and width.
+\begin{lstlisting}
+def calc_area(length: float, width: float) -> float:
+    """
+    Calculates the area of a rectangle given its length and width.
 
-        Pre: None
-        Post: The area of the rectangle.
-        """
-        ...
+    Pre: None
+    Post: The area of the rectangle.
+    """
+    ...
 \end{lstlisting}
 
 For example, the specification of the \code{calc\_area} function in \autoref{ex:abs-parameterization} has (i) no preconditions and (ii) the postcondition that the function returns the area of a rectangle given its length and width.  Similarly, the \code{exists} function in \autoref{ex:abs-specification} has the specification that given a list of sorted items (precondition), it returns true if the item is found in the list, and false otherwise (postcondition).  Note how the specification is written in plain English, making it easy to understand for both developers and users of the function.
@@ -394,7 +382,7 @@ For example, the specification of the \code{calc\_area} function in \autoref{ex:
 \paragraph{Modifies} Another common clause in a function specification is \emph{modifies}, which describes the inputs that the function modifies. This is particularly useful for functions that modify their input parameters.
 
 \begin{lstlisting}
-    def add_to_list(input_list, value):
+def add_to_list(input_list, value):
     """
     Adds a value to the input list.
 
@@ -613,7 +601,7 @@ As with functions (\autoref{chap:procedural-abstraction}, the specification for 
 \paragraph{Structure of an ADT} In a modern OOP language such as Python or Java, data abstractions are defined using \emph{classes}. Each class defines a name for the data type, along with its constructors and methods.
 
 \begin{figure}
-    \begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+    \begin{lstlisting}
 class DataType:
     """
     OVERVIEW: A brief description of the data type and its objects.
@@ -839,7 +827,7 @@ Finally, it is important that while it is possible to convert a mutable ADT to a
 
 
 \begin{figure}
-    \begin{lstlisting}[language=Python, keywordstyle=\color{blue}, commentstyle=\color{green!60!black}, stringstyle=\color{red}, basicstyle=\ttfamily\scriptsize]
+    \begin{lstlisting}
 
 class Queue:
     """
