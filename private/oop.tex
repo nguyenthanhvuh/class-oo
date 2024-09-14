@@ -486,7 +486,7 @@ A function is \emph{total} if it is defined for all legal inputs; otherwise, it 
 The functions \code{calc\_area} function in \autoref{ex:abs-parameterization} and \code{add\_to\_list} in \autoref{ex:abs-specification} are total because they can be called with any input. The \code{exists} function in \autoref{ex:abs-specification} is partial because it only works with sorted lists.
 
 
-\paragraph{Turning Partial Functions into Total Functions} It is often possible to turn a partial function into a total function in two steps. First, we move preconditions into postconditions and specify the expected behavior when the precondition is not satisfied. Second, we modify the function to satisfy the new specification, i.e., handling the cases when the preconditions are not satisfied. For example, the \code{exists} function in \autoref{ex:abs-specification} is turned into the total function shown in \autoref{ex:abs-total}.
+\paragraph{Turning Partial Functions into Total Functions} It is often possible to turn a partial function into a total function in two steps. First, we move preconditions into postconditions and specify the expected behavior when the precondition is not satisfied, e.g., throws an \code{Exception}. Second, we modify the function to satisfy the new specification, i.e., handling the cases when the preconditions are not satisfied. For example, the \code{exists} function in \autoref{ex:abs-specification} is turned into the total function shown in \autoref{ex:abs-total}.
 
 \begin{figure}
 \begin{lstlisting}
@@ -508,16 +508,43 @@ def exists(items: List[int], target: int) -> bool:
 \end{figure}
 
 
-\subsection{No implementation details}
-The specification should not include any implementation details, such as the algorithm used or the data structures employed. This allows the function to be implemented in different ways as long as it satisfies the specification. For example, the \code{exists} function in \autoref{ex:abs-specification} does not specify the search algorithm used to find the item in the list.
+\subsection{In-class Exercise: Total Function}
 
-Some common examples to avoid include the mentioning of specific data structures (e.g., arrays), algorithms (e.g., quicksort or mergesort). Also avoid specifications mentioning indices because this implies the use of arrays.
+Consider the following code:
+
+\begin{lstlisting}
+def tail(my_list):
+     result = my_list.copy()
+     result.pop(0)
+     return result
+\end{lstlisting}
+
+\begin{itemize}
+     \item What does the implementation of \code{tail} do in each of the following cases? You might want to see the \href{https://docs.python.org/3/tutorial/datastructures.html}{Python document} for \code{pop}.  How do you know: Running the code or reading Python document?
+     \begin{itemize}
+         \item \code{list = None}
+         \item \code{list = []}
+         \item \code{list = [1]}  
+         \item \code{list = [1, 2, 3]}
+     \end{itemize}
+     \item Write a \emph{partial specification} for \code{tail}
+     \item Rewrite the specification to be \emph{total}. Use \emph{exceptions} as needed.
+    \end{itemize}
+
+\subsection{No implementation details}
+The specification should not include any implementation details, such as the algorithm used or the data structures employed. This improves flexibility as it allows the function to be implemented in different ways as long as it satisfies the specification. For example, the \code{exists} function in \autoref{ex:abs-specification} does not specify the search algorithm used to find the item in the list.
+
+Some common examples to avoid include the mentioning of specific data structures (e.g., arrays, indices), algorithms (e.g., quicksort or mergesort), and exceptions (e.g., related to IndexError). Instead, focus on the behavior of the function, such as the input and output relationships, the constraints on the input, and the expected results.
+. Also avoid specifications mentioning indices because this implies the use of arrays.
+
+
 
 
 %\chapter{Exception}
 %Liskov 4 ,  but won't follow this because it talks about checked vs unchecked exceptions, which are not really applicable in Python.
-\section{Excercise}
-\subsection{Specifications for Sorting}
+\section{Exercise}
+
+\subsection{Specification for Sorting}
 Write the specification for the generic \code{ascending\_sort} method below. The specification should include preconditions and postconditions.
 \begin{lstlisting}
     def ascending_sort(my_list):
@@ -528,7 +555,7 @@ Write the specification for the generic \code{ascending\_sort} method below. The
     
 
 
-\subsection{Specifications of Binary Search }
+\subsection{Specification of Binary Search }
 Come up with the specification for a \emph{binary search} implementation whose header is given below. Remember for precondition you want something as \emph{weak} as possible and for postcondition as \emph{strong} as possible. Note that binary search returns the \emph{location} (an non-neg integer) of the \code{target} value if found, and returns -1 if \code{target} is not found. 
 
 \begin{lstlisting}
@@ -549,7 +576,7 @@ def binary_search(arr: List[int], target: int) -> int:
     \item Modify the implementations of the two functions to satisfy the total specification.
 \end{enumerate}
 
-Recall that specifications do not deal with types (which are taken care by the function signature and enforced by the type system of compiler/interpreter).  In other words, you do not need to worry about types here and can assume all types are correct.
+Recall that specifications do not deal with types (which are taken care by the function signature and enforced by the type system of compiler/interpreter).  In other words, you do not need to worry about types here and can assume conditions about types are satisfied.
 
 \begin{lstlisting}
 def divide(a:float, b:float) -> float:
@@ -1008,6 +1035,6 @@ Use the Poly2 ADT in \autoref{ex:poly2} to answer the following question. Use th
 \section{Module 2:}
 
 \bibliographystyle{abbrv}
-\bibliography{demystify.bib}
+
 
 \end{document}
