@@ -91,7 +91,7 @@ def tail(my_list):
     # post: 
 
     if not isinstance(my_list, list): 
-        raise TypeErrorddddddddddddd
+        raise TypeError
     
     if not my_list:
         returns Exception
@@ -235,38 +235,7 @@ class Members:
 
 ## HW2
 
-## Goals: Using Specifications
-
-You'll build a small piece of Python from a given (partial) specification. Next, you will change the specification to **total** and modify your code accordingly.
-
-### Instructions
-
-Consider a function that calculates the number of months needed to pay off a loan of a given size at a fixed *annual* interest rate and a fixed *monthly* payment. For example, a $100,000 loan at an 8% annual rate would take 166 months to discharge at a monthly payment of $1,000, and 141 months to discharge at a monthly payment of $1,100. (In both cases, the final payment is smaller than the others; we round 165.34 up to 166 and 140.20 up to 141.) Continuing the example, the loan would never be paid off at a monthly payment of $100, since the principal would grow rather than shrink.
-
-1. Implementation satisfying given specification: Define a Python class called `Loan`. In that class, write a function that satisfies the following specification:
-
-    ```python
-    class Loan:
-        @staticmethod
-        def months(principal: int, rate: float, payment: int) -> int:
-            """
-            Calculate the number of months required to pay off a loan.
-            
-            :param principal: Amount of the initial principal (in dollars)
-            :param rate: Annual interest rate (e.g., 0.08 for 8%)
-            :param payment: Amount of the monthly payment (in dollars)
-            
-            ::Requires (preconds): principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.
-            ::Effects (postconds): return the number of months required to pay off the principal
-            """
-    ```
-    - Note that the precondition is quite strong, which makes implementing the method easy. The key step in your calculation is to change the principal on each iteration with the following formula (which amounts to monthly compounding):
-        ```python
-            new_principal = old_principal * (1 + monthly_interest_rate) - payment
-        ```
-    - To make sure you understand the point about preconditions, your code is required to be **minimal**. Specifically, if it is possible to delete parts of your implementation and still have it satisfy the requirements, you'll earn less than full credit.
-
-1. *Total specification*: Now change the specification to **total** in which the postcondition handles violations of the preconditions using *exceptions*. In addition, provide a new implementation `month` that satisfies the new specification.
+- Do the Loan Calculator assignment in Section 2 from the [OOP book](./oop.pdf) (2.3.3)
 
 ### Grading Criteria
 
@@ -277,4 +246,4 @@ Consider a function that calculates the number of months needed to pay off a loa
 
 
 ## HW3
-- Do the Polynomial ADT assignment in Section 3 from the OOP book (3.4.1)
+- Do the Polynomial ADT assignment in Section 3 from the [OOP book](./oop.pdf) (3.4.1)
