@@ -765,8 +765,57 @@ The rep-inv must be preserved by all methods (more precisely, \emph{mutator} met
 
 The rep-inv is decided by the designer and specified in the ADT documentation as part of the specification (just like pre/post conditions) so that it is ensured at the end of each method (like the postcondition). Moreover, because rep-inv is so important, it is not only documented in comments but also checked at runtime.  This is done by invoking a \code{repOK}, discussed later, method at the start and end of each method.
 
+\subsubsection{In-Class Exercise: Checking Rep-Invs}
 
-\subsection{Abstraction Function (AF)} It is difficult to understand the ADT by looking at the rep directly. For example, we might not be able to visualize or reason about a binary tree or a graph ADT when using list as the rep. To aid understanding, \emph{abstraction function} (\textbf{AF}) provides a mapping between the rep and the ADT. 
+\begin{lstlisting}
+class Members:
+    """
+    Overview: Members is a mutable record of organization membership.
+    AF: Collect the list as a set.
+    
+    Rep-Inv:
+        - rep-inv1: members != None
+        - rep-inv2: members != None and no duplicates in members.
+        For simplicity, assume None can be a member.
+    """
+
+    def __init__(self):
+        """Constructor: Initializes the membership list."""
+        self.members = []  # The representation
+
+    def join(self, person):
+        """
+        Post: person becomes a member.
+        MODIFIES: self
+        EFFECTS: Adds a person to the membership list.
+        """
+        self.members.append(person)
+
+    def leave(self, person):
+        """
+        Post: person is no longer a member.
+        MODIFIES: self
+        EFFECTS: Removes a person from the membership list.
+        """
+        self.members.remove(person)
+\end{lstlisting}
+
+\begin{enumerate}
+\item Analyze these four questions for \emph{rep-inv 1}.
+\begin{itemize}
+    \item Does \code{join()} maintain rep-inv?
+    \item Does \code{join()} satisfy its specification?
+    \item Does \code{leave()} maintain rep-inv?
+    \item Does \code{leave()} satisfy its specification?
+\end{itemize}
+\item Repeat for \emph{rep-inv 2}.
+\item Recode \code{join()} to make the verification go through. Which rep-invariant do you use?
+\item Recode \code{leave()} to make the verification go through. Which rep-invariant do you use?
+\end{enumerate}
+
+\subsection{Abstraction Function (AF)} 
+
+It can be difficult to understand the ADT by looking at the rep directly. For example, we might not be able to visualize or reason about a binary tree or a graph ADT when using list as the rep. To aid understanding, \emph{abstraction function} (\textbf{AF}) provides a mapping between the rep and the ADT. 
 Specifically, the AF maps from a \emph{concrete state} (i.e., the \code{else} \code{els}) to an \emph{abstract state} (i.e., the set). AF is also a \emph{many-to-one} mapping, as multiple concrete states can map to the same abstract state, e.g., the list \code{[1, 2, 3]} and \code{[3, 2, 1]} both map to the same set \code{\{1, 2, 3\}}. 
 
 Just as with rep-inv, the AF is documented in the class specification. Modern OOP languages often provide methods implementing the AF, in particular developer overrides the \code{\_\_str\_\_} method in Python and \code{toString} in Java to return a string representation of the object. For example, the \code{\_\_str\_\_} method in \autoref{ex:intset} returns a string representation of the set.
@@ -971,8 +1020,10 @@ Use the Poly ADT in \autoref{ex:poly} to answer the following question. Use the 
 \item Provide the \textbf{rep-inv} for the \code{Poly2} ADT. Note, this would be the constraints over the rep variable(s).
 \item Write a RepOK method that checks the rep-inv.
 \item Describe the AF in this code. Use \code{\_\_str\_\_} to help.
-
 \end{enumerate}
+
+\chapter{Iterators and Generators}
+
 \appendix
 
 \chapter{Miscs}
