@@ -290,46 +290,46 @@ class Cat(Mammal):
 
 \chapter{Procedural Abstraction}\label{chap:procedural-abstraction}
 
-One common mechanism to \emph{procedural abstraction}, which achieves abstraction is through the use of functions (procedures). By separating procedure definition and invocation, we make two important methods of abstraction: abstraction by parameterization and abstraction by specification.
+\emph{Procedural abstraction} is a fundamental concept in programming that allows developers to create functions (methods) that hide the implementation details of a program. By abstracting away the details, developers can focus on the essential features of the program, making it easier to understand, modify, and maintain. 
+
+By separating procedure definition and invocation, we make two important methods of abstraction: abstraction by parameterization and abstraction by specification.
 
 \paragraph{Abstraction by Parameterization}
 
-This allows you to generalize a function by using parameters. By abstracting away the specific data with \emph{parameters}, the function becomes more versatile and can be reused in different situations. \autoref{ex:abs-parameterization} shows an example of abstract parameterization. The \code{cal\_area} function calculates the area of a rectangle given its length and width, which are passed as parameters.
+This generalizes a function by using \emph{parameters}. This allows the function to be used with different input values, making it more versatile and reusable. \autoref{ex:abs-parameterization} shows an example of abstract parameterization. The \code{cal\_area} function calculates the area of a rectangle given its length and width, which are passed as parameters.
 
+\begin{figure}[h]
+    \begin{lstlisting}
+    def cal_area(length, width):
+        return length * width
 
-\begin{figure}
-\begin{lstlisting}
-def cal_area(length, width):
-    return length * width
-
-# can be used with different values for length and width.
-area1 = cal_area(5, 10)
-area2 = cal_area(7, 3)
-
+    # can be used with different values for length and width.
+    area1 = cal_area(5, 10)
+    area2 = cal_area(7, 3)
 \end{lstlisting}
 \caption{Example: Abstract Parameterization}\label{ex:abs-parameterization}
 \end{figure}
 
 
 
-\paragraph{Abstraction by Specification} This focuses on what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms). By defining a function's behavior through \emph{specifications}, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details.
+\paragraph{Abstraction by Specification} This specifies on what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms, implemented in C). By defining a function's behavior through \emph{specifications}, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details.
 
 \autoref{ex:abs-specification} shows an example of abstraction by specification. The \code{exists} method return true if the \code{target} item is found in a list of sorted \code{items}. The user only needs to provide a sorted list and a target, but does not need to know what algorithm is used or implemented to determine if the item exists in the list.
 
 \begin{figure}
 \begin{lstlisting}
-def exists(items:List[int], target:int) -> bool:
-    """
-    Find an item in a list of sorted items.
+    def exists(items:List[int], target:int) -> bool:
+        """
+        Find an item in a list of sorted items.
 
-    Pre: List of sorted items
-    Post: True if the target is found, False otherwise.
-    """
-    ...
+        Pre: List of sorted items
+        Post: True if the target is found, False otherwise.
+        """
+        ...
 
-# The user only needs to know that this function checks for the existence of an item
-#  in a sorted list, without needing to understand the search algorithm/implementation.
-
+    # The user only needs to know that this function checks 
+    # for the existence of an item in a sorted list. 
+    # They don't need to know the search algorithm or implementation.
 \end{lstlisting}
 \caption{Abstraction by Specification}\label{ex:abs-specification}
 \end{figure}
@@ -395,10 +395,10 @@ def add_to_list(input_list, value):
 
 
 \subsection{In-class Exercise: User Equality}
-This exercise touches on some thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don’t worry if it seems confusing today. We’ll revisit this topic several times this semester.
+This exercise touches on some thorny issues with inheritance. There is a lot going on in this example, but it is a good exercise to understand the subtleties of inheritance. 
 
 \begin{enumerate}
-    \item First, look at the \href{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-}{Javadoc} to understand the behaviors \code{equals()} (while this is in Java, the concept is the same in Python).
+    \item First, look at the \href{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-}{Javadoc} to understand the behaviors \code{equals()} (while the specification is for Java, the idea is the same in Python).
     \begin{itemize}
         \item Specifically, read carefully the \emph{symmetric}, \emph{reflexive}, and \emph{transitive} properties of \code{equals()}.
         \item Ignore \emph{consistency}, which requires that if two objects are equal, they remain equal.
@@ -417,16 +417,14 @@ This exercise touches on some thorny issues in data abstraction and inheritance.
 
 \begin{figure}
 \begin{lstlisting}
-# Do User first before doing SuperUser (much harder)
+    class User:
+        def __init__(self, name):
+            self.name = name
 
-class User:
-    def __init__(self, name):
-        self.name = name
-
-    def __eq__(self, other):
-        if not isinstance(other, User):
-            return False
-        return self.name == other.name
+        def __eq__(self, other):
+            if not isinstance(other, User):
+                return False
+            return self.name == other.name
 \end{lstlisting}
 \caption{User class}\label{ex:user}
 \end{figure}
@@ -434,17 +432,17 @@ class User:
 
 \begin{figure}
 \begin{lstlisting}
-class SpecialUser(User):
-    """Don't do this until you've done with User"""
+    class SpecialUser(User):
+        """Don't do this until you've done with User"""
 
-    def __init__(self, name, id):
-        super().__init__(name)
-        self.id = id
+        def __init__(self, name, id):
+            super().__init__(name)
+            self.id = id
 
-    def __eq__(self, other):
-        if not isinstance(other, SpecialUser):
-            return False
-        return super().__eq__(other) and self.id == other.id
+        def __eq__(self, other):
+            if not isinstance(other, SpecialUser):
+                return False
+            return super().__eq__(other) and self.id == other.id
 \end{lstlisting}
 \caption{SpecialUser class}\label{ex:specialuser}
 \end{figure}
@@ -496,7 +494,7 @@ def exists(items: List[int], target: int) -> bool:
 \end{figure}
 
 
-\subsection{In-class Exercise: Tail}
+\subsection{In-class Exercise: Partial and Total Specifications for \code{tail}}
 
 Consider the following code:
 
@@ -522,8 +520,7 @@ def tail(my_list):
 \subsection{No implementation details}
 The specification should not include any implementation details, such as the algorithm used or the data structures employed. This improves flexibility as it allows the function to be implemented in different ways as long as it satisfies the specification. For example, the \code{exists} function in \autoref{ex:abs-specification} does not specify the search algorithm used to find the item in the list.
 
-Some common examples to avoid include the mentioning of specific data structures (e.g., arrays, indices), algorithms (e.g., quicksort or mergesort), and exceptions (e.g., related to IndexError). Instead, focus on the behavior of the function, such as the input and output relationships, the constraints on the input, and the expected results.
-. Also avoid specifications mentioning indices because this implies the use of arrays.
+Some common examples to avoid include the mentioning of specific data structures (e.g., arrays, indices), algorithms (e.g., quicksort or mergesort), and exceptions (e.g., related to IndexError). Instead, focus on the behavior of the function, such as the input and output relationships, the constraints on the input, and the expected results.  Also avoid specifications mentioning indices because this implies the use of arrays.
 
 
 
@@ -556,7 +553,7 @@ def binary_search(arr: List[int], target: int) -> int:
 \end{lstlisting}
 
 
-\subsection{HW: Loan Calculator}\label{ex:loan}    
+\subsection{Loan Calculator}\label{ex:loan}    
 
 Consider a function that calculates the number of months needed to pay off a loan of a given size at a fixed \emph{annual} interest rate and a fixed \emph{monthly} payment. For example, a \$100,000 loan at an 8\% annual rate would take 166 months to discharge at a monthly payment of \$1,000, and 141 months to discharge at a monthly payment of \$1,100. (In both cases, the final payment is smaller than the others; we round 165.34 up to 166 and 140.20 up to 141.) Continuing the example, the loan would never be paid off at a monthly payment of \$100, since the principal would grow rather than shrink.
 
@@ -672,7 +669,6 @@ Note that as with procedural specification (\autoref{chap:procedural-abstraction
 
 \begin{figure}
     \begin{lstlisting}
-    
 class IntSet:
     """
     OVERVIEW: IntSets are unbounded, mutable sets of integers.
@@ -686,30 +682,39 @@ class IntSet:
         """
         self.els = []  # the representation (list)
 
-    def insert(self, x: int):
+    def insert(self, x: int) -> None:
         """
         MODIFIES: self
         EFFECTS: Adds x to the elements of this set if not already present.
         """
         if not self.is_in(x): self.els.append(x)
             
-    def remove(self, x: int):
+    def remove(self, x: int) -> int:
         """
         MODIFIES: self
-        EFFECTS: Removes x from this set if it exists.
+        EFFECTS: Removes x from this set if it exists. Also returns       
+        the index of x in the list.
         """
-        if not(is_in(x): return
-        self.els[i] = self.els[-1]  # Replace with the last element
-        self.els.pop()  # Remove the last element
+        i = self.find_idx(x)
+        if i != -1:
+            # Remove the element at index i
+            self.els = self.els[:i] + self.els[i+1:]  
+        return i
 
-    def is_in(self, x: int) -> bool:
+    def is_in(self, x: int) -> (bool, int):
         """
-        EFFECTS: Returns True if x is in this set, otherwise False.
+        EFFECTS: If x is in this set, return True. Otherwise False.
+        """
+        return True if find_index(x) != -1 else False
+
+    def find_idx(self, x:int)->int:
+        """
+        EFFECTS: If x is in this set, return its index. Otherwise returns -1.
         """
         for i, element in enumerate(self.els):
             if x == element:
-                return True
-        return False
+                return i
+        return -1
 
     def size(self) -> int:
         """
@@ -780,74 +785,6 @@ In this exercise, you will implement a \code{Stack} ADT. A stack is a common dat
 \item Implement \code{\_\_str\_\_()} to return a string representation of the stack based on the AF
 \end{enumerate}
 
-\begin{figure}
-\begin{lstlisting}
-    class Stack:
-    """
-    OVERVIEW: Stack is a mutable ADT that represents a collection of elements in LIFO.
-    AF(c) = the sequence of elements in the stack in sorted order from bottom to top.
-    rep-inv: 
-        1. elements is a list (could be empty list, which represents and empty stack).
-        2. The top of the stack is always the last element in the list.
-    """
-
-    def __init__(self):
-        """
-        Constructor
-        EFFECTS: Initializes an empty stack.
-        MODIFIES: self
-        """
-        self.elements = []
-
-    def repOK(self):
-        """
-        EFFECTS: Returns True if the rep-invariant holds, otherwise False.
-        The invariant checks:
-        1. elements is a list.
-        2. If the stack is non-empty, the top of the stack is the last element in the list.
-        """
-        # Check that elements is a list
-        if not isinstance(self.elements, list):
-            return False
-        
-        # If the stack is not empty, ensure that the top is the last element in the list.
-        # This is implicitly guaranteed by the use of `list.append` for push and `list.pop` for pop,
-        # so no further explicit check is needed for the "top as last element."
-        return True
-
-    def push(self, value):
-        """
-        MODIFIES: self
-        EFFECTS: Adds value to the top of the stack.
-        """
-        self.elements.append(value)
-
-    def pop(self):
-        """
-        MODIFIES: self
-        EFFECTS: Removes and returns the top element from the stack. 
-        Raises an exception if the stack is empty.
-        """
-        if self.is_empty():
-            raise Exception("Stack is empty")
-        return self.elements.pop()
-
-    def is_empty(self):
-        """
-        EFFECTS: Returns True if the stack is empty, otherwise False.
-        """
-        return len(self.elements) == 0
-
-    def __str__(self):
-        """
-        EFFECTS: Returns a string representation of the stack,
-                 showing the elements from bottom to top.
-        """
-        # The abstraction function maps the list of elements to a stack view
-        return f"Stack({self.elements})"
-\end{lstlisting}
-\caption{Stack ADT}\label{ex:stack}
-\end{figure}
 
 \section{Mutability vs. Immutability}\label{sec:mutability-vs-immutability}
 
@@ -856,7 +793,39 @@ An ADT can be either mutable or immutable, depending on whether their objects' v
 Immutability is beneficial because it offers greater safety and allows sharing of subparts without the risk of unexpected changes. Moreover, immutability can simplify the design by ensuring the object’s state is fixed once created. However, immutable objects can be less efficient, as creating a new object for each change can be costly in terms of memory and time.
 
 \paragraph{Converting from mutable to immutable} 
-Given a mutable ADT, it is possible to convert it to an immutable one by ensuring that the rep is not modified by any method. This can be achieved by making the rep private and only allowing read-only access to it. Moreover, for the mutator methods, they should return a new object with the updated rep, rather than modifying the existing object. If the mutator returns a value, then create two methods, one return the new object and the other return the value. For example, a mutator \code{pop} method of a Stack would result into two methods: \code{pop2} returns the top element and \code{pop3} returns the new stack with the top element removed.
+Given a mutable ADT, it is possible to convert it to an immutable one by ensuring that the rep is not modified by any method. This can be achieved by making the rep private and only allowing read-only access to it. In Python, this can be done by using the \code{@property} decorator to create read-only properties. For example, the \code{els} list in \autoref{ex:intset} can be made read-only by defining a property method \code{elements} that returns a copy of the list.
+
+\begin{lstlisting}
+    class IntSet:
+        def __init__(self):
+            self.__els = []   # Private rep
+        @property
+        def self.els(self):
+            return self.__els
+\end{lstlisting}
+
+Moreover, we need to convert mutator methods into observer methods, which make a copy of the rep, modify it, and return the modified rep object.  
+\begin{lstlisting}
+    def insert_immutable(self, x: int) -> IntSet:
+        new_set = self.els.copy()
+        if not self.is_in(x):
+            new_set = new_set.append(x)
+        return new_set
+\end{lstlisting}
+
+If the mutator returns a value $v$, then our new method returns a tuple consisting of (i) the new rep object and the return the value $v$. 
+\begin{lstlisting}
+    def remove_immutable(self, x: int): -> (IntSet, int):
+        i = self.find_idx(x)
+        new_set = self.els.copy()
+        if i != -1:
+            # Remove the element at index i
+            new_set = self.els[:i] + self.els[i+1:]  
+        return (new_set, i)
+\end{lstlisting}
+
+If you do not want to return multiple values (e.g., like in Java), then you can create two methods, one for returning the value and the other for returning the new rep object.
+For example, a mutator \code{pop} method of a \code{Stack} would result into two methods: \code{pop2} returns the top element and \code{pop3} returns the new stack with the top element removed.
 
 Finally, it is important that while it is possible to convert a mutable ADT to an immutable one as shown, mutability or immutability should be the property of the ADT type itself, not its implementation. Thus, it should be decided at the design stage and documented in the ADT specification.
 
@@ -922,9 +891,9 @@ Consider the mutable \code{Queue} implementation in \autoref{ex:mutable-queue}. 
 % Modifiability goes further than locality. To achieve modifiability, not only must modifications be restricted to the ADT implementation, but all access to the internal representation—-even for reading immutable components--must also be confined to the implementation. If other modules can access the internal representation, then changing the representation may affect those modules, violating modifiability. To ensure modifiability, instance variables must be declared private and cannot be exposed outside the ADT.
 % Thus, it is essential that access to the internal representation is restricted to the ADT implementation. %Programming languages like Python allow encapsulation, ensuring that the representation is hidden and protected. If access to the representation is unrestricted, it becomes an additional property that must be proven about the code manually.
 
-\section{Excercise}
+\section{Exercise}
 
-\subsection{HW: Polynomial ADT}
+\subsection{Polynomial ADT}
 \begin{figure}
 \begin{lstlisting}
 class Poly:
@@ -1006,54 +975,83 @@ Use the Poly ADT in \autoref{ex:poly} to answer the following question. Use the 
 \end{enumerate}
 \appendix
 
-%\chapter{In-Class exercises}\label{sec:in-class-exercises}
-
-\chapter{Lectures}
-
-\section{Module 1: Overview}
-\begin{itemize}
-\item \href{https://nguyenthanhvuh.github.io/class-oo/syllabus.pdf}{Syllabus}  (no cheating)
-\item Overview
-\begin{itemize}
-    \item Decomposition (\autoref{sec:decomposition})
-    \item Abstraction (\autoref{sec:abstraction})
-    \item Abstraction by Parameterization (\autoref{ex:abs-parameterization})
-    \item Abstraction by Specification (\autoref{ex:abs-specification})
-    \item Specifications (\autoref{sec:specifications})
-\end{itemize}\item
+\chapter{Miscs}
 
 
-\item Break 1 (25 mins):  5 min break,  20 min \href{https://nguyenthanhvuh.github.io/class-oo/assignments#ic1-a}{IC1-A} exercise
-
-% - preconds: input is a list of /comparable/ items
-% - postcond:
-%   - output is sorted
-%   - output is a __permutation_ of data input
-
-\item{Correctness Overview}
-\begin{itemize}
-    \item Ideally: Satisfies preconditions and postconditions
-    \item 4 scenarios to consider
-    \begin{enumerate}
-        \item Precondition is satisfied, postcondition is satisfied: correct
-        \item Precondition is satisfied, but postcondition is not: incorrect
-        \item Precondition not satisfied, but postcondition is: correct
-        \item Precondition not satisfied, but postcondition is not: correct
-    \end{enumerate}
-    \item Preconditions are the responsibility of the caller (the client)
-    \item Postconditions are the responsibility of the developer (the supplier, i.e., you)
-    \item For many non-OOP programs, this is relatively straightforward and can be checked automatically.  Things become quite thorny when dealing with OOPs (e.g., inheritence)
-\end{itemize}
-
-\item Break 2 (25 mins) :  5 min break,  20 min \href{https://nguyenthanhvuh.github.io/class-oo/assignments#ic1-b}{IC1-B} exercise
-
-\end{itemize}
-
-
-
-\section{Module 2:}
 
 \bibliographystyle{abbrv}
 
+\chapter{Answers}
+\section{ADT}
+\subsection{Stack ADT}
+\begin{figure}
+    \begin{lstlisting}
+        class Stack:
+        """
+        OVERVIEW: Stack is a mutable ADT that represents a collection of elements in LIFO.
+        AF(c) = the sequence of elements in the stack in sorted order from bottom to top.
+        rep-inv: 
+            1. elements is a list (could be empty list, which represents and empty stack).
+            2. The top of the stack is always the last element in the list.
+        """
+    
+        def __init__(self):
+            """
+            Constructor
+            EFFECTS: Initializes an empty stack.
+            MODIFIES: self
+            """
+            self.elements = []
+    
+        def repOK(self):
+            """
+            EFFECTS: Returns True if the rep-invariant holds, otherwise False.
+            The invariant checks:
+            1. elements is a list.
+            2. If the stack is non-empty, the top of the stack is the last element in the list.
+            """
+            # Check that elements is a list
+            if not isinstance(self.elements, list):
+                return False
+            
+            # If the stack is not empty, ensure that the top is the last element in the list.
+            # This is implicitly guaranteed by the use of `list.append` for push and `list.pop` for pop,
+            # so no further explicit check is needed for the "top as last element."
+            return True
+    
+        def push(self, value):
+            """
+            MODIFIES: self
+            EFFECTS: Adds value to the top of the stack.
+            """
+            self.elements.append(value)
+    
+        def pop(self):
+            """
+            MODIFIES: self
+            EFFECTS: Removes and returns the top element from the stack. 
+            Raises an exception if the stack is empty.
+            """
+            if self.is_empty():
+                raise Exception("Stack is empty")
+            return self.elements.pop()
+    
+        def is_empty(self):
+            """
+            EFFECTS: Returns True if the stack is empty, otherwise False.
+            """
+            return len(self.elements) == 0
+    
+        def __str__(self):
+            """
+            EFFECTS: Returns a string representation of the stack,
+                     showing the elements from bottom to top.
+            """
+            # The abstraction function maps the list of elements to a stack view
+            return f"Stack({self.elements})"
+    \end{lstlisting}
+    \caption{Stack ADT}\label{ex:stack}
+\end{figure}
+    
 
 \end{document}
