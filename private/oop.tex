@@ -266,10 +266,10 @@ def merge(left, right):
 
 
 
-\emph{Abstraction} is a key concept in OOP that allows programmers to hide the implementation details of a program and focus on the essential features.
+\emph{Abstraction} is a key concept in OOP that allows programmers to hide the implementation details of a program and focus on the essential features. By decoupling the \textbf{what} (the  behavior specification) from the \textbf{how} (the actual implementation), programmers could focus on higher-level design and reuse code more effectively.
 In an OOP language such as Python, you can abstract problems by creating functions, classes, and modules that hide the underlying implementation details.
 
-\paragraph{Example} \autoref{ex:mammal} demonstrates an abstraction for different types of mammals. Mammals such as Dog and Cat share common behaviors such as making noise (speak). We can create a class \code{Mammal} that defines these common behaviors, and then subclasses \code{Dog} and \code{Cat} that inherit from \code{Mammal} and define their own unique behaviors.
+\paragraph{Example} \autoref{ex:mammal} demonstrates an abstraction for different types of mammals. Mammals such as Dog and Cat share common behaviors such as making noise (speak). We can create a class \code{Mammal} that defines these common behaviors, and then subclasses \code{Dog} and \code{Cat} that inherit from \code{Mammal} and define their own unique behaviors.  These are abstract data types that allow us to work with mammals. Also notice the specification (e.g., \code{REQUIRES}) in the comments that describe what the method does, not how it does it.
 
 \begin{figure}[t]
 \begin{lstlisting}[multicols=2]
@@ -280,10 +280,21 @@ class Mammal:
     def speak(self): pass
 
 class Dog(Mammal):
-    def speak(self): return "Woof!"
+    def speak(self): 
+        """
+        EFFECTS: Return the sound of a dog.
+        """
+        return "Woof!"
+
 
 class Cat(Mammal):
-    def speak(self): return "Meow!"
+    def speak(self):
+        """
+        EFFECTS: Return the sound of a dog.
+        """
+        return "Meow!"
+    
+
 \end{lstlisting}
  \caption{Decomposition example: Mergesort}\label{ex:mammal}
 \end{figure}
@@ -561,33 +572,31 @@ Consider a function that calculates the number of months needed to pay off a loa
 \begin{itemize}
 
 
-\item Implementation satisfying given specification: Define a Python class called `Loan`. In that class, write a function that satisfies the following specification:
+\item Define a function satisfying the following specification:
 
+\begin{lstlisting}
+def months(principal: int, rate: float, payment: int) -> int:
+    """
+    Calculate the number of months required to pay off a loan.
+    
+    param principal: Amount of the initial principal (in dollars)
+    param rate: Annual interest rate (e.g., 0.08 for 8%)
+    param payment: Amount of the monthly payment (in dollars)
+    
+    Requires/Pre: principal, rate, and payment all positive and 
+    payment is sufficiently large to drive the principal to zero.
+    Effects/Post: return the number of months required to pay off the principal
+    """
+\end{lstlisting}
+
+\begin{itemize}
+    \item The precondition is quite strong, which makes implementing the method easy. The key step in your calculation is to change the principal on each iteration with the following formula (which amounts to monthly compounding):
     \begin{lstlisting}
-class Loan:
-    @staticmethod
-    def months(principal: int, rate: float, payment: int) -> int:
-        """
-        Calculate the number of months required to pay off a loan.
-        
-        param principal: Amount of the initial principal (in dollars)
-        param rate: Annual interest rate (e.g., 0.08 for 8%)
-        param payment: Amount of the monthly payment (in dollars)
-        
-        Requires/Pre: principal, rate, and payment all positive and 
-        payment is sufficiently large to drive the principal to zero.
-        Effects/Post: return the number of months required to pay off the principal
-        """
+new_principal = old_principal * (1 + monthly_interest_rate) - payment
     \end{lstlisting}
 
-    \begin{itemize}
-        \item Note that the precondition is quite strong, which makes implementing the method easy. The key step in your calculation is to change the principal on each iteration with the following formula (which amounts to monthly compounding):
-        \begin{lstlisting}
-    new_principal = old_principal * (1 + monthly_interest_rate) - payment
-        \end{lstlisting}
-
-        \item To make sure you understand the point about preconditions, your code is required to be \emph{minimal}. Specifically, if it is possible to delete parts of your implementation and still have it satisfy the requirements, you'll earn less than full credit.
-    \end{itemize}
+    \item To make sure you understand the point about preconditions, your code is required to be \emph{minimal}. Specifically, if it is possible to delete parts of your implementation and still have it satisfy the requirements, you'll earn less than full credit.
+\end{itemize}
 \item \emph{Total} specification: Now change the specification to \emph{total} in which the postcondition handles violations of the preconditions using \emph{exceptions}. In addition, provide a new implementation \code{month} that satisfies the new specification.
 \end{itemize}
 \subsection{Partial and Total Functions}
