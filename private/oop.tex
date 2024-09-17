@@ -1047,12 +1047,11 @@ This chapter introduces the concept of \emph{iteration abstraction} through \emp
 
 \section{Iterators}
 
-\emph{Iterators} provide general-purpose iteration mechanism that is both efficient and preserves abstraction. An iterator is a special kind of object that allows us to access elements one at a time, without creating large intermediate structures or destroying the original collection.
+\emph{Iterators} provide general-purpose iteration mechanism that is both efficient and preserves abstraction. An iterator is a special kind of object that allows us to access elements one at a time, without creating large intermediate structures or modifying the original collection, and can stop early if a certain condition is met (e.g., find a specific item). Thus, iterations avoid the space and time inefficiencies of other methods.
 
-Each iteration produces a new item that can then be used within the loop. The key advantage of iterators is the \emph{separation of concerns}: the iterator handles the production of items, while the code containing the loop handles the actions performed on those items. The iterator can be reused in different contexts without modification.
+Each iteration produces a new item that can then be used within the loop. Like with procedural and data abstraction, a key advantage of iterators is the separation of concerns: the iterator handles the production of items, while the code containing the loop handles the actions performed on those items. The iterator can be reused in different contexts without modification.
 
-Because items are produced incrementally, iterators avoid the space and time inefficiencies discussed earlier. They do not require constructing large intermediate structures (such as lists), and the iteration can stop early if a certain condition is met (e.g., finding a specific item).
-
+\begin{figure}
 \begin{lstlisting}
 class IntSet:
     def __init__(self):
@@ -1069,8 +1068,9 @@ class IntSet:
 def set_sum(s):
     return sum(s)
 \end{lstlisting}
-
-In this example, \code{IntSet} defines an \code{\_\_iter\_\_} method, which returns an iterator over its elements. This allows us to use Python's built-in \code{sum()} function to iterate over the elements without destroying the set.
+\caption{IntSet with Iterator}\label{ex:intset-iter}
+\end{figure}
+The \code{IntSet} in \autoref{ex:intset-iter} defines an \code{\_\_iter\_\_} method, which returns an iterator over its elements. This allows us to use Python's built-in \code{sum()} function to iterate over the elements without destroying the set.
 
 \section{Iterators and Generators}
 
