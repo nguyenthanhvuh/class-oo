@@ -454,15 +454,15 @@ This exercise touches on some thorny issues with inheritance. There is a lot goi
 
 When designing specifications, it is important to consider several factors to ensure that the function is well-defined and can be used effectively. These factors include the \emph{strength} of the pre- and post-conditions, whether the function is \emph{total} or \emph{partial}, and the \emph{avoiding implementation details} in the specification.
 
-\subsection{Weak Pre-conditions}
+\subsection{Weak Pre-conditions}m
 For pre-conditions, we want as weak a constraint as possible to make the function more versatile, allowing it to handle a larger class of inputs.
-A condition is weaker than another if it is implied by the other or having less constraints than the other. For example, the condition $x \le 5$ is weaker than $x \le 10$ or that the input list is not sorted is weaker than the list is sorted (which is weaker than the list that is both sorted and has no duplicates).
+Logically, a condition $x$ is weaker than another if it is \emph{implied} by the other $y$, i.e.,  $y \implies x$, or that $x$'s constraints are a superset of $y$'s. For example, the condition $x \le 5$ is weaker than $x \le 10$ and the input list is not sorted is weaker than the list is sorted (which is weaker than the list that is both sorted and has no duplicates).
 The \emph{weakest} precondition is \emph{True}, which indicates no constraints on the input.
 
 
 \subsection{Strong Post-conditions}
 
-In contrast, for post-conditions, we want as strong a condition as possible to ensure that the function behaves as expected. A condition is stronger than another if it implies the other or that its constraints are a strict subset of the other. For example, the condition $x \le 10$ is stronger than $x \le 5$ or that the input list is sorted is stronger than the list is not sorted.
+In contrast, for post-conditions, we want as strong a condition as possible to ensure that the function behaves as expected. A condition $y$ is stronger than another condition $x$ if $y$ implies $x$, i.e., $y \implies x$, or that $y$'s constraints are a strict subset of $x$'s. For example, the condition $x \le 10$ is stronger than $x \le 5$ or that the input list is sorted is stronger than the list is not sorted.
 
 
 \subsection{Total vs Partial Functions}
@@ -520,7 +520,7 @@ def tail(my_list):
 \subsection{No implementation details}
 The specification should not include any implementation details, such as the algorithm used or the data structures employed. This improves flexibility as it allows the function to be implemented in different ways as long as it satisfies the specification. For example, the \code{exists} function in \autoref{ex:abs-specification} does not specify the search algorithm used to find the item in the list.
 
-Some common examples to avoid include the mentioning of specific data structures (e.g., arrays, indices), algorithms (e.g., quicksort or mergesort), and exceptions (e.g., related to IndexError). Instead, focus on the behavior of the function, such as the input and output relationships, the constraints on the input, and the expected results.  Also avoid specifications mentioning indices because this implies the use of arrays.
+Some common examples to avoid include: the mentioning of specific data structures (e.g., arrays, indices), algorithms (e.g., quicksort or mergesort), and exceptions (e.g., related to IndexError). Also avoid specifications mentioning indices because this implies the use of arrays.
 
 
 
@@ -540,7 +540,8 @@ Write the specification for the generic \code{ascending\_sort} method below. The
     
 
 
-\subsection{Specification of Binary Search }
+\subsection{Specification of Binary Search}
+
 Come up with the specification for a \emph{binary search} implementation whose header is given below. Remember for precondition you want something as \emph{weak} as possible and for postcondition as \emph{strong} as possible. Note that binary search returns the \emph{location} (an non-neg integer) of the \code{target} value if found, and returns -1 if \code{target} is not found. 
 
 \begin{lstlisting}
@@ -616,10 +617,18 @@ def get_average(numbers: list[float]) -> float:
     return divide(total, len(numbers))
 \end{lstlisting}
 
-    \chapter{Data Abstraction}
+\chapter{Data Abstraction}
 %Liskov 5
 
-This chapter focuses on \emph{abstract data type} (ADT), a foundation of OOP and key concept in programming that allows developers to separate how data is implemented from how it behaves. Through ADT, programmers can create new data types relevant to their application. These ADTs consist of objects and associated operations.
+%This chapter focuses on \emph{abstract data type} (ADT), a foundation of OOP and key concept in programming that allows developers to separate how data is implemented from how it behaves. Through ADT, programmers can create new data types relevant to their application. These ADTs consist of objects and associated operations.
+
+In 1974, Barbara Liskov and Stephen N. Zilles introduced the concept of Abstract Data Types (\emph{ADTs}) in their influential paper ``Programming with Abstract Data Types'' as part of their work on the CLU programming language at MIT. ADTs revolutionized software design by separating the specification of a data type from its implementation. This meant that developers could define operations on a data structure (such as stacks or queues) without exposing the details of how the data was managed internally. This idea of data abstraction improved modularity, making programs easier to modify, extend, and maintain.
+
+For her pioneering contributions to programming languages and system design, particularly through her work on ADTs and CLU, Barbara Liskov was awarded the Turing Award in 2008. Today, ADTs are a cornerstone of modern programming, underlying the concepts of encapsulation and modularity in modern OOP languages like Java, Python, and Rust.
+
+%The CLU language was the first to explicitly support ADTs using a construct called a cluster, which encapsulated both the data structure and the operations that acted on it. CLU also introduced several other innovative features like iterators, exceptions, and parameterized types, many of which influenced modern programming languages such as Java, Python, and C++. Though CLU never became widely used, the principles it introduced, especially ADTs, became foundational in software engineering, leading to more modular and reusable code.
+
+
 
 %An ADT has two main components: \emph{parameterization} and \emph{specification}. Parameterization involves using parameters for flexibility, while specification means including operations as part of the data type, which abstracts away the underlying data representation. This ensures that even if the data structure changes, programs that rely on it remain unaffected, as they only interact with the operations rather than the data's internal structure.
 
@@ -638,7 +647,7 @@ As with functions (\autoref{chap:procedural-abstraction}), the specification for
     \begin{lstlisting}
 class DataType:
     """
-    OVERVIEW: A brief description of the data type and its objects.
+    Overview: A brief description of the data type and its objects.
     """
 
     def __init__(self, ...):
@@ -655,8 +664,8 @@ class DataType:
 \end{figure}
 
 
-\autoref{ex:adt-template} shows a class template in Python, which consists of three main parts. The \emph{overview} describes the abstract data type in terms of well-understood concepts, like mathematical models or real-world entities. For example, a stack could be described using mathematical sequences.
-The overview can also indicate whether the objects of this type are \emph{mutable} (their state can change) or \emph{immutable}.
+\autoref{ex:adt-template} shows an ADT class template in Python. It consists of three main parts. The \emph{Overview} describes the abstract data type in terms of well-understood concepts, like mathematical models or real-world entities. For example, a stack could be described using mathematical sequences.
+The Overview can also indicate whether the objects of this type are \emph{mutable} (their state can change) or \emph{immutable}.
 The \emph{Constructor} initializes a new object, setting up any initial state required for the instance.
 Finally, \emph{methods} define operations users can perform on the objects. These methods allow users to interact with the object without needing to know its internal representation. In Python, \code{self} is used to refer to the object itself, similar to \code{this} in Java or C++.
 
@@ -671,7 +680,7 @@ Note that as with procedural specification (\autoref{chap:procedural-abstraction
     \begin{lstlisting}
 class IntSet:
     """
-    OVERVIEW: IntSets are unbounded, mutable sets of integers.
+    Overview: IntSets are unbounded, mutable sets of integers.
     This implementation uses a list to store the elements, ensuring no duplicates.
 
     """
@@ -765,7 +774,7 @@ The rep-inv must be preserved by all methods (more precisely, \emph{mutator} met
 
 The rep-inv is decided by the designer and specified in the ADT documentation as part of the specification (just like pre/post conditions) so that it is ensured at the end of each method (like the postcondition). Moreover, because rep-inv is so important, it is not only documented in comments but also checked at runtime.  This is done by invoking a \code{repOK}, discussed later, method at the start and end of each method.
 
-\subsubsection{In-Class Exercise: Checking Rep-Invs}
+\subsection{In-Class Exercise: Checking Rep-Invs}
 
 \begin{lstlisting}
 class Members:
@@ -785,7 +794,6 @@ class Members:
 
     def join(self, person):
         """
-        Post: person becomes a member.
         MODIFIES: self
         EFFECTS: Adds a person to the membership list.
         """
@@ -793,7 +801,6 @@ class Members:
 
     def leave(self, person):
         """
-        Post: person is no longer a member.
         MODIFIES: self
         EFFECTS: Removes a person from the membership list.
         """
@@ -928,7 +935,7 @@ class Queue:
     \caption{Mutable Queue}\label{ex:mutable-queue}
 \end{figure}
 
-Consider the mutable \code{Queue} implementation in \autoref{ex:mutable-queue}. Rewrite \code{Queue} to be \emph{immutable}. Keep the representation variables \code{elements} and \code{size}.
+Rewrite the mutable \code{Queue} implementation in \autoref{ex:mutable-queue} so that it becomes \emph{immutable}. Keep the representation variables \code{elements} and \code{size}.
 
 
 
@@ -1022,7 +1029,51 @@ Use the Poly ADT in \autoref{ex:poly} to answer the following question. Use the 
 \item Describe the AF in this code. Use \code{\_\_str\_\_} to help.
 \end{enumerate}
 
+
+
 \chapter{Iterators and Generators}
+
+This chapter introduces the concept of \emph{iteration abstraction} through \emph{iterators}, which are a generalization of iteration mechanisms found in most programming languages. Iterators allow users to traverse arbitrary types of data efficiently and without the need for additional structures, such as arrays or list, that can consume extra memory or modify the collection being iterated over.
+
+
+\section{Iterators}
+
+\emph{Iterators} provide general-purpose iteration mechanism that is both efficient and preserves abstraction. An iterator is a special kind of object that allows us to access elements one at a time, without creating large intermediate structures or destroying the original collection.
+
+Each iteration produces a new item that can then be used within the loop. The key advantage of iterators is the \emph{separation of concerns}: the iterator handles the production of items, while the code containing the loop handles the actions performed on those items. The iterator can be reused in different contexts without modification.
+
+Because items are produced incrementally, iterators avoid the space and time inefficiencies discussed earlier. They do not require constructing large intermediate structures (such as lists), and the iteration can stop early if a certain condition is met (e.g., finding a specific item).
+
+\begin{lstlisting}
+class IntSet:
+    def __init__(self):
+        self._elements = set()
+
+    def add(self, element):
+        self._elements.add(element)
+
+    def __iter__(self):
+        # Returns an iterator over the set
+        return iter(self._elements)
+
+# Now, we can efficiently compute the sum:
+def set_sum(s):
+    return sum(s)
+\end{lstlisting}
+
+In this example, \code{IntSet} defines an \code{\_\_iter\_\_} method, which returns an iterator over its elements. This allows us to use Python's built-in \code{sum()} function to iterate over the elements without destroying the set.
+
+\section{Iterators and Generators}
+
+%A modern OOP language such as Python provides support for iteration abstraction through its built-in iterator and generator mechanisms. In Python, an iterator is an object thatadheres to a specific interface, providing methods like __iter__() and __next__(). Iterators track their state internally, and they have a next() method (in Python, it’s called __next__()), which advances the iteration and returns the next element, and a hasNext() equivalent can be checked using exception handling or by attempting to iterate further.
+
+In Python, a generator is a type of iterator created using special syntax (e.g., \code{yield} keyword), which allows elements to be produced one at a time, maintaining the state of the iteration.
+
+\chapter{Types}
+
+In 1999, NASA's Mars Climate Orbiter mission ended in failure due to a simple yet catastrophic software error. The spacecraft, which cost \$125 million to build and launch, was launched on December 11, 1998 to study the Martian climate and atmosphere. After a 9-month journal, the spacecraft approached Mars on September 23, 1999,  where it was supposed to execute an orbit insertion maneuver. This maneuver would allow the spacecraft to enter a stable orbit around Mars at an altitude of about 226 kilometers (140 miles) above the planet’s surface. However, the spacecraft instead plunged much deeper into the Martian atmosphere, to an estimated altitude of 57 kilometers (35 miles), causing it to either burn up or crash on the surface, resulting in a complete loss of the mission.
+
+The cause of the failure was a software error involving typing mismatch between imperial units (pounds-force) and metric units (newtons) in the software that controlled the spacecraft's thrusters. The software expected data in metric units, but the thruster data was provided in imperial units, leading to the incorrect trajectory calculations. This mismatch was not caught during testing, and the spacecraft was lost as a result. This failure not only cost NASA a significant financial investment but also set back the Mars exploration program. 
 
 \appendix
 
@@ -1032,14 +1083,14 @@ Use the Poly ADT in \autoref{ex:poly} to answer the following question. Use the 
 
 \bibliographystyle{abbrv}
 
-\chapter{Answers}
+\chapter{More Examples}
 \section{ADT}
 \subsection{Stack ADT}
 \begin{figure}
     \begin{lstlisting}
         class Stack:
         """
-        OVERVIEW: Stack is a mutable ADT that represents a collection of elements in LIFO.
+        Overview: Stack is a mutable ADT that represents a collection of elements in LIFO.
         AF(c) = the sequence of elements in the stack in sorted order from bottom to top.
         rep-inv: 
             1. elements is a list (could be empty list, which represents and empty stack).
@@ -1106,3 +1157,6 @@ Use the Poly ADT in \autoref{ex:poly} to answer the following question. Use the 
     
 
 \end{document}
+
+
+%repr-inv:https://ocw.mit.edu/courses/6-170-laboratory-in-software-engineering-fall-2005/1a1f80fa85176ed3cae09ccd74f902d3_lec8.pdf
