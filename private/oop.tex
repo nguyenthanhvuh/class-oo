@@ -838,7 +838,7 @@ Just as with rep-inv, the AF is documented in the class specification. Modern OO
 
 
 
-\subsection{In-Class Exercise: Stack}
+\subsection{In-Class Exercise: Stack ADT}
 
 In this exercise, you will implement a \code{Stack} ADT. A stack is a common data structure that follows the Last-In-First-Out (LIFO) principle. You will:
 \begin{enumerate}
@@ -1233,10 +1233,6 @@ class BankAccount:
         # check_repOK()
         return True
 
-    def get_balance(self) -> float:
-        # Postcondition: returns the current balance, which is always non-negative
-        return self._balance
-
 class SecureBankAccount(BankAccount):
     def __init__(self, balance: float, bonus_interest: float):
         super().__init__(balance)
@@ -1251,7 +1247,7 @@ class SecureBankAccount(BankAccount):
         return ret
     
     def deposit(self, amount: float) -> str:
-        # Stronger postcondition: do the deposit and also add bonus interest
+        # Stronger postcondition: deposit and also add bonus interest
 
         stats = super().deposit(amount)
         if stats:
@@ -1270,26 +1266,65 @@ class SecureBankAccount(BankAccount):
     \end{lstlisting}
 \caption{Liskov Substitution Principle demonstration}\label{ex:lsp}
 \end{figure}
-\subsection{In-Class Exercise: Dynamic Dispatching}
-
+\subsection{In-Class Exercise: LSP}
+\begin{figure}
 \begin{lstlisting}
-class IntSet:
-    def insert(self, x): ...; self.repOk()
-    def remove(self, x): ...; self.repOk()
-    def repOk(self): ...
+class A:
+    def reduce(self, x):
+        """
+        Effects: if x is None, raise ValueError;
+                 if x is not appropriate, raise TypeError;
+                 else, reduce this by x.
+        """
 
-    class MaxIntSet(IntSet):
-    def insert(self, x): ...; super().insert(x); self.repOk()
-    def remove(self, x): super().remove; ...; self.repOk()
-    def repOk(self): super().repOk(); ...
+class B(A):
+    def reduce(self, x):
+        """
+        Requires: x is not None.
+        Effects: if x is not appropriate, raise TypeError;
+                 else, reduce this by x.
+        """
 
-s = MaxIntSet()
-s.insert(3)
-s.insert(5)
-s.remove(5)
-
-
+class C(A):
+    def reduce(self, x):
+        """
+        Effects: if x is None, return normally with no change;
+                 if x is not appropriate, raise TypeError;
+                 else, reduce this by x.
+        """
 \end{lstlisting}
+\caption{LSP Exercise}\label{ex:lsp-exercise}
+\end{figure}
+
+For the classes \code{A}, \code{B}, and \code{C} in \autoref{ex:lsp-exercise}, determine whether LSP holds in the following cases. Specifically, for each case, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP holds.
+\begin{enumerate}
+    \item \code{B} extends \code{A}.
+    \sol{B's pre is stronger than A's because it requires that $x$ is not None while A's has no pre. \textbf{LSP does not hold}. The posts of \code{A} and \code{B} are the same}
+    \item \code{C} extends \code{A}
+    \sol{Pre's are the same (both are total methods). C's post is stronger than A's because it allows $x$ to be None while A's does not. \textbf{LSP holds}.}
+    \item \code{A} extends \code{B}
+    \sol{A's pre is weaker than B's because A has no pre. The posts for both are essentially the same because B's pre explicitly requires $x$ to be not None. \textbf{LSP holds}. Note that you might argue A's post is stronger, which is also fine and also means LSP holds.}
+    \item \code{C} extends \code{B}
+    \sol{C's pre is weaker than B's because C allows $x$ to be None while B does not. The posts are the same. \textbf{LSP does not hold}.}
+    \item \code{A} extends \code{C}
+\end{enumerate}
+
+% \begin{lstlisting}
+% class IntSet:
+%     def insert(self, x): ...; self.repOk()
+%     def remove(self, x): ...; self.repOk()
+%     def repOk(self): ...
+
+%     class MaxIntSet(IntSet):
+%     def insert(self, x): ...; super().insert(x); self.repOk()
+%     def remove(self, x): super().remove; ...; self.repOk()
+%     def repOk(self): super().repOk(); ...
+
+% s = MaxIntSet()
+% s.insert(3)
+% s.insert(5)
+% s.remove(5)
+%\end{lstlisting}
 
 \section{Exercise}
 
