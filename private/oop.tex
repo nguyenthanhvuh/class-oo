@@ -1135,7 +1135,7 @@ Polymorphism is a cornerstone of OOP that allows objects of different types to b
 \begin{figure}
 \begin{lstlisting}
 
-@abstractclass
+
 class Mammal:
     @abstractmethod
     def speak(self):
@@ -1163,7 +1163,7 @@ for m in mammals:
 
 \section{Inheritance}
 
-Inheritance creates a hierarchical relationship between classes. It consists of general base classes and more specific subclasses that inherit behaviors and properties from the base classes. \autoref{ex:polymorphism} shows an example of inheritance. \code{Mammal} is the \emph{base class} (superclass or supertype). It is also an \emph{abstract class}, i.e., it cannot be instantiated, and contains an abstract method \code{move} that must be implemented by its subclasses.
+Inheritance creates a hierarchical relationship between classes. It consists of general base classes and more specific subclasses that inherit behaviors and properties from the base classes. \autoref{ex:polymorphism} shows an example of inheritance. \code{Mammal} is the \emph{base class} (superclass or supertype). \code{Mammal} also defines the \emph{interface} for mammal objects and specific the set of operations or behaviors that all mammals must support. This this specific example, \code{Mammal} is also an \emph{abstract class}, i.e., it cannot be instantiated, and contains an abstract method \code{move} that its subclasses must implement.
 
 \code{Dog} and \code{Cat} are subclasses (subtypes) that inherit or derive from \code{Mammal}.  They override \code{speak} to provide a specific implementation.
 In addition to \emph{overriding} the \code{speak} method, \code{Dog} defines a new method \code{bark} that is specific to dogs.
@@ -1179,13 +1179,97 @@ The distinction between dynamic dispatching and static dispatching lies in when 
 
 In \autoref{ex:polymorphism} the \code{make\_mammal\_speak} method will invoke the \code{speak} method of the correct subclass based on the runtime type of the object. This is dynamic dispatching in action, where the method \code{speak} to be called is determined at runtime based on the actual type of the object.  However, if we explicitly create a \code{Dog} instance and call \code{speak} on it, the method is statically dispatched, as the compiler knows the type of the object at compile-time and can directly call the correct method.
 
+The code below demonstrates the difference between static and dynamic dispatching. The \code{Dog} object \code{d} is statically dispatched, while the \code{Mammal} object \code{m} is dynamically dispatched.
+\begin{lstlisting}
+    Dog d = Dog();
+    d.speak();  # Static dispatching
+
+    Mammal m = Dog();
+    m.speak();  # Dynamic dispatching
+\end{lstlisting}    
+
 \section{Liskov Substitution Principle (LSP)}
-The Liskov Substitution Principle (LSP) is a fundamental concept of object-oriented design, which ensures that objects of a subclass should be able to replace objects of the superclass without altering the correctness of the program. This principle promotes proper design and enforces correct use of inheritance.
+The Liskov Substitution Principle (LSP) is a fundamental concept of object-oriented design, which ensures that objects of a subclass should be able to replace objects of the superclass without altering the correctness of the program. LSP promotes proper design and enforces correct use of inheritance.
 
-The main idea of LSP is that a subclass should only strengthen the contract of the superclass, never weaken it.  This means that a subclass should be able to do everything the superclass can do, but it can also do more. For example, a \code{Dog} subclass of \code{Mammal} should be able to speak like any mammal, but it can also bark, which is specific to dogs.
-This enables substitution of objects of the subclass for objects of the superclass, allowing for polymorphism and dynamic dispatching to work correctly, i.e., if $S$ is a subclass of $T$, instances of $S$ should be able to replace instances of $T$ without affecting the correctness of the program.
+The main idea of LSP is that a subclass should only strengthen the contract of the superclass, never weaken it.  This means that a subclass \emph{is-a} superclass and should be able to do everything the superclass can do, but it can also do more. For example, a \code{Dog} is a \code{Mammal} and should be able to speak like any mammal, but it can also bark, which is specific to dogs.
+This enables substitution of objects of the subclass for objects of the superclass, allowing for polymorphism and dynamic dispatching to work correctly, i.e., if $S$ is a subclass of $T$, instances of $S$ should be able to replace instances of $T$ without affecting the correctness of the program. The \code{make\_animal\_speak} function in \autoref{ex:polymorphism} demonstrates LSP by accepting any \code{Mammal} object and making it speak, regardless of its specific type.
+
+\paragraph{Weaker precondition, stronger postcondition, stronger rep-inv} To enforce LSP, it is important to ensure that the subclass does not violate the specification of the superclass, i.e., it should not weaken the preconditions, strengthen the postconditions, or violate the rep-inv of the superclass. Violating LSP can lead to unexpected behavior and errors in the program, as the assumptions made about the superclass may no longer hold for the subclass. 
+
+\begin{enumerate}
+	\item Weaker Preconditions: The subclass should accept a broader range of inputs than the superclass.
+	\item Stronger Postconditions: The subclass should provide results that are at least as strong as those guaranteed by the superclass, if not stronger.
+	\item Representation Invariants: The subclass should maintain or strengthen the representation invariants of the superclass.
+\end{enumerate}
+More formally, let $X$ b the superclass and $X'$ a subclass, and $f$ is a method of $X$ and $f'$ a method of $X'$, then the precondition $P'$ of $f'$ is weaker than or equal to the precondition $P$ of $f$, and the postcondition $Q'$ of $f'$ is stronger than or equal to the postcondition $Q$ of $f$. Moreover, if $R$ is the rep-inv of $X$, and $R'$ is the rep-inv of $X'$, then $R'$ is stronger or equal to $R$. This can be written as:
+\begin{center}
+    $P \Rightarrow P'$, $Q' \Rightarrow Q$, and $R \Rightarrow R'$  
+\end{center}
 
 
+\begin{figure}
+    \begin{lstlisting}
+class BankAccount:
+    def __init__(self, balance: float):
+        self._balance = balance if balance >= 0 else 0  # Balance must be non-negative
+        
+    def repOK(self):
+        return self._balance >= 0
+
+    def deposit(self, amount: float) -> bool:
+        # Precondition: amount must be positive
+        if amount <= 0:
+            return False
+        self._balance += amount
+        # check_repOK()
+        return True
+
+    def withdraw(self, amount: float) -> bool:
+        # Precondition: amount must be positive and less than or equal to balance
+        if amount <= 0 or amount > self._balance:
+            return False
+        self._balance -= amount
+        self.check_repOK()
+        # check_repOK()
+        return True
+
+    def get_balance(self) -> float:
+        # Postcondition: returns the current balance, which is always non-negative
+        return self._balance
+
+class SecureBankAccount(BankAccount):
+    def __init__(self, balance: float, bonus_interest: float):
+        super().__init__(balance)
+        self._bonus_interest = bonus_interest
+
+    def withdraw(self, amount: float) -> bool:
+        # Weaker precondition: allow zero withdrawals, which are ignored
+        if amount == 0:
+            return True  # Zero withdrawal is considered a no-op
+        ret =  super().withdraw(amount)
+        # check_repOK()
+        return ret
+    
+    def deposit(self, amount: float) -> str:
+        # Stronger postcondition: do the deposit and also add bonus interest
+
+        stats = super().deposit(amount)
+        if stats:
+            # deposit successful, add interest
+            self._balance += self._bonus_interest * amount
+        
+        # check_repOK()
+        return stats
+    
+    def repOK(self):
+        """
+        Stronger Rep-inv: balance and bonus interest must be non-negative
+        """
+        return super().repOK() and self._bonus_interest >= 0
+        
+    \end{lstlisting}
+\caption{Liskov Substitution Principle demonstration}\label{ex:lsp}
+\end{figure}
 \subsection{In-Class Exercise: Dynamic Dispatching}
 
 \begin{lstlisting}
