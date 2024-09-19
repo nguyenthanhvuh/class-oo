@@ -626,7 +626,7 @@ def get_average(numbers: list[float]) -> float:
     return divide(total, len(numbers))
 \end{lstlisting}
 
-\chapter{Data Abstraction}
+\chapter{Data Abstraction}\label{chap:adt}
 %Liskov 5
 
 %This chapter focuses on \emph{abstract data type} (ADT), a foundation of OOP and key concept in programming that allows developers to separate how data is implemented from how it behaves. Through ADT, programmers can create new data types relevant to their application. These ADTs consist of objects and associated operations.
@@ -838,7 +838,7 @@ Just as with rep-inv, the AF is documented in the class specification. Modern OO
 
 
 
-\subsection{In-Class Excercise: Stack}
+\subsection{In-Class Exercise: Stack}
 
 In this exercise, you will implement a \code{Stack} ADT. A stack is a common data structure that follows the Last-In-First-Out (LIFO) principle. You will:
 \begin{enumerate}
@@ -1027,62 +1027,190 @@ class Poly:
 \end{figure}
 
 
-Use the Poly ADT in \autoref{ex:poly} to answer the following question. Use the \code{Stack} ADT in \autoref{ex:stack} as an example. 
+Use the Poly ADT in \autoref{ex:poly} to answer the following questions. Use the \code{Stack} ADT in \autoref{ex:stack} as an example. 
 
 \begin{enumerate}
-\item Write an Overview that describes what \code{Poly} does. You must provide some examples to demonstrate (e.g., Poly(2,3) means what?).
+\item Write an Overview that describes what \code{Poly} does. You must provide some examples to demonstrate (e.g., \code{Poly(2,3)} means what?).
 \item Provide the specifications for all methods in the ADT. 
-\item Write the \textbf{rep} used in this code.  Describe how this rep represents \code{Poly2}.
-\item Provide the \textbf{rep-inv} for the \code{Poly2} ADT. Note, this would be the constraints over the rep variable(s).
-\item Write a RepOK method that checks the rep-inv.
+\item Write the \textbf{rep} used in this code.  Describe how this rep represents \code{Poly}.
+\item Provide the \textbf{rep-inv} for the ADT. Note, this would be the constraints over the rep variable(s).
+\item Write a \code{repOK} method that checks the rep-inv.
 \item Describe the AF in this code. Use \code{\_\_str\_\_} to help.
 \end{enumerate}
 
 
+\subsection{Immutability}
 
-\chapter{Iterators and Generators}
+The below \code{class Immutable} is supposed to be an immutable class. However, it is not. 
+\begin{enumerate}
+\item Which of the lines (A--F) has a problem with immutability? Explain why by showing code example, i.e., show code involving problematic lines; show how that break immutability.
+\item For each problem that has a problem.  Write code to so that the class is immutable.
+\end{enumerate}
 
-This chapter introduces the concept of \emph{iteration abstraction} through \emph{iterators}, which are a generalization of iteration mechanisms found in most programming languages. Iterators allow users to traverse arbitrary types of data efficiently and without the need for additional structures, such as arrays or list, that can consume extra memory or modify the collection being iterated over.
-
-
-\section{Iterators}
-
-\emph{Iterators} provide general-purpose iteration mechanism that is both efficient and preserves abstraction. An iterator is a special kind of object that allows us to access elements one at a time, without creating large intermediate structures or modifying the original collection, and can stop early if a certain condition is met (e.g., find a specific item). Thus, iterations avoid the space and time inefficiencies of other methods.
-
-Each iteration produces a new item that can then be used within the loop. Like with procedural and data abstraction, a key advantage of iterators is the separation of concerns: the iterator handles the production of items, while the code containing the loop handles the actions performed on those items. The iterator can be reused in different contexts without modification.
-
-\begin{figure}
+    
 \begin{lstlisting}
-class IntSet:
-    def __init__(self):
-        self._elements = set()
+class Immutable:
+    def __init__(self, mstr: str, min: int, mlist: list[str]):
+        self._mstr = mstr                       # Line A
+        self._mint = mint                       # Line B
+        self._mlist = mlist.copy()              # Line C
 
-    def add(self, element):
-        self._elements.add(element)
-
-    def __iter__(self):
-        # Returns an iterator over the set
-        return iter(self._elements)
-
-# Now, we can efficiently compute the sum:
-def set_sum(s):
-    return sum(s)
+    
+    def get_mstr(self) -> str: return self._mstr        # Line D
+    def get_mint(self) -> int: return self._mint        # Line E
+    def get_mstr(self) -> list[str]: return self._mlist # Line F
 \end{lstlisting}
-\caption{IntSet with Iterator}\label{ex:intset-iter}
-\end{figure}
-The \code{IntSet} in \autoref{ex:intset-iter} defines an \code{\_\_iter\_\_} method, which returns an iterator over its elements. This allows us to use Python's built-in \code{sum()} function to iterate over the elements without destroying the set.
 
-\section{Iterators and Generators}
 
-%A modern OOP language such as Python provides support for iteration abstraction through its built-in iterator and generator mechanisms. In Python, an iterator is an object thatadheres to a specific interface, providing methods like __iter__() and __next__(). Iterators track their state internally, and they have a next() method (in Python, it’s called __next__()), which advances the iteration and returns the next element, and a hasNext() equivalent can be checked using exception handling or by attempting to iterate further.
 
-In Python, a generator is a type of iterator created using special syntax (e.g., \code{yield} keyword), which allows elements to be produced one at a time, maintaining the state of the iteration.
+
+% \chapter{Iterators and Generators}
+
+% This chapter introduces the concept of \emph{iteration abstraction} through \emph{iterators}, which are a generalization of iteration mechanisms found in most programming languages. Iterators allow users to traverse arbitrary types of data efficiently and without the need for additional structures, such as arrays or list, that can consume extra memory or modify the collection being iterated over.
+
+
+% \section{Iterators}
+
+% \emph{Iterators} provide general-purpose iteration mechanism that is both efficient and preserves abstraction. An iterator is a special kind of object that allows us to access elements one at a time, without creating large intermediate structures or modifying the original collection, and can stop early if a certain condition is met (e.g., find a specific item). Thus, iterations avoid the space and time inefficiencies of other methods.
+
+% Each iteration produces a new item that can then be used within the loop. Like with procedural and data abstraction, a key advantage of iterators is the separation of concerns: the iterator handles the production of items, while the code containing the loop handles the actions performed on those items. The iterator can be reused in different contexts without modification.
+
+% \begin{figure}
+% \begin{lstlisting}
+% class IntSet:
+%     def __init__(self):
+%         self._elements = set()
+
+%     def add(self, element):
+%         self._elements.add(element)
+
+%     def __iter__(self):
+%         # Returns an iterator over the set
+%         return iter(self._elements)
+
+% # Now, we can efficiently compute the sum:
+% def set_sum(s: IntSet) -> int:
+%     return sum(s)
+
+% \end{lstlisting}
+% \caption{IntSet with Iterator}\label{ex:intset-iter}
+% \end{figure}
+
+% To motivate the needs for iteration, suppose that we want to compute the sum of an \code{IntSet} collection defined in \autoref{ex:intset}. To compute the sum, we need to iterate through each element in the set. One way to do this is to convert the set to a list and then iterate over the list. However, this approach is inefficient because it requires creating a new list, which consumes memory and time. Another approach is modifying \code{IntSet} to return its rep as a list so we can iterate over it. However, this approach violates the abstraction principle, as it exposes the internal representation of the set.
+
+% Iterators provide a better solution by allowing us to iterate over the set without exposing its internal representation.
+% The \code{IntSet} in \autoref{ex:intset-iter} defines an \code{\_\_iter\_\_} method, which returns an iterator over its elements. This allows us to directly iterate over \code{IntSet} instances using a \code{for} loop or other iteration constructs. For example, the \code{sum} function in \autoref{ex:intset-iter} computes the sum of the elements in the set without exposing the internal representation of the set.
+
+
+% \section{Iterators and Generators}
+
+% A modern OOP language such as Python provides support for iteration abstraction through its built-in iterator and generator mechanisms. In Python, an iterator returns a special kind of object called a \emph{generator}, which keeps track of the state of the iteration and produces elements one at a time. A Python generator is created using the \code{yield} keyword, and provides the \code{next} and \code{hasNext} methods to advance the iteration and check for the end of the sequence.
 
 \chapter{Types}
 
 In 1999, NASA's Mars Climate Orbiter mission ended in failure due to a simple yet catastrophic software error. The spacecraft, which cost \$125 million to build and launch, was launched on December 11, 1998 to study the Martian climate and atmosphere. After a 9-month journal, the spacecraft approached Mars on September 23, 1999,  where it was supposed to execute an orbit insertion maneuver. This maneuver would allow the spacecraft to enter a stable orbit around Mars at an altitude of about 226 kilometers (140 miles) above the planet’s surface. However, the spacecraft instead plunged much deeper into the Martian atmosphere, to an estimated altitude of 57 kilometers (35 miles), causing it to either burn up or crash on the surface, resulting in a complete loss of the mission.
 
 The cause of the failure was a software error involving typing mismatch between imperial units (pounds-force) and metric units (newtons) in the software that controlled the spacecraft's thrusters. The software expected data in metric units, but the thruster data was provided in imperial units, leading to the incorrect trajectory calculations. This mismatch was not caught during testing, and the spacecraft was lost as a result. This failure not only cost NASA a significant financial investment but also set back the Mars exploration program. 
+
+
+\section{Type Systems in OOP}
+
+In OOP, the type system forms the foundation for defining how ADT (\autoref{chap:adt}) is represented and manipulated in a language. Type systems provide rules for assigning types to variables, expressions, functions, and objects, enabling the development of reliable and efficient software. A well-defined type system also enforces contracts between components, ensuring that data is used appropriately.
+
+This chapter covers key concepts in the type system of OOP languages, particularly in the context of Python, where both static and dynamic typing coexist. We will explore topics like polymorphism, inheritance, dynamic dispatching, and more, discussing their motivation, core concepts. 
+
+
+
+% We can enhance ADT (\autoref{chap:adt}) by defining families of related ADTs, where all members share similar behavior through common methods. These type families are structured in a hierarchy, with a base class (\emph{supertype}) defining the core behavior, and subclasses (\emph{subtypes}) extending or adding to this behavior. For example, Cars and Buses as subtypes of Vehicle, or program-specific hierarchies like a BufferedReader as a subtype of Reader. 
+
+
+% A key concept in typing is that the \emph{Liskov's principle of substitution}, which ensures that any subtype object can be substituted for a supertype object without breaking the program. This principle allows code written for the supertype (e.g., Reader) to work seamlessly with any subtype (e.g., BufferedReader), enabling abstraction by focusing on commonalities while still supporting specific behaviors at different levels of the hierarchy.
+
+\section{Polymorphism}
+
+Polymorphism is a cornerstone of OOP that allows objects of different types to be treated as objects of a common supertype. This facilitates flexibility in programming by enabling the use of a unified interface for different types of objects, reducing redundancy and increasing code reuse.
+
+\autoref{ex:polymorphism} shows an example of subtype polymorphism, where a \code{Mammal} class has two subclasses, \code{Dog} and \code{Cat}, each implementing the \code{speak} method differently. The \code{make\_mammal\_speak} function can then be used to make any mammal speak, regardless of its specific type.
+
+\begin{figure}
+\begin{lstlisting}
+
+@abstractclass
+class Mammal:
+    @abstractmethod
+    def speak(self):
+        raise NotImplementedError("Subclasses should implement this!")
+
+class Dog(Mammal):
+    def speak(self):
+        return "Woof!"
+
+    def bark(self):
+        return "Bark!"
+
+class Cat(Mammal):
+    def speak(self): return "Meow!"
+        
+# Using polymorphism
+def make_animal_speak(mammal: Mammal): return mammal.speak()
+
+mammals = [Dog(), Cat()]
+for m in mammals:
+    print(make_animal_speak(m))
+\end{lstlisting}
+\caption{Polymorphism}\label{ex:polymorphism}
+\end{figure}
+
+\section{Inheritance}
+
+Inheritance creates a hierarchical relationship between classes. It consists of general base classes and more specific subclasses that inherit behaviors and properties from the base classes. \autoref{ex:polymorphism} shows an example of inheritance. \code{Mammal} is the \emph{base class} (superclass or supertype). It is also an \emph{abstract class}, i.e., it cannot be instantiated, and contains an abstract method \code{move} that must be implemented by its subclasses.
+
+\code{Dog} and \code{Cat} are subclasses (subtypes) that inherit or derive from \code{Mammal}.  They override \code{speak} to provide a specific implementation.
+In addition to \emph{overriding} the \code{speak} method, \code{Dog} defines a new method \code{bark} that is specific to dogs.
+
+This is an example of single inheritance, where a subclass can inherit from only one superclass. Python also supports multiple inheritance, where a subclass can inherit from multiple superclasses. For example, an \code{HybridVehicle} class could inherit from both \code{Car} and \code{BatteryVehicle} classes. However, multiple inheritance can lead to complex hierarchies and potential conflicts, so it should be used judiciously.
+
+
+
+\section{Dynamic Dispatching}
+
+Dynamic dispatching refers to how a program selects which method to invoke when a method is called on an object.  It allows the correct method to be invoked based on the \emph{runtime type} of the object, even if the reference to the object is of a more general (superclass) type. This is particularly useful when working with inheritance and polymorphism, where subclasses override methods from a superclass.
+The distinction between dynamic dispatching and static dispatching lies in when the decision about which method to invoke is made—either at runtime (dynamic) or compile-time (static).
+
+In \autoref{ex:polymorphism} the \code{make\_mammal\_speak} method will invoke the \code{speak} method of the correct subclass based on the runtime type of the object. This is dynamic dispatching in action, where the method \code{speak} to be called is determined at runtime based on the actual type of the object.  However, if we explicitly create a \code{Dog} instance and call \code{speak} on it, the method is statically dispatched, as the compiler knows the type of the object at compile-time and can directly call the correct method.
+
+\section{Liskov Substitution Principle (LSP)}
+The Liskov Substitution Principle (LSP) is a fundamental concept of object-oriented design, which ensures that objects of a subclass should be able to replace objects of the superclass without altering the correctness of the program. This principle promotes proper design and enforces correct use of inheritance.
+
+The main idea of LSP is that a subclass should only strengthen the contract of the superclass, never weaken it.  This means that a subclass should be able to do everything the superclass can do, but it can also do more. For example, a \code{Dog} subclass of \code{Mammal} should be able to speak like any mammal, but it can also bark, which is specific to dogs.
+This enables substitution of objects of the subclass for objects of the superclass, allowing for polymorphism and dynamic dispatching to work correctly, i.e., if $S$ is a subclass of $T$, instances of $S$ should be able to replace instances of $T$ without affecting the correctness of the program.
+
+
+\subsection{In-Class Exercise: Dynamic Dispatching}
+
+\begin{lstlisting}
+class IntSet:
+    def insert(self, x): ...; self.repOk()
+    def remove(self, x): ...; self.repOk()
+    def repOk(self): ...
+
+    class MaxIntSet(IntSet):
+    def insert(self, x): ...; super().insert(x); self.repOk()
+    def remove(self, x): super().remove; ...; self.repOk()
+    def repOk(self): super().repOk(); ...
+
+s = MaxIntSet()
+s.insert(3)
+s.insert(5)
+s.remove(5)
+
+
+\end{lstlisting}
+
+\section{Exercise}
+
+
+
 
 \appendix
 
