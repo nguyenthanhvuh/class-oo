@@ -19,9 +19,13 @@
 
 - Topic: Data Abstraction and Abstract Data Type (ADT)
 - Reading: OOP 3
-- In-class: Stack ADT
+- In-class: Stack ADT; Membership
 - HW Assignment: Polynomial ADT
 
+## Week 4
+- Topic: Polymorphism
+- Reading: OOP 4
+- HW Assignment: TBD
 
 # HW Assignments
 
@@ -41,5 +45,4 @@
 1. Post your group on Piazza as a *follow-up* to my group [post](https://piazza.com/class/m0cjblb8hvd1qb/post/8).
 
 
-## HW3
-- Do the Polynomial ADT assignment in Chapter 3 from the [OOP book](./oop.pdf) (3.4.1)
+
