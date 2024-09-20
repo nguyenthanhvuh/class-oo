@@ -1042,15 +1042,16 @@ Use the Poly ADT in \autoref{ex:poly} to answer the following questions. Use the
 
 The below \code{class Immutable} is supposed to be an immutable class. However, it is not. 
 \begin{enumerate}
-\item Which of the lines (A--F) has a problem with immutability? Explain why by showing code example, i.e., show code involving problematic lines; show how that break immutability.
-\item For each problem that has a problem.  Write code to so that the class is immutable.
+\item Which of the lines (A--F) has a problem with immutability? Explain why by showing code example, i.e., show code involving problematic lines; show how that breaks immutability.
+\sol{only line F is problematic. It returns a reference to the internal list, which can be modified. Note that line C has no issue because it creates a copy of the list. If there was no copy, then this would cause a problem as mlist could be modified outside the class and affects \code{_mlist}.}
+\item For each line that has a problem.  Write code to fix it so that the class is immutable.
 \item Note that in Python or Java, immutable types include \code{int}, \code{float}, \code{str}, \code{tuple}. and mutable types include \code{list} and \code{dict}.
 \end{enumerate}
 
     
 \begin{lstlisting}
 class Immutable:
-    def __init__(self, mstr: str, min: int, mlist: list[str]):
+    def __init__(self, mstr: str, mint: int, mlist: list[str]):
         self._mstr = mstr                       # Line A
         self._mint = mint                       # Line B
         self._mlist = mlist.copy()              # Line C
@@ -1058,7 +1059,7 @@ class Immutable:
     
     def get_mstr(self) -> str: return self._mstr        # Line D
     def get_mint(self) -> int: return self._mint        # Line E
-    def get_mstr(self) -> list[str]: return self._mlist # Line F
+    def get_mlist(self) -> list[str]: return self._mlist # Line F
 \end{lstlisting}
 
 
@@ -1211,13 +1212,14 @@ More formally, let $X$ b the superclass and $X'$ a subclass, and $f$ is a method
     \begin{lstlisting}
 class BankAccount:
     def __init__(self, balance: float):
-        self._balance = balance if balance >= 0 else 0  # Balance must be non-negative
+        self._balance = balance if balance >= 0 else 0  
         
     def repOK(self):
         return self._balance >= 0
 
     def deposit(self, amount: float) -> bool:
         # Precondition: amount must be positive
+        
         if amount <= 0:
             return False
         self._balance += amount
@@ -1226,6 +1228,8 @@ class BankAccount:
 
     def withdraw(self, amount: float) -> bool:
         # Precondition: amount must be positive and less than or equal to balance
+        # Postcondition: balance is the original balance minus withdrawn amount
+
         if amount <= 0 or amount > self._balance:
             return False
         self._balance -= amount
@@ -1233,7 +1237,7 @@ class BankAccount:
         # check_repOK()
         return True
 
-class SecureBankAccount(BankAccount):
+class BonusBankAccount(BankAccount):
     def __init__(self, balance: float, bonus_interest: float):
         super().__init__(balance)
         self._bonus_interest = bonus_interest
@@ -1416,6 +1420,7 @@ For the classes \code{A}, \code{B}, and \code{C} in \autoref{ex:lsp-exercise}, d
 
 
 %repr-inv:https://ocw.mit.edu/courses/6-170-laboratory-in-software-engineering-fall-2005/1a1f80fa85176ed3cae09ccd74f902d3_lec8.pdf
+
 
 
 
