@@ -619,6 +619,9 @@ def get_average(numbers: list[float]) -> float:
     return divide(total, len(numbers))
 \end{lstlisting}
 
+
+\sol{For \code{divide}, precond is \code{b} cannot be 0, postcond is the result is the division of \code{a} by \code{b}. For \code{get\_average}, precond is the list cannot be empty (which cause division by 0), postcond is the result is the average of the numbers in the list. To make them total, we throw an exception when the precond is violated.}
+
     \chapter{Data Abstraction}
 %Liskov 5
 
