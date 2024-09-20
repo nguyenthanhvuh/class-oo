@@ -55,7 +55,7 @@
 \usepackage{etoolbox}
 
 \newtoggle{usesol}
-\settoggle{usesol}{true} % not sol version
+\settoggle{usesol}{false} % not sol version
 \newcommand{\sol}[1]{\iftoggle{usesol}{\textbf{Sol:} #1}{}}
 \newcommand{\notsol}[1]{\nottoggle{usesol}{#1}{}}
 \newcommand{\solite}[2]{\iftoggle{usesol}{#1}{#2}}
