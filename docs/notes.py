@@ -136,3 +136,100 @@ class Stack:
 
 # 1. change rep to private  (e.g., using private keyword in Java/C, and uses underscore __contents for Python)
 # 2. for every mutator methods (e.g., push, pop in Stack), change it so that it returns the new object
+
+
+
+
+
+
+
+
+class Mammal:
+    def speak():
+        print("say something")
+class Dog(Mammal):
+    def speak():
+        print("woof")
+class Cat(Mammal):
+    def speak():
+        print("meoow")
+
+Dog d = Dog()
+d.speak()    # static dispatching  ,  print "woof"
+
+Mammal m = Dog() 
+m.speak()    # dynamic dispatching , print "woof"  ??
+
+animals = [d,  Cat()]
+for a in animals:
+    a.speak()
+    
+    
+
+
+
+method_m(m: Mammal) 
+    m.speak()
+    
+    
+method_m(d)
+    d.speak() 
+    
+    
+method_d(c)
+    c.speak()
+    
+    
+    
+
+
+
+
+LSP
+
+Mammal.speak
+- precond 
+- postcond
+
+
+Dog.speak
+- precond
+- postcond 
+
+
+LSP:  
+    - precond of method of a sublass needs be equal or weaker than the precond of a method of a superclass
+        - precond of Dog.speak  weaker than or equal Mammal.speak
+        
+
+class A:
+    def m(x):
+        """
+        pre: x <= 10 
+        
+        post: r >= 10
+        """    
+        
+        return r
+        
+class B(A):
+    def m(x):
+        """
+        pre: x <= 10
+        pre: no constraint on X 
+        pre: x <= 10 ,  x = 11 , x = 12,  ... , x=15    x <= 15
+        pre: x <= 15 
+        pre: x <= 100 
+        
+        post: r >= 20
+        """
+        return r
+    
+def method_m(a: A, x):
+    a.m(x)
+
+method_m(b) 
+
+
+
+    
