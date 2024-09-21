@@ -23,9 +23,10 @@
 - HW Assignment: Polynomial ADT
 
 ## Week 4
-- Topic: Polymorphism
+- Topic: Polymorphism, Liskov Substitution Principle
 - Reading: OOP 4
-- HW Assignment: TBD
+- In-class: BankAccount
+- HW Assignment: LSP: Market subtype (4.6.1)
 
 # HW Assignments
 

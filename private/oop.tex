@@ -630,8 +630,6 @@ def get_average(numbers: list[float]) -> float:
 
 \sol{For \code{divide}, precond is \code{b} cannot be 0, postcond is the result is the division of \code{a} by \code{b}. For \code{get\_average}, precond is the list cannot be empty (which cause division by 0), postcond is the result is the average of the numbers in the list. To make them total, we throw an exception when the precond is violated.}
 
-    \chapter{Data Abstraction}
-=======
 \chapter{Data Abstraction}\label{chap:adt}
 %Liskov 5
 
@@ -838,7 +836,7 @@ class Members:
 \subsection{Abstraction Function (AF)} 
 
 It can be difficult to understand the ADT by looking at the rep directly. For example, we might not be able to visualize or reason about a binary tree or a graph ADT when using list as the rep. To aid understanding, \emph{abstraction function} (\textbf{AF}) provides a mapping between the rep and the ADT. 
-Specifically, the AF maps from a \emph{concrete state} (i.e., the \code{else} \code{els}) to an \emph{abstract state} (i.e., the set). AF is also a \emph{many-to-one} mapping, as multiple concrete states can map to the same abstract state, e.g., the list \code{[1, 2, 3]} and \code{[3, 2, 1]} both map to the same set \code{\{1, 2, 3\}}. 
+Specifically, the AF maps from a \emph{concrete state} (i.e., the \code{els} rep in \autoref{ex:intset}) to an \emph{abstract state} (i.e., the integer set). AF is also a \emph{many-to-one} mapping, as multiple concrete states can map to the same abstract state, e.g., the list \code{[1, 2, 3]} and \code{[3, 2, 1]} both map to the same set \code{\{1, 2, 3\}}. 
 
 Just as with rep-inv, the AF is documented in the class specification. Modern OOP languages often provide methods implementing the AF, in particular developer overrides the \code{\_\_str\_\_} method in Python and \code{toString} in Java to return a string representation of the object. For example, the \code{\_\_str\_\_} method in \autoref{ex:intset} returns a string representation of the set.
 
@@ -949,7 +947,7 @@ class Queue:
     \caption{Mutable Queue}\label{ex:mutable-queue}
 \end{figure}
 
-Rewrite the mutable \code{Queue} implementation in \autoref{ex:mutable-queue} so that it becomes \emph{immutable}. Keep the representation variables \code{elements} and \code{size}.
+Rewrite the mutable \code{Queue} implementation in \autoref{ex:mutable-queue} so that it becomes \emph{immutable}. Keep the \textbf{rep} variables \code{elements} and \code{size}.
 
 
 
@@ -1126,7 +1124,7 @@ class Immutable:
 
 \chapter{Types}
 
-In 1999, NASA's Mars Climate Orbiter mission ended in failure due to a simple yet catastrophic software error. The spacecraft, which cost \$125 million to build and launch, was launched on December 11, 1998 to study the Martian climate and atmosphere. After a 9-month journal, the spacecraft approached Mars on September 23, 1999,  where it was supposed to execute an orbit insertion maneuver. This maneuver would allow the spacecraft to enter a stable orbit around Mars at an altitude of about 226 kilometers (140 miles) above the planet’s surface. However, the spacecraft instead plunged much deeper into the Martian atmosphere, to an estimated altitude of 57 kilometers (35 miles), causing it to either burn up or crash on the surface, resulting in a complete loss of the mission.
+In 1999, NASA's Mars Climate Orbiter mission ended in failure due to a simple yet catastrophic software error. The spacecraft, which cost \$125 million to build and launch, was launched on December 11, 1998 to study the Martian climate and atmosphere. After a 9-month journey, the spacecraft approached Mars on September 23, 1999, and was supposed to enter a stable orbit around Mars at an altitude of about 226 kilometers (140 miles) above the planet’s surface. However, the spacecraft instead plunged much deeper into the Martian atmosphere, to an estimated altitude of 57 kilometers (35 miles), causing it to either burn up or crash on the surface, resulting in a complete loss of the mission.
 
 The cause of the failure was a software error involving typing mismatch between imperial units (pounds-force) and metric units (newtons) in the software that controlled the spacecraft's thrusters. The software expected data in metric units, but the thruster data was provided in imperial units, leading to the incorrect trajectory calculations. This mismatch was not caught during testing, and the spacecraft was lost as a result. This failure not only cost NASA a significant financial investment but also set back the Mars exploration program. 
 
@@ -1235,8 +1233,10 @@ class BankAccount:
         return self._balance >= 0
 
     def deposit(self, amount: float) -> bool:
-        # Precondition: amount must be positive
-        
+        """
+        REQUIRES: amount must be positive
+        EFFECTS: balance is the original balance plus deposited amount
+        """
         if amount <= 0:
             return False
         self._balance += amount
@@ -1244,8 +1244,8 @@ class BankAccount:
         return True
 
     def withdraw(self, amount: float) -> bool:
-        # Precondition: amount must be positive and less than or equal to balance
-        # Postcondition: balance is the original balance minus withdrawn amount
+        # REQUIRES: amount must be positive and less than or equal to balance
+        # EFFECTS: balance is the original balance minus withdrawn amount
 
         if amount <= 0 or amount > self._balance:
             return False
@@ -1259,16 +1259,9 @@ class BonusBankAccount(BankAccount):
         super().__init__(balance)
         self._bonus_interest = bonus_interest
 
-    def withdraw(self, amount: float) -> bool:
-        # Weaker precondition: allow zero withdrawals, which are ignored
-        if amount == 0:
-            return True  # Zero withdrawal is considered a no-op
-        ret =  super().withdraw(amount)
-        # check_repOK()
-        return ret
-    
     def deposit(self, amount: float) -> str:
-        # Stronger postcondition: deposit and also add bonus interest
+        # REQUIRES: (same) amount must be positive
+        # EFFECTS: (stronger) deposit and also add bonus interest
 
         stats = super().deposit(amount)
         if stats:
@@ -1277,6 +1270,19 @@ class BonusBankAccount(BankAccount):
         
         # check_repOK()
         return stats
+
+
+    def withdraw(self, amount: float) -> bool:
+        """
+        REQUIRES: (weaker) allow zero withdrawals, which are ignored
+        EFFECTS: (same) balance is the original balance minus withdrawn amount
+        """
+        if amount == 0:
+            return True  # Zero withdrawal is considered a no-op
+        ret =  super().withdraw(amount)
+        # check_repOK()
+        return ret
+    
     
     def repOK(self):
         """
@@ -1287,7 +1293,88 @@ class BonusBankAccount(BankAccount):
     \end{lstlisting}
 \caption{Liskov Substitution Principle demonstration}\label{ex:lsp}
 \end{figure}
-\subsection{In-Class Exercise: LSP}
+
+
+% \begin{lstlisting}
+% class IntSet:
+%     def insert(self, x): ...; self.repOk()
+%     def remove(self, x): ...; self.repOk()
+%     def repOk(self): ...
+
+%     class MaxIntSet(IntSet):
+%     def insert(self, x): ...; super().insert(x); self.repOk()
+%     def remove(self, x): super().remove; ...; self.repOk()
+%     def repOk(self): super().repOk(); ...
+
+% s = MaxIntSet()
+% s.insert(3)
+% s.insert(5)
+% s.remove(5)
+%\end{lstlisting}
+
+\section{Exercise}
+
+\subsection{LSP: Market subtype}
+
+Determine whether the \code{LowBidMarket} and \code{LowOfferMarket} classes are proper subtypes of \code{Market}. Specifically, for each method in each class, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP holds.
+
+\begin{lstlisting}
+class Market:
+    def __init__(self):
+        self.wanted = set()  # items for which prices are of interest
+        self.offers = {}     # offers to sell items at specific prices
+
+    def offer(self, item, price):
+        """
+        Requires: item is an element of wanted.
+        Effects: Adds (item, price) to offers.
+        """
+        if item in self.wanted:
+            if item not in self.offers:
+                self.offers[item] = []
+            self.offers[item].append(price)
+
+    def buy(self, item):
+        """
+        Requires: item is an element of the domain of offers.
+        Effects: Chooses and removes some (arbitrary) pair (item, price) from
+                    offers and returns the chosen price.
+        """
+        if item in self.offers and self.offers[item]:
+            return self.offers[item].pop(0)  # Removes and returns the first price
+        return None
+
+class LowBidMarket(Market):
+    def offer(self, item, price):
+        """
+        Requires: item is an element of wanted.
+        Effects: If (item, price) is not cheaper than any existing pair
+                    (item, existing_price) in offers, do nothing.
+                    Else add (item, price) to offers.
+        """
+        if item in self.wanted:
+            if item not in self.offers:
+                self.offers[item] = []
+            # Only add if price is lower than existing prices
+            if not self.offers[item] or price < min(self.offers[item]):
+                self.offers[item].append(price)
+
+class LowOfferMarket(Market):
+    def buy(self, item):
+        """
+        Requires: item is an element of the domain of offers.
+        Effects: Chooses and removes the pair (item, price) with the 
+                    lowest price from offers and returns the chosen price.
+        """
+        if item in self.offers and self.offers[item]:
+            # Find and remove the lowest price from the list
+            lowest_price = min(self.offers[item])
+            self.offers[item].remove(lowest_price)
+            return lowest_price
+        return None                
+\end{lstlisting}
+
+\subsection{LSP: Reducer}
 \begin{figure}
 \begin{lstlisting}
 class A:
@@ -1329,28 +1416,6 @@ For the classes \code{A}, \code{B}, and \code{C} in \autoref{ex:lsp-exercise}, d
     \sol{C's pre is weaker than B's because C allows $x$ to be None while B does not. The posts are the same. \textbf{LSP does not hold}.}
     \item \code{A} extends \code{C}
 \end{enumerate}
-
-% \begin{lstlisting}
-% class IntSet:
-%     def insert(self, x): ...; self.repOk()
-%     def remove(self, x): ...; self.repOk()
-%     def repOk(self): ...
-
-%     class MaxIntSet(IntSet):
-%     def insert(self, x): ...; super().insert(x); self.repOk()
-%     def remove(self, x): super().remove; ...; self.repOk()
-%     def repOk(self): super().repOk(); ...
-
-% s = MaxIntSet()
-% s.insert(3)
-% s.insert(5)
-% s.remove(5)
-%\end{lstlisting}
-
-\section{Exercise}
-
-
-
 
 \appendix
 
