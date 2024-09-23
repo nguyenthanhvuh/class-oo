@@ -1212,7 +1212,7 @@ In Python, interfaces are not explicitly defined, but the concept can be impleme
 In Java, interfaces are explicitly defined using the \code{interface} keyword, e.g., \code{interface Mammal}, and methods are declared without a body, e.g., \code{public void speak();}. A class can implement multiple interfaces, allowing for more flexibility in defining contracts between classes.
 
 
-\paragraph{Comparable interface} A good example of an interface is the \code{Comparable} interface, which defines a single method \code{compare\_to} that allows objects to be compared to each other. Any class that implements the \code{Comparable} interface can be compared to other objects of the same type, enabling sorting and other operations that require comparison.
+\paragraph{Comparable interface} A good example of an interface is \code{Comparable}, which defines a single method \code{compare\_to} that allows objects to be compared to each other. Any class that implements \code{Comparable} can be compared to other objects of the same type, enabling sorting and other operations that require comparison.
 
 The code below demonstrates the use of the \code{Comparable} interface in Python. The \code{Number} class implements the \code{Comparable} interface by defining the \code{compare\_to} method, which compares two \code{Number} objects based on their values. The \code{sort} function uses the \code{compare\_to} method to sort a list of \code{Number} objects.
 
@@ -1240,9 +1240,6 @@ class Number(Comparable):
         else:
             return 0
 
-    def __repr__(self):
-        return str(self.value)
-
 # Polymorphic sorting function that relies on the compare_to method
 def sort(items: List[Comparable]) -> List[Comparable]:
     return sorted(items, key=lambda x: x.value)
@@ -1252,6 +1249,35 @@ numbers = [Number(3), Number(1), Number(4), Number(2)]
 sorted_numbers = sort(numbers)
 print(sorted_numbers)  # Output: [1, 2, 3, 4]
 \end{lstlisting}    
+
+\subsection{Element Subtype vs Related Subtype} There are two types of subtypes: \emph{element subtype} and \emph{related subtype}. Element subtype relies on a common interface or abstract class, e.g., \code{Number} is an element subtype of \code{Comparable} because it implements the \code{compare\_to} method. While this common approach allows for polymorphism, it requires all potential types must be pre-planned to fit the hierarchy. 
+
+
+On the other hand, a related subtype does not directly rely on a common interface or abstract class (which might be designed much later). Instead, this approach creates a related subtype that implement the desired interface and then adapts it to the existing hierarchy. The code below demonstrates the use of a related subtype, where \code{Price} is adapted to \code{PriceComparable}, which implements \code{Comparable}, to allow sorting of \code{Price} objects.
+
+\begin{lstlisting}
+class Price:
+    def __init__(self, amount: float):
+        self.amount = amount
+
+
+class PriceComparable(Comparable):
+    def __init__(self, price: Price):
+        self.price = price
+    def compare_to(self, other: "PriceComparable") -> int:
+        if self.price.amount < other.price.amount:
+            return -1
+        elif self.price.amount > other.price.amount:
+            return 1
+        else:
+            return 0
+
+# sorting using related subtype            
+prices = [Price(3.0), Price(1.0), Price(4.0), Price(2.0)]
+price_comparators = [PriceComparable(p) for p in prices]
+sorted_prices = sort(price_comparators)
+\end{lstlisting}
+
 \section{Dynamic Dispatching}
 
 Dynamic dispatching refers to how a program selects which method to invoke when a method is called on an object.  It allows the correct method to be invoked based on the \emph{runtime type} of the object, even if the reference to the object is of a more general (superclass) type. This is particularly useful when working with inheritance and polymorphism, where subclasses override methods from a superclass.
