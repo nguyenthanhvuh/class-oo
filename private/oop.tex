@@ -55,7 +55,7 @@
 \usepackage{etoolbox}
 
 \newtoggle{usesol}
-\settoggle{usesol}{false} % not sol version
+\settoggle{usesol}{true} % not sol version
 \newcommand{\sol}[1]{\iftoggle{usesol}{\textbf{Sol:} #1}{}}
 \newcommand{\notsol}[1]{\nottoggle{usesol}{#1}{}}
 \newcommand{\solite}[2]{\iftoggle{usesol}{#1}{#2}}
@@ -1055,12 +1055,15 @@ Use the Poly ADT in \autoref{ex:poly} to answer the following questions. Use the
 
 \subsection{Immutability}
 
-The below \code{class Immutable} is supposed to be an immutable class. However, it is not. 
+The below class \code{Immutable} is supposed to be immutable. However, it is not. Identify the issues and fix them.  Note that in Python or Java, immutable types include \code{int}, \code{float}, \code{str}, \code{tuple}. and mutable types include \code{list} and \code{dict}. 
+
 \begin{enumerate}
 \item Which of the lines (A--F) has a problem with immutability? Explain why by showing code example, i.e., show code involving problematic lines; show how that breaks immutability.
-\sol{only line F is problematic. It returns a reference to the internal list, which can be modified. Note that line C has no issue because it creates a copy of the list. If there was no copy, then this would cause a problem as mlist could be modified outside the class and affects \code{_mlist}.}
+
+\sol{Only line F is problematic. It returns a reference to the internal list, which can be modified. Note that line C has no issue because it creates a copy of the list. If there was no copy, then this would cause a problem as \code{mlist} could be modified outside the class and affects \code{\_mlist}.}
 \item For each line that has a problem.  Write code to fix it so that the class is immutable.
-\item Note that in Python or Java, immutable types include \code{int}, \code{float}, \code{str}, \code{tuple}. and mutable types include \code{list} and \code{dict}.
+
+\sol{To fix line F, simply return copy, i.e., return self.\_mlist.copy().}
 \end{enumerate}
 
     
@@ -1153,6 +1156,10 @@ Polymorphism is a cornerstone of OOP that allows objects of different types to b
 
 
 class Mammal:
+    """
+    Abstract class
+    """
+    
     @abstractmethod
     def speak(self):
         raise NotImplementedError("Subclasses should implement this!")
@@ -1179,14 +1186,25 @@ for m in mammals:
 
 \section{Inheritance}
 
-Inheritance creates a hierarchical relationship between classes. It consists of general base classes and more specific subclasses that inherit behaviors and properties from the base classes. \autoref{ex:polymorphism} shows an example of inheritance. \code{Mammal} is the \emph{base class} (superclass or supertype). \code{Mammal} also defines the \emph{interface} for mammal objects and specific the set of operations or behaviors that all mammals must support. This this specific example, \code{Mammal} is also an \emph{abstract class}, i.e., it cannot be instantiated, and contains an abstract method \code{move} that its subclasses must implement.
+Inheritance creates a hierarchical relationship between classes and allows a class to be a \emph{subclass} or \emph{subtype} of one other class (its \emph{superclass} or \emph{supertype}).
+\autoref{ex:polymorphism} shows an example of inheritance.
+\code{Mammal} is the superclass of \code{Dog} and \code{Cat}.
+\code{Dog} and \code{Cat} are the subclasses of \code{Mammal}
+They override \code{speak} to provide a specific implementation.
+In addition to \emph{overriding} the \code{speak} method in \code{Mammal}, \code{Dog} defines a new method \code{bark} that is specific to dogs.
 
-\code{Dog} and \code{Cat} are subclasses (subtypes) that inherit or derive from \code{Mammal}.  They override \code{speak} to provide a specific implementation.
-In addition to \emph{overriding} the \code{speak} method, \code{Dog} defines a new method \code{bark} that is specific to dogs.
 
 This is an example of single inheritance, where a subclass can inherit from only one superclass. Python also supports multiple inheritance, where a subclass can inherit from multiple superclasses. For example, an \code{HybridVehicle} class could inherit from both \code{Car} and \code{BatteryVehicle} classes. However, multiple inheritance can lead to complex hierarchies and potential conflicts, so it should be used judiciously.
 
+\subsection{Abstract Class}
+OOP has two types of classes: \emph{concrete} and \emph{abstract} classes. Concrete classes provide a full implementation of the type while abstract classes provide at most a partial implementation of the type. Abstract classes cannot be instantiated (no objects) since some of their methods are not yet implemented.
+\code{Mammal} is an \emph{abstract class}, i.e., it cannot be instantiated, and contains an abstract method \code{speak} that its subclasses must implement.
 
+
+
+\subsection{Interface}
+
+Moreover, in this example,  \code{Mammal} also acts as an \emph{interface} that specify the set of operations or behaviors that all mammals must support.
 
 \section{Dynamic Dispatching}
 
@@ -1222,6 +1240,9 @@ More formally, let $X$ b the superclass and $X'$ a subclass, and $f$ is a method
     $P \Rightarrow P'$, $Q' \Rightarrow Q$, and $R \Rightarrow R'$  
 \end{center}
 
+\subsection{In-Class Exercise: BankAccount}
+
+%\autoref{ex:bankaccount}
 
 \begin{figure}
     \begin{lstlisting}
@@ -1291,8 +1312,10 @@ class BonusBankAccount(BankAccount):
         return super().repOK() and self._bonus_interest >= 0
         
     \end{lstlisting}
-\caption{Liskov Substitution Principle demonstration}\label{ex:lsp}
+\caption{Liskov Substitution Principle demonstration}\label{ex:bankaccount}
 \end{figure}
+
+
 
 
 % \begin{lstlisting}
