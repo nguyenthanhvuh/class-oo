@@ -55,7 +55,7 @@
 \usepackage{etoolbox}
 
 \newtoggle{usesol}
-\settoggle{usesol}{true} % not sol version
+\settoggle{usesol}{false} % not sol version
 \newcommand{\sol}[1]{\iftoggle{usesol}{\textbf{Sol:} #1}{}}
 \newcommand{\notsol}[1]{\nottoggle{usesol}{#1}{}}
 \newcommand{\solite}[2]{\iftoggle{usesol}{#1}{#2}}
@@ -1154,8 +1154,9 @@ Polymorphism is a cornerstone of OOP that allows objects of different types to b
 \begin{figure}
 \begin{lstlisting}
 
+from abc import ABC, abstractmethod
 
-class Mammal:
+class Mammal(ABC):
     """
     Abstract class
     """
@@ -1196,16 +1197,61 @@ In addition to \emph{overriding} the \code{speak} method in \code{Mammal}, \code
 
 This is an example of single inheritance, where a subclass can inherit from only one superclass. Python also supports multiple inheritance, where a subclass can inherit from multiple superclasses. For example, an \code{HybridVehicle} class could inherit from both \code{Car} and \code{BatteryVehicle} classes. However, multiple inheritance can lead to complex hierarchies and potential conflicts, so it should be used judiciously.
 
-\subsection{Abstract Class}
-OOP has two types of classes: \emph{concrete} and \emph{abstract} classes. Concrete classes provide a full implementation of the type while abstract classes provide at most a partial implementation of the type. Abstract classes cannot be instantiated (no objects) since some of their methods are not yet implemented.
-\code{Mammal} is an \emph{abstract class}, i.e., it cannot be instantiated, and contains an abstract method \code{speak} that its subclasses must implement.
+\section{Abstract Class}
+OOP has two types of classes: \emph{concrete} and \emph{abstract} classes. Concrete classes provide a full implementation of the type while abstract classes provide at most a partial implementation of the type. Abstract classes cannot be instantiated (no objects) since some of their methods are not yet implemented (abstract methods). Abstract classes can have both abstract (to be implemented by subclasses) and concrete methods (already implemented or partially implemented). 
+
+In Python abstract classes are defined using the \code{abc} module, which provides the \code{ABC} class and the \code{abstractmethod} decorator. The \code{ABC} class is used as a base class for abstract classes, and the \code{abstractmethod} decorator is used to mark methods as abstract. In \autoref{ex:polymorphism},
+\code{Mammal} is an abstract class, i.e., it cannot be instantiated, and contains an abstract method \code{speak} that its subclasses must implement.
+In Java, abstract classes are defined using the \code{abstract} keyword, e.g., \code{public abstract class Mammal}, and abstract methods are declared using the \code{abstract} keyword as well, e.g., \code{public abstract void speak();}.
+
+\section{Interface}
+
+Interface is a special type of abstract class that contains only abstract methods (no concrete methods). They define a specification that classes must adhere to, providing the methods that must be implemented by any class that implements the interface. Multiple classes can implement the same interface, allowing for polymorphism and flexibility in the design.
+
+In Python, interfaces are not explicitly defined, but the concept can be implemented using abstract classes with only abstract methods. For example, the abstract class \code{Mammal} in \autoref{ex:polymorphism} acts as an interface that specifies the \code{speak} method that all mammals must implement.
+In Java, interfaces are explicitly defined using the \code{interface} keyword, e.g., \code{interface Mammal}, and methods are declared without a body, e.g., \code{public void speak();}. A class can implement multiple interfaces, allowing for more flexibility in defining contracts between classes.
 
 
+\paragraph{Comparable interface} A good example of an interface is the \code{Comparable} interface, which defines a single method \code{compare\_to} that allows objects to be compared to each other. Any class that implements the \code{Comparable} interface can be compared to other objects of the same type, enabling sorting and other operations that require comparison.
 
-\subsection{Interface}
+The code below demonstrates the use of the \code{Comparable} interface in Python. The \code{Number} class implements the \code{Comparable} interface by defining the \code{compare\_to} method, which compares two \code{Number} objects based on their values. The \code{sort} function uses the \code{compare\_to} method to sort a list of \code{Number} objects.
 
-Moreover, in this example,  \code{Mammal} also acts as an \emph{interface} that specify the set of operations or behaviors that all mammals must support.
+\begin{lstlisting}
+    from abc import ABC, abstractmethod
+from typing import List
 
+# Define a Comparable interface using ABC
+class Comparable(ABC):
+    @abstractmethod
+    def compare_to(self, other: "Comparable") -> int:
+        """Compares this object with another."""
+        pass
+
+# Implement Comparable in a concrete class
+class Number(Comparable):
+    def __init__(self, value: int):
+        self.value = value
+
+    def compare_to(self, other: "Number") -> int:
+        if self.value < other.value:
+            return -1
+        elif self.value > other.value:
+            return 1
+        else:
+            return 0
+
+    def __repr__(self):
+        return str(self.value)
+
+# Polymorphic sorting function that relies on the compare_to method
+def sort(items: List[Comparable]) -> List[Comparable]:
+    return sorted(items, key=lambda x: x.value)
+
+# Usage
+numbers = [Number(3), Number(1), Number(4), Number(2)]
+sorted_numbers = sort(numbers)
+print(sorted_numbers)  # Output: [1, 2, 3, 4]
+\end{lstlisting}    
 \section{Dynamic Dispatching}
 
 Dynamic dispatching refers to how a program selects which method to invoke when a method is called on an object.  It allows the correct method to be invoked based on the \emph{runtime type} of the object, even if the reference to the object is of a more general (superclass) type. This is particularly useful when working with inheritance and polymorphism, where subclasses override methods from a superclass.
@@ -1224,21 +1270,20 @@ The code below demonstrates the difference between static and dynamic dispatchin
 
 \section{Liskov Substitution Principle (LSP)}
 The Liskov Substitution Principle (LSP) is a fundamental concept of object-oriented design, which ensures that objects of a subclass should be able to replace objects of the superclass without altering the correctness of the program. LSP promotes proper design and enforces correct use of inheritance.
+Violating LSP can lead to unexpected behavior and errors in the program, as the assumptions made about the superclass may no longer hold for the subclass. 
 
-The main idea of LSP is that a subclass should only strengthen the contract of the superclass, never weaken it.  This means that a subclass \emph{is-a} superclass and should be able to do everything the superclass can do, but it can also do more. For example, a \code{Dog} is a \code{Mammal} and should be able to speak like any mammal, but it can also bark, which is specific to dogs.
-This enables substitution of objects of the subclass for objects of the superclass, allowing for polymorphism and dynamic dispatching to work correctly, i.e., if $S$ is a subclass of $T$, instances of $S$ should be able to replace instances of $T$ without affecting the correctness of the program. The \code{make\_animal\_speak} function in \autoref{ex:polymorphism} demonstrates LSP by accepting any \code{Mammal} object and making it speak, regardless of its specific type.
+The main idea of LSP is that a subclass \emph{is-a} superclass and can do everything the superclass can do, and can also do more. For example, a \code{Dog} is a \code{Mammal} and can speak like any mammal, but it can also bark, which is specific to dogs.
+This enables substitution of objects of the subclass for objects of the superclass, allowing for polymorphism and dynamic dispatching to work correctly. The \code{make\_animal\_speak} function in \autoref{ex:polymorphism} demonstrates LSP by accepting any \code{Mammal} object and making it speak, regardless of its specific type.
 
-\paragraph{Weaker precondition, stronger postcondition, stronger rep-inv} To enforce LSP, it is important to ensure that the subclass does not violate the specification of the superclass, i.e., it should not weaken the preconditions, strengthen the postconditions, or violate the rep-inv of the superclass. Violating LSP can lead to unexpected behavior and errors in the program, as the assumptions made about the superclass may no longer hold for the subclass. 
 
-\begin{enumerate}
-	\item Weaker Preconditions: The subclass should accept a broader range of inputs than the superclass.
-	\item Stronger Postconditions: The subclass should provide results that are at least as strong as those guaranteed by the superclass, if not stronger.
-	\item Representation Invariants: The subclass should maintain or strengthen the representation invariants of the superclass.
-\end{enumerate}
-More formally, let $X$ b the superclass and $X'$ a subclass, and $f$ is a method of $X$ and $f'$ a method of $X'$, then the precondition $P'$ of $f'$ is weaker than or equal to the precondition $P$ of $f$, and the postcondition $Q'$ of $f'$ is stronger than or equal to the postcondition $Q$ of $f$. Moreover, if $R$ is the rep-inv of $X$, and $R'$ is the rep-inv of $X'$, then $R'$ is stronger or equal to $R$. This can be written as:
-\begin{center}
-    $P \Rightarrow P'$, $Q' \Rightarrow Q$, and $R \Rightarrow R'$  
-\end{center}
+\paragraph{Rules} If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be replaced with objects of type \code{S} without altering any of the desirable properties of the program. This means whenever you use \code{T}, you can use \code{S} instead. To achieve this, we must follow the following rules:
+\begin{itemize}
+\item[\textbf{Signature Rule}] The signatures of methods of \code{S} must strengthen methods of \code{T}. In other words, the methods of \code{S} are a superset of the methods of \code{T}. Thus, if \code{T} has \code{n} methods, \code{S} also has \code{n} methods and additional ones (methods specific to \code{S}). 
+
+\item[\textbf{Method Rule}] The specification of \code{f'} strengthens that of \code{f}. This means that the preconditions of \code{f'} must be weaker or equal to the preconditions of \code{f}, i.e.,  \code{f'} accepts more inputs than \code{f}.  The postconditions of \code{f} must be stronger or equal to that of \code{f}. This means that \code{f'} is more precise and specific than \code{f}.
+
+\item[\textbf{Property Rule}] The subtype must preserve all properties of the supertype.  For example, the rep-invariant of the subtpe \code{S} must be stronger or equal to that of the supertype \code{T}. This means \code{S} should maintain or strengthen the properties (including rep invariants) of \code{T}
+\end{itemize}
 
 \subsection{In-Class Exercise: BankAccount}
 

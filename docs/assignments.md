@@ -26,7 +26,7 @@
 - Topic: Polymorphism, Liskov Substitution Principle
 - Reading: OOP 4
 - In-class: BankAccount
-- HW Assignment: LSP: Market subtype (4.6.1)
+- HW Assignment: LSP: Market subtype (4.8.1)
 
 # HW Assignments
 
