@@ -1500,7 +1500,7 @@ class A:
                  else, reduce this by x.
         """
 
-class B(A):
+class B:
     def reduce(self, x):
         """
         Requires: x is not None.
@@ -1508,7 +1508,7 @@ class B(A):
                  else, reduce this by x.
         """
 
-class C(A):
+class C:
     def reduce(self, x):
         """
         Effects: if x is None, return normally with no change;
@@ -1540,22 +1540,22 @@ Consider the following classes with their specifications for the \code{update()}
 class A:
     def update(self, value):
         """
-        Effects: If value is not valid, do nothing;
+        Effects/Post: If value is not valid, do nothing;
                  otherwise, update this with value.
         """
 
-class B(A):
+class B:
     def update(self, value):
         """
-        Requires: value must be an integer.
-        Effects: If value is valid, update this with value;
+        Requires/Pre: value must be an integer.
+        Effects/Post: If value is valid, update this with value;
                  otherwise, do nothing.
         """
 
-class C(A):
+class C:
     def update(self, value):
         """
-        Effects: If value is invalid, set default update;
+        Effects/Post: If value is invalid, set default update;
                  otherwise, update this with value.
         """
 \end{lstlisting}    
@@ -1805,7 +1805,6 @@ A prime number is a natural number greater than 1 that has no positive divisors 
 
 
 \chapter{Miscs}
-
 
 
 \bibliographystyle{abbrv}
