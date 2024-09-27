@@ -1396,7 +1396,7 @@ In the \code{BankAccount} class in \autoref{ex:bankaccount}, the \code{\_balance
 
 
 
-\subsection{In-class: Polymorphism and all: Vehicle}
+\subsection{In-class: Polymorphism concepts: Vehicle}
 
 You will design a system that models a fleet of different types of vehicles (e.g., cars, bicycles, trucks). Each vehicle has the ability to start, stop, and display its details. Vehicles should differ in their implementation of these behaviors. You will use abstract classes and interfaces to define the basic structure and ensure that your system adheres to OOP principles.
 
@@ -1406,7 +1406,7 @@ You will design a system that models a fleet of different types of vehicles (e.g
         \item An encapsulated attribute for \code{speed}.
         \item Abstract methods: \code{start()}, \code{stop()}, and \code{display()}.
     \end{enumerate}
-    \item Define an interface called \code{Refuelable}, with a method \code{refuel(amount: int)}
+    \item Define an interface called \code{Refuelable}, with a method \code{refuel(amount:int)}
     \item Create concrete subclasses
     \begin{enumerate}
 	    \item Create \code{Car} and \code{Bicycle} classes that inherit from \code{Vehicle}.
@@ -1416,10 +1416,10 @@ You will design a system that models a fleet of different types of vehicles (e.g
     \end{enumerate}
     \item Demonstrate Polymorphism and other OOP principles
     \begin{enumerate}
-        \item Create a function \code{operate\_vehicle(vehicle: Vehicle)} that accepts any vehicle type and calls its \code{start}, \code{stop}, and \code{display} methods. This function demonstrates polymorphism and dynamic dispatching.
+        \item Create a function \code{operate\_vehicle(vehicle:Vehicle)} that accepts any vehicle type and calls its \code{start}, \code{stop}, and \code{display} methods. This function demonstrates polymorphism and dynamic dispatching.
         \item Create test cases to demonstrate LSP by substituting instances of \code{Car} and \code{Bicycle} for \code{Vehicle} in the \code{operate\_vehicle} function. 
         \item Protect rep data and other attributes and access them through setters and getters methods.
-    \item Provide proper document and specification for your code (e.g., class Overview, rep-invs, specifications, AF, \code{repOK}).
+    \item Provide proper document and specifications for your code (e.g., class Overview, rep-invs, method specifications, AF, \code{repOK}).
     \end{enumerate}
 
 \end{enumerate}
