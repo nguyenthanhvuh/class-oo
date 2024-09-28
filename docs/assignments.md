@@ -42,7 +42,8 @@
     - Element vs Related Subtype
     - Encapsulation
 - In-class: Vehicle (4.9.3), Prime Number (5.5)
-- HW Assignment: 
+- HW Assignment: Perfect Number (5.6.1)
+- Quiz: LSP Analysis
 
 # HW Assignments
 

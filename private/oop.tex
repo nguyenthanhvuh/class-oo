@@ -1732,9 +1732,10 @@ Each call to \code{yield} returns the current value of start and saves the funct
 \end{itemize}   
 
 
-\section{In-Class Exercise: Prime Number}
+\section{In-Class Exercise: Prime Number}\label{ex:prime-number}
 
-A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself. In this exercise, you will create a generator function that yields prime numbers on demand.
+A \emph{prime number} is a natural number greater than 1 that has no positive divisors other than 1 and itself. In this exercise, you will implement three different approaches to generate prime numbers: a non-iterator method, a custom iterator class, and a generator function. You will compare the performance of these approaches and observe the benefits of using iterators and generators.
+
 \begin{enumerate}
     
     \item Write a non-iterator and non-generator method \code{gen\_prime} that generates prime numbers up to a specified limit.
@@ -1783,6 +1784,28 @@ A prime number is a natural number greater than 1 that has no positive divisors 
 %             if n % i == 0:
 %                 return False
 %         return True
+
+\section{Exercise}
+\subsection{Perfect Number Generation}
+
+A \emph{perfect number} is a positive integer that is equal to the sum of its proper divisors, excluding itself (e.g., 6, 28). You will implement three different approaches to find perfect numbers up to a given limit, comparing their performance and resource usage.  
+
+For this exercise, you can use either Python or Java and submit your code with \emph{clear documentation} on how to run and test your code. That is, you must explicitly state the commands to run your code and the expected output. You will also need to provide screenshots or logs of the execution results, including the time taken and memory usage.  
+
+If you do not provide clear documentation, you will not receive credit. If we cannot run your code, you will not receive credit. If we do not see the results you claim, you will not receive credit. 
+
+\begin{enumerate}
+\item Part 1: Generate Perfect Numbers Without Iterators or Generators.  Write a method \code{gen\_perfect} that generates perfect numbers up to a given positive value \code{n}, i.e., generate perfect numbers less than or equal to \code{n}.  You will not use iterators or generators and store all perfect numbers in a list.
+\begin{enumerate}
+    \item Play around with different \code{n} (e.g., 10,000, 100,000) to see how the program performs. Aim for about 20 seconds of execution time.
+    \item Print out the first 5 perfect numbers generated.
+    \item Measure execution time and memory usage, which should be relatively high due to high computational demands and storage of all perfect numbers.
+\end{enumerate}
+
+\item Part 2: Implement a custom iterator called \code{PowerNumberIterator} for perfect numbers. You can reuse the code from part 1.  After that, do exactly the analysis that you did in Part 1, i.e., play with different \code{n} values, print out the first 5 numbers generated, and measure the performance of the iterator.  You should see a significant improvement in memory usage and execution time compared to the non-iterator approach.
+\item Part 3: Use a Generator Function \code{gen\_power\_generator} to yield perfect numbers.  Reuse the code from part 1 and make changes to it to use generator.  Then do the same analysis as in Part 1 and Part 2.
+\item Part 4: write a short report comparing the performance of the three approaches.  Include the time taken, memory usage, and ease of implementation.  Discuss the benefits of using iterators and generators over the non-iterator approach.
+\end{enumerate}
 
 \chapter{Testing}
 
