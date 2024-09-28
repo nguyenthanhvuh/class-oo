@@ -55,7 +55,7 @@
 \usepackage{etoolbox}
 
 \newtoggle{usesol}
-\settoggle{usesol}{true} % not sol version
+\settoggle{usesol}{false} % not sol version
 \newcommand{\sol}[1]{\iftoggle{usesol}{\textbf{Sol:} #1}{}}
 \newcommand{\notsol}[1]{\nottoggle{usesol}{#1}{}}
 \newcommand{\solite}[2]{\iftoggle{usesol}{#1}{#2}}
@@ -1154,8 +1154,9 @@ Polymorphism is a cornerstone of OOP that allows objects of different types to b
 \begin{figure}
 \begin{lstlisting}
 
+from abc import ABC, abstractmethod
 
-class Mammal:
+class Mammal(ABC):
     """
     Abstract class
     """
@@ -1196,15 +1197,85 @@ In addition to \emph{overriding} the \code{speak} method in \code{Mammal}, \code
 
 This is an example of single inheritance, where a subclass can inherit from only one superclass. Python also supports multiple inheritance, where a subclass can inherit from multiple superclasses. For example, an \code{HybridVehicle} class could inherit from both \code{Car} and \code{BatteryVehicle} classes. However, multiple inheritance can lead to complex hierarchies and potential conflicts, so it should be used judiciously.
 
-\subsection{Abstract Class}
-OOP has two types of classes: \emph{concrete} and \emph{abstract} classes. Concrete classes provide a full implementation of the type while abstract classes provide at most a partial implementation of the type. Abstract classes cannot be instantiated (no objects) since some of their methods are not yet implemented.
-\code{Mammal} is an \emph{abstract class}, i.e., it cannot be instantiated, and contains an abstract method \code{speak} that its subclasses must implement.
+\section{Abstract Class}
+OOP has two types of classes: \emph{concrete} and \emph{abstract} classes. Concrete classes provide a full implementation of the type while abstract classes provide at most a partial implementation of the type. Abstract classes cannot be instantiated (no objects) since some of their methods are not yet implemented (abstract methods). Abstract classes can have both abstract (to be implemented by subclasses) and concrete methods (already implemented or partially implemented). 
+
+In Python abstract classes are defined using the \code{abc} module, which provides the \code{ABC} class and the \code{abstractmethod} decorator. The \code{ABC} class is used as a base class for abstract classes, and the \code{abstractmethod} decorator is used to mark methods as abstract. In \autoref{ex:polymorphism},
+\code{Mammal} is an abstract class, i.e., it cannot be instantiated, and contains an abstract method \code{speak} that its subclasses must implement.
+In Java, abstract classes are defined using the \code{abstract} keyword, e.g., \code{public abstract class Mammal}, and abstract methods are declared using the \code{abstract} keyword as well, e.g., \code{public abstract void speak();}.
+
+\section{Interface}
+
+Interface is a special type of abstract class that contains only abstract methods (no concrete methods). They define a specification that classes must adhere to, providing the methods that must be implemented by any class that implements the interface. Multiple classes can implement the same interface, allowing for polymorphism and flexibility in the design.
+
+In Python, interfaces are not explicitly defined, but the concept can be implemented using abstract classes with only abstract methods. For example, the abstract class \code{Mammal} in \autoref{ex:polymorphism} acts as an interface that specifies the \code{speak} method that all mammals must implement.
+In Java, interfaces are explicitly defined using the \code{interface} keyword, e.g., \code{interface Mammal}, and methods are declared without a body, e.g., \code{public void speak();}. A class can implement multiple interfaces, allowing for more flexibility in defining contracts between classes.
 
 
+\paragraph{Comparable interface} A good example of an interface is \code{Comparable}, which defines a single method \code{compare\_to} that allows objects to be compared to each other. Any class that implements \code{Comparable} can be compared to other objects of the same type, enabling sorting and other operations that require comparison.
 
-\subsection{Interface}
+The code below demonstrates the use of the \code{Comparable} interface in Python. The \code{Number} class implements the \code{Comparable} interface by defining the \code{compare\_to} method, which compares two \code{Number} objects based on their values. The \code{sort} function uses the \code{compare\_to} method to sort a list of \code{Number} objects.
 
-Moreover, in this example,  \code{Mammal} also acts as an \emph{interface} that specify the set of operations or behaviors that all mammals must support.
+\begin{lstlisting}
+    from abc import ABC, abstractmethod
+from typing import List
+
+# Define a Comparable interface using ABC
+class Comparable(ABC):
+    @abstractmethod
+    def compare_to(self, other: "Comparable") -> int:
+        """Compares this object with another."""
+        pass
+
+# Implement Comparable in a concrete class
+class Number(Comparable):
+    def __init__(self, value: int):
+        self.value = value
+
+    def compare_to(self, other: "Number") -> int:
+        if self.value < other.value:
+            return -1
+        elif self.value > other.value:
+            return 1
+        else:
+            return 0
+
+# Polymorphic sorting function that relies on the compare_to method
+def sort(items: List[Comparable]) -> List[Comparable]:
+    return sorted(items, key=lambda x: x.value)
+
+# Usage
+numbers = [Number(3), Number(1), Number(4), Number(2)]
+sorted_numbers = sort(numbers)
+print(sorted_numbers)  # Output: [1, 2, 3, 4]
+\end{lstlisting}    
+
+\subsection{Element Subtype vs Related Subtype} There are two types of subtypes: \emph{element subtype} and \emph{related subtype}. Element subtype relies on a common interface or abstract class, e.g., \code{Number} is an element subtype of \code{Comparable}. While this common approach allows for polymorphism, it requires all potential types must be pre-planned to fit the hierarchy. 
+
+On the other hand, a related subtype does not directly rely on a common interface or abstract class (which might be designed much later). Instead, this approach creates a related subtype that implement the desired interface and then adapts it to the existing hierarchy. The code below demonstrates the use of a related subtype, where \code{Price} is adapted to \code{PriceComparable}, which implements \code{Comparable}, to allow sorting of \code{Price} objects.
+
+\begin{lstlisting}
+class Price:
+    def __init__(self, amount: float):
+        self.amount = amount
+
+
+class PriceComparable(Comparable):
+    def __init__(self, price: Price):
+        self.price = price
+    def compare_to(self, other: "PriceComparable") -> int:
+        if self.price.amount < other.price.amount:
+            return -1
+        elif self.price.amount > other.price.amount:
+            return 1
+        else:
+            return 0
+
+# sorting using related subtype            
+prices = [Price(3.0), Price(1.0), Price(4.0), Price(2.0)]
+price_comparators = [PriceComparable(p) for p in prices]
+sorted_prices = sort(price_comparators)
+\end{lstlisting}
 
 \section{Dynamic Dispatching}
 
@@ -1224,23 +1295,22 @@ The code below demonstrates the difference between static and dynamic dispatchin
 
 \section{Liskov Substitution Principle (LSP)}
 The Liskov Substitution Principle (LSP) is a fundamental concept of object-oriented design, which ensures that objects of a subclass should be able to replace objects of the superclass without altering the correctness of the program. LSP promotes proper design and enforces correct use of inheritance.
+Violating LSP can lead to unexpected behavior and errors in the program, as the assumptions made about the superclass may no longer hold for the subclass. 
 
-The main idea of LSP is that a subclass should only strengthen the contract of the superclass, never weaken it.  This means that a subclass \emph{is-a} superclass and should be able to do everything the superclass can do, but it can also do more. For example, a \code{Dog} is a \code{Mammal} and should be able to speak like any mammal, but it can also bark, which is specific to dogs.
-This enables substitution of objects of the subclass for objects of the superclass, allowing for polymorphism and dynamic dispatching to work correctly, i.e., if $S$ is a subclass of $T$, instances of $S$ should be able to replace instances of $T$ without affecting the correctness of the program. The \code{make\_animal\_speak} function in \autoref{ex:polymorphism} demonstrates LSP by accepting any \code{Mammal} object and making it speak, regardless of its specific type.
+The main idea of LSP is that a subclass \emph{is-a} superclass and can do everything the superclass can do, and can also do more. For example, a \code{Dog} is a \code{Mammal} and can speak like any mammal, but it can also bark, which is specific to dogs.
+This enables substitution of objects of the subclass for objects of the superclass, allowing for polymorphism and dynamic dispatching to work correctly. The \code{make\_animal\_speak} function in \autoref{ex:polymorphism} demonstrates LSP by accepting any \code{Mammal} object and making it speak, regardless of its specific type.
 
-\paragraph{Weaker precondition, stronger postcondition, stronger rep-inv} To enforce LSP, it is important to ensure that the subclass does not violate the specification of the superclass, i.e., it should not weaken the preconditions, strengthen the postconditions, or violate the rep-inv of the superclass. Violating LSP can lead to unexpected behavior and errors in the program, as the assumptions made about the superclass may no longer hold for the subclass. 
 
-\begin{enumerate}
-	\item Weaker Preconditions: The subclass should accept a broader range of inputs than the superclass.
-	\item Stronger Postconditions: The subclass should provide results that are at least as strong as those guaranteed by the superclass, if not stronger.
-	\item Representation Invariants: The subclass should maintain or strengthen the representation invariants of the superclass.
-\end{enumerate}
-More formally, let $X$ b the superclass and $X'$ a subclass, and $f$ is a method of $X$ and $f'$ a method of $X'$, then the precondition $P'$ of $f'$ is weaker than or equal to the precondition $P$ of $f$, and the postcondition $Q'$ of $f'$ is stronger than or equal to the postcondition $Q$ of $f$. Moreover, if $R$ is the rep-inv of $X$, and $R'$ is the rep-inv of $X'$, then $R'$ is stronger or equal to $R$. This can be written as:
-\begin{center}
-    $P \Rightarrow P'$, $Q' \Rightarrow Q$, and $R \Rightarrow R'$  
-\end{center}
+\paragraph{Rules} If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be replaced with objects of type \code{S} without altering any of the desirable properties of the program. This means whenever you use \code{T}, you can use \code{S} instead. To achieve this, we must follow the following rules:
+\begin{itemize}
+\item[\textbf{Signature Rule}] The signatures of methods of \code{S} must strengthen methods of \code{T}. In other words, the methods of \code{S} are a superset of the methods of \code{T}. Thus, if \code{T} has \code{n} methods, \code{S} also has \code{n} methods and additional ones (methods specific to \code{S}). 
 
-\subsection{In-Class Exercise: BankAccount}
+\item[\textbf{Method Rule}] The specification of \code{f'} strengthens that of \code{f}. This means that the preconditions of \code{f'} must be weaker or equal to the preconditions of \code{f}, i.e.,  \code{f'} accepts more inputs than \code{f}.  The postconditions of \code{f} must be stronger or equal to that of \code{f}. This means that \code{f'} is more precise and specific than \code{f}.
+
+\item[\textbf{Property Rule}] The subtype must preserve all properties of the supertype.  For example, the rep-invariant of the subtpe \code{S} must be stronger or equal to that of the supertype \code{T}. This means \code{S} should maintain or strengthen the properties (including rep invariants) of \code{T}
+\end{itemize}
+
+\subsection{In-Class Exercise: Bank Account}
 
 %\autoref{ex:bankaccount}
 
@@ -1315,31 +1385,53 @@ class BonusBankAccount(BankAccount):
 \caption{Liskov Substitution Principle demonstration}\label{ex:bankaccount}
 \end{figure}
 
+\section{Encapsulation}
+Encapsulation is a fundamental concept in OOP that combines data and methods into a single unit called a class. Encapsulation allows the class to control access to its data and methods, ensuring that they are used correctly and consistently. This helps to prevent misuse and errors, and promotes good design practices such as information hiding and modularity.
+
+Encapsulation is achieved through the use of access modifiers, which specify the level of access to class members. In Java, access modifiers are enforced by the language, and there are four levels of access: \emph{private}, \emph{protected}, \emph{package-private} (default), and \emph{public}.  In Python, access modifiers are not enforced by the language, but conventions are used to indicate the intended level of access. For example, underscore (\_) is used to indicate private or protected attribute (variable). %, and a double underscore (\_\_) is used to indicate a private attribute. 
+
+Encapsulation avoids direct access to the internal representation of a class, e.g., rep-invariants, which can lead to unintended side effects and break the class's invariants. Instead, access to the class's data should be controlled through methods, such as \code{getters} and \code{setters} methods.
+
+In the \code{BankAccount} class in \autoref{ex:bankaccount}, the \code{\_balance} attribute is a private member, and access to it is controlled through the \code{deposit} and \code{withdraw} methods. This ensures that the balance is updated correctly and that the rep-invariant is maintained (\code{repOK}). The \code{BonusBankAccount} class extends \code{BankAccount} and adds a \code{\_bonus\_interest} attribute, which is also a private member that is not exposed directly. 
 
 
 
-% \begin{lstlisting}
-% class IntSet:
-%     def insert(self, x): ...; self.repOk()
-%     def remove(self, x): ...; self.repOk()
-%     def repOk(self): ...
+\subsection{In-class: Polymorphism concepts: Vehicle}
 
-%     class MaxIntSet(IntSet):
-%     def insert(self, x): ...; super().insert(x); self.repOk()
-%     def remove(self, x): super().remove; ...; self.repOk()
-%     def repOk(self): super().repOk(); ...
+You will design a system that models a fleet of different types of vehicles (e.g., cars, bicycles, trucks). Each vehicle has the ability to start, stop, and display its details. Vehicles should differ in their implementation of these behaviors. You will use abstract classes and interfaces to define the basic structure and ensure that your system adheres to OOP principles.
 
-% s = MaxIntSet()
-% s.insert(3)
-% s.insert(5)
-% s.remove(5)
-%\end{lstlisting}
+\begin{enumerate}
+    \item Create an abstract class \code{Vehicle} that has
+    \begin{enumerate}
+        \item An encapsulated attribute for \code{speed}.
+        \item Abstract methods: \code{start()}, \code{stop()}, and \code{display()}.
+    \end{enumerate}
+    \item Define an interface called \code{Refuelable}, with a method \code{refuel(amount:int)}
+    \item Create concrete subclasses
+    \begin{enumerate}
+	    \item Create \code{Car} and \code{Bicycle} classes that inherit from \code{Vehicle}.
+	    \item Car also implements the \code{Refuelable} interface (because it uses fuel).
+	    \item Implement methods to \code{start}, \code{stop}, \code{display}, and \code{refuel} if applicable.
+	    \item Ensure each class encapsulates its specific properties (e.g., \code{fuel\_level} for cars).
+    \end{enumerate}
+    \item Demonstrate Polymorphism and other OOP principles
+    \begin{enumerate}
+        \item Create a function \code{operate\_vehicle(vehicle:Vehicle)} that accepts any vehicle type and calls its \code{start}, \code{stop}, and \code{display} methods. This function demonstrates polymorphism and dynamic dispatching.
+        \item Create test cases to demonstrate LSP by substituting instances of \code{Car} and \code{Bicycle} for \code{Vehicle} in the \code{operate\_vehicle} function. 
+        \item Protect rep data and other attributes and access them through setters and getters methods.
+    \item Provide proper document and specifications for your code (e.g., class Overview, rep-invs, method specifications, AF, \code{repOK}).
+    \end{enumerate}
+
+\end{enumerate}
 
 \section{Exercise}
 
 \subsection{LSP: Market subtype}
 
 Determine whether the \code{LowBidMarket} and \code{LowOfferMarket} classes below are proper subtypes of \code{Market}. Specifically, for each method, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP holds.
+
+Note that this is purely a ``paper and pencil'' exercise. No code is required. Write your answer so that it is easily understandable by someone with only a passing knowledge of Liskov's rules for subtypes.
+
 
 \begin{lstlisting}
 class Market:
@@ -1408,7 +1500,7 @@ class A:
                  else, reduce this by x.
         """
 
-class B(A):
+class B:
     def reduce(self, x):
         """
         Requires: x is not None.
@@ -1416,7 +1508,7 @@ class B(A):
                  else, reduce this by x.
         """
 
-class C(A):
+class C:
     def reduce(self, x):
         """
         Effects: if x is None, return normally with no change;
@@ -1440,10 +1532,279 @@ For the classes \code{A}, \code{B}, and \code{C} in \autoref{ex:lsp-exercise}, d
     \item \code{A} extends \code{C}
 \end{enumerate}
 
+\subsection{LSP Analysis}
+
+Consider the following classes with their specifications for the \code{update()} method:
+
+\begin{lstlisting}
+class A:
+    def update(self, value):
+        """
+        Effects/Post: If value is not valid, do nothing;
+                 otherwise, update this with value.
+        """
+
+class B:
+    def update(self, value):
+        """
+        Requires/Pre: value must be an integer.
+        Effects/Post: If value is valid, update this with value;
+                 otherwise, do nothing.
+        """
+
+class C:
+    def update(self, value):
+        """
+        Effects/Post: If value is invalid, set default update;
+                 otherwise, update this with value.
+        """
+\end{lstlisting}    
+
+For each case below, determine if LSP holds by checking whether the preconditions are weaker and the postconditions are stronger, and conclude whether LSP holds. Note that as soon as one rule is violated, LSP does not hold.
+
+\begin{enumerate}
+    \item \code{B} extends \code{A}
+    \item \code{C} extends \code{A}
+    \item \code{A} extends \code{B}
+    \item \code{C} extends \code{B}
+    \item \code{A} extends \code{C}
+\end{enumerate}
+	% 1.	B extends A
+	% •	Precondition Comparison:
+	% •	Class B requires value to be an integer, which is a stricter requirement than A’s flexible acceptance of any value.
+	% •	Postcondition Comparison:
+	% •	The postconditions are similar; however, B may limit behavior compared to A by failing to handle non-integer values.
+	% •	LSP Conclusion:
+	% •	LSP does not hold because B’s preconditions are stricter, which violates the principle of substitutability.
+	% 2.	C extends A
+	% •	Precondition Comparison:
+	% •	C has the same preconditions as A; it allows any value input without specific requirements, maintaining or weakening the base class preconditions.
+	% •	Postcondition Comparison:
+	% •	C has a stronger postcondition since it provides a default update when the value is invalid rather than doing nothing as A does.
+	% •	LSP Conclusion:
+	% •	LSP holds because C maintains weaker preconditions and provides a stronger postcondition compared to A.
+	% 3.	A extends B
+	% •	Precondition Comparison:
+	% •	A’s precondition is weaker because it accepts all types of values, whereas B strictly requires integers.
+	% •	Postcondition Comparison:
+	% •	A does nothing when a value is not valid, which can be seen as weaker compared to B’s update rule for valid integers.
+	% •	LSP Conclusion:
+	% •	LSP does not hold because A’s postconditions are weaker and do not provide the expected behavior of the subclass B.
+	% 4.	C extends B
+	% •	Precondition Comparison:
+	% •	C allows a broader range of inputs compared to B, which requires integers.
+	% •	Postcondition Comparison:
+	% •	C’s stronger postcondition of setting a default update when values are invalid provides additional functionality over B’s more limited action.
+	% •	LSP Conclusion:
+	% •	LSP holds because C has weaker preconditions and stronger postconditions compared to B.
+	% 5.	A extends C
+	% •	Precondition Comparison:
+	% •	A and C share the same precondition of accepting any value without specific requirements.
+	% •	Postcondition Comparison:
+	% •	A’s postcondition is weaker because it does nothing when value is invalid, while C still performs a default update.
+	% •	LSP Conclusion:
+	% •	LSP does not hold because A provides weaker behavior than C and fails to maintain the expected outcome set by C.
+
+
+
+
+
+
+\chapter{Iterators}
+Iterators and generators are powerful constructs in OOP that enable efficient traversal and on-the-fly computation of sequences of data. They allow developers to handle large datasets, abstract complex data traversal patterns, and create custom iterators for any type of object. 
+
+\section{Motivation}
+Let’s consider a scenario where you need to generate Fibonacci numbers. A common but inefficient approach is to generate all Fibonacci numbers up to a certain limit and store them in a list, which consumes a lot of memory, especially for large sequences.
+
+\begin{lstlisting}
+def generate_fib_list(n: int) -> list[int]:
+    fib_sequence = [0, 1]
+    for _ in range(2, n):
+        fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
+    return fib_sequence
+
+# Create the first 100K Fibs; consume lots of memory for storing all numbers
+fib_numbers = generate_fib_list(10**6)  
+print(fib_numbers[:10])  # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34] # only use first 10
+\end{lstlisting}
+
+This approach is inefficient because it generates all Fibonacci numbers up to a certain limit and stores them in a list, which consumes a lot of memory, especially for large sequences. Also, this approach is wasteful because it generates all Fibonacci numbers at once, even if only a few are needed.
+A more efficient approach is to use an iterator or generator to produce Fibonacci numbers on the fly, only when needed.
+
+\begin{lstlisting}
+# Efficient generator function that yields Fibonacci numbers on demand
+def fib_generator(n: int):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+print(list(fib_generator(10))) # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+\end{lstlisting}
+
+Using generator functions, we can efficiently generate Fibonacci numbers on demand, reducing memory consumption and improving performance. Generators produce values one at a time, only when needed, making them ideal for large datasets or infinite sequences.
+
+\section{Brief History}
+The concept of iterators in object-oriented programming was pioneered by the language CLU in the 1970s, developed by Barbara Liskov. CLU introduced iterators as a core language feature, allowing traversal of collections without exposing their internal structures, managing the iteration state internally. This innovation laid the foundation for modern iterator designs by demonstrating how encapsulating traversal logic could lead to cleaner, more maintainable code. C++ in the 1980s further popularized iterators through the Standard Template Library (STL), which abstracted the traversal of various collections, enhancing code reuse and flexibility. The importance of iterators was further solidified by the Design Patterns book by the Gang of Four (GoF) in 1994, which formalized the iterator pattern as a key design strategy, emphasizing the separation of traversal from the data structure itself.
+
+Java, released in 1995, built on these ideas by integrating the Iterator interface into its collections framework, standardizing the way collections were traversed across the language. Java’s approach unified data traversal, promoting object-oriented principles like encapsulation and abstraction. The introduction of generators in Python in 2001 marked a significant evolution in iteration. Python’s yield keyword allowed functions to produce values lazily, one at a time, without storing the entire sequence in memory, enabling efficient data processing for large or infinite sequences. This approach made creating iterators more intuitive and readable, influencing other languages and underscoring the importance of efficient iteration mechanisms in modern programming.
+
+\section{Iterators}
+
+An iterator is an ADT that allows you to traverse through all the elements of a collection, such as a list, tuple, or custom data structure, without exposing the underlying details of the collection (i.e., promoting encapsulation). 
+
+Key Concepts of Iterators:
+\begin{itemize}
+\item Iteration Methods: An iterator object implements two key methods: \code{\_\_iter\_\_()} and \code{\_\_next\_\_()}.
+\begin{itemize}
+    \item \code{\_\_iter\_\_()}: Returns the iterator object itself and is implicitly called at the start of loops.
+	\item \code{\_\_next\_\_()}: Returns the next element in the sequence and raises a StopIteration exception when there are no more elements.
+\end{itemize}
+\item State Management: Iterators manage their own state, allowing them to keep track of the current position in the collection.
+\end{itemize}
+
+\begin{lstlisting}
+# Creating an iterator for a countdown
+class Countdown:
+    def __init__(self, start: int):
+        self.current = start
+
+    def __iter__(self): return self
+
+    def __next__(self):
+        if self.current <= 0:
+            raise StopIteration  # End of iteration
+        else:
+            current_value = self.current
+            self.current -= 1
+            return current_value
+
+# Usage of the custom iterator
+countdown = Countdown(5)
+for number in countdown:
+    print(number)
+# Output: 5, 4, 3, 2, 1
+\end{lstlisting}
+
+In the example above, the \code{Countdown} class implements iteration by defining the \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods. The \code{\_\_iter\_\_()} method returns the iterator object itself, while \code{\_\_next\_\_()} manages the countdown state by returning the next element in the countdown sequence and stopping the iteration by raising the \code{StopIteration} exception when the countdown reaches zero.
+
+
+\paragraph{Benefits of Iterators}
+\begin{itemize}
+\item Memory Efficiency: Iterators retrieve elements one at a time, reducing memory usage compared to loading all elements at once.
+\item Encapsulation: Iterators hide the internal structure of the collection, providing a clean, consistent interface for traversal.
+\item Flexibility: Custom iterators can be defined for any object, making them adaptable to a wide range of data structures.
+\end{itemize}
+
+
+\section{Generator}
+A generator is a special type of iterator that simplifies the creation of iterators using the \code{yield} keyword. Generators allow you to declare a method that behaves like an iterator, generating values on the fly without the need to create a separate iterator class or implement \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods manually.
+
+Generator works by maintaining the state of the function between calls, allowing it to resume execution from where it left off. This lazy evaluation approach is more memory-efficient than loading all elements at once, making generators ideal for large datasets or infinite sequences.
+\begin{itemize}
+\item Yielding Values: Generators use \code{yield} to produce a sequence of values one at a time, suspending their state between each yield.
+\item State Preservation: When a generator function yields, it saves its current state, allowing the function to resume where it left off the next time it is called.
+\item Lazy Evaluation: Generators compute each value only when needed, making them more efficient for large data sets.
+\end{itemize}
+
+
+\begin{lstlisting}
+# Generator function for a countdown
+def countdown(start: int):
+    while start > 0:
+        yield start
+        start -= 1
+
+# Usage of the generator
+for number in countdown(5):
+    print(number)
+# Output: 5, 4, 3, 2, 1
+\end{lstlisting}
+
+Instead of defining the \code{Countdown} class as an iterator, the \code{countdown} function is defined as a generator that yields the countdown sequence. The countdown function uses \code{yield} to generate values one at a time, pausing between each yield.
+Each call to \code{yield} returns the current value of start and saves the function'ss state, allowing it to resume where it left off when called again.
+
+\paragraph{Benefits of Generators}
+\begin{itemize}
+    \item Conciseness: Generators provide a more straightforward syntax for creating iterators, reducing boilerplate code.
+	\item Performance: They generate values on demand, reducing memory consumption compared to traditional lists.
+	\item Enhanced Readability: Generator functions are typically easier to understand and maintain compared to manually implemented iterators.    
+\end{itemize}   
+
+
+\section{In-Class Exercise: Prime Number}
+
+A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself. In this exercise, you will create a generator function that yields prime numbers on demand.
+\begin{enumerate}
+    
+    \item Write a non-iterator and non-generator method \code{gen\_prime} that generates prime numbers up to a specified limit.
+    \begin{enumerate}
+    \item Test the iterator by printing all prime numbers that is less than 50.
+    \item Measure the performance of the iterator by generating all prime numbers that your computer can handle (in Python, use \code{time(...)}).  Try various limits and measure the time.
+    \end{enumerate}
+
+\item Write a custom iterator called \code{PrimeNumberIterator} that generates prime numbers up to a specified limit.
+\begin{enumerate}
+    \item The class needs to have \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods.
+    \item Use a helper function to check for prime numbers (reuse the code in \code{gen\_prime}).
+    \item Raise \code{StopIteration} when the current number exceeds the limit.
+    \item Test the iterator by printing all prime numbers that is less than 50.
+    \item Measure the performance of the iterator by generating all prime numbers that your computer can handle like before.  Try various limits and measure the time.
+\end{enumerate}
+\item Write a generator function called \code{gen\_prime\_generator} that yields prime numbers up to a specified limit (this means using the \code{yield} keyword).
+\begin{enumerate}
+    \item Test the generator by printing all prime numbers that is less than 50.
+    \item Measure the performance of the generator by generating all prime numbers that your computer can handle like before.  Try various limits and measure the time.
+\end{enumerate}
+\end{enumerate}
+
+% class PrimeNumberIterator:
+%     def __init__(self, limit):
+%         self.limit = limit
+%         self.current = 2
+
+%     def __iter__(self):
+%         return self
+
+%     def __next__(self):
+%         while self.current <= self.limit:
+%             if self.is_prime(self.current):
+%                 prime = self.current
+%                 self.current += 1
+%                 return prime
+%             self.current += 1
+%         raise StopIteration
+
+%     @staticmethod
+%     def is_prime(n):
+%         if n < 2:
+%             return False
+%         for i in range(2, int(n**0.5) + 1):
+%             if n % i == 0:
+%                 return False
+%         return True
+
+\chapter{Testing}
+
+\chapter{Design Patterns}
+
+\section{Creational Patterns}
+\subsection{Singleton}
+\subsection{Factory Method}
+
+\section{Structural Patterns}
+\section{Behavioral Patterns}
+
+
+
+\section{Composition over Inheritance}
+
+
 \appendix
 
-\chapter{Miscs}
 
+
+\chapter{Miscs}
 
 
 \bibliographystyle{abbrv}

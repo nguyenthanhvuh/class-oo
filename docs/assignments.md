@@ -3,30 +3,46 @@
 
 ## Week 1
 
-- Topic: Class Overview
-- Reading:  OOP 1 / OOP 2
-- In-class:  Specification for Sorting in OOP 2, User Equality in OOP 2
+- Topics: Class Overview
+- Reading: OOP 1 / OOP 2
+- In-class: Specification for Sorting in OOP 2, User Equality in OOP 2
 - HW Assignment: [HW1](#hw1)
+- Quiz: no quiz (first week)
 
 ## Week 2
 
-- Topic: Procedural Abstraction (Specifications)
+- Topics: Procedural Abstraction (Specifications)
 - Reading: OOP 2 
 - In-class: Tail (total) function
-- HW Assignment: Loan Calculator
+- HW Assignment: Loan Calculator (OOP 2.3.3)
+- Quiz: Specification of Binary Search
 
 ## Week 3
 
-- Topic: Data Abstraction and Abstract Data Type (ADT)
+- Topics: Data Abstraction and Abstract Data Type (ADT)
 - Reading: OOP 3
 - In-class: Stack ADT; Membership
-- HW Assignment: Polynomial ADT
+- HW Assignment: Polynomial ADT (OOP 3.4.1)
+- Quiz: Partial and Total Functions
 
 ## Week 4
-- Topic: Polymorphism, Liskov Substitution Principle
+
+- Topics: Polymorphism, Liskov Substitution Principle
 - Reading: OOP 4
-- In-class: BankAccount
-- HW Assignment: LSP: Market subtype (4.6.1)
+- In-class: BankAccount (OOP 4.7.1)
+- HW Assignment: LSP: Market subtype (OOP 4.8.1)
+- Quiz: Immutability
+
+## Week 5
+
+- Topics: More on Polymorphism and Iterators/Generators
+- Reading: OOP 4, 5
+    - Abstract class
+    - Interface
+    - Element vs Related Subtype
+    - Encapsulation
+- In-class: Vehicle (4.9.3), Prime Number (5.5)
+- HW Assignment: 
 
 # HW Assignments
 

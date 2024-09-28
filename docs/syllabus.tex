@@ -31,7 +31,7 @@ Course Page \url{https://nguyenthanhvuh.github.io/class-oo}
   \textbf{Meetings:} & Fri 10:30PM -- 1:10PM  & & & & \textbf{Place:} & Horizon 2010 and \href{https://piazza.com/gmu/fall2024/swe419nguyen}{Piazza} (code \textbf{fhbkh})\\
 \textbf{Instructor:} & \href{https://go.gmu.edu/tvn}{ThanhVu Nguyen} & & &  & \textbf{Email:} &  \href{mailto:tvn@gmu.edu}{tvn@gmu.edu} (Piazza is preferred)\\
 \textbf{Office Hr:} & Mon 2:00PM -- 3:00PM & & & & \textbf{Place:} & ENGR 4430\\
-                     &(email to confirm)&&&&&\\
+                     &(email first)&&&&&\\
   \hline
 \textbf{GTA:} & Hamaad Ullah Zuberi & & &  & \textbf{Email:} &  \href{mailto:hzuberi@gmu.edu}{hzuberi@gmu.edu}\\
 \textbf{Office Hr:} & Wed 1:00PM -- 3:00PM & & & & \textbf{Place:} & BUCH 215 D1 \\
@@ -52,10 +52,11 @@ By the end of the course, students will gain a solid understanding of the princi
 \begin{itemize}
 \item Understand Abstraction: Explain the role of abstraction in OOP development and how it helps manage complexity in modern software.
 \item Write and Use Specifications: Develop precise specifications for functions and data types to specify their behaviors.
-\item Apply OOP techniques: Use OOP design principles, such as encapsulation, inheritance, and polymorphism, to effectively structure programs.
+\item Using Mutable and Immutable Types: Understand and differentiate between mutable and immutable data types and make informed design decisions based on the trade-offs.
+\item Apply OOP techniques: Use OOP design principles, such as inheritance, polymorphism, Liskov Substitution Principle, to effectively structure programs.
 \item Prove Program Correctness: Use formal method concepts and techniques, including assertions, loop invariants, pre/post-conditions, weakest preconditions, Hoare logic, to reason about the correctness of a program.
 \item Test and Debug Software: Develop strategies for testing and debugging complex OOP systems to ensure reliability and correctness.
-\item Using Mutable and Immutable Types: Understand and differentiate between mutable and immutable data types and make informed design decisions based on the trade-offs.
+
 \end{itemize}
 
 \subsection{Prerequisite}
@@ -68,20 +69,18 @@ By the end of the course, students will gain a solid understanding of the princi
 \subsection{Course Materials}
 \begin{itemize}
   \item Barbara Liskov with John Guttag. \href{https://www.amazon.com/Program-Development-Java-Specification-Object-Oriented/dp/0201657686/ref=sr_1_2?dchild=1&qid=1626231221&refinements=p_27\%3ABarbara+Liskov&s=books&sr=1-2&text=Barbara+Liskov}{\emph{Program
-  Development in Java: Abstraction, Specification, and Object-Oriented  Design}}. Addison Wesley, 2001, ISBN 0-201-65768-6.  (\textbf{Required}, free through \href{https://learning.oreilly.com/library/view/program-development-in/9780768685299/}{ O'Reilly})
+  Development in Java: Abstraction, Specification, and Object-Oriented  Design}}. Addison Wesley, 2001.  (\textbf{Required}, free through \href{https://learning.oreilly.com/library/view/program-development-in/9780768685299/}{ O'Reilly})\footnote{Don't worry about the publication date of Liskov, which is basically a math book and therefore ages well.}
 
 
-\item Luciano Ramalho. \href{https://www.amazon.com/Fluent-Python-Concise-Effective-Programming-dp-1492056359/dp/1492056359/ref=dp_ob_title_bk}{\emph{Fluent Python}}. O'Reilly Media, 2015, ISBN 978-1-491-94600-8. (\textbf{Recommended}, free through \href{https://learning.oreilly.com/library/view/fluent-python/9781492056348/}{O'Reilly})
+\item Luciano Ramalho. \href{https://www.amazon.com/Fluent-Python-Concise-Effective-Programming-dp-1492056359/dp/1492056359/ref=dp_ob_title_bk}{\emph{Fluent Python}}. O'Reilly Media, 2015. (\textbf{Recommended}, free through \href{https://learning.oreilly.com/library/view/fluent-python/9781492056348/}{O'Reilly})
 
 \item Joshua Bloch.
 \href{https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=sr_1_1?dchild=1&keywords=effective+java&qid=1626231154&sr=8-1}{\emph{Effective
-  Java}}. Third Edition. Addison-Wesley Professional, 2017, ISBN
-  978-0-13-468599-1. (\textbf{Recommended}, free through
+  Java}}. Third Edition. Addison Wesley, 2017. (\textbf{Recommended}, free through
         \href{https://learning.oreilly.com/library/view/effective-java-3rd/9780134686097/}{O'Reilly})
 
 \end{itemize}
 
-\paragraph{Note:} Don't worry about the publication date of Liskov, which is basically a math book and therefore ages well.
 
 \subsection{Assignment Submission and Communication}
 We will use \textbf{Canvas} for submitting assignments and quizzes, and to keep track of grades (\autoref{sec:grading}). 
@@ -106,26 +105,25 @@ The sequence is:
 
 \begin{itemize}
 \item
-  Preparation: Complete assigned readings and watch relevant videos, if
+  Preparation: Complete assigned readings, if
   any. No formal submission for this activity.
 \item
   Class Meeting:
 
   \begin{itemize}
   \item
-    Combined session on the day\textquotesingle s topic, followed by
+    Combined session on the day's topic, followed by
     in-class exercises (group breakouts)
   \item
     Break
   \item
-    Combined session on the day\textquotesingle s topic, may followed by
+    Combined session on the day's topic, may followed by
     in-class exercises (group breakouts)
   \end{itemize}
 \item
   Homework (group-based)
 \item
-  Assessments via quiz: takes place at the \textbf{end} of class the
-  same day as the homework is due.
+  Assessments via quiz: takes place at the \textbf{end} of class.
 \end{itemize}
 
 \section{Grading}\label{sec:grading}
@@ -163,7 +161,7 @@ reconfigure a group, we'll do that.
 
 
 \paragraph{Creating groups} You will have a chance to form your own group.
-If you can't find one, we can help. Each has should have \textbf{2 to 4 students}. If your group dwindles to just yourself, you'll need to join another group.
+If you can't find one, we can help. Each has  \textbf{2 to 4 students}. If your group dwindles to just yourself, you'll need to join another group.
 
 At the end of the semester, each individual will provide an assessment
 of the rest of their group. This assessment will determine the ``Group Functioning'' part of the grade (\autoref{sec:grading}).
