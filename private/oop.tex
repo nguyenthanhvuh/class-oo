@@ -1807,6 +1807,147 @@ If you do not provide clear documentation, you will not receive credit. If we ca
 \item Part 4: write a short report comparing the performance of the three approaches.  Include the time taken, memory usage, and ease of implementation.  Discuss the benefits of using iterators and generators over the non-iterator approach.
 \end{enumerate}
 
+
+\chapter{First-Class Functions}
+
+In modern OOP languages, functions are treated as \emph{first-class} citizens, meaning they can be assigned to variables, passed as arguments, and returned from other functions.
+
+
+\begin{lstlisting}
+def greet(name):
+    return f"Hello, {name}!"
+
+# Assigning the function to a variable
+greeting = greet
+
+# Now the variable `greeting` can be used like the function `greet`
+print(greeting("Alice"))  # Output: Hello, Alice!
+\end{lstlisting}
+
+In \code{greet} function, the function is assigned to a variable \code{greeting}, which can then be called like a regular function. 
+
+\begin{lstlisting}
+def apply_operation(operation, a, b):
+    return operation(a, b)
+
+def add(x, y):
+    return x + y
+
+def subtract(x, y):
+    return x - y
+
+# Passing functions as arguments
+result_add = apply_operation(add, 10, 5)       # Output: 15
+result_subtract = apply_operation(subtract, 10, 5)  # Output: 5
+
+print(result_add, result_subtract)
+\end{lstlisting}
+
+In the above example, the \code{apply\_operation} function takes another function as an argument and applies it to the given arguments. This allows for dynamic behavior based on the function passed to \code{apply\_operation}.
+
+
+\section{Higher-Order Functions}
+
+Because functions are first-class citizens, they can be passed as arguments to other functions, returned from functions, and assigned to variables. Functions that operate on other functions are called \emph{higher-order functions}. More specifically, a higher-order function is a function that takes one or more functions as arguments or returns a function as its result.
+
+\begin{lstlisting}
+    def square(x):
+    return x * x
+
+def cube(x):
+    return x * x * x
+
+def apply_to_list(func, numbers):
+    return [func(number) for number in numbers]
+
+numbers = [1, 2, 3, 4, 5]
+print(apply_to_list(square, numbers))  # Output: [1, 4, 9, 16, 25]
+print(apply_to_list(cube, numbers))    # Output: [1, 8, 27, 64, 125]
+
+\end{lstlisting}
+
+The example above demonstrate higher-order functions, where functions are passed as arguments to other functions. In this case, the \code{apply\_to\_list} function takes a function and a list of numbers as arguments and applies the function to each number in the list, returning a new list with the results. 
+
+
+\subsection{Popular Higher-Order Functions}
+
+Higher-order functions are commonly used in functional programming and are available in many programming languages. Some popular higher-order functions include:
+
+\begin{itemize}
+    \item \code{map(func, iterable)}: Applies a function to each item in an iterable (e.g., list, tuple) and returns a new iterable with the results.\\
+    Example: \code{list(map(square, [1,2,3,4,5]))} returns \code{[1, 4, 9, 16, 25]}.
+    \item \code{filter(func, iterable)}: Filters elements in an iterable based on a predicate function (i.e., a function that returns a boolean value).\\
+    Example: \code{list(filter(lambda x: x \% 2 == 0, [1,2,3,4,5]))} returns \code{[2, 4]}. Lambda functions are discussed in the next section (\autoref{sec:lambda}).
+    \item \code{reduce(func, iterable)}: Applies a function of two arguments cumulatively to the items of an iterable, reducing it to a single value.\\
+    Example: \code{reduce(lambda x, y: x + y, [1,2,3,4,5])} returns \code{15}. 
+\end{itemize}
+
+\section{Anonymous and Lambda Functions}\label{sec:lambda}
+A popular use case for first-class functions is the creation of \emph{anonymous} or \emph{lambda} functions, which are small, unnamed functions that can be defined on the fly. Lambda functions are useful for short, simple operations that do not require a full function definition. Lambda functions are often used in higher-order functions like \code{map}, \code{filter}, and \code{reduce} as discussed in the previous section.
+\begin{lstlisting}
+# Lambda function to square a number
+square = lambda x: x ** 2
+print(square(5))  # Output: 25
+
+# Lambda function used in a higher-order function
+numbers = [1, 2, 3, 4, 5]
+squared_numbers = list(map(lambda x: x ** 2, numbers))
+print(squared_numbers)  # Output: [1, 4, 9, 16, 25]
+
+\end{lstlisting}
+
+In the example above, a lambda function is used to define a function that squares a number. The lambda function is assigned to the variable \code{square} and can be called like a regular function.
+
+
+
+\section{Closures}
+Closures are a higher-order function that returns a function and a powerful feature of first-class functions that allow functions to retain access to variables from their enclosing scope even after the scope has finished executing. This enables functions to "close over" variables from their surrounding environment, creating a self-contained unit of behavior that can be passed around and executed independently. 
+
+\begin{lstlisting}
+def make_multiplier(factor):
+    def multiplier(x):
+        return x * factor
+    return multiplier  # Return the inner function
+
+# Create a function that multiplies by 3
+times_three = make_multiplier(3)
+print(times_three(5))  # Output: 15
+
+# Using with higher-order functions
+numbers = [1, 2, 3, 4, 5]
+multiplied_numbers = list(map(make_multiplier(2), numbers))
+print(multiplied_numbers)  # Output: [2, 4, 6, 8, 10]
+\end{lstlisting}
+
+The above example demonstrates a closure where the \code{make\_multiplier} function returns an inner function \code{multiplier} that multiplies a number by a given factor. The \code{times\_three} function is created by calling \code{make\_multiplier(3)}, which returns a function that multiplies by 3. The closure allows the \code{multiplier} function to retain access to the \code{factor} variable even after \code{make\_multiplier} has finished executing.
+
+\begin{lstlisting}
+    def make_averager():
+    series = []
+
+    def averager(new_value):
+        series.append(new_value)
+        total = sum(series)
+        return total / len(series)
+
+    return averager
+
+    avg = make_averager()
+    print(avg(10))  # Output: 10.0
+    print(avg(11))  # Output: 10.5
+    print(avg(12))  # Output: 11.0
+    print(avg(13))  # Output: 11.5
+\end{lstlisting}
+
+In the example above, the \code{make\_averager} function creates a closure that calculates the average of a series of numbers. The \code{averager} function retains access to the \code{series} list, allowing it to accumulate values and calculate the average over time.
+
+
+\section{Decorators}
+\section{Partial Functions}
+\section{Currying}
+\section{Functional Programming}
+
+
 \chapter{Testing}
 
 \chapter{Design Patterns}
