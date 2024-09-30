@@ -1901,7 +1901,7 @@ In the example above, a lambda function is used to define a function that square
 
 
 \section{Closures}
-Closures are a higher-order function that returns a function and a powerful feature of first-class functions that allow functions to retain access to variables from their enclosing scope even after the scope has finished executing. This enables functions to "close over" variables from their surrounding environment, creating a self-contained unit of behavior that can be passed around and executed independently. 
+Closures are higher order function that returns a function. It is a powerful feature of first-class functions and allows functions to retain access to variables from their enclosing scope even after the scope has finished executing. It is a way to bind a function with its environment, allowing the function to access and manipulate variables that are not in its local scope. 
 
 \begin{lstlisting}
 def make_multiplier(factor):
