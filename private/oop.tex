@@ -1941,6 +1941,7 @@ The above example demonstrates a closure where the \code{make\_multiplier} funct
 
 In the example above, the \code{make\_averager} function creates a closure that calculates the average of a series of numbers. The \code{averager} function retains access to the \code{series} list, allowing it to accumulate values and calculate the average over time.
 \section{In-Class Exercise: Lambda Functions and Closure}
+In this exercise you will demonstrate the concepts of higher-order functions, lambda functions, and closure. Example code are written in Python but you can use Python or any other language that supports these features.
 
 \begin{enumerate}
 \item Part 1: Higher-order Functions: Create a higher-order function that applies different operations (addition, subtraction, multiplication) to two numbers.
@@ -1979,13 +1980,21 @@ In the example above, the \code{make\_averager} function creates a closure that 
 \end{lstlisting}
 \end{enumerate}
 
-\item Part 4: Combining Concepts
+\item Part 4: Combining Concepts: Combine all three concepts to create a flexible higher-order function that applies a lambda function within a closure.
 
-% **Task**: Combine all three concepts to create a flexible higher-order function that applies a lambda function within a closure.
-
-% **Instructions**:
-% 1. The group will modify the `create_multiplier` function to take a lambda function as input and return a closure that applies this lambda function to the result of the multiplication.
-% 2. The returned closure will both multiply the input by `n` and then apply the lambda function on the result.
+\begin{enumerate}
+\item Modify \code{create\_multiplier} to take a lambda function as input and return a closure that applies this lambda function to the result of the multiplication.
+\item The returned closure will both multiply the input by the base number and apply the lambda function to the result.
+\item Test the function by creating a closure that doubles a number and then squares the result.
+\begin{lstlisting}
+    # Create closures with different lambda functions
+    double_then_square = create_custom_multiplier(2, lambda y: y ** 2)
+    triple_then_add_five = create_custom_multiplier(3, lambda y: y + 5)
+    
+    print(double_then_square(4))  # Output: (4 * 2) ** 2 = 64
+    print(triple_then_add_five(4))  # Output: (4 * 3) + 5 = 17    
+\end{lstlisting} 
+\end{enumerate}
 
 % **Example Code**:
 
@@ -1995,12 +2004,74 @@ In the example above, the \code{make\_averager} function creates a closure that 
 %         return func(x * n)  # The closure captures `n` and applies `func` to the result
 %     return multiplier
 
-% # Create closures with different lambda functions
-% double_then_square = create_custom_multiplier(2, lambda y: y ** 2)
-% triple_then_add_five = create_custom_multiplier(3, lambda y: y + 5)
 
-% print(double_then_square(4))  # Output: (4 * 2) ** 2 = 64
-% print(triple_then_add_five(4))  # Output: (4 * 3) + 5 = 17
+% ```
+
+
+\end{enumerate}
+
+\begin{enumerate}
+\item Part 1: Higher-order Functions: Create a higher-order function that applies different operations (addition, subtraction, multiplication) to two numbers.
+\begin{enumerate}
+\item Create a function called \code{operate\_on\_numbers (operation: function, a: int, b: int) -> int} that takes another function (operation) as an argument and applies that function to two numbers.
+\item Create multiple simple functions \code{add}, \code{subtract}, \code{multiply} that can be passed as arguments to \code{operate\_on\_numbers}.
+\item Test the function by applying each operation to two numbers and printing the results.
+\begin{lstlisting}
+    # Test the higher-order function
+    print(operate_on_numbers(add, 5, 3))        # Output: 8
+    print(operate_on_numbers(subtract, 5, 3))   # Output: 2
+    print(operate_on_numbers(multiply, 5, 3))   # Output: 15
+\end{lstlisting}
+
+\end{enumerate}
+
+\item Part 2: Lambda Functions:  Modify the code from Part 1 to use \emph{lambda functions} 
+\begin{enumerate}
+\item Replace \code{add}, \code{subtract}, and \code{multiply} with lambda expressions.
+\item Test the function by applying each operation to two numbers and printing the results.
+\item Discuss when might using a lambda function be more advantageous? When might a named function be better?
+\end{enumerate}
+
+
+\item Part 3: Closures:  Create a closure that stores a base number and uses it to multiply with other numbers.
+\begin{enumerate}
+\item Create a function called \code{create\_multiplier(base: int) -> function} that takes a base number and returns a closure that multiplies other numbers by the base.
+\item Test the closure by creating multiple multiplier functions with different base numbers and applying them to other numbers.
+\begin{lstlisting}
+    # Create closures
+    double = create_multiplier(2)
+    triple = create_multiplier(3)
+    
+    print(double(5))  # Output: 10
+    print(triple(5))  # Output: 15
+\end{lstlisting}
+\end{enumerate}
+
+\item Part 4: Combining Concepts: Combine all three concepts to create a flexible higher-order function that applies a lambda function within a closure.
+
+\begin{enumerate}
+\item Modify \code{create\_multiplier} to take a lambda function as input and return a closure that applies this lambda function to the result of the multiplication.
+\item The returned closure will both multiply the input by the base number and apply the lambda function to the result.
+\item Test the function by creating a closure that doubles a number and then squares the result.
+\begin{lstlisting}
+    # Create closures with different lambda functions
+    double_then_square = create_custom_multiplier(2, lambda y: y ** 2)
+    triple_then_add_five = create_custom_multiplier(3, lambda y: y + 5)
+    
+    print(double_then_square(4))  # Output: (4 * 2) ** 2 = 64
+    print(triple_then_add_five(4))  # Output: (4 * 3) + 5 = 17    
+\end{lstlisting} 
+\end{enumerate}
+
+% **Example Code**:
+
+% ```python
+% def create_custom_multiplier(n, func):
+%     def multiplier(x):
+%         return func(x * n)  # The closure captures `n` and applies `func` to the result
+%     return multiplier
+
+
 % ```
 
 
