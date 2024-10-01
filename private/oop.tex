@@ -899,7 +899,6 @@ Finally, it is important that while it is possible to convert a mutable ADT to a
 
 \subsection{In-class Exercise: Immutable Queue}\label{ic:immutable-queue}
 
-
 \begin{figure}
     \begin{lstlisting}
 
@@ -1201,12 +1200,12 @@ This is an example of single inheritance, where a subclass can inherit from only
 OOP has two types of classes: \emph{concrete} and \emph{abstract} classes. Concrete classes provide a full implementation of the type while abstract classes provide at most a partial implementation of the type. Abstract classes cannot be instantiated (no objects) since some of their methods are not yet implemented (abstract methods). Abstract classes can have both abstract (to be implemented by subclasses) and concrete methods (already implemented or partially implemented). 
 
 In Python abstract classes are defined using the \code{abc} module, which provides the \code{ABC} class and the \code{abstractmethod} decorator. The \code{ABC} class is used as a base class for abstract classes, and the \code{abstractmethod} decorator is used to mark methods as abstract. In \autoref{ex:polymorphism},
-\code{Mammal} is an abstract class, i.e., it cannot be instantiated, and contains an abstract method \code{speak} that its subclasses must implement.
-In Java, abstract classes are defined using the \code{abstract} keyword, e.g., \code{public abstract class Mammal}, and abstract methods are declared using the \code{abstract} keyword as well, e.g., \code{public abstract void speak();}.
+\code{Mammal} is an abstract class and contains an abstract method \code{speak} that its subclasses must implement.
+In Java, abstract classes and methods are defined using the \code{abstract} keyword, e.g., \code{public abstract class Mammal} and \code{public abstract void speak();}.
 
 \section{Interface}
 
-Interface is a special type of abstract class that contains only abstract methods (no concrete methods). They define a specification that classes must adhere to, providing the methods that must be implemented by any class that implements the interface. Multiple classes can implement the same interface, allowing for polymorphism and flexibility in the design.
+Interface is a special type of abstract classes that contains only abstract methods (no concrete methods). They define a specification that classes must adhere to, providing the methods that must be implemented by any class that implements the interface. Multiple classes can implement the same interface, allowing for polymorphism and flexibility in the design.
 
 In Python, interfaces are not explicitly defined, but the concept can be implemented using abstract classes with only abstract methods. For example, the abstract class \code{Mammal} in \autoref{ex:polymorphism} acts as an interface that specifies the \code{speak} method that all mammals must implement.
 In Java, interfaces are explicitly defined using the \code{interface} keyword, e.g., \code{interface Mammal}, and methods are declared without a body, e.g., \code{public void speak();}. A class can implement multiple interfaces, allowing for more flexibility in defining contracts between classes.
@@ -1803,9 +1802,114 @@ If you do not provide clear documentation, you will not receive credit. If we ca
 \end{enumerate}
 
 \item Part 2: Implement a custom iterator called \code{PowerNumberIterator} for perfect numbers. You can reuse the code from part 1.  After that, do exactly the analysis that you did in Part 1, i.e., play with different \code{n} values, print out the first 5 numbers generated, and measure the performance of the iterator.  You should see a significant improvement in memory usage and execution time compared to the non-iterator approach.
-\item Part 3: Use a Generator Function \code{gen\_power\_generator} to yield perfect numbers.  Reuse the code from part 1 and make changes to it to use generator.  Then do the same analysis as in Part 1 and Part 2.
-\item Part 4: write a short report comparing the performance of the three approaches.  Include the time taken, memory usage, and ease of implementation.  Discuss the benefits of using iterators and generators over the non-iterator approach.
+\item Part 3: Use a generator function \code{gen\_power\_generator} to yield perfect numbers.  Reuse the code from part 1 and make changes to it to use generator.  Then do the same analysis as in Part 1 and Part 2.
+\item Part 4: Write a short report comparing the performance of the three approaches.  Include the time taken, memory usage, and ease of implementation.  Discuss the benefits of using iterators and generators over the non-iterator approach.
 \end{enumerate}
+
+\subsection{Iterators and Generators Multiple Choice}
+
+
+\begin{enumerate}
+\item What does this class represent?
+\begin{lstlisting}
+    class Counter:
+        def __init__(self, start, end):
+            self.current = start
+            self.end = end
+    
+        def __iter__(self):
+            return self
+    
+        def __next__(self):
+            if self.current > self.end:
+                raise StopIteration
+            else:
+                self.current += 1
+                return self.current - 1
+    \end{lstlisting}
+\begin{enumerate}
+    \item A list that can be iterated through once.
+    \item An infinite loop that never stops.
+    \item An iterator that generates numbers between \texttt{start} and \texttt{end}, inclusive.
+    \item A generator function that yields values on demand.
+\end{enumerate}
+
+%\textbf{Correct Answer:} C
+
+
+
+\item What is the primary benefit of using a generator in this example?
+\begin{lstlisting}
+    def count_down(n):
+        while n > 0:
+            yield n
+            n -= 1
+    \end{lstlisting}
+
+\begin{enumerate}
+    \item It stores all the countdown numbers in memory at once.
+    \item It allows for lazy evaluation, producing numbers one at a time without storing the entire sequence in memory.
+    \item It is faster than using a list comprehension.
+    \item It automatically handles errors.
+\end{enumerate}
+
+%\textbf{Correct Answer:} B
+
+\item What is yielded by the generator function \texttt{fibonacci}?
+
+\begin{lstlisting}
+    def fibonacci(n):
+        a, b = 0, 1
+        for _ in range(n):
+            yield a
+            a, b = b, a + b
+\end{lstlisting}
+
+\begin{enumerate}
+    \item The sum of all Fibonacci numbers up to \texttt{n}.
+    \item Fibonacci numbers up to \texttt{n}, one by one, using lazy evaluation.
+    \item A list of the first \texttt{n} Fibonacci numbers.
+    \item The Fibonacci sequence stored as a tuple.
+\end{enumerate}
+
+%\textbf{Correct Answer:} B
+
+\item What happens if you try to convert the generator \texttt{generate\_squares} to a list?
+
+\begin{lstlisting}
+    def generate_squares(limit):
+        for i in range(limit):
+            yield i ** 2
+    \end{lstlisting}
+
+\begin{enumerate}
+    \item It will yield values one by one without storing them in memory.
+    \item It wil lreturn an error when converted to a list.
+    \item It will be exhausted and return an empty list.
+    \item It will create a list of square numbers up to \code{limit - 1}.
+\end{enumerate}
+
+%\textbf{Correct Answer:} D
+
+
+\item What is the purpose of the \texttt{infinite\_numbers} generator?
+\begin{lstlisting}
+    def infinite_numbers():
+        num = 0
+        while True:
+            yield num
+            num += 1
+    \end{lstlisting}
+\begin{enumerate}
+    \item It generates numbers up to a fixed limit.
+    \item It generates a series of numbers starting from 0, but stops after a certain point.
+    \item It generates an infinite sequence of numbers, producing them one at a time.
+    \item It returns a list of numbers in ascending order.
+\end{enumerate}
+
+%\textbf{Correct Answer:} C
+\end{enumerate}
+
 
 
 \chapter{First-Class Functions}
@@ -1843,7 +1947,13 @@ result_subtract = apply_operation(subtract, 10, 5)  # Output: 5
 print(result_add, result_subtract)
 \end{lstlisting}
 
-In the above example, the \code{apply\_operation} function takes another function as an argument and applies it to the given arguments. This allows for dynamic behavior based on the function passed to \code{apply\_operation}.
+For the above example, the \code{apply\_operation} function takes another function as an argument and applies it to the given arguments. This allows for dynamic behavior based on the function passed to \code{apply\_operation}.
+
+
+
+\paragraph{History} Lisp, developed by John McCarthy in the late 1950s, was one of the first programming languages to treat functions as first-class citizens. Lisp's approach to functions was heavily influenced by \emph{lambda calculus}, developed by Alonzo Church in the 1930s, which formalized the concept of functions as mathematical expressions. Lisp's support for first-class functions enabled powerful programming techniques, such as higher-order functions and functional programming paradigms.
+
+
 
 
 \section{Higher-Order Functions}
@@ -1871,7 +1981,7 @@ The example above demonstrate higher-order functions, where functions are passed
 
 \subsection{Popular Higher-Order Functions}
 
-Higher-order functions are commonly used in functional programming and are available in many programming languages. Some popular higher-order functions include:
+Higher-order functions are commonly used in functional programming and are available in many programming languages. Three popular higher-order functions include:
 
 \begin{itemize}
     \item \code{map(func, iterable)}: Applies a function to each item in an iterable (e.g., list, tuple) and returns a new iterable with the results.\\
@@ -1882,8 +1992,28 @@ Higher-order functions are commonly used in functional programming and are avail
     Example: \code{reduce(lambda x, y: x + y, [1,2,3,4,5])} returns \code{15}. 
 \end{itemize}
 
+\paragraph{Fun fact} While many functional programmers saw \code{reduce} as an essential tool, the Python community largely agreed that list comprehensions and generator expressions made the code more readable than \code{reduce} in many cases. Thus, in Python 3, \code{reduce} was moved to the \code{functools} module to emphasize its specialized use case.
+
+For example, compare the following code snippets that calculate the sum of a list of numbers using \code{reduce} and list comprehension:
+\begin{lstlisting}
+# Calculate the sum of a list of numbers using reduce
+numbers = [1, 2, 3, 4, 5]
+total = reduce(lambda x, y: x + y, numbers)
+print(total)  # Output: 15
+
+# using list comprehension
+total = sum(numbers)
+print(total)  # Output: 15
+
+# using generator expression
+total = sum(x for x in numbers)
+print(total)  # Output: 15
+\end{lstlisting}
+
+\paragraph{Fun fact} Google’s MapReduce framework, introduced in 2004, was inspired by \code{map} and \code{reduce} (``map'' distributes work across multiple nodes and the ``reduce'' aggregates the results).  It allows the processing of massive datasets across distributed systems and is critical for Google in indexing the web efficiently. The framework revolutionizes large-scale data processing and influences technologies like Apache Hadoop and Apache Spark.
+
 \section{Anonymous and Lambda Functions}\label{sec:lambda}
-A popular use case for first-class functions is the creation of \emph{anonymous} or \emph{lambda} functions, which are small, unnamed functions that can be defined on the fly. Lambda functions are useful for short, simple operations that do not require a full function definition. Lambda functions are often used in higher-order functions like \code{map}, \code{filter}, and \code{reduce} as discussed in the previous section.
+A popular use case for first-class functions is the creation of \emph{anonymous} or \emph{lambda} functions, which are small, unnamed functions defined on the fly. Lambda functions are useful for short, simple operations that do not require a full function definition. These functions are often used in higher-order functions like \code{map}, \code{filter}, and \code{reduce} as discussed in the previous section.
 \begin{lstlisting}
 # Lambda function to square a number
 square = lambda x: x ** 2
@@ -1902,6 +2032,10 @@ In the example above, a lambda function is used to define a function that square
 
 \section{Closures}
 Closures are higher order function that returns a function. It is a powerful feature of first-class functions and allows functions to retain access to variables from their enclosing scope even after the scope has finished executing. It is a way to bind a function with its environment, allowing the function to access and manipulate variables that are not in its local scope. 
+
+\paragraph{Fun fact} Closures are used extensively in Javascript, introduced in Netscape Navigator in 1995 by Bredan Eich. Javascript's support for closures and first-class functions enabled the development of dynamic and interactive web applications, leading to its widespread adoption and popularity.
+
+\paragraph{Examples}
 
 \begin{lstlisting}
 def make_multiplier(factor):
@@ -1944,7 +2078,7 @@ In the example above, the \code{make\_averager} function creates a closure that 
 In this exercise you will demonstrate the concepts of higher-order functions, lambda functions, and closure. Example code are written in Python but you can use Python or any other language that supports these features.
 
 \begin{enumerate}
-\item Part 1: Higher-order Functions: Create a higher-order function that applies different operations (addition, subtraction, multiplication) to two numbers.
+\item Part 1: Create a \emph{higher-order} function that applies different operations (addition, subtraction, multiplication) to two numbers.
 \begin{enumerate}
 \item Create a function called \code{operate\_on\_numbers (operation: function, a: int, b: int) -> int} that takes another function (operation) as an argument and applies that function to two numbers.
 \item Create multiple simple functions \code{add}, \code{subtract}, \code{multiply} that can be passed as arguments to \code{operate\_on\_numbers}.
@@ -1958,7 +2092,8 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 
 \end{enumerate}
 
-\item Part 2: Lambda Functions:  Modify the code from Part 1 to use \emph{lambda functions} 
+
+\item Part 2: Modify the code from Part 1 to use \emph{lambda functions} 
 \begin{enumerate}
 \item Replace \code{add}, \code{subtract}, and \code{multiply} with lambda expressions.
 \item Test the function by applying each operation to two numbers and printing the results.
@@ -1966,7 +2101,7 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 \end{enumerate}
 
 
-\item Part 3: Closures:  Create a closure that stores a base number and uses it to multiply with other numbers.
+\item Part 3: Create a \emph{closure} that stores a base number and uses it to multiply with other numbers.
 \begin{enumerate}
 \item Create a function called \code{create\_multiplier(base: int) -> function} that takes a base number and returns a closure that multiplies other numbers by the base.
 \item Test the closure by creating multiple multiplier functions with different base numbers and applying them to other numbers.
@@ -1980,7 +2115,7 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 \end{lstlisting}
 \end{enumerate}
 
-\item Part 4: Combining Concepts: Combine all three concepts to create a flexible higher-order function that applies a lambda function within a closure.
+\item Part 4: Combine all three concepts to create a flexible higher-order function that applies a lambda function within a closure.
 
 \begin{enumerate}
 \item Modify \code{create\_multiplier} to take a lambda function as input and return a closure that applies this lambda function to the result of the multiplication.
