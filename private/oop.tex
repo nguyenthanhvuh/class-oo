@@ -1697,15 +1697,7 @@ In the example above, the \code{Countdown} class implements iteration by definin
 
 
 \section{Generator}
-A generator is a special type of iterator that simplifies the creation of iterators using the \code{yield} keyword. Generators allow you to declare a method that behaves like an iterator, generating values on the fly without the need to create a separate iterator class or implement \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods manually.
-
-Generator works by maintaining the state of the function between calls, allowing it to resume execution from where it left off. This lazy evaluation approach is more memory-efficient than loading all elements at once, making generators ideal for large datasets or infinite sequences.
-\begin{itemize}
-\item Yielding Values: Generators use \code{yield} to produce a sequence of values one at a time, suspending their state between each yield.
-\item State Preservation: When a generator function yields, it saves its current state, allowing the function to resume where it left off the next time it is called.
-\item Lazy Evaluation: Generators compute each value only when needed, making them more efficient for large data sets.
-\end{itemize}
-
+A generator is a special iterator that uses the \code{yield} keyword. Generators allow you to turn a method into one that behaves like an iterator, without having to create a separate iterator class. Generator thus has the same benefits as iterators, such as memory efficiency and encapsulation, and does not require the explicit implementation of the \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods.
 
 \begin{lstlisting}
 # Generator function for a countdown
@@ -1720,16 +1712,15 @@ for number in countdown(5):
 # Output: 5, 4, 3, 2, 1
 \end{lstlisting}
 
-Instead of defining the \code{Countdown} class as an iterator, the \code{countdown} function is defined as a generator that yields the countdown sequence. The countdown function uses \code{yield} to generate values one at a time, pausing between each yield.
-Each call to \code{yield} returns the current value of start and saves the function'ss state, allowing it to resume where it left off when called again.
+Instead of defining the \code{Countdown} class as an iterator, the \code{countdown} function is defined as a generator that yields the countdown sequence.
+Each call to \code{yield} returns the current value of \code{start} and saves the function's state, allowing it to resume where it left off when called again.
 
 \paragraph{Benefits of Generators}
 \begin{itemize}
-    \item Conciseness: Generators provide a more straightforward syntax for creating iterators, reducing boilerplate code.
+    \item Conciseness: Generators provide a more straightforward syntax for creating iterators.
 	\item Performance: They generate values on demand, reducing memory consumption compared to traditional lists.
-	\item Enhanced Readability: Generator functions are typically easier to understand and maintain compared to manually implemented iterators.    
+	\item Enhanced Readability: Generator functions are typically easier to understand and maintain compared to an iterator class.    
 \end{itemize}   
-
 
 \section{In-Class Exercise: Prime Number}\label{ex:prime-number}
 
@@ -1884,7 +1875,7 @@ If you do not provide clear documentation, you will not receive credit. If we ca
 
 \begin{enumerate}
     \item It will yield values one by one without storing them in memory.
-    \item It wil lreturn an error when converted to a list.
+    \item It will return an error when converted to a list.
     \item It will be exhausted and return an empty list.
     \item It will create a list of square numbers up to \code{limit - 1}.
 \end{enumerate}
@@ -1914,69 +1905,75 @@ If you do not provide clear documentation, you will not receive credit. If we ca
 
 \chapter{First-Class Functions}
 
-In modern OOP languages, functions are treated as \emph{first-class} citizens, meaning they can be assigned to variables, passed as arguments, and returned from other functions.
+In modern OOP, functions are treated as \emph{first-class} citizens, meaning they can be assigned to variables, passed as arguments, and returned from other functions.
 
 
 \begin{lstlisting}
-def greet(name):
-    return f"Hello, {name}!"
+    def greet(name):
+        return f"Hello, {name}!"
 
-# Assigning the function to a variable
-greeting = greet
+    # Assigning the function to a variable
+    greeting = greet
 
-# Now the variable `greeting` can be used like the function `greet`
-print(greeting("Alice"))  # Output: Hello, Alice!
+    # Now the variable `greeting` can be used like the function `greet`
+    print(greeting("Alice"))  # Output: Hello, Alice!
 \end{lstlisting}
 
-In \code{greet} function, the function is assigned to a variable \code{greeting}, which can then be called like a regular function. 
+In this example, the \code{greet} function is assigned to a variable \code{greeting}, which can then be called like a regular function. 
 
 \begin{lstlisting}
-def apply_operation(operation, a, b):
-    return operation(a, b)
+    def apply(op, a, b):
+        return op(a, b)
 
-def add(x, y):
-    return x + y
+    def add(x, y):
+        return x + y
 
-def subtract(x, y):
-    return x - y
+    def subtract(x, y):
+        return x - y
 
-# Passing functions as arguments
-result_add = apply_operation(add, 10, 5)       # Output: 15
-result_subtract = apply_operation(subtract, 10, 5)  # Output: 5
-
-print(result_add, result_subtract)
+    # Passing functions as arguments
+    result_add = apply_op(add, 10, 5)       # Output: 15
+    result_subtract = apply_op(subtract, 10, 5)  # Output: 5
 \end{lstlisting}
 
-For the above example, the \code{apply\_operation} function takes another function as an argument and applies it to the given arguments. This allows for dynamic behavior based on the function passed to \code{apply\_operation}.
+For this example, \code{apply\_op} takes another function \code{op} as an argument and applies it to the given arguments. This allows for dynamic behavior based on the function passed to \code{apply\_op}.
 
 
 
-\paragraph{History} Lisp, developed by John McCarthy in the late 1950s, was one of the first programming languages to treat functions as first-class citizens. Lisp's approach to functions was heavily influenced by \emph{lambda calculus}, developed by Alonzo Church in the 1930s, which formalized the concept of functions as mathematical expressions. Lisp's support for first-class functions enabled powerful programming techniques, such as higher-order functions and functional programming paradigms.
+\paragraph{History} Lisp, developed by John McCarthy in the late 1950s, was one of the first languages to treat functions as first-class citizens. Lisp's approach to functions was heavily influenced by \emph{lambda calculus}, developed by Alonzo Church in the 1930s, which formalized functions as mathematical expressions. Lisp's support for first-class functions allows for powerful programming techniques, such as higher-order functions (\autoref{sec:higher-order}).  Nowadays, most modern programming languages including Python, JavaScript, and Ruby treat functions as first-class citizens. 
 
+\section{Anonymous and Lambda Functions}\label{sec:lambda}
+A popular use for first-class functions is to create \emph{anonymous} or \emph{lambda} functions, which are unnamed functions defined on the fly. Lambda functions are useful for short, simple operations that do not require a full function definition. 
+\begin{lstlisting}
+# Lambda function to square a number
+square = lambda x: x ** 2
+print(square(5))  # Output: 25
+\end{lstlisting}
 
+In the example above, a lambda function is used to define a function that squares a number. The lambda function is assigned to the variable \code{square} and can be called like a regular function.
+Lambda functions are often used in conjunction with higher-order functions like \code{map}, \code{filter}, and \code{reduce}, described in \autoref{sec:higher-order}, to perform operations on collections of data.
 
+\section{Higher-Order Functions}\label{sec:higher-order}
 
-\section{Higher-Order Functions}
-
-Because functions are first-class citizens, they can be passed as arguments to other functions, returned from functions, and assigned to variables. Functions that operate on other functions are called \emph{higher-order functions}. More specifically, a higher-order function is a function that takes one or more functions as arguments or returns a function as its result.
+In the world of first-class functions, functions that operate on other functions are called \emph{higher-order functions}. More specifically, a higher-order function is a function that takes one or more functions as arguments or returns a function as its result.
 
 \begin{lstlisting}
     def square(x):
-    return x * x
+        return x * x
 
-def cube(x):
-    return x * x * x
+    def cube(x):
+        return x * x * x
 
-def apply_to_list(func, numbers):
-    return [func(number) for number in numbers]
+    def apply_to_list(func, numbers):
+        return [func(number) for number in numbers]
 
-numbers = [1, 2, 3, 4, 5]
-print(apply_to_list(square, numbers))  # Output: [1, 4, 9, 16, 25]
-print(apply_to_list(cube, numbers))    # Output: [1, 8, 27, 64, 125]
+    numbers = [1, 2, 3, 4, 5]
+    print(apply_to_list(square, numbers))  # Output: [1, 4, 9, 16, 25]
+    print(apply_to_list(cube, numbers))    # Output: [1, 8, 27, 64, 125]
 
 \end{lstlisting}
 
-The example above demonstrate higher-order functions, where functions are passed as arguments to other functions. In this case, the \code{apply\_to\_list} function takes a function and a list of numbers as arguments and applies the function to each number in the list, returning a new list with the results. 
+In this example, the higher-order function \code{apply\_to\_list} takes a function and a list of numbers as inputs and applies the function to each number in the list, returning a new list with the results. 
 
 
 \subsection{Popular Higher-Order Functions}
@@ -1984,15 +1981,15 @@ The example above demonstrate higher-order functions, where functions are passed
 Higher-order functions are commonly used in functional programming and are available in many programming languages. Three popular higher-order functions include:
 
 \begin{itemize}
-    \item \code{map(func, iterable)}: Applies a function to each item in an iterable (e.g., list, tuple) and returns a new iterable with the results.\\
+    \item \code{map(f, iterable)}: Applies a function \code{f} to each item in an iterable (e.g., list, tuple) and returns a new iterable with the results.\\
     Example: \code{list(map(square, [1,2,3,4,5]))} returns \code{[1, 4, 9, 16, 25]}.
-    \item \code{filter(func, iterable)}: Filters elements in an iterable based on a predicate function (i.e., a function that returns a boolean value).\\
+    \item \code{filter(f, iterable)}: Filters elements in an iterable based on a predicate \code{f} (i.e., a function that returns a boolean value).\\
     Example: \code{list(filter(lambda x: x \% 2 == 0, [1,2,3,4,5]))} returns \code{[2, 4]}. Lambda functions are discussed in the next section (\autoref{sec:lambda}).
-    \item \code{reduce(func, iterable)}: Applies a function of two arguments cumulatively to the items of an iterable, reducing it to a single value.\\
+    \item \code{reduce(f, iterable)}: Applies a binary function \code{f} to the first two items of an iterable, then to the result and the next item, and so on. It returns a single value.\\
     Example: \code{reduce(lambda x, y: x + y, [1,2,3,4,5])} returns \code{15}. 
 \end{itemize}
 
-\paragraph{Fun fact} While many functional programmers saw \code{reduce} as an essential tool, the Python community largely agreed that list comprehensions and generator expressions made the code more readable than \code{reduce} in many cases. Thus, in Python 3, \code{reduce} was moved to the \code{functools} module to emphasize its specialized use case.
+\paragraph{Fun fact} While \code{reduce} is well-known in functional languages such as Haskell and Ocaml, the Python community believes that list comprehensions and generator expressions made the code more readable than \code{reduce}. Thus, in Python 3, \code{reduce} was moved to the \code{functools} module to emphasize its specialized use case.
 
 For example, compare the following code snippets that calculate the sum of a list of numbers using \code{reduce} and list comprehension:
 \begin{lstlisting}
@@ -2010,28 +2007,13 @@ total = sum(x for x in numbers)
 print(total)  # Output: 15
 \end{lstlisting}
 
-\paragraph{Fun fact} Google’s MapReduce framework, introduced in 2004, was inspired by \code{map} and \code{reduce} (``map'' distributes work across multiple nodes and the ``reduce'' aggregates the results).  It allows the processing of massive datasets across distributed systems and is critical for Google in indexing the web efficiently. The framework revolutionizes large-scale data processing and influences technologies like Apache Hadoop and Apache Spark.
+\paragraph{Fun fact} The MapReduce framework, introduced by Google in 2004, was inspired by \code{map} and \code{reduce} (``map'' distributes work across multiple nodes and the ``reduce'' aggregates the results).  It revolutionizes large-scale data processing and allows Google to index the web efficiently. It influences current web technologies such as Apache Hadoop and Apache Spark.
 
-\section{Anonymous and Lambda Functions}\label{sec:lambda}
-A popular use case for first-class functions is the creation of \emph{anonymous} or \emph{lambda} functions, which are small, unnamed functions defined on the fly. Lambda functions are useful for short, simple operations that do not require a full function definition. These functions are often used in higher-order functions like \code{map}, \code{filter}, and \code{reduce} as discussed in the previous section.
-\begin{lstlisting}
-# Lambda function to square a number
-square = lambda x: x ** 2
-print(square(5))  # Output: 25
-
-# Lambda function used in a higher-order function
-numbers = [1, 2, 3, 4, 5]
-squared_numbers = list(map(lambda x: x ** 2, numbers))
-print(squared_numbers)  # Output: [1, 4, 9, 16, 25]
-
-\end{lstlisting}
-
-In the example above, a lambda function is used to define a function that squares a number. The lambda function is assigned to the variable \code{square} and can be called like a regular function.
 
 
 
 \section{Closures}
-Closures are higher order function that returns a function. It is a powerful feature of first-class functions and allows functions to retain access to variables from their enclosing scope even after the scope has finished executing. It is a way to bind a function with its environment, allowing the function to access and manipulate variables that are not in its local scope. 
+Closures are a higher-order function that returns a function. It is a powerful feature of first-class functions and allows functions to retain access to variables from their enclosing scope even after the scope has finished executing. It is a way to bind a function with its environment, allowing the function to access and manipulate variables that are not in its local scope. 
 
 \paragraph{Fun fact} Closures are used extensively in Javascript, introduced in Netscape Navigator in 1995 by Bredan Eich. Javascript's support for closures and first-class functions enabled the development of dynamic and interactive web applications, leading to its widespread adoption and popularity.
 
