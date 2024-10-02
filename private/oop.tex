@@ -1052,20 +1052,26 @@ Use the Poly ADT in \autoref{ex:poly} to answer the following questions. Use the
 \end{enumerate}
 
 
-\subsection{Immutability}
+\subsection{Immutability 1}\label{sec:immutability1}
 
-The below class \code{Immutable} is supposed to be immutable. However, it is not. Identify the issues and fix them.  Note that in Python or Java, immutable types include \code{int}, \code{float}, \code{str}, \code{tuple}. and mutable types include \code{list} and \code{dict}. 
+The below class \code{Immutable} is supposed to be immutable. However, it is not. Identify the issues and fix them.  
 
 \begin{enumerate}
 \item Which of the lines (A--F) has a problem with immutability? Explain why by showing code example, i.e., show code involving problematic lines; show how that breaks immutability.
 
 \sol{Only line F is problematic. It returns a reference to the internal list, which can be modified. Note that line C has no issue because it creates a copy of the list. If there was no copy, then this would cause a problem as \code{mlist} could be modified outside the class and affects \code{\_mlist}.}
+
 \item For each line that has a problem.  Write code to fix it so that the class is immutable.
 
 \sol{To fix line F, simply return copy, i.e., return self.\_mlist.copy().}
 \end{enumerate}
 
-    
+Notes:
+\begin{enumerate}
+\item Python or Java, immutable types include \code{int}, \code{float}, \code{str}, \code{tuple}. and mutable types include \code{list} and \code{dict}. 
+\item In Python, you can use \code{copy} method to create a copy of a list and \code{deepcopy} for more complicated data structures like \code{dict}.
+\end{enumerate}    
+
 \begin{lstlisting}
 class Immutable:
     def __init__(self, mstr: str, mint: int, mlist: list[str]):
@@ -1080,7 +1086,21 @@ class Immutable:
 \end{lstlisting}
 
 
-
+\subsection{Immutability 2}\label{sec:immutability2}
+Do the same with the previous exercise (\autoref{sec:immutability1}) but now with the below class \code{Immutable2}.
+\begin{lstlisting}
+class Immutable2:
+    def __init__(self, username: str, user_id: int, data1: list[str], data2: dict):
+        self._username = username  # Line A
+        self._user_id = user_id    # Line B
+        self._data1 = data1        # Line C
+        self._data2 = data2  # Line D
+        
+    def get_username(self) -> str: return self._username
+    def get_user_id(self) -> int: return self._user_id
+    def get_data1(self) -> list[str]: return self._data1  # Line E
+    def get_data2(self) -> dict:  return self._data2      # Line F
+\end{lstlisting}
 
 % \chapter{Iterators and Generators}
 
