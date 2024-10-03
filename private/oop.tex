@@ -1809,7 +1809,7 @@ If you do not provide clear documentation, you will not receive credit. If we ca
 \begin{enumerate}
     \item Play around with different \code{n} (e.g., 10,000, 100,000) to see how the program performs. Aim for about 20 seconds of execution time.
     \item Print out the first 5 perfect numbers generated.
-    \item Measure execution time and memory usage, which should be relatively high due to high computational demands and storage of all perfect numbers.
+    \item Measure execution time and memory usage, which should be relatively high due to high computational demands and storage of all perfect numbers.  For Python, use \code{timeit} and \code{tracemalloc} modules to measure time and memory usage.
 \end{enumerate}
 
 \item Part 2: Implement a custom iterator called \code{PowerNumberIterator} for perfect numbers. You can reuse the code from part 1.  After that, do exactly the analysis that you did in Part 1, i.e., play with different \code{n} values, print out the first 5 numbers generated, and measure the performance of the iterator.  You should see a significant improvement in memory usage and execution time compared to the non-iterator approach.
