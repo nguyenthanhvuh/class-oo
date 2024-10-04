@@ -46,6 +46,8 @@ l = [1,2,3,4,5]
 
 print(list(map(lambda x: x**x ,l)))
 
-# Hadoop Spark 
+print((lambda x: x**x)(10))
 
-# MapReduce Framework from Google:  Google FileSystem
+
+import functools
+print(functools.reduce(lambda x,y: x+y, [1,2,3,4], 100))
