@@ -2099,9 +2099,9 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 \item \code{reduce} also takes a third parameter called an \emph{accumulator}.  Explain how \code{reduce} works on a list \code{reduce(f,[1,2,3,...,n],acc)}.
 \end{enumerate}
 
-\item Part 4: Write a function \code{make\_max\_tracker()} that returns a closure that tracks and returns the highest number seen so far.
+\item Part 4: Write a function \code{make\_max\_tracker()} that returns a closure that tracks and returns the highest number seen so far. In Python, to access a variable that is not in scope, you might need to use the \code{nonlocal} keyword, e.g., \code{nonlocal var\_name}.
 \begin{lstlisting}
-    def max_tracker():
+    def make_max_tracker():
         ...
         def tracker(v):
            ...
@@ -2110,7 +2110,7 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 
     max_tracker = make_max_tracker()
 
-    # Test the closure
+    # Test closer, notice how it "memorizes" what it has seen so far.
     print(max_tracker(5))  # Output: 5
     print(max_tracker(3))  # Output: 5
     print(max_tracker(8))  # Output: 8

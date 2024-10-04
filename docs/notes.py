@@ -29,3 +29,22 @@ print(avg(10))
 
 
 
+
+
+
+def make_max_tracker():
+    highest = 0
+    
+    def tracker(v):
+        nonlocal highest
+        highest = max(v, highest)
+        return highest
+    return tracker
+
+max_tracker = make_max_tracker()
+
+print(max_tracker(5))
+print(max_tracker(3))
+print(max_tracker(8))
+print(max_tracker(7))
+
