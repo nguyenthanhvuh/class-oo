@@ -52,7 +52,7 @@
   - Higher-Order functions
   - Lambda functions
   - Closure
-- In-class: 6.4
+- In-class: Functions First 6.4
 - HW assignment: Redo In-class 6.4 (make sure you answer every question in 6.4)
 - Quiz: Iterator/Generator Multiple Choice
 
