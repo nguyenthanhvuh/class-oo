@@ -2094,16 +2094,16 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 
 \end{enumerate}
 
-
 \item Part 2: Modify the code from Part 1 to use \emph{lambda functions} 
 \begin{enumerate}
 \item Replace \code{add}, \code{subtract}, and \code{multiply} with lambda expressions.
 \item Test the function by applying each operation to two numbers and printing the results.
-\item Discuss when might using a lambda function be more advantageous? When might a named function be better?
+\item Discuss when you would want to use lambda functions? When would you want to use a name function?
 \end{enumerate}
 
+\item Part 3: Create some code that apply \code{reduce} and discuss about it in class
 
-\item Part 3: Create a \emph{closure} that stores a base number and uses it to multiply with other numbers.
+\item Part 4: Create a \emph{closure} that stores a base number and uses it to multiply with other numbers.
 \begin{enumerate}
 \item Create a function called \code{create\_multiplier(base: int) -> function} that takes a base number and returns a closure that multiplies other numbers by the base.
 \item Test the closure by creating multiple multiplier functions with different base numbers and applying them to other numbers.
@@ -2117,7 +2117,7 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 \end{lstlisting}
 \end{enumerate}
 
-\item Part 4: Combine all three concepts to create a flexible higher-order function that applies a lambda function within a closure.
+\item Part 5: Combine all three concepts to create a flexible higher-order function that applies a lambda function within a closure.
 
 \begin{enumerate}
 \item Modify \code{create\_multiplier} to take a lambda function as input and return a closure that applies this lambda function to the result of the multiplication.
