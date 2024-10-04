@@ -31,7 +31,6 @@ print(avg(10))
 
 
 
-
 def make_max_tracker():
     highest = 0
     
