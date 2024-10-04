@@ -45,6 +45,17 @@
 - HW Assignment: Perfect Number (5.6.1)
 - Quiz: LSP Analysis
 
+
+## Week 6
+- Topics: Functions as First-class Citizens
+- Reading: OOP 6
+  - Higher-Order functions
+  - Lambda functions
+  - Closure
+- In-class: 6.4
+- HW assignment: TBD
+- Quiz: Iterator/Generator Multiple Choice
+
 # HW Assignments
 
 ## HW1
