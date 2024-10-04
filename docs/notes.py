@@ -1,53 +1,31 @@
 
 
 
-# functions as first-class citizen of a language
+# closure 
 
-def greet(name):
-    return f"hello {name}"
-
-f = greet 
-print(f("419"))   # 1. assigning function as variable
-
-
-def apply(f, a, b):
-    return f(a,b)
-
-def  pow(a, b):
-    return a**b
-
-def plus(a, b):
-    return a+b
-
-# print(apply(pow, 10,2))  # 2. pass function in as input
-
-print(apply(plus, 10, 2))
+def make_multiplier(factor):
+    def multiplier(x):
+        return x * factor
+    return multiplier
 
 
-# LISP
-# John McCarthy
-# Lamda expression
-# Alonzo Church :  Turing Machine = Lamda Calculus 
-
-square = lambda x:  x*x
+print(make_multiplier(10)(100))
+print(make_multiplier(3)(100))
 
 
-def f():
-    return lambda y: y+y
+    
+def make_averager():
+    deposits = []
+    
+    def myaverage(new_value):
+        deposits.append(new_value)
+        total = sum(deposits)
+        return total / len(deposits)
+    
+    return myaverage
+
+avg = make_averager()
+print(avg(10))
 
 
 
-print(type(f))
-
-# higher-order function
-# map, reduce, filter
-l = [1,2,3,4,5]
-
-
-print(list(map(lambda x: x**x ,l)))
-
-print((lambda x: x**x)(10))
-
-
-import functools
-print(functools.reduce(lambda x,y: x+y, [1,2,3,4], 100))

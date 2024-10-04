@@ -1849,7 +1849,7 @@ If you do not provide clear documentation, you will not receive credit. If we ca
 
 
 
-\item What is the primary benefit of using a generator in this example?
+\item What is main advantage of using a generator in this example?
 \begin{lstlisting}
     def count_down(n):
         while n > 0:
@@ -1858,15 +1858,14 @@ If you do not provide clear documentation, you will not receive credit. If we ca
     \end{lstlisting}
 
 \begin{enumerate}
-    \item It stores all the countdown numbers in memory at once.
-    \item It allows for lazy evaluation, producing numbers one at a time without storing the entire sequence in memory.
-    \item It is faster than using a list comprehension.
-    \item It automatically handles errors.
+    \item It stores all the countdown numbers in mem at once.
+    \item It allows for lazy evaluation, producing numbers one at a time without storing in memory.
+    \item It is faster than using a list.
 \end{enumerate}
 
 %\textbf{Correct Answer:} B
 
-\item What is yielded by the generator function \texttt{fibonacci}?
+\item What is returned by \texttt{fibonacci}?
 
 \begin{lstlisting}
     def fibonacci(n):
@@ -1877,9 +1876,9 @@ If you do not provide clear documentation, you will not receive credit. If we ca
 \end{lstlisting}
 
 \begin{enumerate}
-    \item The sum of all Fibonacci numbers up to \texttt{n}.
-    \item Fibonacci numbers up to \texttt{n}, one by one, using lazy evaluation.
-    \item A list of the first \texttt{n} Fibonacci numbers.
+    \item The sum of all Fib numbers up to \texttt{n}.
+    \item Fib numbers up to \texttt{n}, one by one, using lazy evaluation.
+    \item The first \texttt{n} Fib numbers.
     \item The Fibonacci sequence stored as a tuple.
 \end{enumerate}
 
@@ -1894,16 +1893,16 @@ If you do not provide clear documentation, you will not receive credit. If we ca
     \end{lstlisting}
 
 \begin{enumerate}
-    \item It will yield values one by one without storing them in memory.
-    \item It will return an error when converted to a list.
-    \item It will be exhausted and return an empty list.
+    \item It yields values 1-by-1 instead of storing in memory.
+    \item It returns an error when converted to a list.
+    \item It gets exhausted and return an empty list.
     \item It will create a list of square numbers up to \code{limit - 1}.
 \end{enumerate}
 
 %\textbf{Correct Answer:} D
 
 
-\item What is the purpose of the \texttt{infinite\_numbers} generator?
+\item What is the purpose of the following generator?
 \begin{lstlisting}
     def infinite_numbers():
         num = 0
@@ -1913,9 +1912,9 @@ If you do not provide clear documentation, you will not receive credit. If we ca
     \end{lstlisting}
 \begin{enumerate}
     \item It generates numbers up to a fixed limit.
-    \item It generates a series of numbers starting from 0, but stops after a certain point.
-    \item It generates an infinite sequence of numbers, producing them one at a time.
-    \item It returns a list of numbers in ascending order.
+    \item It generates numbers starting from 0, but stops after a certain point.
+    \item It generates an infinite sequence of numbers, one at a time.
+    \item It returns numbers in ascending order.
 \end{enumerate}
 
 %\textbf{Correct Answer:} C
@@ -2053,14 +2052,14 @@ The above example demonstrates a closure where the \code{make\_multiplier} funct
 
 \begin{lstlisting}
     def make_averager():
-    series = []
+        series = []
 
-    def averager(new_value):
-        series.append(new_value)
-        total = sum(series)
-        return total / len(series)
+        def averager(new_value):
+            series.append(new_value)
+            total = sum(series)
+            return total / len(series)
 
-    return averager
+        return averager
 
     avg = make_averager()
     print(avg(10))  # Output: 10.0
@@ -2094,15 +2093,31 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 \item Discuss when you would want to use lambda functions? When would you want to use a name function?
 \end{enumerate}
 
-\item Part 3: Create some code that applies \code{reduce} and discuss about it in class
-
-\item Part 4: Modify the code to use higher-order functions
+\item Part 3: Modify the code to use higher-order functions
 \begin{enumerate}
 \item Create some code that applies \code{map}, \code{filter}, and \code{reduce} to a list of string
-\item Explain how \code{reduce} works on a list \code{[1,2,3,...,n]}
+\item \code{reduce} also takes a third parameter called an \emph{accumulator}.  Explain how \code{reduce} works on a list \code{reduce(f,[1,2,3,...,n],acc)}.
 \end{enumerate}
 
-\item Part 4: Create a \emph{closure} that stores a base number and uses it to multiply with other numbers.
+\item Part 4: Write a function \code{make\_max\_tracker()} that returns a closure that tracks and returns the highest number seen so far.
+\begin{lstlisting}
+    def max_tracker():
+        ...
+        def tracker(v):
+           ...
+        
+        return tracker
+
+    max_tracker = make_max_tracker()
+
+    # Test the closure
+    print(max_tracker(5))  # Output: 5
+    print(max_tracker(3))  # Output: 5
+    print(max_tracker(8))  # Output: 8
+    print(max_tracker(7))  # Output: 8
+\end{lstlisting} 
+
+\item Part 5: Create a \emph{closure} that stores a base number and uses it to multiply with other numbers.
 \begin{enumerate}
 \item Create a function called \code{create\_multiplier(base: int) -> function} that takes a base number and returns a closure that multiplies other numbers by the base.
 \item Test the closure by creating multiple multiplier functions with different base numbers and applying them to other numbers.
@@ -2116,7 +2131,7 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 \end{lstlisting}
 \end{enumerate}
 
-\item Part 5: Combine all three concepts to create a flexible higher-order function that applies a lambda function within a closure.
+\item Part 6: Combine all three concepts to create a flexible higher-order function that applies a lambda function within a closure.
 
 \begin{enumerate}
 \item Modify \code{create\_multiplier} to take a lambda function as input and return a closure that applies this lambda function to the result of the multiplication.
