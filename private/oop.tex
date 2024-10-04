@@ -301,8 +301,7 @@ class Cat(Mammal):
 
 \chapter{Procedural Abstraction}\label{chap:procedural-abstraction}
 
-\emph{Procedural abstraction} is a fundamental concept in programming that allows developers to create functions (methods) that hide the implementation details of a program. By abstracting away the details, developers can focus on the essential features of the program, making it easier to understand, modify, and maintain. 
-
+\emph{Procedural abstraction} is a fundamental programming concept. It allows developers to create functions (methods) that hide program implementation details. For example, the user can just call \code{sort} without knowing (or caring) about the sorting algorithm used. 
 By separating procedure definition and invocation, we make two important methods of abstraction: abstraction by parameterization and abstraction by specification.
 
 \paragraph{Abstraction by Parameterization}
@@ -368,7 +367,7 @@ Note that in a language like Java, the header also provides \emph{exceptions} th
 
 \paragraph{Preconditions and Postconditions}
 
-A typical function specification in an OOP language such as Python includes: \emph{Preconditions} (also called the ``requires'' clause) and \emph{Postconditions} (also called the ``effects'' clause). Preconditions describe the conditions that must be true before the function is called. Typically these state the constraints or assumptions about the input parameters. If there are no preconditions, the clause is often written as \code{None}.
+A typical function specification in an OOP language such as Python includes: \emph{Preconditions} (also called the ``requires'' clause) and \emph{Postconditions} (also called the ``effects'' clause). Preconditions describe the conditions that must be true before the function is called. These state the constraints or assumptions about the input parameters. If there are no preconditions, the clause is written as \code{None}.
 
 Postconditions, under the assumption that the preconditions are satisfied, describe the conditions that will be true after the function is called. These typically state the expected results or outcomes of the function. Moreover, they often describe the relationship between the inputs and outputs.
 
@@ -635,9 +634,9 @@ def get_average(numbers: list[float]) -> float:
 
 %This chapter focuses on \emph{abstract data type} (ADT), a foundation of OOP and key concept in programming that allows developers to separate how data is implemented from how it behaves. Through ADT, programmers can create new data types relevant to their application. These ADTs consist of objects and associated operations.
 
-In 1974, Barbara Liskov and Stephen N. Zilles introduced the concept of Abstract Data Types (\emph{ADTs}) in their influential paper ``Programming with Abstract Data Types'' as part of their work on the CLU programming language at MIT. ADTs revolutionized software design by separating the specification of a data type from its implementation. This meant that developers could define operations on a data structure (such as stacks or queues) without exposing the details of how the data was managed internally. This idea of data abstraction improved modularity, making programs easier to modify, extend, and maintain.
+In 1974, Barbara Liskov and Stephen N. Zilles introduced the concept of Abstract Data Types (\emph{ADTs}) in their influential paper ``Programming with Abstract Data Types'' as part of their work on the CLU programming language at MIT. ADTs changed software design by separating the specification of a data type from its implementation. This allows developers to define operations on a data structure without exposing the details of how the data was managed internally (e.g., calling \code{pop} to remove data from a \code{Stack} without knowing the internal details on how stack stores data). 
 
-For her pioneering contributions to programming languages and system design, particularly through her work on ADTs and CLU, Barbara Liskov was awarded the Turing Award in 2008. Today, ADTs are a cornerstone of modern programming, underlying the concepts of encapsulation and modularity in modern OOP languages like Java, Python, and Rust.
+For her pioneering contributions to programming languages and system design, particularly through her work on ADTs and CLU, Barbara Liskov was awarded the Turing Award in 2008. Today, ADTs are a cornerstone of modern programming including Java, Python, and Rust.
 
 %The CLU language was the first to explicitly support ADTs using a construct called a cluster, which encapsulated both the data structure and the operations that acted on it. CLU also introduced several other innovative features like iterators, exceptions, and parameterized types, many of which influenced modern programming languages such as Java, Python, and C++. Though CLU never became widely used, the principles it introduced, especially ADTs, became foundational in software engineering, leading to more modular and reusable code.
 
@@ -1664,13 +1663,13 @@ print(list(fib_generator(10))) # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 Using generator functions, we can efficiently generate Fibonacci numbers on demand, reducing memory consumption and improving performance. Generators produce values one at a time, only when needed, making them ideal for large datasets or infinite sequences.
 
 \section{Brief History}
-The concept of iterators in object-oriented programming was pioneered by the language CLU in the 1970s, developed by Barbara Liskov. CLU introduced iterators as a core language feature, allowing traversal of collections without exposing their internal structures, managing the iteration state internally. This innovation laid the foundation for modern iterator designs by demonstrating how encapsulating traversal logic could lead to cleaner, more maintainable code. C++ in the 1980s further popularized iterators through the Standard Template Library (STL), which abstracted the traversal of various collections, enhancing code reuse and flexibility. The importance of iterators was further solidified by the Design Patterns book by the Gang of Four (GoF) in 1994, which formalized the iterator pattern as a key design strategy, emphasizing the separation of traversal from the data structure itself.
+The idea of iterators in OOP was pioneered by the CLU language in the 1970s, developed by Barbara Liskov. CLU introduced iterators as a core language feature, allowing traversal of collections without exposing internal structures. This innovation laid the foundation for modern iterator designs and showed how encapsulating traversal could lead to cleaner, more maintainable code. C++ in the 1980s introduces iterators through its STL. Iterators was further solidified by the Design Patterns book by the Gang of Four (GoF) in 1994, which formalized iterator patterns, emphasizing the separation of traversal from data structure.
 
-Java, released in 1995, built on these ideas by integrating the Iterator interface into its collections framework, standardizing the way collections were traversed across the language. Java’s approach unified data traversal, promoting object-oriented principles like encapsulation and abstraction. The introduction of generators in Python in 2001 marked a significant evolution in iteration. Python’s yield keyword allowed functions to produce values lazily, one at a time, without storing the entire sequence in memory, enabling efficient data processing for large or infinite sequences. This approach made creating iterators more intuitive and readable, influencing other languages and underscoring the importance of efficient iteration mechanisms in modern programming.
+Java, released in 1995, built on these ideas through its Iterator interface, standardizing the way collections were traversed across the language. Java's approach unified data traversal, promoting encapsulation and abstraction in OO. Python introduces generators in 2001 and allowed functions to produce values lazily, one at a time, without storing the entire sequence in memory.  This enables efficient data processing for large or infinite sequences and emphasizes efficient iteration over data in modern languages.
 
 \section{Iterators}
 
-An iterator is an ADT that allows you to traverse through all the elements of a collection, such as a list, tuple, or custom data structure, without exposing the underlying details of the collection (i.e., promoting encapsulation). 
+An iterator is an ADT that allows you to traverse through all the elements of a collection, such as a list, tuple, or custom data structure, without exposing the underlying details of the collection (i.e., encapsulation). 
 
 Key Concepts of Iterators:
 \begin{itemize}
@@ -1840,9 +1839,9 @@ If you do not provide clear documentation, you will not receive credit. If we ca
     \end{lstlisting}
 \begin{enumerate}
     \item A list that can be iterated through once.
-    \item An infinite loop that never stops.
+    \item An infinite loop.
     \item An iterator that generates numbers between \texttt{start} and \texttt{end}, inclusive.
-    \item A generator function that yields values on demand.
+    \item A generator that yields values on demand.
 \end{enumerate}
 
 %\textbf{Correct Answer:} C
@@ -1892,15 +1891,15 @@ If you do not provide clear documentation, you will not receive credit. If we ca
 
 \begin{enumerate}
     \item It yields values 1-by-1 instead of storing in memory.
-    \item It returns an error when converted to a list.
-    \item It gets exhausted and return an empty list.
+    \item It returns an error.
+    \item It gets exhausted and returns an empty list.
     \item It will create a list of square numbers up to \code{limit - 1}.
 \end{enumerate}
 
 %\textbf{Correct Answer:} D
 
 
-\item What is the purpose of the following generator?
+\item What is the purpose of this generator?
 \begin{lstlisting}
     def infinite_numbers():
         num = 0
@@ -1910,7 +1909,7 @@ If you do not provide clear documentation, you will not receive credit. If we ca
     \end{lstlisting}
 \begin{enumerate}
     \item It generates numbers up to a fixed limit.
-    \item It generates numbers starting from 0, but stops after a certain point.
+    \item It produces numbers starting from 0, but stops after a certain point.
     \item It generates an infinite sequence of numbers, one at a time.
     \item It returns numbers in ascending order.
 \end{enumerate}
@@ -1951,7 +1950,7 @@ In this example, the \code{greet} function is assigned to a variable \code{greet
 For this example, \code{apply\_op} takes another function \code{op} as an argument and applies it to the given arguments. This allows for dynamic behavior based on the function passed to \code{apply\_op}.
 
 
-\paragraph{History} Lisp, developed by John McCarthy in the late 1950s, was one of the first languages to treat functions as first-class citizens. Lisp's approach to functions was heavily influenced by \emph{lambda calculus}, developed by Alonzo Church in the 1930s, which formalized functions as mathematical expressions. Lisp's support for first-class functions allows for powerful programming techniques, such as higher-order functions (\autoref{sec:higher-order}).  Nowadays, most modern programming languages including Python, JavaScript, and Ruby treat functions as first-class citizens. 
+\paragraph{History} Lisp, developed by John McCarthy in the late 1950s, was one of the first languages to treat functions as first-class citizens. Lisp's approach to functions was heavily influenced by \emph{lambda calculus}, developed by Alonzo Church in the 1930s, which formalized functions as mathematical expressions. Lisp's support for first-class functions allows for powerful programming techniques, such as higher-order functions (\autoref{sec:higher-order}).  Modern programming languages including Python, JavaScript, and Ruby all treat functions as first-class citizens. 
 
 \section{Anonymous and Lambda Functions}\label{sec:lambda}
 A popular use for first-class functions is to create \emph{anonymous} or \emph{lambda} functions, which are unnamed functions defined on the fly. Lambda functions are useful for short, simple operations that do not require a full function definition. 
@@ -2091,10 +2090,12 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 \item Discuss when you would want to use lambda functions? When would you want to use a name function?
 \end{enumerate}
 
-\item Part 3: Modify the code to use higher-order functions
+\item Part 3: Using higher-order functions
 \begin{enumerate}
-\item Create some code that applies \code{map}, \code{filter}, and \code{reduce} to a list of string
-\item \code{reduce} also takes a third parameter called an \emph{accumulator}.  Explain how \code{reduce} works on a list \code{reduce(f,[1,2,3,...,n],acc)}.
+\item For each higher-order function \code{map}, \code{filter}, and \code{reduce}, create some code to apply each to a list of \code{str}.
+\item Clearly explain what each function does and print several examples to demonstrate each function.
+\item \code{reduce} also takes a third input called an \emph{accumulator}.  Explain how \code{reduce} works with the accumulator ? e.g., \code{reduce(f,[1,2,3,...,n],acc)} does what?
+\item Create some code to demonstrate the use of the accumulator in \code{reduce}. DO NOT use the example in the lectures (eg.., sum, product, subtract).
 \end{enumerate}
 
 \item Part 4: Write a function \code{make\_max\_tracker()} that returns a closure that tracks and returns the highest number seen so far. In Python, to access a variable that is not in scope, you might need to use the \code{nonlocal} keyword, e.g., \code{nonlocal var\_name}.
@@ -2115,89 +2116,6 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
     print(max_tracker(7))  # Output: 8
 \end{lstlisting} 
 
-\item Part 5: Create a \emph{closure} that stores a base number and uses it to multiply with other numbers.
-\begin{enumerate}
-\item Create a function called \code{create\_multiplier(base: int) -> function} that takes a base number and returns a closure that multiplies other numbers by the base.
-\item Test the closure by creating multiple multiplier functions with different base numbers and applying them to other numbers.
-\begin{lstlisting}
-    # Create closures
-    double = create_multiplier(2)
-    triple = create_multiplier(3)
-    
-    print(double(5))  # Output: 10
-    print(triple(5))  # Output: 15
-\end{lstlisting}
-\end{enumerate}
-
-\item Part 6: Combine all three concepts to create a flexible higher-order function that applies a lambda function within a closure.
-
-\begin{enumerate}
-\item Modify \code{create\_multiplier} to take a lambda function as input and return a closure that applies this lambda function to the result of the multiplication.
-\item The returned closure will both multiply the input by the base number and apply the lambda function to the result.
-\item Test the function by creating a closure that doubles a number and then squares the result.
-\begin{lstlisting}
-    # Create closures with different lambda functions
-    double_then_square = create_custom_multiplier(2, lambda y: y ** 2)
-    triple_then_add_five = create_custom_multiplier(3, lambda y: y + 5)
-    
-    print(double_then_square(4))  # Output: (4 * 2) ** 2 = 64
-    print(triple_then_add_five(4))  # Output: (4 * 3) + 5 = 17    
-\end{lstlisting} 
-\end{enumerate}
-
-\end{enumerate}
-
-\begin{enumerate}
-\item Part 1: Higher-order Functions: Create a higher-order function that applies different operations (addition, subtraction, multiplication) to two numbers.
-\begin{enumerate}
-\item Create a function called \code{operate\_on\_numbers (operation: function, a: int, b: int) -> int} that takes another function (operation) as an argument and applies that function to two numbers.
-\item Create multiple simple functions \code{add}, \code{subtract}, \code{multiply} that can be passed as arguments to \code{operate\_on\_numbers}.
-\item Test the function by applying each operation to two numbers and printing the results.
-\begin{lstlisting}
-    # Test the higher-order function
-    print(operate_on_numbers(add, 5, 3))        # Output: 8
-    print(operate_on_numbers(subtract, 5, 3))   # Output: 2
-    print(operate_on_numbers(multiply, 5, 3))   # Output: 15
-\end{lstlisting}
-
-\end{enumerate}
-
-\item Part 2: Lambda Functions:  Modify the code from Part 1 to use \emph{lambda functions} 
-\begin{enumerate}
-\item Replace \code{add}, \code{subtract}, and \code{multiply} with lambda expressions.
-\item Test the function by applying each operation to two numbers and printing the results.
-\item Discuss when might using a lambda function be more advantageous? When might a named function be better?
-\end{enumerate}
-
-
-\item Part 3: Closures:  Create a closure that stores a base number and uses it to multiply with other numbers.
-\begin{enumerate}
-\item Create a function called \code{create\_multiplier(base: int) -> function} that takes a base number and returns a closure that multiplies other numbers by the base.
-\item Test the closure by creating multiple multiplier functions with different base numbers and applying them to other numbers.
-\begin{lstlisting}
-    # Create closures
-    double = create_multiplier(2)
-    triple = create_multiplier(3)
-    
-    print(double(5))  # Output: 10
-    print(triple(5))  # Output: 15
-\end{lstlisting}
-\end{enumerate}
-
-\item Part 4: Combining Concepts: Combine all three concepts to create a flexible higher-order function that applies a lambda function within a closure.
-
-\begin{enumerate}
-\item Modify \code{create\_multiplier} to take a lambda function as input and return a closure that applies this lambda function to the result of the multiplication.
-\item The returned closure will both multiply the input by the base number and apply the lambda function to the result.
-\item Test the function by creating a closure that doubles a number and then squares the result.
-\begin{lstlisting}
-    # Create closures with different lambda functions
-    double_then_square = create_custom_multiplier(2, lambda y: y ** 2)
-    triple_then_add_five = create_custom_multiplier(3, lambda y: y + 5)
-    
-    print(double_then_square(4))  # Output: (4 * 2) ** 2 = 64
-    print(triple_then_add_five(4))  # Output: (4 * 3) + 5 = 17    
-\end{lstlisting} 
 \end{enumerate}
 
 % **Example Code**:
@@ -2210,9 +2128,6 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 
 
 % ```
-
-
-\end{enumerate}
 
 
 

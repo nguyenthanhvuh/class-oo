@@ -53,7 +53,7 @@
   - Lambda functions
   - Closure
 - In-class: 6.4
-- HW assignment: TBD
+- HW assignment: Redo In-class 6.4 (make sure you answer every question in 6.4)
 - Quiz: Iterator/Generator Multiple Choice
 
 # HW Assignments
