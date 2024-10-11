@@ -13,6 +13,7 @@ def initialize_population(pop_size, list_length):
 #     return individual.count(0)
 
 #your task
+#evolve a list whose sum is equal to target (target is 99)
 def fitness(individual,target=99):
     pass 
 
