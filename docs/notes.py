@@ -1,19 +1,3 @@
-"""
-- Validation
-- Verification:
-    - guarantees that the program doesn't crash, gives wrong answer 
-    for *any inputs*
-- Testing:
-    - run your program on some *finite* inputs (10000, 1000 ...,)
-    
-- Bart Miller (U. Wisconsin)
-"""
-
-
-
-
-
-
 import random
 import time
 
@@ -24,11 +8,10 @@ def initialize_population(pop_size, list_length):
 
 
 def fitness(individual):
-    uniqs = set(individual)  # uniq vals
-    max_cts = max(individual.count(v) for v in uniqs)  # get the max # of occurences
-    return len(individual) - max_cts
-    #return individual.count(0)
-    
+    """
+    return the number of 0s
+    """
+    return individual.count(0)    
 
 
 def select(population, fitnesses):
@@ -76,7 +59,7 @@ def genetic_algorithm(pop_size, list_length):
 
 # Parameters
 population_size = 20
-list_length = 50
+list_length = 10
 
 
 # Run the GA
