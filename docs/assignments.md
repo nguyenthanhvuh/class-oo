@@ -56,6 +56,17 @@
 - HW assignment: Redo In-class 6.4 (make sure you answer every question in 6.4)
 - Quiz: Iterator/Generator Multiple Choice
 
+
+## Week 7
+- Topics: Testing
+- Reading: OOP 7
+    - Blackbox testing
+    - Fuzzing
+    - Genetic Algorithm
+- In-class: Sum Target GA
+- HW assignment: 
+- Quiz: E1 (higher-order and lambda function, closure)
+
 # HW Assignments
 
 ## HW1

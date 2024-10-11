@@ -15,7 +15,7 @@ def initialize_population(pop_size, list_length):
 #your task
 #evolve a list whose sum is equal to target (target is 99)
 def fitness(individual,target=99):
-    pass 
+    return 100 - abs(target - sum(individual))
 
 
 def select(population, fitnesses):
@@ -34,7 +34,10 @@ def mutate(individual, mutation_rate=0.01):
     new_individual = individual[:]
     for i in range(len(new_individual)):
         if random.random() < mutation_rate:
-            new_individual[i] = 0 if new_individual[i] == 1 else 1
+            if random.random() < 0.5:
+                new_individual[i] = new_individual[i] + 1
+            else:
+                new_individual[i] = new_individual[i] - 1
     return new_individual
 
 # Main Genetic Algorithm Loop
@@ -63,11 +66,13 @@ def genetic_algorithm(pop_size, list_length):
     return best_individual
 
 # Parameters
-population_size = 20
-list_length = 10
+population_size = 100
+list_length = 15
 
 
 # Run the GA
 best = genetic_algorithm(population_size, list_length)
 print(f"Best individual: {best}")
+print(f"Best individual sum:", sum(best))
+print(f"Best individual fitness:", fitness(best))
 
