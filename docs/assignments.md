@@ -64,8 +64,8 @@
     - Blackbox testing
     - Fuzzing
     - Genetic Algorithm
-- In-class: Sum Target GA
-- HW assignment: 
+- In-class: list sum GA (7.2)
+- HW assignment: Do list sum GA (7.2)
 - Quiz: E1 (higher-order and lambda function, closure)
 
 # HW Assignments
