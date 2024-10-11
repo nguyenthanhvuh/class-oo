@@ -24,7 +24,11 @@ def initialize_population(pop_size, list_length):
 
 
 def fitness(individual):
-    return individual.count(0)
+    uniqs = set(individual)  # uniq vals
+    max_cts = max(individual.count(v) for v in uniqs)  # get the max # of occurences
+    return len(individual) - max_cts
+    #return individual.count(0)
+    
 
 
 def select(population, fitnesses):
@@ -67,7 +71,7 @@ def genetic_algorithm(pop_size, list_length):
         population = new_population  # Replace the old population
         best_individual = max(population, key=fitness)
         print(f"Best = {best_individual}, fit = {fitness(best_individual)}, ")
-        time.sleep(0.1)
+        #time.sleep(0.1)
     return best_individual
 
 # Parameters
