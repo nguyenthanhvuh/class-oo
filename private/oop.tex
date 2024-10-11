@@ -2150,12 +2150,11 @@ The \code{make\_multiplier} function in \autoref{fig:closure-example} is an exam
 
 %Liskov 10
 
-Testing is a critical component of software development to ensure that the program behaves as expected (e.g., satisfying method specifications and rep-invariants in OOP). Testing also reveal bugs and errors in the implementation and thus save time and resources.  
-
-\section{Validation, Verification, and Testing}
 You will often see the terms \emph{validation}, \emph{verification}, and \emph{testing} used in software engineering. \textbf{Validation} is a process typically achieved by verification and validation to ensure the program behaves as expected. \textbf{Verification} ensures that the program works on \emph{all possible inputs}, which is expensive or impossible for large programs.
 
-\textbf{Testing}, on the other hand, checks that the program behaves as expected over \emph{some inputs}, which is usually cheaper. Software developers are often more familiar with testing, e.g., by running the program with various inputs. We focus on testing in this chapter.
+\textbf{Testing}, on the other hand, checks that the program behaves as expected over \emph{some inputs}, which is usually cheaper. Software developers are often more familiar with testing, e.g., by running the program with various inputs. We focus on testing in this chapter.  
+
+While many testing techniques exist (popular ones will be discussed below), they typically have the same purpose of finding bugs that trigger undesirable behavior in the program (e.g., causing crashes, revealing security vulnerabilities, producing unexpected/incorrect outputs, etc). More specifically, a major goal of testing is to find \textbf{counterexample inputs} (or \emph{cex} for short) that violate the program's specifications or requirements. This field of \textbf{input generation} is an active area of research in software engineering and related fields.
 
 \section{Blackbox Testing}
 
@@ -2183,37 +2182,31 @@ For function \code{f} above we simply test it with various numbers as inputs and
 
 \subsection{Special Cases Testing}
 
-This technique runs the program on special or edge cases to find bugs that are not caught by regular inputs. For example, a program that computes the square of a number (like \code{f} above) should be tested with negative numbers, zero, and positive numbers. Similarly, for a program that takes a list of numbers as input, special cases could include an empty list, a list with one element, a list with all negative numbers, etc.
+This testing runs the program on special or edge cases to find bugs that are not caught by regular inputs. For example, a program that computes the square of a number (like \code{f} above) should be tested with negative numbers, zero, and positive numbers. Similarly, for a program that takes a list of numbers as input, special cases could include an empty list, with one element, with all 0's, with all negative numbers, etc.
 
 
 \subsection{Fuzz Testing}
-This technique uses random or invalid inputs to test the program. For example, a program expects a number is tested with a string or a dict.  It has the similar purpose as special cases testing, but instead of using specific inputs, it generate many random / invalid inputs. Fuzz testing is often used to find security vulnerabilities. More advanced fuzzing techniques generate new inputs from existing ones, e.g., by flipping bits or changing values slightly.
+This testing uses random or invalid inputs to test the program. For example, a program expects a number is tested with a string or a dict.  It has the similar purpose as special cases testing, but instead of using specific inputs, it generates many random / invalid inputs. Fuzz testing is often used to find security vulnerabilities. More advanced fuzzing techniques generate new inputs from existing ones, e.g., by flipping bits or changing values slightly.
 
 \begin{lstlisting}
-def test_square_fuzz():
-    #generate 100 random numbers
-    for i in range(100):
-        x = random.randint(-1000, 1000)
-        assert square(x) == x*x
+#generate 100 random numbers
+for i in range(100):
+    x = random.randint(-1000, 1000)
+    assert square(x) == x*x
 
-
-    #invalid inputs
-    for x in [["hello", [1,2,3], {"a":1}]]:
-        try:
-            square(x)
-            assert False, "Should have raised an exception"
-        except:
-            # raise an exception is expected
-            pass
-        
-
-
-    #generate inputs from existing ones
-    for x in [1,2,3]:
-        x2 = x + random.randint(-10, 10)
-        assert square(x) == square(x2)
-
-
+#invalid inputs
+for x in [["hello", [1,2,3], {"a":1}]]:
+    try:
+        square(x)
+        assert False, "Should have raised an exception"
+    except:
+        # raise an exception is expected
+        pass
+    
+#generate inputs from existing ones
+for x in [1,2,3]:
+    x2 = x + random.randint(-10, 10)
+    assert square(x) == square(x2)
 \end{lstlisting}
 
 %\paragraph{Fun fact} Fuzz testing was popularized by Barton Miller in the 1980s. 
