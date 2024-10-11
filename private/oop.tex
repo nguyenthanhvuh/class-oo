@@ -2158,7 +2158,7 @@ While many testing techniques exist (popular ones will be discussed below), they
 
 \section{Blackbox Testing}
 
-Black-Box testing approach checks the program strictly based on its specifications without any knowledge of its internal implementation. This approach ignores the implementation details and does not even require the program code (hence the name black-box).  The approach is efficient and easy to use, but can miss certain bugs.
+Black-Box testing approach checks the program using its specifications (e.g., type of inputs, expected outputs) without any knowledge of its internal implementation. This approach ignores the implementation details and does not even require the program code (hence the name black-box).  The approach is efficient and easy to use, but can miss certain bugs.
 
 \begin{lstlisting}
 def square(x:int) -> int:
@@ -2168,14 +2168,11 @@ def square(x:int) -> int:
         return x*x
 
 
-def test_square():
-    assert square(0) == 0
-    assert square(1) == 1
-    ...
-    assert square(12) == 144
-
-test_square()
-
+""" Only test on integer inputs and check that the outputs are as expected"""
+assert square(0) == 0   
+assert square(1) == 1
+...
+assert square(12) == 144
 \end{lstlisting}
 
 For function \code{f} above we simply test it with various numbers as inputs and check that the output is as expected. We do not need to know how \code{square} is implemented. Note that because this is blackbox testing, we do not know about the special case of \code{123} and thus do not test for it. This is a limitation of blackbox testing.
@@ -2212,10 +2209,70 @@ for x in [1,2,3]:
 %\paragraph{Fun fact} Fuzz testing was popularized by Barton Miller in the 1980s. 
 
 
-\section{Input Generation}
-
 
 \subsection{Genetic Algorithm}
+
+Genetic Algorithm (GA) is a test generation technique that uses biological evolution (Darwin's theory of evolution) to generate test inputs.
+
+GA starts with an initial set or \emph{population} of random inputs (\emph{individuals}) and iteratively evolves them to find the best one that achieves some testing objective (e.g., maximizing code coverage, causing a crash). GA uses a \emph{fitness function} to evaluate the quality of the individuals and selects the best ones to survive and reproduce. Next, GA applies genetic operators such as \emph{mutation} and  \emph{crossover} to create individuals representing the new population. This process continues until a stopping criterion is met.
+
+The following is a template for GA:
+\begin{lstlisting}
+
+    def ga():
+        # Initialize the population
+        pop = gen_pop() # generate a random population
+
+        # Evaluate the fitness of each individual
+        fitness = eval_fitness(pop)
+
+        # Repeat until stopping criterion is met
+        while not stopping_criterion(fitness):
+            # Select the best individuals
+            parents = select(population, fitness)
+            
+            # Apply genetic operators to create new individuals
+            offspring = crossover(parents)
+            offspring = mutate(offspring)
+            
+            # Replace the old population with the new one
+            pop = offspring
+
+            # Evaluate the fitness of the new population
+            fitness = eval_fitness(pop)
+            
+        # Return the best individual
+        best = select_best(pop, fitness)
+        return best
+\end{lstlisting}
+
+
+\paragraph{Example: using GA to generate list of large numbers}
+\begin{lstlisting}
+    def gen_pop():
+        return [random.randint(1000, 10000) for _ in range(100)]
+
+    def eval_fitness(pop):
+        return [sum(x) for x in pop]
+
+    def stopping_criterion(fitness):
+        return max(fitness) > 100000
+
+    def select_best(pop, fitness):
+        return pop[fitness.index(max(fitness))]
+
+    def select(pop, fitness):
+        return [pop[i] for i in range(len(pop)) if fitness[i] > 50000]
+
+    def crossover(parents):
+        return [parents[0] + parents[1] for _ in range(100)]
+
+    def mutate(offspring):
+        return [x + random.randint(-100, 100) for x in offspring]
+
+    best = ga()
+    print(best)
+\end{lstlisting}
 
 \section{Whitebox Testing}
 
