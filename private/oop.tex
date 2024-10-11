@@ -1446,7 +1446,7 @@ You will design a system that models different types of vehicles (e.g., cars, bi
 
 \subsection{LSP: Market subtype}
 
-Determine whether the \code{LowBidMarket} and \code{LowOfferMarket} classes below are proper subtypes of \code{Market}. Specifically, for each method, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP holds.
+Determine whether the below \code{LowBidMarket} and \code{LowOfferMarket} classes are proper subtypes of \code{Market}. Specifically, for each method, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP holds.
 
 Note that this is purely a ``paper and pencil'' exercise. No code is required. Write your answer so that it is easily understandable by someone with only a passing knowledge of LSP.
 
@@ -1799,7 +1799,7 @@ A \emph{prime number} is a natural number greater than 1 that has no positive di
 
 A \emph{perfect number} is a positive integer that is equal to the sum of its proper divisors, excluding itself (e.g., 6, 28). You will implement three different approaches to find perfect numbers up to a given limit, comparing their performance and resource usage.  
 
-For this exercise, you can use either Python or Java and submit your code with \emph{clear documentation} on how to run and test your code. That is, you must explicitly state the commands to run your code and the expected output. You will also need to provide screenshots or logs of the execution results, including the time taken and memory usage.  
+For this exercise, you can use either Python or Java. You need to submit your code with \emph{clear documentation} on how to run and test your code. That is, you must explicitly state the commands to run your code and the expected output. You will also need to provide screenshots or logs of the execution results, including the time taken and memory usage.  
 
 If you do not provide clear documentation, you will not receive credit. If we cannot run your code, you will not receive credit. If we do not see the results you claim, you will not receive credit. 
 
@@ -2028,24 +2028,26 @@ Closures are a higher-order function that returns a function. It is a powerful f
 \paragraph{Fun fact} Closures are used extensively in Javascript, introduced in the Netscape browser in 1995 by Bredan Eich. Javascript supports closures and first-class functions and enables the development of dynamic and interactive web applications, leading to its widespread adoption and popularity.
 
 \paragraph{Examples}
-
+\begin{figure}
 \begin{lstlisting}
 def make_multiplier(factor):
-    def multiplier(x):
+    def multiplier(x):   # a closure
         return x * factor
-    return multiplier  # Return the inner function
+    return multiplier  # Return the closure
 
 # Create a function that multiplies by 3
 times_three = make_multiplier(3)
 print(times_three(5))  # Output: 15
 
-# Using with higher-order functions
+# Use with higher-order functions
 numbers = [1, 2, 3, 4, 5]
 multiplied_numbers = list(map(make_multiplier(2), numbers))
 print(multiplied_numbers)  # Output: [2, 4, 6, 8, 10]
 \end{lstlisting}
+\caption{Closure example. Note that this example also illustrate curry, a form of closure (\autoref{sec:curry})}\label{fig:closure-example}
+\end{figure}
 
-The above example demonstrates a closure where the \code{make\_multiplier} function returns an inner function \code{multiplier} that multiplies a number by a given factor. The \code{times\_three} function is created by calling \code{make\_multiplier(3)}, which returns a function that multiplies by 3. The closure allows the \code{multiplier} function to retain access to the \code{factor} variable even after \code{make\_multiplier} has finished executing.
+The above example demonstrates a closure where the \code{make\_multiplier} function returns the \emph{closure} inner function \code{multiplier} that multiplies a number by a given factor. The \code{times\_three} function is created by calling \code{make\_multiplier(3)}, which returns a function that multiplies by 3. The closure allows the \code{multiplier} function to retain access to the \code{factor} variable even after \code{make\_multiplier} has finished executing.
 
 \begin{lstlisting}
     def make_averager():
@@ -2131,13 +2133,110 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 
 
 
-\section{Decorators}
-\section{Partial Functions}
-\section{Currying}
-\section{Functional Programming}
+\section{Currying}\label{sec:curry}
+
+Currying is a special form of closure. The curried function takes one argument at a time and returns a new function that takes the next argument. In other words, it transforms a function of arity $n$ to $n$ functions of arity $1$.
+
+The \code{make\_multiplier} function in \autoref{fig:closure-example} is an example of currying. The function needs 2 arguments, but it is transformed into a series of 2 function calls where each take 1 argument. For example, \code{make\_multiplier(2)(3)} is equivalent to \code{2*3}.
+
+
+\paragraph{History} Currying was introduced by Haskell Curry in the 1930s. Currying and higher-order functions (\autoref{sec:higher-order}) are widely-used in functional programming languages such as Ocaml and Haskell (named after Haskell Curry).
+
+
+%\section{Functional Programming}
 
 
 \chapter{Testing}
+
+%Liskov 10
+
+Testing is a critical component of software development to ensure that the program behaves as expected (e.g., satisfying method specifications and rep-invariants in OOP). Testing also reveal bugs and errors in the implementation and thus save time and resources.  
+
+\section{Validation, Verification, and Testing}
+You will often see the terms \emph{validation}, \emph{verification}, and \emph{testing} used in software engineering. \textbf{Validation} is a process typically achieved by verification and validation to ensure the program behaves as expected. \textbf{Verification} ensures that the program works on \emph{all possible inputs}, which is expensive or impossible for large programs.
+
+\textbf{Testing}, on the other hand, checks that the program behaves as expected over \emph{some inputs}, which is usually cheaper. Software developers are often more familiar with testing, e.g., by running the program with various inputs. We focus on testing in this chapter.
+
+\section{Blackbox Testing}
+
+Black-Box testing approach checks the program strictly based on its specifications without any knowledge of its internal implementation. This approach ignores the implementation details and does not even require the program code (hence the name black-box).  The approach is efficient and easy to use, but can miss certain bugs.
+
+\begin{lstlisting}
+def square(x:int) -> int:
+    if x == 123:
+        return -1 # bug
+    else:
+        return x*x
+
+
+def test_square():
+    assert square(0) == 0
+    assert square(1) == 1
+    ...
+    assert square(12) == 144
+
+test_square()
+
+\end{lstlisting}
+
+For function \code{f} above we simply test it with various numbers as inputs and check that the output is as expected. We do not need to know how \code{square} is implemented. Note that because this is blackbox testing, we do not know about the special case of \code{123} and thus do not test for it. This is a limitation of blackbox testing.
+
+\subsection{Special Cases Testing}
+
+This technique runs the program on special or edge cases to find bugs that are not caught by regular inputs. For example, a program that computes the square of a number (like \code{f} above) should be tested with negative numbers, zero, and positive numbers. Similarly, for a program that takes a list of numbers as input, special cases could include an empty list, a list with one element, a list with all negative numbers, etc.
+
+
+\subsection{Fuzz Testing}
+This technique uses random or invalid inputs to test the program. For example, a program expects a number is tested with a string or a dict.  It has the similar purpose as special cases testing, but instead of using specific inputs, it generate many random / invalid inputs. Fuzz testing is often used to find security vulnerabilities. More advanced fuzzing techniques generate new inputs from existing ones, e.g., by flipping bits or changing values slightly.
+
+\begin{lstlisting}
+def test_square_fuzz():
+    #generate 100 random numbers
+    for i in range(100):
+        x = random.randint(-1000, 1000)
+        assert square(x) == x*x
+
+
+    #invalid inputs
+    for x in [["hello", [1,2,3], {"a":1}]]:
+        try:
+            square(x)
+            assert False, "Should have raised an exception"
+        except:
+            # raise an exception is expected
+            pass
+        
+
+
+    #generate inputs from existing ones
+    for x in [1,2,3]:
+        x2 = x + random.randint(-10, 10)
+        assert square(x) == square(x2)
+
+
+\end{lstlisting}
+
+%\paragraph{Fun fact} Fuzz testing was popularized by Barton Miller in the 1980s. 
+
+
+\section{Input Generation}
+
+
+\subsection{Genetic Algorithm}
+
+\section{Whitebox Testing}
+
+\section{Unit Testing}
+\section{Regression Testing}
+\section{Integration Testing}
+\section{System Testing}
+
+\section{Debugging}
+
+\section{Defensive Programming}
+\section{Error Handling}
+\section{Assertions}
+
 
 \chapter{Design Patterns}
 
