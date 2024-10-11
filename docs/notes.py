@@ -3,15 +3,18 @@ import time
 
 
 def initialize_population(pop_size, list_length):
-    return [[random.choice([0, 1, 2, 3, 4, 5, 6, 7, 8 , 9]) 
+    return [[random.choice([0, 1, 2, 3, 4, 5, 6, 7, 8 , 9, -1, -2, -3, -4, -5, -6, -7, -8, -9]) 
              for _ in range(list_length)] for _ in range(pop_size)]
 
+# def fitness(individual):
+#     """
+#     return the number of 0s
+#     """
+#     return individual.count(0)
 
-def fitness(individual):
-    """
-    return the number of 0s
-    """
-    return individual.count(0)    
+#your task
+def fitness(individual,target=99):
+    pass 
 
 
 def select(population, fitnesses):
@@ -35,6 +38,7 @@ def mutate(individual, mutation_rate=0.01):
 
 # Main Genetic Algorithm Loop
 def genetic_algorithm(pop_size, list_length):
+    
     population = initialize_population(pop_size, list_length)
     fitnesses = [fitness(ind) for ind in population]
     best_individual = max(population, key=fitness)
