@@ -2143,7 +2143,29 @@ The \code{make\_multiplier} function in \autoref{fig:closure-example} is an exam
 \paragraph{History} Currying was introduced by Haskell Curry in the 1930s. Currying and higher-order functions (\autoref{sec:higher-order}) are widely-used in functional programming languages such as Ocaml and Haskell (named after Haskell Curry).
 
 
-%\section{Functional Programming}
+\section{Exercise}
+
+\subsection{E1}
+\begin{enumerate}
+    \item Explain the difference between a higher-order function and a closure. Provide an example of each.
+    \item When would you use a lambda function over a regular function? Provide an example.
+    \item Write a function \code{make\_min\_tracker()} that returns a closure that tracks and returns the lowest number seen so far.
+    \begin{lstlisting}
+    def make_min_tracker():
+        ...
+        def tracker(v):
+           ...
+        
+        return tracker
+
+    min_tracker = make_min_tracker()
+    print(min_tracker(5))  # Output: 5
+    print(min_tracker(3))  # Output: 3
+    print(min_tracker(8))  # Output: 3
+    print(min_tracker(-1)) # Output: -1
+    print(min_tracker(0))  # Output: -1
+    \end{lstlisting}
+\end{enumerate}
 
 
 \chapter{Testing}
@@ -2208,6 +2230,25 @@ for x in [1,2,3]:
 
 %\paragraph{Fun fact} Fuzz testing was popularized by Barton Miller in the 1980s. 
 
+\subsection{Unit Testing}
+
+\begin{lstlisting}
+
+# unit testing for the square function
+def test_square():
+
+    assert square(1) == 1
+    assert square(2) == 4
+    assert square(3) == 9
+    assert square(4) == 16
+    assert square(5) == 25
+    assert square(0) == 0    
+    assert square(-1) == 1
+    assert square(-2) == 4
+    assert square(-3) == 9
+    assert square(-4) == 16
+    assert square(-5) == 25
+\end{lstlisting}
 
 
 \subsection{Genetic Algorithm}
@@ -2246,37 +2287,58 @@ The following is a template for GA:
         return best
 \end{lstlisting}
 
+\paragraph{Example: Evolving a List of Numbers to Match a Target List}
 
-\paragraph{Example: using GA to generate list of large numbers}
+	•	Objective: Generate a list that matches a target list.
+	•	Example: Given a target list of [5, 3, 8, 1], the GA evolves random lists toward matching this target exactly. The fitness function measures the similarity (e.g., using mean squared error or absolute difference between elements) between the evolving list and the target list.
+	•	Key Learning: This example illustrates how GAs can optimize toward specific known solutions, making it clear how mutation and crossover help move toward the target over generations.
 \begin{lstlisting}
-    def gen_pop():
-        return [random.randint(1000, 10000) for _ in range(100)]
+    def fitness(individual, target):
+        return sum((x - y) ** 2 for x, y in zip(individual, target))
 
-    def eval_fitness(pop):
-        return [sum(x) for x in pop]
+    def crossover(parent1, parent2):
+        # Randomly select a crossover point
+        crossover_point = random.randint(0, len(parent1))
+        child1 = parent1[:crossover_point] + parent2[crossover_point:]
+        child2 = parent2[:crossover_point] + parent1[crossover_point:]
+        return child1, child2
 
-    def stopping_criterion(fitness):
-        return max(fitness) > 100000
+    def mutate(individual, mutation_rate):
+        return [x + random.uniform(-mutation_rate, mutation_rate) for x in individual]
 
-    def select_best(pop, fitness):
-        return pop[fitness.index(max(fitness))]
+    def ga(target, pop_size, mutation_rate):
+        # Initialize the population
+        pop = [gen_individual() for _ in range(pop_size)]
 
-    def select(pop, fitness):
-        return [pop[i] for i in range(len(pop)) if fitness[i] > 50000]
+        # Evaluate the fitness of each individual
+        fitness = [fitness(individual, target) for individual in pop]
 
-    def crossover(parents):
-        return [parents[0] + parents[1] for _ in range(100)]
+        # Repeat for a fixed number of generations
+        while max(fitness) > 0:
+            # Select the best individuals
+            parents = select(pop, fitness)
 
-    def mutate(offspring):
-        return [x + random.randint(-100, 100) for x in offspring]
+            # Apply genetic operators to create new individuals
+            offspring = []
+            while len(offspring) < pop_size:
+                parent1, parent2 = random.choices(parents, k=2)
+                child1, child2 = crossover(parent1, parent2)
+                offspring.extend([mutate(child1, mutation_rate), mutate(child2, mutation_rate)])
 
-    best = ga()
-    print(best)
+            # Evaluate the fitness of the new population
+            fitness = [fitness(individual, target) for individual in offspring]
+
+            # Replace the old population with the new one
+            pop = offspring
+
+        # Return the best individual
+        best = select_best(pop, fitness)
+        return best
 \end{lstlisting}
+    
 
 \section{Whitebox Testing}
 
-\section{Unit Testing}
 \section{Regression Testing}
 \section{Integration Testing}
 \section{System Testing}
