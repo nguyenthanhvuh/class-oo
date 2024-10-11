@@ -2255,87 +2255,63 @@ def test_square():
 
 Genetic Algorithm (GA) is a test generation technique that uses biological evolution (Darwin's theory of evolution) to generate test inputs.
 
-GA starts with an initial set or \emph{population} of random inputs (\emph{individuals}) and iteratively evolves them to find the best one that achieves some testing objective (e.g., maximizing code coverage, causing a crash). GA uses a \emph{fitness function} to evaluate the quality of the individuals and selects the best ones to survive and reproduce. Next, GA applies genetic operators such as \emph{mutation} and  \emph{crossover} to create individuals representing the new population. This process continues until a stopping criterion is met.
+GA starts with an initial set or \emph{population} of random inputs (\emph{individuals}) and iteratively evolves them to find the best one that achieves some testing objective (e.g., maximizing code coverage, causing a crash). GA uses a \emph{fitness function} to evaluate the quality of the individuals and \emph{selects} the best ones to survive and reproduce. Next, GA applies genetic operators such as \emph{mutation} and  \emph{crossover} to create individuals representing the new population. This process continues until a \emph{stopping criterion} is met.
 
 The following is a template for GA:
 \begin{lstlisting}
 
-    def ga():
+    def ga(...):
         # Initialize the population
-        pop = gen_pop() # generate a random population
+        pop = gen_pop(...) # generate a random population
 
         # Evaluate the fitness of each individual
-        fitness = eval_fitness(pop)
+        fitness = eval_fitness(...)
 
         # Repeat until stopping criterion is met
-        while not stopping_criterion(fitness):
+        while not stopping_criterion(...):
             # Select the best individuals
-            parents = select(population, fitness)
+            parents = select(...)
             
             # Apply genetic operators to create new individuals
-            offspring = crossover(parents)
-            offspring = mutate(offspring)
+            offspring = crossover(...)
+            offspring = mutate(...)
             
             # Replace the old population with the new one
             pop = offspring
 
             # Evaluate the fitness of the new population
-            fitness = eval_fitness(pop)
+            fitness = eval_fitness(...)
             
         # Return the best individual
-        best = select_best(pop, fitness)
+        best = select_best(...)
         return best
 \end{lstlisting}
 
-\paragraph{Example: Evolving a List of Numbers to Match a Target List}
+\section{In-class Exercise: GA list sum}
+You will implement a GA that evolves a population of lists of integers to find a list whose sum is a given target sum. You can use the GA template above for this task. Specifically, you will implement the following GA components:
 
-	•	Objective: Generate a list that matches a target list.
-	•	Example: Given a target list of [5, 3, 8, 1], the GA evolves random lists toward matching this target exactly. The fitness function measures the similarity (e.g., using mean squared error or absolute difference between elements) between the evolving list and the target list.
-	•	Key Learning: This example illustrates how GAs can optimize toward specific known solutions, making it clear how mutation and crossover help move toward the target over generations.
-\begin{lstlisting}
-    def fitness(individual, target):
-        return sum((x - y) ** 2 for x, y in zip(individual, target))
-
-    def crossover(parent1, parent2):
-        # Randomly select a crossover point
-        crossover_point = random.randint(0, len(parent1))
-        child1 = parent1[:crossover_point] + parent2[crossover_point:]
-        child2 = parent2[:crossover_point] + parent1[crossover_point:]
-        return child1, child2
-
-    def mutate(individual, mutation_rate):
-        return [x + random.uniform(-mutation_rate, mutation_rate) for x in individual]
-
-    def ga(target, pop_size, mutation_rate):
-        # Initialize the population
-        pop = [gen_individual() for _ in range(pop_size)]
-
-        # Evaluate the fitness of each individual
-        fitness = [fitness(individual, target) for individual in pop]
-
-        # Repeat for a fixed number of generations
-        while max(fitness) > 0:
-            # Select the best individuals
-            parents = select(pop, fitness)
-
-            # Apply genetic operators to create new individuals
-            offspring = []
-            while len(offspring) < pop_size:
-                parent1, parent2 = random.choices(parents, k=2)
-                child1, child2 = crossover(parent1, parent2)
-                offspring.extend([mutate(child1, mutation_rate), mutate(child2, mutation_rate)])
-
-            # Evaluate the fitness of the new population
-            fitness = [fitness(individual, target) for individual in offspring]
-
-            # Replace the old population with the new one
-            pop = offspring
-
-        # Return the best individual
-        best = select_best(pop, fitness)
-        return best
-\end{lstlisting}
-    
+\begin{enumerate}
+    \item Generate a random population of lists of integers. The length of the popular and individual lists are given as input.  The integers in the list should be between a specified range (e.g., -100,100)\\
+    \code{gen\_pop(pop\_size: int, list\_size: int, min\_val: int, max\_val: int) -> list[list[int]]}
+    \item Write a \emph{fitness function} that computes the fitness score based on how close the sum of the list is to the target sum. Closer is better (e.g., if the target is 99, then a list whose sum is 99 should have the ``perfect score'' while a list whose sum is 90 has a better score than a list whose sum is 50). Note that you must also taken account of negative numbers and sums.  \\
+    \code{get\_fitness(individual: list[int], target\_sum: int)}
+    \item Write a \emph{selection function} that selects the best individuals based on their fitness scores. You can use any selection method you like (e.g., roulette wheel, tournament selection). You should look these up to understand how they work.\\
+    \code{select(pop: list[list[int]], fitness: list[int], pop\_size: int) -> list[list[int]]}
+    \item Write a \emph{crossover} function that takes two parents and creates two offsprings using \emph{single-point} crossover (i.e., pick a random point and swap the tails of the parents).\\
+    \code{def crossover(parent1: list[int], parent2: list[int], rate: float) -> tuple(list[int], list[int])}
+    \item Write a \emph{mutation} function that randomly changes a few elements of an individual based on a mutation rate.\\
+    \code{def mutate(individual: list[int], rrate: float, min\_val: int, max\_val: int) -> list[int]}
+    \item Write a \emph{stopping criterion} function that stops the GA when it found an individual whose sum is the target number.\\
+    \code{def stopping\_criterion(fitness: list[int], target\_sum: int) -> bool}
+    \item Write the main genetic algorithm that uses all the above functions and returns the best individual\\
+    \code{def ga(pop\_size: int, list\_size: int, xover\_rate: float, mut\_rate: float, min\_val: int, max\_val: int, target\_sum: int): -> list[int]}
+    \item Your GA should print out the best individual, its sum, and its fitness score at each generation (iteration).
+    \item Your GA has the following various parameters (inputs to the \code{ga}). You should play around with them to find values that work best.  You can start with these values: \code{pop\_size=100, list\_size=10, xover\_rate=0.8, mut\_rate=0.1, min\_val=-100, max\_val=100, target\_sum=1000}.
+    \item Test your GA with various parameters and target sums.  You should also try different selection methods, crossover methods, and mutation methods.
+    \item Write a report that explains your GA. More specifically for each of the above task, explain that you did (e.g., how do you generate the population, how do you compute the fitness, etc).
+    \item In your report, explain the parameters you used and how they affect the performance of the GA.  For example, how does the population size affect the performance? crossover and mutation rates? etc.
+    \item Submit your report and code, as well as screenshots of your GA running with various parameters and target sums.
+\end{enumerate}
 
 \section{Whitebox Testing}
 
