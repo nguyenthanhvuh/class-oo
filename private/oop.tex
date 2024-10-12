@@ -2251,7 +2251,7 @@ def test_square():
 \end{lstlisting}
 
 
-\subsection{Genetic Algorithm}
+\subsection{Genetic Algorithm}\label{sec:ga}
 
 Genetic Algorithm (GA) is a test generation technique that uses biological evolution (Darwin's theory of evolution) to generate test inputs.
 
@@ -2288,7 +2288,16 @@ The following is a template for GA:
 \end{lstlisting}
 
 \section{In-class Exercise: GA list sum}
-You will implement a GA that evolves a population of lists of integers to find a list whose sum is a given target sum. You can use the GA template above for this task. Specifically, you will implement the following GA components:
+In this assignment you have two tasks. First, you will \emph{implement a GA} that evolves a population of lists of integers to find a list whose sum is a given target sum. Next, you will write a \emph{short report} that explains your GA and how you tested it.
+
+\paragraph{Task 1: GA implementation}
+
+ You can use the GA template in \autoref{sec:ga} for this task. You can also use the following \href{https://nguyenthanhvuh.github.io/class-oo/ga-example.py}{GA code for counting 0's} as example. Note that you will likely need to modify this code to fit your needs as the problem and objective are very different.
+ 
+ 
+ Specifically, you will implement the following GA components:
+
+
 
 \begin{enumerate}
     \item Generate a random population of lists of integers. The length of the popular and individual lists are given as input.  The integers in the list should be between a specified range (e.g., -100,100)\\
@@ -2308,9 +2317,17 @@ You will implement a GA that evolves a population of lists of integers to find a
     \item Your GA should print out the best individual, its sum, and its fitness score at each generation (iteration).
     \item Your GA has the following various parameters (inputs to the \code{ga}). You should play around with them to find values that work best.  You can start with these values: \code{pop\_size=100, list\_size=10, xover\_rate=0.8, mut\_rate=0.1, min\_val=-100, max\_val=100, target\_sum=1000}.
     \item Test your GA with various parameters and target sums.  You should also try different selection methods, crossover methods, and mutation methods.
-    \item Write a report that explains your GA. More specifically for each of the above task, explain that you did (e.g., how do you generate the population, how do you compute the fitness, etc).
-    \item In your report, explain the parameters you used and how they affect the performance of the GA.  For example, how does the population size affect the performance? crossover and mutation rates? etc.
-    \item Submit your report and code, as well as screenshots of your GA running with various parameters and target sums.
+    \item Time your GA. You can use Python's \code{time} module for this.
+    \item Submit your code with a clear \code{README} instruction on how to run your GA and test it. You should also submit screenshots of your GA running (you don't need to show all the generations, just a few to show that it is working).
+\end{enumerate}
+
+\paragraph{Task 2: Write a short report}
+\begin{enumerate}
+\item Write a report that explains your GA. More specifically for each of the above task, explain that you did (e.g., how do you generate the population, how do you compute the fitness, etc).
+
+\item Explain the parameters you used and how they affect the performance of the GA (e.g., the time it took).  For example, how does the population size affect the performance? crossover and mutation rates? etc.
+
+\item Submit your report.
 \end{enumerate}
 
 \section{Whitebox Testing}
