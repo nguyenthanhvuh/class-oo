@@ -2253,9 +2253,15 @@ def test_square():
 
 \subsection{Genetic Algorithm}\label{sec:ga}
 
-Genetic Algorithm (GA) is a test generation technique that uses biological evolution (Darwin's theory of evolution) to generate test inputs.
+Genetic Algorithm (GA) is a test input generation technique that uses biological evolution (Darwin's theory of evolution) to generate test inputs.
 
-GA starts with an initial set or \emph{population} of random inputs (\emph{individuals}) and iteratively evolves them to find the best one that achieves some testing objective (e.g., maximizing code coverage, causing a crash). GA uses a \emph{fitness function} to evaluate the quality of the individuals and \emph{selects} the best ones to survive and reproduce. Next, GA applies genetic operators such as \emph{mutation} and  \emph{crossover} to create individuals representing the new population. This process continues until a \emph{stopping criterion} is met.
+GA starts with an initial set or \emph{population} of random inputs (\emph{individuals}) and iteratively evolves them to find the best one that achieves some objective (e.g., maximizing code coverage, causing a crash). GA uses a \emph{fitness function} to evaluate the quality of the individuals and \emph{selects} the best ones to survive and reproduce. Next, GA applies genetic operators to create individuals representing the new population. This process continues until a \emph{stopping criterion} is met.
+
+The main genetic operators in a GA are
+\begin{enumerate}
+    \item \emph{crossover}: combines two individuals or \emph{parents} to create new ones. Common xover methods include single-point, two-point, and uniform crossover. xover rate is the probability of applying xover, and typically is high (e.g., 0.8 or 80\% chance).
+    \item \emph{mutation}: randomly changes some elements of an individual. Common mutation methods include randm (create a random value), swap (swap two elements), and flip (flip a bit 0 to 1 and vice versa). Mutation rate is the probability of doing mutation, and typically is low (e.g., lower than 0.1 or 10\% chance).
+\end{enumerate}
 
 The following is a template for GA:
 \begin{lstlisting}
@@ -2315,7 +2321,7 @@ In this assignment you have two tasks. First, you will \emph{implement a GA} tha
     \code{def ga(pop\_size:int, indv\_size:int, xover\_rate:float, mut\_rate:float, min\_val:int, max\_val:int, target:int): -> (list[int], float)}
     \item Your GA should print out the best individual, its sum, and its fitness score at each generation (iteration).
     \item Your GA has the following various parameters (inputs to the \code{ga}). You should play around with them to find values that work best.  You can start with these values: \code{pop\_size=100, indv\_size=10, xover\_rate=0.8, mut\_rate=0.1, min\_val=-100, max\_val=100, target=1000}.
-    \item Test your GA with various parameters and sum targets.  You should also try different selection methods, crossover methods, and mutation methods.
+    \item Test your GA with various parameters and sum targets.  You can also try different selection methods, crossover methods, and mutation methods.
     \item Time your GA. You can use Python's \code{time} module for this.
     \item Submit your code with a clear \code{README} instruction on how to run your GA and test it. You should also submit screenshots of your GA running (you don't need to show all the generations, just a few to show that it is working).
 \end{enumerate}
