@@ -28,20 +28,18 @@ def mutate(individual, mutation_rate=0.01):
     new_individual = individual[:]
     for i in range(len(new_individual)):
         if random.random() < mutation_rate:
-            if random.random() < 0.5:
-                new_individual[i] = new_individual[i] + 1
-            else:
-                new_individual[i] = new_individual[i] - 1
+            new_individual[i] = 0 if new_individual[i] == 1 else 1
     return new_individual
 
 # Main Genetic Algorithm Loop
 def ga(pop_size, list_size, min_val, max_val):
-    
+    gen = 0
     population = gen_pop(pop_size, list_size, min_val, max_val)
     fitnesses = [fitness(ind) for ind in population]
     best_individual = max(population, key=fitness)
     
     while(fitness(best_individual) < list_size):
+        gen += 1
         fitnesses = [fitness(ind) for ind in population]
         new_population = []
         
@@ -55,9 +53,10 @@ def ga(pop_size, list_size, min_val, max_val):
         
         population = new_population  # Replace the old population
         best_individual = max(population, key=fitness)
-        print(f"Best = {best_individual}, fit = {fitness(best_individual)}, ")
+        print(f"Gen {gen}, best = {best_individual}, fit = {fitness(best_individual)}, ")
         #time.sleep(0.1)
     return best_individual
+
 
 # Parameters
 pop_size = 100
@@ -65,8 +64,12 @@ list_size = 15
 min_val = -10
 max_val = 10
 # Run the GA
+stime = time.time()
 best = ga(pop_size, list_size, min_val, max_val)
+etime = time.time() - stime
+
 print(f"Best individual: {best}")
 print(f"Best individual sum:", sum(best))
 print(f"Best individual fitness:", fitness(best))
+pript(f"Total time: {etime} seconds")
 
