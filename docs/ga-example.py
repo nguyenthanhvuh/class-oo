@@ -39,7 +39,7 @@ def ga(pop_size, list_size, xover_rate, mut_rate, min_val, max_val):
     gen = 0
     while not stopping_criteria(best_fit):
         gen += 1
-        new_pop = []        
+        new_pop = []
         while len(new_pop) < pop_size:
             parent1 = select(pop, fscores)
             parent2 = select(pop, fscores)
