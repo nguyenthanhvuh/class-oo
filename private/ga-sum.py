@@ -32,7 +32,8 @@ def stopping_criteria(best_fit):
 
 # Main Genetic Algorithm Loop
 
-def genetic_algorithm(pop_size, list_size, xover_rate, mut_rate, min_val, max_val, target):
+def genetic_algorithm(pop_size, list_size, xover_rate, mut_rate, 
+                      min_val, max_val, target):
 
     pop = gen_pop(pop_size, list_size, min_val, max_val)
     fscores = [get_fitness(ind, target) for ind in pop]
@@ -66,6 +67,7 @@ min_val = -10
 max_val = 10
 xover_rate = 0.8
 mut_rate = 0.1
+
 # Run the GA
 stime = time.time()
 best_ind, best_fit = genetic_algorithm(pop_size, list_length, 

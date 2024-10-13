@@ -1,77 +1,74 @@
 import random
 import time
 
-
 def gen_pop(pop_size, list_size, min_val, max_val):
     return [[random.randint(min_val, max_val) for _ in range(list_size)] 
             for _ in range(pop_size)]
 
-def fitness(individual):
-    """
-    return the number of 0s
-    """
-    return individual.count(0)
+def get_fitness(indiv, list_size):
+    return 1. / (1 + (list_size - indiv.count(0)))
 
-def select(population, fitnesses):
+def select(pop, fscores):
     tournament_size = 3
-    selected = random.sample(list(zip(population, fitnesses)), tournament_size)
+    selected = random.sample(list(zip(pop, fscores)), tournament_size)
     return max(selected, key=lambda x: x[1])[0]
 
 def crossover(parent1, parent2, rate):
-    if random.random() < rate:  # Crossover probability
-        point = random.randint(1, len(parent1) - 1)
-        return parent1[:point] + parent2[point:], parent2[:point] + parent1[point:]
+    if random.random() < rate:
+        pt = random.randint(1, len(parent1) - 1)
+        return parent1[:pt] + parent2[pt:], parent2[:pt] + parent1[pt:]
     else:
         return parent1, parent2
 
-def mutate(individual, rate, min_val, max_val):
-    new_individual = individual[:]
-    for i in range(len(new_individual)):
+def mutate(indiv, rate, min_val, max_val):
+    new_indiv = indiv[:]
+    for i in range(len(new_indiv)):
         if random.random() < rate:
-            new_individual[i] = random.randint(min_val, max_val)
-    return new_individual
+            new_indiv[i] = random.randint(min_val, max_val)
+    return new_indiv
+
+def stopping_criteria(best_fit):
+    return best_fit == 1.0
 
 # Main Genetic Algorithm Loop
 def ga(pop_size, list_size, xover_rate, mut_rate, min_val, max_val):
-    gen = 0
-    population = gen_pop(pop_size, list_size, min_val, max_val)
-    fitnesses = [fitness(ind) for ind in population]
-    best_individual = max(population, key=fitness)
     
-    while(fitness(best_individual) < list_size):
+    pop = gen_pop(pop_size, list_size, min_val, max_val)
+    fscores = [get_fitness(ind, list_size) for ind in pop]
+    best, best_fit = max(zip(pop, fscores), key=lambda x: x[1])
+    gen = 0
+    while not stopping_criteria(best_fit):
         gen += 1
-        new_population = []
-        
-        while len(new_population) < pop_size:
-            parent1 = select(population, fitnesses)
-            parent2 = select(population, fitnesses)
+        new_pop = []        
+        while len(new_pop) < pop_size:
+            parent1 = select(pop, fscores)
+            parent2 = select(pop, fscores)
             offspring1, offspring2 = crossover(parent1, parent2, xover_rate)
-            new_population.append(mutate(offspring1, mut_rate, min_val, max_val))
-            if len(new_population) < pop_size:
-                new_population.append(mutate(offspring2, mut_rate, min_val, max_val))
+            new_pop.append(mutate(offspring1, mut_rate, min_val, max_val))
+            if len(new_pop) < pop_size:
+                new_pop.append(mutate(offspring2, mut_rate, min_val, max_val))
         
-        population = new_population  # Replace the old population
-        fitnesses = [fitness(ind) for ind in population]
-        best_individual = max(population, key=fitness)
-        print(f"Gen {gen}, best = {best_individual}, fit = {fitness(best_individual)}, ")
+        pop = new_pop  # Replace the old pop
+        fscores = [get_fitness(ind, list_size) for ind in pop]
+        best, best_fit = max(zip(pop, fscores), key=lambda x: x[1]) 
+        print(f"Gen {gen}, best = {best}, fit = {best_fit}")
         #time.sleep(0.1)
-    return best_individual
+    return best, best_fit
 
 
 # Parameters
 pop_size = 10
-list_size = 100
+list_size = 70
 min_val = -10
 max_val = 10
 xover_rate = 0.8
 mut_rate = 0.01
+
 # Run the GA
 stime = time.time()
-best = ga(pop_size, list_size, xover_rate, mut_rate, min_val, max_val)
+best, best_fit = ga(pop_size, list_size, xover_rate, mut_rate, min_val, max_val)
 etime = time.time() - stime
 
-print(f"Best individual: {best}")
-print(f"Best individual sum:", sum(best))
-print(f"Best individual fitness:", fitness(best))
-print(f"Total time: {etime} seconds")
+print(f"RESULT: Best = {best}, sum = {sum(best)}, fit = {best_fit}, total time = {etime}s")
+
 
