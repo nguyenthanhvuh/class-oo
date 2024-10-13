@@ -1,8 +1,8 @@
 import random
 import time
 
-def gen_pop(pop_size, list_size, min_val, max_val):
-    return [[random.randint(min_val, max_val) for _ in range(list_size)] 
+def gen_pop(pop_size, indv_size, min_val, max_val):
+    return [[random.randint(min_val, max_val) for _ in range(indv_size)] 
             for _ in range(pop_size)]
 
 def get_fitness(indiv, target):
@@ -32,10 +32,10 @@ def stopping_criteria(best_fit):
 
 # Main Genetic Algorithm Loop
 
-def genetic_algorithm(pop_size, list_size, xover_rate, mut_rate, 
+def genetic_algorithm(pop_size, indv_size, xover_rate, mut_rate, 
                       min_val, max_val, target):
 
-    pop = gen_pop(pop_size, list_size, min_val, max_val)
+    pop = gen_pop(pop_size, indv_size, min_val, max_val)
     fscores = [get_fitness(ind, target) for ind in pop]
     best, best_fit = max(zip(pop, fscores), key=lambda x: x[1])
     gen = 0

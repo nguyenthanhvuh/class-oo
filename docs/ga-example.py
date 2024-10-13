@@ -1,12 +1,12 @@
 import random
 import time
 
-def gen_pop(pop_size, list_size, min_val, max_val):
-    return [[random.randint(min_val, max_val) for _ in range(list_size)] 
+def gen_pop(pop_size, indv_size, min_val, max_val):
+    return [[random.randint(min_val, max_val) for _ in range(indv_size)] 
             for _ in range(pop_size)]
 
-def get_fitness(indiv, list_size):
-    return 1. / (1 + (list_size - indiv.count(0)))
+def get_fitness(indiv, indv_size):
+    return 1. / (1 + (indv_size - indiv.count(0)))
 
 def select(pop, fscores):
     tournament_size = 3
@@ -31,10 +31,10 @@ def stopping_criteria(best_fit):
     return best_fit == 1.0
 
 # Main Genetic Algorithm Loop
-def ga(pop_size, list_size, xover_rate, mut_rate, min_val, max_val):
+def ga(pop_size, indv_size, xover_rate, mut_rate, min_val, max_val):
     
-    pop = gen_pop(pop_size, list_size, min_val, max_val)
-    fscores = [get_fitness(ind, list_size) for ind in pop]
+    pop = gen_pop(pop_size, indv_size, min_val, max_val)
+    fscores = [get_fitness(ind, indv_size) for ind in pop]
     best, best_fit = max(zip(pop, fscores), key=lambda x: x[1])
     gen = 0
     while not stopping_criteria(best_fit):
@@ -49,7 +49,7 @@ def ga(pop_size, list_size, xover_rate, mut_rate, min_val, max_val):
                 new_pop.append(mutate(offspring2, mut_rate, min_val, max_val))
         
         pop = new_pop  # Replace the old pop
-        fscores = [get_fitness(ind, list_size) for ind in pop]
+        fscores = [get_fitness(ind, indv_size) for ind in pop]
         best, best_fit = max(zip(pop, fscores), key=lambda x: x[1]) 
         print(f"Gen {gen}, best = {best}, fit = {best_fit}")
         #time.sleep(0.1)
@@ -58,7 +58,7 @@ def ga(pop_size, list_size, xover_rate, mut_rate, min_val, max_val):
 
 # Parameters
 pop_size = 10
-list_size = 70
+indv_size = 70
 min_val = -10
 max_val = 10
 xover_rate = 0.8
@@ -66,7 +66,7 @@ mut_rate = 0.01
 
 # Run the GA
 stime = time.time()
-best, best_fit = ga(pop_size, list_size, xover_rate, mut_rate, min_val, max_val)
+best, best_fit = ga(pop_size, indv_size, xover_rate, mut_rate, min_val, max_val)
 etime = time.time() - stime
 
 print(f"RESULT: Best = {best}, sum = {sum(best)}, fit = {best_fit}, total time = {etime}s")
