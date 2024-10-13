@@ -36,7 +36,7 @@ def genetic_algorithm(pop_size, list_size, xover_rate, mut_rate, min_val, max_va
 
     pop = gen_pop(pop_size, list_size, min_val, max_val)
     fscores = [get_fitness(ind, target) for ind in pop]
-    best_ind, best_fit = max(zip(pop, fscores), key=lambda x: x[1])
+    best, best_fit = max(zip(pop, fscores), key=lambda x: x[1])
     gen = 0
     
     while not stopping_criteria(best_fit):
@@ -52,10 +52,10 @@ def genetic_algorithm(pop_size, list_size, xover_rate, mut_rate, min_val, max_va
         
         pop = new_pop  # Replace the old pop
         fscores = [get_fitness(ind, target) for ind in pop]
-        best_ind, best_fit = max(zip(pop, fscores), key=lambda x: x[1])
-        print(f"Gen = {gen}, best = {best_ind}, sum = {sum(best_ind)}, fit = {best_fit}")
+        best, best_fit = max(zip(pop, fscores), key=lambda x: x[1])
+        print(f"Gen = {gen}, best = {best}, sum = {sum(best)}, fit = {best_fit}")
         # time.sleep(0.1)
-    return best_ind, best_fit
+    return best, best_fit
 
 
 # Parameters
@@ -68,7 +68,9 @@ xover_rate = 0.8
 mut_rate = 0.1
 # Run the GA
 stime = time.time()
-best_ind, best_fit = genetic_algorithm(pop_size, list_length, xover_rate, mut_rate, min_val, max_val, target)
+best_ind, best_fit = genetic_algorithm(pop_size, list_length, 
+                                       xover_rate, mut_rate, 
+                                       min_val, max_val, target)
 etime = time.time() - stime
 
 print(f"RESULT: Best = {best_ind}, sum = {sum(best_ind)}, fit = {best_fit}, total time = {etime}s")
