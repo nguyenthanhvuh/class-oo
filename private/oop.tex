@@ -2183,29 +2183,82 @@ While many testing techniques exist (popular ones will be discussed below), they
 Black-Box testing approach checks the program using its specifications (e.g., type of inputs, expected outputs) without any knowledge of its internal implementation. This approach ignores the implementation details and does not even require the program code (hence the name black-box).  The approach is efficient and easy to use, but can miss certain bugs.
 
 \begin{lstlisting}
-def square(x:int) -> int:
-    if x == 123:
-        return -1 # bug
-    else:
-        return x*x
+class MathStuff:
+    def square(self, x:int) -> int:
+        if x == 123:
+            return -1 # bug
+        else:
+            return x*x
+    
+    def div(self, x:int, y:int) -> int:
+        if y == 0:
+            raise ValueError("Cannot divide by 0")
+        else:
+            return x // y
 
 
 """ Only test on integer inputs and check that the outputs are as expected"""
-assert square(0) == 0   
-assert square(1) == 1
+ms = MathStuff()
+assert ms.square(0) == 0   
+assert ms.square(1) == 1
 ...
-assert square(12) == 144
+assert ms.square(12) == 144
+assert ms.square(-5) == 25
+
+assert ms.div(10, 2) == 5
+assert ms.div(10, 3) == 3
+
+try:
+    ms.div(10, 0)
+except ValueError:
+    # raise an exception is expected
+    pass
+else:
+    print "Error: Should have raised an exception"
+
 \end{lstlisting}
 
-For function \code{f} above we simply test it with various numbers as inputs and check that the output is as expected. We do not need to know how \code{square} is implemented. Note that because this is blackbox testing, we do not know about the special case of \code{123} and thus do not test for it. This is a limitation of blackbox testing.
+For these functions (\code{square, div}) we simply test them with various numbers as inputs and check that the output is as expected. We do not need to know how the functions (e.g., \code{square}) were implemented. Note that because this is blackbox testing, we do not know about the special case of \code{123} in \code{square} and thus do not test for it. This is a limitation of blackbox testing.
+
+\paragraph{Unit Testing} 
+Modern OOP languages often have built-in capability or library to help with testing. \emph{Unit testing} is a popular one support by most languages to test individual \emph{units} (e.g., functions, classes) of the program. Below is a small example of using Python's \code{unittest} library to test the \code{MathStuff} class.
+
+\begin{lstlisting}
+
+    import unittest
+    class TestCalculator(unittest.TestCase):
+        ## setup unit tests. This is run before each test    
+        def setUp(self):
+            self.ms = MathStuff()
+    
+        # Basic Unit Tests
+        def test_square(self):
+            self.assertEqual(self.ms.square(0), 0)
+            self.assertEqual(self.ms.square(1), 1)
+            self.assertEqual(self.ms.square(12), 144)
+            self.assertEqual(self.ms.square(-5), 25)
+    
+
+    
+        def test_div(self):
+            self.assertEqual(self.ms.div(10, 2), 5)
+            self.assertEqual(self.ms.div(10, 3), 3)
+
+            with self.assertRaises(ValueError):
+                self.ms.div(10, 0)
+    
+    if __name__ == '__main__':
+        unittest.main()
+\end{lstlisting}
+
 
 \subsection{Special Cases Testing}
 
-This testing runs the program on special or edge cases to find bugs that are not caught by regular inputs. For example, a program that computes the square of a number (like \code{f} above) should be tested with negative numbers, zero, and positive numbers. Similarly, for a program that takes a list of numbers as input, special cases could include an empty list, with one element, with all 0's, with all negative numbers, etc.
+This testing runs the program on special or edge cases to find bugs that are not caught by regular inputs. For example, a program that computes the square of a number (like \code{MathStuff.square} above) should be tested with negative numbers, zero, and positive numbers. Similarly, for a program that takes a list of numbers as input, special cases could include an empty list, with one element, with all 0's, with all negative numbers, etc.
 
 
 \subsection{Fuzz Testing}
-This testing uses random or invalid inputs to test the program. For example, a program expects a number is tested with a string or a dict.  It has the similar purpose as special cases testing, but instead of using specific inputs, it generates many random / invalid inputs. Fuzz testing is often used to find security vulnerabilities. More advanced fuzzing techniques generate new inputs from existing ones, e.g., by flipping bits or changing values slightly.
+This testing generates random and invalid inputs to test the program. For example, a program expects a number is tested with a string or a dict.  It has the similar purpose as special cases testing, but instead of using specific inputs, it generates many random / invalid inputs. Fuzz testing is often used to find security vulnerabilities. More advanced fuzzing techniques generate new inputs from existing ones, e.g., by flipping bits or changing values slightly.
 
 \begin{lstlisting}
 #generate 100 random numbers
@@ -2230,37 +2283,71 @@ for x in [1,2,3]:
 
 %\paragraph{Fun fact} Fuzz testing was popularized by Barton Miller in the 1980s. 
 
-\subsection{Unit Testing}
+
+
+\subsection{Combinatorial Testing}
+This technique combines different inputs to generate tests.  The combination is typically done using \emph{Cartesian} products, i.e., all possible combinations of inputs are tested. In addition to generating more tests, combinatorial testing is useful for finding issues that occur when combining different inputs. For example, a program that takes two numbers as input could be tested with all combinations of positive, negative, and zero numbers. 
 
 \begin{lstlisting}
+    """
+    combinatorial testing for division
+    """
+    from parameterized import parameterized
+    ...
 
-# unit testing for the square function
-def test_square():
+    xs = [11, 12, -11, -12, 0]
+    ys = [1, 2, -1, -2, 0]
 
-    assert square(1) == 1
-    assert square(2) == 4
-    assert square(3) == 9
-    assert square(4) == 16
-    assert square(5) == 25
-    assert square(0) == 0    
-    assert square(-1) == 1
-    assert square(-2) == 4
-    assert square(-3) == 9
-    assert square(-4) == 16
-    assert square(-5) == 25
+    @parameterized.expand(product(xs, ys))
+    def test_div(self, x, y):
+        if y == 0:
+            with self.assertRaises(ValueError):
+                self.ms.div(x, y)
+        else:
+            expect = x // y            
+            self.assertEqual(self.ms.div(x, y), expect)
 \end{lstlisting}
 
+For the example above, the \code{test\_div} function is run with all combinations of numbers in \code{xs} and \code{ys}, i.e., 25 tests. The \code{product} function generates all combinations of the lists \code{xs, ys} (cartesian product). The \code{@parameterized.expand} runs the test with each (combined) inputs. Note that while this is illustrated using Python, the concept of combinatorial testing is used in other languages and testing frameworks.
 
+\subsection{Property-Based Testing}
+This checks that certain properties hold over randomly generated inputs. Examples of properties include the square of a negative number is positive and addition and multiplication being commutative (e.g., $x + y \equiv y + x$). Property-based testing is a convenient way to generate and test the program with many inputs.
+
+\begin{lstlisting}
+    from hypothesis import given
+    from hypothesis.strategies import integers
+
+    @given(integers(), integers())
+    def test_square(x, y):
+        assert square(x) == x*x
+        assert square(y) == y*y
+        assert square(x) == square(-x) # square of neg is positive
+
+    @given(integers(), integers())
+    def test_add(x, y):
+        assert add(x, y) == add(y, x) #commutative
+\end{lstlisting}
+
+For the example above, the \code{test\_square} and \code{test\_add} functions are run with random integers \code{x, y}. Notice that in Python, for property-based testing we use the \code{hypothesis} library, which generates random inputs and runs the tests with them.
+
+
+\section{In-class Exercise: GCD}
+
+
+
+
+
+\subsection{Search-Based Software Testing (SBST)}
+SBST searches for inputs to maximize (or minimize) some objective. Examples of such objectives include maximing code coverage, causing a crash, or satisfying a specific property.
 \subsection{Genetic Algorithm}\label{sec:ga}
 
-Genetic Algorithm (GA) is a test input generation technique that uses biological evolution (Darwin's theory of evolution) to generate test inputs.
-
-GA starts with an initial set or \emph{population} of random inputs (\emph{individuals}) and iteratively evolves them to find the best one that achieves some objective (e.g., maximizing code coverage, causing a crash). GA uses a \emph{fitness function} to evaluate the quality of the individuals and \emph{selects} the best ones to survive and reproduce. Next, GA applies genetic operators to create individuals representing the new population. This process continues until a \emph{stopping criterion} is met.
+Genetic Algorithm (GA) is an SBST technique that uses biological evolution (Darwin's theory of evolution) to generate test inputs.
+GA starts with an initial set or \emph{population} of random inputs (\emph{individuals}) and iteratively evolves them to find the best one that achieves some objective. GA uses a \emph{fitness function} to evaluate the quality of the individuals and \emph{selects} the best ones to survive and reproduce . GA applies genetic operators to create individuals representing the new population in the next \emph{generation}. This process continues until a \emph{stopping criterion} is met.
 
 The main genetic operators in a GA are
 \begin{enumerate}
-    \item \emph{crossover}: combines two individuals or \emph{parents} to create new ones. Common xover methods include single-point, two-point, and uniform crossover. xover rate is the probability of applying xover, and typically is high (e.g., 0.8 or 80\% chance).
-    \item \emph{mutation}: randomly changes some elements of an individual. Common mutation methods include randm (create a random value), swap (swap two elements), and flip (flip a bit 0 to 1 and vice versa). Mutation rate is the probability of doing mutation, and typically is low (e.g., lower than 0.1 or 10\% chance).
+    \item \emph{Crossover}: combines two individuals or \emph{parents} to create new ones. Common xover methods include single-point, two-point, and uniform crossover. xover rate is the probability of applying xover, and typically is high (e.g., 0.8 or 80\% chance).
+    \item \emph{Mutation}: randomly changes some elements of an individual. Common mutation methods include randm (create a random value), swap (swap two elements), and flip (flip a bit 0 to 1 and vice versa). Mutation rate is the probability of doing mutation, and typically is low (e.g., lower than 0.1 or 10\% chance).
 \end{enumerate}
 
 The following is a template for GA:
