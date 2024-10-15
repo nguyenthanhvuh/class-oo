@@ -462,9 +462,9 @@ This exercise touches on some thorny issues with inheritance. There is a lot goi
 \section{Designing Specifications}\label{sec:design-specifications}
 %Liskov 3.5
 
-When designing specifications, it is important to consider several factors to ensure that the function is well-defined and can be used effectively. These factors include the \emph{strength} of the pre- and post-conditions, whether the function is \emph{total} or \emph{partial}, and the \emph{avoiding implementation details} in the specification.
+When designing specifications, it is important to consider several factors to ensure that the function is well-defined. These factors include the \emph{strength} of the pre- and post-conditions, whether the function is \emph{total} or \emph{partial}, and the \emph{avoiding implementation details} in the specification.
 
-\subsection{Weak Pre-conditions}m
+\subsection{Weak Pre-conditions}
 For pre-conditions, we want as weak a constraint as possible to make the function more versatile, allowing it to handle a larger class of inputs.
 Logically, a condition $x$ is weaker than another if it is \emph{implied} by the other $y$, i.e.,  $y \implies x$, or that $x$'s constraints are a superset of $y$'s. For example, the condition $x \le 5$ is weaker than $x \le 10$ and the input list is not sorted is weaker than the list is sorted (which is weaker than the list that is both sorted and has no duplicates).
 The \emph{weakest} precondition is \emph{True}, which indicates no constraints on the input.
@@ -2289,9 +2289,6 @@ for x in [1,2,3]:
 This technique combines different inputs to generate tests.  The combination is typically done using \emph{Cartesian} products, i.e., all possible combinations of inputs are tested. In addition to generating more tests, combinatorial testing is useful for finding issues that occur when combining different inputs. For example, a program that takes two numbers as input could be tested with all combinations of positive, negative, and zero numbers. 
 
 \begin{lstlisting}
-    """
-    combinatorial testing for division
-    """
     from parameterized import parameterized
     ...
 
@@ -2325,20 +2322,36 @@ This checks that certain properties hold over randomly generated inputs. Example
 
     @given(integers(), integers())
     def test_add(x, y):
-        assert add(x, y) == add(y, x) #commutative
+        assert add(x, y) == add(y, x) # commutative
 \end{lstlisting}
 
-For the example above, the \code{test\_square} and \code{test\_add} functions are run with random integers \code{x, y}. Notice that in Python, for property-based testing we use the \code{hypothesis} library, which generates random inputs and runs the tests with them.
+The \code{test\_square} and \code{test\_add} functions are run with random integers \code{x, y}. Notice that in Python, for property-based testing we use the \code{hypothesis} library, which generates random inputs and runs the tests with them.
 
 
 \section{In-class Exercise: GCD}
+You will practice combinatorial and property testing using the \emph{Greatest Common Divisor} (GCD) function. The GCD of two numbers is the largest number that divides both of them. For example, the GCD of 8 and 12 is 4.  You are given 2 implementations of the GCD function (using Euclidean algorithm), one of them is correct and the other has a bug.  You will write combinatorial and property tests to find the bug.
 
 
+\begin{lstlisting}
+def gcd_correct(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return abs(a)
+
+def gcd_buggy(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a    
+\end{lstlisting}
+
+\paragraph{Part 1: Combinatorial Testing}
+
+\paragraph{Part 2: Property Testing}
 
 
 
 \subsection{Search-Based Software Testing (SBST)}
-SBST searches for inputs to maximize (or minimize) some objective. Examples of such objectives include maximing code coverage, causing a crash, or satisfying a specific property.
+SBST searches for inputs to optimize some objective. Examples of such objectives include maximizing code coverage, causing a crash, or satisfying a specific property.
 \subsection{Genetic Algorithm}\label{sec:ga}
 
 Genetic Algorithm (GA) is an SBST technique that uses biological evolution (Darwin's theory of evolution) to generate test inputs.
