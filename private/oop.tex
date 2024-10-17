@@ -2304,22 +2304,25 @@ For the example above, the \code{test\_div} function is run with all combination
 \subsection{Property-Based Testing}\label{sec:property-based-testing}
 This generates random inputs to check specific \emph{properties} of the program. For example, square of a negative number is positive and addition and multiplication being commutative (e.g., $x + y \equiv y + x$). Property-based testing is a convenient way to generate and test desirable behaviors with many inputs.
 
+\paragraph{Assertions} Property-based tests often use \emph{assertions} to check the properties. Most languages have the function \code{assert(c)} or similar that raises an exception if the condition \code{c} is false.
+
+
 \begin{lstlisting}
     from hypothesis import given
     from hypothesis.strategies import integers
 
-    @given(integers(), integers())
+    @given(integers(), integers()) # create random integers
     def test_square(x, y):
         assert square(x) == x*x
         assert square(y) == y*y
         assert square(x) == square(-x) # square of neg is positive
 
-    @given(integers(), integers())
+    @given(integers(), integers()) # create random integers
     def test_add(x, y):
         assert add(x, y) == add(y, x) # commutative
 \end{lstlisting}
 
-Various properties of \code{square} and \code{add} are tested by using randomly generated integers \code{x, y}. Notice that in Python, for property-based testing we use the \code{hypothesis} library, which generates random inputs and runs the tests with them.
+This example tests various properties of \code{square} and \code{add} with randomly generated integers \code{x, y}. In Python, use the \code{hypothesis} library, which generates random inputs and runs the tests with them. In Java, we can use the \code{jqwik} library for property-based testing.
 
 
 \section{In-class Exercise: GCD}
@@ -2449,6 +2452,7 @@ In this assignment you have two tasks. First, you will \emph{implement a GA} tha
 \section{Defensive Programming}
 \section{Error Handling}
 \section{Assertions}
+
 
 
 \chapter{Design Patterns}
