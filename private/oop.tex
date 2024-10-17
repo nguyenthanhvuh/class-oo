@@ -2172,9 +2172,9 @@ In contrast, \textbf{testing} checks that the program behaves as expected over \
 
 While many testing techniques exist (popular ones will be discussed below), they typically have the same purpose of finding bugs that trigger undesirable behavior in the program (e.g., causing crashes, revealing security vulnerabilities, producing unexpected/incorrect outputs, etc). More specifically, a major goal of testing is to find \textbf{counterexample inputs} (or \emph{cex} for short) that violate the program's specifications or requirements. This field of \textbf{input generation} is an active area of research in software engineering and related fields.
 
-\section{Blackbox Testing}
+\section{Black-box Testing}\label{sec:blackbox}
 
-Black-Box testing approach checks the program using its specifications (e.g., type of inputs, expected outputs) without any knowledge of its internal implementation. This approach ignores the implementation details and does not even require the program code (hence the name black-box).  The approach is efficient and easy to use, but can miss certain bugs.
+Black-box approach tests the program using its specifications (e.g., type of inputs, expected outputs) \emph{without} any knowledge of its internal implementation. This approach ignores the implementation details and does not even require the program code (hence the name black-box).  The approach is efficient and easy to use, but can miss certain bugs.
 
 \begin{lstlisting}
 class MathStuff:
@@ -2212,10 +2212,10 @@ else:
 
 \end{lstlisting}
 
-For these functions (\code{square, div}) we simply test them with various numbers as inputs and check that the output is as expected. We do not need to know how the functions (e.g., \code{square}) were implemented. Note that because this is blackbox testing, we do not know about the special case of \code{123} in \code{square} and thus do not test for it. This is a limitation of blackbox testing.
+For these functions (\code{square, div}) we simply test them with various numbers as inputs and check that the output is as expected. We do not need to know how the functions (e.g., \code{square}) were implemented. Observe that because of this, we do not know about the special ``buggy'' case of \code{123} in \code{square} and thus do not test for it. This is a limitation of blackbox testing.
 
 \paragraph{Unit Testing} 
-Modern OOP languages often have built-in capability or library to help with testing. \emph{Unit testing} is a popular one support by most languages to test individual \emph{units} (e.g., functions, classes) of the program. Below is a small example of using Python's \code{unittest} library to test the \code{MathStuff} class.
+Modern OOP languages often have built-in capability or library to help with testing. \emph{Unit testing} is a popular and supported by most languages to test individual \emph{units} (e.g., functions, classes) of the program. Below is a small example of using Python's \code{unittest} library to test the \code{MathStuff} class (\autoref{sec:blackbox}).
 
 \begin{lstlisting}
 
@@ -2246,7 +2246,7 @@ Modern OOP languages often have built-in capability or library to help with test
 \end{lstlisting}
 
 
-\subsection{Special Cases Testing}
+\subsection{Special/Edge Cases Testing}
 
 This testing runs the program on special or edge cases to find bugs that are not caught by regular inputs. For example, a program that computes the square of a number (like \code{MathStuff.square} above) should be tested with negative numbers, zero, and positive numbers. Similarly, for a program that takes a list of numbers as input, special cases could include an empty list, with one element, with all 0's, with all negative numbers, etc.
 
@@ -2279,8 +2279,8 @@ for x in [1,2,3]:
 
 
 
-\subsection{Combinatorial Testing}
-This technique combines different inputs to generate tests.  The combination is typically done using \emph{Cartesian} products, i.e., all possible combinations of inputs are tested. In addition to generating more tests, combinatorial testing is useful for finding issues that occur when combining different inputs. For example, a program that takes two numbers as input could be tested with all combinations of positive, negative, and zero numbers. 
+\subsection{Combinatorial Testing}\label{sec:combinatorial-testing}
+This technique combines different inputs to generate tests.  The combination is typically done using \emph{Cartesian} products, i.e., all possible combinations of inputs are tested. Combinatorial testing is useful for finding issues that occur when combining different inputs. For example, a program that takes two numbers as input could be tested with all combinations of positive, negative, and 0 numbers. 
 
 \begin{lstlisting}
     from parameterized import parameterized
@@ -2299,10 +2299,10 @@ This technique combines different inputs to generate tests.  The combination is 
             self.assertEqual(self.ms.div(x, y), expect)
 \end{lstlisting}
 
-For the example above, the \code{test\_div} function is run with all combinations of numbers in \code{xs} and \code{ys}, i.e., 25 tests. The \code{product} function generates all combinations of the lists \code{xs, ys} (cartesian product). The \code{@parameterized.expand} runs the test with each (combined) inputs. Note that while this is illustrated using Python, the concept of combinatorial testing is used in other languages and testing frameworks.
+For the example above, the \code{test\_div} function is run with all combinations numbers in \code{xs} and \code{ys}. The \code{product} function generates all 25 combinations of the numbers in the lists \code{xs, ys} (Cartesian product). The \code{@parameterized.expand} runs the test with each input. Note that while this is illustrated using Python, the concept of combinatorial testing is used in other languages and testing frameworks.
 
-\subsection{Property-Based Testing}
-This checks that certain properties hold over randomly generated inputs. Examples of properties include the square of a negative number is positive and addition and multiplication being commutative (e.g., $x + y \equiv y + x$). Property-based testing is a convenient way to generate and test the program with many inputs.
+\subsection{Property-Based Testing}\label{sec:property-based-testing}
+This generates random inputs to check specific \emph{properties} of the program. For example, square of a negative number is positive and addition and multiplication being commutative (e.g., $x + y \equiv y + x$). Property-based testing is a convenient way to generate and test desirable behaviors with many inputs.
 
 \begin{lstlisting}
     from hypothesis import given
@@ -2319,11 +2319,11 @@ This checks that certain properties hold over randomly generated inputs. Example
         assert add(x, y) == add(y, x) # commutative
 \end{lstlisting}
 
-The \code{test\_square} and \code{test\_add} functions are run with random integers \code{x, y}. Notice that in Python, for property-based testing we use the \code{hypothesis} library, which generates random inputs and runs the tests with them.
+Various properties of \code{square} and \code{add} are tested by using randomly generated integers \code{x, y}. Notice that in Python, for property-based testing we use the \code{hypothesis} library, which generates random inputs and runs the tests with them.
 
 
 \section{In-class Exercise: GCD}
-You will practice combinatorial and property testing using the \emph{Greatest Common Divisor} (GCD) function. The GCD of two numbers is the largest number that divides both of them. For example, the GCD of 8 and 12 is 4.  You are given 2 implementations of the GCD function (using Euclidean algorithm), one of them is correct and the other has a bug.  You will write combinatorial and property tests to find the bug.
+You are given two implementations computing the GCD (Greatest Common Divisor) of two numbers. One of them is correct and the other has a bug.  You will write combinatorial and property tests to find the bug. Recall that the GCD of two numbers is the largest number that divides both of them. For example, \code{gcd(8,12)=4}. 
 
 
 \begin{lstlisting}
@@ -2335,13 +2335,24 @@ def gcd_correct(a, b):
 def gcd_buggy(a, b):
     while b != 0:
         a, b = b, a % b
-    return a    
+    return a
 \end{lstlisting}
 
-\paragraph{Part 1: Combinatorial Testing}
+\paragraph{Part 1: Using Combinatorial Testing to Find Bugs}
+\begin{itemize} 
+    \item Write code to perform combinatorial testing on \code{gcd\_correct} and \code{gcd\_buggy}. In Python, these would be done by importing the \code{parameterized} module (\autoref{sec:combinatorial-testing})
+    \item Create tests with several positive, negative, and zero numbers.
+    \item Run the tests and show the bug in \code{gcd\_buggy}.  
+    \item Explain how combinatorial testing helped find the bug.
+\end{itemize}
 
-\paragraph{Part 2: Property Testing}
-
+\paragraph{Part 2: Using Property Testing to Find Bugs}
+\begin{itemize}
+\item Identify several properties of GCD (use Wikipedia if you have to). One of these properties should help you detect the bug in \code{gcd\_buggy}.
+\item Write code to perform property-based testing on \code{gcd\_correct} and \code{gcd\_buggy}. In Python, these would be done by importing the \code{hypothesis} module (\autoref{sec:property-based-testing})
+\item Run the tests and show the bug in \code{gcd\_buggy}.
+\item Explain how property-based testing helped find the bug.
+\end{itemize}
 
 
 \subsection{Search-Based Software Testing (SBST)}
