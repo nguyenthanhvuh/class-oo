@@ -2463,7 +2463,7 @@ For the \code{square} function in \autoref{sec:blackbox}, symbolic execution wou
 \subsection{Statistical Debugging}
 Statistical debugging is a white-box technique that uses statistics to find bugs. It collects program execution traces, e.g., which lines of code were executed, how many times, etc, and uses this data to find the lines that likely contain the bug. For example, if a line $l$ is executed many times when the program fails but not when it runs correctly, then $l$ is likely the bug.
 
-Tarantula is a popular statistical debugging technique that computes a suspicious score for each line of code based on the number of times it was executed when the program failed and when it ran correctly. The formula is:
+Tarantula is a popular statistical debugging technique that computes a suspicious score for each line of code based on the number of times it was executed when the program failed and when it passes (gives expected behavior). The formula is:
 \[
 \text{Suspiciousness}(l) = \frac{\text{Failed}(l) / \text{TotalFailed}}{\text{Failed}(l) / \text{TotalFailed} + \text{Passed}(l) / \text{TotalPassed}}
 \]
@@ -2477,41 +2477,55 @@ Consider the following code:
         if y < z:                   # line 3
             if x < y:               # line 4
                 m = y               # line 5
-            elif x < z:             # line 6
+            else if x < z:          # line 6
                 m = y               # line 7, bug, should be z
         else:                       # line 8
             if x > y:               # line 9
                 m = z               # line 10, bug, should be y
-            elif (x > z):                   # line 11
+            else if (x > z):        # line 11
                 m = x               # line 12 
         print("median is ", m)      # line 13
 \end{lstlisting}
 
-The following table shows the number of times each line was executed when the program failed and when it ran correctly over several test runs. 
+
+We now run the program on tests and collect the number of times each line was executed when the program failed and when it passed. 
+For example, for a test \code{t1} with input \code{(3,3,5)}, the program passes (shows median is 3) and hits lines 1, 2, 3, 4, 6, 7, 13 and skips lines 5, 8, 9, 10, 11, 12. For a test \code{t9} with input \code{(5,4,2)}, the program fails (shows median is 2 instead of 4) and hits lines 1, 2, 3, 8, 9, 10, 13 and skips lines 4, 5, 6, 7, 11, 12. It is easy to see that every test will hit lines 1 and 13.  Could you spot some other lines that will be hit by every test?
+
+After we do this for all available tests (e.g., 10 tests \code{t1, t2, ..., t10}), we can compute the suspiciousness score for each line using the Tarantula formula. The higher the score, the more likely the line contains the bug.  The following table shows the number of times each line was executed when the program failed and when it ran correctly over several test runs. 
 \begin{table}
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
     \toprule
-    line & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13\\
+    line & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & Pass/Fail\\
     \midrule
-    t1 (3,3,5)  & x & x & x & & & & & &  &  &  &  & x\\
-    t2 (1,2,3)  & x & x & x & & & & & &  &  &  &  & x\\
-    t3 (3,2,2)  & x & x & x & & & & & &  &  &  &  & x\\
-    t4 (5,5,5)  & x & x & x & & & & & &  &  &  &  & x\\
-    t5 (1,1,4)  & x & x & x & & & & & &  &  &  &  & x\\
-    t6 (5,3,4)  & x & x & x & & & & & &  &  &  &  & x\\
-    t7 (3,2,1)  & x & x & x & & & & & &  &  &  &  & x\\
-    t8 (2,1,3)  & x & x & x & & & & & &  &  &  &  & x\\
-    t9 (5,4,2)  & x & x & x & & & & & &  &  &  &  & x\\
-    t10 (5,2,6) & x & x & x & & & & & &  &  &  &  & x\\
+    t1 (3,3,5)  & x & x & x & x & - & x & x & - & - & - & - & - & x & P\\
+    t2 (1,2,3)  & x & x & x & x & x & - & - & - & - & - & - & - & x & P\\
+    t3 (3,2,2)  & x & x & x & - & - & - & - & x & x & x & - & - & x & P\\
+    t4 (5,5,5)  & x & x & x & - & - & - & - & x & x & - & x & - & x & P\\
+    t5 (1,1,4)  & x & x & x & x & - & x & x & - & - & - & - & - & x & P\\
+    t6 (5,3,4)  & x & x & x & x & - & x & - & - & - & - & - & - & x & P\\
+    t7 (3,2,1)  & x & x & x & - & - & - & - & x & x & x & - & - & x & F\\
+    t8 (2,1,3)  & x & x & x & x & - & x & x & - & - & - & - & - & x & F\\
+    t9 (5,4,2)  & x & x & x & - & - & - & - & x & x & x & - & - & x & F\\
+    t10 (5,2,6) & x & x & x & x & - & x & x & - & - & - & - & - & x & F\\
+    \midrule
+    Score       & 0.5 & & & 0.42 & 0. &  & 0.6 &  &  & 0.75 &  &  & 0.5\\
     \bottomrule
     \end{tabular}
 \end{table}
 
+We can now compute the suspiciousness score for each line using the Tarantula formula. Here we have 10 tests with 6 passing and 4 failing. 
+For example, the suspiciousness score for line 4 is: $2/4 / (2/4 + 4/6) = 0.42$. The score for line 5 is $0/4 / (0/4 + 1/6) = 0$, i.e., this line is definitely not buggy. The score for line 7 is $2/4 / (2/4 + 2/6) = 0.6$, line 10 is $2/4 / (2/4 + 1/6) = 0.75$. 
+Note that scores for lines 1 and line 13, which are always executed, are $4/4 / (4/4 + 6/6) = 0.5$. 
+
+
+\section{In-class Exercise: Tarantula}
+Consider another buggy code
+\begin{lstlisting}
+\end{lstlisting}
+
 \section{Defensive Programming}
 \section{Error Handling}
-\section{Assertions}
-
 
 
 \chapter{Design Patterns}
