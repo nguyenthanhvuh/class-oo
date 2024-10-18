@@ -2447,11 +2447,9 @@ White-box testing is the opposite of black-box testing. It has knowledge about t
 For example, in the \code{square} function in \autoref{sec:blackbox}, we can directly write test to show the bug (returning $-1$ instead of ${123}^2$). This is a special case that would be difficult to find using random black-box testing.
 
 \subsection{Symbolic Execution} 
-Symbolic Execution is a white-box testing technique that runs the program with symbolic inputs (e.g., $x$ instead of $5$) and tracks the program's state. It represents the program paths it takes as logical constraints or formulae, and then uses a constraint solver, e.g., a SAT or SMT solver, to solve the interesting paths.  The solutions to the constraints represent concrete inputs to the program that would trigger the path. 
+Symbolic Execution is a white-box testing technique to find inputs causing the program to take some interesting paths (e.g., that result in a bug). Symbolic execution runs the program with symbolic inputs (e.g., $x$ instead of $5$) and tracks the program's state. It represents the program paths taken as logical constraints or formulae, and then uses a constraint solver, e.g., a SAT or SMT solver, to solve the constraints of interesting paths.  The solutions to the constraints represent concrete inputs to the program that would trigger the path. 
 
 For the \code{square} function in \autoref{sec:blackbox}, symbolic execution would find the input triggering the bug by creating and solving the constraint $x \equiv 123$.
-
-
 
 
 %\section{Regression Testing}
@@ -2494,7 +2492,8 @@ For example, for a test \code{t1} with input \code{(3,3,5)}, the program passes 
 After we do this for all available tests (e.g., 10 tests \code{t1, t2, ..., t10}), we can compute the suspiciousness score for each line using the Tarantula formula. The higher the score, the more likely the line contains the bug.  The following table shows the number of times each line was executed when the program failed and when it ran correctly over several test runs. 
 \begin{table}
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
+    \small
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
     \toprule
     line & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & Pass/Fail\\
     \midrule
@@ -2520,8 +2519,22 @@ Note that scores for lines 1 and line 13, which are always executed, are $4/4 / 
 
 
 \section{In-class Exercise: Tarantula}
-Consider another buggy code
+
+Consider another suspicious score metrics called Ochiai. The formula is: 
+\[
+\text{Suspiciousness}(l) = \frac{\text{Failed}(l) / \text{TotalFailed}}{\sqrt{\text{Failed}(l) / \text{TotalFailed} + \text{Passed}(l) / \text{TotalPassed}}}
+\]
+
+\begin{enumerate}
+    \item Compute the Ochiai score for the lines in the table above.
+    \item Explain the differences between Tarantula and Ochiai scores. Which one do you think is better? Why?
+\end{enumerate}
+
+
+
+
 \begin{lstlisting}
+
 \end{lstlisting}
 
 \section{Defensive Programming}
