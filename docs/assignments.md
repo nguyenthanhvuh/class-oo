@@ -68,6 +68,18 @@
 - HW assignment: Do in-class list sum GA (7.3)
 - Quiz: E1 (higher-order and lambda function, closure)
 
+## Week 7
+
+- Topics: Testing
+- Reading: OOP 7
+    - Statistical Debugging
+    - Tarantula vs Ochiai metrics
+    - Combinatorial Testing
+    - Property-based Testing
+- In-class: STatistical Debugging
+- HW assignment: NONE
+- Quiz: Names
+
 # HW Assignments
 
 ## HW1

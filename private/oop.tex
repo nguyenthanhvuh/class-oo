@@ -2461,7 +2461,7 @@ For the \code{square} function in \autoref{sec:blackbox}, symbolic execution wou
 \subsection{Statistical Debugging}
 Statistical debugging is a white-box technique that uses statistics to find bugs. It collects program execution traces, e.g., which lines of code were executed, how many times, etc, and uses this data to find the lines that likely contain the bug. For example, if a line $l$ is executed many times when the program fails but not when it runs correctly, then $l$ is likely the bug.
 
-Tarantula is a popular statistical debugging technique that computes a suspicious score for each line of code based on the number of times it was executed when the program failed and when it passes (gives expected behavior). The formula is:
+\emph{Tarantula} is a popular statistical debugging technique that computes a suspicious score for each line of code based on the number of times it was executed when the program failed and when it passes (gives expected behavior). The formula is:
 \[
 \text{Suspiciousness}(l) = \frac{\text{Failed}(l) / \text{TotalFailed}}{\text{Failed}(l) / \text{TotalFailed} + \text{Passed}(l) / \text{TotalPassed}}
 \]
@@ -2508,19 +2508,20 @@ After we do this for all available tests (e.g., 10 tests \code{t1, t2, ..., t10}
     t9 (5,4,2)  & x & x & x & - & - & - & - & x & x & x & - & - & x & F\\
     t10 (5,2,6) & x & x & x & x & - & x & x & - & - & - & - & - & x & F\\
     \midrule
-    Score       & 0.5 & 0.5 & 0.5 & 0.42 & 0. & 0.5 & 0.6 & 0.6 & 0.6 & 0.75 & 0. & 0. & 0.5\\
+    Score (Tara)       & 0.5 & 0.5 & 0.5 & 0.42 & 0. & 0.5 & 0.6 & 0.6 & 0.6 & 0.75 & 0. & 0. & 0.5\\
+    %Score (Ochi)  & 0.71 & 0.71 & 0.71 & 0.46 & 0. & 0.5 & 0.55 & 0.55 & 0.55 & 0.61 & 0. & 0. & 0.71\\
     \bottomrule
     \end{tabular}
 \end{table}
 
 We can now compute the suspiciousness score for each line using the Tarantula formula. Here we have 10 tests with 6 passing and 4 failing. 
 For example, the suspiciousness score for line 4 is: $2/4 / (2/4 + 4/6) = 0.42$. The score for line 5 is $0/4 / (0/4 + 1/6) = 0$, i.e., this line is definitely not buggy. The score for line 7 is $2/4 / (2/4 + 2/6) = 0.6$, line 10 is $2/4 / (2/4 + 1/6) = 0.75$. 
-Note that scores for lines 1 and line 13, which are always executed, are $4/4 / (4/4 + 6/6) = 0.5$. 
+Note that scores for lines 1 and line 13, which are always executed, are $4/4 / (4/4 + 6/6) = 0.5$. The score for line 12, which was not executed in any test runs, is 0. (if it never runs, it should not be responsible for any issue).
 
 
-\section{In-class Exercise: Tarantula}
+\section{In-class Exercise: Tarantula vs. Ochiai}
 
-Consider another suspicious score metrics called Ochiai. The formula is: 
+Consider another suspicious score metrics called \emph{Ochiai}. The formula is: 
 \[
 \text{Suspiciousness}(l) = \frac{\text{Failed}(l) / \text{TotalFailed}}{\sqrt{\text{Failed}(l) / \text{TotalFailed} + \text{Passed}(l) / \text{TotalPassed}}}
 \]
@@ -2641,7 +2642,6 @@ Consider another suspicious score metrics called Ochiai. The formula is:
 
 
 %repr-inv:https://ocw.mit.edu/courses/6-170-laboratory-in-software-engineering-fall-2005/1a1f80fa85176ed3cae09ccd74f902d3_lec8.pdf
-
 
 
 
