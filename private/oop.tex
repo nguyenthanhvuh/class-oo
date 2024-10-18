@@ -2441,13 +2441,72 @@ In this assignment you have two tasks. First, you will \emph{implement a GA} tha
 
 \end{enumerate}
 
-\section{Whitebox Testing}
+\section{Whitebox Testing}\label{sec:whitebox}
+White-box testing is the opposite of black-box testing. It has knowledge about the internal implementation and code of the program and uses it to create tests. White-box testing is useful for finding bugs that are not caught by black-box testing.
 
-\section{Regression Testing}
-\section{Integration Testing}
-\section{System Testing}
+For example, in the \code{square} function in \autoref{sec:blackbox}, we can directly write test to show the bug (returning $-1$ instead of ${123}^2$). This is a special case that would be difficult to find using random black-box testing.
+
+\subsection{Symbolic Execution} 
+Symbolic Execution is a white-box testing technique that runs the program with symbolic inputs (e.g., $x$ instead of $5$) and tracks the program's state. It represents the program paths it takes as logical constraints or formulae, and then uses a constraint solver, e.g., a SAT or SMT solver, to solve the interesting paths.  The solutions to the constraints represent concrete inputs to the program that would trigger the path. 
+
+For the \code{square} function in \autoref{sec:blackbox}, symbolic execution would find the input triggering the bug by creating and solving the constraint $x \equiv 123$.
+
+
+
+
+%\section{Regression Testing}
+%\section{Integration Testing}
+%\section{System Testing}
 
 \section{Debugging}
+
+\subsection{Statistical Debugging}
+Statistical debugging is a white-box technique that uses statistics to find bugs. It collects program execution traces, e.g., which lines of code were executed, how many times, etc, and uses this data to find the lines that likely contain the bug. For example, if a line $l$ is executed many times when the program fails but not when it runs correctly, then $l$ is likely the bug.
+
+Tarantula is a popular statistical debugging technique that computes a suspicious score for each line of code based on the number of times it was executed when the program failed and when it ran correctly. The formula is:
+\[
+\text{Suspiciousness}(l) = \frac{\text{Failed}(l) / \text{TotalFailed}}{\text{Failed}(l) / \text{TotalFailed} + \text{Passed}(l) / \text{TotalPassed}}
+\]
+where $\text{Failed}(l)$ is the number of times line $l$ was executed when the program failed, $\text{Passed}(l)$ is the number of times line $l$ was executed.  
+
+Consider the following code:
+\begin{lstlisting}
+    def median(x, y, z):
+        print("input ", x, y, z)    # line 1
+        m = z                       # line 2
+        if y < z:                   # line 3
+            if x < y:               # line 4
+                m = y               # line 5
+            elif x < z:             # line 6
+                m = y               # line 7, bug, should be z
+        else:                       # line 8
+            if x > y:               # line 9
+                m = z               # line 10, bug, should be y
+            elif (x > z):                   # line 11
+                m = x               # line 12 
+        print("median is ", m)      # line 13
+\end{lstlisting}
+
+The following table shows the number of times each line was executed when the program failed and when it ran correctly over several test runs. 
+\begin{table}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \toprule
+    line & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13\\
+    \midrule
+    t1 (3,3,5)  & x & x & x & & & & & &  &  &  &  & x\\
+    t2 (1,2,3)  & x & x & x & & & & & &  &  &  &  & x\\
+    t3 (3,2,2)  & x & x & x & & & & & &  &  &  &  & x\\
+    t4 (5,5,5)  & x & x & x & & & & & &  &  &  &  & x\\
+    t5 (1,1,4)  & x & x & x & & & & & &  &  &  &  & x\\
+    t6 (5,3,4)  & x & x & x & & & & & &  &  &  &  & x\\
+    t7 (3,2,1)  & x & x & x & & & & & &  &  &  &  & x\\
+    t8 (2,1,3)  & x & x & x & & & & & &  &  &  &  & x\\
+    t9 (5,4,2)  & x & x & x & & & & & &  &  &  &  & x\\
+    t10 (5,2,6) & x & x & x & & & & & &  &  &  &  & x\\
+    \bottomrule
+    \end{tabular}
+\end{table}
 
 \section{Defensive Programming}
 \section{Error Handling}
