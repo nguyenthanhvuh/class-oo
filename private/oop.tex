@@ -2476,10 +2476,10 @@ Consider the following code:
             if x < y:               # line 4
                 m = y               # line 5
             else if x < z:          # line 6
-                m = y               # line 7, bug, should be z
+                m = y               # line 7 
         else:                       # line 8
             if x > y:               # line 9
-                m = z               # line 10, bug, should be y
+                m = z               # line 10 
             else if (x > z):        # line 11
                 m = x               # line 12 
         print("median is ", m)      # line 13
