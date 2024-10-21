@@ -2742,7 +2742,7 @@ We will use DD to remove unnecessary statements so that we have a minimal progra
 \chapter{Concurrency}\label{chap:concurrency}
 
 \section{Processes}\label{sec:processes}
-A process is an independent instance of a program running in its own memory space and do not share memory and data. This prevents synchronization issues such as race conditions and makes them safer. In a multicore system, process would achieve true parallelism as they can run on different cores. However, processes have higher overhead and are slower to create and manage (compare to threads discussed in \autoref{sec:threads})  
+A process is an independent instance of a program running in its own memory space and do not share memory and data. This prevents synchronization issues such as race conditions and makes parallelism safer. In a multicore system, processes would achieve true parallelism as they can run on different cores. However, processes have higher overhead compare to threads (\autoref{sec:threads}).
 
 In Python we use \code{multiprocessing}  to create and manage processes. The following demonstrate how to create and run two processes that calculate the square and cube of numbers in parallel.
 
@@ -2795,7 +2795,7 @@ if __name__ == "__main__":
 \section{Threading}\label{sec:threads}
 A thread runs within a process and shares memory and data as other threads in the process. Thus threads are lightweight with low overhead, but  they face synchronization issues like race conditions when multiple threads access shared data.
 
-In Python, we use the \code{threading} module to create and manage threads. The following demonstrates how to use threads to calculate the square and cube of numbers in parallel. It also shows how to \emph{lock} and protect a shared data.
+In Python, we use the \code{threading} module to create and manage threads. The following demonstrates how to use threads to calculate the square and cube of numbers in parallel. It also shows how to use \emph{lock} to ensure that only one thread can access a critical section of code at a time (updating \code{shared\_ct}).
 
 \begin{lstlisting}[multicols=2]
 from threading import Thread, Lock
@@ -2838,6 +2838,36 @@ if __name__ == "__main__":
     print("Count : ", shared_ct)
 \end{lstlisting}
 
+
+\section{Locks, Semaphores, and Monitors}
+
+Locks, semaphores, and monitors are key concepts in concurrent computing. They manage shared resources and prevent synchronization issues such as race conditions and deadlocks. Table \ref{tab:sync} shows the differences between locks, semaphores, and monitors.
+
+\begin{table}
+    \caption{Locks, Semaphores, and Monitors}\label{tab:sync}
+    \small
+    \centering
+\begin{tabular}{l|l|l|l}
+\toprule
+& \textbf{Locks} & \textbf{Semaphores} & \textbf{Monitors} \\
+\midrule
+\textbf{Purpose} & Protect critical sections & Control access to resources & Combine data and synchronization \\
+\textbf{Operations} & Acquire and release & Wait and signal & Encapsulate data and synchronization \\
+\textbf{Mutual Exclusion} & One thread at a time & multiple threads (using a counter) & One thread at a time \\
+(access critical sect.)&&\\
+\end{tabular}
+\end{table}
+
+\paragraph{Locks} This simple synchronization mechanism allows only \emph{one} thread or process to access a shared resource (\emph{critical section}) at a time. It works by allowing a thread to acquire the \emph{lock} and proceed if the lock is available; otherwise, the thread waits until the lock is released.  The example in \autoref{sec:threads} uses a lock to protect the shared variable \code{shared\_ct}. 
+
+Thus, locks are ideal \emph{when only one} thread should access a shared resource at a time. Because of this, locks are efficient and simple to use. However, they can lead to \emph{deadlocks} (e.g., two threads waiting for each other to release a lock).
+
+
+
+\section{Asynchronous Programming}\label{sec:async}
+Asynchronous programming is a way to run multiple tasks concurrently without blocking the main thread. It is useful for I/O-bound tasks (e.g., reading files, network requests) where the main thread can continue to do other work while waiting for the I/O tasks to complete. 
+
+In Python, we use the \code{asyncio} module to create and manage asynchronous tasks. The following demonstrates how to use \code{asyncio} to read multiple files concurrently.
 
 \section{Key Differences}
 
