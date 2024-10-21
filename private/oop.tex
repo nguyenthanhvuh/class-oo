@@ -2739,38 +2739,42 @@ We will use DD to remove unnecessary statements so that we have a minimal progra
 % \section{Error Handling}
 
 
-\chapter{Concurrency}
+\chapter{Concurrency}\label{chap:concurrency}
 
-\section{Threading}
+\section{Processes}\label{sec:processes}
+A process is an independent instance of a program running in its own memory space and do not share memory and data. This prevents synchronization issues such as race conditions and makes them safer. In a multicore system, process would achieve true parallelism as they can run on different cores. However, processes have higher overhead and are slower to create and manage (compare to threads discussed in \autoref{sec:threads})  
 
-\section{Processes}
-A process is an independent instance of a program running in its own memory space. Unlike threads, processes do not share memory, which makes them safer for parallel tasks. However, processes are more expensive to create and manage than threads.
-
-In Python we can use \code{multiprocessing}  to create and manage processes. The following demonstrate how to create and run two processes that calculate the square and cube of numbers in parallel.
+In Python we use \code{multiprocessing}  to create and manage processes. The following demonstrate how to create and run two processes that calculate the square and cube of numbers in parallel.
 
 \begin{lstlisting}[multicols=2]
-from multiprocessing import Process
+from multiprocessing import Process, Queue
 import time
 
 
-def square(numbers):
+def square(numbers, queue):
+    ct = 0
     for n in numbers:
         time.sleep(1)
-        print(f"Square: {n*n}")
+        print(f"Square of {n}: {n * n}")
+        ct += 1
+    queue.put(ct)
 
 def cube(numbers):
     for n in numbers:
         time.sleep(1)
-        print(f"Cube: {n*n*n}")
-
-
+        print(f"Cube of {n}: {n * n * n}")
+        ct += 1
+    queue.put(ct)
 
 if __name__ == "__main__":
     numbers = [2, 3, 4, 5]
 
+    queue = Queue()
     # Create processes
-    process1 = Process(target=square, args=(numbers,))
-    process2 = Process(target=cube, args=(numbers,))
+    process1 = Process(
+        target=square, args=(numbers, queue))
+    process2 = Process(
+        target=cube, args=(numbers, queue))
 
     # Run processes
     process1.start()
@@ -2780,22 +2784,75 @@ if __name__ == "__main__":
     process1.join()
     process2.join()
 
-    print("Processes completed.")
+    # Combine the counts from both processes
+    total_ct = 0
+    while not queue.empty():
+        total_ct += queue.get()
+
+    print("Count : ", total_ct)
 \end{lstlisting}
+
+\section{Threading}\label{sec:threads}
+A thread runs within a process and shares memory and data as other threads in the process. Thus threads are lightweight with low overhead, but  they face synchronization issues like race conditions when multiple threads access shared data.
+
+In Python, we use the \code{threading} module to create and manage threads. The following demonstrates how to use threads to calculate the square and cube of numbers in parallel. It also shows how to \emph{lock} and protect a shared data.
+
+\begin{lstlisting}[multicols=2]
+from threading import Thread, Lock
+import time
+
+shared_ct = 0
+lock = Lock()
+
+def square(numbers):
+    for n in numbers:
+        time.sleep(1)
+        print(f"Square of {n}: {n * n}")
+        with lock:  # protect shared ct
+            shared_ct += 1
+
+def cube(numbers):
+    for n in numbers:
+        time.sleep(1)
+        print(f"Cube of {n}: {n * n * n}")
+        with lock: # protect shared ct
+            shared_ct += 1
+
+if __name__ == "__main__":
+    numbers = [2, 3, 4, 5]
+
+    # Create threads
+    thread1 = Thread(
+        target=square, args=(numbers,))
+    thread2 = Thread(
+        target=cube, args=(numbers,))
+
+    # Start the threads
+    thread1.start()
+    thread2.start()
+
+    # Wait for both threads to complete
+    thread1.join()
+    thread2.join()
+
+    print("Count : ", shared_ct)
+\end{lstlisting}
+
 
 \section{Key Differences}
 
 \begin{table}
+    \caption{Threads vs. Processes}
+    \small
     \centering
     \begin{tabular}{l|l|l}
     \toprule
     &\textbf{Threads} & \textbf{Processes} \\
     \midrule
-    Memory & Share memory within a process & Do not share memory, run in \\
-    &&separate memory space \\
+    Memory & Share memory within a process & Do not share memor\\
     Communication & Easier, since sharing memory & Harder, because running in isolation \\
     Concurrency Type & Likely interleaved & Parallel, especially on multicore systems \\
-    Overhead & Less, since sharing resources & More, because memory isolation \\
+    Overhead & Lightweight, since sharing resources & Heavyweight, because memory isolation \\
     Use & For lightweight tasks & For heavy, isolated tasks \\
     \bottomrule
     \end{tabular}
