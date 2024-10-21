@@ -2161,7 +2161,6 @@ The \code{make\_multiplier} function in \autoref{fig:closure-example} is an exam
     \end{lstlisting}
 \end{enumerate}
 
-
 \chapter{Testing}
 
 %Liskov 10
@@ -2302,7 +2301,7 @@ This technique combines different inputs to generate tests.  The combination is 
 For the example above, the \code{test\_div} function is run with all combinations numbers in \code{xs} and \code{ys}. The \code{product} function generates all 25 combinations of the numbers in the lists \code{xs, ys} (Cartesian product). The \code{@parameterized.expand} runs the test with each input. Note that while this is illustrated using Python, the concept of combinatorial testing is used in other languages and testing frameworks.
 
 \subsection{Property-Based Testing}\label{sec:property-based-testing}
-This generates random inputs to check specific \emph{properties} of the program. For example, square of a negative number is positive and addition and multiplication being commutative (e.g., $x + y \equiv y + x$). Property-based testing is a convenient way to generate and test desirable behaviors with many inputs.
+Property-based testing generates random inputs to check specific \emph{properties} of the program. For example, square of a negative number is positive and addition and multiplication being commutative (e.g., $x + y \equiv y + x$). Property-based testing is a convenient way to generate and test desirable behaviors with many inputs.
 
 \paragraph{Assertions} Property-based tests often use \emph{assertions} to check the properties. Most languages have the function \code{assert(c)} or similar that raises an exception if the condition \code{c} is false.
 
@@ -2322,7 +2321,7 @@ This generates random inputs to check specific \emph{properties} of the program.
         assert add(x, y) == add(y, x) # commutative
 \end{lstlisting}
 
-This example tests various properties of \code{square} and \code{add} with randomly generated integers \code{x, y}. In Python, use the \code{hypothesis} library, which generates random inputs and runs the tests with them. In Java, we can use the \code{jqwik} library for property-based testing.
+This example tests various properties of \code{square} and \code{add} with randomly generated integers \code{x, y}. In Python, you can use the \code{hypothesis} library, which generates random inputs and runs the tests with them. In Java, you can use the \code{jqwik} library for property-based testing.
 
 
 \section{In-class Exercise: GCD}
@@ -2521,7 +2520,7 @@ Note that scores for lines 1 and line 13, which are always executed, are $4/4 / 
 
 \section{In-class Exercise: Tarantula vs. Ochiai}
 
-Consider another suspicious score metrics called \emph{Ochiai}. The formula is: 
+\emph{Ochiai} is another popular metrics for statistical debugging. Its formula is
 \[
 \text{Suspiciousness}(l) = \frac{\text{Failed}(l) / \text{TotalFailed}}{\sqrt{\text{Failed}(l) / \text{TotalFailed} + \text{Passed}(l) / \text{TotalPassed}}}
 \]
@@ -2532,15 +2531,275 @@ Consider another suspicious score metrics called \emph{Ochiai}. The formula is:
 \end{enumerate}
 
 
+\section{Delta Debugging (DD)}
+DD aimes to \emph{minimize} a \emph{failing} input  (e.g., causing the program to crash or producing some interesting behavior). It is useful for debugging and finding the smallest input that triggers the issue. DD works by repeatedly splitting the input into smaller parts and checking if the smaller parts still trigger the issue. If they do, then the smaller part is further split. If they do not, then the smaller part is not needed and discarded. 
 
+When using DD, you will need to provide an \emph{oracle} that checks if the input is interesting (e.g., causes a crash). The DD algorithm is as follows:
+\begin{enumerate}
+\item Set the original input program as the current input
+\item check that the current input is interesting (using the oracle)
+\item set $n = 2$
+\item split the current input into $n$ parts
+\item check each part $p_i$
+\item if any $p_i$ is interesting (i.e., it is a reduced input and is still interesting)
+\item Set $p_i$ as the current input and repeat
+\item If none of these parts are interesting
+\begin{enumerate}
+    \item set $n = n*2$
+    \item repeat
+\end{enumerate}
+\item If the current input is not interesting, then the last interesting input is the smallest input that still triggers the issue.
+\end{enumerate}
+
+
+% DD reduces an input but still preserves its /interestingness/ as specified by an
+% /oracle/ (e.g., it crashes, or does something interesting). For example,
+% your DD program can take as input a C program (e.g., \code{myfile.c}) and an
+% oracle in a form of a test script that defines interestingness (e.g., a
+% \code{test.sh} that takes as input a C file, compiles and runs it, and
+% returns =0= if it is interesting and =1= if it is not). Your program
+% will apply DD to obtain a minimal version of =myfile.c= that is still
+% interesting.
+
+% As with the previous assignment, you can use any language for this
+% assignment, but your program must run on the CSE machine (where I will
+% evaluate your submission). So do not use external libraries or any extra
+% tools etc. You are also strongly encouraged to use Python as it makes
+% various string manipulation tasks easy.
+
+% For this assignment, you must /work alone/. However, you are allowed to
+% talk to others (e.g., discussing problems, work on the ideas together),
+% but the implementation and submission must be done individually. If you
+% are stuck, you can post your question as a discussion on Canvas or
+% approach me.
+
+% ** Specification
+%    :PROPERTIES:
+%    :CUSTOM_ID: specification
+%    :END:
+% *High level algorithm:* You will implement a DD algorithm that we
+% discussed in class. Recall that a DD works something like below
+
+
+
+% You can be as creative as you want, but your DD must not run for too
+% long and, most importantly, must show progress (e.g., after each
+% splitting, either you decide that an individual part does help (and
+% further split that part) or no part helps and further split) and must
+% not take up too much space (e.g., do not generate over 50MB of files).
+
+% ** Example 1
+%    :PROPERTIES:
+%    :CUSTOM_ID: example-1
+%    :END:
+\paragraph{Example}
+We consider the following C program, which modifies the integer $a$, \emph{interesting} as long as the value of $a$ is $\ge 3$ at the end (outputs ``correct''). The below \code{testscript.sh} oracle checks if the output contains the word \code{correct} and returns 0 if it does and 1 otherwise.
+We will use DD to remove unnecessary statements so that we have a minimal program that is smaller and easier to understand but still preserves the condition $a \ge 3$.
+
+\begin{lstlisting}[language=C]
+  // a simple program to be reduced
+  #include <stdio.h>
+  int main(int argc, char **argv) {
+      int a = 0;
+      printf("Hello, World!\n");
+      a++;
+      a--;
+      a+=2;
+      a++;
+      a--;
+      a++;
+      if (a >= 3){
+        printf("correct\n");
+      }
+      return 0;
+\end{lstlisting}
+% \begin{lstlisting}[language=script]
+%   # hello1.test
+%   oracle/testscript defining interestingness
+
+%   #!/bin/bash
+%   # -*-sh-*-
+%   if gcc -o a.out $1 \&> cmp_out; then
+%       if ./a.out \&> run_out; then
+%           if grep "correct" run_out; then
+%               echo "0"              \# interesting
+%               exit 0;
+%           fi
+%       fi
+%   fi
+%   echo "1"                         \# not interesting
+%   exit 1;
+% \end{lstlisting}
+% - This is a simple oracle or test scripts =hello1.sh= that takes as
+%   input a C program, compiles, and runs it. Then the test script checks
+%   if the result contains the word ="correct"= and if so returns =0= to
+%   indicate interesting (and returns =1= otherwise).
+
+% #+begin_example
+
+% #+end_example
+
+% #+begin_src shell
+%   # running DD
+%   $ > python vdd.py  hello1.c -test hello1.test
+%   preprocessing .. rm 1 idxs: [16]
+%   can delete 2 chunks containing 2 idxs: [0, 1]
+%   can delete 1 chunks containing 1 idxs: [2]
+%   can delete 1 chunks containing 1 idxs: [5]
+%   can delete 2 chunks containing 2 idxs: [6, 7]
+%   can delete 2 chunks containing 2 idxs: [10, 11]
+%   can delete 1 chunks containing 1 idxs: [15]
+%   can delete 6 chunks containing 9 idxs: [0, 1, 2, 5, 6, 7, 10, 11, 15]
+%   can delete 1 chunks containing 9 idxs: [0, 1, 2, 5, 6, 7, 10, 11, 15]
+%   done: '/Users/tnguyen/git/projects/vdd/src/min.c' (lines: total 8 rem 9, 29 created variants)
+% #+end_src
+
+% #+begin_src C
+%   // min.c: reduced program
+%   int main(int argc, char **argv) {
+%       int a = 0;
+%       a+=2;
+%       a++;
+%       if (a >= 3){
+%         printf("correct\n");
+%       }
+%   }
+% #+end_src
+
+% ** Example 2
+%    :PROPERTIES:
+%    :CUSTOM_ID: example-2
+%    :END:
+
+% - DD is useful for various tasks. We just need to provide an oracle to
+%   decide if the input is interesting or not. Below is another example
+%   where interestingness is defined if the input text file contains a
+%   line that has the word =redo=
+
+% - Input: [[file:file.txt]]
+
+% - Oracle:
+
+% #+begin_example
+%   #!/bin/bash
+%   # -*-sh-*-
+%   if grep "redo" $1; then
+%       echo "0"                 # Success.
+%       exit 0;
+%   fi
+%   echo "1"                      # Failure.
+%   exit 1;
+% #+end_example
+
+% #+begin_example
+%   > python vdd.py  file.txt -test test.sh
+%   preprocessing .. rm 21 idxs: [6 18 23 25 26 28 59 61 65 67 71 73 88 90 104 106 108 112 113 114 118]
+%   can delete 25 chunks containing 25 idxs: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 24, 27, 29, 30]
+%   can delete 12 chunks containing 12 idxs: [31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42]
+%   can delete 6 chunks containing 6 idxs: [43, 44, 45, 46, 47, 48]
+%   can delete 3 chunks containing 3 idxs: [49, 50, 51]
+%   can delete 2 chunks containing 2 idxs: [52, 53]
+%   can delete 1 chunks containing 1 idxs: [54]
+%   can delete 50 chunks containing 50 idxs: [56, 57, 58, 60, 62, 63, 64, 66, 68, 69, 70, 72, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 89, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 105, 107, 109, 110, 111, 115, 116, 117, 119, 120]
+%   can delete 7 chunks containing 99 idxs: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 24, 27, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 56, 57, 58, 60, 62, 63, 64, 66, 68, 69, 70, 72, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 89, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 105, 107, 109, 110, 111, 115, 116, 117, 119, 120]
+%   can delete 1 chunks containing 99 idxs: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 24, 27, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 56, 57, 58, 60, 62, 63, 64, 66, 68, 69, 70, 72, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 89, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 105, 107, 109, 110, 111, 115, 116, 117, 119, 120]
+%   done: '/Users/tnguyen/git/projects/vdd/src/min.txt' (lines: total 1 rem 99, 17 created variants)
+% #+end_example
+
+% ** Output
+%    :PROPERTIES:
+%    :CUSTOM_ID: output
+%    :END:
+% As shown in the examples, at the end, the program will output
+
+% 1. =done:=, follows by
+% 2. the location of the resulting file =rfile=
+% 3. total number of lines of =rfile= (note, it doesn't have to be exact)
+% 4. the lines removed (i.e., how many lines were you able to remove from
+%    the original file)
+% 5. any additional information you find interesting (but don't output too
+%    much)
+% 6. the total runtime in seconds
+
+% Also, the program will output some information whenever it makes
+% progress (i.e., able to reduce/delete parts of code, how much was
+% deleted, etc). Examples are given above, but you do not need to print
+% the exact information shown in the examples (e.g., =chunks=, =idxs= etc)
+
+% As usual, use the =README= to tell me exactly how to compile/run your
+% program, e.g., =python3 dd.exe file.C test.sh= or =gcc dd.c -o dd.exe=
+% and =./dd.exe file.c test.sh=. Again, make sure that your code works on
+% the CSE machine and do not hard code anything specific to your account.
 
 \begin{lstlisting}
 
 \end{lstlisting}
 
-\section{Defensive Programming}
-\section{Error Handling}
+% \section{Defensive Programming}
+% \section{Error Handling}
 
+
+\chapter{Concurrency}
+
+\section{Threading}
+
+\section{Processes}
+A process is an independent instance of a program running in its own memory space. Unlike threads, processes do not share memory, which makes them safer for parallel tasks. However, processes are more expensive to create and manage than threads.
+
+In Python we can use \code{multiprocessing}  to create and manage processes. The following demonstrate how to create and run two processes that calculate the square and cube of numbers in parallel.
+
+\begin{lstlisting}[multicols=2]
+from multiprocessing import Process
+import time
+
+
+def square(numbers):
+    for n in numbers:
+        time.sleep(1)
+        print(f"Square: {n*n}")
+
+def cube(numbers):
+    for n in numbers:
+        time.sleep(1)
+        print(f"Cube: {n*n*n}")
+
+
+
+if __name__ == "__main__":
+    numbers = [2, 3, 4, 5]
+
+    # Create processes
+    process1 = Process(target=square, args=(numbers,))
+    process2 = Process(target=cube, args=(numbers,))
+
+    # Run processes
+    process1.start()
+    process2.start()
+
+    # Wait for both processes to finish
+    process1.join()
+    process2.join()
+
+    print("Processes completed.")
+\end{lstlisting}
+
+\section{Key Differences}
+
+\begin{table}
+    \centering
+    \begin{tabular}{l|l|l}
+    \toprule
+    &\textbf{Threads} & \textbf{Processes} \\
+    \midrule
+    Memory & Share memory within a process & Do not share memory, run in \\
+    &&separate memory space \\
+    Communication & Easier, since sharing memory & Harder, because running in isolation \\
+    Concurrency Type & Likely interleaved & Parallel, especially on multicore systems \\
+    Overhead & Less, since sharing resources & More, because memory isolation \\
+    Use & For lightweight tasks & For heavy, isolated tasks \\
+    \bottomrule
+    \end{tabular}
+\end{table}
 
 \chapter{Design Patterns}
 
