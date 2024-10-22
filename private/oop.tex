@@ -2862,7 +2862,7 @@ Locks, semaphores, and monitors are key concepts in concurrent computing. They m
 
 Thus, locks are ideal \emph{when only one} thread should access a shared resource at a time. Because of this (limitation), locks are efficient and simple to use. However, they can lead to \emph{deadlocks} (e.g., two threads waiting for each other to release a lock).
 
-\paragraph{Semaphores} Semaphores are more flexible and complex than locks as they allow \emph{multiple} threads to access a shared resource at the same time.  Semaphores maintain a \emph{counter} to track the number of threads that can access the resource.  When a thread $t$ wants to access a resource $r$, it checks the counter $n$. If $n > 0$, $t$ decrements $n$ and proceeds to \emph{acquire} $r$. If $n=0$, $t$ waits until $n$ is incremented. When $t$ is done, it increments $n$ to indicate that it \emph{releases} $r$. Note that when $n>1$, we have a counting semaphore, and when $n=1$, we have a binary semaphore, which behaves like a lock.
+\paragraph{Semaphores} Semaphores are more flexible and complex than locks as they allow \emph{multiple} threads to access a shared resource at the same time.  Semaphores maintain a \emph{counter} to track the number of threads that can access the resource.  When a thread $t$ wants to access a resource $r$, it checks the counter $n$. If $n > 0$, $t$ decrements $n$ and proceeds to \emph{acquire} $r$. If $n=0$, $t$ waits until $n$ is incremented. When $t$ is done, it increments $n$ to indicate that it \emph{releases} $r$. Note that when $n>1$, we have a \emph{counting semaphore}, and when $n=1$, we have a \emph{binary semaphore}, which behaves like a lock.
 
 Semaphores are thus useful when multiple threads need to  access a shared resource. However, they too can lead to deadlocks when threads are waiting for each other to release a semaphore.
 
@@ -2870,11 +2870,20 @@ Semaphores are thus useful when multiple threads need to  access a shared resour
 \end{lstlisting}
 
 
-
-
-
-
 \textbf{History} The concept of semaphore was due to \emph{Edsger Dijkstra} in the early 60s when he was working on the THE multiprogramming system. The name \emph{``semaphore''} might have been inspired by the railway signals that control the traffic of trains.
+
+
+\paragraph{Monitors}  This synchronization mechanism combines mutual exclusion (like a lock) with the ability to wait for a condition to be true. A monitor ensures that only one thread can execute a method at a time, and it can also provide a mechanism for threads to signal one another (i.e., wait and notify).
+Key Features:
+
+    Mutual Exclusion: Ensures that only one thread can execute within the monitor’s critical section at a time (similar to a lock).
+    Condition Variables: Monitors allow threads to wait for a certain condition to be true and notify other threads when a condition changes, enabling thread communication.
+    Built-in in OOP: In many object-oriented languages like Java, monitors are built into every object, meaning each object can be synchronized.
+
+Use Case:
+
+    Monitors are useful when threads need to communicate and coordinate their activities based on certain conditions, not just mutual exclusion. For example, a producer-consumer problem where threads need to wait for resources to become available.
+
 
 \section{Asynchronous Programming}\label{sec:async}
 Asynchronous programming is a way to run multiple tasks concurrently without blocking the main thread. It is useful for I/O-bound tasks (e.g., reading files, network requests) where the main thread can continue to do other work while waiting for the I/O tasks to complete. 
