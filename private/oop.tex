@@ -1152,10 +1152,10 @@ This chapter covers key concepts in the type system of OOP languages, particular
 
 
 
-% We can enhance ADT (\autoref{chap:adt}) by defining families of related ADTs, where all members share similar behavior through common methods. These type families are structured in a hierarchy, with a base class (\emph{supertype}) defining the core behavior, and subclasses (\emph{subtypes}) extending or adding to this behavior. For example, Cars and Buses as subtypes of Vehicle, or program-specific hierarchies like a BufferedReader as a subtype of Reader. 
+% We can enhance ADT (\autoref{chap:adt}) by defining families of related ADTs, where all members share similar behavior through common methods. These type families are structured in a hierarchy, with a base class (\emph{supertype}) defining the core behavior, and subclasses (\emph{subtypes}) extending or adding to this behavior. For example, Cars and Buses as subtypes of Vehicle, or program-specific hierarchies like a bufedReader as a subtype of Reader. 
 
 
-% A key concept in typing is that the \emph{Liskov's principle of substitution}, which ensures that any subtype object can be substituted for a supertype object without breaking the program. This principle allows code written for the supertype (e.g., Reader) to work seamlessly with any subtype (e.g., BufferedReader), enabling abstraction by focusing on commonalities while still supporting specific behaviors at different levels of the hierarchy.
+% A key concept in typing is that the \emph{Liskov's principle of substitution}, which ensures that any subtype object can be substituted for a supertype object without breaking the program. This principle allows code written for the supertype (e.g., Reader) to work seamlessly with any subtype (e.g., bufedReader), enabling abstraction by focusing on commonalities while still supporting specific behaviors at different levels of the hierarchy.
 
 \section{Polymorphism}
 
@@ -2742,9 +2742,9 @@ We will use DD to remove unnecessary statements so that we have a minimal progra
 \chapter{Concurrency}\label{chap:concurrency}
 
 \section{Processes}\label{sec:processes}
-A process is an independent instance of a program running in its own memory space and do not share memory and data. This prevents synchronization issues such as race conditions and makes parallelism safer. In a multicore system, processes would achieve true parallelism as they can run on different cores. However, processes have higher overhead compare to threads (\autoref{sec:threads}).
+A process is an independent instance of a program and does not share memory and data with other processes. While incurring higher overhead, processes do not have synchronization issues such as race conditions and makes parallelism safer. In a multicore system, processes would achieve true parallelism as they can run on different cores. 
 
-In Python we use \code{multiprocessing}  to create and manage processes. The following demonstrate how to create and run two processes that calculate the square and cube of numbers in parallel.
+In Python we use \code{multiprocessing} to create and manage processes. The following demonstrates using \code{multiprocessing.Processes} to run two functions in parallel. It also uses \code{multiprocessing.Queue} to simulate a shared variable.
 
 \begin{lstlisting}[multicols=2]
 from multiprocessing import Process, Queue
@@ -2776,7 +2776,7 @@ if __name__ == "__main__":
     process2 = Process(
         target=cube, args=(numbers, queue))
 
-    # Run processes
+    # Run processes (in parallel)
     process1.start()
     process2.start()
 
@@ -2793,9 +2793,9 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \section{Threading}\label{sec:threads}
-A thread runs within a process and shares memory and data as other threads in the process. Thus threads are lightweight with low overhead, but  they face synchronization issues like race conditions when multiple threads access shared data.
+A thread runs within a process and shares memory and data as other threads in the process. Thus threads are lightweight with low overhead, but can face synchronization issues like race conditions when multiple threads access shared data.
 
-In Python, we use the \code{threading} module to create and manage threads. The following demonstrates how to use threads to calculate the square and cube of numbers in parallel. It also shows how to use \emph{lock} to ensure that only one thread can access a critical section of code at a time (updating \code{shared\_ct}).
+In Python we use the \code{threading} module to create and manage threads. The following demonstrates the use of \code{threading.Thread} to run tasks in parallel. It also uses \emph{threading.lock} for mutual exclusion to ensure only one thread accesses and modifies the shared variable at a time.
 
 \begin{lstlisting}[multicols=2]
 from threading import Thread, Lock
@@ -2845,7 +2845,7 @@ Locks, semaphores, and monitors are key concepts in concurrent computing. They m
 
 \begin{table}
     \caption{Locks, Semaphores, and Monitors}\label{tab:sync}
-    \small
+    \footnotesize
     \centering
 \begin{tabular}{l|l|l|l}
 \toprule
@@ -2853,8 +2853,7 @@ Locks, semaphores, and monitors are key concepts in concurrent computing. They m
 \midrule
 \textbf{Purpose} & Protect critical sections & Control access to resources & Combine data and synchronization \\
 \textbf{Operations} & Acquire and release & Wait and signal & Encapsulate data and synchronization \\
-\textbf{Mutual Exclusion} & One thread at a time & multiple threads (using a counter) & One thread at a time \\
-(access critical sect.)&&\\
+\textbf{Mutual Exclusion} & One thread & Multiple threads (using a counter) & One thread \\
 \end{tabular}
 \end{table}
 
@@ -2862,7 +2861,7 @@ Locks, semaphores, and monitors are key concepts in concurrent computing. They m
 
 Thus, locks are ideal \emph{when only one} thread should access a shared resource at a time. Because of this limitation, locks are efficient and simple to use. However, they can lead to \emph{deadlocks} (e.g., two threads waiting for each other to release a lock).
 
-\paragraph{Semaphores} Semaphores are more flexible and complex than locks as they allow \emph{multiple} threads to access a shared resource at the same time.  Semaphores maintain a \emph{counter} to track the number of threads that can access the resource.  When a thread $t$ wants to access a resource $r$, it checks the counter $n$. If $n > 0$, $t$ decrements $n$ and proceeds to \emph{acquire} $r$. If $n=0$, $t$ waits until $n$ is incremented. When $t$ is done, it increments $n$ to indicate that it \emph{releases} $r$. Note that when $n>1$, we have a counting semaphore, and when $n=1$, we have a binary semaphore, which behaves like a lock.
+\paragraph{Semaphores} Semaphores are more flexible and complex than locks as they allow \emph{multiple} threads to access a shared resource at the same time.  Semaphores maintain a \emph{counter} to track the number of threads that can access the resource.  When a thread $t$ wants to access a resource $r$, it checks the counter $n$. If $n > 0$, $t$ decrements $n$ and proceeds to \emph{acquire} $r$. If $n=0$, $t$ waits until $n$ is incremented. When $t$ is done, it increments $n$ to indicate that it \emph{releases} $r$. Note that when $n>1$, we have a \emph{counting semaphore}, and when $n=1$, we have a \emph{binary semaphore}, which behaves like a lock.
 
 Semaphores are thus useful when multiple threads need to  access a shared resource. However, they too can lead to deadlocks when threads are waiting for each other to release a semaphore.
 
@@ -2872,9 +2871,17 @@ In Python, we use \code{Semaphore} in \code{threading} for semaphores. For the e
 \textbf{History} The concept of semaphore was due to \emph{Edsger Dijkstra} in the early 60s when he was working on the THE multiprogramming system. The name \emph{``semaphore''} might have been inspired by the railway signals that control the traffic of trains.
 
 
-%\paragraph{Monitors} Monitors are high-level synchronization constructs that combine data and synchronization in a single unit. They encapsulate shared data and the operations that can be performed on the data. Monitors ensure that only one thread can access the data at a time, thus preventing
+\paragraph{Monitors}  This synchronization mechanism combines mutual exclusion (like a lock) with the ability to wait for a condition to be true. A monitor ensures that only one thread can execute a method at a time, and it can also provide a mechanism for threads to signal one another (i.e., wait and notify).
 
+Key Features:
 
+    Mutual Exclusion: Ensures that only one thread can execute within the monitor’s critical section at a time (similar to a lock).
+    Condition Variables: Monitors allow threads to wait for a certain condition to be true and notify other threads when a condition changes, enabling thread communication.
+    Built-in in OOP: In many object-oriented languages like Java, monitors are built into every object, meaning each object can be synchronized.
+
+Use Case:
+
+    Monitors are useful when threads need to communicate and coordinate their activities based on certain conditions, not just mutual exclusion. For example, a producer-consumer problem where threads need to wait for resources to become available.
 
 
 \section{Asynchronous Programming}\label{sec:async}
