@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[margin=1.5in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
 \usepackage{soul}
 % \usepackage[small,compact]{titlesec} %very powerful
 \usepackage[most]{tcolorbox}
@@ -28,6 +29,7 @@
   urlcolor=blue,
 }
 \usepackage{booktabs}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily\scriptsize,
   language=python,
@@ -2518,7 +2520,7 @@ For example, the suspiciousness score for line 4 is: $2/4 / (2/4 + 4/6) = 0.42$.
 Note that scores for lines 1 and line 13, which are always executed, are $4/4 / (4/4 + 6/6) = 0.5$. The score for line 12, which was not executed in any test runs, is 0. (if it never runs, it should not be responsible for any issue).
 
 
-\section{In-class Exercise: Tarantula vs. Ochiai}
+\subsection{In-class Exercise: Tarantula vs. Ochiai}
 
 \emph{Ochiai} is another popular metrics for statistical debugging. Its formula is
 \[
@@ -2531,26 +2533,55 @@ Note that scores for lines 1 and line 13, which are always executed, are $4/4 / 
 \end{enumerate}
 
 
-\section{Delta Debugging (DD)}
-DD aimes to \emph{minimize} a \emph{failing} input  (e.g., causing the program to crash or producing some interesting behavior). It is useful for debugging and finding the smallest input that triggers the issue. DD works by repeatedly splitting the input into smaller parts and checking if the smaller parts still trigger the issue. If they do, then the smaller part is further split. If they do not, then the smaller part is not needed and discarded. 
+\subsection{Delta Debugging (DD)}
+DD aims to \emph{minimize} a \emph{failing} input  (e.g., causing the program to crash or producing some interesting behavior). It is useful for debugging and finding the smallest input that triggers the issue. DD works by repeatedly splitting the input into smaller parts and checking if the smaller parts still trigger the issue.
 
-When using DD, you will need to provide an \emph{oracle} that checks if the input is interesting (e.g., causes a crash). The DD algorithm is as follows:
-\begin{enumerate}
-\item Set the original input program as the current input
-\item check that the current input is interesting (using the oracle)
-\item set $n = 2$
-\item split the current input into $n$ parts
-\item check each part $p_i$
-\item if any $p_i$ is interesting (i.e., it is a reduced input and is still interesting)
-\item Set $p_i$ as the current input and repeat
-\item If none of these parts are interesting
-\begin{enumerate}
-    \item set $n = n*2$
-    \item repeat
-\end{enumerate}
-\item If the current input is not interesting, then the last interesting input is the smallest input that still triggers the issue.
-\end{enumerate}
+When using DD, you will need to provide an \emph{oracle} that checks if the input $P$ is interesting (e.g., causes a crash). The DD algorithm is as follows:
 
+\begin{algorithm}[H]
+    \SetAlgoNlRelativeSize{-1}
+    \KwData{Input str $inp$}
+    \KwResult{Reduced input}
+    
+    \SetKwFunction{Test}{oracle}
+    \SetKwFunction{Reset}{reset}
+    \SetKwFunction{Break}{break}
+    
+    \Begin{
+        \If{\Test(inp)}{
+            \Return{inp} \;
+        }
+
+        $n \gets 2$ \;  % Initial granularity
+        \While{length(inp) $\geq 2$}{
+            $start \gets 0.0$ \;
+            $subset\_length \gets \frac{\text{length(inp)}}{n}$ \;
+            $some\_complement\_is\_failing \gets \text{False}$ \;
+            
+            \While{start $<$ \text{length(inp)}}{
+                $complement \gets inp[0:int(start)] + inp[int(start + subset\_length):]$ \;
+    
+                \If{! \Test(complement)}{
+                    $inp \gets complement$ \;
+                    $n \gets \max(n - 1, 2)$ \;
+                    $some\_complement\_is\_failing \gets \text{True}$ \;
+                    \Break \;
+                }
+    
+                $start \gets start + subset\_length$ \;
+            }
+    
+            \If{not $some\_complement\_is\_failing$}{
+                \If{$n == \text{length(inp)}$}{
+                    \Break \;  % Stop if no reduction can be made
+                }
+                $n \gets \min(n \times 2, \text{length(inp)})$ \;
+            }
+        }
+        \Return{inp} \;
+    }
+    \caption{Delta Debugging Algorithm}
+    \end{algorithm}
 
 % DD reduces an input but still preserves its /interestingness/ as specified by an
 % /oracle/ (e.g., it crashes, or does something interesting). For example,
@@ -2755,14 +2786,14 @@ def square(numbers, queue):
     ct = 0
     for n in numbers:
         time.sleep(1)
-        print(f"Square of {n}: {n * n}")
+        print(f"Square of {n}: {n*n}")
         ct += 1
     queue.put(ct)
 
 def cube(numbers):
     for n in numbers:
         time.sleep(1)
-        print(f"Cube of {n}: {n * n * n}")
+        print(f"Cube of {n}: {n*n*n}")
         ct += 1
     queue.put(ct)
 
@@ -2807,14 +2838,14 @@ lock = Lock()
 def square(numbers):
     for n in numbers:
         time.sleep(1)
-        print(f"Square of {n}: {n * n}")
+        print(f"Square of {n}: {n*n}")
         with lock:  # protect shared ct
             shared_ct += 1
 
 def cube(numbers):
     for n in numbers:
         time.sleep(1)
-        print(f"Cube of {n}: {n * n * n}")
+        print(f"Cube of {n}: {n*n*n}")
         with lock: # protect shared ct
             shared_ct += 1
 
@@ -2841,7 +2872,7 @@ if __name__ == "__main__":
 
 \section{Locks, Semaphores, and Monitors}
 
-Locks, semaphores, and monitors are key concepts in concurrent computing. They manage shared resources and prevent synchronization issues such as race conditions and deadlocks. Table \ref{tab:sync} shows their differences.
+Locks, semaphores, and monitors are key concepts in concurrent computing. These synchronization mechanisms help manage shared resources and prevent synchronization issues such as race conditions and deadlocks. Table \ref{tab:sync} shows their differences.
 
 \begin{table}
     \caption{Locks, Semaphores, and Monitors}\label{tab:sync}
@@ -2857,7 +2888,7 @@ Locks, semaphores, and monitors are key concepts in concurrent computing. They m
 \end{tabular}
 \end{table}
 
-\paragraph{Locks} This simple synchronization mechanism allows only \emph{one} thread or process to access a shared resource (\emph{critical section}) at a time. It works by allowing a thread $t$ to acquire the \emph{lock} and proceed if the lock is available; otherwise, $t$ waits until the lock is released.  After $t$ is done, it releases the lock. The example in \autoref{sec:threads} uses a lock to protect the shared variable \code{shared\_ct}. Note acquiring and releasing locks are done automatically (using the \code{with} statement).
+\paragraph{Locks} This simple mechanism allows only \emph{one} thread or process to access a shared resource (\emph{critical section}) at a time. It works by allowing a thread $t$ to acquire the \emph{lock} and proceed if the lock is available; otherwise, $t$ waits until the lock is released.  After $t$ is done, it releases the lock. The example in \autoref{sec:threads} uses a lock to protect the shared variable \code{shared\_ct}. Note acquiring and releasing locks are done automatically (using the \code{with} statement).
 
 Thus, locks are ideal \emph{when only one} thread should access a shared resource at a time. Because of this limitation, locks are efficient and simple to use. However, they can lead to \emph{deadlocks} (e.g., two threads waiting for each other to release a lock).
 
@@ -2865,24 +2896,13 @@ Thus, locks are ideal \emph{when only one} thread should access a shared resourc
 
 Semaphores are thus useful when multiple threads need to  access a shared resource. However, they too can lead to deadlocks when threads are waiting for each other to release a semaphore.
 
-In Python, we use \code{Semaphore} in \code{threading} for semaphores. For the example in \autoref{sec:threads}, we can replace the lock with a semaphore: \code{sem = Semaphore(1)} (instead of lock = Lock()) and \code{with sem:} (instead of \code{with lock:}). Observe that the semaphore is initialized with 1 to behave like a lock and ensure proper mutual exclusion. If we initialized with 2 then it allows both threads to access and modifies \code{shared\_ct} concurrently, which can lead to race conditions.
+In Python, we use \code{Semaphore} in \code{threading} for semaphores. For the example in \autoref{sec:threads}, we can replace \code{lock = Lock()} with a binary semaphore: \code{sem = Semaphore(1)}. Observe that the semaphore is initialized with 1 to behave like a lock and ensure proper mutual exclusion. If we initialized with 2 then race condition can occur as both threads can access and modify \code{shared\_ct} simulateously.
 
 
 \textbf{History} The concept of semaphore was due to \emph{Edsger Dijkstra} in the early 60s when he was working on the THE multiprogramming system. The name \emph{``semaphore''} might have been inspired by the railway signals that control the traffic of trains.
 
 
-\paragraph{Monitors}  This synchronization mechanism combines mutual exclusion (like a lock) with the ability to wait for a condition to be true. A monitor ensures that only one thread can execute a method at a time, and it can also provide a mechanism for threads to signal one another (i.e., wait and notify).
-
-Key Features:
-
-    Mutual Exclusion: Ensures that only one thread can execute within the monitor’s critical section at a time (similar to a lock).
-    Condition Variables: Monitors allow threads to wait for a certain condition to be true and notify other threads when a condition changes, enabling thread communication.
-    Built-in in OOP: In many object-oriented languages like Java, monitors are built into every object, meaning each object can be synchronized.
-
-Use Case:
-
-    Monitors are useful when threads need to communicate and coordinate their activities based on certain conditions, not just mutual exclusion. For example, a producer-consumer problem where threads need to wait for resources to become available.
-
+\paragraph{Monitors}  This combines mutual exclusion (like a lock) with thread communication capability.  It allows threads to wait for a condition to be true and notify other threads when the condition changes. For example, the classicial producer-consumer problem can be solved by using a monitor to ensure that the producer does not produce when the buffer is full and the consumer does not consume when the buffer is empty, and that they can signal each other about the condition of the buffer.
 
 \section{Asynchronous Programming}\label{sec:async}
 Asynchronous programming is a way to run multiple tasks concurrently without blocking the main thread. It is useful for I/O-bound tasks (e.g., reading files, network requests) where the main thread can continue to do other work while waiting for the I/O tasks to complete. 
