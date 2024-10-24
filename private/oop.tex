@@ -2772,6 +2772,25 @@ We will use DD to remove unnecessary statements so that we have a minimal progra
 
 \chapter{Concurrency}\label{chap:concurrency}
 
+
+\begin{table}
+    \caption{Threads vs. Processes}
+    \small
+    \centering
+    \begin{tabular}{l|l|l}
+    \toprule
+    &\textbf{Threads} & \textbf{Processes} \\
+    \midrule
+    Memory & Share memory within a process & Do not share memor\\
+    Communication & Easier, since sharing memory & Harder, because running in isolation \\
+    Concurrency Type & Likely interleaved & Parallel, especially on multicore systems \\
+    Overhead & Lightweight, since sharing resources & Heavyweight, because memory isolation \\
+    Use & For lightweight tasks & For heavy, isolated tasks \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+
 \section{Processes}\label{sec:processes}
 A process is an independent instance of a program and does not share memory and data with other processes. While incurring higher overhead, processes do not have synchronization issues such as race conditions and makes parallelism safer. In a multicore system, processes would achieve true parallelism as they can run on different cores. 
 
@@ -2899,34 +2918,56 @@ Semaphores are thus useful when multiple threads need to  access a shared resour
 In Python, we use \code{Semaphore} in \code{threading} for semaphores. For the example in \autoref{sec:threads}, we can replace \code{lock = Lock()} with a binary semaphore: \code{sem = Semaphore(1)}. Observe that the semaphore is initialized with 1 to behave like a lock and ensure proper mutual exclusion. If we initialized with 2 then race condition can occur as both threads can access and modify \code{shared\_ct} simulateously.
 
 
-\textbf{History} The concept of semaphore was due to \emph{Edsger Dijkstra} in the early 60s when he was working on the THE multiprogramming system. The name \emph{``semaphore''} might have been inspired by the railway signals that control the traffic of trains.
+\paragraph{Monitors}  This combines mutual exclusion (like a lock) with thread communication capability.  It allows threads to wait for a condition to be true and notify other threads when the condition changes. For example, the classical ``producer-consumer'' problem is solved using a monitor to ensure that the producer pauses producing when the buffer is full and the consumer stops consuming when the buffer is empty, and they signal each other to resume when the buffer is not full or empty.
 
 
-\paragraph{Monitors}  This combines mutual exclusion (like a lock) with thread communication capability.  It allows threads to wait for a condition to be true and notify other threads when the condition changes. For example, the classicial producer-consumer problem can be solved by using a monitor to ensure that the producer does not produce when the buffer is full and the consumer does not consume when the buffer is empty, and that they can signal each other about the condition of the buffer.
+\paragraph{History} The concept of semaphore was due to \emph{Edsger Dijkstra} in the early 60s when he was working on the THE multiprogramming system. The name \emph{``semaphore''} might have been inspired by the railway signals that control the traffic of trains.
 
-\section{Asynchronous Programming}\label{sec:async}
-Asynchronous programming is a way to run multiple tasks concurrently without blocking the main thread. It is useful for I/O-bound tasks (e.g., reading files, network requests) where the main thread can continue to do other work while waiting for the I/O tasks to complete. 
 
-In Python, we use the \code{asyncio} module to create and manage asynchronous tasks. The following demonstrates how to use \code{asyncio} to read multiple files concurrently.
 
-\section{Key Differences}
+%\section{Asynchronous Programming}\label{sec:async}
+%Asynchronous programming is a way to run multiple tasks concurrently without blocking the main thread. It is useful for I/O-bound tasks (e.g., reading files, network requests) where the main thread can continue to do other work while waiting for the I/O tasks to complete. 
 
-\begin{table}
-    \caption{Threads vs. Processes}
-    \small
-    \centering
-    \begin{tabular}{l|l|l}
-    \toprule
-    &\textbf{Threads} & \textbf{Processes} \\
-    \midrule
-    Memory & Share memory within a process & Do not share memor\\
-    Communication & Easier, since sharing memory & Harder, because running in isolation \\
-    Concurrency Type & Likely interleaved & Parallel, especially on multicore systems \\
-    Overhead & Lightweight, since sharing resources & Heavyweight, because memory isolation \\
-    Use & For lightweight tasks & For heavy, isolated tasks \\
-    \bottomrule
-    \end{tabular}
-\end{table}
+%In Python, we use the \code{asyncio} module to create and manage asynchronous tasks. The following demonstrates how to use \code{asyncio} to read multiple files concurrently.
+
+\section{Exercises}
+\subsection{Threads and Processes: Election Model}
+It is election season and we will simulation the election process with threads and processes. We have multiple voters (threads) casting their votes for candidates, and election officials (processes) tallying the votes. We will use locks to manage access to the vote count and semaphores to limit the number of people that can vote simultaneously.
+
+More specifically, we will implement the following: 
+\begin{enumerate}
+\item \code{Election} class: manage the voting and maintain the vote count
+\begin{itemize}
+    \item \code{votes: dict}: store the vote count for each candidate (e.g., \code{votes} = \{`John': 1, `Mary': 2\})
+    \item \code{lock: threading.Lock}: protect access to the vote count
+    \item \code{cast(who:str)}: cast a vote for a candidate, e.g., \code{cast(`John')} will increment \code{votes[`John']}.
+    \item \code{tally()}: to display the current vote count. 
+    \item Both \code{cast} and \code{tally} Will need to lock the vote count before accessing.
+\end{itemize}
+\end{enumerate}
+
+	1.	Create a Election Class:
+	•	This class will maintain a count of votes for each candidate and manage the voting process.
+	2.	Use a Lock:
+	•	Ensure that the voting process is thread-safe using a lock to protect access to the shared vote count.
+
+Part 2: Implementing Threads for Voting
+
+	3.	Create Voter Threads:
+	•	Create a Voter class that represents a voter in the election.
+	•	Each voter will randomly vote for one of the candidates.
+
+Part 3: Implementing Processes for Tallying Votes
+
+	4.	Create Election Official Processes:
+	•	Create an ElectionOfficial class that represents an election official.
+	•	Each official will periodically tally the votes and display the current vote count.
+
+Part 4: Using a Semaphore
+
+	5.	Implement a Semaphore:
+	•	Use a semaphore to limit the number of voters that can cast their votes simultaneously (e.g., maximum of 3 voters).
+
 
 \chapter{Design Patterns}
 
