@@ -2488,10 +2488,11 @@ Consider the following code:
 
 
 We now run the program on tests and collect the number of times each line was executed when the program failed and when it passed. 
-For example, for a test \code{t1} with input \code{(3,3,5)}, the program passes (shows median is 3) and hits lines 1, 2, 3, 4, 6, 7, 13 and skips lines 5, 8, 9, 10, 11, 12. For a test \code{t9} with input \code{(5,4,2)}, the program fails (shows median is 2 instead of 4) and hits lines 1, 2, 3, 8, 9, 10, 13 and skips lines 4, 5, 6, 7, 11, 12. It is easy to see that every test will hit lines 1 and 13.  Could you spot some other lines that will be hit by every test?
+For example, for a test \code{t1} with input \code{(3,3,5)}, the program passes (shows median is 3) and hits lines 1, 2, 3, 4, 6, 7, 13 and skips lines 5, 8, 9, 10, 11, 12. For a test \code{t9} with input \code{(5,4,2)}, the program fails (shows median is 2 instead of 4) and hits lines 1, 2, 3, 8, 9, 10, 13 and skips lines 4, 5, 6, 7, 11, 12. It is easy to see that every test will hit lines 1 and 13.  
 
 After we do this for all tests (e.g., 10 tests \code{t1, t2, ..., t10}), we can compute the suspiciousness score for each line using the Tarantula formula. The higher the score, the more likely the line contains the bug.  The following table shows the number of times each line was executed when the program failed and when it ran correctly over several test runs. 
 \begin{table}
+    \caption{Statistical Debugging with Tarantula scoring metrics. `x` means the line was hit (executed) and `-` means it was skipped (not executed).}\label{tab:sd}
     \centering
     \scriptsize
     \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
@@ -2576,15 +2577,25 @@ While statistical debugging (\autoref{sec:statistical-debugging}) aims to locali
 
 \section{Exercises}
 
-\section{Statistical Debugging: A V Metrics}
+\subsection{Statistical Debugging: M Metrics}
 
-The V metrics is calculated as follows:
+The \textbf{M} metrics to compute the suspiciousness of a line $l$ is calculated as follows:
 \[
 \text{Suspiciousness}(l) = \frac{\text{Failed}(l)}{\text{Failed}(l) + \text{Passed}(l)}
 \]
 
-Apply this metric to compute the suspiciousness score for the lines in the table in \autoref{sec:statistical-debugging}.
+Apply this metrics to compute the suspiciousness scores for the lines in \autoref{tab:sd}.
+\subsection{Delta Debugging (DD) Implementation}
+In this exercise you will implement the DD technique. Your DD will take an input string and an \emph \code{oracle} that decides if the input is interesting (e.g., has a bug) or not.
+More specifically, \code{oracle(s:str)->bool} takes in a string \code{s} and returns T (\code{s} has a bug) or F (\code{s} has no bug).  The goal of your DD is to reduce the original input to become \emph{minimal} but is still \emph{interesting} (i.e., a minimal input that still has the bug).
 
+\begin{itemize}
+    \item You can be as creative as you want with your DD, however it must not run for too long (e.g., try to split the input in to parts that are power of 2 as discussed in class to reduce the input effectively).
+    \item You must provide 2 examples to demonstrate your DD:  1 example where the DD takes a reasonably short time (few iteration) and 1 example where the DD takes a long time (e.g., 50 or more iterations).  
+    \item At each iteration, your DD should output the current input, its size, and whether it is interesting or not. You can also output the split and parts, etc (the same way we did in class).
+    \item \textbf{Code submission}: submit your DD code along with the examples you provided with a clear instructions and \emph{screenshots} on how to run your DD and expected output.
+    \item \textbf{Short Report}: as before, you will write a report describing your DD implementation. Explain how your DD works, how you tested it, and the results of the testing. You should also explain the examples you provided and why some take longer than others.
+\end{itemize}
 
 %The DD algorithm is as follows:
 
