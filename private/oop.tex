@@ -2175,7 +2175,7 @@ While many testing techniques exist (popular ones will be discussed below), they
 
 \section{Black-box Testing}\label{sec:blackbox}
 
-Black-box approach tests the program using its specifications (e.g., type of inputs, expected outputs) \emph{without} any knowledge of its internal implementation. This approach ignores the implementation details and does not even require the program code (hence the name black-box).  The approach is efficient and easy to use, but can miss certain bugs.
+Black-box approach tests the program using its specifications (e.g., type of inputs, expected outputs) \emph{without} any knowledge of its internal implementation. In fact, blackbox testing does not even require the program code (hence the name black-box).  The approach is efficient and easy to use, but can miss certain bugs.
 
 \begin{lstlisting}
 class MathStuff:
@@ -2213,7 +2213,7 @@ else:
 
 \end{lstlisting}
 
-For these functions (\code{square, div}) we simply test them with various numbers as inputs and check that the output is as expected. We do not need to know how the functions (e.g., \code{square}) were implemented. Observe that because of this, we do not know about the special ``buggy'' case of \code{123} in \code{square} and thus do not test for it. This is a limitation of blackbox testing.
+For these functions (\code{square, div}) we simply test them with various numbers as inputs and check that the outputs are as expected. We do not need to know how the functions (e.g., \code{square}) were implemented. Observe that because of this, we do not know about the special ``buggy'' case of \code{123} in \code{square} and thus do not test for it. This is a limitation of blackbox testing.
 
 \paragraph{Unit Testing} 
 Modern OOP languages often have built-in capability or library to help with testing. \emph{Unit testing} is a popular and supported by most languages to test individual \emph{units} (e.g., functions, classes) of the program. Below is a small example of using Python's \code{unittest} library to test the \code{MathStuff} class (\autoref{sec:blackbox}).
@@ -2459,8 +2459,8 @@ For the \code{square} function in \autoref{sec:blackbox}, symbolic execution wou
 
 \section{Debugging}
 
-\subsection{Statistical Debugging}
-Statistical debugging is a white-box technique that uses statistics to find bugs. It collects program execution traces, e.g., which lines of code were executed, how many times, etc, and uses this data to find the lines that likely contain the bug. For example, if a line $l$ is executed many times when the program fails but not when it runs correctly, then $l$ is likely the bug.
+\subsection{Statistical Debugging}\label{sec:statistical-debugging}
+Statistical debugging is a white-box technique that uses statistics to find bugs in code, i.e., \emph{fault localization}. It collects program execution traces, e.g., which lines of code were executed, how many times, etc, and uses this data to find the lines that likely contain the bug. For example, if a line $l$ is executed many times when the program fails but not when it runs correctly, then $l$ is likely the bug.
 
 \emph{Tarantula} is a popular statistical debugging technique that computes a suspicious score for each line of code based on the number of times it was executed when the program failed and when it passes (gives expected behavior). The formula is:
 \[
@@ -2490,10 +2490,10 @@ Consider the following code:
 We now run the program on tests and collect the number of times each line was executed when the program failed and when it passed. 
 For example, for a test \code{t1} with input \code{(3,3,5)}, the program passes (shows median is 3) and hits lines 1, 2, 3, 4, 6, 7, 13 and skips lines 5, 8, 9, 10, 11, 12. For a test \code{t9} with input \code{(5,4,2)}, the program fails (shows median is 2 instead of 4) and hits lines 1, 2, 3, 8, 9, 10, 13 and skips lines 4, 5, 6, 7, 11, 12. It is easy to see that every test will hit lines 1 and 13.  Could you spot some other lines that will be hit by every test?
 
-After we do this for all available tests (e.g., 10 tests \code{t1, t2, ..., t10}), we can compute the suspiciousness score for each line using the Tarantula formula. The higher the score, the more likely the line contains the bug.  The following table shows the number of times each line was executed when the program failed and when it ran correctly over several test runs. 
+After we do this for all tests (e.g., 10 tests \code{t1, t2, ..., t10}), we can compute the suspiciousness score for each line using the Tarantula formula. The higher the score, the more likely the line contains the bug.  The following table shows the number of times each line was executed when the program failed and when it ran correctly over several test runs. 
 \begin{table}
     \centering
-    \small
+    \scriptsize
     \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
     \toprule
     line & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & Pass/Fail\\
@@ -2534,54 +2534,104 @@ Note that scores for lines 1 and line 13, which are always executed, are $4/4 / 
 
 
 \subsection{Delta Debugging (DD)}
-DD aims to \emph{minimize} a \emph{failing} input  (e.g., causing the program to crash or producing some interesting behavior). It is useful for debugging and finding the smallest input that triggers the issue. DD works by repeatedly splitting the input into smaller parts and checking if the smaller parts still trigger the issue.
+While statistical debugging (\autoref{sec:statistical-debugging}) aims to localize faults in the code,  DD focuses on finding the smallest input that triggers the issue. DD aims to \emph{minimize} a \emph{failing} input  (e.g., causing the program to crash or producing some interesting behavior). It is useful for debugging and finding the smallest input that triggers the issue. DD works by repeatedly splitting the input into smaller parts and checking if the smaller parts still trigger the issue. Note that when using DD, you will need to provide an \emph{oracle} that checks if the input $P$ is interesting (e.g., causing a crash). 
 
-When using DD, you will need to provide an \emph{oracle} that checks if the input $P$ is interesting (e.g., causes a crash). The DD algorithm is as follows:
+\paragraph{Example 1} \emph{Oracle}: program fails whenever input contains an asterisk (*). 
+\begin{enumerate}
+\item Input = abcdef*h (fails)
+\item Split into 2 parts: abcd/ef*h. Remove 1st: fails; remove 1st (abcd).
+\item Input = ef*h. (fails)
+\item Split into 2 parts: ef/*h.  Remove 1st part: fails; remove 1st (ef).
+\item Input = *h. (fails)
+\item Split into 2 parts: */h.  Remove 1st part: pass; remove 2nd:  fails; remove 2nd (h).
+\item Input = * (fails)
+\item Can no longer split input. Smallest failing input is *.
+\end{enumerate}
 
-\begin{algorithm}[H]
-    \SetAlgoNlRelativeSize{-1}
-    \KwData{Input str $inp$}
-    \KwResult{Reduced input}
+\paragraph{Example 2} \emph{Oracle}: program fails whenever input contains two asterisks (**).
+\begin{enumerate}
+\item Input = *abcdef* (fails)
+\item Split into 2 parts: *abc/def*. Remove 1st: passes; remove 2nd: passes. Cannot remove anything.
+\item Split into 4 parts: *a/bc/de/f*.  Remove 1st: passes; remove 2nd: fails; remove 2nd (bc).
+\item Input = *adef* (fails)
+\item Split into 2 parts: *ad/ef*. Remove 1st: passes; remove 2nd: passes. Cannot remove anything.
+\item Split into 4 parts: *a/de/f/*.  Remove 1st: passes; remove 2nd: fails; remove 2nd (de).
+\item Input = *af* (fails)
+\item Split into 2 parts: *a/f*. Remove 1st: passes; remove 2nd: passes. Cannot remove anything.
+\item Split into 4 parts: */a/f/*.  Remove 1st: passes; remove 2nd: fails; remove 2nd (a).
+\item Input = *f* (fails)
+\item Split into 2 parts: *f/*. Remove 1st: passes; remove 2nd: passes. Cannot remove anything.
+\item Split into 4 parts: */f/*.  Remove 1st: passes; remove 2nd: fails; remove 2nd (f).
+\item Input = ** (fails)
+\item Split into 2 parts: */*. Remove 1st part: passes; remove 2nd part: passes. Cannot remove anything.
+\item Cannot split further. Smallest failing input is **.
+\end{enumerate}
+
+\subsection{In-class Exercise: Delta Debugging}
+\begin{itemize}
+    \item Apply DD to the input string "*hello*world*" to find the smallest failing input. The oracle is that the input fails whenever it contains the substring \code{oo}.
+    \item What is best-case complexity of DD? Give an example of an input that would take the most steps to find the smallest failing input.
+    \item What is the worst-case complexity of DD? Give an example of an input that would take the most steps to find the smallest failing input.
+\end{itemize}
+
+\section{Exercises}
+
+\section{Statistical Debugging: A V Metrics}
+
+The V metrics is calculated as follows:
+\[
+\text{Suspiciousness}(l) = \frac{\text{Failed}(l)}{\text{Failed}(l) + \text{Passed}(l)}
+\]
+
+Apply this metric to compute the suspiciousness score for the lines in the table in \autoref{sec:statistical-debugging}.
+
+
+%The DD algorithm is as follows:
+
+% \begin{algorithm}[H]
+%     \SetAlgoNlRelativeSize{-1}
+%     \KwData{Input str $inp$}
+%     \KwResult{Reduced input}
     
-    \SetKwFunction{Test}{oracle}
-    \SetKwFunction{Reset}{reset}
-    \SetKwFunction{Break}{break}
+%     \SetKwFunction{Test}{oracle}
+%     \SetKwFunction{Reset}{reset}
+%     \SetKwFunction{Break}{break}
     
-    \Begin{
-        \If{\Test(inp)}{
-            \Return{inp} \;
-        }
+%     \Begin{
+%         \If{\Test(inp)}{
+%             \Return{inp} \;
+%         }
 
-        $n \gets 2$ \;  % Initial granularity
-        \While{length(inp) $\geq 2$}{
-            $start \gets 0.0$ \;
-            $subset\_length \gets \frac{\text{length(inp)}}{n}$ \;
-            $some\_complement\_is\_failing \gets \text{False}$ \;
+%         $n \gets 2$ \;  % Initial granularity
+%         \While{length(inp) $\geq 2$}{
+%             $start \gets 0.0$ \;
+%             $subset\_length \gets \frac{\text{length(inp)}}{n}$ \;
+%             $some\_complement\_is\_failing \gets \text{False}$ \;
             
-            \While{start $<$ \text{length(inp)}}{
-                $complement \gets inp[0:int(start)] + inp[int(start + subset\_length):]$ \;
+%             \While{start $<$ \text{length(inp)}}{
+%                 $complement \gets inp[0:int(start)] + inp[int(start + subset\_length):]$ \;
     
-                \If{! \Test(complement)}{
-                    $inp \gets complement$ \;
-                    $n \gets \max(n - 1, 2)$ \;
-                    $some\_complement\_is\_failing \gets \text{True}$ \;
-                    \Break \;
-                }
+%                 \If{! \Test(complement)}{
+%                     $inp \gets complement$ \;
+%                     $n \gets \max(n - 1, 2)$ \;
+%                     $some\_complement\_is\_failing \gets \text{True}$ \;
+%                     \Break \;
+%                 }
     
-                $start \gets start + subset\_length$ \;
-            }
+%                 $start \gets start + subset\_length$ \;
+%             }
     
-            \If{not $some\_complement\_is\_failing$}{
-                \If{$n == \text{length(inp)}$}{
-                    \Break \;  % Stop if no reduction can be made
-                }
-                $n \gets \min(n \times 2, \text{length(inp)})$ \;
-            }
-        }
-        \Return{inp} \;
-    }
-    \caption{Delta Debugging Algorithm}
-    \end{algorithm}
+%             \If{not $some\_complement\_is\_failing$}{
+%                 \If{$n == \text{length(inp)}$}{
+%                     \Break \;  % Stop if no reduction can be made
+%                 }
+%                 $n \gets \min(n \times 2, \text{length(inp)})$ \;
+%             }
+%         }
+%         \Return{inp} \;
+%     }
+%     \caption{Delta Debugging Algorithm}
+%     \end{algorithm}
 
 % DD reduces an input but still preserves its /interestingness/ as specified by an
 % /oracle/ (e.g., it crashes, or does something interesting). For example,
@@ -2623,27 +2673,27 @@ When using DD, you will need to provide an \emph{oracle} that checks if the inpu
 %    :PROPERTIES:
 %    :CUSTOM_ID: example-1
 %    :END:
-\paragraph{Example}
-We consider the following C program, which modifies the integer $a$, \emph{interesting} as long as the value of $a$ is $\ge 3$ at the end (outputs ``correct''). The below \code{testscript.sh} oracle checks if the output contains the word \code{correct} and returns 0 if it does and 1 otherwise.
-We will use DD to remove unnecessary statements so that we have a minimal program that is smaller and easier to understand but still preserves the condition $a \ge 3$.
+% \paragraph{Example}
+% We consider the following C program, which modifies the integer $a$, \emph{interesting} as long as the value of $a$ is $\ge 3$ at the end (outputs ``correct''). The below \code{testscript.sh} oracle checks if the output contains the word \code{correct} and returns 0 if it does and 1 otherwise.
+% We will use DD to remove unnecessary statements so that we have a minimal program that is smaller and easier to understand but still preserves the condition $a \ge 3$.
 
-\begin{lstlisting}[language=C]
-  // a simple program to be reduced
-  #include <stdio.h>
-  int main(int argc, char **argv) {
-      int a = 0;
-      printf("Hello, World!\n");
-      a++;
-      a--;
-      a+=2;
-      a++;
-      a--;
-      a++;
-      if (a >= 3){
-        printf("correct\n");
-      }
-      return 0;
-\end{lstlisting}
+% \begin{lstlisting}[language=C]
+%   // a simple program to be reduced
+%   #include <stdio.h>
+%   int main(int argc, char **argv) {
+%       int a = 0;
+%       printf("Hello, World!\n");
+%       a++;
+%       a--;
+%       a+=2;
+%       a++;
+%       a--;
+%       a++;
+%       if (a >= 3){
+%         printf("correct\n");
+%       }
+%       return 0;
+% \end{lstlisting}
 % \begin{lstlisting}[language=script]
 %   # hello1.test
 %   oracle/testscript defining interestingness
@@ -2891,34 +2941,37 @@ if __name__ == "__main__":
 
 \section{Locks, Semaphores, and Monitors}
 
-Locks, semaphores, and monitors are key concepts in concurrent computing. These synchronization mechanisms help manage shared resources and prevent synchronization issues such as race conditions and deadlocks. Table \ref{tab:sync} shows their differences.
+Locks, semaphores, and monitors are key concepts in concurrent computing. These synchronization mechanisms help manage shared resources and prevent synchronization issues such as race conditions and deadlocks. %Table \ref{tab:sync} shows their differences.
 
-\begin{table}
-    \caption{Locks, Semaphores, and Monitors}\label{tab:sync}
-    \footnotesize
-    \centering
-\begin{tabular}{l|l|l|l}
-\toprule
-& \textbf{Locks} & \textbf{Semaphores} & \textbf{Monitors} \\
-\midrule
-\textbf{Purpose} & Protect critical sections & Control access to resources & Combine data and synchronization \\
-\textbf{Operations} & Acquire and release & Wait and signal & Encapsulate data and synchronization \\
-\textbf{Mutual Exclusion} & One thread & Multiple threads (using a counter) & One thread \\
-\end{tabular}
-\end{table}
+% \begin{table}
+%     \caption{Locks, Semaphores, and Monitors}\label{tab:sync}
+%     \footnotesize
+%     \centering
+% \begin{tabular}{l|l|l|l}
+% \toprule
+% & \textbf{Locks} & \textbf{Semaphores} & \textbf{Monitors} \\
+% \midrule
+% \textbf{Purpose} & Protect critical sections & Control access to resources & Combine data and synchronization \\
+% \textbf{Operations} & Acquire and release & Wait and signal & Encapsulate data and synchronization \\
+% \textbf{Mutual Exclusion} & One thread & Multiple threads (using a counter) & One thread \\
+% \end{tabular}
+% \end{table}
 
 \paragraph{Locks} This simple mechanism allows only \emph{one} thread or process to access a shared resource (\emph{critical section}) at a time. It works by allowing a thread $t$ to acquire the \emph{lock} and proceed if the lock is available; otherwise, $t$ waits until the lock is released.  After $t$ is done, it releases the lock. The example in \autoref{sec:threads} uses a lock to protect the shared variable \code{shared\_ct}. Note acquiring and releasing locks are done automatically (using the \code{with} statement).
 
 Thus, locks are ideal \emph{when only one} thread should access a shared resource at a time. Because of this limitation, locks are efficient and simple to use. However, they can lead to \emph{deadlocks} (e.g., two threads waiting for each other to release a lock).
 
-\paragraph{Semaphores} Semaphores are more flexible and complex than locks as they allow \emph{multiple} threads to access a shared resource at the same time.  Semaphores maintain a \emph{counter} to track the number of threads that can access the resource.  When a thread $t$ wants to access a resource $r$, it checks the counter $n$. If $n > 0$, $t$ decrements $n$ and proceeds to \emph{acquire} $r$. If $n=0$, $t$ waits until $n$ is incremented. When $t$ is done, it increments $n$ to indicate that it \emph{releases} $r$. Note that when $n>1$, we have a \emph{counting semaphore}, and when $n=1$, we have a \emph{binary semaphore}, which behaves like a lock.
+\paragraph{Semaphores} Semaphores are more flexible than locks as they allow \emph{multiple} threads to simulateously access a shared resource.  Semaphores maintain a \emph{counter} to track the number of threads that can access the resource.  When a thread $t$ wants to access a resource $r$, it checks the counter $n$. If $n > 0$, $t$ decrements $n$ and proceeds to \emph{acquire} $r$. If $n=0$, $t$ waits until $n$ is incremented. When $t$ is done, it increments $n$ to indicate that it \emph{releases} $r$. Note that when $n>1$, we have a \emph{counting semaphore}, and when $n=1$, we have a \emph{binary semaphore}, which behaves like a lock.
 
 Semaphores are thus useful when multiple threads need to  access a shared resource. However, they too can lead to deadlocks when threads are waiting for each other to release a semaphore.
 
-In Python, we use \code{Semaphore} in \code{threading} for semaphores. For the example in \autoref{sec:threads}, we can replace \code{lock = Lock()} with a binary semaphore: \code{sem = Semaphore(1)}. Observe that the semaphore is initialized with 1 to behave like a lock and ensure proper mutual exclusion. If we initialized with 2 then race condition can occur as both threads can access and modify \code{shared\_ct} simulateously.
+In Python, we use \code{Semaphore} in \code{threading} for semaphores. For the example in \autoref{sec:threads}, we can replace \code{lock = Lock()} with a binary semaphore: \code{sem = Semaphore(1)}. Observe that the semaphore is initialized with 1 to behave like a lock and ensure proper mutual exclusion. If we initialized with 2 then race condition can occur as both threads can access and modify \code{shared\_ct} simultaneously.
 
 
 \paragraph{Monitors}  This combines mutual exclusion (like a lock) with thread communication capability.  It allows threads to wait for a condition to be true and notify other threads when the condition changes. For example, the classical ``producer-consumer'' problem is solved using a monitor to ensure that the producer pauses producing when the buffer is full and the consumer stops consuming when the buffer is empty, and they signal each other to resume when the buffer is not full or empty.
+
+Java implements monitors natively into the language. Python however does not have built-in monitors, but we can use \code{threading.Condition} to simulate monitors. The following demonstrates how to use \code{Condition} to implement a monitor for the producer-consumer problem.
+
 
 
 \paragraph{History} The concept of semaphore was due to \emph{Edsger Dijkstra} in the early 60s when he was working on the THE multiprogramming system. The name \emph{``semaphore''} might have been inspired by the railway signals that control the traffic of trains.
@@ -2931,42 +2984,38 @@ In Python, we use \code{Semaphore} in \code{threading} for semaphores. For the e
 %In Python, we use the \code{asyncio} module to create and manage asynchronous tasks. The following demonstrates how to use \code{asyncio} to read multiple files concurrently.
 
 \section{Exercises}
-\subsection{Threads and Processes: Election Model}
+\subsection{Threads and Processes: Election Simulation}
 It is election season and we will simulation the election process with threads and processes. We have multiple voters (threads) casting their votes for candidates, and election officials (processes) tallying the votes. We will use locks to manage access to the vote count and semaphores to limit the number of people that can vote simultaneously.
 
 More specifically, we will implement the following: 
 \begin{enumerate}
-\item \code{Election} class: manage the voting and maintain the vote count
+\item \code{Election} class: manage the voting and maintain the vote count:
 \begin{itemize}
-    \item \code{votes: dict}: store the vote count for each candidate (e.g., \code{votes} = \{`John': 1, `Mary': 2\})
-    \item \code{lock: threading.Lock}: protect access to the vote count
-    \item \code{cast(who:str)}: cast a vote for a candidate, e.g., \code{cast(`John')} will increment \code{votes[`John']}.
-    \item \code{tally()}: to display the current vote count. 
-    \item Both \code{cast} and \code{tally} Will need to lock the vote count before accessing.
+    \item var \code{votes:dict}: store the vote count for each candidate (e.g., \code{votes} = \{`Alice': 1, `Bob': 2, `Charlie': 5\}).
+    \item var \code{lock:threading.Lock}: protect access to the vote count
+    \item method \code{cast(who:str)}: cast a vote for a candidate, e.g., \code{cast(`John')} will increment \code{votes[`John']}.
+    \item method \code{tally()}: to display the current vote count. 
+    \item Both \code{cast} and \code{tally} need to lock \code{votes} before accessing it
 \end{itemize}
+\item \code{Voter(threading.Thread)} class: represent a voter who can vote for a candidate:
+\begin{itemize}
+    \item Constructor method \code{\_\_init\_\_(name:str, election:Election)}: initialize the voter's name and the election.
+    \item var \code{semmaphore:threading.Semaphore}: control the number of voters that can vote simultaneously (e.g., 3 at a time).
+    \item Method \code{vote()}: pick a candidate (\code{random.choice(election.votes.keys())}) and call \code{election.cast(candidate)}. Note that before casting the vote, you will need to acquire (\code{semaphore.acquire()}) the semaphore and release it after voting (\code{semaphore.release()}).
+\end{itemize}
+\item \code{Officials(threading.Thread)} class: represent an election official who will periodically tally and display the votes.
+\begin{itemize}
+    \item Constructor method \code{\_\_init\_\_(election:Election)}: storing the election object.
+    \item Method \code{tally()}: call \code{election.tally()} to display the current vote count.
+\end{itemize}
+\item \code{\_\_main\_\_}: the driver code to create an election object, voters, and officials, and run the simulation.
+    \begin{itemize}
+        \item Create a semaphore that allows 3 voters to vote simultaneously.
+        \item Create 20 voters and 4 officials.
+        \item Start the voters and officials (using \code{start()}) and wait for them to finish (using \code{join()}).
+    \end{itemize}
 \end{enumerate}
 
-	1.	Create a Election Class:
-	•	This class will maintain a count of votes for each candidate and manage the voting process.
-	2.	Use a Lock:
-	•	Ensure that the voting process is thread-safe using a lock to protect access to the shared vote count.
-
-Part 2: Implementing Threads for Voting
-
-	3.	Create Voter Threads:
-	•	Create a Voter class that represents a voter in the election.
-	•	Each voter will randomly vote for one of the candidates.
-
-Part 3: Implementing Processes for Tallying Votes
-
-	4.	Create Election Official Processes:
-	•	Create an ElectionOfficial class that represents an election official.
-	•	Each official will periodically tally the votes and display the current vote count.
-
-Part 4: Using a Semaphore
-
-	5.	Implement a Semaphore:
-	•	Use a semaphore to limit the number of voters that can cast their votes simultaneously (e.g., maximum of 3 voters).
 
 
 \chapter{Design Patterns}
