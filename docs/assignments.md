@@ -76,9 +76,22 @@
     - Tarantula vs Ochiai metrics
     - Combinatorial Testing
     - Property-based Testing
-- In-class: STatistical Debugging
+- In-class: Statistical Debugging
 - HW assignment: NONE
 - Quiz: Names
+
+## Week 7
+
+- Topics: Testing (Delta Debugging) and Parallel Computing
+- Reading: OOP 7, 8 
+    - Delta Debugging
+    - Parallel computing concepts: processes, threads, locks, semaphors, monitors
+- In-class: Delta Debugging
+- HW assignment: Delta Debugging Implementation (7.6.2)
+- Quiz: Statistical Debugging using M Metrics
+
+
+
 
 # HW Assignments
 
