@@ -9,6 +9,7 @@
 \usepackage[most]{tcolorbox}
 % \setsecnumdepth{subsection}
 % \setcounter{tocdepth}{3}
+\usepackage{multirow}
 \usepackage{multicol}
 \usepackage{enumitem}
 \usepackage{epigraph}
@@ -2538,16 +2539,36 @@ Note that scores for lines 1 and line 13, which are always executed, are $4/4 / 
 While statistical debugging (\autoref{sec:statistical-debugging}) aims to localize faults in the code,  DD focuses on finding the smallest input that triggers the issue. DD aims to \emph{minimize} a \emph{failing} input  (e.g., causing the program to crash or producing some interesting behavior). It is useful for debugging and finding the smallest input that triggers the issue. DD works by repeatedly splitting the input into smaller parts and checking if the smaller parts still trigger the issue. Note that when using DD, you will need to provide an \emph{oracle} that checks if the input $P$ is interesting (e.g., causing a crash). 
 
 \paragraph{Example 1} \emph{Oracle}: program fails whenever input contains an asterisk (*). 
-\begin{enumerate}
-\item Input = abcdef*h (fails)
-\item Split into 2 parts: abcd/ef*h. Remove 1st: fails; remove 1st (abcd).
-\item Input = ef*h. (fails)
-\item Split into 2 parts: ef/*h.  Remove 1st part: fails; remove 1st (ef).
-\item Input = *h. (fails)
-\item Split into 2 parts: */h.  Remove 1st part: pass; remove 2nd:  fails; remove 2nd (h).
-\item Input = * (fails)
-\item Can no longer split input. Smallest failing input is *.
-\end{enumerate}
+% \begin{enumerate}
+% \item Input = abcdef*h (fails)
+% \item Split into 2 parts: abcd/ef*h. Remove 1st: fails; remove 1st (abcd).
+% \item Input = ef*h. (fails)
+% \item Split into 2 parts: ef/*h.  Remove 1st part: fails; remove 1st (ef).
+% \item Input = *h. (fails)
+% \item Split into 2 parts: */h.  Remove 1st part: pass; remove 2nd:  fails; remove 2nd (h).
+% \item Input = * (fails)
+% \item Can no longer split input. Smallest failing input is *.
+% \end{enumerate}
+
+\begin{table}
+    \caption{Delta Debugging (DD) Example 1.}\label{tab:dd1}
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \toprule
+    &&\multicolumn{2}{c|}{Remove} \\
+    Failing Input & Split & 1st & 2nd \\
+    \midrule
+    abcdef*h & abcd/ef*h & abcd: F & - \\
+    ef*h & ef/*h & ef: F & - \\
+    *h & */h & *: P & h: F \\
+    * & - & - & - \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\autoref{tab:dd1} shows the steps of DD. First, we start with the original input \code{abcdef*h} and split it into two parts \code{abcd/ef*h}. Removing the first part \code{abcd} still fails, so we remove it. We then repeat DD on the new input \code{ef*h} and split it into two parts \code{ef/*h}. Removing \code{ef} still fails, so we remove it and have the new input \code{*h}, which is then split into \code{*/h}. Removing the first part \code{*} passes, so we keep it and remove the second part \code{h}, which fails and is removed. The new input is now \code{*}, which cannot be split further and is the smallest failing input.
+
+This example does not show the case when the split results in all parts passing. In that case, DD would increase the split size (e.g., split into 4 parts instead of 2) and repeat the process.
 
 \paragraph{Example 2} \emph{Oracle}: program fails whenever input contains two asterisks (**).
 \begin{enumerate}
@@ -2568,9 +2589,24 @@ While statistical debugging (\autoref{sec:statistical-debugging}) aims to locali
 \item Cannot split further. Smallest failing input is **.
 \end{enumerate}
 
+%\begin{table}
+%    \caption{Delta Debugging (DD) Example 2.}
+%    \centering
+%    \begin{tabular}{c|c|c|c|c}
+%    \toprule
+%    Input & Split & 1st & 2nd & Result\\
+%    \midrule
+%    *abcdef* & *abc/def* & *abc & def* & P\\
+%    *adef* & *ad/ef* & *ad & ef* & P\\
+%    *af* & *a/f* & *a & f* & P\\
+%    ** & */* & * & * & F\\
+%    \bottomrule
+%    \end{tabular}
+%\end{table}
+
 \subsection{In-class Exercise: Delta Debugging}
 \begin{itemize}
-    \item Apply DD to the input string "*hello*world*" to find the smallest failing input. The oracle is that the input fails whenever it contains the substring \code{oo}.
+    \item Apply DD to the input string \code{"*hello*world*"} to find the smallest failing input. The oracle is that the input fails whenever it contains \code{"oo"}.
     \item What is best-case complexity of DD? Give an example of an input that would take the most steps to find the smallest failing input.
     \item What is the worst-case complexity of DD? Give an example of an input that would take the most steps to find the smallest failing input.
 \end{itemize}
@@ -2842,10 +2878,10 @@ More specifically, \code{oracle(s:str)->bool} takes in a string \code{s} and ret
     \toprule
     &\textbf{Threads} & \textbf{Processes} \\
     \midrule
-    Memory & Share memory within a process & Do not share memor\\
+    Memory & Share memory & Not sharing memory\\
     Communication & Easier, since sharing memory & Harder, because running in isolation \\
-    Concurrency Type & Likely interleaved & Parallel, especially on multicore systems \\
-    Overhead & Lightweight, since sharing resources & Heavyweight, because memory isolation \\
+    Concurrency Type & Interleaved & Parallel \\
+    Overhead & Lightweight & Heavyweight\\
     Use & For lightweight tasks & For heavy, isolated tasks \\
     \bottomrule
     \end{tabular}
