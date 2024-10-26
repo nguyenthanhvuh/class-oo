@@ -194,7 +194,7 @@
     % Title
     \node[align=center] at ($(current page.center)+(0,-5)$)
     {
-    {\fontsize{38}{1} \selectfont {{OOP Design and Specification}}}\\[0.5in]
+    {\fontsize{32}{1} \selectfont {{OOP Design, Specification, and Analysis}}}\\[0.5in]
 
     {\fontsize{14}{19.2} \selectfont \textcolor{ForestGreen}{ \bf ThanhVu (Vu) Nguyen}}\\[0.1in]
     \today{} (latest version available on  \href{https://nguyenthanhvuh.github.io/class-oo/oop.pdf}{nguyenthanhvuh.github.io/class-oo/oop.pdf})
@@ -474,12 +474,20 @@ In contrast, for post-conditions, we want as strong a condition as possible to e
 
 \subsection{Total vs Partial Functions}
 
-A function is \emph{total} if it is defined for all legal inputs; otherwise, it is \emph{partial}. Thus a function with no precondition (weakest precondition) is total.  Total functions are preferred because they can be used in more situations, especially when the function is used publicly or in a library where the user may not know the input constraints. Partial functions can be used when the function is used internally, e.g., a helper or auxiliary function and the caller is knowledgeable and can ensure its preconditions are satisfied.
+A function is \emph{total} if it is defined for all legal inputs; otherwise, it is \emph{partial}. Thus a function with no precondition (weakest precondition) is total.  
 
-The functions \code{calc\_area} in \autoref{ex:abs-parameterization} and \code{add\_to\_list} in \autoref{ex:abs-specification} are total because they can be called with any input. The \code{exists} function in \autoref{ex:abs-specification} is partial because it only works with sorted lists.
+Total functions are \emph{preferred} because they can be used in more situations, especially when the function is used publicly or in a library where the user may not know the input constraints. Partial functions can be used when the function is used internally, e.g., a helper or auxiliary function and the caller is knowledgeable and can ensure its preconditions are satisfied.
+
+Functions \code{calc\_area} in \autoref{ex:abs-parameterization} and \code{add\_to\_list} in \autoref{ex:abs-specification} are total because they can be called with any input. The \code{exists} function in \autoref{ex:abs-specification} is partial because it only works with sorted lists.
 
 
-\paragraph{Turning Partial Functions into Total Functions} We can often turn a partial function into a total function in two steps. First, we move preconditions into postconditions and specify the expected behavior when the precondition is not satisfied, e.g., throws an \code{Exception}. Second, we modify the function to satisfy the new specification, i.e., handling the cases when the preconditions are not satisfied. For example, the \code{exists} function in \autoref{ex:abs-specification} is turned into the total function shown in \autoref{ex:abs-total}.
+\paragraph{Turning Partial Functions into Total Functions} We can often turn a partial function into a total function in two steps. 
+\begin{enumerate}
+\item Move preconditions into postconditions and specify the expected behavior when the precondition is not satisfied, e.g., throws an \code{Exception}
+\item Modify the function to satisfy the new specification, i.e., handling the cases when the preconditions are not satisfied. 
+\end{enumerate}
+
+For example, the \code{exists} function in \autoref{ex:abs-specification} is turned into the total function shown in \autoref{ex:abs-total}.
 
 \begin{figure}
 \begin{lstlisting}
@@ -631,9 +639,9 @@ def get_average(numbers: list[float]) -> float:
 
 %This chapter focuses on \emph{abstract data type} (ADT), a foundation of OOP and key concept in programming that allows developers to separate how data is implemented from how it behaves. Through ADT, programmers can create new data types relevant to their application. These ADTs consist of objects and associated operations.
 
-In 1974, Barbara Liskov and Stephen N. Zilles introduced the concept of Abstract Data Types (\emph{ADTs}) in their influential paper ``Programming with Abstract Data Types'' as part of their work on the CLU programming language at MIT. ADTs changed software design by separating the specification of a data type from its implementation. This allows developers to define operations on a data structure without exposing the details of how the data was managed internally (e.g., calling \code{pop} to remove data from a \code{Stack} without knowing the internal details on how stack stores data). 
+In 1974, Barbara Liskov and Stephen N. Zilles introduced Abstract Data Types (\emph{ADTs}) in their influential paper ``Programming with Abstract Data Types'' as part of their work on the CLU programming language at MIT. ADTs changed software design by separating the specification of a data type from its implementation. This allows developers to define operations on a data structure without exposing the detailed implementation of data (e.g., calling \code{pop} to remove data from a \code{Stack} without knowing the internal details on how stack stores data). 
 
-For her pioneering contributions to programming languages and system design, particularly through her work on ADTs and CLU, Barbara Liskov was awarded the Turing Award in 2008. Today, ADTs are a cornerstone of modern programming including Java, Python, and Rust.
+For her pioneering contributions to programming languages and system design, particularly on ADTs and CLU, Barbara Liskov was awarded the Turing Award in 2008. Today, ADTs are a cornerstone of all modern programming languages.
 
 %The CLU language was the first to explicitly support ADTs using a construct called a cluster, which encapsulated both the data structure and the operations that acted on it. CLU also introduced several other innovative features like iterators, exceptions, and parameterized types, many of which influenced modern programming languages such as Java, Python, and C++. Though CLU never became widely used, the principles it introduced, especially ADTs, became foundational in software engineering, leading to more modular and reusable code.
 
