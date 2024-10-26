@@ -1324,7 +1324,8 @@ The main idea of LSP is that a subclass \emph{is-a} superclass and can do everyt
 This enables substitution of objects of the subclass for objects of the superclass, allowing for polymorphism and dynamic dispatching to work correctly. The \code{make\_animal\_speak} function in \autoref{ex:polymorphism} demonstrates LSP by accepting any \code{Mammal} object and making it speak, regardless of its specific type.
 
 
-\paragraph{Rules} If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be replaced with objects of type \code{S} without altering any of the desirable properties of the program. This means whenever you use \code{T}, you can use \code{S} instead. To achieve this, we must follow the following rules:
+\subsection{Rules} 
+If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be replaced with objects of type \code{S} without altering any of the desirable properties of the program. This means whenever you use \code{T}, you can use \code{S} instead. To achieve this, we must follow the following rules:
 \begin{itemize}
 \item[\textbf{Signature Rule}] The signatures of methods of \code{S} must strengthen methods of \code{T}. In other words, the methods of \code{S} are a superset of the methods of \code{T}. Thus, if \code{T} has \code{n} methods, \code{S} also has \code{n} methods and additional ones (methods specific to \code{S}). 
 
@@ -1634,10 +1635,10 @@ For each case below, determine if LSP holds by checking whether the precondition
 
 
 \chapter{Iterators}
-Iterators and generators are powerful constructs in OOP that enable efficient traversal and on-the-fly computation of sequences of data. They allow developers to handle large datasets, abstract complex data traversal patterns, and create custom iterators for any type of object. 
+Iterators and generators are powerful concepts in OOP that enable efficient traversal and on-the-fly computation of sequences of data. They allow developers to handle large datasets, abstract complex data traversal patterns, and create custom iterators for any type of object. 
 
 \section{Motivation}
-Let’s consider a scenario where you need to generate Fibonacci numbers. A common but inefficient approach is to generate all Fibonacci numbers up to a certain limit and store them in a list, which consumes a lot of memory, especially for large sequences.
+Let’s consider a scenario where you need to generate Fibonacci numbers. A common but inefficient approach is to generate Fibonacci numbers up to a certain limit and store all them in a list, which consumes a lot of memory.
 
 \begin{lstlisting}
 def generate_fib_list(n: int) -> list[int]:
