@@ -116,7 +116,7 @@
 
 \begin{document}
 
-\pagestyle{empty}
+%\pagestyle{empty}
 \begin{tikzpicture}[overlay,remember picture]
 
     % Background color
@@ -266,7 +266,7 @@ This book will show you the fundamentals of developing high-quality software usi
 
 
 A large part of this book focuses on \emph{abstraction}, a key concept in OOP that allows programmers to hide the implementation details and focus on the essential features. By decoupling the \textbf{what} (the  behavior specification) from the \textbf{how} (the actual implementation), programmers could focus on higher-level design and reuse code more effectively.
-In an OOP language such as Python, you can abstract problems by creating functions, classes, and modules that hide the underlying implementation details.
+% In an OOP language such as Python, you can abstract problems by creating functions, classes, and modules that hide the underlying implementation details.
 
 \paragraph{Example} \autoref{ex:mammal} demonstrates an abstraction for different types of mammals. Mammals such as Dog and Cat share common behaviors such as making noise (speak). We can create a class \code{Mammal} that defines these common behaviors, and then subclasses \code{Dog} and \code{Cat} that inherit from \code{Mammal} and define their own unique behaviors.  These are abstract data types that allow us to work with mammals. Also notice the specification (e.g., \code{REQUIRES}) in the comments that describe what the method does, not how it does it.
 
@@ -321,7 +321,7 @@ This uses \emph{parameters} to allow the function to be run with different input
 
 
 
-\paragraph{Abstraction by Specification} This specifies on what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms, implemented in C). By defining a function's behavior through \emph{specifications}, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details.
+\paragraph{Abstraction by Specification} This specifies on what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms, implemented in C++). By defining a function's behavior through \emph{specifications}, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details.
 
 \autoref{ex:abs-specification} shows an example of abstraction by specification. The \code{exists} method return true if the \code{target} item is found in a list of sorted \code{items}. The user only needs to provide a sorted list and a target, but does not need to know the underlying algorithm used.
 
