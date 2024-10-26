@@ -81,7 +81,7 @@
   \end{mybox}
 }
 
-\newtcolorbox{mydomesticbox}{
+\newtcolorbox{myhistorybox}{
   enhanced,
   boxrule=0pt,frame hidden,
   borderline west={2pt}{0pt}{red!75!black},
@@ -89,12 +89,12 @@
   sharp corners
 }
 
-\newenvironment{domesticbox}[1][]{
+\newenvironment{historybox}[1][]{
   \small
-  \begin{mydomesticbox}
+  \begin{myhistorybox}
     {\small \textbf{#1}}
   }{
-  \end{mydomesticbox}
+  \end{myhistorybox}
 }
 
 \renewcommand{\figurename}{Fig.}
@@ -1955,8 +1955,9 @@ In this example, the \code{greet} function is assigned to a variable \code{greet
 
 For this example, \code{apply\_op} takes another function \code{op} as an argument and applies it to the given arguments. This allows for dynamic behavior based on the function passed to \code{apply\_op}.
 
-
-\paragraph{History} Lisp, developed by John McCarthy in the late 1950s, was one of the first languages to treat functions as first-class citizens. Lisp's approach to functions was heavily influenced by \emph{lambda calculus}, developed by Alonzo Church in the 1930s, which formalized functions as mathematical expressions. Lisp's support for first-class functions allows for powerful programming techniques, such as higher-order functions (\autoref{sec:higher-order}).  Modern programming languages including Python, JavaScript, and Ruby all treat functions as first-class citizens. 
+\begin{historybox}[History]
+Lisp, developed by John McCarthy in the late 1950s, was one of the first languages to treat functions as first-class citizens. Lisp's approach to functions was heavily influenced by \emph{lambda calculus}, developed by Alonzo Church in the 1930s, which formalized functions as mathematical expressions. Lisp's support for first-class functions allows for powerful programming techniques, such as higher-order functions (\autoref{sec:higher-order}).  Modern programming languages including Python, JavaScript, and Ruby all treat functions as first-class citizens. 
+\end{historybox}
 
 \section{Anonymous and Lambda Functions}\label{sec:lambda}
 A popular use for first-class functions is to create \emph{anonymous} or \emph{lambda} functions, which are unnamed functions defined on the fly. Lambda functions are useful for short, simple operations that do not require a full function definition. 
@@ -2005,34 +2006,37 @@ Higher-order functions are commonly used in functional programming and are avail
     Example: \code{reduce(lambda x, y: x + y, [1,2,3,4,5])} returns \code{15}. 
 \end{itemize}
 
-\paragraph{Fun fact} While \code{reduce} is well-known in functional languages such as Haskell and Ocaml, the Python community believes that list comprehensions and generator expressions made the code more readable than \code{reduce}. Thus, in Python 3, \code{reduce} was moved to the \code{functools} module to emphasize its specialized use case.
+\begin{historybox}[Fun Fact] 
+    While \code{reduce} is well-known in functional languages such as Haskell and Ocaml, the Python community believes that list comprehensions and generator expressions made the code more readable than \code{reduce}. Thus, in Python 3, \code{reduce} was moved to the \code{functools} module to emphasize its specialized use case.
 
-For example, compare the following code snippets that calculate the sum of a list of numbers using \code{reduce} and list comprehension:
-\begin{lstlisting}
-# Calculate the sum of a list of numbers using reduce
-numbers = [1, 2, 3, 4, 5]
-total = reduce(lambda x, y: x + y, numbers)
-print(total)  # Output: 15
-
-# using list comprehension
-total = sum(numbers)
-print(total)  # Output: 15
-
-# using generator expression
-total = sum(x for x in numbers)
-print(total)  # Output: 15
-\end{lstlisting}
-
-\paragraph{Fun fact} The MapReduce framework, introduced by Google in 2004, was inspired by \code{map} and \code{reduce} (``map'' distributes work across multiple nodes and the ``reduce'' aggregates the results).  It revolutionizes large-scale data processing and allows Google to index the web efficiently. It influences current web technologies such as Apache Hadoop and Apache Spark.
-
+    For example, compare the following code snippets that calculate the sum of a list of numbers using \code{reduce} and list comprehension:
+    \begin{lstlisting}
+    # Calculate the sum of a list of numbers using reduce
+    numbers = [1, 2, 3, 4, 5]
+    total = reduce(lambda x, y: x + y, numbers)
+    print(total)  # Output: 15
+    
+    # using list comprehension
+    total = sum(numbers)
+    print(total)  # Output: 15
+    
+    # using generator expression
+    total = sum(x for x in numbers)
+    print(total)  # Output: 15
+    \end{lstlisting}    
+\end{historybox}
 
 
+\begin{historybox}[Fun Fact]
+The MapReduce framework, introduced by Google in 2004, was inspired by \code{map} and \code{reduce} (``map'' distributes work across multiple nodes and the ``reduce'' aggregates the results).  It revolutionizes large-scale data processing and allows Google to index the web efficiently. It influences current web technologies such as Apache Hadoop and Apache Spark.
+\end{historybox}
 
 \section{Closures}
 Closures are a higher-order function that returns a function. It is a powerful feature of first-class functions and allows functions to retain access to variables from their enclosing scope even after the scope has finished executing.
 
-\paragraph{Fun fact} Closures are used extensively in Javascript, introduced in the Netscape browser in 1995 by Bredan Eich. Javascript supports closures and first-class functions and enables the development of dynamic and interactive web applications, leading to its widespread adoption and popularity.
-
+\begin{historybox}[Fun fact] 
+    Closures are used extensively in Javascript, introduced in the Netscape browser in 1995 by Bredan Eich. Javascript supports closures and first-class functions and enables the development of dynamic and interactive web applications, leading to its widespread adoption and popularity.
+\end{historybox}
 \paragraph{Examples}
 \begin{figure}
 \begin{lstlisting}
@@ -2146,8 +2150,9 @@ Currying is a special form of closure. The curried function takes one argument a
 The \code{make\_multiplier} function in \autoref{fig:closure-example} is an example of currying. The function needs 2 arguments, but it is transformed into a series of 2 function calls where each take 1 argument. For example, \code{make\_multiplier(2)(3)} is equivalent to \code{2*3}.
 
 
-\paragraph{History} Currying was introduced by Haskell Curry in the 1930s. Currying and higher-order functions (\autoref{sec:higher-order}) are widely-used in functional programming languages such as Ocaml and Haskell (named after Haskell Curry).
-
+\begin{historybox}[History] 
+    Currying was introduced by Haskell Curry in the 1930s. Currying and higher-order functions (\autoref{sec:higher-order}) are widely-used in functional programming languages such as Ocaml and Haskell (named after Haskell Curry).
+\end{historybox}
 
 \section{Exercise}
 
