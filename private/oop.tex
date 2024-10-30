@@ -2215,7 +2215,8 @@ else:
 
 For these functions (\code{square, div}) we simply test them with various numbers as inputs and check that the outputs are as expected. We do not need to know how the functions (e.g., \code{square}) were implemented. Observe that because of this, we do not know about the special ``buggy'' case of \code{123} in \code{square} and thus do not test for it. This is a limitation of blackbox testing.
 
-\paragraph{Unit Testing} 
+\subsection{Unit Testing}\label{sec:unit-testing}
+
 Modern OOP languages often have built-in capability or library to help with testing. \emph{Unit testing} is a popular and supported by most languages to test individual \emph{units} (e.g., functions, classes) of the program. Below is a small example of using Python's \code{unittest} library to test the \code{MathStuff} class (\autoref{sec:blackbox}).
 
 \begin{lstlisting}
@@ -2247,13 +2248,15 @@ Modern OOP languages often have built-in capability or library to help with test
 \end{lstlisting}
 
 
-\subsection{Special/Edge Cases Testing}
+\subsection{Special/Edge Cases Testing}\label{sec:special-case-testing}
 
-This testing runs the program on special or edge cases to find bugs that are not caught by regular inputs. For example, a program that computes the square of a number (like \code{MathStuff.square} above) should be tested with negative numbers, zero, and positive numbers. Similarly, for a program that takes a list of numbers as input, special cases could include an empty list, with one element, with all 0's, with all negative numbers, etc.
+This testing runs the program on special or edge cases to find bugs that are not caught by regular inputs.
+
+For example, a program like \code{MathStuff.square} in \autoref{sec:unit-testing} should be tested with negative numbers, zero, and positive numbers. Similarly, for a program that takes a list of numbers as input, special cases could include an empty list, with one element, with all 0's, with all negative numbers, etc.
 
 
 \subsection{Fuzz Testing}
-This testing generates random and invalid inputs to test the program. For example, a program expects a number is tested with a string or a dict.  It has the similar purpose as special cases testing, but instead of using specific inputs, it generates many random and invalid inputs. Fuzz testing is often used to find security vulnerabilities. More advanced fuzzing techniques generate new inputs from existing ones, e.g., by flipping bits or changing values slightly.
+This testing generates random and \emph{invalid} inputs to test the program. For example, a program expects a number is tested with a string or a dict.  It has the similar purpose as special cases testing (\autoref{sec:special-case-testing}), but instead of using specific valid inputs, it generates many random and invalid inputs. Fuzz testing is often used to find security vulnerabilities. Many advanced fuzzing techniques generate new inputs from existing or \emph{seed} inputs, e.g., by flipping bits or changing values slightly.
 
 \begin{lstlisting}
 #generate 100 random numbers
@@ -2330,7 +2333,7 @@ This example tests various properties of \code{square} and \code{add} with rando
 You are given two implementations computing the GCD (Greatest Common Divisor) of two numbers. One of them is correct and the other has a bug.  You will write combinatorial and property tests to find the bug. Recall that the GCD of two numbers is the largest number that divides both of them. For example, \code{gcd(8,12)=4}. 
 
 
-\begin{lstlisting}
+\begin{lstlisting}[multicols=2]
 def gcd_correct(a, b):
     while b != 0:
         a, b = b, a % b
@@ -2457,7 +2460,12 @@ For the \code{square} function in \autoref{sec:blackbox}, symbolic execution wou
 %\section{Integration Testing}
 %\section{System Testing}
 
-\section{Debugging}
+\section{Fault Localization}\label{sec:debugging}
+
+Fault localization is a debugging process of isolating the bug in the program. It is crucial for developers to understand and fix the bug. Programmers use various techniques, including \code{printf} debugging where they output variable values to analyze the bug. Professional developers use built-in debugger tools in IDEs to step through and pause code execution to inspect variables and program states.  
+
+Here we will discuss two popular fault localization techniques: \emph{statistical debugging} and \emph{delta debugging} to localize code and inputs that likely contain the bug.
+
 
 \subsection{Statistical Debugging}\label{sec:statistical-debugging}
 Statistical debugging is a white-box technique that uses statistics to find bugs in code, i.e., \emph{fault localization}. It collects program execution traces, e.g., which lines of code were executed, how many times, etc, and uses this data to find the lines that likely contain the bug. For example, if a line $l$ is executed many times when the program fails but not when it runs correctly, then $l$ is likely the bug.
