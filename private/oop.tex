@@ -2894,14 +2894,14 @@ More specifically, \code{oracle(s:str)->bool} takes in a string \code{s} and ret
 
 
 \begin{table}
-    \caption{Threads vs. Processes}
+    \caption{Threads vs. Processes}\label{tab:threads-vs-processes}
     \small
     \centering
     \begin{tabular}{l|l|l}
     \toprule
     &\textbf{Threads} & \textbf{Processes} \\
     \midrule
-    Memory & Share memory & Not sharing memory\\
+    Memory & Sharing memory & Not sharing memory\\
     Communication & Easier, since sharing memory & Harder, because running in isolation \\
     Concurrency Type & Interleaved & Parallel \\
     Overhead & Lightweight & Heavyweight\\
@@ -3053,7 +3053,7 @@ In Python, we use \code{Semaphore} in \code{threading} for semaphores. For the e
 
 \paragraph{Monitors}  This combines mutual exclusion (like a lock) with thread communication capability.  It allows threads to wait for a condition to be true and notify other threads when the condition changes. Java implements monitors natively. Python however does not have built-in monitors, but we can use \code{threading.Condition} to simulate monitors as follows. 
 
-As shown in \autoref{ex:producer-consumer-lock} the classical ``producer-consumer'' problem has an issue with the consumer trying to consume from an empty buffer using a \code{lock}. This can be solved using a monitor (lock = \threading.Condition()), as shown in \autoref{ex:producer-consumer-monitor}, which ensures that the consumer stops consuming and waits when the buf is empty, and producer notifies consumer when it adds an item to the buf.
+As shown in \autoref{ex:producer-consumer-lock} the classical ``producer-consumer'' problem has an issue with the consumer trying to consume from an empty buffer using a \code{lock}. This can be solved using a monitor (lock = threading.Condition()), as shown in \autoref{ex:producer-consumer-monitor}, which ensures that the consumer stops consuming and waits when the buf is empty, and producer notifies consumer when it adds an item to the buf.
 
 
 \begin{figure}
