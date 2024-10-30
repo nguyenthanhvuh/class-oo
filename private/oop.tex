@@ -2054,7 +2054,7 @@ numbers = [1, 2, 3, 4, 5]
 multiplied_numbers = list(map(make_multiplier(2), numbers))
 print(multiplied_numbers)  # Output: [2, 4, 6, 8, 10]
 \end{lstlisting}
-\caption{Closure example. Note that this example also illustrate curry, a form of closure (\autoref{sec:curry})}\label{fig:closure-example}
+\caption{Closure example. Note that this example also illustrate curry, a form of closure (\autoref{sec:curry})}\label{ex:closure-example}
 \end{figure}
 
 The above example demonstrates a closure where the \code{make\_multiplier} function returns the \emph{closure} inner function \code{multiplier} that multiplies a number by a given factor. The \code{times\_three} function is created by calling \code{make\_multiplier(3)}, which returns a function that multiplies by 3. The closure allows the \code{multiplier} function to retain access to the \code{factor} variable even after \code{make\_multiplier} has finished executing.
@@ -2147,7 +2147,7 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 
 Currying is a special form of closure. The curried function takes one argument at a time and returns a new function that takes the next argument. In other words, it transforms a function of arity $n$ to $n$ functions of arity $1$.
 
-The \code{make\_multiplier} function in \autoref{fig:closure-example} is an example of currying. The function needs 2 arguments, but it is transformed into a series of 2 function calls where each take 1 argument. For example, \code{make\_multiplier(2)(3)} is equivalent to \code{2*3}.
+The \code{make\_multiplier} function in \autoref{ex:closure-example} is an example of currying. The function needs 2 arguments, but it is transformed into a series of 2 function calls where each take 1 argument. For example, \code{make\_multiplier(2)(3)} is equivalent to \code{2*3}.
 
 
 \begin{historybox}[History] 
@@ -2942,9 +2942,9 @@ if __name__ == "__main__":
     queue = Queue()
     # Create processes
     process1 = Process(
-        target=square, args=(numbers, queue))
+        target=square,args=(numbers,queue))
     process2 = Process(
-        target=cube, args=(numbers, queue))
+        target=cube,args=(numbers,queue))
 
     # Run processes (in parallel)
     process1.start()
@@ -2963,6 +2963,13 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \section{Threading}\label{sec:threads}
+
+%TODO: explain about daemon, thread join, example here  https://realpython.com/intro-to-python-threading/
+%TODO: show example of deadlock
+%TODO: easier to just use a single example with Producer Consumer,  
+
+
+
 A thread runs within a process and shares memory and data as other threads in the process. Thus threads are lightweight with low overhead, but can face synchronization issues like race conditions when multiple threads access shared data.
 
 In Python we use the \code{threading} module to create and manage threads. The following demonstrates the use of \code{threading.Thread} to run tasks in parallel. It also uses \emph{threading.lock} for mutual exclusion to ensure only one thread accesses and modifies the shared variable at a time.
@@ -3027,21 +3034,116 @@ Locks, semaphores, and monitors are key concepts in concurrent computing. These 
 % \end{tabular}
 % \end{table}
 
-\paragraph{Locks} This simple mechanism allows only \emph{one} thread or process to access a shared resource (\emph{critical section}) at a time. It works by allowing a thread $t$ to acquire the \emph{lock} and proceed if the lock is available; otherwise, $t$ waits until the lock is released.  After $t$ is done, it releases the lock. The example in \autoref{sec:threads} uses a lock to protect the shared variable \code{shared\_ct}. Note acquiring and releasing locks are done automatically (using the \code{with} statement).
+\paragraph{Locks} This simple mechanism allows only \emph{one} thread or process to access a shared resource (\emph{critical section}) at a time. It works by allowing a thread $t$ to acquire the \emph{lock} and proceed if the lock is available; otherwise, $t$ waits until the lock is released.  After $t$ is done, it releases the lock. The example in \autoref{sec:threads} uses a lock to protect the shared variable \code{shared\_ct}. Note acquiring and releasing locks are done automatically (using the \code{with lock} statement).
 
 Thus, locks are ideal \emph{when only one} thread should access a shared resource at a time. Because of this limitation, locks are efficient and simple to use. However, they can lead to \emph{deadlocks} (e.g., two threads waiting for each other to release a lock).
+
+
+\begin{lstlisting}
+    from threading import Thread, Lock
+
+\end{lstlisting}
 
 \paragraph{Semaphores} Semaphores are more flexible than locks as they allow \emph{multiple} threads to simulateously access a shared resource.  Semaphores maintain a \emph{counter} to track the number of threads that can access the resource.  When a thread $t$ wants to access a resource $r$, it checks the counter $n$. If $n > 0$, $t$ decrements $n$ and proceeds to \emph{acquire} $r$. If $n=0$, $t$ waits until $n$ is incremented. When $t$ is done, it increments $n$ to indicate that it \emph{releases} $r$. Note that when $n>1$, we have a \emph{counting semaphore}, and when $n=1$, we have a \emph{binary semaphore}, which behaves like a lock.
 
 Semaphores are thus useful when multiple threads need to  access a shared resource. However, they too can lead to deadlocks when threads are waiting for each other to release a semaphore.
 
-In Python, we use \code{Semaphore} in \code{threading} for semaphores. For the example in \autoref{sec:threads}, we can replace \code{lock = Lock()} with a binary semaphore: \code{sem = Semaphore(1)}. Observe that the semaphore is initialized with 1 to behave like a lock and ensure proper mutual exclusion. If we initialized with 2 then race condition can occur as both threads can access and modify \code{shared\_ct} simultaneously.
+In Python, we use \code{Semaphore} in \code{threading} for semaphores. For the example in \autoref{sec:threads}, we can replace \code{lock = Lock()} with a binary semaphore: \code{sem = Semaphore(1)}. Observe that the semaphore is initialized with 1 to behave like a lock and ensure proper mutual exclusion. If we initialized with 2 then race condition could occur as both threads can access and modify \code{shared\_ct} simultaneously.
 
 
-\paragraph{Monitors}  This combines mutual exclusion (like a lock) with thread communication capability.  It allows threads to wait for a condition to be true and notify other threads when the condition changes. For example, the classical ``producer-consumer'' problem is solved using a monitor to ensure that the producer pauses producing when the buffer is full and the consumer stops consuming when the buffer is empty, and they signal each other to resume when the buffer is not full or empty.
+\paragraph{Monitors}  This combines mutual exclusion (like a lock) with thread communication capability.  It allows threads to wait for a condition to be true and notify other threads when the condition changes. Java implements monitors natively. Python however does not have built-in monitors, but we can use \code{threading.Condition} to simulate monitors as follows. 
 
-Java implements monitors natively into the language. Python however does not have built-in monitors, but we can use \code{threading.Condition} to simulate monitors. The following demonstrates how to use \code{Condition} to implement a monitor for the producer-consumer problem.
+As shown in \autoref{ex:producer-consumer-lock} the classical ``producer-consumer'' problem has an issue with the consumer trying to consume from an empty buffer using a \code{lock}. This can be solved using a monitor (lock = \threading.Condition()), as shown in \autoref{ex:producer-consumer-monitor}, which ensures that the consumer stops consuming and waits when the buf is empty, and producer notifies consumer when it adds an item to the buf.
 
+
+\begin{figure}
+    \begin{lstlisting}[multicols=2]
+    import threading
+    import time
+    import random
+    
+    
+    queue = []
+    lock = threading.Lock()    
+    class ProducerThread(threading.Thread):
+        def run(self):
+            global queue
+            while True:
+                num = random.choice(range(10)) 
+                lock.acquire()
+                queue.append(num)
+                print("Produced", num)
+                lock.release()
+                time.sleep(random.random())
+    
+    
+    class ConsumerThread(threading.Thread):
+        def run(self):
+            global queue
+            while True:
+                lock.acquire()
+                if not queue:
+                    print("Nothing in queue, "
+                        "consumer fails")
+                num = queue.pop(0)
+                print("Consumed", num)
+                lock.release()
+                time.sleep(random.random())
+    
+    if __name__ == "__main__":
+        # start the threads
+        ProducerThread().start()
+        ConsumerThread().start()
+    \end{lstlisting}
+    \caption{Producer-Consumer Problem using Lock (has issue)}\label{ex:producer-consumer-lock}
+    \end{figure}
+
+
+\begin{figure}
+\begin{lstlisting}[multicols=2]
+import threading
+import time
+import random
+
+
+queue = []
+lock = threading.Condition()    
+class ProducerThread(threading.Thread):
+    def run(self):
+        global queue
+        while True:
+            num = random.choice(range(10)) 
+            lock.acquire()
+            queue.append(num)
+            print("Produced", num)
+            lock.notify()
+            lock.release()
+            time.sleep(random.random())
+
+
+class ConsumerThread(threading.Thread):
+    def run(self):
+        global queue
+        while True:
+            lock.acquire()
+            if not queue:
+                print("Nothing in queue, "
+                    "consumer waits (instead of fail)")
+                lock.wait()
+                print("Producer added to queue,"
+                      "consumer continues")
+            num = queue.pop(0)
+            print("Consumed", num)
+            lock.release()
+            time.sleep(random.random())
+
+if __name__ == "__main__":
+    # start the threads
+    ProducerThread().start()
+    ConsumerThread().start()
+\end{lstlisting}
+\caption{Producer-Consumer Problem using Monitors (fix issue)}\label{ex:producer-consumer-monitor}
+\end{figure}
 
 
 \paragraph{History} The concept of semaphore was due to \emph{Edsger Dijkstra} in the early 60s when he was working on the THE multiprogramming system. The name \emph{``semaphore''} might have been inspired by the railway signals that control the traffic of trains.
