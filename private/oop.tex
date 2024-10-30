@@ -9,6 +9,7 @@
 \usepackage[most]{tcolorbox}
 % \setsecnumdepth{subsection}
 % \setcounter{tocdepth}{3}
+\usepackage{multirow}
 \usepackage{multicol}
 \usepackage{enumitem}
 \usepackage{epigraph}
@@ -80,7 +81,7 @@
   \end{mybox}
 }
 
-\newtcolorbox{mydomesticbox}{
+\newtcolorbox{myhistorybox}{
   enhanced,
   boxrule=0pt,frame hidden,
   borderline west={2pt}{0pt}{red!75!black},
@@ -88,12 +89,12 @@
   sharp corners
 }
 
-\newenvironment{domesticbox}[1][]{
+\newenvironment{historybox}[1][]{
   \small
-  \begin{mydomesticbox}
+  \begin{myhistorybox}
     {\small \textbf{#1}}
   }{
-  \end{mydomesticbox}
+  \end{myhistorybox}
 }
 
 \renewcommand{\figurename}{Fig.}
@@ -115,7 +116,7 @@
 
 \begin{document}
 
-\pagestyle{empty}
+%\pagestyle{empty}
 \begin{tikzpicture}[overlay,remember picture]
 
     % Background color
@@ -193,7 +194,7 @@
     % Title
     \node[align=center] at ($(current page.center)+(0,-5)$)
     {
-    {\fontsize{38}{1} \selectfont {{OOP Design and Specification}}}\\[0.5in]
+    {\fontsize{32}{1} \selectfont {{OOP Design, Specification, and Analysis}}}\\[0.5in]
 
     {\fontsize{14}{19.2} \selectfont \textcolor{ForestGreen}{ \bf ThanhVu (Vu) Nguyen}}\\[0.1in]
     \today{} (latest version available on  \href{https://nguyenthanhvuh.github.io/class-oo/oop.pdf}{nguyenthanhvuh.github.io/class-oo/oop.pdf})
@@ -265,7 +266,7 @@ This book will show you the fundamentals of developing high-quality software usi
 
 
 A large part of this book focuses on \emph{abstraction}, a key concept in OOP that allows programmers to hide the implementation details and focus on the essential features. By decoupling the \textbf{what} (the  behavior specification) from the \textbf{how} (the actual implementation), programmers could focus on higher-level design and reuse code more effectively.
-In an OOP language such as Python, you can abstract problems by creating functions, classes, and modules that hide the underlying implementation details.
+% In an OOP language such as Python, you can abstract problems by creating functions, classes, and modules that hide the underlying implementation details.
 
 \paragraph{Example} \autoref{ex:mammal} demonstrates an abstraction for different types of mammals. Mammals such as Dog and Cat share common behaviors such as making noise (speak). We can create a class \code{Mammal} that defines these common behaviors, and then subclasses \code{Dog} and \code{Cat} that inherit from \code{Mammal} and define their own unique behaviors.  These are abstract data types that allow us to work with mammals. Also notice the specification (e.g., \code{REQUIRES}) in the comments that describe what the method does, not how it does it.
 
@@ -320,7 +321,7 @@ This uses \emph{parameters} to allow the function to be run with different input
 
 
 
-\paragraph{Abstraction by Specification} This specifies on what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms, implemented in C). By defining a function's behavior through \emph{specifications}, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details.
+\paragraph{Abstraction by Specification} This specifies on what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms, implemented in C++). By defining a function's behavior through \emph{specifications}, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details.
 
 \autoref{ex:abs-specification} shows an example of abstraction by specification. The \code{exists} method return true if the \code{target} item is found in a list of sorted \code{items}. The user only needs to provide a sorted list and a target, but does not need to know the underlying algorithm used.
 
@@ -473,12 +474,20 @@ In contrast, for post-conditions, we want as strong a condition as possible to e
 
 \subsection{Total vs Partial Functions}
 
-A function is \emph{total} if it is defined for all legal inputs; otherwise, it is \emph{partial}. Thus a function with no precondition (weakest precondition) is total.  Total functions are preferred because they can be used in more situations, especially when the function is used publicly or in a library where the user may not know the input constraints. Partial functions can be used when the function is used internally, e.g., a helper or auxiliary function and the caller is knowledgeable and can ensure its preconditions are satisfied.
+A function is \emph{total} if it is defined for all legal inputs; otherwise, it is \emph{partial}. Thus a function with no precondition (weakest precondition) is total.  
 
-The functions \code{calc\_area} in \autoref{ex:abs-parameterization} and \code{add\_to\_list} in \autoref{ex:abs-specification} are total because they can be called with any input. The \code{exists} function in \autoref{ex:abs-specification} is partial because it only works with sorted lists.
+Total functions are \emph{preferred} because they can be used in more situations, especially when the function is used publicly or in a library where the user may not know the input constraints. Partial functions can be used when the function is used internally, e.g., a helper or auxiliary function and the caller is knowledgeable and can ensure its preconditions are satisfied.
+
+Functions \code{calc\_area} in \autoref{ex:abs-parameterization} and \code{add\_to\_list} in \autoref{ex:abs-specification} are total because they can be called with any input. The \code{exists} function in \autoref{ex:abs-specification} is partial because it only works with sorted lists.
 
 
-\paragraph{Turning Partial Functions into Total Functions} We can often turn a partial function into a total function in two steps. First, we move preconditions into postconditions and specify the expected behavior when the precondition is not satisfied, e.g., throws an \code{Exception}. Second, we modify the function to satisfy the new specification, i.e., handling the cases when the preconditions are not satisfied. For example, the \code{exists} function in \autoref{ex:abs-specification} is turned into the total function shown in \autoref{ex:abs-total}.
+\paragraph{Turning Partial Functions into Total Functions} We can often turn a partial function into a total function in two steps. 
+\begin{enumerate}
+\item Move preconditions into postconditions and specify the expected behavior when the precondition is not satisfied, e.g., throws an \code{Exception}
+\item Modify the function to satisfy the new specification, i.e., handling the cases when the preconditions are not satisfied. 
+\end{enumerate}
+
+For example, the \code{exists} function in \autoref{ex:abs-specification} is turned into the total function shown in \autoref{ex:abs-total}.
 
 \begin{figure}
 \begin{lstlisting}
@@ -630,9 +639,9 @@ def get_average(numbers: list[float]) -> float:
 
 %This chapter focuses on \emph{abstract data type} (ADT), a foundation of OOP and key concept in programming that allows developers to separate how data is implemented from how it behaves. Through ADT, programmers can create new data types relevant to their application. These ADTs consist of objects and associated operations.
 
-In 1974, Barbara Liskov and Stephen N. Zilles introduced the concept of Abstract Data Types (\emph{ADTs}) in their influential paper ``Programming with Abstract Data Types'' as part of their work on the CLU programming language at MIT. ADTs changed software design by separating the specification of a data type from its implementation. This allows developers to define operations on a data structure without exposing the details of how the data was managed internally (e.g., calling \code{pop} to remove data from a \code{Stack} without knowing the internal details on how stack stores data). 
+In 1974, Barbara Liskov and Stephen N. Zilles introduced Abstract Data Types (\emph{ADTs}) in their influential paper ``Programming with Abstract Data Types'' as part of their work on the CLU programming language at MIT. ADTs changed software design by separating the specification of a data type from its implementation. This allows developers to define operations on a data structure without exposing the detailed implementation of data (e.g., calling \code{pop} to remove data from a \code{Stack} without knowing the internal details on how stack stores data). 
 
-For her pioneering contributions to programming languages and system design, particularly through her work on ADTs and CLU, Barbara Liskov was awarded the Turing Award in 2008. Today, ADTs are a cornerstone of modern programming including Java, Python, and Rust.
+For her pioneering contributions to programming languages and system design, particularly on ADTs and CLU, Barbara Liskov was awarded the Turing Award in 2008. Today, ADTs are a cornerstone of all modern programming languages.
 
 %The CLU language was the first to explicitly support ADTs using a construct called a cluster, which encapsulated both the data structure and the operations that acted on it. CLU also introduced several other innovative features like iterators, exceptions, and parameterized types, many of which influenced modern programming languages such as Java, Python, and C++. Though CLU never became widely used, the principles it introduced, especially ADTs, became foundational in software engineering, leading to more modular and reusable code.
 
@@ -1315,7 +1324,8 @@ The main idea of LSP is that a subclass \emph{is-a} superclass and can do everyt
 This enables substitution of objects of the subclass for objects of the superclass, allowing for polymorphism and dynamic dispatching to work correctly. The \code{make\_animal\_speak} function in \autoref{ex:polymorphism} demonstrates LSP by accepting any \code{Mammal} object and making it speak, regardless of its specific type.
 
 
-\paragraph{Rules} If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be replaced with objects of type \code{S} without altering any of the desirable properties of the program. This means whenever you use \code{T}, you can use \code{S} instead. To achieve this, we must follow the following rules:
+\subsection{Rules} 
+If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be replaced with objects of type \code{S} without altering any of the desirable properties of the program. This means whenever you use \code{T}, you can use \code{S} instead. To achieve this, we must follow the following rules:
 \begin{itemize}
 \item[\textbf{Signature Rule}] The signatures of methods of \code{S} must strengthen methods of \code{T}. In other words, the methods of \code{S} are a superset of the methods of \code{T}. Thus, if \code{T} has \code{n} methods, \code{S} also has \code{n} methods and additional ones (methods specific to \code{S}). 
 
@@ -1625,10 +1635,10 @@ For each case below, determine if LSP holds by checking whether the precondition
 
 
 \chapter{Iterators}
-Iterators and generators are powerful constructs in OOP that enable efficient traversal and on-the-fly computation of sequences of data. They allow developers to handle large datasets, abstract complex data traversal patterns, and create custom iterators for any type of object. 
+Iterators and generators are powerful concepts in OOP that enable efficient traversal and on-the-fly computation of sequences of data. They allow developers to handle large datasets, abstract complex data traversal patterns, and create custom iterators for any type of object. 
 
 \section{Motivation}
-Let’s consider a scenario where you need to generate Fibonacci numbers. A common but inefficient approach is to generate all Fibonacci numbers up to a certain limit and store them in a list, which consumes a lot of memory, especially for large sequences.
+Let’s consider a scenario where you need to generate Fibonacci numbers. A common but inefficient approach is to generate Fibonacci numbers up to a certain limit and store all them in a list, which consumes a lot of memory.
 
 \begin{lstlisting}
 def generate_fib_list(n: int) -> list[int]:
@@ -1945,8 +1955,9 @@ In this example, the \code{greet} function is assigned to a variable \code{greet
 
 For this example, \code{apply\_op} takes another function \code{op} as an argument and applies it to the given arguments. This allows for dynamic behavior based on the function passed to \code{apply\_op}.
 
-
-\paragraph{History} Lisp, developed by John McCarthy in the late 1950s, was one of the first languages to treat functions as first-class citizens. Lisp's approach to functions was heavily influenced by \emph{lambda calculus}, developed by Alonzo Church in the 1930s, which formalized functions as mathematical expressions. Lisp's support for first-class functions allows for powerful programming techniques, such as higher-order functions (\autoref{sec:higher-order}).  Modern programming languages including Python, JavaScript, and Ruby all treat functions as first-class citizens. 
+\begin{historybox}[History]
+Lisp, developed by John McCarthy in the late 1950s, was one of the first languages to treat functions as first-class citizens. Lisp's approach to functions was heavily influenced by \emph{lambda calculus}, developed by Alonzo Church in the 1930s, which formalized functions as mathematical expressions. Lisp's support for first-class functions allows for powerful programming techniques, such as higher-order functions (\autoref{sec:higher-order}).  Modern programming languages including Python, JavaScript, and Ruby all treat functions as first-class citizens. 
+\end{historybox}
 
 \section{Anonymous and Lambda Functions}\label{sec:lambda}
 A popular use for first-class functions is to create \emph{anonymous} or \emph{lambda} functions, which are unnamed functions defined on the fly. Lambda functions are useful for short, simple operations that do not require a full function definition. 
@@ -1995,34 +2006,37 @@ Higher-order functions are commonly used in functional programming and are avail
     Example: \code{reduce(lambda x, y: x + y, [1,2,3,4,5])} returns \code{15}. 
 \end{itemize}
 
-\paragraph{Fun fact} While \code{reduce} is well-known in functional languages such as Haskell and Ocaml, the Python community believes that list comprehensions and generator expressions made the code more readable than \code{reduce}. Thus, in Python 3, \code{reduce} was moved to the \code{functools} module to emphasize its specialized use case.
+\begin{historybox}[Fun Fact] 
+    While \code{reduce} is well-known in functional languages such as Haskell and Ocaml, the Python community believes that list comprehensions and generator expressions made the code more readable than \code{reduce}. Thus, in Python 3, \code{reduce} was moved to the \code{functools} module to emphasize its specialized use case.
 
-For example, compare the following code snippets that calculate the sum of a list of numbers using \code{reduce} and list comprehension:
-\begin{lstlisting}
-# Calculate the sum of a list of numbers using reduce
-numbers = [1, 2, 3, 4, 5]
-total = reduce(lambda x, y: x + y, numbers)
-print(total)  # Output: 15
-
-# using list comprehension
-total = sum(numbers)
-print(total)  # Output: 15
-
-# using generator expression
-total = sum(x for x in numbers)
-print(total)  # Output: 15
-\end{lstlisting}
-
-\paragraph{Fun fact} The MapReduce framework, introduced by Google in 2004, was inspired by \code{map} and \code{reduce} (``map'' distributes work across multiple nodes and the ``reduce'' aggregates the results).  It revolutionizes large-scale data processing and allows Google to index the web efficiently. It influences current web technologies such as Apache Hadoop and Apache Spark.
-
+    For example, compare the following code snippets that calculate the sum of a list of numbers using \code{reduce} and list comprehension:
+    \begin{lstlisting}
+    # Calculate the sum of a list of numbers using reduce
+    numbers = [1, 2, 3, 4, 5]
+    total = reduce(lambda x, y: x + y, numbers)
+    print(total)  # Output: 15
+    
+    # using list comprehension
+    total = sum(numbers)
+    print(total)  # Output: 15
+    
+    # using generator expression
+    total = sum(x for x in numbers)
+    print(total)  # Output: 15
+    \end{lstlisting}    
+\end{historybox}
 
 
+\begin{historybox}[Fun Fact]
+The MapReduce framework, introduced by Google in 2004, was inspired by \code{map} and \code{reduce} (``map'' distributes work across multiple nodes and the ``reduce'' aggregates the results).  It revolutionizes large-scale data processing and allows Google to index the web efficiently. It influences current web technologies such as Apache Hadoop and Apache Spark.
+\end{historybox}
 
 \section{Closures}
 Closures are a higher-order function that returns a function. It is a powerful feature of first-class functions and allows functions to retain access to variables from their enclosing scope even after the scope has finished executing.
 
-\paragraph{Fun fact} Closures are used extensively in Javascript, introduced in the Netscape browser in 1995 by Bredan Eich. Javascript supports closures and first-class functions and enables the development of dynamic and interactive web applications, leading to its widespread adoption and popularity.
-
+\begin{historybox}[Fun fact] 
+    Closures are used extensively in Javascript, introduced in the Netscape browser in 1995 by Bredan Eich. Javascript supports closures and first-class functions and enables the development of dynamic and interactive web applications, leading to its widespread adoption and popularity.
+\end{historybox}
 \paragraph{Examples}
 \begin{figure}
 \begin{lstlisting}
@@ -2136,8 +2150,9 @@ Currying is a special form of closure. The curried function takes one argument a
 The \code{make\_multiplier} function in \autoref{fig:closure-example} is an example of currying. The function needs 2 arguments, but it is transformed into a series of 2 function calls where each take 1 argument. For example, \code{make\_multiplier(2)(3)} is equivalent to \code{2*3}.
 
 
-\paragraph{History} Currying was introduced by Haskell Curry in the 1930s. Currying and higher-order functions (\autoref{sec:higher-order}) are widely-used in functional programming languages such as Ocaml and Haskell (named after Haskell Curry).
-
+\begin{historybox}[History] 
+    Currying was introduced by Haskell Curry in the 1930s. Currying and higher-order functions (\autoref{sec:higher-order}) are widely-used in functional programming languages such as Ocaml and Haskell (named after Haskell Curry).
+\end{historybox}
 
 \section{Exercise}
 
@@ -2546,16 +2561,36 @@ Note that scores for lines 1 and line 13, which are always executed, are $4/4 / 
 While statistical debugging (\autoref{sec:statistical-debugging}) aims to localize faults in the code,  DD focuses on finding the smallest input that triggers the issue. DD aims to \emph{minimize} a \emph{failing} input  (e.g., causing the program to crash or producing some interesting behavior). It is useful for debugging and finding the smallest input that triggers the issue. DD works by repeatedly splitting the input into smaller parts and checking if the smaller parts still trigger the issue. Note that when using DD, you will need to provide an \emph{oracle} that checks if the input $P$ is interesting (e.g., causing a crash). 
 
 \paragraph{Example 1} \emph{Oracle}: program fails whenever input contains an asterisk (*). 
-\begin{enumerate}
-\item Input = abcdef*h (fails)
-\item Split into 2 parts: abcd/ef*h. Remove 1st: fails; remove 1st (abcd).
-\item Input = ef*h. (fails)
-\item Split into 2 parts: ef/*h.  Remove 1st part: fails; remove 1st (ef).
-\item Input = *h. (fails)
-\item Split into 2 parts: */h.  Remove 1st part: pass; remove 2nd:  fails; remove 2nd (h).
-\item Input = * (fails)
-\item Can no longer split input. Smallest failing input is *.
-\end{enumerate}
+% \begin{enumerate}
+% \item Input = abcdef*h (fails)
+% \item Split into 2 parts: abcd/ef*h. Remove 1st: fails; remove 1st (abcd).
+% \item Input = ef*h. (fails)
+% \item Split into 2 parts: ef/*h.  Remove 1st part: fails; remove 1st (ef).
+% \item Input = *h. (fails)
+% \item Split into 2 parts: */h.  Remove 1st part: pass; remove 2nd:  fails; remove 2nd (h).
+% \item Input = * (fails)
+% \item Can no longer split input. Smallest failing input is *.
+% \end{enumerate}
+
+\begin{table}
+    \caption{Delta Debugging (DD) Example 1.}\label{tab:dd1}
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \toprule
+    &&\multicolumn{2}{c|}{Remove} \\
+    Failing Input & Split & 1st & 2nd \\
+    \midrule
+    abcdef*h & abcd/ef*h & abcd: F & - \\
+    ef*h & ef/*h & ef: F & - \\
+    *h & */h & *: P & h: F \\
+    * & - & - & - \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\autoref{tab:dd1} shows the steps of DD. First, we start with the original input \code{abcdef*h} and split it into two parts \code{abcd/ef*h}. Removing the first part \code{abcd} still fails, so we remove it. We then repeat DD on the new input \code{ef*h} and split it into two parts \code{ef/*h}. Removing \code{ef} still fails, so we remove it and have the new input \code{*h}, which is then split into \code{*/h}. Removing the first part \code{*} passes, so we keep it and remove the second part \code{h}, which fails and is removed. The new input is now \code{*}, which cannot be split further and is the smallest failing input.
+
+This example does not show the case when the split results in all parts passing. In that case, DD would increase the split size (e.g., split into 4 parts instead of 2) and repeat the process.
 
 \paragraph{Example 2} \emph{Oracle}: program fails whenever input contains two asterisks (**).
 \begin{enumerate}
@@ -2576,9 +2611,24 @@ While statistical debugging (\autoref{sec:statistical-debugging}) aims to locali
 \item Cannot split further. Smallest failing input is **.
 \end{enumerate}
 
+%\begin{table}
+%    \caption{Delta Debugging (DD) Example 2.}
+%    \centering
+%    \begin{tabular}{c|c|c|c|c}
+%    \toprule
+%    Input & Split & 1st & 2nd & Result\\
+%    \midrule
+%    *abcdef* & *abc/def* & *abc & def* & P\\
+%    *adef* & *ad/ef* & *ad & ef* & P\\
+%    *af* & *a/f* & *a & f* & P\\
+%    ** & */* & * & * & F\\
+%    \bottomrule
+%    \end{tabular}
+%\end{table}
+
 \subsection{In-class Exercise: Delta Debugging}
 \begin{itemize}
-    \item Apply DD to the input string "*hello*world*" to find the smallest failing input. The oracle is that the input fails whenever it contains the substring \code{oo}.
+    \item Apply DD to the input string \code{"*hello*world*"} to find the smallest failing input. The oracle is that the input fails whenever it contains \code{"oo"}.
     \item What is best-case complexity of DD? Give an example of an input that would take the most steps to find the smallest failing input.
     \item What is the worst-case complexity of DD? Give an example of an input that would take the most steps to find the smallest failing input.
 \end{itemize}
@@ -2850,10 +2900,10 @@ More specifically, \code{oracle(s:str)->bool} takes in a string \code{s} and ret
     \toprule
     &\textbf{Threads} & \textbf{Processes} \\
     \midrule
-    Memory & Share memory within a process & Do not share memor\\
+    Memory & Share memory & Not sharing memory\\
     Communication & Easier, since sharing memory & Harder, because running in isolation \\
-    Concurrency Type & Likely interleaved & Parallel, especially on multicore systems \\
-    Overhead & Lightweight, since sharing resources & Heavyweight, because memory isolation \\
+    Concurrency Type & Interleaved & Parallel \\
+    Overhead & Lightweight & Heavyweight\\
     Use & For lightweight tasks & For heavy, isolated tasks \\
     \bottomrule
     \end{tabular}
