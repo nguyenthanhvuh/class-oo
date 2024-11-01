@@ -2668,11 +2668,11 @@ More specifically, \code{oracle(s:str)->bool} takes in a string \code{s} and ret
     }
     \end{lstlisting}
     and an \emph{oracle} that checks if the input C program is valid (compiles) and contains the word \code{SWE419}. If so, the oracle returns 0 (Fail) and 1 otherwise (Pass).
-    \item Describe \emph{in words} how you would apply DD to obtain the smallest C program that fails the oracle.
+    \item Describe \emph{in words} how you would apply DD to obtain the minimal C program that fails the oracle.
     \begin{itemize}
         \item Show what you get at the end. That is, show the minimal C code that DD would return.  
-        \item You \emph{do not need} to show step by step like we did in class. Instead, just describe the steps you (the DD algorithm) would take to reduce the input,  e.g., \emph{``in the first step you split the program into two parts, then you remove the first part, run the oracle which fails/passes because ..., etc''}.
-        \item Pay attention to the additional requirement of being a valid C program (e.g., need the \code{\#include <stdio.h>}, \code{int main()...} and \code{return 0} statements). 
+        \item You \textbf{do not need} to show step by step like we did in class. Instead, just describe the steps you (the DD algorithm) would take to reduce the input,  e.g., \emph{``in the first step you split the program into two parts, then you remove the first part, run the oracle which fails/passes because ..., etc''}.
+        \item Pay attention to the additional requirement of being a valid C program (e.g., needs the \code{\#include <stdio.h>}, \code{int main()...} and \code{return 0} statements). 
     \end{itemize}
 \end{itemize}
 %The DD algorithm is as follows:

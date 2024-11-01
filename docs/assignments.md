@@ -96,7 +96,7 @@
     - Threads, locks, semaphores, monitors
     - deadlock, livelock
 - In-class: Benefits of Parallel Computing over Sequential Computing; Election Simulation
-- HW assignment: TBD
+- HW assignment: Election Simulation (8.4.2)
 - Quiz: Delta Debugging Hello SWE419
 
 # HW Assignments
