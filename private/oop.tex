@@ -3196,7 +3196,7 @@ In Python, we use \code{Semaphore} in \code{threading} for semaphores. For the e
 
 This synchronization mechanism combines lock with communication capability.  It allows threads to wait for a condition to be true and notify other threads when the condition changes. Java implements monitors natively. Python however does not have built-in monitors, but we can use \code{threading.Condition} to simulate monitors as follows. 
 
-As shown in \autoref{ex:producer-consumer-lock} the classical ``producer-consumer'' problem has an issue with the consumer trying to consume from an empty buffer using a \code{lock}. This can be solved using a monitor (lock = threading.Condition()), as shown in \autoref{ex:producer-consumer-monitor}, which ensures that the consumer stops consuming and waits when the buf is empty, and producer notifies consumer when it adds an item to the buf.
+As shown in \autoref{ex:producer-consumer-lock} the classical ``producer-consumer'' problem has an issue with the consumer trying to consume from an empty buffer using a \code{lock}. This can be solved using a monitor (\code{lock = threading.Condition()}), as shown in \autoref{ex:producer-consumer-monitor}, which ensures that the consumer stops consuming and waits when the buf is empty, and producer notifies consumer when it adds an item to the buf.
 
 
 \begin{figure}
@@ -3312,9 +3312,12 @@ def do_something(n):
 Now create 3 methods to process a list of numbers (e.g., \code{[1, 2, 3, 4, 5]}) by invoking \code{do\_something} for each number. 
 \begin{enumerate}
     \item A regular approach that processes each number sequentially.
-    \item A multithreaded approach using the \code{threading} module.
-    \item A multiprocessing approach using the \code{multiprocessing} module.
+    \item A multithreaded approach using the \code{threading} module, i.e., create a thread for every \code{do\_something} call.
+    \item A multiprocessing approach using the \code{multiprocessing} module, i.e., create a process for every \code{do\_something} call.
 \end{enumerate}
+Time each method and compare them. You should see that the multithread and multiprocess versions run a lot faster than the regular one.
+Note that in this exercise there is no shared resource so you do not need to worry about race conditions or having to use locks. 
+
 % You will implement the following task 
 % Task Description
 
