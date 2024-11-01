@@ -2653,7 +2653,7 @@ More specifically, \code{oracle(s:str)->bool} takes in a string \code{s} and ret
     \item You must provide \emph{two} examples (inputs) to demonstrate your DD:  1 example where the DD takes a reasonably short time (few iterations) and 1 example where the DD takes a long time (e.g., 50 or more iterations).  
     \item At each iteration, your DD should output the current input, its size, and whether it is interesting or not. You can also output the split number and parts, etc (the same way we did in class).
     \item \textbf{Code submission}: submit your DD code along with the examples you provided with a clear instructions and \emph{screenshots} on how to run your DD and expected output.
-    \item \textbf{Short Report}: as before, you will write a report describing your DD implementation. Explain how your DD works, how you tested it, and the results of the testing. You should also explain the examples you provided and why some take longer than others.
+    \item \textbf{Short Report}: write a report describing your DD implementation. Explain how it works, how you tested it, and the results. You should also explain the examples you provided and why some take longer than others.
 \end{itemize}
 
 %The DD algorithm is as follows:
@@ -3151,7 +3151,6 @@ In live lock,  threads are not blocked but cannot make progress. In constrast to
                 if not lock1.acquire(timeout=1):
                     print("T2: Released Lock 2.")
                     continue # release lock 2 and try again
-                    continue
                 
                 print("T2: Got Lock 1.")
                 break # got both lock
