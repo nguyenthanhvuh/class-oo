@@ -2653,9 +2653,27 @@ More specifically, \code{oracle(s:str)->bool} takes in a string \code{s} and ret
     \item You must provide \emph{two} examples (inputs) to demonstrate your DD:  1 example where the DD takes a reasonably short time (few iterations) and 1 example where the DD takes a long time (e.g., 50 or more iterations).  
     \item At each iteration, your DD should output the current input, its size, and whether it is interesting or not. You can also output the split number and parts, etc (the same way we did in class).
     \item \textbf{Code submission}: submit your DD code along with the examples you provided with a clear instructions and \emph{screenshots} on how to run your DD and expected output.
-    \item \textbf{Short Report}: write a report describing your DD implementation. Explain how it works, how you tested it, and the results. You should also explain the examples you provided and why some take longer than others.
+    \item \textbf{Short Report}: write a short report describing your DD implementation. Explain how it works, how you tested it, and the results. Also briefly explain the examples you provided and why some take longer than others.
 \end{itemize}
 
+
+\subsection{Hello SWE419}
+\begin{itemize}
+    \item Assume you're given a simple \code{hello SWE419} program in C
+    \begin{lstlisting}[language=C]
+    #include <stdio.h>
+    int main() {
+        printf("Hello SWE419!\n");
+        return 0;
+    }
+    \end{lstlisting}
+    and an \emph{oracle} or test that checks if the input C program \emph{compiles} and contains the word \code{SWE419}. If so, the oracle returns 0 (Fail) and 1 otherwise (Pass).
+    \item Describe \emph{in words} how you would apply DD to obtain the smallest C program that fails the oracle.
+    \begin{itemize}
+        \item You \emph{do not need} to show step by step like we did in class. Instead, just describe the steps you would take to reduce the input,  e.g., in the first step you split the program into two parts, then you remove the first part, run the oracle but it fails because ... etc.
+        \item Pay attention to the additional requirement of being a valid C program (e.g., need the \code{\#include <stdio.h>}, \code{int main()...} and \code{return 0} statements). 
+    \end{itemize}
+\end{itemize}
 %The DD algorithm is as follows:
 
 % \begin{algorithm}[H]
@@ -3077,11 +3095,11 @@ Locks, semaphores, and monitors are key synchronization concepts in multithreadi
 
 \subsection{Locks}\label{sec:locks}
 
-The simple \emph{lock} mechanism allows only \emph{one} thread or process to access a shared resource (\emph{critical section}) at a time. It works by allowing a thread $t$ to acquire the \emph{lock} and proceed if the lock is available; otherwise, $t$ waits until the lock is released.  After $t$ is done, it releases the lock. The example in \autoref{sec:threads} uses a lock to protect the shared variable \code{shared\_ct}. Note acquiring and releasing locks are done automatically (using the \code{with lock} statement). Thus, locks are ideal \emph{when only one} thread should access a shared resource at a time. Because of this limitation, locks are efficient and simple to use. 
+The simple \emph{lock} mechanism allows only \emph{one} thread or process to access a shared resource (\emph{critical section}) at a time. It works by allowing a thread $t$ to acquire the \emph{lock} and proceed if the lock is available; otherwise, $t$ waits until the lock is released.  After $t$ is done, it releases the lock. The example in \autoref{sec:threads} uses a lock to protect the shared variable \code{shared\_ct}. Note acquiring and releasing locks are done automatically (using the \code{with lock} statement). Thus, locks are ideal \emph{when only one} thread should access a shared resource at a time. Because of this limitation, locks are efficient and simple to use. However, improper use of locks can lead to \emph{deadlocks} and \emph{live locks}.
 
 \subsubsection{Deadlock} 
 
-Improper use of locks can lead to \emph{deadlocks} (e.g., two threads waiting for each other to release a lock).
+Deadlock occurs when two threads are stuck waiting for each other to release a lock. This happens when a thread acquires a lock and waits for another lock, while another thread acquires the second lock and waits for the first lock. 
 
 \begin{lstlisting}[multicols=2]
     from threading import Thread, Lock

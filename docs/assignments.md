@@ -90,8 +90,14 @@
 - HW assignment: Delta Debugging Implementation (7.6.2)
 - Quiz: Statistical Debugging using M Metrics
 
-
-
+## Week 8
+- Topics: Parallel Computing 
+- Reading: OOP 8
+    - Threads, locks, semaphores, monitors
+    - deadlock, livelock
+- In-class: Benefits of Parallel Computing over Sequential Computing; Election Simulation
+- HW assignment: TBD
+- Quiz: Delta Debugging Hello SWE419
 
 # HW Assignments
 
