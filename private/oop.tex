@@ -1637,6 +1637,11 @@ For each case below, determine if LSP holds by checking whether the precondition
 \chapter{Iterators}
 Iterators and generators are powerful concepts in OOP that enable efficient traversal and on-the-fly computation of sequences of data. They allow developers to handle large datasets, abstract complex data traversal patterns, and create custom iterators for any type of object. 
 
+\begin{historybox}[History]
+    The idea of iterators in OOP was pioneered by the CLU language in the 1970s, developed by Barbara Liskov. CLU introduced iterators as a core language feature, allowing traversal of collections without exposing internal structures. This innovation laid the foundation for modern iterator designs and showed how encapsulating traversal could lead to cleaner, more maintainable code. C++ in the 1980s introduces iterators through its STL. Iterators was further solidified by the Design Patterns book by the Gang of Four (GoF) in 1994, which formalized iterator patterns, emphasizing the separation of traversal from data structure.\\
+    
+    Java, released in 1995, built on these ideas through its Iterator interface, standardizing the way collections were traversed across the language. Java's approach unified data traversal, promoting encapsulation and abstraction in OO. Python introduces generators in 2001 and allowed functions to produce values lazily, one at a time, without storing the entire sequence in memory.  This enables efficient data processing for large or infinite sequences and emphasizes efficient iteration over data in modern languages.
+\end{historybox}
 \section{Motivation}
 Let’s consider a scenario where you need to generate Fibonacci numbers. A common but inefficient approach is to generate Fibonacci numbers up to a certain limit and store all them in a list, which consumes a lot of memory.
 
@@ -1668,10 +1673,6 @@ print(list(fib_generator(10))) # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 
 Using generator functions, we can efficiently generate Fibonacci numbers on demand, reducing memory consumption and improving performance. Generators produce values one at a time, only when needed, making them ideal for large datasets or infinite sequences.
 
-\section{Brief History}
-The idea of iterators in OOP was pioneered by the CLU language in the 1970s, developed by Barbara Liskov. CLU introduced iterators as a core language feature, allowing traversal of collections without exposing internal structures. This innovation laid the foundation for modern iterator designs and showed how encapsulating traversal could lead to cleaner, more maintainable code. C++ in the 1980s introduces iterators through its STL. Iterators was further solidified by the Design Patterns book by the Gang of Four (GoF) in 1994, which formalized iterator patterns, emphasizing the separation of traversal from data structure.
-
-Java, released in 1995, built on these ideas through its Iterator interface, standardizing the way collections were traversed across the language. Java's approach unified data traversal, promoting encapsulation and abstraction in OO. Python introduces generators in 2001 and allowed functions to produce values lazily, one at a time, without storing the entire sequence in memory.  This enables efficient data processing for large or infinite sequences and emphasizes efficient iteration over data in modern languages.
 
 \section{Iterators}
 
@@ -1687,17 +1688,17 @@ Key Concepts of Iterators:
 \item State Management: Iterators manage their own state, allowing them to keep track of the current position in the collection.
 \end{itemize}
 
-\begin{lstlisting}
-# Creating an iterator for a countdown
+\begin{lstlisting}[multicols=2]
 class Countdown:
     def __init__(self, start: int):
         self.current = start
 
-    def __iter__(self): return self
+    def __iter__(self): 
+        return self
 
     def __next__(self):
         if self.current <= 0:
-            raise StopIteration  # End of iteration
+            raise StopIteration 
         else:
             current_value = self.current
             self.current -= 1
@@ -1707,6 +1708,7 @@ class Countdown:
 countdown = Countdown(5)
 for number in countdown:
     print(number)
+
 # Output: 5, 4, 3, 2, 1
 \end{lstlisting}
 
@@ -2186,7 +2188,7 @@ The terms \emph{validation}, \emph{verification}, and \emph{testing} are commonl
 
 In contrast, \textbf{testing} checks that the program behaves as expected over \emph{some inputs}. Testing only shows the program works on the test inputs, but it is usually cheaper to do (comparing to verification). Software developers are often more familiar with testing, e.g., by running the program with various inputs. We focus on testing in this chapter.  
 
-While many testing techniques exist (popular ones will be discussed below), they typically have the same purpose of finding bugs that trigger undesirable behavior in the program (e.g., causing crashes, revealing security vulnerabilities, producing unexpected/incorrect outputs, etc). More specifically, a major goal of testing is to find \textbf{counterexample inputs} (or \emph{cex} for short) that violate the program's specifications or requirements. This field of \textbf{input generation} is an active area of research in software engineering and related fields.
+%While many testing techniques exist (popular ones will be discussed below), they typically have the same purpose of finding bugs that trigger undesirable behavior in the program (e.g., causing crashes, revealing security vulnerabilities, producing unexpected/incorrect outputs, etc). More specifically, a major goal of testing is to find \textbf{counterexample inputs} (or \emph{cex} for short) that violate the program's specifications or requirements. This field of \textbf{input generation} is an active area of research in software engineering and related fields.
 
 \section{Black-box Testing}\label{sec:blackbox}
 
@@ -2558,9 +2560,9 @@ Note that scores for lines 1 and line 13, which are always executed, are $4/4 / 
 
 
 \subsection{Delta Debugging (DD)}
-While statistical debugging (\autoref{sec:statistical-debugging}) aims to localize faults in the code,  DD focuses on finding the smallest input that triggers the issue. DD aims to \emph{minimize} a \emph{failing} input  (e.g., causing the program to crash or producing some interesting behavior). It is useful for debugging and finding the smallest input that triggers the issue. DD works by repeatedly splitting the input into smaller parts and checking if the smaller parts still trigger the issue. Note that when using DD, you will need to provide an \emph{oracle} that checks if the input $P$ is interesting (e.g., causing a crash). 
+While statistical debugging (\autoref{sec:statistical-debugging}) aims to localize faults in the code,  DD focuses on finding the smallest input that triggers the issue. DD aims to \emph{minimize} a \emph{failing} input  (e.g., causing the program to crash or producing some interesting behavior). It is useful for debugging and finding a simpler input that is still interesting. DD works by repeatedly splitting the input into smaller parts and checking if they still trigger the issue. When using DD, you will need to provide an \emph{oracle} that checks if the input $P$ is interesting (e.g., causing a crash). 
 
-\paragraph{Example 1} \emph{Oracle}: program fails whenever input contains an asterisk (*). 
+\paragraph{Example 1} \emph{Oracle}: program fails (is interesting) whenever input contains an asterisk (*). 
 % \begin{enumerate}
 % \item Input = abcdef*h (fails)
 % \item Split into 2 parts: abcd/ef*h. Remove 1st: fails; remove 1st (abcd).
@@ -2573,7 +2575,7 @@ While statistical debugging (\autoref{sec:statistical-debugging}) aims to locali
 % \end{enumerate}
 
 \begin{table}
-    \caption{Delta Debugging (DD) Example 1.}\label{tab:dd1}
+    \caption{Delta Debugging Example 1.}\label{tab:dd1}
     \centering
     \small
     \begin{tabular}{|c|c|c|c|}
@@ -2594,23 +2596,52 @@ While statistical debugging (\autoref{sec:statistical-debugging}) aims to locali
 This example does not show the case when the split results in all parts passing. In that case, DD would increase the split size (e.g., split into 4 parts instead of 2) and repeat the process.
 
 \paragraph{Example 2} \emph{Oracle}: program fails whenever input contains two asterisks (**).
-\begin{enumerate}
-\item Input = *abcdef* (fails)
-\item Split into 2 parts: *abc/def*. Remove 1st: passes; remove 2nd: passes. Cannot remove anything.
-\item Split into 4 parts: *a/bc/de/f*.  Remove 1st: passes; remove 2nd: fails; remove 2nd (bc).
-\item Input = *adef* (fails)
-\item Split into 2 parts: *ad/ef*. Remove 1st: passes; remove 2nd: passes. Cannot remove anything.
-\item Split into 4 parts: *a/de/f/*.  Remove 1st: passes; remove 2nd: fails; remove 2nd (de).
-\item Input = *af* (fails)
-\item Split into 2 parts: *a/f*. Remove 1st: passes; remove 2nd: passes. Cannot remove anything.
-\item Split into 4 parts: */a/f/*.  Remove 1st: passes; remove 2nd: fails; remove 2nd (a).
-\item Input = *f* (fails)
-\item Split into 2 parts: *f/*. Remove 1st: passes; remove 2nd: passes. Cannot remove anything.
-\item Split into 4 parts: */f/*.  Remove 1st: passes; remove 2nd: fails; remove 2nd (f).
-\item Input = ** (fails)
-\item Split into 2 parts: */*. Remove 1st part: passes; remove 2nd part: passes. Cannot remove anything.
-\item Cannot split further. Smallest failing input is **.
-\end{enumerate}
+
+\begin{table}
+    \caption{Delta Debugging Example 2.}\label{tab:dd2}
+    \centering
+    \small    
+    \begin{tabular}{|c|c|c|c|}
+        \toprule
+        &&\multicolumn{2}{c|}{Remove} \\
+        Failing Input & Split & 1st & 2nd\\
+        \midrule
+        *abcdef* & *abc / def* & *abc: P& def*: P\\
+        *abcdef* & *a / bc / de / f* & *a: P& bc: F\\
+        *adef* &  *ad / ef* & *a: P& ef*: P\\
+        *adef* &  *a / de / f / * & *a: P& de: F\\
+        *af* &  *a / f* & *a: P& f*: P\\
+        *af* &  * / a / f / * & *: P& a: F\\
+        *f* &  *f / * & *f: P& *: P\\
+        *f* &  * / f / * & *: P& f: F\\
+        ** &  * / * & *: P& *: P\\
+        ** &  - &  - & - \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\autoref{tab:dd2} shows the steps. We first split the input \code{*abcdef*} into 2 parts, which both pass. Thus, we increase the granularity and split the input into 4 parts  \code{*a}, \code{bc}, \code{de}, \code{f*}.  Removing the 1st part result in a pass and so we keep it and try removing the 2nd part \code{bc}, which fails and thus we can remove \code{bc} to get the new input \code{*adef*}. This keeps going until we find the smallest failing input \code{**}. Note even when our failing input is \code{**}, we still continue applying DD to it as we did not know that it would be the smallest failing input.
+
+
+
+
+% \begin{enumerate}
+% \item Input = *abcdef* (fails)
+% \item Split into 2 parts: *abc/def*. Remove 1st: passes; remove 2nd: passes. Cannot remove anything.
+% \item Split into 4 parts: *a/bc/de/f*.  Remove 1st: passes; remove 2nd: fails; remove 2nd (bc).
+% \item Input = *adef* (fails)
+% \item Split into 2 parts: *ad/ef*. Remove 1st: passes; remove 2nd: passes. Cannot remove anything.
+% \item Split into 4 parts: *a/de/f/*.  Remove 1st: passes; remove 2nd: fails; remove 2nd (de).
+% \item Input = *af* (fails)
+% \item Split into 2 parts: *a/f*. Remove 1st: passes; remove 2nd: passes. Cannot remove anything.
+% \item Split into 4 parts: */a/f/*.  Remove 1st: passes; remove 2nd: fails; remove 2nd (a).
+% \item Input = *f* (fails)
+% \item Split into 2 parts: *f/*. Remove 1st: passes; remove 2nd: passes. Cannot remove anything.
+% \item Split into 4 parts: */f/*.  Remove 1st: passes; remove 2nd: fails; remove 2nd (f).
+% \item Input = ** (fails)
+% \item Split into 2 parts: */*. Remove 1st part: passes; remove 2nd part: passes. Cannot remove anything.
+% \item Cannot split further. Smallest failing input is **.
+% \end{enumerate}
 
 %\begin{table}
 %    \caption{Delta Debugging (DD) Example 2.}
