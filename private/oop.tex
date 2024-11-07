@@ -347,7 +347,7 @@ This uses \emph{parameters} to allow the function to be run with different input
 
 We define abstractions through specifications, which describe what the abstraction is intended to do rather than how it should be implemented.  Specifications can be written in either \emph{formal} or \emph{informal languages}. Formal specifications have the advantage of being precise and unambiguous. However, in practice, we often use informal specifications, describing the behavior of the abstraction in plain English (e.g., the \code{sorting} example in \autoref{ex:abs-specification}).  Note that a specification is not a programming language or a program. Thus, our specifications won’t be written in code, e.g., in Python or Java.
 
-\subsection{Specifications of a Function}
+\subsection{Specifications of a Function}\label{sec:spec-function}
 %3.3 Liskov
 
 The specification of a function consists of a \emph{header} and a \emph{description} of its behavior.
@@ -2180,7 +2180,7 @@ The \code{make\_multiplier} function in \autoref{ex:closure-example} is an examp
     \end{lstlisting}
 \end{enumerate}
 
-\chapter{Testing}
+\chapter{Testing}\label{chapter:testing}
 
 %Liskov 10
 
@@ -2462,20 +2462,16 @@ In this assignment you have two tasks. First, you will \emph{implement a GA} tha
 
 \end{enumerate}
 
-\section{Whitebox Testing}\label{sec:whitebox}
-White-box testing is the opposite of black-box testing. It has knowledge about the internal implementation and code of the program and uses it to create tests. White-box testing is useful for finding bugs that are not caught by black-box testing.
 
-For example, in the \code{square} function in \autoref{sec:blackbox}, we can directly write test to show the bug (returning $-1$ instead of ${123}^2$). This is a special case that would be difficult to find using random black-box testing.
-
-\subsection{Symbolic Execution} 
-Symbolic Execution is a white-box testing technique to find inputs causing the program to take some interesting paths (e.g., that result in a bug). Symbolic execution runs the program with symbolic inputs (e.g., $x$ instead of $5$) and tracks the program's state. It represents the program paths taken as logical constraints or formulae, and then uses a constraint solver, e.g., a SAT or SMT solver, to solve the constraints of interesting paths.  The solutions to the constraints represent concrete inputs to the program that would trigger the path. 
-
-For the \code{square} function in \autoref{sec:blackbox}, symbolic execution would find the input triggering the bug by creating and solving the constraint $x \equiv 123$.
 
 
 %\section{Regression Testing}
 %\section{Integration Testing}
 %\section{System Testing}
+
+
+%In constrast to black-box testing (\autoref{sec:blackbox}), which does not look at the code, \emph{white-box testing} reasons about the program using its source code. For example, in the \code{square} function in \autoref{sec:blackbox}, by analyzing the code we can see that the program has a bug on input $123$ because it returns $-1$ instead of ${123}^2$. Finding such input would be difficult using random black-box testing techniques.
+
 
 \section{Fault Localization}\label{sec:debugging}
 
@@ -2940,6 +2936,7 @@ More specifically, \code{oracle(s:str)->bool} takes in a string \code{s} and ret
 % \section{Error Handling}
 
 
+
 \chapter{Concurrency}\label{chap:concurrency}
 
 
@@ -3022,48 +3019,12 @@ if __name__ == "__main__":
 
 A thread runs within a process and shares memory and data as other threads in the process. Thus threads are lightweight with low overhead, but can face synchronization issues like race conditions when multiple threads access shared data.
 
-In Python we use the \code{threading} module to create and manage threads. The following demonstrates the use of \code{threading.Thread} to run tasks in parallel. It also uses \code{threading.lock} for mutual exclusion to ensure only one thread accesses and modifies the shared variable at a time.
+In Python we use the \code{threading} module to create and manage threads. The following demonstrates the use of \code{threading.Thread} to run tasks in parallel. 
 
-\begin{lstlisting}[multicols=2]
-from threading import Thread, Lock
-import time
+This example also uses \code{threading.lock} for mutual exclusion to ensure only one thread can access and modify the shared variable at a time.
 
-shared_ct = 0
-lock = Lock()
-def square(numbers:list):
-    global shared_ct
-    for n in numbers:
-        time.sleep(1)
-        print(f"Square of {n}: {n*n}")
-        with lock:  # protect shared ct
-            shared_ct += 1
-
-def cube(numbers:list):
-    global shared_ct
-    for n in numbers:
-        time.sleep(1)
-        print(f"Cube of {n}: {n*n*n}")
-        with lock: # protect shared ct
-            shared_ct += 1
-
-if __name__ == "__main__":
-    numbers = [2, 3, 4, 5]
-
-    # Create threads
-    thread1 = Thread(
-        target=square, args=(numbers,))
-    thread2 = Thread(
-        target=cube, args=(numbers,))
-
-    # Start the threads
-    thread1.start(); thread2.start()
-
-    # Wait for both threads to complete
-    thread1.join(); thread2.join()
-
-    print("Count : ", shared_ct)
-\end{lstlisting}
-
+%\lstinputlisting[firstline=300,lastline=500]{file.cc}
+\lstinputlisting[multicols=2]{code/thread1.py}
 
 \subsection{Join}
 The \code{join()} method, which appears in Python, Java, and many other languages, is used to wait for a thread to complete. Calling \code{t.join()} blocks the parent (calling) thread until the thread \code{t} is terminated. 
@@ -3073,39 +3034,11 @@ If we do not use \code{join()}, the calling thread may print the count before th
 
 \subsection{Daemon Threads}
 
-When a program create (regular) threads, the program will wait for them to complete before exiting. (Note not to be confused with \code{join()} which blocks the calling thread until the target thread completes). However, if we want the program to exit even if the threads are not finished, we can use \emph{daemon threads}. This type of threads run in the background and do not block the program from exiting. Moreover when the program exits, the daemon threads are automatically terminated (killed).
+When a program create (regular) threads, the program will wait for them to complete before exiting. (Note not to be confused with \code{join()} which blocks the calling thread until the target thread completes). However, if we want the program to exit even if the threads are not finished, we can use \emph{daemon threads}. This type of threads run in the background and do not block the program from exiting. Instead, when the program exits, daemon threads are automatically terminated or killed.
 
-\begin{lstlisting}[multicols=2]
-    from threading import Thread
-    import time
-    
-    def daemon_job():
-        while True:
-            print("Daemon is running ...")
-            time.sleep(1)
-    
-    def non_daemon_job():
-        for i in range(5):
-            print(f"Non-daemon running: {i}")
-            time.sleep(1)
-    
-    if __name__ == "__main__":
-        # Create and start a daemon thread
-        daemon = Thread(target=daemon_job)
-        daemon.daemon = True  # Set as daemon
-        daemon.start()
-    
-        # Create and start a non-daemon thread
-        non_daemon = Thread(target=non_daemon_job)
-        non_daemon.start()
-    
-        # Wait for non-daemon to finish
-        non_daemon.join()
-    
-        print("Done.")        
-\end{lstlisting}
+\lstinputlisting[multicols=2]{code/daemon.py}
 
-This example demonstrates the difference between daemon and non-daemon (regular) threads. The program will wait for the regular thread to finish (i.e., print 0 to 4) before printing \code{"Done"}. However, the daemon thread will run indefinitely in the background and will only be terminated when the program exits.
+This example demonstrates the difference between daemon and non-daemon (regular) threads. The program will wait for the regular thread to finish (i.e., print 0 to 4) before printing \code{"Done"}. However, the daemon thread will run indefinitely in the background but will be terminated immediately the program exits.
 
 \section{Locks, Semaphores, and Monitors}
 
@@ -3126,8 +3059,11 @@ Locks, semaphores, and monitors are key synchronization concepts in multithreadi
 % \end{table}
 
 \subsection{Locks}\label{sec:locks}
+A \emph{race condition} occurs when two or more threads try to change a shared resource at the same time, leading to unpredictable results (e.g., consider a shared counter and two threads incrementing it at the same time like the example in \autoref{sec:threads}).
+\emph{Locking} the shared resource is a simple mechanism to avoid race condition. It works by allowing a thread $t$ to acquire the \emph{lock} and proceed if the lock is available; otherwise, $t$ waits until the lock is released.  After $t$ is done, it releases the lock. The code that needs to be protected (between lock acquire and release) is called a \emph{critical section}.
+The example in \autoref{sec:threads} uses a lock to protect the critical section modifying \code{shared\_ct}. 
 
-The simple \emph{lock} mechanism allows only \emph{one} thread or process to access a shared resource (\emph{critical section}) at a time. It works by allowing a thread $t$ to acquire the \emph{lock} and proceed if the lock is available; otherwise, $t$ waits until the lock is released.  After $t$ is done, it releases the lock. The example in \autoref{sec:threads} uses a lock to protect the shared variable \code{shared\_ct}. Note acquiring and releasing locks are done automatically (using the \code{with lock} statement). Thus, locks are ideal \emph{when only one} thread should access a shared resource at a time. Because of this limitation, locks are efficient and simple to use. However, improper use of locks can lead to \emph{deadlocks} and \emph{live locks}.
+Thus, locks are ideal \emph{when only one} thread should access a shared resource at a time. Because of this limitation, locks are efficient and simple to use. However, improper use of locks can lead to \emph{deadlocks} and \emph{live locks} describe below.
 
 \subsubsection{Deadlock} 
 
@@ -3213,7 +3149,16 @@ In live lock,  threads are not blocked but cannot make progress. In constrast to
         print("Done.")
 \end{lstlisting}
 
-This example demonstrates a live lock. Similar to the deadlock example, both threads want to get both locks. However, here if a thread cannot acquire a lock, it releases the lock it's holding and tries again. This leads to a live lock where both threads keep releasing the lock and trying again, but neither can get both locks and make progress.
+This example demonstrates live lock. Similar to the deadlock example, both threads want to get both locks. However, here if a thread cannot acquire a lock, it releases the lock it's holding and tries again. This leads to a live lock where both threads keep releasing the lock and trying again, but neither can get both locks and make progress.
+
+
+\subsubsection{Starvation} 
+
+This occurs when a thread $t$ cannot access a shared resource $r$ because other threads are continuously accessing it. This can happen when $t$ has lower priority or much faster than other threads. This is different than deadlock and live lock as other threads are still making progress.
+
+% \lstinputlisting[multicols=2]{code/starvation.py}
+% hard to find a good example
+% In this example, the \code{higher\_priority} thread hogs the lock and starves the \code{lower\_priority} thread from accessing the lock. 
 
 \subsection{Semaphores}\label{sec:semaphores}
 
@@ -3396,18 +3341,135 @@ More specifically, we will implement the following:
     \end{itemize}
 \end{enumerate}
 
+\chapter{Static analysis and Program Verification}\label{chap:verification}
+
+In chapter \autoref{chapter:testing} we focus on testing or \emph{dynamic approach} to find bugs without looking at the code. Here we look at \emph{static analysis} which analyzes the program code to reason about programs. By having access to source code, these techniques complement testing and can do more thorough analysis.
+
+
+\section{Symbolic Execution} 
+
+\emph{Symbolic execution} is a white-box testing technique to find inputs causing the program to take some interesting paths (e.g., that result in a bug). Symbolic execution runs the program with \emph{symbolic inputs} instead of concrete ones (e.g., $x$ instead of $5$) and tracks program's state. It uses constraints or logical formulae to represent the program's \emph{path conditions} (PCs) reaching the interesting paths. It then uses a constraint solver, e.g., a SAT or SMT solver, to find the concrete input that satisfies the path condition. 
+
+\paragraph{Example 1}
+\begin{lstlisting}[language=c]
+void foo(int a, int b, int c){    
+    // l0
+    int x=0, y=0, z=0;
+    // l1
+    if(a) {        
+        x = -2;
+        // l2
+    }
+    // l3
+    if (b < 5) {
+        // l4 
+        if (!a && c) {            
+            y = 1; 
+            // l5
+        }        
+        z = 2;
+        // l6 
+    }
+    // l7
+    assert(x + y + z != 3);
+}
+\end{lstlisting}
+
+\paragraph{Example} We execute this program with symbolic inputs $a, b, c$.  At each location $l$,  we keep track of two things: the path condition (PC) to reach $l$ and the program state (PS), consisting values of variables at $l$.
+
+At $l0$, the PC is always true (i.e., $T$) and the PS is $\{\}
+$, i.e., nothing yet. At $l1$, PC is $T$ and $PS$ is $\{x=0, y=0, z=0\}$. The PC for $l2$ is $a$ with $PS$ being $\{x=-2,y=0,z=0\}$.  
+
+At $l3$ we have two paths reaching it.  The PC for the first path is $a$ with $PS$ being $\{x=-2,y=0,z=0\}$. The PC for the second path is $\lnot a$ with $PS$ being $\{x=0,y=0,z=0\}$.
+At $l4$ we have two paths: 1st path has PC $a \land b < 5$ with PS $\{x=-2,y=0,z=0\}$, and 2nd path has PC $\lnot a \land b < 5$ with PS $\{x=0,y=0,z=0\}$. At $l5$ we have 2 paths, at $l6$ we have 4 paths, and so on as shown in \autoref{tab:symbolic-execution}
+
+
+\begin{table}
+    \centering
+    \caption{Symbolic Execution Example}\label{tab:symbolic-execution}
+    \begin{tabular}{c|l|l}
+\toprule
+\textbf{Loc ($l$)} & \textbf{Path Condition} (PC) & \textbf{Program State} (PS) \\
+\midrule
+$l0$ & $T$ & $\{\}$ \\
+$l1$ & $T$ & $\{x=0, y=0, z=0\}$ \\
+$l2$ & $a$ & $\{x=-2, y=0, z=0\}$ \\
+\midrule
+$l3$ & $a$ & $\{x=-2, y=0, z=0\}$ \\
+$l3$ & $\lnot a$ & $\{x=0, y=0, z=0\}$ \\
+\midrule
+$l4$ & $a \land b < 5$ & $\{x=-2, y=0, z=0\}$ \\
+$l4$ & $\lnot a \land b < 5$ & $\{x=0, y=0, z=0\}$ \\
+\midrule
+$l5$ & $a \land b < 5 \land \lnot a \land c$ & $\{x=-2, y=1, z=0\}$ \\
+$l5$ & $\lnot a \land b < 5 \land \lnot a \land c$ & $\{x=0, y=1, z=0\}$ \\
+\midrule
+$l6$ & $a \land b < 5 \land \lnot a \land c$ & $\{x=-2, y=1, z=2\}$ \\
+$l6$ & $a \land b < 5 \land (a \lor \lnot c)$ & $\{x=-2, y=0, z=2\}$ \\
+$l6$ & $\lnot a \land b < 5 \land \lnot a \land c$ & $\{x=0, y=1, z=2\}$ \\
+$l6$ & $\lnot a \land b < 5 \land (a \lor \lnot c)$ & $\{x=0, y=0, z=2\}$ \\
+\midrule
+$l7$ & $a \land b < 5 \land \lnot a \land c$ & $\{x=-2, y=1, z=2\}$ \\
+$l7$ & $a \land b < 5 \land (a \lor \lnot c)$ & $\{x=-2, y=0, z=2\}$ \\
+$l7$ & $\lnot a \land b < 5 \land \lnot a \land c$ & $\{x=0, y=1, z=2\}$ \\
+$l7$ & $\lnot a \land b < 5 \land (a \lor \lnot c)$ & $\{x=0, y=0, z=2\}$ \\
+
+$l7$ & $a \land b \ge 5$ & $\{x=-2, y=0, z=0\}$ \\
+$l7$ & $\lnot a \land b \ge 5 $ & $\{x=0, y=0, z=0\}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Constraint Solving} 
+After obtaining the PCs, we can use a constraint solver like Microsoft Z3 solver to find the concrete inputs reaching to a specific location by solving the corresponding PC. For example, a solution to the PC $a \land b < 5$ of $l4$ is $a=1, b=3$, which means the program reaches $l4$ with $a=1, b=3$.
+
+\paragraph{Assertions} Assertions indicate what the programmer believes to be true at a certain point in the program. If an assertion fails, it indicates a bug in the program. For example, the assertion in this example would fail when we have $x + y + z = 3$.
+
+To make the reasoning easier, we can convert the statement \code{assert(c)} to 
+\begin{lstlisting}
+if(!c){
+    // failure loc
+    assert(0);
+}
+\end{lstlisting}
+
+This allows us to use symbolic execution as usual compute the PC to reach the failure location. 
+
+\paragraph{None Symbolic Inputs} Observe our assertion here involves the non-symbolic values $x, y, z$, which we keep track in the program state. It is common in symbolic execution where we have to reason both symbolic and non-symbolic values (hence we keep track of both PC and PS).
+
+Thus we essentially want to check if any of the paths can reach the assertion location has $x + y + z = 3$. In this example, according to \autoref{tab:symbolic-execution}, we see that the path reaching $l7$ with PC \[\lnot a \land b < 5 \land (\lnot a \land c)\] with PS $\{x=0, y=1, z=2\}$ would satisfy $x + y + z = 3$. Using a constraint solver, we can find the a concrete input $(a=0, b=3, c = 1)$ that would reach this path and fail the assertion.
+
 
 
 \chapter{Design Patterns}
 
 \section{Creational Patterns}
+These patterns focuses on creating objects depending on their uses. 
+
 \subsection{Singleton}
+Each class has only one instance. Examples of singletons include logging (for logging messages) and configuration (for reading configuration files). 
+
+\lstinputlisting{code/singleton.py}
+
 \subsection{Factory Method}
 
+
+\lstinputlisting[multicols=2]{code/factory.py}
+
+
+\subsection{Abstract Factory}
+
+\subsection{Builder}
+
+\subsection{Prototype}
+
 \section{Structural Patterns}
+These focus on how objects are composed or structured.
+
+\subsection{Adapter}
+
+
 \section{Behavioral Patterns}
-
-
 
 \section{Composition over Inheritance}
 
