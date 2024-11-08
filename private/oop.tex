@@ -89,12 +89,27 @@
   sharp corners
 }
 
+
 \newenvironment{historybox}[1][]{
   \small
   \begin{myhistorybox}
     {\small \textbf{#1}}
   }{
   \end{myhistorybox}
+}
+
+
+\newtcolorbox{mycenterdisplay}{
+    colframe=green!50!black, colback=gray!5!white, boxrule=0.5mm, sharp corners
+}
+
+\newenvironment{centerdisplay}[1][]{
+  \small
+  \centering
+  \begin{mycenterdisplay}
+    {\small \textbf{#1}}
+  }{
+  \end{mycenterdisplay}
 }
 
 \renewcommand{\figurename}{Fig.}
@@ -461,18 +476,18 @@ This exercise touches on some thorny issues with inheritance. There is a lot goi
 
 When designing specifications, it is important to consider several factors to ensure that the function is well-defined. These factors include the \emph{strength} of the pre- and post-conditions, whether the function is \emph{total} or \emph{partial}, and the \emph{avoiding implementation details} in the specification.
 
-\subsection{Weak Pre-conditions}
+\subsection{Weakest Pre-conditions}\label{sec:weakest-preconditions}
 For pre-conditions, we want as weak a constraint as possible to make the function more versatile, allowing it to handle a larger class of inputs.
 Logically, a condition $x$ is weaker than another if it is \emph{implied} by the other $y$, i.e.,  $y \implies x$, or that $x$'s constraints are a superset of $y$'s. For example, the condition $x \le 5$ is weaker than $x \le 10$ and the input list is not sorted is weaker than the list is sorted (which is weaker than the list that is both sorted and has no duplicates).
 The \emph{weakest} precondition is \emph{True}, which indicates no constraints on the input.
 
 
-\subsection{Strong Post-conditions}
+\subsection{Strongest Post-conditions}\label{sec:strongest-postconditions}
 
 In contrast, for post-conditions, we want as strong a condition as possible to ensure that the function behaves as expected. A condition $y$ is stronger than another condition $x$ if $y$ implies $x$, i.e., $y \implies x$, or that $y$'s constraints are a strict subset of $x$'s. For example, the condition $x \le 10$ is stronger than $x \le 5$ or that the input list is sorted is stronger than the list is not sorted.
 
 
-\subsection{Total vs Partial Functions}
+\subsection{Total vs Partial Functions}\label{sec:total-partial-function}
 
 A function is \emph{total} if it is defined for all legal inputs; otherwise, it is \emph{partial}. Thus a function with no precondition (weakest precondition) is total.  
 
@@ -2564,7 +2579,7 @@ This allows us to use symbolic execution as usual compute the PC to reach the fa
 
 \paragraph{None Symbolic Inputs} Observe our assertion here involves the non-symbolic values $x, y, z$, which we keep track in the program state. It is common in symbolic execution where we have to reason both symbolic and non-symbolic values (hence we keep track of both PC and PS).
 
-Thus we essentially want to check if any of the paths can reach the assertion location has $x + y + z = 3$. In this example, according to \autoref{tab:symbolic-execution}, we see that the path reaching $l7$ with PC \[\lnot a \land b < 5 \land (\lnot a \land c)\] with PS $\{x\mapsto 0, y \mapsto 1, z \mapsto2\}$ would satisfy $x + y + z = 3$. Using a constraint solver, we can find the a concrete input $(a=0, b=3, c = 1)$ that would reach this path and fail the assertion.
+Thus we essentially want to check if any of the paths can reach the assertion location has $x + y + z = 3$. In this example, according to \autoref{tab:symbolic-execution}, we see that the path reaching $l7$ with PC $\lnot a \land b < 5 \land (\lnot a \land c)$ with PS $\{x\mapsto 0, y \mapsto 1, z \mapsto2\}$ would satisfy $x + y + z = 3$. Using a constraint solver, we can find the a concrete input $(a=0, b=3, c = 1)$ that would reach this path and fail the assertion.
 
 
 
@@ -2581,10 +2596,13 @@ Here we will discuss two popular fault localization techniques: \emph{statistica
 Statistical debugging is a white-box technique that uses statistics to find bugs in code, i.e., \emph{fault localization}. It collects program execution traces, e.g., which lines of code were executed, how many times, etc, and uses this data to find the lines that likely contain the bug. For example, if a line $l$ is executed many times when the program fails but not when it runs correctly, then $l$ is likely the bug.
 
 \emph{Tarantula} is a popular statistical debugging technique that computes a suspicious score for each line of code based on the number of times it was executed when the program failed and when it passes (gives expected behavior). The formula is:
+
+\begin{centerdisplay}
 \[
-\text{Suspiciousness}(l) = \frac{\text{Failed}(l) / \text{TotalFailed}}{\text{Failed}(l) / \text{TotalFailed} + \text{Passed}(l) / \text{TotalPassed}}
-\]
-where $\text{Failed}(l)$ is the number of times line $l$ was executed when the program failed, $\text{Passed}(l)$ is the number of times line $l$ was executed.  
+\text{Suspiciousness}(l) = \frac{\text{Failed}(l) / \text{TotalFailed}}{\text{Failed}(l) / \text{TotalFailed} + \text{Passed}(l) / \text{TotalPassed}},
+\] 
+\end{centerdisplay}
+\noindent where $\text{Failed}(l)$ is the number of times line $l$ was executed when the program failed, $\text{Passed}(l)$ is the number of times line $l$ was executed.  
 
 Consider the following code:
 \begin{lstlisting}
@@ -2642,9 +2660,13 @@ Note that scores for lines 1 and line 13, which are always executed, are $4/4 / 
 \subsection{In-class Exercise: Tarantula vs. Ochiai}
 
 \emph{Ochiai} is another popular metrics for statistical debugging. Its formula is
+
+\begin{centerdisplay}
 \[
 \text{Suspiciousness}(l) = \frac{\text{Failed}(l) / \text{TotalFailed}}{\sqrt{\text{Failed}(l) / \text{TotalFailed} + \text{Passed}(l) / \text{TotalPassed}}}
 \]
+\end{centerdisplay}
+
 
 \begin{enumerate}
     \item Compute the Ochiai score for the lines in the table above.
@@ -2763,11 +2785,14 @@ This example does not show the case when the split results in all parts passing.
 \subsection{Statistical Debugging: M Metrics}
 
 The \textbf{M} metrics to compute the suspiciousness of a line $l$ is calculated as follows:
+\begin{centerdisplay}
 \[
 \text{Suspiciousness}(l) = \frac{\text{Failed}(l)}{\text{Failed}(l) + \text{Passed}(l)}
 \]
+\end{centerdisplay}
 
 Apply this metrics to compute the suspiciousness scores for the lines in \autoref{tab:sd}.
+
 \subsection{Delta Debugging (DD) Implementation}
 In this exercise you will implement the DD technique. Your DD will take an input string and an \emph \code{oracle} that decides if the input is interesting (e.g., has a bug) or not.
 More specifically, \code{oracle(s:str)->bool} takes in a string \code{s} and returns T (\code{s} has a bug) or F (\code{s} has no bug).  The goal of your DD is to reduce the original input to become \emph{minimal} but is still \emph{interesting} (i.e., a minimal input that still has the bug).
@@ -3167,83 +3192,83 @@ Thus, locks are ideal \emph{when only one} thread should access a shared resourc
 Deadlock occurs when two threads are stuck waiting for each other to release a lock. This happens when a thread acquires a lock and waits for another lock, while another thread acquires the second lock and waits for the first lock. 
 
 \begin{lstlisting}[multicols=2]
-    from threading import Thread, Lock
-    import time
-    
-    lock1 = Lock(); lock2 = Lock()
-    
-    def t1_job():
-        print("T1: Want Lock 1...")
-        with lock1:
-            print("T1: Got Lock 1.")
-            time.sleep(1) 
-            print("T1: Want Lock 2...")
-            with lock2:
-                print("T 1: Got Lock 2.")
-    
-    def t2_job():
-        print("T2: Want Lock 2...")
+from threading import Thread, Lock
+import time
+
+lock1 = Lock(); lock2 = Lock()
+
+def t1_job():
+    print("T1: Want Lock 1...")
+    with lock1:
+        print("T1: Got Lock 1.")
+        time.sleep(1) 
+        print("T1: Want Lock 2...")
         with lock2:
-            print("T2: Got Lock 2.")
-            time.sleep(1)  # Simulate some work
-    
-            print("T2: Want Lock 1...")
-            with lock1:
-                print("T 2: Got Lock 1.")
-    
-    if __name__ == "__main__":
-        t1 = Thread(target=t1_job)
-        t2 = Thread(target=t2_job)
-        t1.start(); t2.start()
-        t1.join(); t2.join()
-        print("Done.")
+            print("T 1: Got Lock 2.")
+
+def t2_job():
+    print("T2: Want Lock 2...")
+    with lock2:
+        print("T2: Got Lock 2.")
+        time.sleep(1)  # Simulate some work
+
+        print("T2: Want Lock 1...")
+        with lock1:
+            print("T 2: Got Lock 1.")
+
+if __name__ == "__main__":
+    t1 = Thread(target=t1_job)
+    t2 = Thread(target=t2_job)
+    t1.start(); t2.start()
+    t1.join(); t2.join()
+    print("Done.")
 \end{lstlisting}
 
-This example demonstrates a deadlock. Thread 1 acquires lock 1 and waits for lock 2, while thread 2 acquires lock 2 and waits for lock 1. This leads to a deadlock where both threads are stuck waiting for each other to release the lock. Note that this would not occur if a thread was able to acquire both locks before the other thread.
+This example demonstrates a deadlock. Thread 1 acquires lock 1 and waits for lock 2, while thread 2 acquires lock 2 and waits for lock 1. This leads to a deadlock because both threads are stuck waiting for each other to release the lock.
 
 \subsubsection{Live Lock}
 In live lock,  threads are not blocked but cannot make progress. In constrast to a deadlock, which each thread is greedy and does not release the lock, a \emph{live lock} occurs when threads are too \emph{polite} and keep releasing the lock. Imagine two pedestrians trying to pass each other in a narrow corridor. If both keep stepping aside to let the other pass, they will keep stepping aside and never pass each other.
 
 \begin{lstlisting}[multicols=2]
-    from threading import Thread, Lock
-    import time
-    
-    lock1 = Lock(); lock2 = Lock()
-    
-    def t1_job():
-        while True:
-            print("T1: Want Lock 1...")
-            with lock1:
-                print("T1: Got Lock 1.")
-                time.sleep(1) 
-                print("T1: Want Lock 2...")
-                if not lock2.acquire(timeout=1):
-                    print("T1: Released Lock 1.")
-                    continue # release lock 1 and try again
+from threading import Thread, Lock
+import time
 
-                print("T1: Got Lock 2.")
-                break # got both lock
-    
-    def t2_job():
-        while True:
-            print("T2: Want Lock 2...")
-            with lock2:
-                print("T2: Got Lock 2.")
-                time.sleep(1)  # Simulate some work
-                print("T2: Want Lock 1...")
-                if not lock1.acquire(timeout=1):
-                    print("T2: Released Lock 2.")
-                    continue # release lock 2 and try again
-                
-                print("T2: Got Lock 1.")
-                break # got both lock
-    
-    if __name__ == "__main__":
-        t1 = Thread(target=t1_job)
-        t2 = Thread(target=t2_job)
-        t1.start(); t2.start()
-        t1.join(); t2.join()
-        print("Done.")
+lock1 = Lock(); lock2 = Lock()
+
+def t1_job():
+    while True:
+        print("T1: Want Lock 1...")
+        with lock1:
+            print("T1: Got Lock 1.")
+            time.sleep(1) 
+            print("T1: Want Lock 2...")
+            if not lock2.acquire(timeout=1):
+                print("T1: Released Lock 1.")
+                continue # release lock 1 and try again
+
+            print("T1: Got Lock 2.")
+            break # got both lock
+
+def t2_job():
+    while True:
+        print("T2: Want Lock 2...")
+        with lock2:
+            print("T2: Got Lock 2.")
+            time.sleep(1)  # Simulate some work
+            print("T2: Want Lock 1...")
+            if not lock1.acquire(timeout=1):
+                print("T2: Released Lock 2.")
+                continue # release lock 2 and try again
+            
+            print("T2: Got Lock 1.")
+            break # got both lock
+
+if __name__ == "__main__":
+    t1 = Thread(target=t1_job)
+    t2 = Thread(target=t2_job)
+    t1.start(); t2.start()
+    t1.join(); t2.join()
+    print("Done.")
 \end{lstlisting}
 
 This example demonstrates live lock. Similar to the deadlock example, both threads want to get both locks. However, here if a thread cannot acquire a lock, it releases the lock it's holding and tries again. This leads to a live lock where both threads keep releasing the lock and trying again, but neither can get both locks and make progress.
@@ -3274,46 +3299,46 @@ As shown in \autoref{ex:producer-consumer-lock} the classical ``producer-consume
 
 
 \begin{figure}
-    \begin{lstlisting}[multicols=2]
-    import threading
-    import time
-    import random
-    
-    
-    queue = []
-    lock = threading.Lock()    
-    class ProducerThread(threading.Thread):
-        def run(self):
-            global queue
-            while True:
-                num = random.choice(range(10)) 
-                lock.acquire()
-                queue.append(num)
-                print("Produced", num)
-                lock.release()
-                time.sleep(random.random())
-    
-    
-    class ConsumerThread(threading.Thread):
-        def run(self):
-            global queue
-            while True:
-                lock.acquire()
-                if not queue:
-                    print("Nothing in queue, "
-                        "consumer fails")
-                num = queue.pop(0)
-                print("Consumed", num)
-                lock.release()
-                time.sleep(random.random())
-    
-    if __name__ == "__main__":
-        # start the threads
-        ProducerThread().start()
-        ConsumerThread().start()
-    \end{lstlisting}
-    \caption{Producer-Consumer Problem using Lock (has issue)}\label{ex:producer-consumer-lock}
-    \end{figure}
+\begin{lstlisting}[multicols=2]
+import threading
+import time
+import random
+
+
+queue = []
+lock = threading.Lock()    
+class ProducerThread(threading.Thread):
+    def run(self):
+        global queue
+        while True:
+            num = random.choice(range(10)) 
+            lock.acquire()
+            queue.append(num)
+            print("Produced", num)
+            lock.release()
+            time.sleep(random.random())
+
+
+class ConsumerThread(threading.Thread):
+    def run(self):
+        global queue
+        while True:
+            lock.acquire()
+            if not queue:
+                print("Nothing in queue, "
+                    "consumer fails")
+            num = queue.pop(0)
+            print("Consumed", num)
+            lock.release()
+            time.sleep(random.random())
+
+if __name__ == "__main__":
+    # start the threads
+    ProducerThread().start()
+    ConsumerThread().start()
+\end{lstlisting}
+\caption{Producer-Consumer Problem using Lock (has issue)}\label{ex:producer-consumer-lock}
+\end{figure}
 
 
 \begin{figure}
@@ -3407,7 +3432,7 @@ Note that in this exercise there is no shared resource so you do not need to wor
 % 	•	Create a function do_something(n) that simulates a long-running task by sleeping for a fixed duration (e.g., 1 second) and then prints a message indicating the number being processed.
 
 \subsection{Threads and Processes: Election Simulation}
-It is election season and we will simulation the election process with threads and processes. We have multiple voters (threads) casting their votes for candidates, and election officials (processes) tallying the votes. We will use locks to manage access to the vote count and semaphores to limit the number of people that can vote simultaneously.
+We will simulate the election process with threads and processes. We have multiple voters (threads) casting their votes for candidates, and election officials (processes) tallying the votes. We will use locks to manage access to the vote count and semaphores to limit the number of people that can vote simultaneously.
 
 More specifically, we will implement the following: 
 \begin{enumerate}
@@ -3438,6 +3463,14 @@ More specifically, we will implement the following:
     \end{itemize}
 \end{enumerate}
 
+\subsection{Main Concepts}
+Short question or Compare and contrast (also discuss the benefits and drawbacks of each) 
+\begin{itemize}
+    \item Threads and processes. When would you use one over the other?
+    \item Locks, Semaphores, and Monitors
+    \item Deadlock and Live lock
+    \item What is a race condition? How to prevent it?
+\end{itemize}
 \chapter{Program Verification}\label{chap:verification}
 
 In chapter \autoref{chapter:testing} we focus on testing to find bugs without looking at the code. Here we look at \emph{verification} techniques to prove the absense of bugs by examining the code. By having access to source code, verification techniques complement testing and can do more thorough analysis.
@@ -3446,98 +3479,254 @@ In chapter \autoref{chapter:testing} we focus on testing to find bugs without lo
 %a display box in latex showing hoare tripple 
 \subsection{Hoare Tripple}
 
-The Hoare Tripple is a formal way to specify and verify program $S$ with respect to its specification which consists of the precondition $P$ and postcondition $Q$. The Hoare Tripple is written as
+A formal way to specify and verify program $S$ with respect to its specification consisting of the precondition $P$ and postcondition $Q$ is using \emph{Hoare logic}. The main idea in this logic is its \emph{Hoare Tripple}:
 
 \begin{center}
 \begin{tcolorbox}[colframe=green!50!black, colback=gray!5!white, boxrule=0.5mm, width=0.5\textwidth, sharp corners]
     \[
-    \{ P \} \; \text{C} \; \{ Q \}, 
+    \{ P \} \; \text{S} \; \{ Q \}, 
     \]
 \end{tcolorbox}
 \end{center}
 
-\noindent and means that assuming $P$ holds before executing $S$, and $S$ is executed successfully, then $Q$  holds.  If this is true, we say that the Hoare Tripple is \emph{valid}, i.e., $S$ satisfies the specification $P, Q$. Note that $S$ is represented as a single statement or a list of statements, and $P, Q$ are logical expressions or formulae.
+\noindent which reads: assuming $P$ holds before executing $S$, and $S$ is executed successfully, then $Q$  holds.  If this is true, we say that the Hoare Tripple is \emph{valid}, indicating $S$ satisfies the specification $P, Q$. 
+Note that $S$ is represented as a single statement or a sequence of statements, and $P, Q$ are logical expressions or formulae.      
 
-For example, the Hoare Tripples 
+For example, the Hoare Triple 
       \texttt{\{x\ =\ 5\ and\ y\ \textgreater{}\ 2\}\ z\ :=\ x\ +\ y;\ z\ :=\ z\ +\ 2\ \{z\ \textgreater{}\ 9\}} is valid because 
       assuming \texttt{x=5\ and\ y\ \textgreater{}\ 2}, if
       \texttt{z:x\ +y;\ z\ :=\ z\ +\ 2} runs successfully, then we do have
       \texttt{z\ \textgreater{}\ 9}.
 
 
-\paragraph{Partial and Total Correctness} Observe that the Hoare Tripple specifies the program post condition behaviors \emph{only when} it terminates successfully. This is known as \emph{partial correctness}, which requires the program to satisfy the postcondition \emph{assuming} it terminates. In contrast, \emph{total correctness} \empn{requires} the program to terminate and satisfy the postcondition. 
+
+\paragraph{Partial and Total Correctness} Observe that a Hoare Tripple specifies the program post condition behaviors \emph{only when} it terminates successfully. This is known as \emph{partial correctness}, which requires the program to satisfy the postcondition \emph{assuming} it terminates. In contrast, \emph{total correctness} \emph{requires} the program to terminate and satisfy the postcondition. 
 For Hoare logic, we focus on partial correctness as it is easier to prove.  Total correctness would require showing program termination, an undecidable problem in general.  
 
 
+    
+\paragraph{Examples}
 
-    
-    \subsubsection{Examples}\label{examples}
-    
-    \begin{enumerate}
-    \def\labelenumi{\arabic{enumi}.}
-    \item
-      Consider a program \texttt{S} with a single assignment statement
-      \texttt{x:=5}.
-    
-      The Hoare tripple
-      \texttt{\{True\}\ x\ :=\ 5\ \{x\ \textgreater{}\ 6\}} is \emph{not} a
-      valid tripple, but these next ones are valid:
-    
-      \begin{enumerate}
-      \def\labelenumii{\arabic{enumii}.}
-      \item
-        \texttt{\{True\}\ x\ :=\ 5\ \{x=5\ or\ x=\ 6\ or\ x\ \textgreater{}\ 6\}}
-      \item
-        \texttt{\{True\}\ x\ :=\ 5\ \{x\ \textgreater{}\ 1\}}
-      \item
-        \texttt{\{True\}\ x\ :=\ 5\ \{x\ =\ 5\}}
-      \end{enumerate}
-    
-      Moreover, the postcondition in \texttt{x=5} is \textbf{strongest}
-      because it is more precise than \texttt{x\ \textgreater{}\ 1} and
-      \texttt{(x=5\ or\ x=6\ or\ x\ \textgreater{}\ 6)}. In general we want
-      the strongest (most precise) postcondition.
-    \item
-      Consider another program \texttt{z:=\ x/y}
-    
-      These are valid Hoare tripples:
-    
-      \begin{enumerate}
-      \def\labelenumii{\arabic{enumii}.}
-      \item
-        \texttt{\{x\ =\ 1\ \&\ y\ =\ 2\}\ z:=\ x/y\ \ \{z\ \textless{}\ 1\}}
-      \item
-        \texttt{\{x\ =\ 2\ \&\ y\ =\ 4\}\ z:=\ x/y\ \{z\ \textless{}1\}}
-      \item
-        \texttt{\{0\ \textless{}\ x\ \textless{}\ y\ \&\ y\ !=\ 0\}\ z:=\ x/y\ \{z\ \textless{}1\}}
-      \end{enumerate}
-    
-      Moreover, the precondition
-      \texttt{0\ \textless{}\ x\ \textless{}\ y\ \&\ y\ !=\ 0} is the
-      \textbf{weakest} precondition (i.e., it is the least constraint
-      precondition). In general we want the weakest precondition.
-    
-      These are invalid tripples:
-    
-      \begin{enumerate}
-      \def\labelenumii{\arabic{enumii}.}
-      
-      \item
-        \texttt{\{x\ \textless{}\ y\}\ z:=\ x/y\ \ \{z\ \textless{}\ 1\}}
-        (counterexample input x=-1, y=0, after executing z:=x/y, we do not
-        have z \textless{} 1 and instead got a div-by-0 exception)
-      \item
-        \texttt{\{x\ =\ 0\}\ z:=\ x/y\ \ \{z\ \textless{}\ 1\}}
-        (counterexample input x=0, y=0)
-      \item
-        \texttt{\{y\ !=\ 0\}\ z:=\ x/y\ \ \{z\ \textless{}\ 1\}}
-        (counterexample input x=2 , y=1)
-      \item
-        \texttt{\{x\ \textless{}\ y\ \&\ y\ !=\ 0\}\ z:=\ x/y\ \{z\ \textless{}1\}}
-        (counterexample input x=-2, y=-1)
-      \end{enumerate}
-    \end{enumerate}
-    
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Consider a program \texttt{S} with a single assignment statement
+  \texttt{x:=5}.
+
+  The Hoare tripple
+  \texttt{\{True\}\ x\ :=\ 5\ \{x\ \textgreater{}\ 6\}} is \emph{not} a
+  valid tripple, but these ones are:
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \item
+    \texttt{\{True\}\ x\ :=\ 5\ \{x=5\ or\ x=\ 6\ or\ x\ \textgreater{}\ 6\}}
+  \item
+    \texttt{\{True\}\ x\ :=\ 5\ \{x\ \textgreater{}\ 1\}}
+  \item
+    \texttt{\{True\}\ x\ :=\ 5\ \{x\ =\ 5\}}
+  \end{enumerate}
+
+  Moreover, the postcondition in \texttt{x=5} is \textbf{strongest}
+  because it is more precise than \texttt{x\ \textgreater{}\ 1} and
+  \texttt{(x=5\ or\ x=6\ or\ x\ \textgreater{}\ 6)}. In general we want the strongest (most precise) postcondition (\autoref{sec:strongest-postconditions}).
+\item
+  Consider another program \texttt{z:=\ x/y}.
+
+  These are valid Hoare tripples:
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \item
+    \texttt{\{x\ =\ 1\ \&\ y\ =\ 2\}\ z:=\ x/y\ \ \{z\ \textless{}\ 1\}}
+  \item
+    \texttt{\{x\ =\ 2\ \&\ y\ =\ 4\}\ z:=\ x/y\ \{z\ \textless{}1\}}
+  \item
+    \texttt{\{0\ \textless{}\ x\ \textless{}\ y\ \&\ y\ !=\ 0\}\ z:=\ x/y\ \{z\ \textless{}1\}}
+  \end{enumerate}
+
+  Moreover, the precondition
+  \texttt{0\ \textless{}\ x\ \textless{}\ y\ \&\ y\ !=\ 0} is the
+  \textbf{weakest} precondition (i.e., it is the least constraint precondition). In general we want the weakest precondition (\autoref{sec:weakest-preconditions}).
+
+  \item Below are all invalid:
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  
+  \item
+    \texttt{\{x\ \textless{}\ y\}\ z:=\ x/y\ \ \{z\ \textless{}\ 1\}}
+    (counterexample input x=-1, y=0, after executing z:=x/y, we do not
+    have z \textless{} 1 and instead got a div-by-0 exception)
+  \item
+    \texttt{\{x\ =\ 0\}\ z:=\ x/y\ \ \{z\ \textless{}\ 1\}}
+    (counterexample input x=0, y=0)
+  \item
+    \texttt{\{y\ !=\ 0\}\ z:=\ x/y\ \ \{z\ \textless{}\ 1\}}
+    (counterexample input x=2 , y=1)
+  \item
+    \texttt{\{x\ \textless{}\ y\ \&\ y\ !=\ 0\}\ z:=\ x/y\ \{z\ \textless{}1\}}
+    (counterexample input x=-2, y=-1)
+  \end{enumerate}
+\end{enumerate}
+
+
+\subsection{Verifying Programs using Hoare Logic}\label{sec:verification-hoare}
+
+We can automatically verify (partial) program correctness by computing the \emph{weakest precondition} (WP), which is the least restrictive condition that ensures the postcondition after executing the program. Mores specifically, to prove the Hoare Tripple \texttt{\{P\}\ S\ \{Q\}} is
+valid, i.e., to prove the program \texttt{S} is correct wrt to the
+precondition \texttt{P} and postcondition \texttt{Q}, we form a
+\textbf{verification condition} \texttt{P\ =\textgreater{}\ wp(S,\ Q)}
+and check that it is valid. Here, the function \textbf{wp} returns the
+\textbf{weakest precondition} (WP) allowing the program \texttt{S} to
+achieve the postcondition \texttt{Q}. Thus, to show the validity of
+\texttt{\{P\}\ S\ \{Q\}}, we show that \texttt{P} implies
+(\texttt{=\textgreater{}}) the WP of \texttt{S} wrt to $Q$.
+
+\subsection{Computing WeakestPreconditions}\label{computing-weakest-preconditions}
+
+The WP is computed by working backwards from the postcondition $Q$ to the precondition $P$ using the program $S$. \autoref{tab:wp} defines 
+the rules for computing the \texttt{wp}'s of common program statements.
+\begin{table}
+    \caption{Weakest Precondition Rules}\label{tab:wp}
+    \centering
+    \small
+\begin{tabular}{l|l|l|l}
+\textbf{Statement} & \texttt{S} & $\texttt{wp}(S,Q)$ & Notes\\
+\midrule
+Assignment & \texttt{x:=E} & \texttt{Q[E/x]} & Replace all \texttt{x}'s with \texttt{E} in \texttt{Q} \\
+\midrule
+Sequence & \texttt{S1; S2} & $\texttt{wp}(S1, \texttt{wp}(S2, Q))$ & Recursively compute wp\\
+\midrule
+Conditional & \texttt{if b then S1 else S2} & $b \implies \texttt{wp}(S1,Q)~\land$ & Produce disjunction\\
+  & & $\overline{b} \implies \texttt{wp}(S2,Q)$ &\\
+\midrule
+While & \texttt{while b do S} & $I ~\land $ & User supplied loop inv $I$\\
+&& $I \land b \implies \texttt{wp}(S, I) ~\land$ &\\ 
+&& $I \land \overline{b} \implies Q$ &\\ 
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{ASSIGNMENT}
+
+The \emph{assignment} \texttt{x\ :=\ $E$} is very popular statement in imperative programming. It assigns the value of an expression
+$E$ to a variable \texttt{x}. The WP for an assignment \texttt{wp(x:=E,Q)} is obtained by substituting all occurrences of
+\texttt{x} in \texttt{Q} with the expression \texttt{E}.
+
+\begin{centerdisplay}
+WP(x := E, Q) = Q[x/E]
+\end{centerdisplay}
+
+Examples:
+
+\begin{equation*}
+    \begin{split}
+        \texttt{WP}(x:=3, x + y = 10)\\
+        = 3 + y = 10\\ 
+        = y = 7
+    \end{split}
+\end{equation*}
+
+Thus, we have $\{y=7\} ~x := 3~ \{x + y = 10\}$
+
+
+\begin{equation*}
+    \begin{split}
+ \texttt{WP}(x:=3, x + y > 0) \\
+ = 3 + y > 0  \\
+ = y > -3\\
+    \end{split}
+\end{equation*}
+
+
+Thus, we have $\{y > -3\}  ~x := 3~ \{x + y> 0\}$
+
+
+% WP(x:=3, {y > 0) 
+% = y > 0    # because there is no `x` in `y > 0`, the result is just `y > 0`
+% Thus, we have {y > 0}  x := 3 y > 0}
+
+
+\subsubsection{LIST of statements}\label{list-of-statements}
+
+A list of sequential statements. The WP for list is defined
+\emph{recursively} as follows.
+
+\begin{verbatim}
+WP([S1; S2; S3 ...;]  Q) = WP(S1, WP(S2;S3;.., Q))
+WP([], Q) = Q
+\end{verbatim}
+
+Example:
+
+\begin{verbatim}
+WP([x:=x+1; y:=y*x], y=2*z) 
+=   WP(x:=x+1, WP([y:=y*x], y=2*z))
+=   WP(x:=x+1, y*x=2*z)
+=   y*(x+1)=2*z
+Thus, we have {y*(x+1)=2*z}  x:=x+1; y:=y*x {y=2*z}
+\end{verbatim}
+
+\subsubsection{CONDITIONAL}\label{conditional}
+
+The WP of a conditional statement \texttt{if\ b\ then\ S1\ else\ S2,\ Q}
+combines the WPs of \texttt{S1} and \texttt{S2}.
+
+\begin{verbatim}
+WP(if b then S1 else S2, Q)  =  (b => WP(S1,Q))  &  (!b => WP(S2, Q))
+\end{verbatim}
+
+Example:
+
+\begin{verbatim}
+WP(if x > 0 then y := x + 2  else y := y + 1,  y > x) 
+= (x > 0 => WP(y := x + 2, y > x) & (x<=0 => WP(y := y + 1, y > x))
+= (x > 0 => x + 2 > x)  &  (x <= 0 => y + 1 > x)
+= (x > 0 => 2 > 0)      &  (x <= 0 => y + 1 > x)
+=     True              &  (x <= 0 => y + 1 > x)
+=            x <= 0 => y + 1 > x
+
+WP(if x > 0 then y :=x  else y:= 0,  y > 0) 
+= (x>0 => WP(y:=x, y >0)) & (x<=0 => WP(y:=0, y>0))
+= (x > 0 => x > 0)      &  (x <= 0  =>  0 > 0)
+= !(x > 0) || (x > 0)   &  !(x <= 0) || False
+=       True           &         x > 0   
+=                    x > 0  
+\end{verbatim}
+
+Note: Instead of using \texttt{=\textgreater{}} (imply), which might be
+confusing to some, we can use just \texttt{!} (not) and
+\texttt{\textbar{}\textbar{}} (or)
+
+\begin{verbatim}
+WP(if b then S1 else S2, Q)
+=  (b => WP(S1,Q))  &  (!b => WP(S2, Q))
+=  !((b & !WP(S1,Q))  ||  (!b & !WP(S2, Q)))
+\end{verbatim}
+
+
+
+
+\section{Exercises}
+
+\subsection{Hoare Tripples}\label{exercise:hoare-tripples}
+
+Fill in \texttt{P,S,Q} to make the following Hoare tripples valid.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \texttt{\{P\}\ x:=3\ \{x\ =\ 8\}}
+\item
+  \texttt{\{P\}\ x:=\ y\ -\ 3\ \{x\ =\ 8\}}
+\item
+  \texttt{\{x\ =\ y\}\ S\ \{x\ =\ y\}}
+\item
+  \texttt{\{x\ \textless{}\ 0\}\ while(x!=0)\ do\ x\ :=\ x\ -\ 1\ \{Q\}}
+\end{enumerate}
+
+
     
 \chapter{Design Patterns}
 
