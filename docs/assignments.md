@@ -106,7 +106,7 @@
     - Hoare logic and verification
 - In-class: None
 - HW assignment: Z3 SMT Solver (9.2.1)
-- Quiz: Parallel Compting Concepts
+- Quiz: Parallel Computing Concepts
 
 # HW Assignments
 
