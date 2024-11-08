@@ -80,7 +80,7 @@
 - HW assignment: NONE
 - Quiz: Names
 
-## Week 7
+## Week 8
 
 - Topics: Testing (Delta Debugging) and Parallel Computing
 - Reading: OOP 7, 8 
@@ -90,7 +90,7 @@
 - HW assignment: Delta Debugging Implementation (7.6.2)
 - Quiz: Statistical Debugging using M Metrics
 
-## Week 8
+## Week 9
 - Topics: Parallel Computing 
 - Reading: OOP 8
     - Threads, locks, semaphores, monitors
@@ -98,6 +98,15 @@
 - In-class: Benefits of Parallel Computing over Sequential Computing; Election Simulation
 - HW assignment: Election Simulation (8.4.2)
 - Quiz: Delta Debugging Hello SWE419
+
+## Week 10
+- Topics: White Box Testing and Verification
+- Reading: OOP 8 (symbolic execution) and OOP 9 (verification)
+    - symbolic execution
+    - Hoare logic and verification
+- In-class: None
+- HW assignment: Z3 SMT Solver (9.2.1)
+- Quiz: Parallel Compting Concepts
 
 # HW Assignments
 
