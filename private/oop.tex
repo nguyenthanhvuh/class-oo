@@ -3749,7 +3749,7 @@ To ensure Z3 is installed correctly, you can try to \texttt{import z3} in Python
     \item Using symbolic execution with Z3 to find inputs leading to each location in the program below.  For this you will do 2 things: (i) create a table like \autoref{tab:symbolic-execution} to show the path conditions and program states, and (ii) provide the Python Z3 code to solve for the inputs (e.g., if the pc is $x > 0$ and $y < 0$, you can just use \code{z3.solve(...)} to get the inputs and show the values of $x, y$ leading to that location.
     
     \begin{lstlisting}
-    void test_function(int x, int y) {
+    void bar(int x, int y) {
     int a = 0, b = 0;  
     int z = x + y + a; 
     
