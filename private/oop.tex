@@ -3713,9 +3713,77 @@ WP(if b then S1 else S2, Q)
 
 \section{Exercises}
 
-\subsection{Hoare Tripples}\label{exercise:hoare-tripples}
+\subsection{Using the Z3 SMT Solver}
+Z3 is a theorem prover or SMT constraint solver developed at Microsoft.  It has been employed in various software testing and reasoning tasks. Major tech companies including MS, Google, Amazon (AWS), NASA, etc use Z3 for a wide-range of projects to solve problems in software, security, and AI. For example, Amazon AWS runs \emph{billions} of Z3 queries \emph{everyday}\footnote{https://www.amazon.science/blog/a-billion-smt-queries-a-day}.  In this exercise you will be introduced to Z3 and use it for various reasoning tasks.
 
-Fill in \texttt{P,S,Q} to make the following Hoare tripples valid.
+\paragraph{Installation and Setup}
+
+To install Z3 to work with Python, you can use various methods including \texttt{pip} or \texttt{homebrew} (Mac) or \texttt{apt-get} (Linux). You can search online for the installation method that works best for your system.
+
+To ensure Z3 is installed correctly, you can try to \texttt{import z3} in Python. If you do not get an error, then Z3 is installed correctly.
+
+\paragraph{Your Tasks} You write Python code using Z3 for various problems below. You can use the Z3 API or use Google to find the relevant information like Z3's method names, e.g., \code{z3.solve(...)} for satisfiability checking and \code{z3.prove(...)} for proving or validy checking.
+
+\begin{enumerate}
+
+    \item Boolean Logic
+    \begin{enumerate}
+    \item Create boolean variables \texttt{p, q, r}
+    \item Check if the formula $p \lor q$ is \emph{satisfiable}.
+    \item Prove transitivity, i.e., show that $(p = q ~\land ~q =r) \implies p = r$.
+    \item Show that $(p \land q) \implies p$ is a \emph{tautology} (valid).
+    \item Prove that $p \implies q$ is equivalent to $\neg p \lor  q$.
+    \end{enumerate}
+
+
+    \item First-Order Logic over the Integers 
+    \begin{enumerate}
+    \item Create integer variables \texttt{x, y, z}.
+    \item Show that $x > 3 \implies x > 2$
+    \item Prove that $x > 3 \land y > 3 \implies x + y > 6$
+    \item Solve for $x, y$ such that $x + y = 10$ and $x < 0$
+    \item Show the transitive $x > y \land y > z \implies x > z$
+    \item Check if $x > 2$ and $x < 2$ is \emph{unsatisfiable}.
+    \item Prove that $x \le y$ and $x \ge y$ is equivalent to $x = y$.
+    \end{enumerate}
+    \item Using symbolic execution with Z3 to find inputs leading to each location in the program below.  For this you will do 2 things: (i) create a table like \autoref{tab:symbolic-execution} to show the path conditions and program states, and (ii) provide the Python Z3 code to solve for the inputs (e.g., if the pc is $x > 0$ and $y < 0$, you can just use \code{z3.solve(...)} to get the inputs and show the values of $x, y$ leading to that location.
+    
+    \begin{lstlisting}
+    void test_function(int x, int y) {
+    int a = 0, b = 0;  
+    int z = x + y + a; 
+    
+    // L1
+    if (x > 5) {
+        int w = z - x + b;  
+        // Location 2
+        if (w < 3) {
+            // L3
+        } else {
+            // L4
+        }
+    } else {
+        int v = z + 2;  
+        // L5
+        if (v > y) {
+            // L6
+        } else {
+            // L7
+        }
+    }
+}
+    \end{lstlisting}
+
+\end{enumerate}
+
+\paragraph{What to submit}. You will submit a Python file with the Z3 code for the above problems. As usual be sure to include instructions (could be comments in the Python code) and screenshots on how to run the code.
+
+You will also submit a text (or doc or pdf) file showing the symbolic execution table and the inputs leading to each location in the program.
+
+
+\subsection{Hoare Triples}\label{exercise:hoare-tripples}
+
+Fill in \texttt{P,S,Q} to make the following Hoare Triples valid.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
