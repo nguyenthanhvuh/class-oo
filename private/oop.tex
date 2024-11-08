@@ -2486,7 +2486,7 @@ In this assignment you have two tasks. First, you will \emph{implement a GA} tha
 
 
 
-\section{Whitebox Testing with Symbolic Execution} 
+\section{Whitebox Testing with Symbolic Execution}\label{sec:symbolic-execution}
 
 In contrast to black-box testing (\autoref{sec:blackbox}), which does not look at the code, \emph{white-box testing} reasons about the program using its source code. For example, in the \code{square} function in \autoref{sec:blackbox}, by analyzing the code we can see that the program has a bug on input $123$ because it returns $-1$ instead of ${123}^2$. Finding such input would be difficult using random black-box testing techniques.
 
@@ -3455,17 +3455,17 @@ More specifically, we will implement the following:
     \item Constructor method \code{\_\_init\_\_(election:Election)}: storing the election object.
     \item Method \code{tally()}: call \code{election.tally()} to display the current vote count.
 \end{itemize}
-\item \code{\_\_main\_\_}: the driver code to create an election object, voters, and officials, and run the simulation.
+\item \code{\_\_main\_\_}: the main/driver code to run the simulation.
     \begin{itemize}
         \item Create a semaphore that allows 3 voters to vote simultaneously.
         \item Create 20 voters and 4 officials.
-        \item Start the voters and officials (using \code{start()}) and wait for them to finish (using \code{join()}).
+        \item Start the voters and officials using \code{start()} and wait for them to finish using \code{join()}.
     \end{itemize}
 \end{enumerate}
 
 \subsection{Main Concepts of Concurrency}\label{sec:concurrency-concepts}
 
-Short question or Compare and contrast (also discuss the benefits and drawbacks of each) 
+Short questions or Compare and contrast (if applicable also discuss the benefits and drawbacks of each) 
 \begin{itemize}
     \item Threads and processes. When would you use one over the other?
     \item Locks, Semaphores, and Monitors
@@ -3474,7 +3474,9 @@ Short question or Compare and contrast (also discuss the benefits and drawbacks 
 \end{itemize}
 \chapter{Program Verification}\label{chap:verification}
 
-In chapter \autoref{chapter:testing} we focus on testing to find bugs without looking at the code. Here we look at \emph{verification} techniques to prove the absense of bugs by examining the code. By having access to source code, verification techniques complement testing and can do more thorough analysis.
+In chapter \autoref{chapter:testing} we focus on testing to find bugs. Here we look at \emph{verification} techniques to prove the absense of bugs. Like whitebox approaches (\autoref{sec:symbolic-execution}), verification techniques analyze program source code to reason about its behaviors. 
+
+%verification techniques complement testing and can do more thorough analysis.
 
 \section{Hoare Logic}
 %a display box in latex showing hoare tripple 
