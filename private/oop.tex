@@ -3831,6 +3831,152 @@ These focus on how objects are composed or structured.
 
 \section{Composition over Inheritance}
 
+\chapter{Specification}
+
+\section{Specifications and Specificand Sets}
+
+The purpose of a specification is to define the behavior of an abstraction. Users will rely on this behavior, while implementers must provide it. An implementation that provides the described behavior is said to satisfy the specification. The purpose of a specification is to define the behavior of an abstraction. An implementation is said to satisfy a specification if it provides the described behavior. The meaning of a specification is the set of program modules that satisfy it, which are called the specifcand set.
+
+For example, the following specification is satisfied by any function where y is greater than 0 and a value greater than y is returned. An infinite number of programs can be included in this specificand set.
+\begin{lstlisting}
+    def specification(y):
+        """
+        REQUIRES: y > 0
+        EFFECTS: Returns x such that x > y
+        """
+        return y + 1
+
+    
+\end{lstlisting}
+
+
+\section{Some Criteria for Specifications}
+Restrictiveness, generality, and clarity are three important attributes for developing good specifications.
+
+\subsection{Restrictiveness}
+The specification should be restrictive enough to eliminate any implementations that the user does not want. The requirements should be included in the REQUIRES clause, or else the specifications may not be restrictive enough.
+
+For example, the code below gives three specifications for an elems iterator for a bag (multiset) of integers. A multiset stores unordered values that may be duplicate.
+
+\begin{lstlisting}
+    def elems():
+        """
+        EFFECTS: Returns a generator that produces every element of this (as 
+        Integers).
+        """
+\end{lstlisting}
+This first specification doesn’t address what happens if changes are made to the bag while the iterator is in use.
+\begin{lstlisting}
+    def elems():
+        """
+        EFFECTS: Returns a generator that produces every element of this
+        (as Integers).
+        REQUIRES: this not be modified while the generator is in use.
+        """
+\end{lstlisting}
+The second specification solves this by adding a requirement that the bag does not change while the iterator is in use. However, it still fails to specify the order that elements are returned in, what is done when duplicate elements are present, and that only elements in the bag are returned.
+\begin{lstlisting}
+    def elems():
+        """
+        EFFECTS: Returns a generator that produces every element of this
+        (asIntegers), in arbitrary order. Each element is
+        produced exactly the number of times it occurs in this.
+        REQUIRES: this not be modified while the generator is in use.
+        """
+
+\end{lstlisting}
+The third specification addresses all these matters, but fails to identify when exceptions should be signaled and does not identify behavior at boundary cases. Figure 9.2 is restrictive enough.
+
+\subsection{Generality}
+A specification should avoid precluding acceptable implementations. The goal is to make the most general possible specification. For example, the specification below only returns approximations that are greater than or equal to the square root itself, which can be inefficient.
+
+\begin{lstlisting}
+    def sqrt (sq: float, e: float)
+        """
+        REQUIRES: sq >= 0 && e > .001
+        EFFECTS: Returns rt such that 0 <= (rt*rt - sq) <= e.
+        """
+\end{lstlisting}
+The \textbf{definitional} style of specification explicitly describes properties that specificand members should exhibit. The specification below is shorter and more open ended in its explanation of how to implement the function. For example, the implementor can choose to examine the array elements in any order, not just first to last.
+
+\textbf{Operational} specification styles provide instructions to construct the properties. They are easily constructed because their construction is similar to programming. However, they are usually longer than definitional specifications and can lead to over-specification. For example, the following program specifies which index to return when x is a duplicate, which might be too restrictive.
+\begin{lstlisting}
+    def search (array, x: int)
+        """
+        EFFECTS: If a is null throws NullPointerException else examines
+        each element in turn and returns the index of the first one
+        that is equal to x. Signals NotFoundException if none equals x.
+        """
+
+\end{lstlisting}
+
+Definitional specifications often support more generality than operational specifications.
+
+\subsection{Clarity}
+A specification should be clear and easy for users to understand. On top of being restrictive and general, specifications should be well modularized, nicely commented, and easy-to-read. The most dangerous issue with unclear specifications is misinterpretation.
+
+For example, the implementer of \code{elems} may decide to produce each element the number of times it occurs in the bag, while the user expects each element to be produced only once.
+
+Two important factors in making clear specifications are \textbf{conciseness} and \textbf{redundancy}. The longer a specification is, the more likely it is to contain errors, so it is best to avoid pointless verbosity. When making a local change to a program, try to consolidate the relevant information with the existing specification rather than just adding to it. 
+
+While redundancy is less concise, it should be used to reduce the likelihood of misinterpretation and to catch errors. Examples are a form of redundancy. A good way to indicate that information is redundant is to preface it with "i.e." or "e.g.". Consider the following.
+\begin{lstlisting}
+    def subset (s1: IntSet, s2: IntSet):
+        """
+        EFFECTS: If s1 or s2 is null throws NullPointerException else
+        returns true if s1 is a subset of s2 else returns false.
+        """
+
+\end{lstlisting}
+This first specification can cause confusion about whether the author meant to say subset or proper subset. 
+\begin{lstlisting}
+    def subset (s1: IntSet, s2: IntSet):
+        """
+        EFFECTS: If s1 or s2 is null throws NullPointerException else
+        returns true if s1 is a subset of s1 is an element of s2 else returns
+        false.
+        """
+\end{lstlisting}
+The second specification leaves no doubt about the first specification issue, but is a little harder to read. However, it does not explicitly state that the function should be a subset test.
+\begin{lstlisting}
+    def subset (s1: IntSet, s2: IntSet):
+        """
+        EFFECTS: If s1 or s2 is null throws NullPointerException else
+        returns true if s1 is a subset of s2 else returns false, i.e.,
+        returns true if every element of s1 is an element of s2 else returns
+        false.
+        """
+\end{lstlisting}
+The third specification is sufficiently clear.
+
+Redundancy makes mistakes in a specification more evident and provides the reader with the opportunity to notice them. It also provides clarity when informal specifications might lead to different interpretations.
+
+\section{Why Specifications?}
+Abstraction decomposes a program into modules, and those modules require some description through specifications. A specification describes an agreement between providers and users of a service, which makes it possible to separate consideration of the implementation from the use of a program unit.
+
+Furthermore, they emphasize the abstraction being defined, encouraging users and implementers alike to pay attention to its intended use.
+
+Specifications are useful for program documentation. The goal is to write specifications that are both restrictive enough and general enough. Writing them also encourages prompt attention to inconsistencies, incompleteness, and ambiguities.
+
+Since specifications become irrelevant only when their abstraction is obsolete, they should continue to evolve as long as the program evolves.
+
+Finally, a specification can be a helpful maintenance tool. The existence of clear and accurate documentation is a prerequisite for efficient and effective maintenance. They define the constraints that must be observed in correcting any error, which helps us avoid introducing new errors while correcting old ones.
+
+\section{Exercises}
+\subsection{IntBag Abstraction}
+Provide a specification for an IntBag abstraction that is sufficiently restrictive, general, and clear.
+\begin{enumerate}
+\item Include the following functions:
+\begin{itemize}
+    \item create an empty bag
+    \item insert and remove and element
+    \item test if the bag contains an element
+    \item get the size of the bag
+    \item get the number of times an element occurs
+    \item display the elements in the bag
+\end{itemize}
+\item Discuss the restrictiveness, generality, and clarity of one of the above specifications.
+\end{enumerate}
 
 \appendix
 
