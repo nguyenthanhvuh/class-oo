@@ -3586,12 +3586,12 @@ achieve the postcondition \texttt{Q}. Thus, to show the validity of
 \texttt{\{P\}\ S\ \{Q\}}, we show that \texttt{P} implies
 (\texttt{=\textgreater{}}) the WP of \texttt{S} wrt to $Q$.
 
-\subsection{Computing WeakestPreconditions}\label{computing-weakest-preconditions}
+\subsection{Computing Weakest Preconditions}\label{computing-weakest-preconditions}
 
 The WP is computed by working backwards from the postcondition $Q$ to the precondition $P$ using the program $S$. \autoref{tab:wp} defines 
-the rules for computing the \texttt{wp}'s of common program statements.
+the rules for computing the WP of common program statements (e.g., assignment, sequence, conditional, and while loop).
 \begin{table}
-    \caption{Weakest Precondition Rules}\label{tab:wp}
+    \caption{Weakest Precondition Rules.}\label{tab:wp}
     \centering
     \small
 \begin{tabular}{l|l|l|l}
@@ -3611,104 +3611,115 @@ While & \texttt{while b do S} & $I ~\land $ & User supplied loop inv $I$\\
 \end{tabular}
 \end{table}
 
-\paragraph{ASSIGNMENT}
+\paragraph{Assignment} The popular \emph{assignment} \texttt{x\ :=\ $E$} statement assigns the expression
+$E$ to a variable \texttt{x}. The WP of an assignment \texttt{wp(x:=E,Q)} is obtained by substituting all occurrences of
+\texttt{x} in \texttt{Q} with the expression \texttt{E}. 
 
-The \emph{assignment} \texttt{x\ :=\ $E$} is very popular statement in imperative programming. It assigns the value of an expression
-$E$ to a variable \texttt{x}. The WP for an assignment \texttt{wp(x:=E,Q)} is obtained by substituting all occurrences of
-\texttt{x} in \texttt{Q} with the expression \texttt{E}.
+\begin{equation}\label{eq:wp-assign}
+    \texttt{wp(x:=E, Q)} = Q[x/E]
+\end{equation}
 
-\begin{centerdisplay}
-WP(x := E, Q) = Q[x/E]
-\end{centerdisplay}
-
-Examples:
-
+\paragraph{Examples}
+\begin{enumerate}
+\item      
 \begin{equation*}
     \begin{split}
-        \texttt{WP}(x:=3, x + y = 10)\\
-        = 3 + y = 10\\ 
-        = y = 7
+        \texttt{WP}(x:=3, x + y = 10) &= 3 + y = 10\\ 
+        &= y = 7
     \end{split}
 \end{equation*}
 
 Thus, we have $\{y=7\} ~x := 3~ \{x + y = 10\}$
 
-
+\item 
 \begin{equation*}
     \begin{split}
- \texttt{WP}(x:=3, x + y > 0) \\
- = 3 + y > 0  \\
- = y > -3\\
+ \texttt{WP}(x:=3, x + y > 0) &= 3 + y > 0  \\
+ &= y > -3\\
     \end{split}
 \end{equation*}
 
 
 Thus, we have $\{y > -3\}  ~x := 3~ \{x + y> 0\}$
 
+\item 
+\begin{equation*}
+    \begin{split}
+        \texttt{WP}(x:=3, y > 0) &= y > 0 \text{ \# no x in y > 0, so result is just y > 0}\\
+    \end{split}    
+\end{equation*}
 
-% WP(x:=3, {y > 0) 
-% = y > 0    # because there is no `x` in `y > 0`, the result is just `y > 0`
-% Thus, we have {y > 0}  x := 3 y > 0}
-
-
-\subsubsection{LIST of statements}\label{list-of-statements}
-
-A list of sequential statements. The WP for list is defined
-\emph{recursively} as follows.
-
-\begin{verbatim}
-WP([S1; S2; S3 ...;]  Q) = WP(S1, WP(S2;S3;.., Q))
-WP([], Q) = Q
-\end{verbatim}
-
-Example:
-
-\begin{verbatim}
-WP([x:=x+1; y:=y*x], y=2*z) 
-=   WP(x:=x+1, WP([y:=y*x], y=2*z))
-=   WP(x:=x+1, y*x=2*z)
-=   y*(x+1)=2*z
-Thus, we have {y*(x+1)=2*z}  x:=x+1; y:=y*x {y=2*z}
-\end{verbatim}
-
-\subsubsection{CONDITIONAL}\label{conditional}
-
-The WP of a conditional statement \texttt{if\ b\ then\ S1\ else\ S2,\ Q}
-combines the WPs of \texttt{S1} and \texttt{S2}.
-
-\begin{verbatim}
-WP(if b then S1 else S2, Q)  =  (b => WP(S1,Q))  &  (!b => WP(S2, Q))
-\end{verbatim}
-
-Example:
-
-\begin{verbatim}
-WP(if x > 0 then y := x + 2  else y := y + 1,  y > x) 
-= (x > 0 => WP(y := x + 2, y > x) & (x<=0 => WP(y := y + 1, y > x))
-= (x > 0 => x + 2 > x)  &  (x <= 0 => y + 1 > x)
-= (x > 0 => 2 > 0)      &  (x <= 0 => y + 1 > x)
-=     True              &  (x <= 0 => y + 1 > x)
-=            x <= 0 => y + 1 > x
-
-WP(if x > 0 then y :=x  else y:= 0,  y > 0) 
-= (x>0 => WP(y:=x, y >0)) & (x<=0 => WP(y:=0, y>0))
-= (x > 0 => x > 0)      &  (x <= 0  =>  0 > 0)
-= !(x > 0) || (x > 0)   &  !(x <= 0) || False
-=       True           &         x > 0   
-=                    x > 0  
-\end{verbatim}
-
-Note: Instead of using \texttt{=\textgreater{}} (imply), which might be
-confusing to some, we can use just \texttt{!} (not) and
-\texttt{\textbar{}\textbar{}} (or)
-
-\begin{verbatim}
-WP(if b then S1 else S2, Q)
-=  (b => WP(S1,Q))  &  (!b => WP(S2, Q))
-=  !((b & !WP(S1,Q))  ||  (!b & !WP(S2, Q)))
-\end{verbatim}
+Thus, we have $\{y > 0\}  x := 3 \{y > 0\}$
+\end{enumerate}
 
 
+\paragraph{List of Statements}\label{list-of-statements}
+
+The WP for a list (sequence or block) of statements is defined \emph{recursively} as the WP of the first statement followed by the WP of the rest of the statements.  
+
+\begin{align}\label{eq:wp-sequence}
+    \texttt{wp}(S1; S2, Q) &= \texttt{wp}(S1, \texttt{wp}(S2, Q))\\
+    \texttt{wp}([], Q) &= Q
+\end{align}
+
+%
+\paragraph{Examples}
+
+\begin{equation*}
+\begin{split}
+    \texttt{wp}([x:=x+1; y:=y*x], y=2*z) &= \texttt{wp}  (x:=x+1, \texttt{wp}([y:=y*x], y=2*z))\\
+    &= \texttt{wp}(x:=x+1, y*x=2*z)\\
+    &= y*(x+1)=2*z
+\end{split}
+\end{equation*}
+
+
+Thus, we have $\{y*(x+1)=2*z\} ~ x:=x+1; y:=y*x ~ \{y=2*z\}$
+
+\subsubsection{Conditional}\label{conditional}
+
+The WP of a conditional statement combines the WPs of the two branches using the implication operator $\implies$. 
+
+\begin{equation}\label{eq:wp-conditional}
+\texttt{wp}(\texttt{if}~b~\texttt{then}~S1~\texttt{else}~S2, Q)  =  (b \implies \texttt{wp}(S1,Q))  \land  (\neg b \implies \texttt{wp}(S2, Q))
+\end{equation}
+
+\paragraph{Examples}
+
+\begin{itemize}
+    \item 
+\begin{equation*}
+\begin{split}
+& \texttt{wp}(\text{if} ~x > 0~ \texttt{then} ~y := x + 2 ~\texttt{else} ~y := y + 1,  y > x)  \\
+& = (x > 0 \implies \text{wp}(y := x + 2, y > x) ~\land~ (x\le 0 \implies \texttt{wp}(y := y + 1, y > x))\\
+& = (x > 0 \implies x + 2 > x)  ~\land~  (x \le 0 \implies y + 1 > x)\\
+& = (x > 0 \implies 2 > 0)      ~\land~  (x \le 0 \implies y + 1 > x)\\
+& =     \texttt{True}           ~\land~  (x \le 0 \implies y + 1 > x)\\
+& =            x \le 0 \implies y + 1 > x
+\end{split}
+\end{equation*}
+
+    \item 
+\begin{equation*}
+\begin{split}
+&\texttt{wp}(\texttt{if} ~x > 0~ \texttt{then} ~y := x~  \texttt{else} ~y:= 0,  y > 0)\\
+&= (x>0 \implies \texttt{wp}(y:=x, y >0)) \land (x<=0 \implies \texttt{wp}(y:=0, y>0))\\
+&= (x > 0 \implies x > 0)      \land  (x <= 0  \implies  0 > 0)\\
+&= !(x > 0) \lor (x > 0)   \land  !(x <= 0) \lor \texttt{False}\\
+&=       \texttt{True}         \land         x > 0   \\
+&=                    x > 0\\  
+\end{split}
+\end{equation*}
+\end{itemize}
+
+
+Instead of using implication $\implies$, which might be confusing to some, we can use $\neg$ and $\lor$. This is because $a \implies b$ is equivalent to $\neg a \lor b$. Thus, the above can be written as:
+
+\begin{equation}\label{eq:wp-conditional2}
+    \begin{split}
+        \texttt{wp}(\texttt{if}~b~\texttt{then}~S1~\texttt{else}~S2, Q)  &=  (\neg b \lor \texttt{wp}(S1,Q))  ~\land~  (b \lor \texttt{wp}(S2, Q))    
+    \end{split}
+\end{equation}
 
 
 \section{Exercises}
@@ -3746,7 +3757,7 @@ To ensure Z3 is installed correctly, you can try to \texttt{import z3} in Python
     \item Check if $x > 2$ and $x < 2$ is \emph{unsatisfiable}.
     \item Prove that $x \le y$ and $x \ge y$ is equivalent to $x = y$.
     \end{enumerate}
-    \item Using symbolic execution with Z3 to find inputs leading to each location in the program below.  For this you will do 2 things: (i) create a table like \autoref{tab:symbolic-execution} to show the path conditions and program states, and (ii) provide the Python Z3 code to solve for the inputs (e.g., if the pc is $x > 0$ and $y < 0$, you can just use \code{z3.solve(...)} to get the inputs and show the values of $x, y$ leading to that location.
+    \item Using symbolic execution with Z3 to find inputs leading to each location in the program below.  For this you will do 2 things: (i) create a table like \autoref{tab:symbolic-execution} to show the path conditions and program states, and (ii) provide the Python Z3 code to solve for the inputs (e.g., if the PC is $x > 0$ and $y < 0$, you can just use \code{z3.solve(PC)} to get the inputs and show the values of $x, y$ leading to that location.
     
     \begin{lstlisting}
     void bar(int x, int y) {
