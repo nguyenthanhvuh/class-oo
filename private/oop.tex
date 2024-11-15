@@ -2474,7 +2474,7 @@ In this assignment you have two tasks. First, you will \emph{implement a GA} tha
 \begin{enumerate}
 \item Write a report explaining your GA. More specifically for each of the above task, explain that you did (e.g., how do you generate the population, how do you compute the fitness, etc).
 
-\item Explain the parameters you used and how they affect the performance of the GA (e.g., the time it took).  For example, how does the population size affect the performance? crossover and mutation rates? etc.
+\item Explain the parameters used and how they affect the performance of the GA (e.g., the time it took).  For example, how does the population size affect the performance? crossover and mutation rates? etc.
 
 \end{enumerate}
 
@@ -2492,8 +2492,8 @@ In this assignment you have two tasks. First, you will \emph{implement a GA} tha
 In contrast to black-box testing (\autoref{sec:blackbox}) that does not look at the code, \emph{white-box testing} reasons about the program using its source code, allowing it to find bugs that escape black-box testing.  For example, in the \code{square} function in \autoref{sec:blackbox}, by analyzing the code we can see that the program has a bug on input $123$ because it returns $-1$ instead of ${123}^2$. 
 
 
-\emph{Symbolic execution} is a white-box testing technique to find inputs causing the program to take some interesting paths (e.g., that result in a bug). Symbolic execution runs the program with \emph{symbolic inputs} instead of concrete ones (e.g., $x$ instead of $5$) and tracks program's state. It uses constraints or logical formulae to represent the program's \emph{path conditions} (PCs) reaching the interesting paths. It then uses a constraint solver, e.g., a SAT or SMT solver, to find the concrete input that satisfies the path condition. 
-
+\emph{Symbolic execution} is a white-box testing technique to find inputs causing the program to take some interesting paths (e.g., that result in a bug). Symbolic execution runs the program with \emph{symbolic inputs} instead of concrete ones (e.g., $x$ instead of $5$) and tracks program's state. It uses constraints or logical formulae to represent the program's \emph{path conditions} (PCs) over symbolic inputs that would reach the interesting paths or locations. It then uses a constraint solver, e.g., a SAT or SMT solver, to find the concrete input that satisfies the path condition (and thus reach the desired path or loc). 
+%TODO: talk about program states being a map from local variables to either expression or concrete values
 \paragraph{Example 1}
 \begin{lstlisting}[language=c]
 void foo(int a, int b, int c){    
@@ -2578,7 +2578,7 @@ if(!c){
 
 This allows us to use symbolic execution as usual compute the PC to reach the failure location. 
 
-\paragraph{None-Symbolic Values} Observe our assertion here involves the non-symbolic values $x, y, z$, which we keep track in the program state. It is common in symbolic execution where we have to reason both symbolic and non-symbolic values (hence we keep track of both PC and PS).
+\paragraph{None-Symbolic Values} Observe our assertion here involves the non-symbolic values $x, y, z$, which we keep track in the program state PS. It is common in symbolic execution where we have to reason both symbolic and non-symbolic values (hence we keep track of both PC and PS).
 
 Thus we essentially want to check if any of the paths can reach the assertion location has $x + y + z = 3$. In this example, according to \autoref{tab:symbolic-execution}, we see that the path reaching $l7$ with PC $\lnot a \land b < 5 \land (\lnot a \land c)$ with PS $\{x\mapsto 0, y \mapsto 1, z \mapsto2\}$ would satisfy $x + y + z = 3$. Using a constraint solver, we can find the a concrete input $(a=0, b=3, c = 1)$ that would reach this path and fail the assertion.
 
@@ -2843,7 +2843,7 @@ void f(int y) {
 \end{lstlisting}
 
 Use symbolic execution to compute the path condition (PC) and program state (PS) at location \code{L} (where the program fails). Then give an input that causes the program to fail at \code{L}.
-
+%TODO: refer to Table for format of PC and PS (e.g., over symbolic inputs vs local variables)
 
 %{tab:symbolic-execution}
 %The DD algorithm is as follows:

@@ -108,6 +108,14 @@
 - HW assignment: Z3 SMT Solver (9.2.1)
 - Quiz: Parallel Computing Concepts
 
+## Week 11
+- Topics: Hoare Logic and Weakest Precondition
+- Reading: OOP 9 (Verification)
+    - Hoare Triples
+    - Weakest Precondition    
+- In-class: Hoare Triples Exercise
+- HW assignment: No Homework next week (Let's wait until we finish Hoare logic and we'll have a homework on it)
+- Quiz: Symbolic Execution
 # HW Assignments
 
 ## HW1
