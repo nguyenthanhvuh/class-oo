@@ -2488,7 +2488,7 @@ In this assignment you have two tasks. First, you will \emph{implement a GA} tha
 
 \section{Whitebox Testing with Symbolic Execution}\label{sec:symbolic-execution}
 
-In contrast to black-box testing (\autoref{sec:blackbox}), which does not look at the code, \emph{white-box testing} reasons about the program using its source code. For example, in the \code{square} function in \autoref{sec:blackbox}, by analyzing the code we can see that the program has a bug on input $123$ because it returns $-1$ instead of ${123}^2$. Finding such input would be difficult using random black-box testing techniques.
+In contrast to black-box testing (\autoref{sec:blackbox}) that does not look at the code, \emph{white-box testing} reasons about the program using its source code, allowing it to find bugs that escape black-box testing.  For example, in the \code{square} function in \autoref{sec:blackbox}, by analyzing the code we can see that the program has a bug on input $123$ because it returns $-1$ instead of ${123}^2$. 
 
 
 \emph{Symbolic execution} is a white-box testing technique to find inputs causing the program to take some interesting paths (e.g., that result in a bug). Symbolic execution runs the program with \emph{symbolic inputs} instead of concrete ones (e.g., $x$ instead of $5$) and tracks program's state. It uses constraints or logical formulae to represent the program's \emph{path conditions} (PCs) reaching the interesting paths. It then uses a constraint solver, e.g., a SAT or SMT solver, to find the concrete input that satisfies the path condition. 
@@ -2521,9 +2521,9 @@ void foo(int a, int b, int c){
 \paragraph{Example} We execute this program with symbolic inputs $a, b, c$.  At each location $l$,  we keep track of two things: the path condition (PC) to reach $l$ and the program state (PS), consisting values of variables at $l$.
 
 At $l0$, the PC is always true (i.e., $T$) and the PS is $\{\}
-$, i.e., nothing yet. At $l1$, PC is $T$ and $PS$ is $\{x\mapsto 0, y\mapsto 0, z\mapsto 0\}$. The PC for $l2$ is $a$ with $PS$ being $\{x\mapsto -2,y\mapsto 0,z\mapsto 0\}$.  
+$, i.e., nothing yet. At $l1$, PC is $T$ and $PS$ is $\{x\mapsto 0, y\mapsto 0, z\mapsto 0\}$. The PC for $l2$ is $a$ with PS $\{x\mapsto -2,y\mapsto 0,z\mapsto 0\}$.  
 
-At $l3$ we have two paths reaching it.  The PC for the first path is $a$ with $PS$ being $\{x\mapsto -2,y\mapsto 0,z\mapsto 0\}$. The PC for the second path is $\lnot a$ with $PS$ being $\{x\mapsto 0,y\mapsto 0,z\mapsto 0\}$.
+At $l3$ we have two paths reaching it.  The PC for the first path is $a$ with PS $\{x\mapsto -2,y\mapsto 0,z\mapsto 0\}$. The PC for the second path is $\lnot a$ with PS $\{x\mapsto 0,y\mapsto 0,z\mapsto 0\}$.
 At $l4$ we have two paths: 1st path has PC $a \land b < 5$ with PS $\{x\mapsto -2,y\mapsto 0,z\mapsto 0\}$, and 2nd path has PC $\lnot a \land b < 5$ with PS $\{x\mapsto 0,y\mapsto0,z\mapsto 0\}$. At $l5$ we have 2 paths, at $l6$ we have 4 paths, and so on as shown in \autoref{tab:symbolic-execution}
 
 \begin{table}
@@ -2577,7 +2577,7 @@ if(!c){
 
 This allows us to use symbolic execution as usual compute the PC to reach the failure location. 
 
-\paragraph{None Symbolic Inputs} Observe our assertion here involves the non-symbolic values $x, y, z$, which we keep track in the program state. It is common in symbolic execution where we have to reason both symbolic and non-symbolic values (hence we keep track of both PC and PS).
+\paragraph{None-Symbolic Values} Observe our assertion here involves the non-symbolic values $x, y, z$, which we keep track in the program state. It is common in symbolic execution where we have to reason both symbolic and non-symbolic values (hence we keep track of both PC and PS).
 
 Thus we essentially want to check if any of the paths can reach the assertion location has $x + y + z = 3$. In this example, according to \autoref{tab:symbolic-execution}, we see that the path reaching $l7$ with PC $\lnot a \land b < 5 \land (\lnot a \land c)$ with PS $\{x\mapsto 0, y \mapsto 1, z \mapsto2\}$ would satisfy $x + y + z = 3$. Using a constraint solver, we can find the a concrete input $(a=0, b=3, c = 1)$ that would reach this path and fail the assertion.
 
@@ -2821,9 +2821,32 @@ More specifically, \code{oracle(s:str)->bool} takes in a string \code{s} and ret
     \begin{itemize}
         \item Show what you get at the end. That is, show the minimal C code that DD would return.  
         \item You \textbf{do not need} to show step by step like we did in class. Instead, just describe the steps you (the DD algorithm) would take to reduce the input,  e.g., \emph{``in the first step you split the program into two parts, then you remove the first part, run the oracle which fails/passes because ..., etc''}.
-        \item Pay attention to the additional requirement of being a valid C program (e.g., needs the \code{\#include <stdio.h>}, \code{int main()...} and \code{return 0} statements). 
-    \end{itemize}
+        \item Pay attention to the additional requirement of being a \emph{valid} C program (e.g., needs the \code{\#include <stdio.h>}, \code{int main()...} and \code{return 0} statements). 
+    \end{itemize}    
 \end{itemize}
+
+\subsection{Symbolic Execution}\label{exercise:symbolic-execution}
+
+Consider a simple function \code{f} below 
+
+\begin{lstlisting}[language=C]
+int f(int y) {
+  ...
+  y = read();
+  z = y * 2;
+  if (z == 12) {
+    // L
+    fail();
+  } else {
+    printf(``OK'');
+  }
+}
+\end{lstlisting}
+
+Use symbolic execution to compute the path condition (PC) and program state (PS) at location \code{L} (where the program fails). Then give the input that cause the program to fail at \code{L}.
+
+
+%{tab:symbolic-execution}
 %The DD algorithm is as follows:
 
 % \begin{algorithm}[H]
@@ -3271,12 +3294,12 @@ if __name__ == "__main__":
     print("Done.")
 \end{lstlisting}
 
-This example demonstrates live lock. Similar to the deadlock example, both threads want to get both locks. However, here if a thread cannot acquire a lock, it releases the lock it's holding and tries again. This leads to a live lock where both threads keep releasing the lock and trying again, but neither can get both locks and make progress.
+This example demonstrates live lock. Similar to the deadlock example above, both threads want to get both locks. However, here if a thread cannot acquire a lock, it releases the lock it's holding and tries again. This leads to a live lock where both threads keep releasing the lock and trying again, but neither can get both locks to make progress.
 
 
 \subsubsection{Starvation} 
 
-This occurs when a thread $t$ cannot access a shared resource $r$ because other threads are continuously accessing it. This can happen when $t$ has lower priority or much faster than other threads. This is different than deadlock and live lock as other threads are still making progress.
+This occurs when a thread $t$ cannot access a shared resource $r$ because other threads are continuously accessing it. This can happen when $t$ has lower priority or much faster than other threads. This is different than deadlock and live lock as other (non-starving) threads are still making progress.
 
 % \lstinputlisting[multicols=2]{code/starvation.py}
 % hard to find a good example
@@ -3721,6 +3744,47 @@ Instead of using implication $\implies$, which might be confusing to some, we ca
     \end{split}
 \end{equation}
 
+\paragraph{Loop}
+
+Unlike other statements where we have rules to compute WP \emph{automatically},
+to obtain the WP of loop, we need to \emph{manually} supply a \textbf{loop invariant}
+\texttt{I}. Moreover, the loop invariant \texttt{I} must be strong enough to ensure the postcondition \texttt{Q} holds when the loop terminates.
+
+Assume that a loop invariant $I$ is given, the WP of a while loop is as follows:
+
+\begin{equation}
+    \begin{split}
+    & \texttt{wp}(\texttt{while} ~[I]~ ~b~ \texttt{do} ~S, Q) \\
+    &=    I  ~\land~   (I \land b) \implies \texttt{wp}(S,I)  ~\land~ (I \land \neg b)  \implies Q
+    \end{split}   
+\end{equation}
+
+Thus, the WP for loop consists of 3 conjuncts:
+
+\begin{enumerate}
+\item
+  $I$ : the loop invariant (should hold when entering the loop)
+\item
+  \texttt{(I\ \&\ b)\ \ =\textgreater{}\ \ \ I} : (entering the loop
+  because \texttt{b} is true) \texttt{I} is preserved after each loop
+  body execution
+\item
+  \texttt{(I\ \&\ !b)\ =\textgreater{}\ \ Q} (exiting the loop because
+  \texttt{b} is false), when exiting the loop, the post condition holds
+\end{enumerate}
+
+
+\subsection{Verification Condition}\label{verification-condition} 
+Now that we know how to do WP, we can continue with \textbf{verifiation
+condition} (VC). Recall that to verify that the program \texttt{S}
+satisfies the precondition \texttt{P} and postcondition \texttt{Q}
+(i.e., the Hoare triple \texttt{\{P\}\ S\ \{Q\}} is valid), we create
+the VC \texttt{P\ =\textgreater{}\ WP(S,\ Q)} and check its validity,
+i.e., if the \texttt{VC} becomes \texttt{True}. If the \texttt{VC} is
+valid, we have proved the program (i.e., it's correct wrt to the specs);
+otherwise, we cannot say anything about the program, i.e., we don't know
+if it's correct or not.
+
 
 \section{Exercises}
 
@@ -3754,7 +3818,7 @@ To ensure Z3 is installed correctly, you can try to \texttt{import z3} in Python
     \item Prove that $x > 3 \land y > 3 \implies x + y > 6$
     \item Solve for $x, y$ such that $x + y = 10$ and $x < 0$
     \item Show the transitive $x > y \land y > z \implies x > z$
-    \item Check if $x > 2$ and $x < 2$ is \emph{unsatisfiable}.
+    \item Confirm that $x > 2$ and $x < 2$ is \emph{unsatisfiable}.
     \item Prove that $x \le y$ and $x \ge y$ is equivalent to $x = y$.
     \end{enumerate}
     \item Using symbolic execution with Z3 to find inputs leading to each location in the program below.  For this you will do 2 things: (i) create a table like \autoref{tab:symbolic-execution} to show the path conditions and program states, and (ii) provide the Python Z3 code to solve for the inputs (e.g., if the PC is $x > 0$ and $y < 0$, you can just use \code{z3.solve(PC)} to get the inputs and show the values of $x, y$ leading to that location.
