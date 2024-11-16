@@ -4188,7 +4188,7 @@ while (b){
 \end{lstlisting}
 
 
-\section{Determining Loop Invariants}
+\section{Determining Loop Invariants}\label{sec:determining-loop-invariants}
 
 Consider a simple
 program
@@ -4201,8 +4201,8 @@ while (i < N){
 }
 \end{lstlisting}
 
-To make it easier to see where loop invariants are, we first transform
-this program into an equivalent one:
+To make it easier to determine loop invariants, we transform
+this program into:
 
 \begin{lstlisting}[language=C]'
 // {N >= 0}  # precondition, N is a non-negative integer
@@ -4214,12 +4214,11 @@ while (True){
 }
 \end{lstlisting}
 
-The \texttt{while} loop in this program has many possible loop at [$I$]:
+Possible loop invariants at [$I$] include
 
 \begin{enumerate}
 \item
-  $T$  (True): is always a loop invariant, but it is very weak and
-  trivial, i.e., almost useless for any analysis
+  $T$  (True): is always a loop invariant, but it is very weak (in fact, weakest possible) and trivial, i.e., almost useless for any analysis
 \item $N \ge 0$: because $N \ge 0$ is a precondition and the variable \texttt{N} is never changed
 \item $i \ge 0$: because \texttt{i} is initalized to
   \texttt{0} can only changed to \texttt{N}, which itself is
@@ -4232,40 +4231,18 @@ There can be many loop invariants for a loop, but the key question is which loop
 \section{Which loop invariants to
 use?}\label{which-loop-invariants-to-use}
 
-Typically, the more stronger the better as they capture the meaning of
-the loop more precisely (thus $T$ (true) is not very useful).
-However, the answer really depends on the task we are trying to achieve.
-If the task is to prove a very weak (trivial) property, then we might
-not need strong loop invariants, e.g., for instance to prove that
-\texttt{N\ \textgreater{}=\ 0} as the postcondition, then we only need
-the loop invariant \texttt{N\ \textgreater{}=\ 0}. Vice versa, if the
-task is to prove a strong property such as \texttt{i=N}, then we likely
-need strong loop invariants, e.g., \texttt{i\textless{}=N}.
+Stronger invariants capture the meaning of the loop more precisely (thus $T$ (true) is not very useful).
+However, stronger invariants can be harder to determines, and more importantly, are not always necessary. The choice of loop invariants depends on the task at hand. For the example in \autoref{sec:determining-loop-invariants},  to prove that $N \ge 0$ as the postcondition, then we only need the loop invariant $N \ge 0$. However, if we want to prove  $i=N$ as postcondition, then we need the more complicated loop invariant $i\le N$ that involves two variables.
 
 In many cases, we can guess which loop invariants are useful based on
-the postconditions we want to prove. However, in the general cases we do
-not know a priori which loop invariants to use. If the program is indeed
-correct wrt the specs (i.e., the representing Hoare tripple is valid),
-there are two possible scenarios about using loop invariants to prove
-programs:
+the postconditions we want to prove (e.g., if the postcondition involves $i, N$, then likely our loop invariant needs to involve these two variables). However, in the general cases we do not know a priori which loop invariants to use. 
+
+When a loop invariant $I$ for program verification such as proving the validity of Hoare triple (\autoref{sec:hoare-logic}), there are two possible scenarios: 
 
 \begin{enumerate}
-\item
-  if we use sufficiently strong loop invariants, then we will be able to
-  prove the program is correct.
-\item
-  if we use insufficiently strong loop invariants, then we will
-  \textbf{not}* be able to prove the program is correct.
+\item We were able to prove the program is correct (wrt to its specification), then $I$ is sufficient for the task. 
+\item We were \emph{not} able to prove the program is correct, then $I$ is insufficient for the task.  Note that this does not mean the program is incorrect, but rather we do not have enough information to prove it is correct. We will need to find a stronger loop invariant (or use a different verification method).
 \end{enumerate}
-
-The \hyperref[loop]{\emph{loop}} section in Hoare logic gives concrete
-examples demonstrating these two cases.
-
-Thus, this gives an \textbf{crucial observation}**: if we can prove that
-a program is correct (e.g., using Hoare logic), then it is really
-correct. However, if we cannot prove that the program is correct, then
-we do not know whether the program is correct or not: it could be wrong,
-or it is actually correct but we can't prove it.
 
 
 
