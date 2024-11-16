@@ -112,6 +112,8 @@
   \end{mycenterdisplay}
 }
 
+\newtheorem{definition}{Definition}[section]
+
 \renewcommand{\figurename}{Fig.}
 \renewcommand{\tablename}{Tab.}
 \def\Section{\S}
@@ -4145,13 +4147,17 @@ Provide a specification for an IntBag abstraction that is sufficiently restricti
 
 \chapter{Loop Invariants}
 
-At a high level, loop invariants capture the meaning or semantics of the loop, and thus help understand and reason about the loop. Loop invariants are especially helpful for automatic verification, e.g., using Hoare logic (~\autoref{sec:higher-order}).
+At a high level, loop invariants capture the meaning or semantics of the loop, and thus help understand and reason about the loop. Loop invariants are especially helpful for automatic verification, e.g., using Hoare logic (\autoref{sec:hoare-logic}).
 
-A loop invariant is a property $I$ that always holds at the
+
+\section{What is a Loop Invariant?}\label{what-is-a-loop-invariant}
+
+\begin{definition}[Loop Invariant]
+A loop invariant $I$ is a property that always holds at the
 \textbf{loop entrance}. This means that $I$ (i) holds when the
-loop entered and (ii) is preserved after the loop body is executed. \texttt{I} is also called an \textbf{inductive loop invariant} because it is used to prove that the loop body preserves the invariant.
-
-\section{Where are loop invariants in a loop?}\label{where-is-the-loop-invariant}
+loop entered and (ii) is preserved after the loop body is executed. $I$ is also called an \textbf{inductive loop invariant} because assuming $I$ holds at the beginning of the loop, we can prove that $I$ holds at the end of the loop.
+\end{definition}
+\section{Where Is Loop Invariant?}\label{where-is-the-loop-invariant}
 
 If we have a loop that looks like
 
@@ -4170,9 +4176,9 @@ while (True){
 }
 \end{lstlisting}
 
-The loop invariant $I$ is right when we enter the loop, as
+The loop invariant $I$ is located at the loop entrance, right when we enter the loop, as
 indicated by [$I$] in the code above.
-Note that $I$ is \textbf{not} located \textbf{after} the guard
+Note that $I$ is \emph{not} located after the guard
 condition $b$ is satisfied, e.g.,
 \begin{lstlisting}[language=C]
 while (b){
@@ -4182,9 +4188,9 @@ while (b){
 \end{lstlisting}
 
 
-\subsection{What is a loop invariant?}\label{what-is-a-loop-invariant}
+\section{Determining Loop Invariants}
 
-We will use an example to demonstrate loop invariants. Consider a simple
+Consider a simple
 program
 
 \begin{lstlisting}[language=C]'
@@ -4208,33 +4214,26 @@ while (True){
 }
 \end{lstlisting}
 
-The \texttt{while} loop in this program has many possible loop
-invariants, which are properties that hold at the loop entrance [$I$]:
+The \texttt{while} loop in this program has many possible loop at [$I$]:
 
 \begin{enumerate}
 \item
-  \texttt{True} : is always a loop invariant, but it is very weak and
+  $T$  (True): is always a loop invariant, but it is very weak and
   trivial, i.e., almost useless for any analysis
-\item
-  $N \ge 0$: because $N \ge 0$ is a
-  precondition and the variable \texttt{N} is never changed
-\item
-  \texttt{i\textgreater{}=0}: because \texttt{i} is initalized to
+\item $N \ge 0$: because $N \ge 0$ is a precondition and the variable \texttt{N} is never changed
+\item $i \ge 0$: because \texttt{i} is initalized to
   \texttt{0} can only changed to \texttt{N}, which itself is
-  \texttt{\textgreater{}=0} and never changed.
-\item
-  \texttt{i\ \textless{}=\ N}: because \texttt{i} can only either be
-  \texttt{0} or \texttt{N}, and \texttt{N\ \textgreater{}=0}.
+  $\ge 0$ (precondition) and never changed.
+\item  $i = 0 \vee i = N$: because \texttt{i} can only either be \texttt{0} or \texttt{N}.
+\item  $i \le N$: because \texttt{i} can only either be \texttt{0} or \texttt{N}, which is $\ge 0$.
 \end{enumerate}
 
-There is in fact infinite number of loop invariants for this program. For example, 
-
-\subsection{Which loop invariants to
+There can be many loop invariants for a loop, but the key question is which loop invariants are useful for the task at hand as discussed in \autoref{which-loop-invariants-to-use}.
+\section{Which loop invariants to
 use?}\label{which-loop-invariants-to-use}
 
-An important question to ask is which loop invariants are useful?
 Typically, the more stronger the better as they capture the meaning of
-the loop more precisely (thus \texttt{true} is not very useful).
+the loop more precisely (thus $T$ (true) is not very useful).
 However, the answer really depends on the task we are trying to achieve.
 If the task is to prove a very weak (trivial) property, then we might
 not need strong loop invariants, e.g., for instance to prove that
@@ -4270,7 +4269,6 @@ or it is actually correct but we can't prove it.
 
 
 
-\bibliographystyle{abbrv}
 
 \chapter{More Examples}
 \section{ADT}
@@ -4344,6 +4342,9 @@ or it is actually correct but we can't prove it.
     \caption{Stack ADT}\label{ex:stack}
 \end{figure}
     
+
+
+\bibliographystyle{abbrv}
 
 \end{document}
 
