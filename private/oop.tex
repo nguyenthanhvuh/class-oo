@@ -3611,7 +3611,7 @@ achieve the postcondition \texttt{Q}. Thus, to show the validity of
 \subsection{Computing Weakest Preconditions}\label{computing-weakest-preconditions}
 
 The WP is computed by working backwards from the postcondition $Q$ to the precondition $P$ using the program $S$. \autoref{tab:wp} defines 
-the rules for computing the WP of common program statements (e.g., assignment, sequence, conditional, and while loop).
+the rules for computing the WP of common program statements (e.g., assignment, sequence, conditional, and loop).
 \begin{table}
     \caption{Weakest Precondition Rules.}\label{tab:wp}
     \centering
@@ -3745,11 +3745,11 @@ Instead of using implication $\implies$, which might be confusing to some, we ca
 
 \paragraph{Loop}
 
-Unlike other statements where we have rules to compute WP \emph{automatically},
-to obtain the WP of loop, we need to \emph{manually} supply a \textbf{loop invariant}
-\texttt{I}. Moreover, the loop invariant \texttt{I} must be strong enough to ensure the postcondition \texttt{Q} holds when the loop terminates.
+Unlike other statements where we have rules to compute WP \emph{automatically}, to obtain the WP of loop, we need to \emph{manually} supply a \textbf{loop invariant}
+\texttt{I}. Moreover, the loop invariant \texttt{I} must be strong enough to ensure the postcondition \texttt{Q} holds when the loop terminates. Finding sufficient loop invariants is often challenging and requires human insight.
 
-Assume that a loop invariant $I$ is given, the WP of a while loop is as follows:
+Assume that a loop invariant $I$ is given, the WP of a \code{while} loop\footnote{\code{While} loop is used because other kinds of loops can be converted to \code{while} loops.} \texttt{while b do S} with invariant \texttt{I} and postcondition \texttt{Q
+} is as follows:
 
 \begin{equation}
     \begin{split}
@@ -3758,19 +3758,97 @@ Assume that a loop invariant $I$ is given, the WP of a while loop is as follows:
     \end{split}   
 \end{equation}
 
-Thus, the WP for loop consists of 3 conjuncts:
-
+Observe that the WP for loop consists of 3 conjuncts:
 \begin{enumerate}
-\item
-  $I$ : the loop invariant (should hold when entering the loop)
-\item
-  \texttt{(I\ \&\ b)\ \ =\textgreater{}\ \ \ I} : (entering the loop
-  because \texttt{b} is true) \texttt{I} is preserved after each loop
-  body execution
-\item
-  \texttt{(I\ \&\ !b)\ =\textgreater{}\ \ Q} (exiting the loop because
-  \texttt{b} is false), when exiting the loop, the post condition holds
+\item $I$ : the loop invariant (should hold when entering the loop)
+\item $(I \land b) \implies I$: (entering the loop because \texttt{b} is true) and $I$ is preserved after each loop body execution
+\item $(I \land \neg b) \implies Q$: (exiting the loop because \texttt{b} is false), when exiting the loop, the post condition holds
 \end{enumerate}
+
+
+
+% Let's consider the while loop
+% ```python
+% while(i < N){
+%   i:=N
+% }
+
+% # note that this is equivalent to 
+
+% while(True){
+%   # [I]: loop invariants here
+%   if(!i < N) break;
+%   i := N;
+% }
+% ```
+
+% Assume that we have found two loop invariants at `[I]` for this loop
+% - `i <= N`
+% - `N >= 0`
+% - `True` # and yes, `True` is always a loop invariant (though very weak and likely useless)
+
+% Let's compute the WP of this loop using these loop invariants; also let's use `i == N` as `Q`
+% ```
+% # Using loop invariant i <= N
+% WP(while[i <= N] (i < N ) i := N, i == N)
+% =  i <= N & (i <= N & i < N) => WP(i := N, i <= N) & (i <= N & !(i < N))  => i == N)
+% # let's deal these 3 conjuncts one by one, easier that way
+
+% 1. i <= N
+
+% 2. (i <= N & i < N) => WP(i := N, i <= N)
+%    = i < N          =>  N <= N
+%    = i < N          =>   True
+%    =        True
+
+% 3. (i <= N & !(i < N))  => i == N)
+%    = (i <= N  & i >= N)  => i == N
+%    =     i == N   =>  i == N
+%    =          True
+   
+% # so these 3 conjuncts become
+% i <= N  & True  & True
+% = i <= N    #  the WP of the while loop
+
+
+
+% # Using loop invariant N >= 0
+% WP(while[N >= 0] (i < N ) i := N, i == N)    
+% =  N >= 0 & (N >= 0 & i < N) => WP(i:= N, N >= 0) & (N >= 0 & !(i < N))  => i == N)
+% # let's deal these 3 conjuncts one by one
+
+% 1. N >= 0
+
+% 2. (N >= 0 & i < N) => WP(i:= N, N >= 0)
+%    = (N >= 0 & i < N) =>  N >= 0
+%    =    True     # because a & b = > a  is True
+
+% 3. (N >= 0 & !(i < N))  => i == N)
+%    = (N >= 0  & i >= N)  => i == N   # can't simplify much further, so just leave as is
+ 
+   
+% # so these 3 conjuncts become
+% N >= 0 &  (N >= 0  & i >= N)  => i == N  #  the WP of the while loop
+
+% # Using loop invariant True
+% WP(while[True] (i < N ) i := N, i == N)    
+% =  True & (True & i < N) => WP(i:= N, True) & (True & !(i < N))  => i == N)
+
+% 1. True
+
+% 2. (True & i < N) => WP(i:= N, True)
+%    = True & i < N =>  True   
+%    =   True 
+
+% 3. (True & !(i < N))  => i == N)
+%    = (i >= N)  => i == N   # can't simplify much further, so just leave as is
+ 
+   
+% # so these 3 conjuncts become
+% i >= N  => i == N  #  the WP of the while loop
+% ```
+    
+% Thus, we get different WPs when we use different loop invariants. As we will see later, this can affect our verification task. That is, if we pick a good or strong invariant, we can prove the program.  But if we pick a weak one, we might not be able to prove the program.
 
 
 \subsection{Verification Condition}\label{verification-condition} 
