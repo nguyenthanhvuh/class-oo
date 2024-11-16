@@ -122,6 +122,7 @@
 \renewcommand{\sectionautorefname}{\S\@gobble}
 \renewcommand{\subsectionautorefname}{\S\@gobble}
 \renewcommand{\appendixautorefname}{\S\@gobble}
+%\@addtoreset{chapter}{part}
 \makeatother
 
 \newcommand{\mycomment}[3][\color{blue}]{{#1{{#2}: {#3}}}}
@@ -313,6 +314,7 @@ class Cat(Mammal):
  \caption{Decomposition example: Mergesort}\label{ex:mammal}
 \end{figure}
 
+\part{Abstraction and Specification}
 \chapter{Procedural Abstraction}\label{chap:procedural-abstraction}
 
 \emph{Procedural abstraction} allows developers to create functions (methods) that hide program implementation details. For example, the user can just invoke a \code{sort} function without knowing (or caring) about its underlying sorting algorithm. 
@@ -2195,6 +2197,7 @@ The \code{make\_multiplier} function in \autoref{ex:closure-example} is an examp
     \end{lstlisting}
 \end{enumerate}
 
+\part{Testing, Fault Localization, and Verification}
 \chapter{Testing}\label{chapter:testing}
 
 %Liskov 10
@@ -2586,14 +2589,14 @@ Thus we essentially want to check if any of the paths can reach the assertion lo
 
 
 
-\section{Fault Localization}\label{sec:debugging}
+\chapter{Fault Localization}\label{sec:debugging}
 
 Fault localization is a debugging process of isolating the bug in the program. It is crucial for developers to understand and fix the bug. Programmers use various techniques, including \code{printf} debugging where they output variable values to analyze the bug. Professional developers use built-in debugger tools in IDEs to step through and pause code execution to inspect variables and program states.  
 
 Here we will discuss two popular fault localization techniques: \emph{statistical debugging} and \emph{delta debugging} to localize code and inputs that likely contain the bug.
 
 
-\subsection{Statistical Debugging}\label{sec:statistical-debugging}
+\section{Statistical Debugging}\label{sec:statistical-debugging}
 Statistical debugging is a white-box technique that uses statistics to find bugs in code, i.e., \emph{fault localization}. It collects program execution traces, e.g., which lines of code were executed, how many times, etc, and uses this data to find the lines that likely contain the bug. For example, if a line $l$ is executed many times when the program fails but not when it runs correctly, then $l$ is likely the bug.
 
 \emph{Tarantula} is a popular statistical debugging technique that computes a suspicious score for each line of code based on the number of times it was executed when the program failed and when it passes (gives expected behavior). The formula is:
@@ -2658,7 +2661,7 @@ For example, the suspiciousness score for line 4 is: $2/4 / (2/4 + 4/6) = 0.42$.
 Note that scores for lines 1 and line 13, which are always executed, are $4/4 / (4/4 + 6/6) = 0.5$. The score for line 12, which was not executed in any test runs, is 0. (if it never runs, it should not be responsible for any issue).
 
 
-\subsection{In-class Exercise: Tarantula vs. Ochiai}
+\section{In-class Exercise: Tarantula vs. Ochiai}
 
 \emph{Ochiai} is another popular metrics for statistical debugging. Its formula is
 
@@ -2675,7 +2678,7 @@ Note that scores for lines 1 and line 13, which are always executed, are $4/4 / 
 \end{enumerate}
 
 
-\subsection{Delta Debugging (DD)}
+\section{Delta Debugging (DD)}
 While statistical debugging (\autoref{sec:statistical-debugging}) aims to localize faults in the code,  DD focuses on finding the smallest input that triggers the issue. DD aims to \emph{minimize} a \emph{failing} input  (e.g., causing the program to crash or producing some interesting behavior). It is useful for debugging and finding a simpler input that is still interesting. DD works by repeatedly splitting the input into smaller parts and checking if they still trigger the issue. When using DD, you will need to provide an \emph{oracle} that checks if the input $P$ is interesting (e.g., causing a crash). 
 
 \paragraph{Example 1} \emph{Oracle}: program fails (is interesting) whenever input contains an asterisk (*). 
@@ -3081,419 +3084,6 @@ Use symbolic execution to compute the path condition (PC) and program state (PS)
 
 
 
-\chapter{Concurrency}\label{chap:concurrency}
-
-
-\begin{table}
-    \caption{Threads vs. Processes}\label{tab:threads-vs-processes}
-    \small
-    \centering
-    \begin{tabular}{l|l|l}
-    \toprule
-    &\textbf{Threads} & \textbf{Processes} \\
-    \midrule
-    Memory & Sharing memory & Not sharing memory\\
-    Communication & Easier, since sharing memory & Harder, because running in isolation \\
-    Concurrency Type & Interleaved & Parallel \\
-    Overhead & Lightweight & Heavyweight\\
-    Use & For lightweight tasks & For heavy, isolated tasks \\
-    \bottomrule
-    \end{tabular}
-\end{table}
-
-
-\section{Processes}\label{sec:processes}
-A process is an independent instance of a program and does not share memory and data with other processes. While incurring higher overhead, processes do not have synchronization issues such as race conditions and makes parallelism safer. In a multicore system, processes would achieve true parallelism as they can run on different cores. 
-
-In Python we use \code{multiprocessing} to create and manage processes. The following demonstrates using \code{multiprocessing.Processes} to run two functions in parallel. It also uses \code{multiprocessing.Queue} to simulate a shared variable.
-
-\begin{lstlisting}[multicols=2]
-from multiprocessing import Process, Queue
-import time
-
-
-def square(numbers:list, queue:Queue):
-    ct = 0
-    for n in numbers:
-        time.sleep(1)
-        print(f"Square of {n}: {n*n}")
-        ct += 1
-    queue.put(ct)
-
-
-def cube(numbers:list, queue: Queue):
-    ct = 0
-    for n in numbers:
-        time.sleep(1)
-        print(f"Cube of {n}: {n*n*n}")
-        ct += 1
-    queue.put(ct)
-
-if __name__ == "__main__":
-    numbers = [2, 3, 4, 5]
-
-    queue = Queue()
-    # Create processes
-    process1 = Process(
-        target=square,args=(numbers,queue))
-    process2 = Process(
-        target=cube,args=(numbers,queue))
-
-    # Run processes (in parallel)
-    process1.start(); process2.start()
-
-    # Wait for both processes to finish
-    process1.join(); process2.join()
-
-    # Combine the counts from both processes
-    total_ct = 0
-    while not queue.empty():
-        total_ct += queue.get()
-
-    print("Count : ", total_ct)
-\end{lstlisting}
-
-\section{Threading}\label{sec:threads}
-
-%TODO: explain about daemon, thread join, example here  https://realpython.com/intro-to-python-threading/
-%TODO: show example of deadlock
-%TODO: easier to just use a single example with Producer Consumer,  
-
-
-
-A thread runs within a process and shares memory and data as other threads in the process. Thus threads are lightweight with low overhead, but can face synchronization issues like race conditions when multiple threads access shared data.
-
-In Python we use the \code{threading} module to create and manage threads. The following demonstrates the use of \code{threading.Thread} to run tasks in parallel. 
-
-This example also uses \code{threading.lock} for mutual exclusion to ensure only one thread can access and modify the shared variable at a time.
-
-%\lstinputlisting[firstline=300,lastline=500]{file.cc}
-\lstinputlisting[multicols=2]{code/thread1.py}
-
-\subsection{Join}
-The \code{join()} method, which appears in Python, Java, and many other languages, is used to wait for a thread to complete. Calling \code{t.join()} blocks the parent (calling) thread until the thread \code{t} is terminated. 
-
-The example above uses \code{thread1.join()} and \code{thread2.join()} to wait for both threads to complete before printing the final count.
-If we do not use \code{join()}, the calling thread may print the count before the threads are done, leading to incorrect count.
-
-\subsection{Daemon Threads}
-
-When a program create (regular) threads, the program will wait for them to complete before exiting. (Note not to be confused with \code{join()} which blocks the calling thread until the target thread completes). However, if we want the program to exit even if the threads are not finished, we can use \emph{daemon threads}. This type of threads run in the background and do not block the program from exiting. Instead, when the program exits, daemon threads are automatically terminated or killed.
-
-\lstinputlisting[multicols=2]{code/daemon.py}
-
-This example demonstrates the difference between daemon and non-daemon (regular) threads. The program will wait for the regular thread to finish (i.e., print 0 to 4) before printing \code{"Done"}. However, the daemon thread will run indefinitely in the background but will be terminated immediately the program exits.
-
-\section{Locks, Semaphores, and Monitors}
-
-Locks, semaphores, and monitors are key synchronization concepts in multithreading. They help manage shared resources and prevent synchronization issues such as race conditions and deadlocks. 
-
-% \begin{table}
-%     \caption{Locks, Semaphores, and Monitors}\label{tab:sync}
-%     \footnotesize
-%     \centering
-% \begin{tabular}{l|l|l|l}
-% \toprule
-% & \textbf{Locks} & \textbf{Semaphores} & \textbf{Monitors} \\
-% \midrule
-% \textbf{Purpose} & Protect critical sections & Control access to resources & Combine data and synchronization \\
-% \textbf{Operations} & Acquire and release & Wait and signal & Encapsulate data and synchronization \\
-% \textbf{Mutual Exclusion} & One thread & Multiple threads (using a counter) & One thread \\
-% \end{tabular}
-% \end{table}
-
-\subsection{Locks}\label{sec:locks}
-A \emph{race condition} occurs when two or more threads try to change a shared resource at the same time, leading to unpredictable results (e.g., consider a shared counter and two threads incrementing it at the same time like the example in \autoref{sec:threads}).
-\emph{Locking} the shared resource is a simple mechanism to avoid race condition. It works by allowing a thread $t$ to acquire the \emph{lock} and proceed if the lock is available; otherwise, $t$ waits until the lock is released.  After $t$ is done, it releases the lock. The code that needs to be protected (between lock acquire and release) is called a \emph{critical section}.
-The example in \autoref{sec:threads} uses a lock to protect the critical section modifying \code{shared\_ct}. 
-
-Thus, locks are ideal \emph{when only one} thread should access a shared resource at a time. Because of this limitation, locks are efficient and simple to use. However, improper use of locks can lead to \emph{deadlocks} and \emph{live locks} describe below.
-
-\subsubsection{Deadlock} 
-
-Deadlock occurs when two threads are stuck waiting for each other to release a lock. This happens when a thread acquires a lock and waits for another lock, while another thread acquires the second lock and waits for the first lock. 
-
-\begin{lstlisting}[multicols=2]
-from threading import Thread, Lock
-import time
-
-lock1 = Lock(); lock2 = Lock()
-
-def t1_job():
-    print("T1: Want Lock 1...")
-    with lock1:
-        print("T1: Got Lock 1.")
-        time.sleep(1) 
-        print("T1: Want Lock 2...")
-        with lock2:
-            print("T 1: Got Lock 2.")
-
-def t2_job():
-    print("T2: Want Lock 2...")
-    with lock2:
-        print("T2: Got Lock 2.")
-        time.sleep(1)  # Simulate some work
-
-        print("T2: Want Lock 1...")
-        with lock1:
-            print("T 2: Got Lock 1.")
-
-if __name__ == "__main__":
-    t1 = Thread(target=t1_job)
-    t2 = Thread(target=t2_job)
-    t1.start(); t2.start()
-    t1.join(); t2.join()
-    print("Done.")
-\end{lstlisting}
-
-This example demonstrates a deadlock. Thread 1 acquires lock 1 and waits for lock 2, while thread 2 acquires lock 2 and waits for lock 1. This leads to a deadlock because both threads are stuck waiting for each other to release the lock.
-
-\subsubsection{Live Lock}
-In live lock,  threads are not blocked but cannot make progress. In constrast to a deadlock, which each thread is greedy and does not release the lock, a \emph{live lock} occurs when threads are too \emph{polite} and keep releasing the lock. Imagine two pedestrians trying to pass each other in a narrow corridor. If both keep stepping aside to let the other pass, they will keep stepping aside and never pass each other.
-
-\begin{lstlisting}[multicols=2]
-from threading import Thread, Lock
-import time
-
-lock1 = Lock(); lock2 = Lock()
-
-def t1_job():
-    while True:
-        print("T1: Want Lock 1...")
-        with lock1:
-            print("T1: Got Lock 1.")
-            time.sleep(1) 
-            print("T1: Want Lock 2...")
-            if not lock2.acquire(timeout=1):
-                print("T1: Released Lock 1.")
-                continue # release lock 1 and try again
-
-            print("T1: Got Lock 2.")
-            break # got both lock
-
-def t2_job():
-    while True:
-        print("T2: Want Lock 2...")
-        with lock2:
-            print("T2: Got Lock 2.")
-            time.sleep(1)  # Simulate some work
-            print("T2: Want Lock 1...")
-            if not lock1.acquire(timeout=1):
-                print("T2: Released Lock 2.")
-                continue # release lock 2 and try again
-            
-            print("T2: Got Lock 1.")
-            break # got both lock
-
-if __name__ == "__main__":
-    t1 = Thread(target=t1_job)
-    t2 = Thread(target=t2_job)
-    t1.start(); t2.start()
-    t1.join(); t2.join()
-    print("Done.")
-\end{lstlisting}
-
-This example demonstrates live lock. Similar to the deadlock example above, both threads want to get both locks. However, here if a thread cannot acquire a lock, it releases the lock it's holding and tries again. This leads to a live lock where both threads keep releasing the lock and trying again, but neither can get both locks to make progress.
-
-
-\subsubsection{Starvation} 
-
-This occurs when a thread $t$ cannot access a shared resource $r$ because other threads are continuously accessing it. This can happen when $t$ has lower priority or much faster than other threads. This is different than deadlock and live lock as other (non-starving) threads are still making progress.
-
-% \lstinputlisting[multicols=2]{code/starvation.py}
-% hard to find a good example
-% In this example, the \code{higher\_priority} thread hogs the lock and starves the \code{lower\_priority} thread from accessing the lock. 
-
-\subsection{Semaphores}\label{sec:semaphores}
-
-Semaphores are more flexible than locks as they allow \emph{multiple} threads to simulateously access a shared resource.  Semaphores maintain a \emph{counter} to track the number of threads that can access the resource.  When a thread $t$ wants to access a resource $r$, it checks the counter $n$. If $n > 0$, $t$ decrements $n$ and proceeds to \emph{acquire} $r$. If $n=0$, $t$ waits until $n$ is incremented. When $t$ is done, it increments $n$ to indicate that it \emph{releases} $r$. Note that when $n>1$, we have a \emph{counting semaphore}, and when $n=1$, we have a \emph{binary semaphore}, which behaves like a lock.
-
-Semaphores are thus useful when multiple threads need to  access a shared resource. However, they too can lead to deadlocks when threads are waiting for each other to release a semaphore.
-
-In Python, we use \code{Semaphore} in \code{threading} for semaphores. For the example in \autoref{sec:threads}, we can replace \code{lock = Lock()} with a binary semaphore: \code{sem = Semaphore(1)}. Observe that the semaphore is initialized with 1 to behave like a lock and ensure proper mutual exclusion. If we initialized with 2 then race condition could occur as both threads can access and modify \code{shared\_ct} simultaneously.
-
-
-\subsection{Monitors}\label{sec:monitors}
-
-This synchronization mechanism combines lock with communication capability.  It allows threads to wait for a condition to be true and notify other threads when the condition changes. Java implements monitors natively. Python however does not have built-in monitors, but we can use \code{threading.Condition} to simulate monitors as follows. 
-
-As shown in \autoref{ex:producer-consumer-lock} the classical ``producer-consumer'' problem has an issue with the consumer trying to consume from an empty buffer using a \code{lock}. This can be solved using a monitor (\code{lock = threading.Condition()}), as shown in \autoref{ex:producer-consumer-monitor}, which ensures that the consumer stops consuming and waits when the buf is empty, and producer notifies consumer when it adds an item to the buf.
-
-
-\begin{figure}
-\begin{lstlisting}[multicols=2]
-import threading
-import time
-import random
-
-
-queue = []
-lock = threading.Lock()    
-class ProducerThread(threading.Thread):
-    def run(self):
-        global queue
-        while True:
-            num = random.choice(range(10)) 
-            lock.acquire()
-            queue.append(num)
-            print("Produced", num)
-            lock.release()
-            time.sleep(random.random())
-
-
-class ConsumerThread(threading.Thread):
-    def run(self):
-        global queue
-        while True:
-            lock.acquire()
-            if not queue:
-                print("Nothing in queue, "
-                    "consumer fails")
-            num = queue.pop(0)
-            print("Consumed", num)
-            lock.release()
-            time.sleep(random.random())
-
-if __name__ == "__main__":
-    # start the threads
-    ProducerThread().start()
-    ConsumerThread().start()
-\end{lstlisting}
-\caption{Producer-Consumer Problem using Lock (has issue)}\label{ex:producer-consumer-lock}
-\end{figure}
-
-
-\begin{figure}
-\begin{lstlisting}[multicols=2]
-import threading
-import time
-import random
-
-
-queue = []
-lock = threading.Condition()    
-class ProducerThread(threading.Thread):
-    def run(self):
-        global queue
-        while True:
-            num = random.choice(range(10)) 
-            lock.acquire()
-            queue.append(num)
-            print("Produced", num)
-            lock.notify()
-            lock.release()
-            time.sleep(random.random())
-
-
-class ConsumerThread(threading.Thread):
-    def run(self):
-        global queue
-        while True:
-            lock.acquire()
-            if not queue:
-                print("Nothing in queue, "
-                    "consumer waits (instead of fail)")
-                lock.wait()
-                print("Producer added to queue,"
-                      "consumer continues")
-            num = queue.pop(0)
-            print("Consumed", num)
-            lock.release()
-            time.sleep(random.random())
-
-if __name__ == "__main__":
-    # start the threads
-    ProducerThread().start()
-    ConsumerThread().start()
-\end{lstlisting}
-\caption{Producer-Consumer Problem using Monitors (fix issue)}\label{ex:producer-consumer-monitor}
-\end{figure}
-
-
-\paragraph{History} The concept of semaphore was due to \emph{Edsger Dijkstra} in the early 60s when he was working on the THE multiprogramming system. The name \emph{``semaphore''} might have been inspired by the railway signals that control the traffic of trains.
-
-
-
-%\section{Asynchronous Programming}\label{sec:async}
-%Asynchronous programming is a way to run multiple tasks concurrently without blocking the main thread. It is useful for I/O-bound tasks (e.g., reading files, network requests) where the main thread can continue to do other work while waiting for the I/O tasks to complete. 
-
-%In Python, we use the \code{asyncio} module to create and manage asynchronous tasks. The following demonstrates how to use \code{asyncio} to read multiple files concurrently.
-
-\section{Exercises}
-\subsection{Benefits of Threads and Processes over Sequential Execution}\label{ex:threads-and-processes-vs-sequential}
-
-This assignment introduces you to threads and processes and their benefits over sequential execution.  Assuming you have a long-running task (e.g., a function that sleeps for 1 second) as follows: 
-
-\begin{lstlisting}
-def do_something(n):
-    time.sleep(1)  # Simulate a long-running task
-    print(f"Processed {n}")
-\end{lstlisting}
-
-Now create 3 methods to process a list of numbers (e.g., \code{[1, 2, 3, 4, 5]}) by invoking \code{do\_something} for each number. 
-\begin{enumerate}
-    \item A regular approach that processes each number sequentially.
-    \item A multithreaded approach using the \code{threading} module, i.e., create a thread for every \code{do\_something} call.
-    \item A multiprocessing approach using the \code{multiprocessing} module, i.e., create a process for every \code{do\_something} call.
-\end{enumerate}
-Time each method and compare them. You should see that the multithread and multiprocess versions run a lot faster than the regular one.
-Note that in this exercise there is no shared resource so you do not need to worry about race conditions or having to use locks. 
-
-% You will implement the following task 
-% Task Description
-
-% You will implement a program that defines a function called do_something, which simulates a long-running computation. You will then create three versions of a function to process a list of numbers using:
-
-% 	1.	A regular synchronous approach.
-% 	2.	A multithreaded approach using the threading module.
-% 	3.	A multiprocessing approach using the multiprocessing module.
-
-% Instructions
-
-% 	1.	Define the do_something Function:
-% 	•	Create a function do_something(n) that simulates a long-running task by sleeping for a fixed duration (e.g., 1 second) and then prints a message indicating the number being processed.
-
-\subsection{Threads and Processes: Election Simulation}
-We will simulate the election process with threads and processes. We have multiple voters (threads) casting their votes for candidates, and election officials (processes) tallying the votes. We will use locks to manage access to the vote count and semaphores to limit the number of people that can vote simultaneously.
-
-More specifically, we will implement the following: 
-\begin{enumerate}
-\item \code{Election} class: manage the voting and maintain the vote count:
-\begin{itemize}
-    \item var \code{votes:dict}: store the vote count for each candidate (e.g., \code{votes} = \{`Alice': 1, `Bob': 2, `Charlie': 5\}).
-    \item var \code{lock:threading.Lock}: protect access to the vote count
-    \item method \code{cast(who:str)}: cast a vote for a candidate, e.g., \code{cast(`John')} will increment \code{votes[`John']}.
-    \item method \code{tally()}: to display the current vote count. 
-    \item Both \code{cast} and \code{tally} need to lock \code{votes} before accessing it
-\end{itemize}
-\item \code{Voter(threading.Thread)} class: represent a voter who can vote for a candidate:
-\begin{itemize}
-    \item Constructor method \code{\_\_init\_\_(name:str, election:Election)}: initialize the voter's name and the election.
-    \item var \code{semmaphore:threading.Semaphore}: control the number of voters that can vote simultaneously (e.g., 3 at a time).
-    \item Method \code{vote()}: pick a candidate (\code{random.choice(election.votes.keys())}) and call \code{election.cast(candidate)}. Note that before casting the vote, you will need to acquire (\code{semaphore.acquire()}) the semaphore and release it after voting (\code{semaphore.release()}).
-\end{itemize}
-\item \code{Officials(threading.Thread)} class: represent an election official who will periodically tally and display the votes.
-\begin{itemize}
-    \item Constructor method \code{\_\_init\_\_(election:Election)}: storing the election object.
-    \item Method \code{tally()}: call \code{election.tally()} to display the current vote count.
-\end{itemize}
-\item \code{\_\_main\_\_}: the main/driver code to run the simulation.
-    \begin{itemize}
-        \item Create a semaphore that allows 3 voters to vote simultaneously.
-        \item Create 20 voters and 4 officials.
-        \item Start the voters and officials using \code{start()} and wait for them to finish using \code{join()}.
-    \end{itemize}
-\end{enumerate}
-
-\subsection{Main Concepts of Concurrency}\label{sec:concurrency-concepts}
-
-Short questions or Compare and contrast (if applicable also discuss the benefits and drawbacks of each) 
-\begin{itemize}
-    \item Threads and processes. When would you use one over the other?
-    \item Locks, Semaphores, and Monitors
-    \item Deadlock and Live lock
-    \item What is a race condition? How to prevent it?
-\end{itemize}
 \chapter{Program Verification}\label{chap:verification}
 
 In chapter \autoref{chapter:testing} we focus on testing to find bugs. Here we look at \emph{verification} techniques to prove the absense of bugs. Like whitebox approaches (\autoref{sec:symbolic-execution}), verification techniques analyze program source code to reason about its behaviors. 
@@ -3950,8 +3540,422 @@ Fill in \texttt{P,S,Q} to make the following Hoare Triples valid. Remember that 
   \texttt{\{x\ \textless{}\ 0\}\ while(x!=0)\ do\ x\ :=\ x\ -\ 1\ \{Q\}}
 \end{enumerate}
 
+\part{Advanced Topics}
+\chapter{Concurrency}\label{chap:concurrency}
 
-    
+
+\begin{table}
+    \caption{Threads vs. Processes}\label{tab:threads-vs-processes}
+    \small
+    \centering
+    \begin{tabular}{l|l|l}
+    \toprule
+    &\textbf{Threads} & \textbf{Processes} \\
+    \midrule
+    Memory & Sharing memory & Not sharing memory\\
+    Communication & Easier, since sharing memory & Harder, because running in isolation \\
+    Concurrency Type & Interleaved & Parallel \\
+    Overhead & Lightweight & Heavyweight\\
+    Use & For lightweight tasks & For heavy, isolated tasks \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+
+\section{Processes}\label{sec:processes}
+A process is an independent instance of a program and does not share memory and data with other processes. While incurring higher overhead, processes do not have synchronization issues such as race conditions and makes parallelism safer. In a multicore system, processes would achieve true parallelism as they can run on different cores. 
+
+In Python we use \code{multiprocessing} to create and manage processes. The following demonstrates using \code{multiprocessing.Processes} to run two functions in parallel. It also uses \code{multiprocessing.Queue} to simulate a shared variable.
+
+\begin{lstlisting}[multicols=2]
+from multiprocessing import Process, Queue
+import time
+
+
+def square(numbers:list, queue:Queue):
+    ct = 0
+    for n in numbers:
+        time.sleep(1)
+        print(f"Square of {n}: {n*n}")
+        ct += 1
+    queue.put(ct)
+
+
+def cube(numbers:list, queue: Queue):
+    ct = 0
+    for n in numbers:
+        time.sleep(1)
+        print(f"Cube of {n}: {n*n*n}")
+        ct += 1
+    queue.put(ct)
+
+if __name__ == "__main__":
+    numbers = [2, 3, 4, 5]
+
+    queue = Queue()
+    # Create processes
+    process1 = Process(
+        target=square,args=(numbers,queue))
+    process2 = Process(
+        target=cube,args=(numbers,queue))
+
+    # Run processes (in parallel)
+    process1.start(); process2.start()
+
+    # Wait for both processes to finish
+    process1.join(); process2.join()
+
+    # Combine the counts from both processes
+    total_ct = 0
+    while not queue.empty():
+        total_ct += queue.get()
+
+    print("Count : ", total_ct)
+\end{lstlisting}
+
+\section{Threading}\label{sec:threads}
+
+%TODO: explain about daemon, thread join, example here  https://realpython.com/intro-to-python-threading/
+%TODO: show example of deadlock
+%TODO: easier to just use a single example with Producer Consumer,  
+
+
+
+A thread runs within a process and shares memory and data as other threads in the process. Thus threads are lightweight with low overhead, but can face synchronization issues like race conditions when multiple threads access shared data.
+
+In Python we use the \code{threading} module to create and manage threads. The following demonstrates the use of \code{threading.Thread} to run tasks in parallel. 
+
+This example also uses \code{threading.lock} for mutual exclusion to ensure only one thread can access and modify the shared variable at a time.
+
+%\lstinputlisting[firstline=300,lastline=500]{file.cc}
+\lstinputlisting[multicols=2]{code/thread1.py}
+
+\subsection{Join}
+The \code{join()} method, which appears in Python, Java, and many other languages, is used to wait for a thread to complete. Calling \code{t.join()} blocks the parent (calling) thread until the thread \code{t} is terminated. 
+
+The example above uses \code{thread1.join()} and \code{thread2.join()} to wait for both threads to complete before printing the final count.
+If we do not use \code{join()}, the calling thread may print the count before the threads are done, leading to incorrect count.
+
+\subsection{Daemon Threads}
+
+When a program create (regular) threads, the program will wait for them to complete before exiting. (Note not to be confused with \code{join()} which blocks the calling thread until the target thread completes). However, if we want the program to exit even if the threads are not finished, we can use \emph{daemon threads}. This type of threads run in the background and do not block the program from exiting. Instead, when the program exits, daemon threads are automatically terminated or killed.
+
+\lstinputlisting[multicols=2]{code/daemon.py}
+
+This example demonstrates the difference between daemon and non-daemon (regular) threads. The program will wait for the regular thread to finish (i.e., print 0 to 4) before printing \code{"Done"}. However, the daemon thread will run indefinitely in the background but will be terminated immediately the program exits.
+
+\section{Locks, Semaphores, and Monitors}
+
+Locks, semaphores, and monitors are key synchronization concepts in multithreading. They help manage shared resources and prevent synchronization issues such as race conditions and deadlocks. 
+
+% \begin{table}
+%     \caption{Locks, Semaphores, and Monitors}\label{tab:sync}
+%     \footnotesize
+%     \centering
+% \begin{tabular}{l|l|l|l}
+% \toprule
+% & \textbf{Locks} & \textbf{Semaphores} & \textbf{Monitors} \\
+% \midrule
+% \textbf{Purpose} & Protect critical sections & Control access to resources & Combine data and synchronization \\
+% \textbf{Operations} & Acquire and release & Wait and signal & Encapsulate data and synchronization \\
+% \textbf{Mutual Exclusion} & One thread & Multiple threads (using a counter) & One thread \\
+% \end{tabular}
+% \end{table}
+
+\subsection{Locks}\label{sec:locks}
+A \emph{race condition} occurs when two or more threads try to change a shared resource at the same time, leading to unpredictable results (e.g., consider a shared counter and two threads incrementing it at the same time like the example in \autoref{sec:threads}).
+\emph{Locking} the shared resource is a simple mechanism to avoid race condition. It works by allowing a thread $t$ to acquire the \emph{lock} and proceed if the lock is available; otherwise, $t$ waits until the lock is released.  After $t$ is done, it releases the lock. The code that needs to be protected (between lock acquire and release) is called a \emph{critical section}.
+The example in \autoref{sec:threads} uses a lock to protect the critical section modifying \code{shared\_ct}. 
+
+Thus, locks are ideal \emph{when only one} thread should access a shared resource at a time. Because of this limitation, locks are efficient and simple to use. However, improper use of locks can lead to \emph{deadlocks} and \emph{live locks} describe below.
+
+\subsubsection{Deadlock} 
+
+Deadlock occurs when two threads are stuck waiting for each other to release a lock. This happens when a thread acquires a lock and waits for another lock, while another thread acquires the second lock and waits for the first lock. 
+
+\begin{lstlisting}[multicols=2]
+from threading import Thread, Lock
+import time
+
+lock1 = Lock(); lock2 = Lock()
+
+def t1_job():
+    print("T1: Want Lock 1...")
+    with lock1:
+        print("T1: Got Lock 1.")
+        time.sleep(1) 
+        print("T1: Want Lock 2...")
+        with lock2:
+            print("T 1: Got Lock 2.")
+
+def t2_job():
+    print("T2: Want Lock 2...")
+    with lock2:
+        print("T2: Got Lock 2.")
+        time.sleep(1)  # Simulate some work
+
+        print("T2: Want Lock 1...")
+        with lock1:
+            print("T 2: Got Lock 1.")
+
+if __name__ == "__main__":
+    t1 = Thread(target=t1_job)
+    t2 = Thread(target=t2_job)
+    t1.start(); t2.start()
+    t1.join(); t2.join()
+    print("Done.")
+\end{lstlisting}
+
+This example demonstrates a deadlock. Thread 1 acquires lock 1 and waits for lock 2, while thread 2 acquires lock 2 and waits for lock 1. This leads to a deadlock because both threads are stuck waiting for each other to release the lock.
+
+\subsubsection{Live Lock}
+In live lock,  threads are not blocked but cannot make progress. In constrast to a deadlock, which each thread is greedy and does not release the lock, a \emph{live lock} occurs when threads are too \emph{polite} and keep releasing the lock. Imagine two pedestrians trying to pass each other in a narrow corridor. If both keep stepping aside to let the other pass, they will keep stepping aside and never pass each other.
+
+\begin{lstlisting}[multicols=2]
+from threading import Thread, Lock
+import time
+
+lock1 = Lock(); lock2 = Lock()
+
+def t1_job():
+    while True:
+        print("T1: Want Lock 1...")
+        with lock1:
+            print("T1: Got Lock 1.")
+            time.sleep(1) 
+            print("T1: Want Lock 2...")
+            if not lock2.acquire(timeout=1):
+                print("T1: Released Lock 1.")
+                continue # release lock 1 and try again
+
+            print("T1: Got Lock 2.")
+            break # got both lock
+
+def t2_job():
+    while True:
+        print("T2: Want Lock 2...")
+        with lock2:
+            print("T2: Got Lock 2.")
+            time.sleep(1)  # Simulate some work
+            print("T2: Want Lock 1...")
+            if not lock1.acquire(timeout=1):
+                print("T2: Released Lock 2.")
+                continue # release lock 2 and try again
+            
+            print("T2: Got Lock 1.")
+            break # got both lock
+
+if __name__ == "__main__":
+    t1 = Thread(target=t1_job)
+    t2 = Thread(target=t2_job)
+    t1.start(); t2.start()
+    t1.join(); t2.join()
+    print("Done.")
+\end{lstlisting}
+
+This example demonstrates live lock. Similar to the deadlock example above, both threads want to get both locks. However, here if a thread cannot acquire a lock, it releases the lock it's holding and tries again. This leads to a live lock where both threads keep releasing the lock and trying again, but neither can get both locks to make progress.
+
+
+\subsubsection{Starvation} 
+
+This occurs when a thread $t$ cannot access a shared resource $r$ because other threads are continuously accessing it. This can happen when $t$ has lower priority or much faster than other threads. This is different than deadlock and live lock as other (non-starving) threads are still making progress.
+
+% \lstinputlisting[multicols=2]{code/starvation.py}
+% hard to find a good example
+% In this example, the \code{higher\_priority} thread hogs the lock and starves the \code{lower\_priority} thread from accessing the lock. 
+
+\subsection{Semaphores}\label{sec:semaphores}
+
+Semaphores are more flexible than locks as they allow \emph{multiple} threads to simulateously access a shared resource.  Semaphores maintain a \emph{counter} to track the number of threads that can access the resource.  When a thread $t$ wants to access a resource $r$, it checks the counter $n$. If $n > 0$, $t$ decrements $n$ and proceeds to \emph{acquire} $r$. If $n=0$, $t$ waits until $n$ is incremented. When $t$ is done, it increments $n$ to indicate that it \emph{releases} $r$. Note that when $n>1$, we have a \emph{counting semaphore}, and when $n=1$, we have a \emph{binary semaphore}, which behaves like a lock.
+
+Semaphores are thus useful when multiple threads need to  access a shared resource. However, they too can lead to deadlocks when threads are waiting for each other to release a semaphore.
+
+In Python, we use \code{Semaphore} in \code{threading} for semaphores. For the example in \autoref{sec:threads}, we can replace \code{lock = Lock()} with a binary semaphore: \code{sem = Semaphore(1)}. Observe that the semaphore is initialized with 1 to behave like a lock and ensure proper mutual exclusion. If we initialized with 2 then race condition could occur as both threads can access and modify \code{shared\_ct} simultaneously.
+
+
+\subsection{Monitors}\label{sec:monitors}
+
+This synchronization mechanism combines lock with communication capability.  It allows threads to wait for a condition to be true and notify other threads when the condition changes. Java implements monitors natively. Python however does not have built-in monitors, but we can use \code{threading.Condition} to simulate monitors as follows. 
+
+As shown in \autoref{ex:producer-consumer-lock} the classical ``producer-consumer'' problem has an issue with the consumer trying to consume from an empty buffer using a \code{lock}. This can be solved using a monitor (\code{lock = threading.Condition()}), as shown in \autoref{ex:producer-consumer-monitor}, which ensures that the consumer stops consuming and waits when the buf is empty, and producer notifies consumer when it adds an item to the buf.
+
+
+\begin{figure}
+\begin{lstlisting}[multicols=2]
+import threading
+import time
+import random
+
+
+queue = []
+lock = threading.Lock()    
+class ProducerThread(threading.Thread):
+    def run(self):
+        global queue
+        while True:
+            num = random.choice(range(10)) 
+            lock.acquire()
+            queue.append(num)
+            print("Produced", num)
+            lock.release()
+            time.sleep(random.random())
+
+
+class ConsumerThread(threading.Thread):
+    def run(self):
+        global queue
+        while True:
+            lock.acquire()
+            if not queue:
+                print("Nothing in queue, "
+                    "consumer fails")
+            num = queue.pop(0)
+            print("Consumed", num)
+            lock.release()
+            time.sleep(random.random())
+
+if __name__ == "__main__":
+    # start the threads
+    ProducerThread().start()
+    ConsumerThread().start()
+\end{lstlisting}
+\caption{Producer-Consumer Problem using Lock (has issue)}\label{ex:producer-consumer-lock}
+\end{figure}
+
+
+\begin{figure}
+\begin{lstlisting}[multicols=2]
+import threading
+import time
+import random
+
+
+queue = []
+lock = threading.Condition()    
+class ProducerThread(threading.Thread):
+    def run(self):
+        global queue
+        while True:
+            num = random.choice(range(10)) 
+            lock.acquire()
+            queue.append(num)
+            print("Produced", num)
+            lock.notify()
+            lock.release()
+            time.sleep(random.random())
+
+
+class ConsumerThread(threading.Thread):
+    def run(self):
+        global queue
+        while True:
+            lock.acquire()
+            if not queue:
+                print("Nothing in queue, "
+                    "consumer waits (instead of fail)")
+                lock.wait()
+                print("Producer added to queue,"
+                      "consumer continues")
+            num = queue.pop(0)
+            print("Consumed", num)
+            lock.release()
+            time.sleep(random.random())
+
+if __name__ == "__main__":
+    # start the threads
+    ProducerThread().start()
+    ConsumerThread().start()
+\end{lstlisting}
+\caption{Producer-Consumer Problem using Monitors (fix issue)}\label{ex:producer-consumer-monitor}
+\end{figure}
+
+
+\paragraph{History} The concept of semaphore was due to \emph{Edsger Dijkstra} in the early 60s when he was working on the THE multiprogramming system. The name \emph{``semaphore''} might have been inspired by the railway signals that control the traffic of trains.
+
+
+
+%\section{Asynchronous Programming}\label{sec:async}
+%Asynchronous programming is a way to run multiple tasks concurrently without blocking the main thread. It is useful for I/O-bound tasks (e.g., reading files, network requests) where the main thread can continue to do other work while waiting for the I/O tasks to complete. 
+
+%In Python, we use the \code{asyncio} module to create and manage asynchronous tasks. The following demonstrates how to use \code{asyncio} to read multiple files concurrently.
+
+\section{Exercises}
+\subsection{Benefits of Threads and Processes over Sequential Execution}\label{ex:threads-and-processes-vs-sequential}
+
+This assignment introduces you to threads and processes and their benefits over sequential execution.  Assuming you have a long-running task (e.g., a function that sleeps for 1 second) as follows: 
+
+\begin{lstlisting}
+def do_something(n):
+    time.sleep(1)  # Simulate a long-running task
+    print(f"Processed {n}")
+\end{lstlisting}
+
+Now create 3 methods to process a list of numbers (e.g., \code{[1, 2, 3, 4, 5]}) by invoking \code{do\_something} for each number. 
+\begin{enumerate}
+    \item A regular approach that processes each number sequentially.
+    \item A multithreaded approach using the \code{threading} module, i.e., create a thread for every \code{do\_something} call.
+    \item A multiprocessing approach using the \code{multiprocessing} module, i.e., create a process for every \code{do\_something} call.
+\end{enumerate}
+Time each method and compare them. You should see that the multithread and multiprocess versions run a lot faster than the regular one.
+Note that in this exercise there is no shared resource so you do not need to worry about race conditions or having to use locks. 
+
+% You will implement the following task 
+% Task Description
+
+% You will implement a program that defines a function called do_something, which simulates a long-running computation. You will then create three versions of a function to process a list of numbers using:
+
+% 	1.	A regular synchronous approach.
+% 	2.	A multithreaded approach using the threading module.
+% 	3.	A multiprocessing approach using the multiprocessing module.
+
+% Instructions
+
+% 	1.	Define the do_something Function:
+% 	•	Create a function do_something(n) that simulates a long-running task by sleeping for a fixed duration (e.g., 1 second) and then prints a message indicating the number being processed.
+
+\subsection{Threads and Processes: Election Simulation}
+We will simulate the election process with threads and processes. We have multiple voters (threads) casting their votes for candidates, and election officials (processes) tallying the votes. We will use locks to manage access to the vote count and semaphores to limit the number of people that can vote simultaneously.
+
+More specifically, we will implement the following: 
+\begin{enumerate}
+\item \code{Election} class: manage the voting and maintain the vote count:
+\begin{itemize}
+    \item var \code{votes:dict}: store the vote count for each candidate (e.g., \code{votes} = \{`Alice': 1, `Bob': 2, `Charlie': 5\}).
+    \item var \code{lock:threading.Lock}: protect access to the vote count
+    \item method \code{cast(who:str)}: cast a vote for a candidate, e.g., \code{cast(`John')} will increment \code{votes[`John']}.
+    \item method \code{tally()}: to display the current vote count. 
+    \item Both \code{cast} and \code{tally} need to lock \code{votes} before accessing it
+\end{itemize}
+\item \code{Voter(threading.Thread)} class: represent a voter who can vote for a candidate:
+\begin{itemize}
+    \item Constructor method \code{\_\_init\_\_(name:str, election:Election)}: initialize the voter's name and the election.
+    \item var \code{semmaphore:threading.Semaphore}: control the number of voters that can vote simultaneously (e.g., 3 at a time).
+    \item Method \code{vote()}: pick a candidate (\code{random.choice(election.votes.keys())}) and call \code{election.cast(candidate)}. Note that before casting the vote, you will need to acquire (\code{semaphore.acquire()}) the semaphore and release it after voting (\code{semaphore.release()}).
+\end{itemize}
+\item \code{Officials(threading.Thread)} class: represent an election official who will periodically tally and display the votes.
+\begin{itemize}
+    \item Constructor method \code{\_\_init\_\_(election:Election)}: storing the election object.
+    \item Method \code{tally()}: call \code{election.tally()} to display the current vote count.
+\end{itemize}
+\item \code{\_\_main\_\_}: the main/driver code to run the simulation.
+    \begin{itemize}
+        \item Create a semaphore that allows 3 voters to vote simultaneously.
+        \item Create 20 voters and 4 officials.
+        \item Start the voters and officials using \code{start()} and wait for them to finish using \code{join()}.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Main Concepts of Concurrency}\label{sec:concurrency-concepts}
+
+Short questions or Compare and contrast (if applicable also discuss the benefits and drawbacks of each) 
+\begin{itemize}
+    \item Threads and processes. When would you use one over the other?
+    \item Locks, Semaphores, and Monitors
+    \item Deadlock and Live lock
+    \item What is a race condition? How to prevent it?
+\end{itemize}
+
+
 \chapter{Design Patterns}
 
 \section{Creational Patterns}
@@ -4131,8 +4135,9 @@ Provide a specification for an IntBag abstraction that is sufficiently restricti
 \item Discuss the restrictiveness, generality, and clarity of one of the above specifications.
 \end{enumerate}
 
-\appendix
 
+\part{Appendix}
+\appendix
 
 
 \chapter{Loop Invariants}
