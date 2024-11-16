@@ -2661,21 +2661,6 @@ For example, the suspiciousness score for line 4 is: $2/4 / (2/4 + 4/6) = 0.42$.
 Note that scores for lines 1 and line 13, which are always executed, are $4/4 / (4/4 + 6/6) = 0.5$. The score for line 12, which was not executed in any test runs, is 0. (if it never runs, it should not be responsible for any issue).
 
 
-\section{In-class Exercise: Tarantula vs. Ochiai}
-
-\emph{Ochiai} is another popular metrics for statistical debugging. Its formula is
-
-\begin{centerdisplay}
-\[
-\text{Suspiciousness}(l) = \frac{\text{Failed}(l) / \text{TotalFailed}}{\sqrt{\text{Failed}(l) / \text{TotalFailed} + \text{Passed}(l) / \text{TotalPassed}}}
-\]
-\end{centerdisplay}
-
-
-\begin{enumerate}
-    \item Compute the Ochiai score for the lines in the table above.
-    \item Explain the differences between Tarantula and Ochiai scores. Which one do you think is better? Why?
-\end{enumerate}
 
 
 \section{Delta Debugging (DD)}
@@ -2777,14 +2762,25 @@ This example does not show the case when the split results in all parts passing.
 %    \end{tabular}
 %\end{table}
 
-\subsection{In-class Exercise: Delta Debugging}
-\begin{itemize}
-    \item Apply DD to the input string \code{"*hello*world*"} to find the smallest failing input. The oracle is that the input fails whenever it contains \code{"oo"}.
-    \item What is best-case complexity of DD? Give an example of an input that would take the most steps to find the smallest failing input.
-    \item What is the worst-case complexity of DD? Give an example of an input that would take the most steps to find the smallest failing input.
-\end{itemize}
-
 \section{Exercises}
+
+\subsection{Statistical Debugging: Tarantula vs. Ochiai}
+
+\emph{Ochiai} is another popular metrics for statistical debugging. Its formula is
+
+\begin{centerdisplay}
+\[
+\text{Suspiciousness}(l) = \frac{\text{Failed}(l) / \text{TotalFailed}}{\sqrt{\text{Failed}(l) / \text{TotalFailed} + \text{Passed}(l) / \text{TotalPassed}}}
+\]
+\end{centerdisplay}
+
+
+\begin{enumerate}
+    \item Compute the Ochiai score for the lines in the table above.
+    \item Explain the differences between Tarantula and Ochiai scores. Which one do you think is better? Why?
+\end{enumerate}
+
+
 
 \subsection{Statistical Debugging: M Metrics}
 
@@ -2796,6 +2792,13 @@ The \textbf{M} metrics to compute the suspiciousness of a line $l$ is calculated
 \end{centerdisplay}
 
 Apply this metrics to compute the suspiciousness scores for the lines in \autoref{tab:sd}.
+
+\subsection{Delta Debugging Practice}
+\begin{itemize}
+    \item Apply DD to the input string \code{"*hello*world*"} to find the smallest failing input. The oracle is that the input fails whenever it contains \code{"oo"}.
+    \item What is best-case complexity of DD? Give an example of an input that would take the most steps to find the smallest failing input.
+    \item What is the worst-case complexity of DD? Give an example of an input that would take the most steps to find the smallest failing input.
+\end{itemize}
 
 \subsection{Delta Debugging (DD) Implementation}
 In this exercise you will implement the DD technique. Your DD will take an input string and an \emph \code{oracle} that decides if the input is interesting (e.g., has a bug) or not.
