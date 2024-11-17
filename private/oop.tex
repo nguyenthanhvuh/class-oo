@@ -3091,7 +3091,7 @@ Use symbolic execution to compute the path condition (PC) and program state (PS)
 
 \chapter{Program Verification}\label{chap:verification}
 
-In chapter \autoref{chapter:testing} we focus on testing to find bugs. Here we look at \emph{verification} techniques to prove the absense of bugs. Like whitebox approaches (\autoref{sec:symbolic-execution}), verification techniques analyze program source code to reason about its behaviors. 
+In \autoref{chapter:testing} we focus on testing to find bugs and find counterexample inputs to . Here we look at \emph{verification} techniques to prove the absense of bugs. Like whitebox approaches (\autoref{sec:symbolic-execution}), verification techniques analyze program source code to reason about its behaviors. 
 
 %verification techniques complement testing and can do more thorough analysis.
 
@@ -3104,25 +3104,23 @@ A formal way to specify and verify program $S$ with respect to its specification
 \begin{center}
 \begin{tcolorbox}[colframe=green!50!black, colback=gray!5!white, boxrule=0.5mm, width=0.5\textwidth, sharp corners]
     \[
-    \{ P \} \; \text{S} \; \{ Q \}, 
+    \{ P \} \; \code{S} \; \{ Q \}, 
     \]
 \end{tcolorbox}
 \end{center}
 
-\noindent which reads: assuming $P$ holds before executing $S$, and $S$ is executed successfully, then $Q$  holds.  If this is true, we say that the Hoare Tripple is \emph{valid}, indicating $S$ satisfies the specification $P, Q$. 
+\noindent which reads: assuming $P$ holds before executing $S$, and $S$ is executed successfully, then $Q$  holds.  If this is true, we say that the Hoare Tripple is \emph{valid}, indicating the program $S$ satisfies its specification $P, Q$. 
 Note that $S$ is represented as a single statement or a sequence of statements, and $P, Q$ are logical expressions or formulae.      
 
-For example, the Hoare Triple 
-      \texttt{\{x\ =\ 5\ and\ y\ \textgreater{}\ 2\}\ z\ :=\ x\ +\ y;\ z\ :=\ z\ +\ 2\ \{z\ \textgreater{}\ 9\}} is valid because 
-      assuming \texttt{x=5\ and\ y\ \textgreater{}\ 2}, if
-      \texttt{z:x\ +y;\ z\ :=\ z\ +\ 2} runs successfully, then we do have
-      \texttt{z\ \textgreater{}\ 9}.
+
+\begin{commentbox}{\textbf{Formatting}: }
+    In this book we differentiate between program statements (code) and logical expressions (which include formulae, conditions, constraints and evaluate to true) by using different fonts and styles. For example, \code{z:=x+y;}, \code{if (z >= 9)}, \code{a \&\& b} are program code, while  $z \le 9$ and $a \land b$ are expressions. We also use $T$ and $F$ to represent true and false, respectively.
+\end{commentbox}
+
+For example, the Hoare Triple  $\{ x = 5 \land y > 2\}$ \; \code{z := x + y; z := z + 2} \; $\{z > 9\}$ is valid because assume $x=5$ and $y > 2$, then after executing \code{z := x + y; z := z + 2}, we do have $z > 9$.
 
 
-
-\paragraph{Partial and Total Correctness} Observe that a Hoare Tripple specifies the program post condition behaviors \emph{only when} it terminates successfully. This is known as \emph{partial correctness}, which requires the program to satisfy the postcondition \emph{assuming} it terminates. In contrast, \emph{total correctness} \emph{requires} the program to terminate and satisfy the postcondition. 
-For Hoare logic, we focus on partial correctness as it is easier to prove.  Total correctness would require showing program termination, an undecidable problem in general.  
-
+\paragraph{Partial and Total Correctness} A Hoare Tripple only requiers the program to satisfy its post condition \emph{only when} that program executes successfully, i.e., it \emph{terminates}. This is known as \emph{partial correctness}, which {assumes} the program terminates. In contrast, \emph{total correctness}, which \emph{requires} the program to terminate.  Total correctness is much harder to achieve because proving program termination, i.e., the \emph{halting problem} is in general an undecidable problem.  Hoare logic and most other verification approaches use partial correctness as it is easier to prove.  
 
     
 \paragraph{Examples}
@@ -3133,9 +3131,8 @@ For Hoare logic, we focus on partial correctness as it is easier to prove.  Tota
   Consider a program \texttt{S} with a single assignment statement
   \texttt{x:=5}.
 
-  The Hoare tripple
-  \texttt{\{True\}\ x\ :=\ 5\ \{x\ \textgreater{}\ 6\}} is \emph{not} a
-  valid tripple, but these ones are:
+  The Hoare tripple 
+  \texttt{\{True\}\ x\ :=\ 5\ \{x\ \textgreater{}\ 6\}} is \emph{not} a valid tripple, but these ones are:
 
   \begin{enumerate}
   \def\labelenumii{\arabic{enumii}.}
@@ -4242,7 +4239,7 @@ When a loop invariant $I$ for program verification such as proving the validity 
 
 \begin{enumerate}
 \item We were able to prove the program is correct (wrt to its specification), then $I$ is sufficient for the task. 
-\item We were \emph{not} able to prove the program is correct, then $I$ is insufficient for the task.  Note that this does not mean the program is incorrect, but rather we do not have enough information to prove it is correct. We will need to find a stronger loop invariant (or use a different verification method).
+\item We were \emph{not} able to prove the program is correct, then $I$ is insufficient for the task.  Note that this \emph{does not} mean the program is incorrect, but rather we cannot reach any conclusion. We will need to find a stronger loop invariant (or use a different verification method).
 \end{enumerate}
 
 
