@@ -249,7 +249,7 @@ This book will show you the fundamentals of developing high-quality software usi
 % \begin{figure}[t]
 % \begin{lstlisting}[multicols=2]
 % def merge_sort(lst):
-%     if len(lst) <= 1:
+%     if len(lst) \le 1:
 %         return lst
 
 %     mid = len(lst) // 2
@@ -1371,7 +1371,7 @@ class BankAccount:
         REQUIRES: amount must be positive
         EFFECTS: balance is the original balance plus deposited amount
         """
-        if amount <= 0:
+        if amount \le 0:
             return False
         self._balance += amount
         # check_repOK()
@@ -1381,7 +1381,7 @@ class BankAccount:
         # REQUIRES: amount must be positive and less than or equal to balance
         # EFFECTS: balance is the original balance minus withdrawn amount
 
-        if amount <= 0 or amount > self._balance:
+        if amount \le 0 or amount > self._balance:
             return False
         self._balance -= amount
         self.check_repOK()
@@ -1716,7 +1716,7 @@ class Countdown:
         return self
 
     def __next__(self):
-        if self.current <= 0:
+        if self.current \le 0:
             raise StopIteration 
         else:
             current_value = self.current
@@ -1804,7 +1804,7 @@ A \emph{prime number} is a natural number greater than 1 that has no positive di
 %         return self
 
 %     def __next__(self):
-%         while self.current <= self.limit:
+%         while self.current \le self.limit:
 %             if self.is_prime(self.current):
 %                 prime = self.current
 %                 self.current += 1
@@ -3183,15 +3183,15 @@ For example, the Hoare Triple  $\{ x = 5 \land y > 2\}$ \; \code{z := x + y; z :
 
 \subsection{Verifying Programs using Hoare Logic}\label{sec:verification-hoare}
 
-We can automatically verify (partial) program correctness by computing the \emph{weakest precondition} (WP), which is the least restrictive condition that ensures the postcondition after executing the program. Mores specifically, to prove the Hoare Tripple \texttt{\{P\}\ S\ \{Q\}} is
-valid, i.e., to prove the program \texttt{S} is correct wrt to the
-precondition \texttt{P} and postcondition \texttt{Q}, we form a
-\textbf{verification condition} \texttt{P\ =\textgreater{}\ wp(S,\ Q)}
+We can automatically verify (partial) program correctness by computing the \emph{weakest precondition} (WP), which is the least restrictive condition that ensures the postcondition after executing the program. Mores specifically, to prove the Hoare Tripple \code{\{P\}\ S\ \{Q\}} is
+valid, i.e., to prove the program \code{S} is correct wrt to the
+precondition \code{P} and postcondition \code{Q}, we form a
+\textbf{verification condition} \code{P\ =\textgreater{}\ wp(S,\ Q)}
 and check that it is valid. Here, the function \textbf{wp} returns the
-\textbf{weakest precondition} (WP) allowing the program \texttt{S} to
-achieve the postcondition \texttt{Q}. Thus, to show the validity of
-\texttt{\{P\}\ S\ \{Q\}}, we show that \texttt{P} implies
-(\texttt{=\textgreater{}}) the WP of \texttt{S} wrt to $Q$.
+\textbf{weakest precondition} (WP) allowing the program \code{S} to
+achieve the postcondition \code{Q}. Thus, to show the validity of
+\code{\{P\}\ S\ \{Q\}}, we show that \code{P} implies
+(\code{=\textgreater{}}) the WP of \code{S} wrt to $Q$.
 
 \subsection{Computing Weakest Preconditions}\label{computing-weakest-preconditions}
 
@@ -3202,28 +3202,28 @@ the rules for computing the WP of common program statements (e.g., assignment, s
     \centering
     \small
 \begin{tabular}{l|l|l|l}
-\textbf{Statement} & \texttt{S} & $\texttt{wp}(S,Q)$ & Notes\\
+\textbf{Statement} & \code{S} & $\code{wp}(S,Q)$ & Notes\\
 \midrule
-Assignment & \texttt{x:=E} & \texttt{Q[E/x]} & Replace all \texttt{x}'s with \texttt{E} in \texttt{Q} \\
+Assignment & \code{x:=E} & \code{Q[E/x]} & Replace all \code{x}'s with \code{E} in \code{Q} \\
 \midrule
-Sequence & \texttt{S1; S2} & $\texttt{wp}(S1, \texttt{wp}(S2, Q))$ & Recursively compute wp\\
+Sequence & \code{S1; S2} & $\code{wp}(S1, \code{wp}(S2, Q))$ & Recursively compute wp\\
 \midrule
-Conditional & \texttt{if b then S1 else S2} & $b \implies \texttt{wp}(S1,Q)~\land$ & Produce disjunction\\
-  & & $\overline{b} \implies \texttt{wp}(S2,Q)$ &\\
+Conditional & \code{if b then S1 else S2} & $b \implies \code{wp}(S1,Q)~\land$ & Produce disjunction\\
+  & & $\overline{b} \implies \code{wp}(S2,Q)$ &\\
 \midrule
-While & \texttt{while b do S} & $I ~\land $ & User supplied loop inv $I$\\
-&& $I \land b \implies \texttt{wp}(S, I) ~\land$ &\\ 
+While & \code{while b do S} & $I ~\land $ & User supplied loop inv $I$\\
+&& $I \land b \implies \code{wp}(S, I) ~\land$ &\\ 
 && $I \land \overline{b} \implies Q$ &\\ 
 \bottomrule
 \end{tabular}
 \end{table}
 
-\paragraph{Assignment} The popular \emph{assignment} \texttt{x\ :=\ $E$} statement assigns the expression
-$E$ to a variable \texttt{x}. The WP of an assignment \texttt{wp(x:=E,Q)} is obtained by substituting all occurrences of
-\texttt{x} in \texttt{Q} with the expression \texttt{E}. 
+\paragraph{Assignment} The popular \emph{assignment} \code{x\ :=\ $E$} statement assigns the expression
+$E$ to a variable \code{x}. The WP of an assignment \code{wp(x:=E,Q)} is obtained by substituting all occurrences of
+\code{x} in \code{Q} with the expression \code{E}. 
 
 \begin{equation}\label{eq:wp-assign}
-    \texttt{wp(x:=E, Q)} = Q[x/E]
+    \code{wp(x:=E, Q)} = Q[x/E]
 \end{equation}
 
 \paragraph{Examples}
@@ -3231,7 +3231,7 @@ $E$ to a variable \texttt{x}. The WP of an assignment \texttt{wp(x:=E,Q)} is obt
 \item      
 \begin{equation*}
     \begin{split}
-        \texttt{WP}(x:=3, x + y = 10) &= 3 + y = 10\\ 
+        \code{WP}(x:=3, x + y = 10) &= 3 + y = 10\\ 
         &= y = 7
     \end{split}
 \end{equation*}
@@ -3241,7 +3241,7 @@ Thus, we have $\{y=7\} ~x := 3~ \{x + y = 10\}$
 \item 
 \begin{equation*}
     \begin{split}
- \texttt{WP}(x:=3, x + y > 0) &= 3 + y > 0  \\
+ \code{WP}(x:=3, x + y > 0) &= 3 + y > 0  \\
  &= y > -3\\
     \end{split}
 \end{equation*}
@@ -3252,11 +3252,11 @@ Thus, we have $\{y > -3\}  ~x := 3~ \{x + y> 0\}$
 \item 
 \begin{equation*}
     \begin{split}
-        \texttt{WP}(x:=3, y > 0) &= y > 0 \text{ \# no x in y > 0, so result is just y > 0}\\
+        \code{wp}(x:=3, y > 0) &= y > 0 \text{ \# no x in y > 0, so result is just y > 0}\\
     \end{split}    
 \end{equation*}
 
-Thus, we have $\{y > 0\}  x := 3 \{y > 0\}$
+Thus, we have $\{y > 0\}  ~\code{x := 3}~ \{y > 0\}$
 \end{enumerate}
 
 
@@ -3265,8 +3265,8 @@ Thus, we have $\{y > 0\}  x := 3 \{y > 0\}$
 The WP for a list (sequence or block) of statements is defined \emph{recursively} as the WP of the first statement followed by the WP of the rest of the statements.  
 
 \begin{align}\label{eq:wp-sequence}
-    \texttt{wp}(S1; S2, Q) &= \texttt{wp}(S1, \texttt{wp}(S2, Q))\\
-    \texttt{wp}([], Q) &= Q
+    \code{wp}(S1; S2, Q) &= \code{wp}(S1, \code{wp}(S2, Q))\\
+    \code{wp}([], Q) &= Q
 \end{align}
 
 %
@@ -3274,8 +3274,8 @@ The WP for a list (sequence or block) of statements is defined \emph{recursively
 
 \begin{equation*}
 \begin{split}
-    \texttt{wp}([x:=x+1; y:=y*x], y=2*z) &= \texttt{wp}  (x:=x+1, \texttt{wp}([y:=y*x], y=2*z))\\
-    &= \texttt{wp}(x:=x+1, y*x=2*z)\\
+    \code{wp}([x:=x+1; y:=y*x], y=2*z) &= \code{wp}  (x:=x+1, \code{wp}([y:=y*x], y=2*z))\\
+    &= \code{wp}(x:=x+1, y*x=2*z)\\
     &= y*(x+1)=2*z
 \end{split}
 \end{equation*}
@@ -3288,7 +3288,7 @@ Thus, we have $\{y*(x+1)=2*z\} ~ x:=x+1; y:=y*x ~ \{y=2*z\}$
 The WP of a conditional statement combines the WPs of the two branches using the implication operator $\implies$. 
 
 \begin{equation}\label{eq:wp-conditional}
-\texttt{wp}(\texttt{if}~b~\texttt{then}~S1~\texttt{else}~S2, Q)  =  (b \implies \texttt{wp}(S1,Q))  \land  (\neg b \implies \texttt{wp}(S2, Q))
+\code{wp}(\code{if}~b~\code{then}~S1~\code{else}~S2, Q)  =  (b \implies \code{wp}(S1,Q))  \land  (\neg b \implies \code{wp}(S2, Q))
 \end{equation}
 
 \paragraph{Examples}
@@ -3297,11 +3297,11 @@ The WP of a conditional statement combines the WPs of the two branches using the
     \item 
 \begin{equation*}
 \begin{split}
-& \texttt{wp}(\text{if} ~x > 0~ \texttt{then} ~y := x + 2 ~\texttt{else} ~y := y + 1,  y > x)  \\
-& = (x > 0 \implies \text{wp}(y := x + 2, y > x) ~\land~ (x\le 0 \implies \texttt{wp}(y := y + 1, y > x))\\
+& \code{wp}(\text{if} ~x > 0~ \code{then} ~y := x + 2 ~\code{else} ~y := y + 1,  y > x)  \\
+& = (x > 0 \implies \text{wp}(y := x + 2, y > x)) ~\land~ (x\le 0 \implies \code{wp}(y := y + 1, y > x))\\
 & = (x > 0 \implies x + 2 > x)  ~\land~  (x \le 0 \implies y + 1 > x)\\
 & = (x > 0 \implies 2 > 0)      ~\land~  (x \le 0 \implies y + 1 > x)\\
-& =     \texttt{True}           ~\land~  (x \le 0 \implies y + 1 > x)\\
+& =     T           ~\land~  (x \le 0 \implies y + 1 > x)\\
 & =            x \le 0 \implies y + 1 > x
 \end{split}
 \end{equation*}
@@ -3309,11 +3309,11 @@ The WP of a conditional statement combines the WPs of the two branches using the
     \item 
 \begin{equation*}
 \begin{split}
-&\texttt{wp}(\texttt{if} ~x > 0~ \texttt{then} ~y := x~  \texttt{else} ~y:= 0,  y > 0)\\
-&= (x>0 \implies \texttt{wp}(y:=x, y >0)) \land (x<=0 \implies \texttt{wp}(y:=0, y>0))\\
-&= (x > 0 \implies x > 0)      \land  (x <= 0  \implies  0 > 0)\\
-&= !(x > 0) \lor (x > 0)   \land  !(x <= 0) \lor \texttt{False}\\
-&=       \texttt{True}         \land         x > 0   \\
+&\code{wp}(\code{if} ~x > 0~ \code{then} ~y := x~  \code{else} ~y:= 0,  y > 0)\\
+&= (x>0 \implies \code{wp}(y:=x, y >0)) \land (x\le 0 \implies \code{wp}(y:=0, y>0))\\
+&= (x > 0 \implies x > 0)      \land  (x \le 0  \implies  0 > 0)\\
+&= \neg(x > 0) \lor (x > 0)   \land  \neg(x \le 0) \lor F\\
+&=       T         \land         x > 0   \\
 &=                    x > 0\\  
 \end{split}
 \end{equation*}
@@ -3324,114 +3324,189 @@ Instead of using implication $\implies$, which might be confusing to some, we ca
 
 \begin{equation}\label{eq:wp-conditional2}
     \begin{split}
-        \texttt{wp}(\texttt{if}~b~\texttt{then}~S1~\texttt{else}~S2, Q)  &=  (\neg b \lor \texttt{wp}(S1,Q))  ~\land~  (b \lor \texttt{wp}(S2, Q))    
+        \code{wp}(\code{if}~b~\code{then}~S1~\code{else}~S2, Q)  &=  (\neg b \lor \code{wp}(S1,Q))  ~\land~  (b \lor \code{wp}(S2, Q))    
     \end{split}
 \end{equation}
 
 \paragraph{Loop}
 
 Unlike other statements where we have rules to compute WP \emph{automatically}, to obtain the WP of loop, we need to \emph{manually} supply a \textbf{loop invariant}
-\texttt{I}. Moreover, the loop invariant \texttt{I} must be strong enough to ensure the postcondition \texttt{Q} holds when the loop terminates. Finding sufficient loop invariants is often challenging and requires human insight.
+\code{I}. Moreover, the loop invariant \code{I} must be strong enough to ensure the postcondition \code{Q} holds when the loop terminates. Finding sufficient loop invariants is often challenging and requires human insight.
 
-Assume that a loop invariant $I$ is given, the WP of a \code{while} loop\footnote{\code{While} loop is used because other kinds of loops can be converted to \code{while} loops.} \texttt{while b do S} with invariant \texttt{I} and postcondition \texttt{Q
+Assume that a loop invariant $I$ is given, the WP of a \code{while} loop\footnote{\code{While} loop is used because other kinds of loops can be converted to \code{while} loops.} \code{while b do S} with invariant \code{I} and postcondition \code{Q
 } is as follows:
 
 \begin{equation}
     \begin{split}
-    & \texttt{wp}(\texttt{while} ~[I]~ ~b~ \texttt{do} ~S, Q) \\
-    &=    I  ~\land~   (I \land b) \implies \texttt{wp}(S,I)  ~\land~ (I \land \neg b)  \implies Q
+    & \code{wp}(\code{while} ~[I]~ ~b~ \code{do} ~S, Q) \\
+    &=    I  ~\land~   (I \land b) \implies \code{wp}(S,I)  ~\land~ (I \land \neg b)  \implies Q
     \end{split}   
 \end{equation}
 
 Observe that the WP for loop consists of 3 conjuncts:
 \begin{enumerate}
 \item $I$ : the loop invariant (should hold when entering the loop)
-\item $(I \land b) \implies I$: (entering the loop because \texttt{b} is true) and $I$ is preserved after each loop body execution
-\item $(I \land \neg b) \implies Q$: (exiting the loop because \texttt{b} is false), when exiting the loop, the post condition holds
+\item $(I \land b) \implies I$: (entering the loop because $b$ is true) and $I$ is preserved after each loop body execution
+\item $(I \land \neg b) \implies Q$: (exiting the loop because $b$ is false), when exiting the loop, the post condition holds
 \end{enumerate}
 
 The first two ensure that $I$ holds when entering the loop and is preserved after each loop body execution. The last conjunct ensures that the the postcondition $Q$ holds when the loop terminates.
 
+\paragraph{Example}
+Let's consider the while loop
 
-% Let's consider the while loop
-% ```python
-% while(i < N){
-%   i:=N
-% }
+\begin{lstlisting}[language=C]
+while(True){
+  # [I]: loop invariants here
+  if(!(i < N)) break;
+  i := N;
+}
+{i == N}   // postcondition Q
+\end{lstlisting} 
 
-% # note that this is equivalent to 
 
-% while(True){
-%   # [I]: loop invariants here
-%   if(!i < N) break;
-%   i := N;
-% }
-% ```
+ Assume we are given two loop invariants [$I$]:
+ \begin{enumerate}
+        \item $i \le N$
+        \item $N \ge 0$        
+ \end{enumerate}
 
-% Assume that we have found two loop invariants at `[I]` for this loop
-% - `i <= N`
+% - `i \le N`
 % - `N >= 0`
 % - `True` # and yes, `True` is always a loop invariant (though very weak and likely useless)
 
-% Let's compute the WP of this loop using these loop invariants; also let's use `i == N` as `Q`
-% ```
-% # Using loop invariant i <= N
-% WP(while[i <= N] (i < N ) i := N, i == N)
-% =  i <= N & (i <= N & i < N) => WP(i := N, i <= N) & (i <= N & !(i < N))  => i == N)
-% # let's deal these 3 conjuncts one by one, easier that way
+Let's compute the wp of this loop using these loop invariants.
+\paragraph{Using loop invariant $i \le N$}
 
-% 1. i <= N
+\begin{equation*}
+    \begin{split}
+        &\code{wp}(\code{while}[i \le N] (i < N ) ~\code{i := N}, i = N)\\
+    &= i \le N ~\land  \\
+    &~~~ (i \le N \land  i < N) \implies WP(i := N, i \le N) ~\land \\
+    &~~~ (i \le N \land \neg(i < N))  \implies i = N\\ 
+    \end{split}
+\end{equation*}
 
-% 2. (i <= N & i < N) => WP(i := N, i <= N)
-%    = i < N          =>  N <= N
-%    = i < N          =>   True
-%    =        True
+Let's deal with these 3 conjuncts one by one, easier that way
 
-% 3. (i <= N & !(i < N))  => i == N)
-%    = (i <= N  & i >= N)  => i == N
-%    =     i == N   =>  i == N
-%    =          True
-   
-% # so these 3 conjuncts become
-% i <= N  & True  & True
-% = i <= N    #  the WP of the while loop
+\begin{enumerate}
+    \item         This is our loop invariant $I$, which by definition must hold when entering the loop.
+
+        \[i \le N\]
+
+    \item This is the case when  assuming the loop invariant $i \le N$ holds before the loop body \emph{and} the loop guard $i < N$ is true, (allowing the program to enter the loop), then after executing the loop body, the loop invariant should be preserved.
+    \begin{equation*}
+        \begin{split}
+            (i \le N \land  i < N) &\implies \code{wp}(\code{i := N}, i \le N)\\
+            &= (i \le N \land  i < N) \implies  N \le N\\
+            &= i < N \implies  T\\
+            &= T
+        \end{split}
+    \end{equation*}
+
+    This becomes $T$ because assuming the loop invariant $i \le N$ and the loop guard $i < N$ are true, the body of the loop sets $i$ to $N$ thus preserves $I: i \le N$ (i.e., $i = N$ satisfies $i \le N$).
+
+    \item  This is the case when  assuming the loop invariant $i \le N$ holds before the loop body  \emph{but} the loop guard $i < N$ is false, i.e., $i \ge N$, then we should get the postcondition $i = N$.
+    \begin{equation*}
+        \begin{split}
+            (i \le N \land \neg(i < N)) &\implies i = N\\
+            &= (i \le N  \land i \ge N)  \implies i = N\\
+            &=     i = N   \implies  i = N\\
+            &=          T
+        \end{split}
+    \end{equation*}
+
+    This becomes $T$ because $i \le N$ and $i \ge N$ is equivalent to $i = N$, which is the postcondition $i = N$.
+
+\end{enumerate}
+
+Thus, the WP of the while loop using the loop invariant $i \le N$ is  itself $i \le N$ as the other two conjuncts are $T$.
+
+
+\paragraph{Using loop invariant $N \ge 0$}
+
+\begin{equation*}
+    \begin{split}
+        &\code{wp}(\code{while}[N \ge 0] (i < N ) ~\code{i := N}, i = N)\\
+    &= N \ge 0 ~\land  \\
+    &~~~ (N \ge 0 \land  i < N) \implies WP(i := N, N \ge 0) ~\land \\
+    &~~~ (N \ge 0 \land \neg(i < N))  \implies i = N\\ 
+    \end{split}
+\end{equation*}
+
+Let's again reason through these 3 conjuncts one by one.
+
+\begin{enumerate}
+    \item         This is our loop invariant $I$, which by definition must hold when entering the loop.
+
+        \[N \ge 0\]
+
+    \item This is the case when assuming the loop invariant $N \ge 0$ holds before the loop body \emph{and} the loop guard $i < N$ is true (allowing the program to enter the loop), then after executing the loop body, the loop invariant should be preserved.
+    \begin{equation*}
+        \begin{split}
+            (N \ge 0 \land  i < N) &\implies \code{wp}(\code{i := N}, N \ge 0)\\
+            &= (N \ge 0 \land  i < N) \implies  N \ge 0\\
+            &= T
+        \end{split}
+    \end{equation*}
+
+    This becomes $T$ because the body of the loop sets $i$ to $N$ thus does not modify $N$, thus the loop invariant $N \ge 0$ is preserved because we already assume that it and the loop guard $i < N$ holds.
+
+    \item  This is the case when assuming the loop invariant $N \ge 0$ holds before the loop body \emph{but} the loop guard $i < N$ is false, i.e., $i \ge N$, then we should get the postcondition $i = N$.
+    \begin{equation*}
+        \begin{split}
+            (N \ge 0 \land \neg(i < N)) &\implies i = N\\
+            &= (N \ge 0  \land i \ge N)  \implies i = N\\
+        \end{split}
+    \end{equation*}
+
+    This becomes $T$ because $i \le N$ and $i \ge N$ is equivalent to $i = N$, which is the postcondition $i = N$.
+
+\end{enumerate}
+
+Thus, the \code{wp} when using the loop invariant $N \ge 0$ is 
+\[ N \ge 0 \land (N \ge 0  \land i \ge N)  \implies i = N \]
+
+
+\begin{commentbox}{\textbf{Simplification}}
+    When computing the WP, we can simplify the expressions so that they are easier to understand and reason about (e.g., $a \implies True$ is $True$). However, be careful when doing this as we can make mistakes and invalidate our entire reasoning.  When in doubt, it's better to leave the expression as is.
+\end{commentbox}
 
 
 
-% # Using loop invariant N >= 0
 % WP(while[N >= 0] (i < N ) i := N, i == N)    
-% =  N >= 0 & (N >= 0 & i < N) => WP(i:= N, N >= 0) & (N >= 0 & !(i < N))  => i == N)
+% =  N >= 0 & (N >= 0 & i < N) \implies WP(i:= N, N >= 0) & (N >= 0 & !(i < N))  \implies i == N)
 % # let's deal these 3 conjuncts one by one
 
 % 1. N >= 0
 
-% 2. (N >= 0 & i < N) => WP(i:= N, N >= 0)
-%    = (N >= 0 & i < N) =>  N >= 0
+% 2. (N >= 0 & i < N) \implies WP(i:= N, N >= 0)
+%    = (N >= 0 & i < N) \implies  N >= 0
 %    =    True     # because a & b = > a  is True
 
-% 3. (N >= 0 & !(i < N))  => i == N)
-%    = (N >= 0  & i >= N)  => i == N   # can't simplify much further, so just leave as is
+% 3. (N >= 0 & !(i < N))  \implies i == N)
+%    = (N >= 0  & i >= N)  \implies i == N   # can't simplify much further, so just leave as is
  
    
 % # so these 3 conjuncts become
-% N >= 0 &  (N >= 0  & i >= N)  => i == N  #  the WP of the while loop
+% N >= 0 &  (N >= 0  & i >= N)  \implies i == N  #  the WP of the while loop
 
 % # Using loop invariant True
 % WP(while[True] (i < N ) i := N, i == N)    
-% =  True & (True & i < N) => WP(i:= N, True) & (True & !(i < N))  => i == N)
+% =  True & (True & i < N) \implies WP(i:= N, True) & (True & !(i < N))  \implies i == N)
 
 % 1. True
 
-% 2. (True & i < N) => WP(i:= N, True)
-%    = True & i < N =>  True   
+% 2. (True & i < N) \implies WP(i:= N, True)
+%    = True & i < N \implies  True   
 %    =   True 
 
-% 3. (True & !(i < N))  => i == N)
-%    = (i >= N)  => i == N   # can't simplify much further, so just leave as is
+% 3. (True & !(i < N))  \implies i == N)
+%    = (i >= N)  \implies i == N   # can't simplify much further, so just leave as is
  
    
 % # so these 3 conjuncts become
-% i >= N  => i == N  #  the WP of the while loop
+% i >= N  \implies i == N  #  the WP of the while loop
 % ```
     
 % Thus, we get different WPs when we use different loop invariants. As we will see later, this can affect our verification task. That is, if we pick a good or strong invariant, we can prove the program.  But if we pick a weak one, we might not be able to prove the program.
@@ -4047,7 +4122,7 @@ A specification should avoid precluding acceptable implementations. The goal is 
     def sqrt (sq: float, e: float)
         """
         REQUIRES: sq >= 0 && e > .001
-        EFFECTS: Returns rt such that 0 <= (rt*rt - sq) <= e.
+        EFFECTS: Returns rt such that 0 \le (rt*rt - sq) \le e.
         """
 \end{lstlisting}
 The \textbf{definitional} style of specification explicitly describes properties that specificand members should exhibit. The specification below is shorter and more open ended in its explanation of how to implement the function. For example, the implementor can choose to examine the array elements in any order, not just first to last.
