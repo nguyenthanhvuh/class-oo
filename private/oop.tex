@@ -3132,61 +3132,54 @@ For example, the Hoare Triple  $\{ x = 5 \land y > 2\}$ \; \code{z := x + y; z :
   \texttt{x:=5}.
 
   The Hoare tripple 
-  \texttt{\{True\}\ x\ :=\ 5\ \{x\ \textgreater{}\ 6\}} is \emph{not} a valid tripple, but these ones are:
+  The Hoare triple $\{ T \}$ \texttt{x := 5} $\{ x > 6 \}$ is \emph{not} valid, but these ones are:
 
   \begin{enumerate}
-  \def\labelenumii{\arabic{enumii}.}
-  \item
-    \texttt{\{True\}\ x\ :=\ 5\ \{x=5\ or\ x=\ 6\ or\ x\ \textgreater{}\ 6\}}
-  \item
-    \texttt{\{True\}\ x\ :=\ 5\ \{x\ \textgreater{}\ 1\}}
-  \item
-    \texttt{\{True\}\ x\ :=\ 5\ \{x\ =\ 5\}}
+  \item $\{ T \}$ \texttt{x := 5} $\{ x = 5 \text{ or } x = 6 \text{ or } x > 6 \}$
+  \item $\{ T \}$ \texttt{x := 5} $\{ x > 1 \}$
+  \item $\{ T \}$ \texttt{x := 5} $\{ x = 5 \}$
   \end{enumerate}
 
-  Moreover, the postcondition in \texttt{x=5} is \textbf{strongest}
-  because it is more precise than \texttt{x\ \textgreater{}\ 1} and
-  \texttt{(x=5\ or\ x=6\ or\ x\ \textgreater{}\ 6)}. In general we want the strongest (most precise) postcondition (\autoref{sec:strongest-postconditions}).
-\item
-  Consider another program \texttt{z:=\ x/y}.
+  Moreover, the postcondition \( x = 5 \) is \textbf{strongest} because it is more precise than \( x > 1 \) and \( x = 5 \text{ or } x = 6 \text{ or } x > 6 \). In general, we aim for the strongest postcondition (see \autoref{sec:strongest-postconditions}).
 
-  These are valid Hoare tripples:
-
-  \begin{enumerate}
-  \def\labelenumii{\arabic{enumii}.}
-  \item
-    \texttt{\{x\ =\ 1\ \&\ y\ =\ 2\}\ z:=\ x/y\ \ \{z\ \textless{}\ 1\}}
-  \item
-    \texttt{\{x\ =\ 2\ \&\ y\ =\ 4\}\ z:=\ x/y\ \{z\ \textless{}1\}}
-  \item
-    \texttt{\{0\ \textless{}\ x\ \textless{}\ y\ \&\ y\ !=\ 0\}\ z:=\ x/y\ \{z\ \textless{}1\}}
-  \end{enumerate}
-
-  Moreover, the precondition
-  \texttt{0\ \textless{}\ x\ \textless{}\ y\ \&\ y\ !=\ 0} is the
-  \textbf{weakest} precondition (i.e., it is the least constraint precondition). In general we want the weakest precondition (\autoref{sec:weakest-preconditions}).
-
-  \item Below are all invalid:
-
-  \begin{enumerate}
-  \def\labelenumii{\arabic{enumii}.}
+   \item
+    Consider another program \texttt{z := x / y}.
+  
+    These are valid Hoare triples:
+  
+    \begin{enumerate}
+    \item
+      \( \{ x = 1 \land y = 2 \} \) \texttt{z := x / y} \( \{ z < 1 \} \)
+    \item
+      \( \{ x = 2 \land y = 4 \} \) \texttt{z := x / y} \( \{ z < 1 \} \)
+    \item
+      \( \{ 0 < x < y \land y \neq 0 \} \) \texttt{z := x / y} \( \{ z < 1 \} \)
+    \end{enumerate}
+  
+    Moreover, the precondition \( 0 < x < y \land y \neq 0 \) is the \textbf{weakest} precondition (i.e., it imposes the least constraints). In general, we seek the weakest precondition (see \autoref{sec:weakest-preconditions}).
   
   \item
-    \texttt{\{x\ \textless{}\ y\}\ z:=\ x/y\ \ \{z\ \textless{}\ 1\}}
-    (counterexample input x=-1, y=0, after executing z:=x/y, we do not
-    have z \textless{} 1 and instead got a div-by-0 exception)
-  \item
-    \texttt{\{x\ =\ 0\}\ z:=\ x/y\ \ \{z\ \textless{}\ 1\}}
-    (counterexample input x=0, y=0)
-  \item
-    \texttt{\{y\ !=\ 0\}\ z:=\ x/y\ \ \{z\ \textless{}\ 1\}}
-    (counterexample input x=2 , y=1)
-  \item
-    \texttt{\{x\ \textless{}\ y\ \&\ y\ !=\ 0\}\ z:=\ x/y\ \{z\ \textless{}1\}}
-    (counterexample input x=-2, y=-1)
-  \end{enumerate}
+    The following are all invalid:
+  
+    \begin{enumerate}
+    \item
+      \( \{ x < y \} \) \texttt{z := x / y} \( \{ z < 1 \} \)
+  
+      (Counterexample: \( x = -1 \), \( y = 0 \). Executing \texttt{z := x / y} results in a division-by-zero exception, so \( z < 1 \) does not hold.)
+    \item
+      \( \{ x = 0 \} \) \texttt{z := x / y} \( \{ z < 1 \} \)
+  
+      (Counterexample: \( x = 0 \), \( y = 0 \).)
+    \item
+      \( \{ y \neq 0 \} \) \texttt{z := x / y} \( \{ z < 1 \} \)
+  
+      (Counterexample: \( x = 2 \), \( y = 1 \).)
+    \item
+      \( \{ x < y \land y \neq 0 \} \) \texttt{z := x / y} \( \{ z < 1 \} \)
+  
+      (Counterexample: \( x = -2 \), \( y = -1 \).)
+    \end{enumerate}
 \end{enumerate}
-
 
 \subsection{Verifying Programs using Hoare Logic}\label{sec:verification-hoare}
 
