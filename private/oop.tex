@@ -3360,6 +3360,7 @@ Observe that the WP for loop consists of 3 conjuncts:
 \item $(I \land \neg b) \implies Q$: (exiting the loop because \texttt{b} is false), when exiting the loop, the post condition holds
 \end{enumerate}
 
+The first two ensure that $I$ holds when entering the loop and is preserved after each loop body execution. The last conjunct ensures that the the postcondition $Q$ holds when the loop terminates.
 
 
 % Let's consider the while loop
@@ -4147,7 +4148,7 @@ Provide a specification for an IntBag abstraction that is sufficiently restricti
 
 \chapter{Loop Invariants}
 
-At a high level, loop invariants capture the meaning or semantics of the loop, and thus help understand and reason about the loop. Loop invariants are especially helpful for automatic verification, e.g., using Hoare logic (\autoref{sec:hoare-logic}).
+Loop invariants are abstraction of loops, capturing the meaning or semantics of loops. Loop invariants are especially helpful for program reasoning and verification, e.g., using Hoare logic (\autoref{sec:hoare-logic}).
 
 
 \section{What is a Loop Invariant?}\label{what-is-a-loop-invariant}
@@ -4157,7 +4158,7 @@ A loop invariant $I$ is a property that always holds at the
 \textbf{loop entrance}. This means that $I$ (i) holds when the
 loop entered and (ii) is preserved after the loop body is executed. $I$ is also called an \textbf{inductive loop invariant} because assuming $I$ holds at the beginning of the loop, we can prove that $I$ holds at the end of the loop.
 \end{definition}
-\section{Where Is Loop Invariant?}\label{where-is-the-loop-invariant}
+\section{Where Is the Loop Invariant?}\label{where-is-the-loop-invariant}
 
 If we have a loop that looks like
 
@@ -4188,7 +4189,7 @@ while (b){
 \end{lstlisting}
 
 
-\section{Determining Loop Invariants}\label{sec:determining-loop-invariants}
+\section{How Many Loop Invariants Are There?}\label{sec:determining-loop-invariants}
 
 Consider a simple
 program
@@ -4231,7 +4232,7 @@ There can be many loop invariants for a loop, but the key question is which loop
 \section{Which loop invariants to
 use?}\label{which-loop-invariants-to-use}
 
-Stronger invariants capture the meaning of the loop more precisely (thus $T$ (true) is not very useful).
+Stronger invariants capture the meaning of the loop more precisely---thus $T$ (true) is not very useful.
 However, stronger invariants can be harder to determines, and more importantly, are not always necessary. The choice of loop invariants depends on the task at hand. For the example in \autoref{sec:determining-loop-invariants},  to prove that $N \ge 0$ as the postcondition, then we only need the loop invariant $N \ge 0$. However, if we want to prove  $i=N$ as postcondition, then we need the more complicated loop invariant $i\le N$ that involves two variables.
 
 In many cases, we can guess which loop invariants are useful based on
