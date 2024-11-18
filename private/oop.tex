@@ -4274,27 +4274,28 @@ Below are some of the laws of logic that are useful for  simplifying logical exp
     \toprule
     \textbf{Law} & \textbf{Expression} \\ 
     \midrule
+    Double Negation & \(\neg (\neg \alpha) = \alpha\) \\     
+    Implication & \(\alpha \implies \beta \equiv \neg \alpha \lor \beta\) \\ 
+    Equivalence & \(\alpha \iff \beta \equiv (\alpha \implies \beta) \land (\beta \implies \alpha)\) \\ 
     Identity & \(\alpha \land T = \alpha\); \(\alpha \lor F = \alpha\) \\ 
     Domination & \(\alpha \lor T = T\); \(\alpha \land F = F\) \\ 
     Idempotent & \(\alpha \lor \alpha = \alpha\); \(\alpha \land \alpha = \alpha\) \\ 
-    Double Negation & \(\neg (\neg \alpha) = \alpha\) \\ 
+    Excluded Middle & \( \neg  \alpha \lor\alpha = T\) (or equivalently \(\alpha \implies \alpha = T\))\\
+    Contradiction & \( \neg \alpha \land \alpha = F\) (or equivalently \(\neg (\alpha \implies \alpha) = F\))\\    
     De Morgan's Laws & \(\neg (\alpha \land \beta) = \neg \alpha \lor \neg \beta\); \(\neg (\alpha \lor \beta) = \neg \alpha \land \neg \beta\) \\ 
     Commutative & \(\alpha \lor \beta = \beta \lor \alpha\); \(\alpha \land \beta = \beta \land \alpha\) \\ 
-    Associative & \((\alpha \lor \beta) \lor C = \alpha \lor (\beta \lor C)\) \\ 
-    Distributive & \(\alpha \land (\beta \lor C) = (\alpha \land \beta) \lor (\alpha \land C)\) \\ 
+    Associative & \((\alpha \lor \beta) \lor \gamma = \alpha \lor (\beta \lor \gamma)\) \\ 
+    Distributive & \(\alpha \land (\beta \lor \gamma) = (\alpha \land \beta) \lor (\alpha \land \gamma)\) \\ 
     Absorption & \(\alpha \lor (\alpha \land \beta) = \alpha\); \(\alpha \land (\alpha \lor \beta) = \alpha\) \\ 
-    Complement & \(\alpha \lor \neg \alpha = T\), \(\alpha \land \neg \alpha = F\) \\ 
-    Implication & \(\alpha \implies \beta \equiv \neg \alpha \lor \beta\) \\ 
-    Equivalence & \(\alpha \iff \beta \equiv (\alpha \implies \beta) \land (\beta \implies \alpha)\) \\ 
     Contraposition & \(\alpha \implies \beta \equiv \neg \beta \implies \neg \alpha\) \\ 
-    Exportation & \((\alpha \land \beta) \implies C \equiv \alpha \implies (\beta \implies C)\) \\ 
+    Exportation & \((\alpha \land \beta) \implies \gamma \equiv \alpha \implies (\beta \implies \gamma)\) \\ 
     Redundancy (Simplification) & \(\alpha \lor \alpha = \alpha\); \(\alpha \land \alpha = \alpha\) \\ 
     XOR (Exclusive OR) & \(\alpha \oplus \beta = (\alpha \lor \beta) \land \neg (\alpha \land \beta)\) \\ 
-    %CNF/DNF (Normal Forms) & Logical expressions can be converted to CNF (AND of ORs) or DNF (OR of ANDs). \\ 
     \bottomrule
     \end{tabular}
 \end{table}
     
+    %CNF/DNF (Normal Forms) 
 
     
 
