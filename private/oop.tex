@@ -113,6 +113,9 @@
 }
 
 \newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+
+\renewcommand{\implies}{\Rightarrow}
 
 \renewcommand{\figurename}{Fig.}
 \renewcommand{\tablename}{Tab.}
@@ -3186,7 +3189,7 @@ For example, the Hoare Triple  $\{ x = 5 \land y > 2\}$ \; \code{z := x + y; z :
 So far we have manually checked the validity of Hoare triples. However, for more complex programs, we need a systematic way or an algorithm to do it automatically. Hoare logic provides a systematic way to verify programs by computing the \emph{weakest precondition} (WP),  Mores specifically, to prove the Hoare Tripple \code{\{P\}\ S\ \{Q\}} is
 
 To prove the Hoare Tripple \code{\{P\}\ \code{S} \{Q\}} is
-valid, we first compute the \emph{weakest precondition} (WP) of the program \code{S} with respect to the postcondition \code{Q}. The WP is the least restrictive condition that ensures the postcondition \code{Q} after executing the program \code{S}. We then check that the given precondition $P$ implies the WP. If it does, then the Hoare Triple is valid and the program satisfies its specification.
+valid, we first compute the \emph{weakest precondition} (WP) of the program \code{S} with respect to its postcondition \code{Q}. The WP is the least restrictive condition that ensures the postcondition \code{Q} after executing the program \code{S}. We then check that the given precondition $P$ implies the WP. If it does, then the Hoare Triple is valid and the program satisfies its specification.
 
 \subsection{Computing Weakest Preconditions}\label{sec:computing-weakest-preconditions}
 
@@ -3280,7 +3283,7 @@ Thus, we have $\{y*(x+1)=2*z\} ~ x:=x+1; y:=y*x ~ \{y=2*z\}$
 
 \subsubsection{Conditional}\label{conditional}
 
-The WP of a conditional statement combines the WPs of the two branches using the implication operator $\implies$. 
+The WP of a conditional statement combines the WPs of its two branches.
 
 \begin{equation}\label{eq:wp-conditional}
 \code{wp}(\code{if}~b~\code{then}~S1~\code{else}~S2, Q)  =  (b \implies \code{wp}(S1,Q))  \land  (\neg b \implies \code{wp}(S2, Q))
@@ -3289,7 +3292,7 @@ The WP of a conditional statement combines the WPs of the two branches using the
 \paragraph{Examples}
 
 \begin{itemize}
-    \item 
+    \item
 \begin{equation*}
 \begin{split}
 & \code{wp}(\text{if} ~x > 0~ \code{then} ~y := x + 2 ~\code{else} ~y := y + 1,  y > x)  \\
@@ -3300,20 +3303,18 @@ The WP of a conditional statement combines the WPs of the two branches using the
 & =            x \le 0 \implies y + 1 > x
 \end{split}
 \end{equation*}
-
-    \item 
+    \item
 \begin{equation*}
 \begin{split}
-&\code{wp}(\code{if} ~x > 0~ \code{then} ~y := x~  \code{else} ~y:= 0,  y > 0)\\
-&= (x>0 \implies \code{wp}(y:=x, y >0)) \land (x\le 0 \implies \code{wp}(y:=0, y>0))\\
-&= (x > 0 \implies x > 0)      \land  (x \le 0  \implies  0 > 0)\\
-&= \neg(x > 0) \lor (x > 0)   \land  \neg(x \le 0) \lor F\\
-&=       T         \land         x > 0   \\
-&=                    x > 0\\  
+& \code{wp}(\code{if} ~x > 0~ \code{then} ~y := x~  \code{else} ~y:= 0,  y > 0)\\
+& = (x>0 \implies \code{wp}(y:=x, y >0)) \land (x\le 0 \implies \code{wp}(y:=0, y>0))\\
+& = (x > 0 \implies x > 0)      \land  (x \le 0  \implies  0 > 0)\\
+& = \neg(x > 0) \lor (x > 0)   \land  \neg(x \le 0) \lor F\\
+& =       T         \land         x > 0   \\
+& =                    x > 0\\  
 \end{split}
 \end{equation*}
 \end{itemize}
-
 
 Instead of using implication $\implies$, which might be confusing to some, we can use $\neg$ and $\lor$. This is because $a \implies b$ is equivalent to $\neg a \lor b$. Thus, the above can be written as:
 
@@ -4173,6 +4174,129 @@ Provide a specification for an IntBag abstraction that is sufficiently restricti
 \part{Appendix}
 \appendix
 
+\chapter{Logics and Proofs}
+
+\section{Boolean Logics}
+
+Boolean logics, also called propositional logic, deals with logical values (true or false) and logical operations (and, or, not). It is the foundation of computer science and is used in circuit design, programming, and more. 
+
+\subsection{Operators}
+
+A \emph{propsition} is an expression that is either true or false. For example, ``it is raining'', ``SWE 419 is awesome'', ``2+2=5'' are propositions. 
+Multiple propositions can be combined using logical operators (and, or, not).  For example, ``it is not raining and SWE 419 is awesome'' is a proposition. 
+
+
+% \begin{figure}
+%     \center
+% \begin{minipage}{0.19\textwidth}
+% \begin{tabular}{c|c}
+%     $P$ & $\neg P$ \\
+%     \hline
+%     T & F \\
+%     F & T
+% \end{tabular}
+% \caption*{(a) $\land$}
+% \end{minipage}
+% \begin{minipage}{0.19\textwidth}
+%     \begin{tabular}{c|c}
+%         $P$ & $\neg P$ \\
+%         \hline
+%         T & F \\
+%         F & T
+%     \end{tabular}
+%     \caption*{(b) $\lor$}    
+% \end{minipage}
+% \begin{minipage}{0.19\textwidth}
+%     \begin{tabular}{c|c}
+%         $P$ & $\neg P$ \\
+%         \hline
+%         T & F \\
+%         F & T
+%     \end{tabular}
+% \caption*{(c) $\lor$}            
+% \end{minipage}
+% \begin{minipage}{0.19\textwidth}
+%     \begin{tabular}{c|c}
+%         $P$ & $\neg P$ \\
+%         \hline
+%         T & F \\
+%         F & T
+%     \end{tabular}
+%     \caption*{(c) $\implies$}        
+% \end{minipage}
+% \begin{minipage}{0.19\textwidth}
+%     \begin{tabular}{c|c}
+%         $P$ & $\neg P$ \\
+%         \hline
+%         T & F \\
+%         F & T
+%     \end{tabular}
+% \end{minipage}
+% \caption{Truth tables for logical operators}
+% \end{figure}    
+            
+The three basic logical operators are:
+\begin{enumerate}
+    \item \textbf{Negation} ($\neg$): negates the value of a proposition. 
+    \item \textbf{Conjunction} ($\wedge$): is true if both propositions are true.
+    \item \textbf{Disjunction} ($\vee$): is true if at least one proposition is true. 
+\end{enumerate}
+
+From these basic operators, we can define more complex operators:
+
+\begin{enumerate}
+\item \textbf{Implication} ($\Rightarrow$): is true if the first proposition implies the second. 
+\item \textbf{Biconditional} ($\Leftrightarrow$): is true if both propositions have the same truth value. 
+\end{enumerate}
+
+The truth tables for these operators are shown in \autoref{tab:truth-tables}.
+
+\begin{table}
+    \caption{Truth tables for logical operators}\label{tab:truth-tables}
+    \centering
+\begin{tabular}{c|c|c|c|c|c|c}
+    $\alpha$ & $\beta$ & $\neg \alpha$ & $\alpha \land \beta$ & $\alpha \lor \beta$ & $\alpha \implies \beta$ & $\alpha \Leftrightarrow \beta$ \\
+    \midrule
+    T & T & F & T & T & T & T \\
+    T & F & F & F & T & F & F \\
+    F & T & T & F & T & T & F \\
+    F & F & T & F & F & T & T
+\end{tabular}
+\end{table}
+\section{Laws of Logic}
+Below are some of the laws of logic that are useful for  simplifying logical expressions.
+
+
+\begin{table}
+    \caption{Laws of Logic}\label{tab:logic_laws}
+    \centering
+    \begin{tabular}{lp{10cm}}
+    \toprule
+    \textbf{Law} & \textbf{Expression} \\ 
+    \midrule
+    Identity & \(\alpha \land T = \alpha\); \(\alpha \lor F = \alpha\) \\ 
+    Domination & \(\alpha \lor T = T\); \(\alpha \land F = F\) \\ 
+    Idempotent & \(\alpha \lor \alpha = \alpha\); \(\alpha \land \alpha = \alpha\) \\ 
+    Double Negation & \(\neg (\neg \alpha) = \alpha\) \\ 
+    De Morgan's Laws & \(\neg (\alpha \land \beta) = \neg \alpha \lor \neg \beta\); \(\neg (\alpha \lor \beta) = \neg \alpha \land \neg \beta\) \\ 
+    Commutative & \(\alpha \lor \beta = \beta \lor \alpha\); \(\alpha \land \beta = \beta \land \alpha\) \\ 
+    Associative & \((\alpha \lor \beta) \lor C = \alpha \lor (\beta \lor C)\) \\ 
+    Distributive & \(\alpha \land (\beta \lor C) = (\alpha \land \beta) \lor (\alpha \land C)\) \\ 
+    Absorption & \(\alpha \lor (\alpha \land \beta) = \alpha\); \(\alpha \land (\alpha \lor \beta) = \alpha\) \\ 
+    Complement & \(\alpha \lor \neg \alpha = T\), \(\alpha \land \neg \alpha = F\) \\ 
+    Implication & \(\alpha \implies \beta \equiv \neg \alpha \lor \beta\) \\ 
+    Equivalence & \(\alpha \iff \beta \equiv (\alpha \implies \beta) \land (\beta \implies \alpha)\) \\ 
+    Contraposition & \(\alpha \implies \beta \equiv \neg \beta \implies \neg \alpha\) \\ 
+    Exportation & \((\alpha \land \beta) \implies C \equiv \alpha \implies (\beta \implies C)\) \\ 
+    Redundancy (Simplification) & \(\alpha \lor \alpha = \alpha\); \(\alpha \land \alpha = \alpha\) \\ 
+    XOR (Exclusive OR) & \(\alpha \oplus \beta = (\alpha \lor \beta) \land \neg (\alpha \land \beta)\) \\ 
+    %CNF/DNF (Normal Forms) & Logical expressions can be converted to CNF (AND of ORs) or DNF (OR of ANDs). \\ 
+    \bottomrule
+    \end{tabular}
+\end{table}
+    
+
+    
 
 \chapter{Loop Invariants}
 
@@ -4359,3 +4483,86 @@ When a loop invariant $I$ for program verification such as proving the validity 
 
 
 
+
+
+# \begin{frame}[fragile]{WP for Loop}
+    #   \begin{center}
+    #   wp(while b do S) = \alert{$I \wedge b \Rightarrow \text{wp}(S,I) ~\wedge~ I \wedge \neg b \Rightarrow Q$}
+    #   \end{center}
+      
+    #     Find/Guess a loop invariant $I$: 
+    #     \begin{itemize}
+    #     - $P \Rightarrow I$: initially I is true wrt P (base case)
+    #     - $I \wedge b  \Rightarrow I$: I is preserved after each execution (inductive case)
+    #     - \alert{$I \wedge \neg B \Rightarrow Q$}: if the loop terminates, the post condition holds (Partial correctness)
+    #     \end{itemize}
+    
+    #       \begin{columns}[T]
+    #       \begin{column}{0.3\textwidth}
+    #   \begin{lstlisting}
+    #     $\{N \ge 0\}$
+    #     i := 0;
+    #     while (i $<$ N)
+    #         i := N;
+    #     $\{i \equiv N\}$
+    #   \end{lstlisting}
+    #   \end{column}
+    #       \begin{column}{0.7\textwidth}
+    #         \begin{itemize}
+    #           - Which ones would be good invariant to find the wp?
+    #             \begin{enumerate}
+    #             - N $\ge$ 0  %no
+    #             - i $\le$ N %yes
+    #             \end{enumerate}
+    #             \pause
+    #         - Find the wp for the loop
+    #         - Prove the program is correct (show that $P \Rightarrow \text{wp}$) 
+    #       \end{itemize}
+    #       \end{column}
+    #       \end{columns}
+    
+    %% \begin{frame}[fragile]{In-Class Exercise}
+    %% 
+        
+    
+    
+    # \begin{frame}[fragile]{Loops}
+    #   \begin{itemize}
+    #   - wp(while b do S) = ??
+    #   - Idea: use \alert{loop invariant}
+    #     \begin{itemize}
+    #     - holds when the loop is entered
+    #     - preserves after the loop body is executed
+    #     \end{itemize}
+    #   \end{itemize}
+    
+    
+    
+    #   \pause
+    #   \begin{exampleblock}{Example}
+    #   \begin{lstlisting}
+    #     $\{N \ge 0\}$
+    #     i := 0;
+    #     while (i $<$ N)
+    #         i := N;
+    #   \end{lstlisting}
+      
+    #   Which ones are loop invariants? For those that are not, explain why
+    #   \begin{enumerate}
+    #   - i $\equiv$ 0 %no
+    #   - i $\equiv$ N %no 
+    #   - N $\ge$ 0  %yes
+    #   - i $\le$ N %yes
+    #   \end{enumerate}
+    #   \end{exampleblock}
+    
+    
+    Consider the loop `while b do S`, the loop invariant can be placed at the follow locations:
+    ```C
+    {I} //1 
+    while b do 
+        {I} //2
+        S
+        {I} //3
+    ```
+    
