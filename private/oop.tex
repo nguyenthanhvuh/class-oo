@@ -3099,7 +3099,7 @@ In \autoref{chapter:testing} we focus on testing to find bugs and find counterex
 %a display box in latex showing hoare tripple 
 \subsection{Hoare Tripple}
 
-A formal way to specify and verify program $S$ with respect to its specification consisting of the precondition $P$ and postcondition $Q$ is using \emph{Hoare logic}. The main idea in this logic is its \emph{Hoare Tripple}:
+Given a program $S$ and its specification consisting of a precondition $P$ and postcondition $Q$, we first represent them as a \emph{Hoare Tripple}:
 
 \begin{center}
 \begin{tcolorbox}[colframe=green!50!black, colback=gray!5!white, boxrule=0.5mm, width=0.5\textwidth, sharp corners]
@@ -3109,7 +3109,7 @@ A formal way to specify and verify program $S$ with respect to its specification
 \end{tcolorbox}
 \end{center}
 
-\noindent which reads: assuming $P$ holds before executing $S$, and $S$ is executed successfully, then $Q$  holds.  If this is true, we say that the Hoare Tripple is \emph{valid}, indicating the program $S$ satisfies its specification $P, Q$. 
+\noindent which reads: assuming $P$ holds before executing $S$, and $S$ is executed successfully, then $Q$  holds.  If the Hoare Triple is true or valid, then the program $S$ satisfies its specification $P, Q$. 
 Note that $S$ is represented as a single statement or a sequence of statements, and $P, Q$ are logical expressions or formulae.      
 
 
@@ -3183,24 +3183,19 @@ For example, the Hoare Triple  $\{ x = 5 \land y > 2\}$ \; \code{z := x + y; z :
 
 \subsection{Verifying Programs using Hoare Logic}\label{sec:verification-hoare}
 
-We can automatically verify (partial) program correctness by computing the \emph{weakest precondition} (WP), which is the least restrictive condition that ensures the postcondition after executing the program. Mores specifically, to prove the Hoare Tripple \code{\{P\}\ S\ \{Q\}} is
-valid, i.e., to prove the program \code{S} is correct wrt to the
-precondition \code{P} and postcondition \code{Q}, we form a
-\textbf{verification condition} \code{P\ =\textgreater{}\ wp(S,\ Q)}
-and check that it is valid. Here, the function \textbf{wp} returns the
-\textbf{weakest precondition} (WP) allowing the program \code{S} to
-achieve the postcondition \code{Q}. Thus, to show the validity of
-\code{\{P\}\ S\ \{Q\}}, we show that \code{P} implies
-(\code{=\textgreater{}}) the WP of \code{S} wrt to $Q$.
+So far we have manually checked the validity of Hoare triples. However, for more complex programs, we need a systematic way or an algorithm to do it automatically. Hoare logic provides a systematic way to verify programs by computing the \emph{weakest precondition} (WP),  Mores specifically, to prove the Hoare Tripple \code{\{P\}\ S\ \{Q\}} is
 
-\subsection{Computing Weakest Preconditions}\label{computing-weakest-preconditions}
+To prove the Hoare Tripple \code{\{P\}\ \code{S} \{Q\}} is
+valid, we first compute the \emph{weakest precondition} (WP) of the program \code{S} with respect to the postcondition \code{Q}. The WP is the least restrictive condition that ensures the postcondition \code{Q} after executing the program \code{S}. We then check that the given precondition $P$ implies the WP. If it does, then the Hoare Triple is valid and the program satisfies its specification.
 
-The WP is computed by working backwards from the postcondition $Q$ to the precondition $P$ using the program $S$. \autoref{tab:wp} defines 
-the rules for computing the WP of common program statements (e.g., assignment, sequence, conditional, and loop).
+\subsection{Computing Weakest Preconditions}\label{sec:computing-weakest-preconditions}
+
+The weakest precondition (wp) of a program $S$ with respect to a postcondition $Q$ is the \emph{least restrictive} or weakest condition that ensures $Q$ after executing $S$. The WP is computed by working backwards from $Q$ using the program $S$. \autoref{tab:wp} defines the function $\code{wp}(S,Q)$ which uses the rules in the table to compute the WP of a program statement $S$ with respect to a postcondition $Q$.
+
 \begin{table}
     \caption{Weakest Precondition Rules.}\label{tab:wp}
     \centering
-    \small
+    \footnotesize
 \begin{tabular}{l|l|l|l}
 \textbf{Statement} & \code{S} & $\code{wp}(S,Q)$ & Notes\\
 \midrule
@@ -3218,7 +3213,7 @@ While & \code{while b do S} & $I ~\land $ & User supplied loop inv $I$\\
 \end{tabular}
 \end{table}
 
-\paragraph{Assignment} The popular \emph{assignment} \code{x\ :=\ $E$} statement assigns the expression
+\paragraph{Assignment} The \emph{assignment} \code{x\ :=\ $E$} statement assigns the expression
 $E$ to a variable \code{x}. The WP of an assignment \code{wp(x:=E,Q)} is obtained by substituting all occurrences of
 \code{x} in \code{Q} with the expression \code{E}. 
 
@@ -3394,7 +3389,7 @@ Let's deal with these 3 conjuncts one by one, easier that way
 
         \[i \le N\]
 
-    \item This is the case when  assuming the loop invariant $i \le N$ holds before the loop body \emph{and} the loop guard $i < N$ is true, (allowing the program to enter the loop), then after executing the loop body, the loop invariant should be preserved.
+    \item This is the case when we assume the loop invariant $i \le N$ holds before the loop body \emph{and} the loop guard $i < N$ is true, (allowing the program to enter the loop), then after executing the loop body, the loop invariant should be preserved.
     \begin{equation*}
         \begin{split}
             (i \le N \land  i < N) &\implies \code{wp}(\code{i := N}, i \le N)\\
@@ -3406,7 +3401,7 @@ Let's deal with these 3 conjuncts one by one, easier that way
 
     This becomes $T$ because assuming the loop invariant $i \le N$ and the loop guard $i < N$ are true, the body of the loop sets $i$ to $N$ thus preserves $I: i \le N$ (i.e., $i = N$ satisfies $i \le N$).
 
-    \item  This is the case when  assuming the loop invariant $i \le N$ holds before the loop body  \emph{but} the loop guard $i < N$ is false, i.e., $i \ge N$, then we should get the postcondition $i = N$.
+    \item  This is the case when we assume the loop invariant $i \le N$ holds before the loop body  \emph{but} the loop guard $i < N$ is false, i.e., $i \ge N$, then we do not enter the loop and should get the postcondition $i = N$.
     \begin{equation*}
         \begin{split}
             (i \le N \land \neg(i < N)) &\implies i = N\\
@@ -3434,33 +3429,33 @@ Thus, the WP of the while loop using the loop invariant $i \le N$ is  itself $i 
     \end{split}
 \end{equation*}
 
-Let's again reason through these 3 conjuncts one by one.
+Again, let's reason through these three conjuncts one by one.
 
 \begin{enumerate}
     \item         This is our loop invariant $I$, which by definition must hold when entering the loop.
 
         \[N \ge 0\]
 
-    \item This is the case when assuming the loop invariant $N \ge 0$ holds before the loop body \emph{and} the loop guard $i < N$ is true (allowing the program to enter the loop), then after executing the loop body, the loop invariant should be preserved.
+    \item This is the case when we assume the loop invariant $N \ge 0$ holds before the loop body \emph{and} the loop guard $i < N$ is true (allowing the program to enter the loop), then after executing the loop body, the loop invariant should be preserved.
     \begin{equation*}
         \begin{split}
             (N \ge 0 \land  i < N) &\implies \code{wp}(\code{i := N}, N \ge 0)\\
-            &= (N \ge 0 \land  i < N) \implies  N \ge 0\\
-            &= T
+            = (N \ge 0 \land  i < N) &\implies  N \ge 0\\
+            = T&\\
         \end{split}
     \end{equation*}
 
     This becomes $T$ because the body of the loop sets $i$ to $N$ thus does not modify $N$, thus the loop invariant $N \ge 0$ is preserved because we already assume that it and the loop guard $i < N$ holds.
 
-    \item  This is the case when assuming the loop invariant $N \ge 0$ holds before the loop body \emph{but} the loop guard $i < N$ is false, i.e., $i \ge N$, then we should get the postcondition $i = N$.
+    \item  This is the case when we assume the loop invariant $N \ge 0$ holds before the loop body \emph{but} the loop guard $i < N$ is false, i.e., $i \ge N$, then we do not enter the loop and should get the postcondition $i = N$.
     \begin{equation*}
         \begin{split}
             (N \ge 0 \land \neg(i < N)) &\implies i = N\\
-            &= (N \ge 0  \land i \ge N)  \implies i = N\\
+            = (N \ge 0  \land i \ge N)  &\implies i = N\\
         \end{split}
     \end{equation*}
 
-    This becomes $T$ because $i \le N$ and $i \ge N$ is equivalent to $i = N$, which is the postcondition $i = N$.
+    We will just leave this as is because we can't simplify it further.
 
 \end{enumerate}
 
@@ -3469,59 +3464,27 @@ Thus, the \code{wp} when using the loop invariant $N \ge 0$ is
 
 
 \begin{commentbox}{\textbf{Simplification}}
-    When computing the WP, we can simplify the expressions so that they are easier to understand and reason about (e.g., $a \implies True$ is $True$). However, be careful when doing this as we can make mistakes and invalidate our entire reasoning.  When in doubt, it's better to leave the expression as is.
+    When computing the WP, we can simplify the expressions so that they are easier to understand and reason about (e.g., $a \implies T$ is $T$). However, be careful when doing this as we can make mistakes and invalidate our entire reasoning.  When in doubt, it's better to leave the expression as is.
 \end{commentbox}
 
 
-
-% WP(while[N >= 0] (i < N ) i := N, i == N)    
-% =  N >= 0 & (N >= 0 & i < N) \implies WP(i:= N, N >= 0) & (N >= 0 & !(i < N))  \implies i == N)
-% # let's deal these 3 conjuncts one by one
-
-% 1. N >= 0
-
-% 2. (N >= 0 & i < N) \implies WP(i:= N, N >= 0)
-%    = (N >= 0 & i < N) \implies  N >= 0
-%    =    True     # because a & b = > a  is True
-
-% 3. (N >= 0 & !(i < N))  \implies i == N)
-%    = (N >= 0  & i >= N)  \implies i == N   # can't simplify much further, so just leave as is
- 
-   
-% # so these 3 conjuncts become
-% N >= 0 &  (N >= 0  & i >= N)  \implies i == N  #  the WP of the while loop
-
-% # Using loop invariant True
-% WP(while[True] (i < N ) i := N, i == N)    
-% =  True & (True & i < N) \implies WP(i:= N, True) & (True & !(i < N))  \implies i == N)
-
-% 1. True
-
-% 2. (True & i < N) \implies WP(i:= N, True)
-%    = True & i < N \implies  True   
-%    =   True 
-
-% 3. (True & !(i < N))  \implies i == N)
-%    = (i >= N)  \implies i == N   # can't simplify much further, so just leave as is
- 
-   
-% # so these 3 conjuncts become
-% i >= N  \implies i == N  #  the WP of the while loop
-% ```
-    
-% Thus, we get different WPs when we use different loop invariants. As we will see later, this can affect our verification task. That is, if we pick a good or strong invariant, we can prove the program.  But if we pick a weak one, we might not be able to prove the program.
+As we can see, when using different loop invariants, we get different WPs. As we will see in \autoref{sec:verification-condition}, this can affect our goal.  If we pick a good or strong invariant, we can prove the program.  But if we pick a weak one, we might not be able to prove the program.
 
 
-\subsection{Verification Condition}\label{verification-condition} 
-Now that we know how to do WP, we can continue with \textbf{verifiation
-condition} (VC). Recall that to verify that the program \texttt{S}
-satisfies the precondition \texttt{P} and postcondition \texttt{Q}
-(i.e., the Hoare triple \texttt{\{P\}\ S\ \{Q\}} is valid), we create
-the VC \texttt{P\ =\textgreater{}\ WP(S,\ Q)} and check its validity,
-i.e., if the \texttt{VC} becomes \texttt{True}. If the \texttt{VC} is
-valid, we have proved the program (i.e., it's correct wrt to the specs);
-otherwise, we cannot say anything about the program, i.e., we don't know
-if it's correct or not.
+
+\subsection{Verification Condition}\label{sec:verification-condition} 
+
+
+Now, to check the validity of a Hoare triple $\{P\} \code{S} \{Q\}$, which represents the correctness of the program \code{S} wrt to the specification $P, Q$, we compute the WP of the program $S$ with respect to the postcondition $Q$ and check if it implies the precondition $P$. This is known as the \emph{verification condition} (VC) and is written as $P \implies \code{wp}(S, Q)$. If the VC is valid, then the program is correct wrt to the specification. If the VC is invalid, then the program is \emph{not correct}.
+
+It is worth noting that if the VC is invalid, it \emph{does not} mean the program is incorrect. It just means that we cannot prove it is correct. Typically this is because we have not found the right loop invariants.
+
+
+\paragraph{Example} 
+
+\begin{enumerate}
+\item Given the program with specifications, i.e., Hoare triple, $\{x = 2\}$ \code{y := x + 1} $\{y > 2\}$.  The VC is $x > 0 \implies x + 1 > 1$ which is valid. Thus, the program is correct.
+\end{enumerate}
 
 
 \section{Exercises}
