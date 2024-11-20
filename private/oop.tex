@@ -3123,19 +3123,18 @@ Note that $S$ is represented as a single statement or a sequence of statements, 
 For example, the Hoare Triple  $\{ x = 5 \land y > 2\}$ \; \code{z := x + y; z := z + 2} \; $\{z > 9\}$ is valid because assume $x=5$ and $y > 2$, then after executing \code{z := x + y; z := z + 2}, we do have $z > 9$.
 
 
-\paragraph{Partial and Total Correctness} A Hoare Tripple only requiers the program to satisfy its post condition \emph{only when} that program executes successfully, i.e., it \emph{terminates}. This is known as \emph{partial correctness}, which {assumes} the program terminates. In contrast, \emph{total correctness}, which \emph{requires} the program to terminate.  Total correctness is much harder to achieve because proving program termination, i.e., the \emph{halting problem} is in general an undecidable problem.  Hoare logic and most other verification approaches use partial correctness as it is easier to prove.  
-
     
 \paragraph{Examples}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Consider a program \texttt{S} with a single assignment statement
-  \texttt{x:=5}.
+  Consider a program with a single assignment statement \texttt{x:= 5;}.
 
-  The Hoare tripple 
-  The Hoare triple $\{ T \}$ \texttt{x := 5} $\{ x > 6 \}$ is \emph{not} valid, but these ones are:
+  \begin{itemize}
+    \item The The Hoare triple $\{ T \}$ \texttt{x := 5} $\{ x > 6 \}$ is \emph{not} valid because the postcondition $x > 6$ is not satisfied after executing \texttt{x := 5}.
+    
+    \item These tripples are valid
 
   \begin{enumerate}
   \item $\{ T \}$ \texttt{x := 5} $\{ x = 5 \text{ or } x = 6 \text{ or } x > 6 \}$
@@ -3144,25 +3143,24 @@ For example, the Hoare Triple  $\{ x = 5 \land y > 2\}$ \; \code{z := x + y; z :
   \end{enumerate}
 
   Moreover, the postcondition \( x = 5 \) is \textbf{strongest} because it is more precise than \( x > 1 \) and \( x = 5 \text{ or } x = 6 \text{ or } x > 6 \). In general, we aim for the strongest postcondition (see \autoref{sec:strongest-postconditions}).
-
-   \item
-    Consider another program \texttt{z := x / y}.
+\end{itemize}
+   
+\item Consider another program \texttt{z := x / y}.
+    \begin{itemize}
+        \item These are valid Hoare triples:
+        
+        \begin{enumerate}
+        \item
+        \( \{ x = 1 \land y = 2 \} \) \texttt{z := x / y} \( \{ z < 1 \} \)
+        \item
+        \( \{ x = 2 \land y = 4 \} \) \texttt{z := x / y} \( \{ z < 1 \} \)
+        \item
+        \( \{ 0 < x < y \land y \neq 0 \} \) \texttt{z := x / y} \( \{ z < 1 \} \)
+        \end{enumerate}
   
-    These are valid Hoare triples:
+        Moreover, the precondition \( 0 < x < y \land y \neq 0 \) is the \textbf{weakest} precondition (i.e., it imposes the least constraints). In general, we seek the weakest precondition (see \autoref{sec:weakest-preconditions}).
   
-    \begin{enumerate}
-    \item
-      \( \{ x = 1 \land y = 2 \} \) \texttt{z := x / y} \( \{ z < 1 \} \)
-    \item
-      \( \{ x = 2 \land y = 4 \} \) \texttt{z := x / y} \( \{ z < 1 \} \)
-    \item
-      \( \{ 0 < x < y \land y \neq 0 \} \) \texttt{z := x / y} \( \{ z < 1 \} \)
-    \end{enumerate}
-  
-    Moreover, the precondition \( 0 < x < y \land y \neq 0 \) is the \textbf{weakest} precondition (i.e., it imposes the least constraints). In general, we seek the weakest precondition (see \autoref{sec:weakest-preconditions}).
-  
-  \item
-    The following are all invalid:
+    \item These are \emph{invalid}:
   
     \begin{enumerate}
     \item
@@ -3182,7 +3180,13 @@ For example, the Hoare Triple  $\{ x = 5 \land y > 2\}$ \; \code{z := x + y; z :
   
       (Counterexample: \( x = -2 \), \( y = -1 \).)
     \end{enumerate}
+\end{itemize}
+
 \end{enumerate}
+
+
+
+\subsubsection{Partial and Total Correctness} A Hoare Tripple only requires the program to satisfy its post condition \emph{only when} that program executes successfully, i.e., it \emph{terminates}. This is known as \emph{partial correctness}, which {assumes} the program terminates. In contrast, \emph{total correctness}, which \emph{requires} the program to terminate.  Total correctness is much harder to achieve because proving program termination, i.e., the \emph{halting problem} is in general an undecidable problem.  Hoare logic and most other verification approaches use partial correctness as it is easier to prove.  
 
 \subsection{Verifying Programs using Hoare Logic}\label{sec:verification-hoare}
 
