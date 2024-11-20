@@ -215,7 +215,7 @@
     % Title
     \node[align=center] at ($(current page.center)+(0,-5)$)
     {
-    {\fontsize{32}{1} \selectfont {{OOP Design, Specification, and Analysis}}}\\[0.5in]
+    {\fontsize{32}{1} \selectfont {{Program Specification and Analysis}}}\\[0.5in]
 
     {\fontsize{14}{19.2} \selectfont \textcolor{ForestGreen}{ \bf ThanhVu (Vu) Nguyen}}\\[0.1in]
     \today{} (latest version available on  \href{https://nguyenthanhvuh.github.io/class-oo/oop.pdf}{nguyenthanhvuh.github.io/class-oo/oop.pdf})
@@ -3349,36 +3349,41 @@ Observe that the WP for loop consists of 3 conjuncts:
 The first two ensure that $I$ holds when entering the loop and is preserved after each loop body execution. The last conjunct ensures that the the postcondition $Q$ holds when the loop terminates.
 
 \paragraph{Example}
-Let's consider the while loop
-
-\begin{lstlisting}[language=C]
-while(True){
-  # [I]: loop invariants here
-  if(!(i < N)) break;
-  i := N;
-}
-{i == N}   // postcondition Q
-\end{lstlisting} 
 
 
- Assume we are given two loop invariants [$I$]:
+Let's compute the wp of the loop in \autoref{fig:while-loop} using these loop invariants: 
+
  \begin{enumerate}
         \item $i \le N$
-        \item $N \ge 0$        
+        \item $N \ge 0$
+        \item $T$ (true) (always a loop invariant, though very weak and likely useless)
  \end{enumerate}
+
+
+ \begin{figure}
+    \begin{lstlisting}[language=C]
+    while(True){
+      # [I]: loop invariants here
+      if(!(i < N)) break;
+      i := N;
+    }
+    {i == N}   // postcondition Q
+    \end{lstlisting} 
+    \caption{A while loop with loop invariant $I$}\label{fig:while-loop}
+    \end{figure}
+    
 
 % - `i \le N`
 % - `N >= 0`
 % - `True` # and yes, `True` is always a loop invariant (though very weak and likely useless)
 
-Let's compute the wp of this loop using these loop invariants.
 \paragraph{Using loop invariant $i \le N$}
 
 \begin{equation*}
     \begin{split}
         &\code{wp}(\code{while}[i \le N] (i < N ) ~\code{i := N}, i = N)\\
     &= i \le N ~\land  \\
-    &~~~ (i \le N \land  i < N) \implies WP(i := N, i \le N) ~\land \\
+    &~~~ (i \le N \land  i < N) \implies \code{wp}(\code{i := N}, i \le N) ~\land \\
     &~~~ (i \le N \land \neg(i < N))  \implies i = N\\ 
     \end{split}
 \end{equation*}
@@ -3416,7 +3421,8 @@ Let's deal with these 3 conjuncts one by one, easier that way
 
 \end{enumerate}
 
-Thus, the WP of the while loop using the loop invariant $i \le N$ is  itself $i \le N$ as the other two conjuncts are $T$.
+Thus, the WP when using the loop invariant $i \le N$ is itself 
+\[ i \le N .\] 
 
 
 \paragraph{Using loop invariant $N \ge 0$}
@@ -3425,7 +3431,7 @@ Thus, the WP of the while loop using the loop invariant $i \le N$ is  itself $i 
     \begin{split}
         &\code{wp}(\code{while}[N \ge 0] (i < N ) ~\code{i := N}, i = N)\\
     &= N \ge 0 ~\land  \\
-    &~~~ (N \ge 0 \land  i < N) \implies WP(i := N, N \ge 0) ~\land \\
+    &~~~ (N \ge 0 \land  i < N) \implies \code{wp}(\code{i := N}, N \ge 0) ~\land \\
     &~~~ (N \ge 0 \land \neg(i < N))  \implies i = N\\ 
     \end{split}
 \end{equation*}
@@ -3461,32 +3467,78 @@ Again, let's reason through these three conjuncts one by one.
 \end{enumerate}
 
 Thus, the \code{wp} when using the loop invariant $N \ge 0$ is 
-\[ N \ge 0 \land (N \ge 0  \land i \ge N)  \implies i = N \]
+\[ N \ge 0 \land (N \ge 0  \land i \ge N)  \implies i = N. \]
 
 
 \begin{commentbox}{\textbf{Simplification}}
-    When computing the WP, we can simplify the expressions so that they are easier to understand and reason about (e.g., $a \implies T$ is $T$). However, be careful when doing this as we can make mistakes and invalidate our entire reasoning.  When in doubt, it's better to leave the expression as is.
+    When computing the WP, we can simplify the expressions using the logic laws given in \autoref{sec:logic-laws} so that they are easier to understand and reason about (e.g., $a \implies T$ is $T$ through implication $\neg a \lor T$ and domination $a \lor T = T$). However, be careful when doing this as we can make mistakes and invalidate our entire reasoning.  When in doubt, it's better to leave the expression as is.
 \end{commentbox}
 
 
-As we can see, when using different loop invariants, we get different WPs. As we will see in \autoref{sec:verification-condition}, this can affect our goal.  If we pick a good or strong invariant, we can prove the program.  But if we pick a weak one, we might not be able to prove the program.
+\paragraph{Using loop invariant $T$}
+
+\begin{equation*}
+    \begin{split}
+        &\code{wp}(\code{while}[T] (i < N ) ~\code{i := N}, i = N)\\
+    &= T ~\land  \\
+    &~~~ (T \land  i < N) \implies \code{wp}(\code{i := N}, T) ~\land \\
+    &~~~ (T \land \neg(i < N))  \implies i = N\\ 
+    & = (i < N) \implies T ~\land~ i \ge N \implies i = N\\
+    & = i \ge N \implies i = N \\
+\end{split}
+\end{equation*}
+
+Thus, the \code{wp} when using the loop invariant $T$ is $i \ge N \implies i = N$
+
+
+In summary, when using different loop invariants, we get different WPs. As we will see in \autoref{sec:verification-condition}, this can affect our goal.  If we pick a good or strong invariant, we can prove the program.  But if we pick a weak one, we might not be able to prove the program.
 
 
 
 \subsection{Verification Condition}\label{sec:verification-condition} 
 
+After computing the WP of a program $S$ with respect to a postcondition $Q$, we check that the given precondition $P$ implies the WP.  This is known as the \emph{verification condition} (VC) and is denoted as 
 
-Now, to check the validity of a Hoare triple $\{P\} \code{S} \{Q\}$, which represents the correctness of the program \code{S} wrt to the specification $P, Q$, we compute the WP of the program $S$ with respect to the postcondition $Q$ and check if it implies the precondition $P$. This is known as the \emph{verification condition} (VC) and is written as $P \implies \code{wp}(S, Q)$. If the VC is valid, then the program is correct wrt to the specification. If the VC is invalid, then the program is \emph{not correct}.
 
-It is worth noting that if the VC is invalid, it \emph{does not} mean the program is incorrect. It just means that we cannot prove it is correct. Typically this is because we have not found the right loop invariants.
+\[P \implies \code{wp}(S,Q)\]
 
+If the VC is valid, the Hoare triple is valid and the program satisfies its specification.  If the VC is invalid, then the Hoare triple is invalid and the program does not satisfy its specification.
+However, if the VC is invalid, then we cannot prove that the program is correct.  It's important to note that this does not mean the program is incorrect, just that we cannot prove it is correct.  In other words, Hoare logic and verification in general only prove program correctness, not incorrectness.  This is in contrast to testing (\autoref{chapter:testing}) which can prove program incorrectness, i.e., through a counterexample inputs, but not correctness (because we can't test all inputs).
 
 \paragraph{Example} 
 
 \begin{enumerate}
-\item Given the program with specifications, i.e., Hoare triple, $\{x = 2\}$ \code{y := x + 1} $\{y > 2\}$.  The VC is $x > 0 \implies x + 1 > 1$ which is valid. Thus, the program is correct.
+\item The VC of $\{x = 2\}$ \code{y := x + 1} $\{y > 2\}$ is $x = 2 \implies \code{wp}(\code{x := x + 1}, y > 2)$, which is $x = 2 \implies x > 1$.  This VC is valid because $x = 2$ implies $x  > 1$.  Notice that we can use any precondition that is stronger than $x = 2$, which is the weakest precondition.  For example, $x = 100$, $x > 2$, etc. as preconditions will also make the VC (and thus Hoare triple) valid.
+
+\item For the Hoare triple $\{x \ge 0\}$ \code{x := x + 1; y := 2 * x} $\{y \ge 2\}$, the WP is $\code{wp}(x := x + 1, \code{wp}(y := 2 * x, y \ge 2)) = \code{wp}(x := x + 1, x \ge 1) = x \ge 0 $.  The VC $x \ge 0 \implies x  \ge 0$ is valid.
+
+
+\item The VC of $\{x = 1\}$ \code{y := x + 1} $\{y > 2\}$ is $x = 1 \implies x > 1$.  This VC is \emph{invalid} because $x = 1$ does not imply $x  > 1$.
+
+Note that in this case the program is indeed incorrect because at the end $y = 2$ and therefore not greater than 2. However, we cannot make this conclusion because the VC is invalid. 
+
 \end{enumerate}
 
+
+As another example, let's verify the program with the while loop in \autoref{fig:while-loop}.  
+using the precondition $i = 0 \land N \ge 0$.  Convince yourself that the program is correct with respect to this precondition and postcondition $i = N$. We will reuse the WPs computed using the given loop invariants $i \le N$, $N \ge 0$, and $T$.  
+
+
+\begin{enumerate}
+\item When using $I = i \le N$, the computed WP is $i \le N$. The VC $(i = 0 \land N > 0) \implies i \le N$ is valid.
+\item When using $I = N \ge 0$, the computed WP is $N \ge 0 \land (N \ge 0  \land i \ge N)  \implies i = N$. The VC $(i = 0 \land N > 0) \implies N \ge 0 \land (N \ge 0  \land i \ge N)  \implies i = N$ is valid.
+\item When using $I = T$, the computed WP is $i \ge N \implies i = N$. The VC $(i = 0 \land N > 0) \implies (i \ge N \implies i = N)$ is valid.
+\end{enumerate}
+
+\section{Abstraction Interpretation}\label{sec:abstraction-interpretation}
+
+\subsection{Abstract Domains}\label{sec:abstract-domains}
+
+\subsubsection{Sign Analysis}\label{sec:sign-analysis}
+
+\subsubsection{Interval Analysis}\label{sec:interval-analysis}
+
+%\subsubsection{Constant Propagation}\label{sec:constant-propagation}
 
 \section{Exercises}
 
@@ -4266,7 +4318,7 @@ The truth tables for these operators are shown in \autoref{tab:truth-tables}.
     F & F & T & F & F & T & T
 \end{tabular}
 \end{table}
-\section{Laws of Logic}
+\section{Laws of Logic}\label{sec:logic-laws}
 \autoref{tab:logic_laws} lists some of the laws of logic that are useful for  simplifying logical expressions.
 
 
