@@ -9,8 +9,7 @@
 \usepackage[most]{tcolorbox}
 % \setsecnumdepth{subsection}
 % \setcounter{tocdepth}{3}
-\usepackage{multirow}
-\usepackage{multicol}
+\usepackage{multirow,multicol}
 \usepackage{enumitem}
 \usepackage{epigraph}
 \usepackage{cite}
@@ -3234,7 +3233,8 @@ $E$ to a variable \code{x}. The WP of an assignment \code{wp(x:=E,Q)} is obtaine
 \item      
 \begin{equation*}
     \begin{split}
-        \code{WP}(x:=3, x + y = 10) &= 3 + y = 10\\ 
+        &\code{WP}(x:=3, x + y = 10) \\
+        &= 3 + y = 10\\ 
         &= y = 7
     \end{split}
 \end{equation*}
@@ -3244,8 +3244,9 @@ Thus, we have $\{y=7\} ~x := 3~ \{x + y = 10\}$
 \item 
 \begin{equation*}
     \begin{split}
- \code{WP}(x:=3, x + y > 0) &= 3 + y > 0  \\
- &= y > -3\\
+        \code{WP}(x:=3, x + y > 0) \\
+        &= 3 + y > 0  \\
+        &= y > -3\\
     \end{split}
 \end{equation*}
 
@@ -3268,8 +3269,8 @@ Thus, we have $\{y > 0\}  ~\code{x := 3}~ \{y > 0\}$
 The WP for a list (sequence or block) of statements is defined \emph{recursively} as the WP of the first statement followed by the WP of the rest of the statements.  
 
 \begin{align}\label{eq:wp-sequence}
-    \code{wp}(S1; S2, Q) &= \code{wp}(S1, \code{wp}(S2, Q))\\
-    \code{wp}([], Q) &= Q
+    \code{wp}(\code{[S1; S2;]}, Q) &= \code{wp}(\code{S1}, \code{wp}(\code{S2}, Q))\\
+    \code{wp}(\code{[]}, Q) &= Q
 \end{align}
 
 %
@@ -3277,14 +3278,15 @@ The WP for a list (sequence or block) of statements is defined \emph{recursively
 
 \begin{equation*}
 \begin{split}
-    \code{wp}([x:=x+1; y:=y*x], y=2*z) &= \code{wp}  (x:=x+1, \code{wp}([y:=y*x], y=2*z))\\
-    &= \code{wp}(x:=x+1, y*x=2*z)\\
-    &= y*(x+1)=2*z
+    &\code{wp}([x:=x+1; y:=y*x], y=2z) \\
+    &= \code{wp}  (x:=x+1, \code{wp}([y:=y*x], y=2z))\\
+    &= \code{wp}(x:=x+1, yx=2z)\\
+    &= y(x+1)=2z
 \end{split}
 \end{equation*}
 
 
-Thus, we have $\{y*(x+1)=2*z\} ~ x:=x+1; y:=y*x ~ \{y=2*z\}$
+Thus, we have $\{y(x+1)=2z\} ~ x:=x+1; y:=y*x ~ \{y=2z\}$
 
 \subsubsection{Conditional}\label{conditional}
 
@@ -3301,7 +3303,7 @@ The WP of a conditional statement combines the WPs of its two branches.
 \begin{equation*}
 \begin{split}
 & \code{wp}(\text{if} ~x > 0~ \code{then} ~y := x + 2 ~\code{else} ~y := y + 1,  y > x)  \\
-& = (x > 0 \implies \text{wp}(y := x + 2, y > x)) ~\land~ (x\le 0 \implies \code{wp}(y := y + 1, y > x))\\
+& = (x > 0 \implies \code{wp}(\code{y := x + 2}, y > x)) ~\land~ (x\le 0 \implies \code{wp}(y := y + 1, y > x))\\
 & = (x > 0 \implies x + 2 > x)  ~\land~  (x \le 0 \implies y + 1 > x)\\
 & = (x > 0 \implies 2 > 0)      ~\land~  (x \le 0 \implies y + 1 > x)\\
 & =     T           ~\land~  (x \le 0 \implies y + 1 > x)\\
@@ -3312,7 +3314,7 @@ The WP of a conditional statement combines the WPs of its two branches.
 \begin{equation*}
 \begin{split}
 & \code{wp}(\code{if} ~x > 0~ \code{then} ~y := x~  \code{else} ~y:= 0,  y > 0)\\
-& = (x>0 \implies \code{wp}(y:=x, y >0)) \land (x\le 0 \implies \code{wp}(y:=0, y>0))\\
+& = (x>0 \implies \code{wp}(\code{y:=x;}, y >0)) \land (x\le 0 \implies \code{wp}(\code{y:=0;}, y>0))\\
 & = (x > 0 \implies x > 0)      \land  (x \le 0  \implies  0 > 0)\\
 & = \neg(x > 0) \lor (x > 0)   \land  \neg(x \le 0) \lor F\\
 & =       T         \land         x > 0   \\
@@ -3321,7 +3323,7 @@ The WP of a conditional statement combines the WPs of its two branches.
 \end{equation*}
 \end{itemize}
 
-Instead of using implication $\implies$, which might be confusing to some, we can use $\neg$ and $\lor$. This is because $a \implies b$ is equivalent to $\neg a \lor b$. Thus, the above can be written as:
+Note that instead of using implication $\implies$, which might be confusing to some, we can use $\neg$ and $\lor$. This is because $a \implies b$ is equivalent to $\neg a \lor b$ (implication rule, \autoref{tab:logic_laws}). Thus, the above can be written as:
 
 \begin{equation}\label{eq:wp-conditional2}
     \begin{split}
@@ -3331,8 +3333,7 @@ Instead of using implication $\implies$, which might be confusing to some, we ca
 
 \paragraph{Loop}
 
-Unlike other statements where we have rules to compute WP \emph{automatically}, to obtain the WP of loop, we need to \emph{manually} supply a \textbf{loop invariant}
-\code{I}. Moreover, the loop invariant \code{I} must be strong enough to ensure the postcondition \code{Q} holds when the loop terminates. Finding sufficient loop invariants is often challenging and requires human insight.
+Unlike other statements where we have rules to compute WP \emph{automatically}, to obtain the WP of loop, we need to \emph{manually} supply a \textbf{loop invariant} \code{I} (\autoref{chap:loop-invariants}). Moreover, the loop invariant \code{I} must be strong enough to ensure the postcondition \code{Q} holds when the loop terminates. Finding sufficiently strong loop invariants is a challenging problem with many research works dedicated to it.
 
 Assume that a loop invariant $I$ is given, the WP of a \code{while} loop\footnote{\code{While} loop is used because other kinds of loops can be converted to \code{while} loops.} \code{while b do S} with invariant \code{I} and postcondition \code{Q
 } is as follows:
@@ -3346,8 +3347,8 @@ Assume that a loop invariant $I$ is given, the WP of a \code{while} loop\footnot
 
 Observe that the WP for loop consists of 3 conjuncts:
 \begin{enumerate}
-\item $I$ : the loop invariant (should hold when entering the loop)
-\item $(I \land b) \implies I$: (entering the loop because $b$ is true) and $I$ is preserved after each loop body execution
+\item $I$ : the loop invariant (should hold the first time the loop is entered)
+\item $(I \land b) \implies I$: (entering the loop body because $b$ is true) and $I$ is preserved after each loop body execution
 \item $(I \land \neg b) \implies Q$: (exiting the loop because $b$ is false), when exiting the loop, the post condition holds
 \end{enumerate}
 
@@ -3374,7 +3375,7 @@ Let's compute the wp of the loop in \autoref{fig:while-loop} using these loop in
     }
     {i == N}   // postcondition Q
     \end{lstlisting} 
-    \caption{A while loop with loop invariant $I$}\label{fig:while-loop}
+    \caption{A simple \code{while} loop}\label{fig:while-loop}
     \end{figure}
     
 
@@ -3396,11 +3397,11 @@ Let's compute the wp of the loop in \autoref{fig:while-loop} using these loop in
 Let's deal with these 3 conjuncts one by one, easier that way
 
 \begin{enumerate}
-    \item         This is our loop invariant $I$, which by definition must hold when entering the loop.
+    \item By definition $I$ must hold when first entering the loop
 
         \[i \le N\]
 
-    \item This is the case when we assume the loop invariant $i \le N$ holds before the loop body \emph{and} the loop guard $i < N$ is true, (allowing the program to enter the loop), then after executing the loop body, the loop invariant should be preserved.
+    \item This is the case when we assume the loop invariant holds before the loop body \emph{and} the loop guard is true (allowing the program to enter the loop), then after executing the loop body, the loop invariant should be preserved.
     \begin{equation*}
         \begin{split}
             (i \le N \land  i < N) &\implies \code{wp}(\code{i := N}, i \le N)\\
@@ -3444,11 +3445,11 @@ Thus, the WP when using the loop invariant $i \le N$ is itself
 Again, let's reason through these three conjuncts one by one.
 
 \begin{enumerate}
-    \item         This is our loop invariant $I$, which by definition must hold when entering the loop.
+    \item First time we enter the loop
 
         \[N \ge 0\]
 
-    \item This is the case when we assume the loop invariant $N \ge 0$ holds before the loop body \emph{and} the loop guard $i < N$ is true (allowing the program to enter the loop), then after executing the loop body, the loop invariant should be preserved.
+    \item When we enter the loop body
     \begin{equation*}
         \begin{split}
             (N \ge 0 \land  i < N) &\implies \code{wp}(\code{i := N}, N \ge 0)\\
@@ -3459,7 +3460,7 @@ Again, let's reason through these three conjuncts one by one.
 
     This becomes $T$ because the body of the loop sets $i$ to $N$ thus does not modify $N$, thus the loop invariant $N \ge 0$ is preserved because we already assume that it and the loop guard $i < N$ holds.
 
-    \item  This is the case when we assume the loop invariant $N \ge 0$ holds before the loop body \emph{but} the loop guard $i < N$ is false, i.e., $i \ge N$, then we do not enter the loop and should get the postcondition $i = N$.
+    \item  When we do not enter the loop body
     \begin{equation*}
         \begin{split}
             (N \ge 0 \land \neg(i < N)) &\implies i = N\\
@@ -3492,9 +3493,6 @@ Thus, the \code{wp} when using the loop invariant $N \ge 0$ is
     & = i \ge N \implies i = N \\
 \end{split}
 \end{equation*}
-
-Thus, the \code{wp} when using the loop invariant $T$ is $i \ge N \implies i = N$
-
 
 In summary, when using different loop invariants, we get different WPs. As we will see in \autoref{sec:verification-condition}, this can affect our goal.  If we pick a good or strong invariant, we can prove the program.  But if we pick a weak one, we might not be able to prove the program.
 
@@ -4359,7 +4357,7 @@ The truth tables for these operators are shown in \autoref{tab:truth-tables}.
 
     
 
-\chapter{Loop Invariants}
+\chapter{Loop Invariants}\label{chap:loop-invariants}
 
 Loop invariants are abstraction of loops, capturing the meaning or semantics of loops. Loop invariants are especially helpful for program reasoning and verification, e.g., using Hoare logic (\autoref{sec:hoare-logic}).
 
