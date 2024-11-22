@@ -128,6 +128,13 @@
 - HW assignment: Weakest Precondition and Verification Condition (9.3.3 OOP)
 - Quiz: Hoare Triples
 
+<!-- ## Week 13 
+- Topics: Final exam review
+- Reading: None
+- In-class: Review
+- HW assignment: None -->
+
+
 # HW Assignments
 ## HW1
 
