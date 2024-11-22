@@ -3278,19 +3278,19 @@ The WP for a list (sequence or block) of statements is defined \emph{recursively
 
 \begin{equation*}
 \begin{split}
-    &\code{wp}([x:=x+1; y:=y*x], y=2z) \\
-    &= \code{wp}  (x:=x+1, \code{wp}([y:=y*x], y=2z))\\
+    &\code{wp}(\code{[x:=x+1; y:=y*x]}, y=2z) \\
+    &= \code{wp}  (x:=x+1, \code{wp}(\code{[y:=y*x]}, y=2z))\\
     &= \code{wp}(x:=x+1, yx=2z)\\
     &= y(x+1)=2z
 \end{split}
 \end{equation*}
 
 
-Thus, we have $\{y(x+1)=2z\} ~ x:=x+1; y:=y*x ~ \{y=2z\}$
+Thus, we have $\{y(x+1)=2z\} ~ \code{x:=x+1; y:=y*x;} ~ \{y=2z\}$
 
 \subsubsection{Conditional}\label{conditional}
 
-The WP of a conditional statement combines the WPs of its two branches.
+The WP of a conditional statement \code{if-then-else} combines the WPs of its two branches.
 
 \begin{equation}\label{eq:wp-conditional}
 \code{wp}(\code{if}~b~\code{then}~S1~\code{else}~S2, Q)  =  (b \implies \code{wp}(S1,Q))  \land  (\neg b \implies \code{wp}(S2, Q))
@@ -3333,10 +3333,9 @@ Note that instead of using implication $\implies$, which might be confusing to s
 
 \paragraph{Loop}
 
-Unlike other statements where we have rules to compute WP \emph{automatically}, to obtain the WP of loop, we need to \emph{manually} supply a \textbf{loop invariant} \code{I} (\autoref{chap:loop-invariants}). Moreover, the loop invariant \code{I} must be strong enough to ensure the postcondition \code{Q} holds when the loop terminates. Finding sufficiently strong loop invariants is a challenging problem with many research works dedicated to it.
+Unlike other statements where we have rules to compute WPs \emph{automatically}, to obtain the WP of loop, we need to \emph{manually} supply a \textbf{loop invariant} $I$ (\autoref{chap:loop-invariants}). Moreover, $I$ must be strong enough to prove postcondition \code{Q} holds when the loop terminates. Finding sufficiently strong loop invariants is a challenging problem with many research works dedicated to it.
 
-Assume that a loop invariant $I$ is given, the WP of a \code{while} loop\footnote{\code{While} loop is used because other kinds of loops can be converted to \code{while} loops.} \code{while b do S} with invariant \code{I} and postcondition \code{Q
-} is as follows:
+Assume that a loop invariant $I$ is given, the WP of a loop\footnote{A \code{while} loop is often used because other kinds of loops can be converted to it.} \code{while $b$ do S} with the postcondition \code{Q} is
 
 \begin{equation}
     \begin{split}
@@ -3458,7 +3457,7 @@ Again, let's reason through these three conjuncts one by one.
         \end{split}
     \end{equation*}
 
-    This becomes $T$ because the body of the loop sets $i$ to $N$ thus does not modify $N$, thus the loop invariant $N \ge 0$ is preserved because we already assume that it and the loop guard $i < N$ holds.
+    This becomes $T$ because the body of the loop sets $i$ to $N$ and does not modify $N$, thus the loop invariant $N \ge 0$ is preserved because we already assume that it and the loop guard $i < N$ holds.
 
     \item  When we do not enter the loop body
     \begin{equation*}
@@ -3468,12 +3467,12 @@ Again, let's reason through these three conjuncts one by one.
         \end{split}
     \end{equation*}
 
-    We will just leave this as is because we can't simplify it further.
+    This looks a bit hard to simplify so we leave it as is.
 
 \end{enumerate}
 
-Thus, the \code{wp} when using the loop invariant $N \ge 0$ is 
-\[ N \ge 0 \land (N \ge 0  \land i \ge N)  \implies i = N. \]
+Thus, the WP when using the loop invariant $N \ge 0$ is 
+\[ N \ge 0 ~\land~ (N \ge 0  \land i \ge N)  \implies i = N. \]
 
 
 \begin{commentbox}{\textbf{Simplification}}
@@ -3494,19 +3493,20 @@ Thus, the \code{wp} when using the loop invariant $N \ge 0$ is
 \end{split}
 \end{equation*}
 
-In summary, when using different loop invariants, we get different WPs. As we will see in \autoref{sec:verification-condition}, this can affect our goal.  If we pick a good or strong invariant, we can prove the program.  But if we pick a weak one, we might not be able to prove the program.
-
+Thus, when using different loop invariants, we get different WPs. As we will see in \autoref{sec:verification-condition}, this will affect the validity of the Hoare triple.
+If we pick a good or strong invariant, we can prove the Hoare triple and thus the program.  But if we pick a weak one, we might not be able to do so.  This is why finding good loop invariants is a challenging problem.
 
 
 \subsection{Verification Condition}\label{sec:verification-condition} 
 
-After computing the WP of a program $S$ with respect to a postcondition $Q$, we check that the given precondition $P$ implies the WP.  This is known as the \emph{verification condition} (VC) and is denoted as 
+After computing the WP of a program $S$ with respect to a postcondition $Q$, we check that the given precondition $P$ implies the WP.  This is known as the \emph{verification condition} (VC) and written as 
+\begin{equation}\label{eq:vc}
+    P \implies \code{wp}(\code{S},Q)
+\end{equation}
 
+If the VC is valid, the Hoare triple is valid and the program satisfies its specification.  If the VC is invalid, then the Hoare triple is invalid and we cannot prove that the program is correct.  
 
-\[P \implies \code{wp}(S,Q)\]
-
-If the VC is valid, the Hoare triple is valid and the program satisfies its specification.  If the VC is invalid, then the Hoare triple is invalid and the program does not satisfy its specification.
-However, if the VC is invalid, then we cannot prove that the program is correct.  It's important to note that this does not mean the program is incorrect, just that we cannot prove it is correct.  In other words, Hoare logic and verification in general only prove program correctness, not incorrectness.  This is in contrast to testing (\autoref{chapter:testing}) which can prove program incorrectness, i.e., through a counterexample inputs, but not correctness (because we can't test all inputs).
+It is important to emphasize not being able to prove that the program is correct (i.e., the VC is invalid) \emph{does not} mean the program is incorrect. It simply means we cannot prove it.  Hoare logic and verification in general only prove program correctness, not incorrectness.  This is in contrast to testing (\autoref{chapter:testing}) which can prove program incorrectness, i.e., by finding a counterexample input causing the bug, but not correctness (because we can't test all inputs).
 
 \paragraph{Example} 
 
@@ -3520,18 +3520,20 @@ However, if the VC is invalid, then we cannot prove that the program is correct.
 
 Note that in this case the program is indeed incorrect because at the end $y = 2$ and therefore not greater than 2. However, we cannot make this conclusion because the VC is invalid. 
 
-\end{enumerate}
-
-
-As another example, let's verify the program with the while loop in \autoref{fig:while-loop}.  
-using the precondition $i = 0 \land N \ge 0$.  Convince yourself that the program is correct with respect to this precondition and postcondition $i = N$. We will reuse the WPs computed using the given loop invariants $i \le N$, $N \ge 0$, and $T$.  
+\item Let's now verify the program with the while loop in \autoref{fig:while-loop}.  
+using the precondition $i = 0 \land N > 0$.  Convince yourself that the program is correct with respect to this precondition and postcondition $i = N$. We will reuse the WPs computed using the given loop invariants $i \le N$, $N \ge 0$, and $T$.  
 
 
 \begin{enumerate}
 \item When using $I = i \le N$, the computed WP is $i \le N$. The VC $(i = 0 \land N > 0) \implies i \le N$ is valid.
-\item When using $I = N \ge 0$, the computed WP is $N \ge 0 \land (N \ge 0  \land i \ge N)  \implies i = N$. The VC $(i = 0 \land N > 0) \implies N \ge 0 \land (N \ge 0  \land i \ge N)  \implies i = N$ is valid.
-\item When using $I = T$, the computed WP is $i \ge N \implies i = N$. The VC $(i = 0 \land N > 0) \implies (i \ge N \implies i = N)$ is valid.
+\item When using $I = N \ge 0$, the computed WP is $N \ge 0 \land (N \ge 0  \land i \ge N)  \implies i = N$. The VC $(i = 0 \land N > 0) \implies N \ge 0 ~\land~ (N \ge 0  \land i \ge N)  \implies i = N$ is valid (because $N > 0 \implies N \ge 0$ and $N \ge 0 \land 0 \ge N \implies 0 = N$).
+\item When using $I = T$, the computed WP is $i \ge N \implies i = N$. The VC $(i = 0 \land N > 0) \implies (i \ge N \implies i = N)$ is valid (because $i \ge N$ is $F$, $F \implies \alpha$ is $T$ (for any expression $\alpha$), and $\alpha \implies T$ is $T$).
 \end{enumerate}
+\end{enumerate}
+
+
+%   (N >= 0 & i >= N)    =>   i = N
+%   (N >= 0 & 0 >= N)    =>   0 = N
 
 \section{Abstraction Interpretation}\label{sec:abstraction-interpretation}
 
@@ -3619,16 +3621,36 @@ Fill in \texttt{P,S,Q} to make the following Hoare Triples valid. Remember that 
 %todo: make more problems esp. with weakest/strongest pre/post
 
 \begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
 \item
-  \texttt{\{P\}\ x:=3\ \{x\ =\ 8\}}
+  $\{P\}$ \code{x:=3} $\{x = 8\}$
 \item
-  \texttt{\{P\}\ x:=\ y\ -\ 3\ \{x\ =\ 8\}}
+  $\{P\}$ \code{x:= y - 3} $\{x = 8\}$
 \item
-  \texttt{\{x\ =\ y\}\ S\ \{x\ =\ y\}}
-\item
-  \texttt{\{x\ \textless{}\ 0\}\ while(x!=0)\ do\ x\ :=\ x\ -\ 1\ \{Q\}}
+  $\{x = y\}$ \code{S} $\{x = y\}$
+% \item
+%   \texttt{\{x\ \textless{}\ 0\}\ while(x!=0)\ do\ x\ :=\ x\ -\ 1\ \{Q\}}
+\item $\{ x=10 \land y = 10\}$ \code{if x > 0 then y := x + 2 else y := x - 1} $\{ Q\}$
 \end{enumerate}
+
+
+\subsection{Weakest Precondition and Verification Condition}
+
+Prove the following program using the two loop invariants $I_1: i \le 10$ and $I_2: i \ge 0$ to compute the weakest precondition and verification condition. 
+
+\begin{lstlisting}
+
+    {T}
+    int i = 0;
+    int j = 0;
+    while (i < 10) {
+        i = i + 1;
+        j = i;
+    }
+    {j = 10}
+
+\end{lstlisting}    
+
+
 
 \part{Advanced Topics}
 \chapter{Concurrency}\label{chap:concurrency}
@@ -4444,7 +4466,7 @@ There can be many loop invariants for a loop, but the key question is which loop
 use?}\label{which-loop-invariants-to-use}
 
 Stronger invariants capture the meaning of the loop more precisely---thus $T$ (true) is not very useful.
-However, stronger invariants can be harder to determines, and more importantly, are not always necessary. The choice of loop invariants depends on the task at hand. For the example in \autoref{sec:determining-loop-invariants},  to prove that $N \ge 0$ as the postcondition, then we only need the loop invariant $N \ge 0$. However, if we want to prove  $i=N$ as postcondition, then we need the more complicated loop invariant $i\le N$ that involves two variables.
+However, stronger invariants can be harder to determines, and more importantly, are not always necessary. The choice of loop invariants depends on the task at hand. For the example in \autoref{sec:determining-loop-invariants},  to prove that $N \ge 0$ as the postcondition, then we only need the loop invariant $N \ge 0$. However, if we want to prove  $i=N$ as postcondition, then we might need the more complicated loop invariant $i\le N$ that involves two variables.
 
 In many cases, we can guess which loop invariants are useful based on
 the postconditions we want to prove (e.g., if the postcondition involves $i, N$, then likely our loop invariant needs to involve these two variables). However, in the general cases we do not know a priori which loop invariants to use. 
@@ -4624,4 +4646,34 @@ When a loop invariant $I$ for program verification such as proving the validity 
         S
         {I} //3
     ```
+
     
+
+
+WP(while[T] i < N do i:= i + 1, {i = N})
+    =
+      1. T
+      2. (i < N) => WP(i := i+1, T) = 
+         (i < N) => T
+         T 
+
+    
+      3.!(i<N) => i = N
+       i >= N => i = N
+
+    
+      =  N >=0 & (N >=0 & i < N) => i >= 0 & (i>= 0  => i = N)
+    
+    WP(i:=0; {N >=0 & (N >=0 & i < N) => i >= 0 & (i>= 0  => i = N)})
+      = (0 >= 0) & (0 >= 0 & 0 < N => 0 >= 0) & (0>=0 => 0 = N)  #apply WP for assignment and simplify
+      =  TRUE    &      TRUE                  & 0 = N
+      = 0 = N
+    
+
+      (i = 0 & N = -1)  =>  (i >= N  =>  0 = -1)
+      (i = 0 & N = -1)  =>  False
+
+
+
+
+      https://www.cs.cmu.edu/~aldrich/courses/15-819O-13sp/resources/hoare-logic.pdf
