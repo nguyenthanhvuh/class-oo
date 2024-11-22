@@ -118,6 +118,17 @@
 - Quiz: Symbolic Execution
 # HW Assignments
 
+
+## Week 12
+- Topics: Weakest Precondition and Verification Condition
+- Reading: OOP 9 (Verification)
+    - WP for While Loop
+    - Verification Condition
+- In-class: Verification Conditions,  WP for While Loop
+- HW assignment: Weakest Precondition and Verification Condition (9.3.3 OOP)
+- Quiz: Hoare Triples
+
+# HW Assignments
 ## HW1
 
 ### Goal
