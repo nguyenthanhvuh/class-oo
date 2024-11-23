@@ -435,60 +435,6 @@ def add_to_list(input_list, value):
 \end{lstlisting}
 
 
-\subsection{In-class Exercise: User Equality}
-This exercise touches on some thorny issues with inheritance. There is a lot going on in this example, but it is a good exercise to understand the subtleties of inheritance. 
-
-\begin{enumerate}
-    \item First, look at the \href{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-}{Javadoc} to understand the behaviors \code{equals()} (while the specification is for Java, the idea is the same in Python).
-    \begin{itemize}
-        \item Specifically, read carefully the \emph{symmetric}, \emph{reflexive}, and \emph{transitive} properties of \code{equals()}.
-        \item Ignore \emph{consistency}, which requires that if two objects are equal, they remain equal.
-    \end{itemize}    
-    \item For the \code{User} class in \autoref{ex:user}, does \code{equals()} satisfy the three equivalence relation properties? If not, what is the problem?
-    \begin{itemize}
-        \item Come up with several concrete test cases (e.g., create various \code{User} instances) to check the properties.
-        \item If there is a problem, show the test case that demonstrates the problem.
-        \item Explain why the problem occurs and come up with a fix.
-    \end{itemize}
-    \item So the same analysis for the \code{SpecialUser} class in \autoref{ex:specialuser}.
-    \end{enumerate}
-    
-    % 1. Is the given implementation of `equals()` in class `SpecialUser` satisfy the 3 equivalence relation properties? If not, what is the problem? Be concrete: find a specific object (test case!) that demonstrates the problem. How does *inheritance* makes `equals()` in class `SpecialUser` harder to get right?
-    
-
-\begin{figure}
-\begin{lstlisting}
-    class User:
-        def __init__(self, name):
-            self.name = name
-
-        def __eq__(self, other):
-            if not isinstance(other, User):
-                return False
-            return self.name == other.name
-\end{lstlisting}
-\caption{User class}\label{ex:user}
-\end{figure}
-
-
-\begin{figure}
-\begin{lstlisting}
-    class SpecialUser(User):
-        """Don't do this until you've done with User"""
-
-        def __init__(self, name, id):
-            super().__init__(name)
-            self.id = id
-
-        def __eq__(self, other):
-            if not isinstance(other, SpecialUser):
-                return False
-            return super().__eq__(other) and self.id == other.id
-\end{lstlisting}
-\caption{SpecialUser class}\label{ex:specialuser}
-\end{figure}
-
-
 
 \section{Designing Specifications}\label{sec:design-specifications}
 %Liskov 3.5
@@ -667,6 +613,65 @@ def get_average(numbers: list[float]) -> float:
 
 
 \sol{For \code{divide}, precond is \code{b} cannot be 0, postcond is the result is the division of \code{a} by \code{b}. For \code{get\_average}, precond is the list cannot be empty (which cause division by 0), postcond is the result is the average of the numbers in the list. To make them total, we throw an exception when the precond is violated.}
+
+
+\subsection{Problems with Inheritance in OOP: Equality}
+
+Inheritance, which allows a class to inherit properties and methods from another class, is a key feature of OOP.
+While this has many benefits, inheritance introduces certain unexpected kinds of issues for specifying desired properties and implementing them. This exercise will show you one of using the popular \emph{equals} method in OOP.
+
+\begin{enumerate}
+    \item First, look at the \href{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-}{Javadoc} to understand the behaviors \code{equals()} (while the specification is for Java, the idea is the same in Python).
+    \begin{itemize}
+        \item Specifically, read carefully the \emph{symmetric}, \emph{reflexive}, and \emph{transitive} properties of \code{equals()}.
+        \item Ignore \emph{consistency}, which requires that if two objects are equal, they remain equal.
+    \end{itemize}    
+    \item For the \code{User} class in \autoref{ex:user}, does \code{equals()} satisfy the three equivalence relation properties? If not, what is the problem?
+    \begin{itemize}
+        \item Come up with several concrete test cases (e.g., create various \code{User} instances) to check the properties.
+        \item If there is a problem, show the test case that demonstrates the problem.
+        \item Explain why the problem occurs and come up with a fix.
+    \end{itemize}
+    \item Do the same analysis for the \code{SpecialUser} class in \autoref{ex:specialuser}.
+    \end{enumerate}
+    
+    % 1. Is the given implementation of `equals()` in class `SpecialUser` satisfy the 3 equivalence relation properties? If not, what is the problem? Be concrete: find a specific object (test case!) that demonstrates the problem. How does *inheritance* makes `equals()` in class `SpecialUser` harder to get right?
+    
+
+\begin{figure}
+\begin{lstlisting}
+    class User:
+        def __init__(self, name):
+            self.name = name
+
+        def __eq__(self, other):
+            if not isinstance(other, User):
+                return False
+            return self.name == other.name
+\end{lstlisting}
+\caption{User class}\label{ex:user}
+\end{figure}
+
+
+\begin{figure}
+\begin{lstlisting}
+    class SpecialUser(User):
+        """Don't do this until you've done with User"""
+
+        def __init__(self, name, id):
+            super().__init__(name)
+            self.id = id
+
+        def __eq__(self, other):
+            if not isinstance(other, SpecialUser):
+                return False
+            return super().__eq__(other) and self.id == other.id
+\end{lstlisting}
+\caption{SpecialUser class}\label{ex:specialuser}
+\end{figure}
+
+
+
 
 \chapter{Data Abstraction}\label{chap:adt}
 %Liskov 5
