@@ -375,7 +375,11 @@ Unlike parameterization, abstraction by specification is less common, e.g., how 
 
 \section{Specifications}\label{sec:specifications}
 
-We define abstractions through specifications, which describe what the abstraction is intended to do rather than how it should be implemented.  Specifications can be written in either \emph{formal} or \emph{informal languages}. Formal specifications have the advantage of being precise and unambiguous. However, in practice, we often use informal specifications, describing the behavior of the abstraction in plain English (e.g., the \code{sorting} example in \autoref{ex:abs-specification}).  Note that a specification is not a programming language or a program. Thus, our specifications won’t be written in code, e.g., in Python or Java.
+Specifications abstract programming details, describing what the program does without revealing how it does it.
+
+Specifications can be written in either \emph{formal} or \emph{informal languages}. Formal specifications have the advantage of being precise and unambiguous. However we often use informal specifications such as comments to describe program behaviors and properties (e.g., the \code{exists} example in \autoref{ex:abs-specification}).  In many cases we use a mixture of both, e.g., using formal specifications using logical formulas or assertions and informal specifications using comments.
+
+%Note that a specification is not a programming language or a program. Thus, our specifications won’t be written in code, e.g., in Python or Java.
 
 \subsection{Specifications of a Function}\label{sec:spec-function}
 %3.3 Liskov
