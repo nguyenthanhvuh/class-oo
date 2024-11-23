@@ -319,18 +319,24 @@ class Cat(Mammal):
 \end{figure}
 
 \part{Abstraction and Specification}
+
+In this part of the book, we will focus on program abstraction using specifications. Specifications allow developers to describe the behavior of a program without revealing its implementation details, thus making the program easier to understand and maintain and also more general, i.e., can use different algorithms or data structures.
+
+We will start with \emph{procedural abstraction} (\autoref{chap:procedural-abstraction}), which is on the specification of functions and methods. We will then move on to \emph{data abstraction} (\autoref{chap:adt}),  which is on the specification of abstract data types (ADTs) that encapsulate data and operations on that data.
+
 \chapter{Procedural Abstraction}\label{chap:procedural-abstraction}
 
-\emph{Procedural abstraction} allows developers to create functions (methods) that hide program implementation details. For example, the user can just invoke a \code{sort} function without knowing (or caring) about its underlying sorting algorithm. 
-By separating procedure definition and invocation, we make two important methods of abstraction: abstraction by parameterization and abstraction by specification.
+\emph{Procedural abstraction} allows developers to create procedures (functions or methods) that hide program implementation details. For example, the user can just invoke a \code{sort} function without knowing or caring about its underlying sorting algorithm. 
+By separating procedure definition and implementation, we make two important methods of abstraction: abstraction by parameterization and abstraction by specification.
 
 \paragraph{Abstraction by Parameterization}
 
-This uses \emph{parameters} to allow the function to be run with different input values, making it more versatile and reusable. \autoref{ex:abs-parameterization} shows an example of abstract parameterization. The \code{cal\_area} function calculates the area of a rectangle given its length and width, which are passed as parameters.
+This uses \emph{parameters} to allow the function to be run with different input values, making it more general and reusable. For example, a \code{cal\_area} function in \autoref{ex:abs-parameterization} calculates the area of a rectangle given its length and width, which are passed as parameters.
+
 
 \begin{figure}[h]
     \begin{lstlisting}
-    def cal_area(length, width):
+    def cal_area(length: int , width:int ) -> int;
         return length * width
 
     # can be used with different values for length and width.
@@ -340,9 +346,10 @@ This uses \emph{parameters} to allow the function to be run with different input
 \caption{Example: Abstract Parameterization}\label{ex:abs-parameterization}
 \end{figure}
 
+Using parameters is common and we have always used it. 
 
-
-\paragraph{Abstraction by Specification} This specifies on what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms, implemented in C++). By defining a function's behavior through \emph{specifications}, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details.
+\paragraph{Abstraction by Specification} 
+Parameterization is common and we have always used it. Another form of abstraction is \emph{abstraction by specification}. This defines what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms, implemented in C++). By defining a function's behavior through \emph{specifications}, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details.
 
 \autoref{ex:abs-specification} shows an example of abstraction by specification. The \code{exists} method return true if the \code{target} item is found in a list of sorted \code{items}. The user only needs to provide a sorted list and a target, but does not need to know the underlying algorithm used.
 
@@ -363,6 +370,8 @@ This uses \emph{parameters} to allow the function to be run with different input
 \end{lstlisting}
 \caption{Abstraction by Specification}\label{ex:abs-specification}
 \end{figure}
+
+Unlike parameterization, abstraction by specification is less common, e.g., how often do you write specifications for your functions? Yet this form of abstraction is crucial for creating high-quality software, e.g., most software libraries have specifications for their functions (often known as API or application programming interface documentation). In this book we will focus on abstraction by specification and how construct and formalize specifications.
 
 \section{Specifications}\label{sec:specifications}
 
