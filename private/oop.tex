@@ -528,7 +528,7 @@ def exists(items: List[int], target: int) -> bool:
 
 
 
-\subsection{No Implementation Setails}
+\subsection{No Implementation Details}
 A specification should not include any implementation details, such as the algorithm used or the data structures employed. This improves flexibility as it allows the function to be implemented in different ways as long as it satisfies the specification. For example, the \code{exists} function in \autoref{ex:abs-specification} does not specify the search algorithm used to find the item in the list.
 
 Some common examples to avoid include: the mentioning of specific data structures (e.g., arrays, indices), algorithms (e.g., quicksort or mergesort), and exceptions (e.g., related to IndexError). Also avoid specifications mentioning indices because this implies the use of arrays.
@@ -543,7 +543,7 @@ While informal specifications are easy to understand, they can be ambiguous and 
 
 \subsection{Specification Languages} 
 
-There are several formal languages or notations designed expcifically for writing specifications. Some popular ones include: the Z notation and the Alloy language.  These languages are based on mathematical logic and set theory and are used to describe the behavior of a program in a precise and unambiguous way. However, they are just like a programming language and require special knowledge to use them. 
+Several formal languages or notations are designed specifically for writing specifications. Some popular ones include: the Z notation and the Alloy language.  These languages are based  mathematical logic and set theory and are used to describe the behavior of a program in a precise and unambiguous way. 
 
 For example, an informal specification for a \code{login} function might be:
 
@@ -557,7 +557,7 @@ def login(username: str, password:str) -> bool:
     """
 \end{lstlisting}
 
-A formal specification for the same function using the Alloy language might look like:
+A formal specification for the same function Alloy might look like:
 
 \begin{lstlisting}[language=Alloy]
 // Signatures define the entities involved in the system
@@ -2976,6 +2976,76 @@ void f(int y) {
 \end{lstlisting}
 
 Use symbolic execution to compute the path condition (PC) and program state (PS) at location \code{L} (where the program fails). Then give an input that causes the program to fail at \code{L}.
+
+\subsection{Using the Z3 SMT Solver}
+Z3 is a theorem prover or SMT constraint solver developed at Microsoft.  It has been employed in various software testing and reasoning tasks. Major tech companies including MS, Google, Amazon (AWS), NASA, etc use Z3 for a wide-range of projects to solve problems in software, security, and AI. For example, Amazon AWS runs \emph{billions} of Z3 queries \emph{everyday}\footnote{https://www.amazon.science/blog/a-billion-smt-queries-a-day}.  In this exercise you will be introduced to Z3 and use it for various reasoning tasks.
+
+\paragraph{Installation and Setup}
+
+To have Z3 to work with Python, you can install it various methods including \texttt{pip} or \texttt{homebrew} (Mac) or \texttt{apt-get} (Linux). You can search online for the installation method that works best for your system.
+
+To ensure Z3 is installed correctly, you can try to \texttt{import z3} in Python. If you do not get an error, then Z3 is installed correctly.
+
+\paragraph{Your Tasks} You write Python code using Z3 for various problems below. You can use the Z3 API or use Google to find the relevant information like Z3's method names, e.g., \code{z3.solve(...)} for satisfiability checking and \code{z3.prove(...)} for proving or validy checking.
+
+\begin{enumerate}
+
+    \item Boolean Logic
+    \begin{enumerate}
+    \item Create boolean variables \texttt{p, q, r}
+    \item Check if the formula $p \lor q$ is \emph{satisfiable}.
+    \item Prove transitivity, i.e., show that $(p = q ~\land ~q =r) \implies p = r$.
+    \item Show that $(p \land q) \implies p$ is a \emph{tautology} (valid).
+    \item Prove that $p \implies q$ is equivalent to $\neg p \lor  q$.
+    \end{enumerate}
+
+
+    \item First-Order Logic over the Integers 
+    \begin{enumerate}
+    \item Create integer variables \texttt{x, y, z}.
+    \item Show that $x > 3 \implies x > 2$
+    \item Prove that $x > 3 \land y > 3 \implies x + y > 6$
+    \item Solve for $x, y$ such that $x + y = 10$ and $x < 0$
+    \item Show the transitive $x > y \land y > z \implies x > z$
+    \item Confirm that $x > 2$ and $x < 2$ is \emph{unsatisfiable}.
+    \item Prove that $x \le y$ and $x \ge y$ is equivalent to $x = y$.
+    \end{enumerate}
+    \item Using symbolic execution with Z3 to find inputs leading to each location in the program below.  For this you will do 2 things: (i) create a table like \autoref{tab:symbolic-execution} to show the path conditions and program states, and (ii) provide the Python Z3 code to solve for the inputs (e.g., if the PC is $x > 0$ and $y < 0$, you can just use \code{z3.solve(PC)} to get the inputs and show the values of $x, y$ leading to that location.
+    
+    \begin{lstlisting}
+    void bar(int x, int y) {
+    int a = 0, b = 0;  
+    int z = x + y + a; 
+    
+    // L1
+    if (x > 5) {
+        int w = z - x + b;  
+        // L2
+        if (w < 3) {
+            // L3
+        } else {
+            // L4
+        }
+    } else {
+        int v = z + 2;  
+        // L5
+        if (v > y) {
+            // L6
+        } else {
+            // L7
+        }
+    }
+}
+    \end{lstlisting}
+
+%\item Use Z3 to simplify weakest preconditions and verify VC
+
+\end{enumerate}
+
+\paragraph{What to submit} You will submit a Python file with the Z3 code for the above problems. As usual be sure to include instructions (could be comments in the Python code) and screenshots on how to run the code.
+
+You will also submit a text (or doc or pdf) file showing the symbolic execution table and the inputs leading to each location in the program.
+
 %TODO: refer to Table for format of PC and PS (e.g., over symbolic inputs vs local variables)
 
 %{tab:symbolic-execution}
@@ -3658,85 +3728,17 @@ using the precondition $i = 0 \land N > 0$.  Convince yourself that the program 
 %   (N >= 0 & i >= N)    =>   i = N
 %   (N >= 0 & 0 >= N)    =>   0 = N
 
-\section{Abstraction Interpretation}\label{sec:abstraction-interpretation}
+% \section{Abstract Interpretation}\label{sec:abstraction-interpretation}
 
-\subsection{Abstract Domains}\label{sec:abstract-domains}
+% \subsection{Abstract Domains}\label{sec:abstract-domains}
 
-\subsubsection{Sign Analysis}\label{sec:sign-analysis}
+% \subsubsection{Sign Analysis}\label{sec:sign-analysis}
 
-\subsubsection{Interval Analysis}\label{sec:interval-analysis}
+% \subsubsection{Interval Analysis}\label{sec:interval-analysis}
 
 %\subsubsection{Constant Propagation}\label{sec:constant-propagation}
 
 \section{Exercises}
-
-\subsection{Using the Z3 SMT Solver}
-Z3 is a theorem prover or SMT constraint solver developed at Microsoft.  It has been employed in various software testing and reasoning tasks. Major tech companies including MS, Google, Amazon (AWS), NASA, etc use Z3 for a wide-range of projects to solve problems in software, security, and AI. For example, Amazon AWS runs \emph{billions} of Z3 queries \emph{everyday}\footnote{https://www.amazon.science/blog/a-billion-smt-queries-a-day}.  In this exercise you will be introduced to Z3 and use it for various reasoning tasks.
-
-\paragraph{Installation and Setup}
-
-To have Z3 to work with Python, you can install it various methods including \texttt{pip} or \texttt{homebrew} (Mac) or \texttt{apt-get} (Linux). You can search online for the installation method that works best for your system.
-
-To ensure Z3 is installed correctly, you can try to \texttt{import z3} in Python. If you do not get an error, then Z3 is installed correctly.
-
-\paragraph{Your Tasks} You write Python code using Z3 for various problems below. You can use the Z3 API or use Google to find the relevant information like Z3's method names, e.g., \code{z3.solve(...)} for satisfiability checking and \code{z3.prove(...)} for proving or validy checking.
-
-\begin{enumerate}
-
-    \item Boolean Logic
-    \begin{enumerate}
-    \item Create boolean variables \texttt{p, q, r}
-    \item Check if the formula $p \lor q$ is \emph{satisfiable}.
-    \item Prove transitivity, i.e., show that $(p = q ~\land ~q =r) \implies p = r$.
-    \item Show that $(p \land q) \implies p$ is a \emph{tautology} (valid).
-    \item Prove that $p \implies q$ is equivalent to $\neg p \lor  q$.
-    \end{enumerate}
-
-
-    \item First-Order Logic over the Integers 
-    \begin{enumerate}
-    \item Create integer variables \texttt{x, y, z}.
-    \item Show that $x > 3 \implies x > 2$
-    \item Prove that $x > 3 \land y > 3 \implies x + y > 6$
-    \item Solve for $x, y$ such that $x + y = 10$ and $x < 0$
-    \item Show the transitive $x > y \land y > z \implies x > z$
-    \item Confirm that $x > 2$ and $x < 2$ is \emph{unsatisfiable}.
-    \item Prove that $x \le y$ and $x \ge y$ is equivalent to $x = y$.
-    \end{enumerate}
-    \item Using symbolic execution with Z3 to find inputs leading to each location in the program below.  For this you will do 2 things: (i) create a table like \autoref{tab:symbolic-execution} to show the path conditions and program states, and (ii) provide the Python Z3 code to solve for the inputs (e.g., if the PC is $x > 0$ and $y < 0$, you can just use \code{z3.solve(PC)} to get the inputs and show the values of $x, y$ leading to that location.
-    
-    \begin{lstlisting}
-    void bar(int x, int y) {
-    int a = 0, b = 0;  
-    int z = x + y + a; 
-    
-    // L1
-    if (x > 5) {
-        int w = z - x + b;  
-        // Location 2
-        if (w < 3) {
-            // L3
-        } else {
-            // L4
-        }
-    } else {
-        int v = z + 2;  
-        // L5
-        if (v > y) {
-            // L6
-        } else {
-            // L7
-        }
-    }
-}
-    \end{lstlisting}
-
-\end{enumerate}
-
-\paragraph{What to submit} You will submit a Python file with the Z3 code for the above problems. As usual be sure to include instructions (could be comments in the Python code) and screenshots on how to run the code.
-
-You will also submit a text (or doc or pdf) file showing the symbolic execution table and the inputs leading to each location in the program.
-
 
 \subsection{Hoare Triples}\label{exercise:hoare-tripples}
 
