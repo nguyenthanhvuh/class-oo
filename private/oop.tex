@@ -560,7 +560,7 @@ def login(username: str, password:str) -> bool:
 A formal specification for the same function Alloy might look like:
 
 \begin{lstlisting}[language=Alloy]
-// Signatures define the entities involved in the system
+// Signatures define objects in the login system
 sig User {
     username: one String, // One username per user
     password: one String  // One password per user
@@ -571,19 +571,19 @@ sig LoginSystem {
     failedAttempts: one Int // Number of failed login attempts
 }
 
-// Fact that sets up the initial state of the system
+// Fact to initialize the system
 fact InitialState {
     // Initially, the failedAttempts should be zero
     LoginSystem.failedAttempts = 0
 }
 
-// Predicate for login operation
+// Predicate for login
 pred login(u: User, pswd: String) {
     // Check if the username and password match for the user
     u.password = pswd
 }
 
-// Predicate for checking if an account is locked
+// Predicate for checking account lockout
 pred accountLocked {
     LoginSystem.failedAttempts >= 3
 }
@@ -598,7 +598,7 @@ assert LockAfterThreeFailedAttempts {
 run LockAfterThreeFailedAttempts for 3 but 5 User, 3 LoginSystem    
 \end{lstlisting}    
 
-
+As can be seen, this formal specification is just like a program (potentially even more complex than the program itself). However, it is precise and unambiguous, and is useful for modeling and verifying complex systems.  The Alloy system can check for errors in the specification or prove that it satisfies certain properties.
 
 %\chapter{Exception}
 %Liskov 4 ,  but won't follow this because it talks about checked vs unchecked exceptions, which are not really applicable in Python.
