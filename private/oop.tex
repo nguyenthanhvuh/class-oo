@@ -2717,7 +2717,7 @@ Thus we essentially want to check if any of the paths can reach the assertion lo
 
 
 
-\chapter{Fault Localization}\label{sec:debugging}
+\chapter{Fault Localization}\label{chapter:debugging}
 
 Fault localization is a debugging process of isolating the bug in the program. It is crucial for developers to understand and fix the bug. Programmers use various techniques, including \code{printf} debugging where they output variable values to analyze the bug. Professional developers use built-in debugger tools in IDEs to step through and pause code execution to inspect variables and program states.  
 
@@ -2910,7 +2910,7 @@ This example does not show the case when the split results in all parts passing.
 
 
 
-\subsection{Statistical Debugging: M Metrics}
+\subsection{Statistical Debugging: M Metrics}\label{exercise:m-metrics}
 
 The \textbf{M} metrics to compute the suspiciousness of a line $l$ is calculated as follows:
 \begin{centerdisplay}
@@ -2921,14 +2921,14 @@ The \textbf{M} metrics to compute the suspiciousness of a line $l$ is calculated
 
 Apply this metrics to compute the suspiciousness scores for the lines in \autoref{tab:sd}.
 
-\subsection{Delta Debugging Practice}
+\subsection{Delta Debugging Practice}\label{exercise:dd-practice}
 \begin{itemize}
     \item Apply DD to the input string \code{"*hello*world*"} to find the smallest failing input. The oracle is that the input fails whenever it contains \code{"oo"}.
     \item What is best-case complexity of DD? Give an example of an input that would take the most steps to find the smallest failing input.
     \item What is the worst-case complexity of DD? Give an example of an input that would take the most steps to find the smallest failing input.
 \end{itemize}
 
-\subsection{Delta Debugging (DD) Implementation}
+\subsection{Delta Debugging (DD) Implementation}\label{exercise:dd-implementation}
 In this exercise you will implement the DD technique. Your DD will take an input string and an \emph \code{oracle} that decides if the input is interesting (e.g., has a bug) or not.
 More specifically, \code{oracle(s:str)->bool} takes in a string \code{s} and returns T (\code{s} has a bug) or F (\code{s} has no bug).  The goal of your DD is to reduce the original input to become \emph{minimal} but is still \emph{interesting} (i.e., a minimal input that still has the bug).
 
@@ -2941,7 +2941,7 @@ More specifically, \code{oracle(s:str)->bool} takes in a string \code{s} and ret
 \end{itemize}
 
 
-\subsection{Hello SWE419}
+\subsection{Hello SWE419}\label{exercise:hello-swe419}
 \begin{itemize}
     \item Assume you're given a simple \code{hello SWE419} program in C
     \begin{lstlisting}[language=C]
@@ -2978,7 +2978,8 @@ void f(int y) {
 
 Use symbolic execution to compute the path condition (PC) and program state (PS) at location \code{L} (where the program fails). Then give an input that causes the program to fail at \code{L}.
 
-\subsection{Using the Z3 SMT Solver}
+\subsection{Using the Z3 SMT Solver}\label{exercise:z3-smt-solver}
+
 Z3 is a theorem prover or SMT constraint solver developed at Microsoft.  It has been employed in various software testing and reasoning tasks. Major tech companies including MS, Google, Amazon (AWS), NASA, etc use Z3 for a wide-range of projects to solve problems in software, security, and AI. For example, Amazon AWS runs \emph{billions} of Z3 queries \emph{everyday}\footnote{https://www.amazon.science/blog/a-billion-smt-queries-a-day}.  In this exercise you will be introduced to Z3 and use it for various reasoning tasks.
 
 \paragraph{Installation and Setup}
@@ -3276,16 +3277,10 @@ You will also submit a text (or doc or pdf) file showing the symbolic execution 
 % and =./dd.exe file.c test.sh=. Again, make sure that your code works on
 % the CSE machine and do not hard code anything specific to your account.
 
-\begin{lstlisting}
-
-\end{lstlisting}
-
 % \section{Defensive Programming}
 % \section{Error Handling}
 
-
-
-\chapter{Program Verification}\label{chap:verification}
+\chapter{Program Verification}\label{chapter:verification}
 
 In \autoref{chapter:testing} we focus on testing to find bugs and find counterexample inputs to . Here we look at \emph{verification} techniques to prove the absense of bugs. Like whitebox approaches (\autoref{sec:symbolic-execution}), verification techniques analyze program source code to reason about its behaviors. 
 
@@ -3759,7 +3754,7 @@ Fill in \texttt{P,S,Q} to make the following Hoare Triples valid. Remember that 
 \end{enumerate}
 
 
-\subsection{Weakest Precondition and Verification Condition}
+\subsection{Weakest Precondition and Verification Condition}\label{exercise:wp-vc}
 
 Prove the following program using the two loop invariants $I_1: i \le 10$ and $I_2: i \ge 0$.  You must show your work including computing the weakest preconditions, forming and checking verification conditions, and explaining your reasoning (e.g., simplification). 
 
@@ -3777,9 +3772,8 @@ Prove the following program using the two loop invariants $I_1: i \le 10$ and $I
 \end{lstlisting}    
 
 
-
 \part{Advanced Topics}
-\chapter{Concurrency}\label{chap:concurrency}
+\chapter{Concurrency}\label{chapter:concurrency}
 
 
 \begin{table}
@@ -4118,7 +4112,8 @@ if __name__ == "__main__":
 %In Python, we use the \code{asyncio} module to create and manage asynchronous tasks. The following demonstrates how to use \code{asyncio} to read multiple files concurrently.
 
 \section{Exercises}
-\subsection{Benefits of Threads and Processes over Sequential Execution}\label{ex:threads-and-processes-vs-sequential}
+
+\subsection{Benefits of Threads and Processes over Sequential Execution}\label{exercise:threads-and-processes-vs-sequential}
 
 This assignment introduces you to threads and processes and their benefits over sequential execution.  Assuming you have a long-running task (e.g., a function that sleeps for 1 second) as follows: 
 
@@ -4137,21 +4132,9 @@ Now create 3 methods to process a list of numbers (e.g., \code{[1, 2, 3, 4, 5]})
 Time each method and compare them. You should see that the multithread and multiprocess versions run a lot faster than the regular one.
 Note that in this exercise there is no shared resource so you do not need to worry about race conditions or having to use locks. 
 
-% You will implement the following task 
-% Task Description
 
-% You will implement a program that defines a function called do_something, which simulates a long-running computation. You will then create three versions of a function to process a list of numbers using:
+\subsection{Threads and Processes: Election Simulation}\label{exercise:election-simulation}
 
-% 	1.	A regular synchronous approach.
-% 	2.	A multithreaded approach using the threading module.
-% 	3.	A multiprocessing approach using the multiprocessing module.
-
-% Instructions
-
-% 	1.	Define the do_something Function:
-% 	•	Create a function do_something(n) that simulates a long-running task by sleeping for a fixed duration (e.g., 1 second) and then prints a message indicating the number being processed.
-
-\subsection{Threads and Processes: Election Simulation}
 We will simulate the election process with threads and processes. We have multiple voters (threads) casting their votes for candidates, and election officials (processes) tallying the votes. We will use locks to manage access to the vote count and semaphores to limit the number of people that can vote simultaneously.
 
 More specifically, we will implement the following: 
@@ -4183,7 +4166,7 @@ More specifically, we will implement the following:
     \end{itemize}
 \end{enumerate}
 
-\subsection{Main Concepts of Concurrency}\label{sec:concurrency-concepts}
+\subsection{Main Concepts of Concurrency}\label{exercise:concurrency-concepts}
 
 Short questions or Compare and contrast (if applicable also discuss the benefits and drawbacks of each) 
 \begin{itemize}
@@ -4464,7 +4447,7 @@ The following is a suggested schedule and assignment for the course over a semes
     \item \textbf{Week 8}
     \begin{itemize}
         \item Topics: Testing
-        \item Reading: \autoref{chapter:testing}
+        \item Reading: \autoref{chapter:debugging}
         \begin{itemize}
             \item Statistical Debugging
             \item Combinatorial Testing
@@ -4477,67 +4460,67 @@ The following is a suggested schedule and assignment for the course over a semes
 
     \item \textbf{Week 9}
     \begin{itemize}
-        \item Topics: Testing (Delta Debugging) and Parallel Computing
-        \item Reading: OOP 7, 8
+        \item Topics: Debugging (Delta Debugging) and Parallel Computing
+        \item Reading: \autoref{chapter:debugging} and \autoref{chapter:concurrency}
         \begin{itemize}
             \item Delta Debugging
             \item Parallel computing concepts: processes, threads, locks, semaphores, monitors
         \end{itemize}
-        \item In-class: Delta Debugging
-        \item HW Assignment: Delta Debugging Implementation (7.6.2)
-        \item Quiz: Statistical Debugging using M Metrics
+        \item In-class: Delta Debugging Practice (\autoref{exercise:dd-practice})
+        \item HW Assignment: Delta Debugging Implementation (\autoref{exercise:dd-implementation})
+        \item Quiz: Statistical Debugging using M Metrics (\autoref{exercise:m-metrics})
     \end{itemize}
 
     \item \textbf{Week 10}
     \begin{itemize}
         \item Topics: Parallel Computing
-        \item Reading: OOP 8
+        \item Reading: \autoref{chapter:concurrency}
         \begin{itemize}
             \item Threads, locks, semaphores, monitors
             \item Deadlock, livelock
         \end{itemize}
-        \item In-class: Benefits of Parallel Computing over Sequential Computing; Election Simulation
-        \item HW Assignment: Election Simulation (8.4.2)
-        \item Quiz: Delta Debugging Hello SWE419
+        \item In-class: Benefits of Parallel Computing over Sequential Computing (\autoref{exercise:threads-and-processes-vs-sequential}); Election Simulation
+        \item HW Assignment: Election Simulation (\autoref{exercise:election-simulation})
+        \item Quiz: Delta Debugging Hello SWE419 (\autoref{exercise:hello-swe419})
     \end{itemize}
 
     \item \textbf{Week 11}
     \begin{itemize}
         \item Topics: White Box Testing and Verification
-        \item Reading: OOP 8 (symbolic execution) and OOP 9 (verification)
+        \item Reading: \autoref{sec:symbolic-execution} (symbolic execution) and \autoref{chapter:verification} (verification)
         \begin{itemize}
             \item Symbolic execution
             \item Hoare logic and verification
         \end{itemize}
         \item In-class: None
-        \item HW Assignment: Z3 SMT Solver (9.2.1)
-        \item Quiz: Parallel Computing Concepts
+        \item HW Assignment: Z3 SMT Solver (\autoref{exercise:z3-smt-solver})
+        \item Quiz: Parallel Computing Concepts (\autoref{exercise:concurrency-concepts})
     \end{itemize}
 
     \item \textbf{Week 12}
     \begin{itemize}
         \item Topics: Hoare Logic and Weakest Precondition
-        \item Reading: OOP 9 (Verification)
+        \item Reading: \autoref{chapter:verification} (Verification)
         \begin{itemize}
             \item Hoare Triples
             \item Weakest Precondition
         \end{itemize}
         \item In-class: Hoare Triples Exercise
-        \item HW Assignment: No Homework next week (Let's wait until we finish Hoare logic and we'll have a homework on it)
-        \item Quiz: Symbolic Execution
+        \item HW Assignment: No Homework
+        \item Quiz: Symbolic Execution (\autoref{exercise:symbolic-execution})
     \end{itemize}
 
     \item \textbf{Week 13}
     \begin{itemize}
         \item Topics: Weakest Precondition and Verification Condition
-        \item Reading: OOP 9 (Verification)
+        \item Reading: \autoref{chapter:verification} (Verification)
         \begin{itemize}
             \item WP for While Loop
             \item Verification Condition
         \end{itemize}
         \item In-class: Verification Conditions, WP for While Loop
-        \item HW Assignment: Weakest Precondition and Verification Condition (9.3.3 OOP)
-        \item Quiz: Hoare Triples
+        \item HW Assignment: Weakest Precondition and Verification Condition (\autoref{exercise:wp-vc})
+        \item Quiz: Hoare Triples (\autoref{exercise:hoare-tripples})
     \end{itemize}
 
     \item \textbf{Week 14}
