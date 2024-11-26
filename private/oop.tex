@@ -360,12 +360,7 @@ We will start with \emph{procedural abstraction} (\autoref{chap:procedural-abstr
 
 \chapter{Procedural Abstraction and Specification}\label{chap:procedural-abstraction}
 
-\emph{Procedural abstraction} allows developers to create procedures (functions or methods) that hide program implementation details. For example, the user can just invoke a \code{sort} function without knowing or caring about its underlying sorting algorithm. 
-By separating procedure definition and implementation, we make two important methods of abstraction: abstraction by parameterization and abstraction by specification.
-
-\paragraph{Abstraction by Parameterization}
-
-This uses \emph{parameters} to allow the function to be run with different input values, making it more general and reusable. For example, a \code{cal\_area} function in \autoref{ex:abs-parameterization} calculates the area of a rectangle given its length and width, which are passed as parameters.
+\emph{Procedural abstraction} allows developers to create procedures (functions or methods) that hide program implementation details. This makes the function more general and reusable, and the program easier to understand and maintain. The most common kind of abstraction that is familiar to all programmers is \emph{parameterization}, which allows a function to take in different input values. For example, the \code{cal\_area} function in \autoref{ex:abs-parameterization} calculates the area of a rectangle given its length and width, which are passed as parameters.
 
 
 \begin{figure}[h]
@@ -380,12 +375,8 @@ This uses \emph{parameters} to allow the function to be run with different input
 \caption{Example: Abstract Parameterization}\label{ex:abs-parameterization}
 \end{figure}
 
-Using parameters is common and we have always used it. 
-
 \paragraph{Abstraction by Specification} 
-Parameterization is common and we have always used it. In contrast, \emph{abstraction by specification} is less common but is crucial for creating high-quality software (e.g., for API documentation). It defines what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms, implemented in C++). 
-
-\autoref{ex:abs-specification} shows an example of abstraction by specification. The \code{exists} method return true if the \code{target} item is found in a list of sorted \code{items}. The user only needs to provide a sorted list and a target and applies the function without knowing its implementation details.
+Another type of abstraction is through \emph{specification}, which is less common but is crucial for creating and maintaining high-quality software (e.g., for API documentation). Specification defines what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms, implemented in C++). For example, from its specification in the comment, we know that the \code{exists} function in \autoref{ex:abs-specification} returns true if the \code{target} item is found in a list of sorted \code{items}. We do not need to know or care about the search algorithm used.
 \begin{figure}
 \begin{lstlisting}
     def exists(items:List[int], target:int) -> bool:
@@ -396,10 +387,6 @@ Parameterization is common and we have always used it. In contrast, \emph{abstra
         Post: True if the target is found, False otherwise.
         """
         ...
-
-    # The user only needs to know that this function checks 
-    # for the existence of an item in a sorted list. 
-    # They don't need to know the search algorithm or implementation.
 \end{lstlisting}
 \caption{Abstraction by Specification}\label{ex:abs-specification}
 \end{figure}
@@ -409,19 +396,21 @@ By defining a function's behavior through specifications, developers can impleme
 
 \section{Specifications}\label{sec:specifications}
 
-Specifications allow developers to abstract programming details, describing what the program does without revealing how it does it. This makes the program easier to understand and maintain and more general, i.e., can use different algorithms or data structures.
+%Specifications can be written in either \emph{formal} or \emph{informal languages}. Formal specifications have the advantage of being precise and unambiguous. However we often use informal specifications such as comments to describe program behaviors and properties (e.g., the \code{exists} example in \autoref{ex:abs-specification}).  In many cases we use a mixture of both, e.g., using formal specifications using logical formulas or assertions and informal specifications using comments.
 
-Specifications can be written in either \emph{formal} or \emph{informal languages}. Formal specifications have the advantage of being precise and unambiguous. However we often use informal specifications such as comments to describe program behaviors and properties (e.g., the \code{exists} example in \autoref{ex:abs-specification}).  In many cases we use a mixture of both, e.g., using formal specifications using logical formulas or assertions and informal specifications using comments.
+
+%Specifications allow developers to abstract programming details, describing what the program does without revealing how it does it. 
+
 
 %Note that a specification is not a programming language or a program. Thus, our specifications won’t be written in code, e.g., in Python or Java.
 
-\subsection{Specifications of a Function}\label{sec:spec-function}
+%\subsection{Specifications of a Function}\label{sec:spec-function}
 %3.3 Liskov
 
 The specification of a function consists of a \emph{header} and a \emph{description} of its behavior.
 The header gives the signature of the function, including its name, parameters, and return type. The description describes the function's behavior, including its preconditions and postconditions.
 
-\paragraph{Header} The header provides the \emph{name} of the function, the number, order, and types of its \emph{parameters} (inputs), and the type of its return value (output). For instance, the headers for the \code{sort\_items} function in \autoref{ex:abs-specification} and the \code{cal\_area} function in \autoref{ex:abs-parameterization} are as follows
+\paragraph{Header} Function header, also called the \emph{signature} of a function, is the first line of the function definition. It provides the \emph{name} of the function, the number, order, and types of its \emph{parameters} (inputs), and the type of its return value (output). For instance, the headers for the \code{sort\_items} function in \autoref{ex:abs-specification} and the \code{cal\_area} function in \autoref{ex:abs-parameterization} are as follows
 
 \begin{lstlisting}
 def exists(items: list) -> bool: ...
@@ -473,6 +462,7 @@ def add_to_list(input_list, value):
 \end{lstlisting}
 
 
+\paragraph{Assertions} TBD
 
 \section{Designing Specifications}\label{sec:design-specifications}
 %Liskov 3.5
@@ -496,7 +486,7 @@ A function is \emph{total} if it is defined for all legal inputs; otherwise, it 
 
 Total functions are \emph{preferred} because they can be used in more situations, especially when the function is used publicly or in a library where the user may not know the input constraints. Partial functions can be used when the function is used internally, e.g., a helper or auxiliary function and the caller is knowledgeable and can ensure its preconditions are satisfied.
 
-Functions \code{calc\_area} in \autoref{ex:abs-parameterization} and \code{add\_to\_list} in \autoref{ex:abs-specification} are total because they can be called with any input. The \code{exists} function in \autoref{ex:abs-specification} is partial because it only works with sorted lists.
+Functions \code{calc\_area} in \autoref{ex:abs-parameterization} and \code{add\_to\_list} in \autoref{ex:abs-specification} are total because they can be called with any input. The \code{exists} function in \autoref{ex:abs-specification} is partial because it only accepts sorted lists.
 
 
 \paragraph{Turning Partial Functions into Total Functions} We can often turn a partial function into a total function in two steps. 
@@ -604,7 +594,7 @@ As can be seen, this formal specification is just like a program (potentially ev
 %Liskov 4 ,  but won't follow this because it talks about checked vs unchecked exceptions, which are not really applicable in Python.
 \section{Exercise}
 
-\subsection{Specification for Sorting}
+\subsection{Specification for Sorting}\label{exercise:specs-sort}
 Write the specification for the generic \code{ascending\_sort} method below. The specification should include preconditions and postconditions.
 \begin{lstlisting}
     def ascending_sort(my_list):
@@ -615,7 +605,7 @@ Write the specification for the generic \code{ascending\_sort} method below. The
     
 
 
-\subsection{Specification of Binary Search}
+\subsection{Specification of Binary Search}\label{exercise:specs-binary-search}
 
 Come up with the specification for a \emph{binary search} implementation whose header is given below. Remember for precondition you want something as \emph{weak} as possible and for postcondition as \emph{strong} as possible. Note that binary search returns the \emph{location} (an non-neg integer) of the \code{target} value if found, and returns -1 if \code{target} is not found. 
 
@@ -629,7 +619,7 @@ def binary_search(arr: List[int], target: int) -> int:
 \end{lstlisting}
 
 
-\subsection{Loan Calculator}\label{ex:loan}    
+\subsection{Loan Calculator}\label{exercise:loan-calculator}    
 
 Consider a function that calculates the number of months needed to pay off a loan of a given size at a fixed \emph{annual} interest rate and a fixed \emph{monthly} payment. For example, a \$100,000 loan at an 8\% annual rate would take 166 months to discharge at a monthly payment of \$1,000, and 141 months to discharge at a monthly payment of \$1,100. (In both cases, the final payment is smaller than the others; we round 165.34 up to 166 and 140.20 up to 141.) Continuing the example, the loan would never be paid off at a monthly payment of \$100, since the principal would grow rather than shrink.
 
@@ -665,7 +655,7 @@ new_principal = old_principal * (1 + monthly_interest_rate) - payment
 \end{itemize}
 
 
-\subsection{Partial and Total Specifications for \code{tail}}
+\subsection{Partial and Total Specifications for \code{tail}}\label{exercise:tail}
 
 Consider the following code:
 
@@ -688,7 +678,7 @@ def tail(my_list):
      \item Rewrite the specification to be \emph{total}. Use \emph{exceptions} as needed.
     \end{itemize}
 
-\subsection{Partial and Total Functions}
+\subsection{Partial and Total Functions}\label{exercise:partial-total}
 
 \begin{enumerate}
     \item Write the \emph{partial} specifications for the below two functions.
@@ -720,7 +710,7 @@ def get_average(numbers: list[float]) -> float:
 \sol{For \code{divide}, precond is \code{b} cannot be 0, postcond is the result is the division of \code{a} by \code{b}. For \code{get\_average}, precond is the list cannot be empty (which cause division by 0), postcond is the result is the average of the numbers in the list. To make them total, we throw an exception when the precond is violated.}
 
 
-\subsection{Problems with Inheritance in OOP: Equality}
+\subsection{Problems with Inheritance in OOP: Equality}\label{exercise:inheritance-equality}
 
 Inheritance, which allows a class to inherit properties and methods from another class, is a key feature of OOP.
 While this has many benefits, inheritance introduces certain unexpected kinds of issues for specifying desired properties and implementing them. This exercise will show you one of using the popular \emph{equals} method in OOP.
@@ -990,17 +980,6 @@ Just as with rep-inv, the AF is documented in the class specification. Modern OO
 
 
 
-\subsection{In-Class Exercise: Stack ADT}
-
-In this exercise, you will implement a \code{Stack} ADT. A stack is a common data structure that follows the Last-In-First-Out (LIFO) principle. You will:
-\begin{enumerate}
-\item Choose a Representation (rep) for the stack.
-\item Define a Representation invariant (rep-inv)
-\item Write a \code{repOK} method
-\item Provide the specifications of basic stack operations (\code{push}, \code{pop}, \code{is\_empty}) and implement these methods accordingly.
-\item Define an Abstraction Function (AF)
-\item Implement \code{\_\_str\_\_()} to return a string representation of the stack based on the AF
-\end{enumerate}
 
 \section{Mutability vs. Immutability}\label{sec:mutability-vs-immutability}
 
@@ -1108,7 +1087,19 @@ Rewrite the mutable \code{Queue} implementation in \autoref{ex:mutable-queue} so
 
 \section{Exercise}
 
-\subsection{Polynomial ADT}
+\subsection{Stack ADT}\label{exercise:stack-adt}
+
+In this exercise, you will implement a \code{Stack} ADT. A stack is a common data structure that follows the Last-In-First-Out (LIFO) principle. You will:
+\begin{enumerate}
+\item Choose a Representation (rep) for the stack.
+\item Define a Representation invariant (rep-inv)
+\item Write a \code{repOK} method
+\item Provide the specifications of basic stack operations (\code{push}, \code{pop}, \code{is\_empty}) and implement these methods accordingly.
+\item Define an Abstraction Function (AF)
+\item Implement \code{\_\_str\_\_()} to return a string representation of the stack based on the AF
+\end{enumerate}
+
+\subsection{Polynomial ADT}\label{exercise:poly-adt}
 \begin{figure}
 \begin{lstlisting}
 class Poly:
@@ -1200,7 +1191,7 @@ Use the Poly ADT in \autoref{ex:poly} to answer the following questions. Use the
 \end{enumerate}
 
 
-\subsection{Immutability 1}\label{sec:immutability1}
+\subsection{Immutability 1}\label{exercise:immutability1}
 
 The below class \code{Immutable} is supposed to be immutable. However, it is not. Identify the issues and fix them.  
 
@@ -1234,8 +1225,8 @@ class Immutable:
 \end{lstlisting}
 
 
-\subsection{Immutability 2}\label{sec:immutability2}
-Do the same with the previous exercise (\autoref{sec:immutability1}) but now with the below class \code{Immutable2}.
+\subsection{Immutability 2}\label{exercise:immutability2}
+Do the same with the previous exercise (\autoref{exercise:immutability1}) but now with the below class \code{Immutable2}.
 \begin{lstlisting}
 class Immutable2:
     def __init__(self, username: str, user_id: int, data1: list[str], data2: dict):
@@ -1292,7 +1283,7 @@ class Immutable2:
 
 % A modern OOP language such as Python provides support for iteration abstraction through its built-in iterator and generator mechanisms. In Python, an iterator returns a special kind of object called a \emph{generator}, which keeps track of the state of the iteration and produces elements one at a time. A Python generator is created using the \code{yield} keyword, and provides the \code{next} and \code{hasNext} methods to advance the iteration and check for the end of the sequence.
 
-\chapter{Types}
+\chapter{Types}\label{chap:types}
 
 In 1999, NASA's Mars Climate Orbiter mission ended in failure due to a simple yet catastrophic software error. The spacecraft, which cost \$125 million to build and launch, was launched on December 11, 1998 to study Mars. After a 9-month journey, the spacecraft approached Mars on September 23, 1999, and was supposed to enter a stable orbit around Mars at an altitude of about 226 kilometers (140 miles) above the planet’s surface. However, the spacecraft instead plunged much deeper into the Martian atmosphere, to an estimated altitude of 57 kilometers (35 miles), causing it to either burn up or crash on the surface and resulting in a complete loss of the mission.
 
@@ -1478,9 +1469,27 @@ If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be repla
 \item[\textbf{Property Rule}] The subtype must preserve all properties of the supertype.  For example, the rep-invariant of the subtpe \code{S} must be stronger or equal to that of the supertype \code{T}. This means \code{S} should maintain or strengthen the properties (including rep invariants) of \code{T}
 \end{itemize}
 
-\subsection{In-Class Exercise: Bank Account}
 
-%\autoref{ex:bankaccount}
+\section{Encapsulation}
+Encapsulation is a fundamental concept in OOP that combines data and methods into a single unit called a class. Encapsulation allows the class to control access to its data and methods, ensuring that they are used correctly and consistently. This helps to prevent misuse and errors, and promotes good design practices such as information hiding and modularity.
+
+Encapsulation is achieved through the use of access modifiers, which specify the level of access to class members. In Java, access modifiers are enforced by the language, and there are four levels of access: \emph{private}, \emph{protected}, \emph{package-private} (default), and \emph{public}.  In Python, access modifiers are not enforced by the language, but conventions are used to indicate the intended level of access. For example, underscore (\_) is used to indicate private or protected attribute (variable). %, and a double underscore (\_\_) is used to indicate a private attribute. 
+
+Encapsulation avoids direct access to the internal representation of a class, e.g., rep-invariants, which can lead to unintended side effects and break the class's invariants. Instead, access to the class's data should be controlled through methods, such as \code{getters} and \code{setters} methods.
+
+In the \code{BankAccount} class in \autoref{ex:bankaccount}, the \code{\_balance} attribute is a private member, and access to it is controlled through the \code{deposit} and \code{withdraw} methods. This ensures that the balance is updated correctly and that the rep-invariant is maintained (\code{repOK}). The \code{BonusBankAccount} class extends \code{BankAccount} and adds a \code{\_bonus\_interest} attribute, which is also a private member that is not exposed directly. 
+
+
+
+
+\section{Exercise}
+
+
+
+
+
+\subsection{Bank Account}\label{exercise:bankaccount}
+
 
 \begin{figure}
     \begin{lstlisting}
@@ -1553,48 +1562,8 @@ class BonusBankAccount(BankAccount):
 \caption{Liskov Substitution Principle demonstration}\label{ex:bankaccount}
 \end{figure}
 
-\section{Encapsulation}
-Encapsulation is a fundamental concept in OOP that combines data and methods into a single unit called a class. Encapsulation allows the class to control access to its data and methods, ensuring that they are used correctly and consistently. This helps to prevent misuse and errors, and promotes good design practices such as information hiding and modularity.
 
-Encapsulation is achieved through the use of access modifiers, which specify the level of access to class members. In Java, access modifiers are enforced by the language, and there are four levels of access: \emph{private}, \emph{protected}, \emph{package-private} (default), and \emph{public}.  In Python, access modifiers are not enforced by the language, but conventions are used to indicate the intended level of access. For example, underscore (\_) is used to indicate private or protected attribute (variable). %, and a double underscore (\_\_) is used to indicate a private attribute. 
-
-Encapsulation avoids direct access to the internal representation of a class, e.g., rep-invariants, which can lead to unintended side effects and break the class's invariants. Instead, access to the class's data should be controlled through methods, such as \code{getters} and \code{setters} methods.
-
-In the \code{BankAccount} class in \autoref{ex:bankaccount}, the \code{\_balance} attribute is a private member, and access to it is controlled through the \code{deposit} and \code{withdraw} methods. This ensures that the balance is updated correctly and that the rep-invariant is maintained (\code{repOK}). The \code{BonusBankAccount} class extends \code{BankAccount} and adds a \code{\_bonus\_interest} attribute, which is also a private member that is not exposed directly. 
-
-
-
-\subsection{In-class: Polymorphism concepts: Vehicle}
-
-You will design a system that models different types of vehicles (e.g., cars, bicycles). Each vehicle has the ability to start, stop, and display its details. Vehicles should differ in their implementation of these behaviors. You will use abstract classes and interfaces to define the basic structure and ensure that your system adheres to OOP principles.
-
-\begin{enumerate}
-    \item Create an abstract class \code{Vehicle} that has
-    \begin{enumerate}
-        \item An encapsulated attribute for \code{speed}.
-        \item Abstract methods: \code{start()}, \code{stop()}, and \code{display()}.
-    \end{enumerate}
-    \item Define an interface called \code{Refuelable}, with a method \code{refuel(amount:int)}
-    \item Create concrete subclasses
-    \begin{enumerate}
-	    \item Create \code{Car} and \code{Bicycle} classes that inherit from \code{Vehicle}.
-	    \item Car also implements the \code{Refuelable} interface (because it uses fuel).
-	    \item Implement methods to \code{start}, \code{stop}, \code{display}, and \code{refuel} if applicable.
-	    \item Ensure each class encapsulates its specific properties (e.g., \code{fuel\_level} for cars).
-    \end{enumerate}
-    \item Demonstrate Polymorphism and other OOP principles
-    \begin{enumerate}
-        \item Create a function \code{operate\_vehicle(vehicle:Vehicle)} that accepts any vehicle type and calls its \code{start}, \code{stop}, and \code{display} methods. This function demonstrates polymorphism and dynamic dispatching.
-        \item Create test cases to demonstrate LSP by substituting instances of \code{Car} and \code{Bicycle} for \code{Vehicle} in the \code{operate\_vehicle} function. 
-        \item Protect rep data and other attributes and access them through setters and getters methods.
-    \item Provide proper document and specifications for your code (e.g., class Overview, rep-invs, method specifications, AF, \code{repOK}).
-    \end{enumerate}
-
-\end{enumerate}
-
-\section{Exercise}
-
-\subsection{LSP: Market subtype}
+\subsection{LSP: Market subtype}\label{exercise:market}
 
 Determine whether the below \code{LowBidMarket} and \code{LowOfferMarket} classes are proper subtypes of \code{Market}. Specifically, for each method, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP holds.
 
@@ -1657,6 +1626,36 @@ class LowOfferMarket(Market):
         return None                
 \end{lstlisting}
 
+
+\subsection{Polymorphism concepts: Vehicle}\label{exercise:vehicle}
+
+You will design a system that models different types of vehicles (e.g., cars, bicycles). Each vehicle has the ability to start, stop, and display its details. Vehicles should differ in their implementation of these behaviors. You will use abstract classes and interfaces to define the basic structure and ensure that your system adheres to OOP principles.
+
+\begin{enumerate}
+    \item Create an abstract class \code{Vehicle} that has
+    \begin{enumerate}
+        \item An encapsulated attribute for \code{speed}.
+        \item Abstract methods: \code{start()}, \code{stop()}, and \code{display()}.
+    \end{enumerate}
+    \item Define an interface called \code{Refuelable}, with a method \code{refuel(amount:int)}
+    \item Create concrete subclasses
+    \begin{enumerate}
+	    \item Create \code{Car} and \code{Bicycle} classes that inherit from \code{Vehicle}.
+	    \item Car also implements the \code{Refuelable} interface (because it uses fuel).
+	    \item Implement methods to \code{start}, \code{stop}, \code{display}, and \code{refuel} if applicable.
+	    \item Ensure each class encapsulates its specific properties (e.g., \code{fuel\_level} for cars).
+    \end{enumerate}
+    \item Demonstrate Polymorphism and other OOP principles
+    \begin{enumerate}
+        \item Create a function \code{operate\_vehicle(vehicle:Vehicle)} that accepts any vehicle type and calls its \code{start}, \code{stop}, and \code{display} methods. This function demonstrates polymorphism and dynamic dispatching.
+        \item Create test cases to demonstrate LSP by substituting instances of \code{Car} and \code{Bicycle} for \code{Vehicle} in the \code{operate\_vehicle} function. 
+        \item Protect rep data and other attributes and access them through setters and getters methods.
+    \item Provide proper document and specifications for your code (e.g., class Overview, rep-invs, method specifications, AF, \code{repOK}).
+    \end{enumerate}
+
+\end{enumerate}
+
+
 \subsection{LSP: Reducer}
 \begin{figure}
 \begin{lstlisting}
@@ -1700,7 +1699,7 @@ For the classes \code{A}, \code{B}, and \code{C} in \autoref{ex:lsp-exercise}, d
     \item \code{A} extends \code{C}
 \end{enumerate}
 
-\subsection{LSP Analysis}
+\subsection{LSP Analysis}\label{exercise:lsp-analysis}
 
 Consider the following classes with their specifications for the \code{update()} method:
 
@@ -1774,11 +1773,7 @@ For each case below, determine if LSP holds by checking whether the precondition
 	% •	LSP does not hold because A provides weaker behavior than C and fails to maintain the expected outcome set by C.
 
 
-
-
-
-
-\chapter{Iterators}
+\chapter{Iterators}\label{chap:iterators}
 Iterators and generators are powerful concepts in OOP that enable efficient traversal and on-the-fly computation of sequences of data. They allow developers to handle large datasets, abstract complex data traversal patterns, and create custom iterators for any type of object. 
 
 \begin{historybox}[History]
@@ -1893,32 +1888,7 @@ Each call to \code{yield} returns the current value of \code{start} and saves th
 	\item Enhanced Readability: Generator functions are typically easier to understand and maintain compared to an iterator class.    
 \end{itemize}   
 
-\section{In-Class Exercise: Prime Number}\label{ex:prime-number}
 
-A \emph{prime number} is a natural number greater than 1 that has no positive divisors other than 1 and itself. In this exercise, you will implement three different approaches to generate prime numbers: a non-iterator method, a custom iterator class, and a generator function. You will compare the performance of these approaches and observe the benefits of using iterators and generators.
-
-\begin{enumerate}
-    
-    \item Write a non-iterator and non-generator method \code{gen\_prime} that generates prime numbers up to a specified limit.
-    \begin{enumerate}
-    \item Test the iterator by printing all prime numbers that is less than 50.
-    \item Measure the performance of the iterator by generating all prime numbers that your computer can handle (in Python, use \code{time(...)}).  Try various limits and measure the time.
-    \end{enumerate}
-
-\item Write a custom iterator called \code{PrimeNumberIterator} that generates prime numbers up to a specified limit.
-\begin{enumerate}
-    \item The class needs to have \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods.
-    \item Use a helper function to check for prime numbers (reuse the code in \code{gen\_prime}).
-    \item Raise \code{StopIteration} when the current number exceeds the limit.
-    \item Test the iterator by printing all prime numbers that is less than 50.
-    \item Measure the performance of the iterator by generating all prime numbers that your computer can handle like before.  Try various limits and measure the time.
-\end{enumerate}
-\item Write a generator function called \code{gen\_prime\_generator} that yields prime numbers up to a specified limit (this means using the \code{yield} keyword).
-\begin{enumerate}
-    \item Test the generator by printing all prime numbers that is less than 50.
-    \item Measure the performance of the generator by generating all prime numbers that your computer can handle like before.  Try various limits and measure the time.
-\end{enumerate}
-\end{enumerate}
 
 % class PrimeNumberIterator:
 %     def __init__(self, limit):
@@ -1947,7 +1917,34 @@ A \emph{prime number} is a natural number greater than 1 that has no positive di
 %         return True
 
 \section{Exercise}
-\subsection{Perfect Number Generation}
+
+\subsection{Prime Number}\label{exercise:prime-number}
+
+A \emph{prime number} is a natural number greater than 1 that has no positive divisors other than 1 and itself. In this exercise, you will implement three different approaches to generate prime numbers: a non-iterator method, a custom iterator class, and a generator function. You will compare the performance of these approaches and observe the benefits of using iterators and generators.
+
+\begin{enumerate}
+    
+    \item Write a non-iterator and non-generator method \code{gen\_prime} that generates prime numbers up to a specified limit.
+    \begin{enumerate}
+    \item Test the iterator by printing all prime numbers that is less than 50.
+    \item Measure the performance of the iterator by generating all prime numbers that your computer can handle (in Python, use \code{time(...)}).  Try various limits and measure the time.
+    \end{enumerate}
+
+\item Write a custom iterator called \code{PrimeNumberIterator} that generates prime numbers up to a specified limit.
+\begin{enumerate}
+    \item The class needs to have \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods.
+    \item Use a helper function to check for prime numbers (reuse the code in \code{gen\_prime}).
+    \item Raise \code{StopIteration} when the current number exceeds the limit.
+    \item Test the iterator by printing all prime numbers that is less than 50.
+    \item Measure the performance of the iterator by generating all prime numbers that your computer can handle like before.  Try various limits and measure the time.
+\end{enumerate}
+\item Write a generator function called \code{gen\_prime\_generator} that yields prime numbers up to a specified limit (this means using the \code{yield} keyword).
+\begin{enumerate}
+    \item Test the generator by printing all prime numbers that is less than 50.
+    \item Measure the performance of the generator by generating all prime numbers that your computer can handle like before.  Try various limits and measure the time.
+\end{enumerate}
+\end{enumerate}
+\subsection{Perfect Number Generation}\label{exercise:perfect-number}
 
 A \emph{perfect number} is a positive integer that is equal to the sum of its proper divisors, excluding itself (e.g., 6, 28). You will implement three different approaches to find perfect numbers up to a given limit, comparing their performance and resource usage.  
 
@@ -1968,7 +1965,7 @@ If you do not provide clear documentation, you will not receive credit. If we ca
 \item Part 4: Write a short report comparing the performance of the three approaches.  Include the time taken, memory usage, and ease of implementation.  Discuss the benefits of using iterators and generators over the non-iterator approach.
 \end{enumerate}
 
-\subsection{Iterators and Generators Multiple Choice}
+\subsection{Iterator and Generator Multiple Choice}\label{exercise:iterator-generator-mc}
 
 
 \begin{enumerate}
@@ -2071,7 +2068,7 @@ If you do not provide clear documentation, you will not receive credit. If we ca
 
 
 
-\chapter{First-Class Functions}
+\chapter{First-Class Functions}\label{chap:first-class-functions}
 
 In modern OOP, functions are treated as \emph{first-class} citizens, meaning they can be assigned to variables, passed as arguments, and returned from other functions.
 
@@ -2224,7 +2221,37 @@ The above example demonstrates a closure where the \code{make\_multiplier} funct
 \end{lstlisting}
 
 In the example above, the \code{make\_averager} function creates a closure that calculates the average of a series of numbers. The \code{averager} function retains access to the \code{series} list, allowing it to accumulate values and calculate the average over time.
-\section{In-Class Exercise: Functions First}
+
+
+
+% **Example Code**:
+
+% ```python
+% def create_custom_multiplier(n, func):
+%     def multiplier(x):
+%         return func(x * n)  # The closure captures `n` and applies `func` to the result
+%     return multiplier
+
+
+% ```
+
+
+
+\section{Currying}\label{sec:curry}
+
+Currying is a special form of closure. The curried function takes one argument at a time and returns a new function that takes the next argument. In other words, it transforms a function of arity $n$ to $n$ functions of arity $1$.
+
+The \code{make\_multiplier} function in \autoref{ex:closure-example} is an example of currying. The function needs 2 arguments, but it is transformed into a series of 2 function calls where each take 1 argument. For example, \code{make\_multiplier(2)(3)} is equivalent to \code{2*3}.
+
+
+\begin{historybox}[History] 
+    Currying was introduced by Haskell Curry in the 1930s. Currying and higher-order functions (\autoref{sec:higher-order}) are widely-used in functional programming languages such as Ocaml and Haskell (named after Haskell Curry).
+\end{historybox}
+
+\section{Exercise}
+
+\section{Functions First}\label{exercise:functions-first}
+
 In this exercise you will demonstrate the concepts of higher-order functions, lambda functions, and closure. Example code are written in Python but you can use Python or any other language that supports these features.
 
 \begin{enumerate}
@@ -2276,33 +2303,7 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 
 \end{enumerate}
 
-% **Example Code**:
-
-% ```python
-% def create_custom_multiplier(n, func):
-%     def multiplier(x):
-%         return func(x * n)  # The closure captures `n` and applies `func` to the result
-%     return multiplier
-
-
-% ```
-
-
-
-\section{Currying}\label{sec:curry}
-
-Currying is a special form of closure. The curried function takes one argument at a time and returns a new function that takes the next argument. In other words, it transforms a function of arity $n$ to $n$ functions of arity $1$.
-
-The \code{make\_multiplier} function in \autoref{ex:closure-example} is an example of currying. The function needs 2 arguments, but it is transformed into a series of 2 function calls where each take 1 argument. For example, \code{make\_multiplier(2)(3)} is equivalent to \code{2*3}.
-
-
-\begin{historybox}[History] 
-    Currying was introduced by Haskell Curry in the 1930s. Currying and higher-order functions (\autoref{sec:higher-order}) are widely-used in functional programming languages such as Ocaml and Haskell (named after Haskell Curry).
-\end{historybox}
-
-\section{Exercise}
-
-\subsection{E1}
+\subsection{E1}\label{exercise:e1}
 \begin{enumerate}
     \item Explain the difference between a \emph{higher-order} function and a \emph{closure}. Provide an example of each.
     \item When would you use a \emph{lambda function} over a regular function? Provide an example.
@@ -2568,7 +2569,7 @@ The main genetic operators in a GA are
         return best
 \end{lstlisting}
 
-\section{In-class Exercise: GA list sum}
+\section{In-class Exercise: GA list sum}\label{exercise:list-sum-ga}
 In this assignment you have two tasks. First, you will \emph{implement a GA} that evolves a population of lists of integers to find a list whose sum is a given target sum. Next, you will write a \emph{short report} that explains your GA and how you tested it.
 
 \paragraph{Task 1: GA implementation}
@@ -2891,7 +2892,7 @@ This example does not show the case when the split results in all parts passing.
 
 \section{Exercises}
 
-\subsection{Statistical Debugging: Tarantula vs. Ochiai}
+\subsection{Statistical Debugging: Tarantula vs. Ochiai}\label{exercise:tarantula-ochiai}
 
 \emph{Ochiai} is another popular metrics for statistical debugging. Its formula is
 
@@ -4375,6 +4376,182 @@ Provide a specification for an IntBag abstraction that is sufficiently restricti
 
 \part{Appendix}
 \appendix
+
+\chapter{Suggested Schedule and Assignment}
+
+The following is a suggested schedule and assignment for the course over a semester (~14 weeks).
+
+\begin{itemize}
+    \item \textbf{Week 1}
+    \begin{itemize}
+        \item Topics: Class Overview
+        \item Reading: \autoref{chap:procedural-abstraction}
+        \item In-class: Specification for Sorting (\autoref{exercise:specs-sort}), User Equality (\autoref{exercise:inheritance-equality})
+        \item HW Assignment: \href{#hw1}{HW1}
+        \item Quiz: No quiz (first week)
+    \end{itemize}
+
+    \item \textbf{Week 2}
+    \begin{itemize}
+        \item Topics: Procedural Abstraction (Specifications of Functions)
+        \item Reading: \autoref{chap:procedural-abstraction}
+        \item In-class: Tail (total) function (\autoref{exercise:tail})
+        \item HW Assignment: Loan Calculator (\autoref{exercise:loan-calculator})
+        \item Quiz: Specification of Binary Search (\autoref{exercise:specs-binary-search})
+    \end{itemize}
+
+    \item \textbf{Week 3}
+    \begin{itemize}
+        \item Topics: Data Abstraction and Abstract Data Type (ADT)
+        \item Reading: \autoref{chap:adt}
+        \item In-class: Stack ADT (\autoref{exercise:stack-adt}); Membership
+        \item HW Assignment: Polynomial ADT (\autoref{exercise:poly-adt})
+        \item Quiz: Partial and Total Functions (\autoref{exercise:partial-total})
+    \end{itemize}
+
+    \item \textbf{Week 4}
+    \begin{itemize}
+        \item Topics: Polymorphism, Liskov Substitution Principle
+        \item Reading: \autoref{chap:types}
+        \item In-class: Bank Account (\autoref{exercise:bankaccount})
+        \item HW Assignment: LSP: Market subtype (\autoref{exercise:market})
+        \item Quiz: Immutability (\autoref{exercise:immutability1})
+    \end{itemize}
+
+    \item \textbf{Week 5}
+    \begin{itemize}
+        \item Topics: More on Polymorphism and Iterators/Generators
+        \item Reading: \autoref{chap:types} and \autoref{chap:iterators}
+        \begin{itemize}
+            \item Abstract class
+            \item Interface
+            \item Element vs Related Subtype
+            \item Encapsulation
+        \end{itemize}
+        \item In-class: Vehicle (\autoref{exercise:vehicle}), Prime Number (\autoref{exercise:prime-number})
+        \item HW Assignment: Perfect Number (\autoref{exercise:perfect-number})
+        \item Quiz: LSP Analysis (\autoref{exercise:lsp-analysis})
+    \end{itemize}
+
+    \item \textbf{Week 6}
+    \begin{itemize}
+        \item Topics: Functions as First-class Citizens
+        \item Reading: \autoref{chap:first-class-functions}
+        \begin{itemize}
+            \item Higher-Order functions
+            \item Lambda functions
+            \item Closure
+        \end{itemize}
+        \item In-class: Functions First (\autoref{exercise:functions-first})
+        \item HW Assignment: Redo \autoref{exercise:functions-first} (make sure you answer every question in 6.4)
+        \item Quiz: Iterator and Generator Multiple Choice (\autoref{exercise:iterator-generator-mc})
+    \end{itemize}
+
+    \item \textbf{Week 7}
+    \begin{itemize}
+        \item Topics: Testing
+        \item Reading: \autoref{chapter:testing}
+        \begin{itemize}
+            \item Blackbox testing
+            \item Fuzzing
+            \item Genetic Algorithm
+        \end{itemize}
+        \item In-class: List sum GA (\autoref{exercise:list-sum-ga})
+        \item HW Assignment: Do in-class list sum GA (\autoref{exercise:list-sum-ga})
+        \item Quiz: E1 (\autoref{exercise:e1} higher-order and lambda function, closure)
+    \end{itemize}
+
+    \item \textbf{Week 8}
+    \begin{itemize}
+        \item Topics: Testing
+        \item Reading: \autoref{chapter:testing}
+        \begin{itemize}
+            \item Statistical Debugging
+            \item Combinatorial Testing
+            \item Property-based Testing
+        \end{itemize}
+        \item In-class: Statistical Debugging Tarantula vs Ochiai metrics (\autoref{exercise:tarantula-ochiai})
+        \item HW Assignment: NONE
+        \item Quiz: Names
+    \end{itemize}
+
+    \item \textbf{Week 9}
+    \begin{itemize}
+        \item Topics: Testing (Delta Debugging) and Parallel Computing
+        \item Reading: OOP 7, 8
+        \begin{itemize}
+            \item Delta Debugging
+            \item Parallel computing concepts: processes, threads, locks, semaphores, monitors
+        \end{itemize}
+        \item In-class: Delta Debugging
+        \item HW Assignment: Delta Debugging Implementation (7.6.2)
+        \item Quiz: Statistical Debugging using M Metrics
+    \end{itemize}
+
+    \item \textbf{Week 10}
+    \begin{itemize}
+        \item Topics: Parallel Computing
+        \item Reading: OOP 8
+        \begin{itemize}
+            \item Threads, locks, semaphores, monitors
+            \item Deadlock, livelock
+        \end{itemize}
+        \item In-class: Benefits of Parallel Computing over Sequential Computing; Election Simulation
+        \item HW Assignment: Election Simulation (8.4.2)
+        \item Quiz: Delta Debugging Hello SWE419
+    \end{itemize}
+
+    \item \textbf{Week 11}
+    \begin{itemize}
+        \item Topics: White Box Testing and Verification
+        \item Reading: OOP 8 (symbolic execution) and OOP 9 (verification)
+        \begin{itemize}
+            \item Symbolic execution
+            \item Hoare logic and verification
+        \end{itemize}
+        \item In-class: None
+        \item HW Assignment: Z3 SMT Solver (9.2.1)
+        \item Quiz: Parallel Computing Concepts
+    \end{itemize}
+
+    \item \textbf{Week 12}
+    \begin{itemize}
+        \item Topics: Hoare Logic and Weakest Precondition
+        \item Reading: OOP 9 (Verification)
+        \begin{itemize}
+            \item Hoare Triples
+            \item Weakest Precondition
+        \end{itemize}
+        \item In-class: Hoare Triples Exercise
+        \item HW Assignment: No Homework next week (Let's wait until we finish Hoare logic and we'll have a homework on it)
+        \item Quiz: Symbolic Execution
+    \end{itemize}
+
+    \item \textbf{Week 13}
+    \begin{itemize}
+        \item Topics: Weakest Precondition and Verification Condition
+        \item Reading: OOP 9 (Verification)
+        \begin{itemize}
+            \item WP for While Loop
+            \item Verification Condition
+        \end{itemize}
+        \item In-class: Verification Conditions, WP for While Loop
+        \item HW Assignment: Weakest Precondition and Verification Condition (9.3.3 OOP)
+        \item Quiz: Hoare Triples
+    \end{itemize}
+
+    \item \textbf{Week 14}
+    \begin{itemize}
+        \item Review for final exam
+        \item In-class: Review
+        \item Quiz: TBD
+    \end{itemize}
+
+    \item \textbf{Week 15}
+    \begin{itemize}
+        \item Final Exam.
+    \end{itemize}
+\end{itemize}
 
 \chapter{Logics and Proofs}
 
