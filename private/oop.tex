@@ -3381,11 +3381,11 @@ Given a program $S$ and its specification consisting of a precondition $P$ and p
 So far we have manually checked the validity of Hoare triples. However, for more complex programs, we need a systematic way to do it automatically. Hoare logic provides such an automatic way to verify programs using logical reasoning.
 
 To prove the Hoare Tripple \code{\{P\}\ \code{S} \{Q\}} is
-valid, we first compute the \emph{weakest precondition} (WP) of the program \code{S} with respect to its postcondition \code{Q} (\autoref{sec:computing-weakest-preconditions}). We then form a \emph{verification condition} to check that given precondition $P$ implies the computed WP (\autoref{sec:verification-condition}). If the VC is valid, then the Hoare Triple is valid and the program satisfies its specification.
+valid, we first compute the \emph{weakest precondition} (WP) of the program \code{S} with respect to its postcondition \code{Q} (\autoref{sec:computing-weakest-preconditions}). We then form a \emph{verification condition} to check that given precondition $P$ implies the computed WP (\autoref{sec:verification-condition}). If the VC is valid, the Hoare Triple is valid and the program satisfies its specification.
 
 \subsection{Computing Weakest Preconditions}\label{sec:computing-weakest-preconditions}
 
-The weakest precondition (WP) of a program $S$ with respect to a postcondition $Q$ is the \emph{least restrictive} or weakest condition that ensures $Q$ after executing $S$. The WP is computed by working backwards from $Q$ using the program $S$. \autoref{tab:wp} defines the function $\code{wp}(\code{S}, Q)$ that compute the WP, represented as a logical formula, of diferent program statements $S$ with respect to a postcondition $Q$.
+The weakest precondition (WP) of a program $S$ with respect to a postcondition $Q$ is the \emph{least restrictive} or weakest condition that ensures $Q$ after executing $S$. The WP is computed by working backwards from $Q$ using the program $S$. \autoref{tab:wp} defines the function $\code{wp}(\code{S}, Q)$ that computes the WP, represented as a logical formula, of diferent program statements $S$ with respect to a postcondition $Q$.
 
 \begin{table}
     \caption{Weakest Precondition Rules.}\label{tab:wp}
