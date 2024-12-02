@@ -1,0 +1,388 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\usepackage{xcolor}
+\definecolor{dkgreen}{rgb}{0,0.5,0}
+\definecolor{dkred}{rgb}{0.5,0,0}
+\definecolor{dkgray}{rgb}{0.3,0.3,0.3}
+
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\scriptsize,
+  language=python,
+  morekeywords={assert},
+  keywordstyle=\color{blue},
+  commentstyle=\color{magenta},
+  numbers=none,
+  mathescape,
+  stepnumber=1,
+  numbersep=8pt,
+  tabsize=4,
+  showspaces=false,
+  showstringspaces=false,
+  emph={},
+  emphstyle=\color{red}\bfseries
+}
+\newcommand{\code}[1]{\texttt{#1}}
+\usepackage{etoolbox}
+
+\newtoggle{usesol}
+\settoggle{usesol}{false} % not sol version
+\newcommand{\sol}[1]{\iftoggle{usesol}{\textbf{Sol:} #1}{}}
+\newcommand{\notsol}[1]{\nottoggle{usesol}{#1}{}}
+\newcommand{\solite}[2]{\iftoggle{usesol}{#1}{#2}}
+\newcommand{\classname}{SWE 619--Spring'24}
+
+\author{Your Name:}
+\date{5/1/2024}
+\title{\classname{}: Final Exam}
+
+\begin{document}
+\maketitle
+\section*{Read carefully these instructions}
+
+\begin{enumerate}
+\item This is a handwritten and in-person exam. 
+
+\item You are allowed to bring one cheat sheet with you. The cheat sheet is double-sided (front and back).  No restrictions on front size, style, contents.  No other materials (e.g., textbooks, notes, or printouts) are permitted. No computers, phones, tablets, or any other electronic devices are allowed.
+
+\item It is a violation of the honor code to communicate, discuss, or share the contents of this exam with any other person (except the instructor) about this exam.
+
+\item You will write your answers directly on this exam.  You need to hand in this exam at the end of the exam period. 
+
+\item The last two questions of the exam are optional and do not affect the grade of the final.  They help me determine grade for group functioning and to help me improve the class.
+  
+\end{enumerate}
+
+
+\begin{center}
+  \begin{tabular}{lcc}
+    \toprule
+    Section		&	Points	&	Score \\
+    \midrule
+    Question 1	&	 30	& \\
+    Question 2	&	 10	& \\
+    Question 3 	&	 10	& \\
+    Question 4 	&	 30	& \\
+    Question 5 	&	 20	& \\
+    Question 6 	&	 0	& \\
+    Question 7 	&	 0	& \\
+    \midrule
+    Total		&	100	& \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+
+\newpage
+\section{Question 1}
+Consider the following \code{Queue} class.
+
+\begin{lstlisting}
+"""
+Generic Queue example
+Mutable Version, without specifications
+"""
+class Queue:
+    def __init__(self):
+        self.elements = []
+        self.size = 0
+
+    def enQueue(self, e):
+        self.elements.append(e)
+        self.size += 1
+
+    def deQueue(self):
+        if self.size == 0:
+            raise IndexError("Queue.deQueue")
+        result = self.elements.pop(0)
+        self.size -= 1
+        return result
+
+    def getFirst(self):
+        if self.size == 0:
+            raise IndexError("Queue.getFirst")
+        return self.elements[0]
+
+    def isEmpty(self):
+        return self.size == 0
+
+\end{lstlisting}
+
+\begin{enumerate}
+\item For \code{enQueue}, write (i) a partial specification and (ii) a total specification.  For each part, rewrite the code if necessary to match the specification. Explain what you did.
+
+
+Recall that a function is \emph{total} if it is defined for all legal inputs; otherwise, it is \emph{partial}. Thus a function with no precondition (weakest precondition) is total.  We can often turn a partial function into a total function in two steps. 
+\begin{enumerate}
+\item Move preconditions into postconditions and specify the expected behavior when the precondition is not satisfied, e.g., throws an \code{Exception}
+\item Modify the function to satisfy the new specification, i.e., handling the cases when the preconditions are not satisfied. 
+\end{enumerate}
+
+
+\sol{\textbf{Partial contract:}  has a precondition/require that \code{e} is a valid element (non-null), postcondition/effect is straight forward, e.g., add \textbf{e} to end of queue.
+\textbf{Total contract:} no precondition/requirement, effects/postcondition: straightforward  but also raise exception when \code{e} is invalid.  Would need to change the code to check that \code{e} is non-null and raise exception if it is.
+
+\textbf{Things to check}: make sure the contract is written in general that every stack implementation would have.  More specifically, if it talks about this specific implementation, it is not a good contract. Can take off some points.}
+
+\item Write the \emph{rep invs} for this class.  Explain what they are. 
+
+\sol{things like elements cannot be null,  0 $\le$ size $<$ elements.length(), for i < size, elements[i] != null.
+
+\textbf{Things to check}: off-by-1 error, e.g., $\le x$ instead of $< x$, is probably OK here, the main idea acounts.}
+
+\item Write a reasonable \code{toString()} implementation. Explain what it is.
+
+\item
+Consider a new method, \code{deQueueAll()}, which does exactly  what the name suggests. Write a reasonable specification for this method and then implement it (pseudocode is fine). Explain what you did.
+
+\sol{queue becomes empty and size = 0.  Implementation:  while(!isempty()) deQueue()}
+
+\item
+Rewrite the \code{deQueue()} method for an \emph{immutable} version of this class. Explain what you did
+
+% \item
+% Write a reasonable implementation of \texttt{clone()}. Explain what you did. 
+
+\end{enumerate}
+
+
+\newpage
+\section{Question 2}
+
+
+\paragraph{Liskov Substitution Principle (LSP)} If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be replaced with objects of type \code{S} without altering any of the desirable properties of the program. This means whenever you use \code{T}, you can use \code{S} instead. To achieve this, LSP gives the following rules:
+
+\begin{itemize}
+\item[\textbf{Signature Rule}] The signatures of methods of \code{S} must strengthen methods of \code{T}. In other words, the methods of \code{S} are a superset of the methods of \code{T}. Thus, if \code{T} has \code{n} methods, \code{S} also has \code{n} methods and additional ones (methods specific to \code{S}). 
+
+\item[\textbf{Method Rule}] The specification of \code{f'} strengthens that of \code{f}. This means that the preconditions of \code{f'} must be weaker or equal to the preconditions of \code{f}, i.e.,  \code{f'} accepts more inputs than \code{f}.  The postconditions of \code{f} must be stronger or equal to that of \code{f}. This means that \code{f'} is more precise and specific than \code{f}.
+
+\item[\textbf{Property Rule}] The subtype must preserve all properties of the supertype.  For example, the rep-invariant of the subtpe \code{S} must be stronger or equal to that of the supertype \code{T}. This means \code{S} should maintain or strengthen the properties (including rep invariants) of \code{T}
+\end{itemize}
+
+
+With these rules in mind, determine whether the below \code{LowBidMarket} and \code{LowOfferMarket} classes are proper subtypes of \code{Market}. Specifically, for each method, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP is satisfied.  If it is not satisfied, explain why not.
+
+Note that this is purely a ``paper and pencil'' exercise. No code is required.
+
+
+\begin{lstlisting}
+class Market:
+    def __init__(self):
+        self.wanted = set()  # items for which prices are of interest
+        self.offers = {}     # offers to sell items at specific prices
+
+    def offer(self, item, price):
+        """
+        Requires: item is an element of wanted.
+        Effects: Adds (item, price) to offers.
+        """
+        if item in self.wanted:
+            if item not in self.offers:
+                self.offers[item] = []
+            self.offers[item].append(price)
+
+    def buy(self, item):
+        """
+        Requires: item is an element of the domain of offers.
+        Effects: Chooses and removes some (arbitrary) pair (item, price) from
+                    offers and returns the chosen price.
+        """
+        if item in self.offers and self.offers[item]:
+            return self.offers[item].pop(0)  # Removes and returns the first price
+        return None
+
+class LowBidMarket(Market):
+    def offer(self, item, price):
+        """
+        Requires: item is an element of wanted.
+        Effects: If (item, price) is not cheaper than any existing pair
+                    (item, existing_price) in offers, do nothing.
+                    Else add (item, price) to offers.
+        """
+        if item in self.wanted:
+            if item not in self.offers:
+                self.offers[item] = []
+            # Only add if price is lower than existing prices
+            if not self.offers[item] or price < min(self.offers[item]):
+                self.offers[item].append(price)
+
+class LowOfferMarket(Market):
+    def buy(self, item):
+        """
+        Requires: item is an element of the domain of offers.
+        Effects: Chooses and removes the pair (item, price) with the 
+                    lowest price from offers and returns the chosen price.
+        """
+        if item in self.offers and self.offers[item]:
+            # Find and remove the lowest price from the list
+            lowest_price = min(self.offers[item])
+            self.offers[item].remove(lowest_price)
+            return lowest_price
+        return None                
+\end{lstlisting}
+
+\newpage
+\section{Question 3}
+
+\paragraph{Example 1}
+\begin{lstlisting}[language=c]
+void foo(int a, int b, int c){    
+    // l0
+    int x=0, y=0, z=0;
+    // l1
+    if(a) {        
+        x = -2;
+        // l2
+    }
+    // l3
+    if (b < 5) {
+        // l4 
+        if (!a && c) {            
+            y = 1; 
+            // l5
+        }        
+        z = 2;
+        // l6 
+    }
+    // l7
+    assert(x + y + z != 3);
+}
+\end{lstlisting}
+
+\paragraph{Symbolic Execution} Assume that we will apply symbolic execution on this program using symbolic inputs $a, b, c$.  At each location $l$,  we keep track of two things: the path condition (PC) to reach $l$ and the program state (PS), consisting values of variables at $l$. Table~\ref{tab:symbolic-execution} shows several locations and their corresponding PC and PS.  Fill in the missing values (???) in the table.
+
+
+\begin{table}
+    \centering
+    \caption{Symbolic Execution Example}\label{tab:symbolic-execution}
+    \begin{tabular}{c|l|l}
+\toprule
+\textbf{Loc ($l$)} & \textbf{Path Condition} (PC) & \textbf{Program State} (PS) \\
+\midrule
+$l0$ & $T$ & $\{???\}$ \\
+$l1$ & $???$ & $\{x\mapsto0, y\mapsto0, z\mapsto0\}$ \\
+$l2$ & $???$ & $\{x\mapsto-2, y\mapsto0, z\mapsto0\}$ \\
+\midrule
+$l3$ & $a$ & $\{x\mapsto-2, y\mapsto0, z\mapsto0\}$ \\
+$l3$ & $\lnot a$ & $\{x\mapsto0, y\mapsto0, z\mapsto0\}$ \\
+\midrule
+$l4$ & $a \land b < 5$ & $???$ \\
+$l4$ & $\lnot a \land b < 5$ & $\{x\mapsto0, y\mapsto0, z\mapsto0\}$ \\
+\midrule
+$l5$ & $a \land b < 5 \land \lnot a \land c$ & $\{$???$, y\mapsto1, z\mapsto0\}$ \\
+$l5$ & $\lnot a \land b < 5 \land \lnot a \land c$ & $\{x\mapsto0, y\mapsto1, z\mapsto0\}$ \\
+\midrule
+$l6$ & $???$ & $\{x\mapsto-2, y\mapsto1, z\mapsto2\}$ \\
+$l6$ & $a \land b < 5 \land (a \lor \lnot c)$ & $\{x\mapsto-2, y\mapsto0, z\mapsto2\}$ \\
+$l6$ & $???$ & $\{x\mapsto0, y\mapsto1, z\mapsto2\}$ \\
+$l6$ & $\lnot a \land b < 5 \land (a \lor \lnot c)$ & $\{x\mapsto0, y\mapsto0, z\mapsto2\}$ \\
+\midrule
+$l7$ & $a \land b < 5 \land \lnot a \land c$ & $???$ \\
+$l7$ & $a \land b < 5 \land (a \lor \lnot c)$ & $\{x\mapsto-2, y\mapsto0, z\mapsto2\}$ \\
+$l7$ & $\lnot a \land b < 5 \land \lnot a \land c$ & $\{x\mapsto0, y\mapsto1, z\mapsto2\}$ \\
+$l7$ & $???$ & $\{x\mapsto0, y\mapsto0, z\mapsto2\}$ \\
+
+$l7$ & $a \land b \ge 5$ & $\{x\mapsto-2, y\mapsto0, z\mapsto0\}$ \\
+$l7$ & $\lnot a \land b \ge 5 $ & $???$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+\section{Question 4}
+
+Consider the program below (\texttt{y} is the input). 
+\begin{lstlisting}
+{y $\ge$ 1}   // precondition
+
+x := 0;
+while(x < y)
+  x += 2;
+
+{x $\ge$ y} // postcondition
+\end{lstlisting}
+
+
+\begin{enumerate}
+\item Informally argue that this program satisfies the given specification (pre/post conditions). This means you need to explain (in English) why the postcondition is true after the program executes assume the precondition is true.
+
+
+\item Give \emph{three} loop invariants for the \code{while} loop in this program. For each loop invariant, informally argue why it is a loop invariant.  Do not give the trivial loop invariants \code{True} and equivalent ones (e.g., if you say $x = y$ is an invariant, then do not give $y = x$ as another one).
+
+  
+\item \textbf{Hoare logic}  Use a loop invariant to formally prove that the program is correct with respect to given specification. This loop invariant should be one of the three you gave above. You must show all the steps of the proof, including the weakest precondition, forming the verification condition, and analyzing the verification condition. The following steps are a guide to help you: 
+  \begin{itemize}
+    \item Determine the P, Q, and S for the Hoare triple $\{P\} ~S~ \{Q\}$ of this program.
+    \item Compute the weakest precondition $\code{wp}(\code{S}, Q)$ using the loop invariant you chose.  This includes simplification as necessarily.
+    \item Form the verification condition $\code{wp}(\code{S}, Q) \Rightarrow P$ and analyze it
+    \item Based on the analysis, determine if the program is correct with respect to the given specification.
+  \end{itemize}
+% \item \emph{Insufficiently strong loop invariants:} Use another loop invariant (could be one of those you computed previously) and show that you cannot use it to prove the program . 
+%   \begin{itemize}
+%     \item Note: show all work as the previous question (i.e., obtain wp, verification condition, and analyze the vc).
+%     \end{itemize}
+\item Instead of \textbf{proving} the given specifications like above, now you just want to \textbf{test} the program.
+    \begin{itemize}
+    \item Provide \emph{two} testing techniques $A$ and $B$ we discussed in class that you could use to test this program.  For each one, clearly explain how you would use it to test this program, what you are looking for (e.g., what kind of bugs, violation of postcondition), and gives examples of test inputs that the technique would suggest.
+    \item Gives the pros/cons of using (i) the Hoare logic proof style, (ii) testing technique $A$, and (iii) testing technique $B$.
+\end{itemize}
+\end{enumerate}
+
+
+
+\newpage
+\section{Question 5}
+
+For the following short questions, provide a brief answer and whenever possible, give \textbf{examples} (e.g., code snippets) to support your answer (and also gain partial credit, especially for T/F questions).
+\begin{enumerate} 
+\item Explain the differences between rep invariants, loop invariants, and specifications.
+\item Explain the following concepts in OOP: polymorphism, dynamic dispatch, and encapsulation.
+\item  What is the difference between an iterator and generator?
+\item What does it mean for a function to be \emph{first-class}? Give examples of how a modern language (e.g., Python, Java) supports first-class functions.
+\item What is the difference between statistical and delta debugging?  Give an example of \emph{when} you would use each.
+\item What are locks, semaphores, and monitors?  Explain the differences between them.
+\item \textbf{T/F}: Specifications should exclude implementation details.
+\item \textbf{T/F}: Repr invariants should exclude implementation details.
+\item \textbf{T/F}: Total function specifications are preferred over partial function specifications.
+\item \textbf{T/F}: In Hoare verification, if the verification condition is \emph{invalid}, then the program is \emph{incorrect}.
+\end{enumerate}
+
+
+\newpage
+\section{Question 6}
+
+This question helps me determine the grade for group functioning.  It does not affect the grade of this final.
+
+\begin{enumerate}
+\item Who are your group members?
+\item For each group member, rate their participation in the group on the following scale:
+  \begin{enumerate}
+  \item Completely absent
+  \item Occasionally attended, but didn't contribute reliably
+  \item Regular participant; contributed reliably
+  \end{enumerate}
+\item If you believe you did not contribute to your group, you can try to explain why here.
+\end{enumerate}
+
+
+
+\newpage
+\section{Question 7}
+
+
+There is no right or wrong answer for the below questions, but they can help me improve the class. 
+I might present your text verbatim (but anonymously) to next year's students when they are considering taking the course and also add your advice to the class description page.
+
+\begin{enumerate}
+\item What were your favorite things about the class? What were your least favorite things?
+\item Favorite things the professor did or didn't do?
+\item What would you change for next time?
+\end{enumerate}
+
+\end{document}
