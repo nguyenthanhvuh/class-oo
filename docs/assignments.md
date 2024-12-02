@@ -14,7 +14,7 @@
 - Topics: Procedural Abstraction (Specifications)
 - Reading: OOP 2 
 - In-class: Tail (total) function
-- HW Assignment: Loan Calculator (OOP 2.3.3)
+- HW Assignment: Loan Calculator (OOP 2.4.3)
 - Quiz: Specification of Binary Search
 
 ## Week 3
@@ -22,15 +22,15 @@
 - Topics: Data Abstraction and Abstract Data Type (ADT)
 - Reading: OOP 3
 - In-class: Stack ADT; Membership
-- HW Assignment: Polynomial ADT (OOP 3.4.1)
+- HW Assignment: Polynomial ADT (OOP 3.4.2)
 - Quiz: Partial and Total Functions
 
 ## Week 4
 
 - Topics: Polymorphism, Liskov Substitution Principle
 - Reading: OOP 4
-- In-class: BankAccount (OOP 4.7.1)
-- HW Assignment: LSP: Market subtype (OOP 4.8.1)
+- In-class: BankAccount
+- HW Assignment: LSP: Market subtype (OOP 4.9.2)
 - Quiz: Immutability
 
 ## Week 5
@@ -41,8 +41,8 @@
     - Interface
     - Element vs Related Subtype
     - Encapsulation
-- In-class: Vehicle (4.9.3), Prime Number (5.5)
-- HW Assignment: Perfect Number (5.6.1)
+- In-class: Vehicle, Prime Number
+- HW Assignment: Perfect Number (5.4.2)
 - Quiz: LSP Analysis
 
 
@@ -52,8 +52,8 @@
   - Higher-Order functions
   - Lambda functions
   - Closure
-- In-class: Functions First 6.4
-- HW assignment: Redo In-class 6.4 (make sure you answer every question in 6.4)
+- In-class: Functions First
+- HW assignment: Redo In-class 6.6
 - Quiz: Iterator/Generator Multiple Choice
 
 
@@ -87,7 +87,7 @@
     - Delta Debugging
     - Parallel computing concepts: processes, threads, locks, semaphors, monitors
 - In-class: Delta Debugging
-- HW assignment: Delta Debugging Implementation (7.6.2)
+- HW assignment: Delta Debugging Implementation (8.3.4)
 - Quiz: Statistical Debugging using M Metrics
 
 ## Week 9
@@ -96,7 +96,7 @@
     - Threads, locks, semaphores, monitors
     - deadlock, livelock
 - In-class: Benefits of Parallel Computing over Sequential Computing; Election Simulation
-- HW assignment: Election Simulation (8.4.2)
+- HW assignment: Election Simulation (10.4.2)
 - Quiz: Delta Debugging Hello SWE419
 
 ## Week 10
@@ -105,7 +105,7 @@
     - symbolic execution
     - Hoare logic and verification
 - In-class: None
-- HW assignment: Z3 SMT Solver (9.2.1)
+- HW assignment: Z3 SMT Solver (8.3.7)
 - Quiz: Parallel Computing Concepts
 
 ## Week 11
@@ -125,7 +125,7 @@
     - WP for While Loop
     - Verification Condition
 - In-class: Verification Conditions,  WP for While Loop
-- HW assignment: Weakest Precondition and Verification Condition (9.3.3 OOP)
+- HW assignment: Weakest Precondition and Verification Condition (9.2.1 OOP)
 - Quiz: Hoare Triples
 
 <!-- ## Week 13 
