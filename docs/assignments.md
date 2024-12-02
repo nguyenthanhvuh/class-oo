@@ -124,7 +124,7 @@
     - WP for While Loop
     - Verification Condition
 - In-class: Verification Conditions,  WP for While Loop
-- HW assignment: Weakest Precondition and Verification Condition (9.2.1 OOP)
+- HW assignment: Weakest Precondition and Verification Condition (9.2.2 OOP)
 - Quiz: Hoare Triples
 
 <!-- ## Week 13 
