@@ -116,7 +116,6 @@
 - In-class: Hoare Triples Exercise
 - HW assignment: No Homework next week (Let's wait until we finish Hoare logic and we'll have a homework on it)
 - Quiz: Symbolic Execution
-# HW Assignments
 
 
 ## Week 12
