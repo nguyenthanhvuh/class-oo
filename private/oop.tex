@@ -3695,12 +3695,12 @@ After computing the WP of a program $S$ with respect to a postcondition $Q$, we 
 
 If the VC is valid, the Hoare triple is valid and the program satisfies its specification.  If the VC is invalid, then the Hoare triple is invalid and we cannot prove that the program is correct.  
 
-It is important to emphasize not being able to prove that the program is correct (i.e., the VC is invalid) \emph{does not} mean the program is incorrect. It simply means we cannot prove it.  Hoare logic and verification in general only prove program correctness, not incorrectness.  This is in contrast to testing (\autoref{chapter:testing}) which can prove program incorrectness, i.e., by finding a counterexample input causing the bug, but not correctness (because we can't test all inputs).
+It is important to emphasize that not being able to prove the program is correct (i.e., the VC is invalid) \emph{does not} mean the program is incorrect. It simply means we cannot prove it.  Hoare logic and verification in general only prove program correctness, not incorrectness.  This is in contrast to testing (\autoref{chapter:testing}) which can prove program incorrectness, i.e., by finding a counterexample input causing the bug, but not correctness (because we can't test all inputs).
 
 \paragraph{Example} 
 
 \begin{enumerate}
-\item The VC of $\{x = 2\}$ \code{y := x + 1} $\{y > 2\}$ is $x = 2 \implies \code{wp}(\code{x := x + 1}, y > 2)$, which is $x = 2 \implies x > 1$.  This VC is valid because $x = 2$ implies $x  > 1$.  Notice that we can use any precondition that is stronger than $x = 2$, which is the weakest precondition.  For example, $x = 100$, $x > 2$, etc. as preconditions will also make the VC (and thus Hoare triple) valid.
+\item The VC of $\{x = 2\}$ \code{y := x + 1} $\{y > 2\}$ is $x = 2 \implies \code{wp}(\code{x := x + 1}, y > 2)$, which is $x = 2 \implies x > 1$.  This VC is valid because $x = 2$ implies $x  > 1$.  Notice that we can use any precondition that is stronger than $x > 1$ as it is the weakest precondition.  For example, $x = 100$, $x > 2$, etc. as preconditions will also make the VC (and thus Hoare triple) valid.
 
 \item For the Hoare triple $\{x \ge 0\}$ \code{x := x + 1; y := 2 * x} $\{y \ge 2\}$, the WP is $\code{wp}(x := x + 1, \code{wp}(y := 2 * x, y \ge 2)) = \code{wp}(x := x + 1, x \ge 1) = x \ge 0 $.  The VC $x \ge 0 \implies x  \ge 0$ is valid.
 
