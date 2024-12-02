@@ -116,14 +116,6 @@ class Queue:
 \begin{enumerate}
 \item For \code{enQueue}, write (i) a partial specification and (ii) a total specification.  For each part, rewrite the code if necessary to match the specification. Explain what you did.
 
-
-Recall that a function is \emph{total} if it is defined for all legal inputs; otherwise, it is \emph{partial}. Thus a function with no precondition (weakest precondition) is total.  We can often turn a partial function into a total function in two steps. 
-\begin{enumerate}
-\item Move preconditions into postconditions and specify the expected behavior when the precondition is not satisfied, e.g., throws an \code{Exception}
-\item Modify the function to satisfy the new specification, i.e., handling the cases when the preconditions are not satisfied. 
-\end{enumerate}
-
-
 \sol{\textbf{Partial contract:}  has a precondition/require that \code{e} is a valid element (non-null), postcondition/effect is straight forward, e.g., add \textbf{e} to end of queue.
 \textbf{Total contract:} no precondition/requirement, effects/postcondition: straightforward  but also raise exception when \code{e} is invalid.  Would need to change the code to check that \code{e} is non-null and raise exception if it is.
 
@@ -310,8 +302,7 @@ while(x < y)
 
 
 \begin{enumerate}
-\item Informally argue that this program satisfies the given specification (pre/post conditions). This means you need to explain (in English) why the postcondition is true after the program executes assume the precondition is true.
-
+\item Informally argue that this program satisfies the given specification (pre/post conditions). 
 
 \item Give \emph{three} loop invariants for the \code{while} loop in this program. For each loop invariant, informally argue why it is a loop invariant.  Do not give the trivial loop invariants \code{True} and equivalent ones (e.g., if you say $x = y$ is an invariant, then do not give $y = x$ as another one).
 
@@ -357,7 +348,7 @@ For the following short questions, provide a brief answer and whenever possible,
 \newpage
 \section{Question 6}
 
-This question helps me determine the grade for group functioning.  It does not affect the grade of this final.
+This question helps me determine the grade for group functioning.  It does not affect the grading of this final.
 
 \begin{enumerate}
 \item Who are your group members?
