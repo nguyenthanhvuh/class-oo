@@ -3778,14 +3778,14 @@ Prove the following program using the \emph{two} loop invariants $I_1: i \le 10$
 Prove the following program. You must show your work including computing the weakest precondition, forming and checking verification conditions, and explaining your reasoning (e.g., simplification).
 
 \begin{lstlisting}
-{x >= 0}
+{x >= 0}   // P 
 if (x > 0){
     y := x + 1
 }
 else{
     y := -x
 }
-{y >= 0}
+{y >= 0}  // Q
 \end{lstlisting}
 
 
