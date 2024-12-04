@@ -925,7 +925,7 @@ The rep-inv must be preserved by all methods (more precisely, \emph{mutator} met
 
 The rep-inv is decided by the designer and specified in the ADT documentation as part of the specification (just like pre/post conditions) so that it is ensured at the end of each method (like the postcondition). Moreover, because rep-inv is so important, it is not only documented in comments but also checked at runtime.  This is done by invoking a \code{repOK}, discussed later, method at the start and end of each method.
 
-\subsection{In-Class Exercise: Checking Rep-Invs}
+\subsection{In-Class Exercise: Checking Rep-Invs}  %TODO
 
 \begin{lstlisting}
 class Members:
@@ -1025,6 +1025,7 @@ For example, a mutator \code{pop} method of a \code{Stack} would result into two
 Finally, it is important that while it is possible to convert a mutable ADT to an immutable one as shown, mutability or immutability should be the property of the ADT type itself, not its implementation. Thus, it should be decided at the design stage and documented in the ADT specification.
 
 \subsection{In-class Exercise: Immutable Queue}\label{ic:immutable-queue}
+%TODO
 
 \begin{figure}
     \begin{lstlisting}
@@ -3756,7 +3757,7 @@ Fill in \texttt{P,S,Q} to make the following Hoare Triples valid. Remember that 
 
 \subsection{Weakest Precondition and Verification Condition}\label{exercise:wp-vc}
 
-Prove the following program using the two loop invariants $I_1: i \le 10$ and $I_2: i \ge 0$.  You must show your work including computing the weakest preconditions, forming and checking verification conditions, and explaining your reasoning (e.g., simplification). 
+Prove the following program using the \emph{two} loop invariants $I_1: i \le 10$ and $I_2: i \ge 0$.  You must show your work including computing the weakest preconditions, forming and checking verification conditions, and explaining your reasoning (e.g., simplification). 
 
 \begin{lstlisting}
 
@@ -3770,6 +3771,24 @@ Prove the following program using the two loop invariants $I_1: i \le 10$ and $I
     {j = 10}
 
 \end{lstlisting}    
+
+
+\subsection{Verification Conditions}
+
+Prove the following program. You must show your work including computing the weakest preconditions, forming and checking verification conditions, and explaining your reasoning (e.g., simplification).
+
+\begin{lstlisting}
+{x >= 0}
+if (x > 0){
+    y := x + 1
+}
+else{
+    y := -x
+}
+{y >= 0}
+\end{lstlisting}
+
+
 
 
 \part{Advanced Topics}
