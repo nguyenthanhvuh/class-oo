@@ -360,7 +360,7 @@ We will start with \emph{procedural abstraction} (\autoref{chap:procedural-abstr
 
 \chapter{Procedural Abstraction and Specification}\label{chap:procedural-abstraction}
 
-\emph{Procedural abstraction} allows developers to create procedures (functions or methods) that hide program implementation details. This makes the function more general and reusable, and the program easier to understand and maintain. The most common kind of abstraction that is familiar to all programmers is \emph{parameterization}, which allows a function to take in different input values. For example, the \code{cal\_area} function in \autoref{ex:abs-parameterization} calculates the area of a rectangle given its length and width, which are passed as parameters.
+\emph{Procedural abstraction} hides implementation details from program functions or procedures. This makes the function more general and reusable, and the program easier to understand and maintain. The most common kind of abstraction that is familiar to all programmers is \emph{parameterization}, which allows a function to take in different input values. For example, the \code{cal\_area} function in \autoref{ex:abs-parameterization} calculates the area of a rectangle given its length and width, which are passed as parameters.
 
 
 \begin{figure}[h]
@@ -376,7 +376,7 @@ We will start with \emph{procedural abstraction} (\autoref{chap:procedural-abstr
 \end{figure}
 
 \paragraph{Abstraction by Specification} 
-Another type of abstraction is through \emph{specification}, which is less common but is crucial for creating and maintaining high-quality software (e.g., for API documentation). Specification defines what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms, implemented in C++). For example, from its specification in the comment, we know that the \code{exists} function in \autoref{ex:abs-specification} returns true if the \code{target} item is found in a list of sorted \code{items}. We do not need to know or care about the search algorithm used.
+Another type of abstraction is through \emph{specification}, which is less common  but is crucial for creating and maintaining high-quality software (e.g., for API documentation). Specification defines what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms, implemented in C++). For example, from its specification in the comment, we know that the \code{exists} function in \autoref{ex:abs-specification} returns true if the \code{target} item is found in a list of sorted \code{items}. We do not need to know or care about the search algorithm used.
 \begin{figure}
 \begin{lstlisting}
     def exists(items:List[int], target:int) -> bool:
@@ -392,7 +392,7 @@ Another type of abstraction is through \emph{specification}, which is less commo
 \end{figure}
 
 
-By defining a function's behavior through specifications, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details. In this book we will focus on abstraction by specification and how construct and formalize specifications.
+By defining a function's behavior through specifications, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details. We will focus on specification and how construct and formalize specifications.
 
 \section{Specifications}\label{sec:specifications}
 
@@ -410,7 +410,8 @@ By defining a function's behavior through specifications, developers can impleme
 The specification of a function consists of a \emph{header} and a \emph{description} of its behavior.
 The header gives the signature of the function, including its name, parameters, and return type. The description describes the function's behavior, including its preconditions and postconditions.
 
-\paragraph{Header} Function header, also called the \emph{signature} of a function, is the first line of the function definition. It provides the \emph{name} of the function, the number, order, and types of its \emph{parameters} (inputs), and the type of its return value (output). For instance, the headers for the \code{sort\_items} function in \autoref{ex:abs-specification} and the \code{cal\_area} function in \autoref{ex:abs-parameterization} are as follows
+\subsection{Header} 
+Function header, also called the \emph{signature} of a function, is the first line of the function definition. It provides the \emph{name} of the function, the number, order, and types of its \emph{parameters} (inputs), and the type of its return value (output). For instance, the headers for the \code{sort\_items} function in \autoref{ex:abs-specification} and the \code{cal\_area} function in \autoref{ex:abs-parameterization} are as follows
 
 \begin{lstlisting}
 def exists(items: list) -> bool: ...
@@ -423,11 +424,11 @@ Note that in a language like Java, the header also indicates \emph{exceptions} t
 public boolean exists(List<Integer> items) throws Exception { ... }
 \end{lstlisting}
 
-\paragraph{Preconditions and Postconditions}
+\subsection{Preconditions and Postconditions}
 
 The specification of a function typically includes: \emph{preconditions} (also called the ``requires'' clause) and \emph{postconditions} (also called the ``effects'' clause). Preconditions describe the conditions that must be true before the function is called. These state the constraints or assumptions about the input parameters. If there are no preconditions, the clause is often written as \code{None}.
 
-Postconditions, under the assumption that the preconditions are satisfied, describe the conditions that will be true after the function is called. These typically state the expected results or outcomes of the function. Moreover, they often describe the relationship between the inputs and outputs.
+Postconditions, under the assumption that the preconditions are satisfied, describe the conditions that will be true after the function is called. Postconditions state the expected results or outcomes of the function. Moreover, they often describe the relationship between the inputs and outputs.
 
 
 The clauses are usually written as \emph{comments} above the function definition, making them easily accessible within the code.
@@ -447,7 +448,7 @@ def calc_area(length: float, width: float) -> float:
 For example, the specification of the \code{calc\_area} function in \autoref{ex:abs-parameterization} has (i) no preconditions and (ii) the postcondition that the function returns the area of a rectangle given its length and width.  Similarly, the \code{exists} function in \autoref{ex:abs-specification} has the specification that given a list of sorted items (precondition), it returns true if the item is found in the list, and false otherwise (postcondition).  Note how the specification is written in plain English, making it easy to understand for both developers and users of the function.
 
 
-\paragraph{Modifies} Another common clause in a function specification is \emph{modifies}, which describes the inputs that the function modifies. This is particularly useful for functions that modify their input parameters.
+\subsubsection{Modifies} In addition to pre and post condition, another clause that might appear in a function specification is \emph{modifies}, which describes the inputs that the function modifies. This is particularly useful for functions that modify their input parameters.
 
 \begin{lstlisting}
 def add_to_list(input_list, value):
@@ -462,12 +463,15 @@ def add_to_list(input_list, value):
 \end{lstlisting}
 
 
-\paragraph{Assertions} TBD
+\subsection{Assertions} TBD
+
+
+\subsection{API} 
 
 \section{Designing Specifications}\label{sec:design-specifications}
 %Liskov 3.5
 
-When designing specifications, it is important to consider several factors to ensure that the function is well-defined. These factors include the \emph{strength} of the pre- and post-conditions, whether the function is \emph{total} or \emph{partial}, and the \emph{avoiding implementation details} in the specification.
+When designing specifications, it is important to consider several factors to ensure that the function is well-defined. These factors include the \emph{strength} of the pre- and post-conditions, whether the function is \emph{total} or \emph{partial}, and \emph{avoiding implementation details} in the specification.
 
 \subsection{Weakest Pre-conditions}\label{sec:weakest-preconditions}
 For pre-conditions, we want as weak a constraint as possible to make the function more versatile, allowing it to handle a larger class of inputs.
@@ -518,7 +522,8 @@ def exists(items: List[int], target: int) -> bool:
 
 
 
-\subsection{No Implementation Details}
+\subsection{Avoid Implementation Details in Specifications}
+
 A specification should not include any implementation details, such as the algorithm used or the data structures employed. This improves flexibility as it allows the function to be implemented in different ways as long as it satisfies the specification. For example, the \code{exists} function in \autoref{ex:abs-specification} does not specify the search algorithm used to find the item in the list.
 
 Some common examples to avoid include: the mentioning of specific data structures (e.g., arrays, indices), algorithms (e.g., quicksort or mergesort), and exceptions (e.g., related to IndexError). Also avoid specifications mentioning indices because this implies the use of arrays.
@@ -526,7 +531,7 @@ Some common examples to avoid include: the mentioning of specific data structure
 
 \section{Formal Specifications}\label{sec:formal-specs}
 
-While informal specifications are easy to understand, they can be ambiguous and imprecise. Formal specifications, on the other hand, are precise and unambiguous, making them useful for complex systems or when the behavior must be precisely defined.
+While informal specifications, e.g., as pre and post-conditions in comments, are easy to understand, they can be ambiguous and imprecise. Formal specifications, on the other hand, are precise and unambiguous, making them useful for complex systems or when the behavior must be precisely defined.
 
 %Examples of formal specifications include \emph{assertions} and \emph{preconditions} and \emph{postconditions} in languages like Java, C++, and Python. These are logical formulas that describe the expected behavior of the function. For example, the \code{calc\_area} function in \autoref{ex:abs-parameterization} can be specified formally as follows:
 
@@ -788,8 +793,8 @@ For her pioneering contributions to programming languages and system design, par
 
 \section{Specifications of an ADT}
 
-The specification of ADT explains what the operations on the data type do, allowing users to interact with objects only via methods, rather than accessing the internal representation. 
-As with functions (\autoref{chap:procedural-abstraction}), the specification for an ADT defines its behaviors without being tied to a specific implementation.
+The \emph{specification of an ADT} describe the operations and behaviors of the object, allowing users to interact with it only via methods, rather than accessing its internal representation. 
+As with functions (\autoref{chap:procedural-abstraction}), the specification for an ADT defines its behaviors without being tied to a specific implementation (e.g., the internal data of an ADT).
 
 
 \paragraph{Structure of an ADT} In a modern OOP language such as Python or Java, data abstractions are defined using \emph{classes}. Each class defines a name for the data type, along with its constructors and methods.
@@ -973,8 +978,8 @@ class Members:
 
 \subsection{Abstraction Function (AF)} 
 
-It can be difficult to understand the ADT by looking at the rep directly. For example, we might not be able to visualize or reason about a binary tree or a graph ADT when using list as the rep. To aid understanding, \emph{abstraction function} (\textbf{AF}) provides a mapping between the rep and the ADT. 
-Specifically, the AF maps from a \emph{concrete state} (i.e., the \code{els} rep in \autoref{ex:intset}) to an \emph{abstract state} (i.e., the integer set). AF is also a \emph{many-to-one} mapping, as multiple concrete states can map to the same abstract state, e.g., the list \code{[1, 2, 3]} and \code{[3, 2, 1]} both map to the same set \code{\{1, 2, 3\}}. 
+It can be difficult to understand the ADT by looking at its representation data directly. For example, we might not be able to visualize or reason about a binary tree or a graph ADT that uses lists or vectors as rep data. To aid understanding, \emph{abstraction function} (\textbf{AF}) provides a mapping between the rep and the ADT. 
+Specifically, an AF maps from a \emph{concrete state} (i.e., the \code{els} rep in \autoref{ex:intset}) to an \emph{abstract state} (i.e., the set of integers). AF is also a \emph{many-to-one} mapping, as multiple concrete states can map to the same abstract state, e.g., the list \code{[1, 2, 3]} and \code{[3, 2, 1]} both map to the same set \code{\{1, 2, 3\}}. 
 
 Just as with rep-inv, the AF is documented in the class specification. Modern OOP languages often provide methods implementing the AF, in particular developer overrides the \code{\_\_str\_\_} method in Python and \code{toString} in Java to return a string representation of the object. For example, the \code{\_\_str\_\_} method in \autoref{ex:intset} returns a string representation of the set.
 
