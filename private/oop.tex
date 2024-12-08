@@ -838,8 +838,8 @@ class IntSet:
     """
     Overview: IntSets are unbounded, mutable sets of integers.
     This implementation uses a list to store the elements, ensuring no duplicates.
-
     """
+
     def __init__(self):
         """
         Constructor
@@ -978,12 +978,14 @@ class Members:
 
 \subsection{Abstraction Function (AF)} 
 
-It can be difficult to understand the ADT by looking at its representation data directly. For example, we might not be able to visualize or reason about a binary tree or a graph ADT that uses lists or vectors as rep data. To aid understanding, \emph{abstraction function} (\textbf{AF}) provides a mapping between the rep and the ADT. 
-Specifically, an AF maps from a \emph{concrete state} (i.e., the \code{els} rep in \autoref{ex:intset}) to an \emph{abstract state} (i.e., the set of integers). AF is also a \emph{many-to-one} mapping, as multiple concrete states can map to the same abstract state, e.g., the list \code{[1, 2, 3]} and \code{[3, 2, 1]} both map to the same set \code{\{1, 2, 3\}}. 
+It can be difficult to understand the ADT by looking at its representation data directly. For example, we might not be able to visualize or reason about a binary tree or a graph ADT that uses lists or vectors as rep data, or a telephone number ADT from a string.
+
+To aid understanding, \emph{abstraction function} (\textbf{AF}) provides a mapping between the rep and the ADT. 
+Specifically, an AF maps from a \emph{concrete state} (i.e., the \code{els} rep in \autoref{ex:intset} or \code{``11234567890''} to an \emph{abstract state} (i.e., the set of integers or a telephone number 1-123-456-7890). 
+
+Another common property of AF is that it is a \emph{many-to-one} mapping.  This allows multiple concrete states map to the same abstract state, e.g., the list \code{[1, 2, 3]} and \code{[3, 2, 1]} both map to the same set \code{\{1, 2, 3\}}. 
 
 Just as with rep-inv, the AF is documented in the class specification. Modern OOP languages often provide methods implementing the AF, in particular developer overrides the \code{\_\_str\_\_} method in Python and \code{toString} in Java to return a string representation of the object. For example, the \code{\_\_str\_\_} method in \autoref{ex:intset} returns a string representation of the set.
-
-
 
 
 \section{Mutability vs. Immutability}\label{sec:mutability-vs-immutability}
@@ -992,7 +994,8 @@ An ADT can be either mutable or immutable, depending on whether their objects' v
 
 Immutability is beneficial because it offers greater safety and allows sharing of subparts without the risk of unexpected changes. Moreover, immutability can simplify the design by ensuring the object’s state is fixed once created. However, immutable objects can be less efficient, as creating a new object for each change can be costly in terms of memory and time.
 
-\paragraph{Converting from mutable to immutable} 
+\subsection{Converting from mutable to immutable}\label{sec:converting-mutable-to-immutable}
+
 Given a mutable ADT, it is possible to convert it to an immutable one by ensuring that the rep is not modified by any method. This can be achieved by making the rep private and only allowing read-only access to it. In Python, this can be done by using the \code{@property} decorator to create read-only properties. For example, the \code{els} list in \autoref{ex:intset} can be made read-only by defining a property method \code{elements} that returns a copy of the list.
 
 \begin{lstlisting}
@@ -1027,7 +1030,7 @@ If the mutator returns a value $v$, then our new method returns a tuple consisti
 If you do not want to return multiple values (e.g., like in Java), then you can create two methods, one for returning the value and the other for returning the new rep object.
 For example, a mutator \code{pop} method of a \code{Stack} would result into two methods: \code{pop2} returns the top element and \code{pop3} returns the new stack with the top element removed.
 
-Finally, it is important that while it is possible to convert a mutable ADT to an immutable one as shown, mutability or immutability should be the property of the ADT type itself, not its implementation. Thus, it should be decided at the design stage and documented in the ADT specification.
+Finally, it is important that while it is possible to convert a mutable ADT to an immutable one as shown, mutability or immutability should be the property of the ADT type itself, not its implementation. That is, the decision to make an ADT mutable or immutable should be made at the design stage and documented in the ADT specification. 
 
 \subsection{In-class Exercise: Immutable Queue}\label{ic:immutable-queue}
 %TODO
