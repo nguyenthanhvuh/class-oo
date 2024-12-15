@@ -1,4 +1,4 @@
-\documentclass[10pt]{article}
+\documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
@@ -12,7 +12,7 @@
 \definecolor{dkgray}{rgb}{0.3,0.3,0.3}
 
 \usepackage{listings}
-\lstset{basicstyle=\ttfamily\scriptsize,
+\lstset{basicstyle=\ttfamily\footnotesize,
   language=python,
   morekeywords={assert},
   keywordstyle=\color{blue},
@@ -69,6 +69,7 @@
     Question 3 	&	 10	& \\
     Question 4 	&	 30	& \\
     Question 5 	&	 20	& \\
+    \midrule
     Question 6 	&	 0	& \\
     Question 7 	&	 0	& \\
     \midrule
@@ -142,7 +143,8 @@ Rewrite the \code{deQueue()} method for an \emph{immutable} version of this clas
 
 \end{enumerate}
 
-
+\newpage
+\
 \newpage
 \section{Question 2}
 
@@ -220,9 +222,13 @@ class LowOfferMarket(Market):
 \end{lstlisting}
 
 \newpage
+\
+\newpage
 \section{Question 3}
 
 \paragraph{Example 1}
+
+
 \begin{lstlisting}[language=c]
 void foo(int a, int b, int c){    
     // l0
@@ -250,7 +256,7 @@ void foo(int a, int b, int c){
 \paragraph{Symbolic Execution} Assume that we will apply symbolic execution on this program using symbolic inputs $a, b, c$.  At each location $l$,  we keep track of two things: the path condition (PC) to reach $l$ and the program state (PS), consisting values of variables at $l$. Table~\ref{tab:symbolic-execution} shows several locations and their corresponding PC and PS.  Fill in the missing values (???) in the table.
 
 
-\begin{table}
+\begin{table}[h]
     \centering
     \caption{Symbolic Execution Example}\label{tab:symbolic-execution}
     \begin{tabular}{c|l|l}
@@ -287,6 +293,9 @@ $l7$ & $\lnot a \land b \ge 5 $ & $???$\\
 \end{table}
 
 \newpage
+\
+\newpage
+
 \section{Question 4}
 
 Consider the program below (\texttt{y} is the input). 
@@ -304,20 +313,16 @@ while(x < y)
 \begin{enumerate}
 \item Informally argue that this program satisfies the given specification (pre/post conditions). 
 
-\item Give \emph{three} loop invariants for the \code{while} loop in this program. For each loop invariant, informally argue why it is a loop invariant.  Do not give the trivial loop invariants \code{True} and equivalent ones (e.g., if you say $x = y$ is an invariant, then do not give $y = x$ as another one).
-
+\item Give \emph{two} loop invariants for the \code{while} loop in this program. For each loop invariant, informally argue why it is a loop invariant.  Do not give the trivial loop invariants \code{True} and equivalent ones (e.g., if you say $x = y$ is an invariant, then do not give $y = x$ as another one).
   
-\item \textbf{Hoare logic}  Use a loop invariant to formally prove that the program is correct with respect to given specification. This loop invariant should be one of the three you gave above. You must show all the steps of the proof, including the weakest precondition, forming the verification condition, and analyzing the verification condition. The following steps are a guide to help you: 
+\item \textbf{Hoare logic}  Use a loop invariant to formally prove that the program is correct with respect to given specification. This loop invariant should be one of those you gave above. You must show all the steps of the proof, including the weakest precondition, forming the verification condition, and analyzing the verification condition as follows:
   \begin{itemize}
     \item Determine the P, Q, and S for the Hoare triple $\{P\} ~S~ \{Q\}$ of this program.
     \item Compute the weakest precondition $\code{wp}(\code{S}, Q)$ using the loop invariant you chose.  This includes simplification as necessarily.
-    \item Form the verification condition $\code{wp}(\code{S}, Q) \Rightarrow P$ and analyze it
+    \item Form the verification condition $P \Rightarrow \code{wp}(\code{S}, Q)$ and analyze it
     \item Based on the analysis, determine if the program is correct with respect to the given specification.
   \end{itemize}
-% \item \emph{Insufficiently strong loop invariants:} Use another loop invariant (could be one of those you computed previously) and show that you cannot use it to prove the program . 
-%   \begin{itemize}
-%     \item Note: show all work as the previous question (i.e., obtain wp, verification condition, and analyze the vc).
-%     \end{itemize}
+
 \item Instead of \textbf{proving} the given specifications like above, now you just want to \textbf{test} the program.
     \begin{itemize}
     \item Provide \emph{two} testing techniques $A$ and $B$ we discussed in class that you could use to test this program.  For each one, clearly explain how you would use it to test this program, what you are looking for (e.g., what kind of bugs, violation of postcondition), and gives examples of test inputs that the technique would suggest.
@@ -328,6 +333,9 @@ while(x < y)
 
 
 \newpage
+\
+\newpage
+
 \section{Question 5}
 
 For the following short questions, provide a brief answer and whenever possible, give \textbf{examples} (e.g., code snippets) to support your answer (and also gain partial credit, especially for T/F questions).
@@ -346,6 +354,9 @@ For the following short questions, provide a brief answer and whenever possible,
 
 
 \newpage
+\
+\newpage 
+
 \section{Question 6}
 
 This question helps me determine the grade for group functioning.  It does not affect the grading of this final.

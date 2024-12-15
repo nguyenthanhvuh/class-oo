@@ -496,7 +496,7 @@ Functions \code{calc\_area} in \autoref{ex:abs-parameterization} and \code{add\_
 \paragraph{Turning Partial Functions into Total Functions} We can often turn a partial function into a total function in two steps. 
 \begin{enumerate}
 \item Move preconditions into postconditions and specify the expected behavior when the precondition is not satisfied, e.g., throws an \code{Exception}
-\item Modify the function to satisfy the new specification, i.e., handling the cases when the preconditions are not satisfied. 
+\item Modify the function to satisfy the new specification (specifically, to satisfy the new postcondition).  In other words, add code to handle the cases when the preconditions are not satisfied. 
 \end{enumerate}
 
 For example, the \code{exists} function in \autoref{ex:abs-specification} is turned into the total function shown in \autoref{ex:abs-total}.
@@ -916,7 +916,7 @@ For example, we can use a \code{list} (or vector) as the rep of \code{IntSet} in
 
 To aid understanding and reasoning of the rep of an ADT, we use two key concepts: \emph{representation invariant} and \emph{abstraction function}.
 
-\subsection{Representation Invariant (Rep-Inv)} Because the rep might not be necessarily related to the ADT itself (e.g., the list has different properties compared to a set), we need to ensure that our use of the rep is consistent with the ADT's behavior. 
+\subsection{Representation Invariant (Rep-Inv)} Because the rep data might not be related to the ADT itself (e.g., the list has different properties compared to a set), we need to ensure that our use of the rep is consistent with the ADT's behavior. 
 To do this, we use \emph{representation invariant} (\textbf{rep-inv}) to specify the constraints for the rep of the ADT to capture its behavior. 
 
 For example, the rep-inv for a stack is that the last element added is the first to be removed and the rep-inv for a binary search tree is that the left child is less than the parent, and the right child is greater. 
@@ -925,6 +925,9 @@ The rep-inv for our \code{IntSet} ADT in \autoref{ex:intset} is that all element
     # Rep-inv:
     # els is not null, only contains integers and has no duplicates.
 \end{lstlisting}
+
+%[TODO: add after this semester] Note that unlike pre and post-conditions in function specifications that do not include implementation details, the rep-inv is specific to the rep data (e.g., \code{els} in \autoref{ex:intset}).
+
 
 The rep-inv must be preserved by all methods (more precisely, \emph{mutator} methods). It must hold true before and after the method is called. The rep-inv might be violated temporarily during the method execution, but it must be restored before the method returns. For \code{IntSet} Notice that the mutator \code{insert} method ensures that the element is not already in the list before adding it. 
 
@@ -2548,7 +2551,7 @@ The main genetic operators in a GA are
     \item \emph{Mutation}: randomly changes some elements of an individual. Common mutation methods include creating a random element, swapping two element, and flipping (e.g., negative to positive, 0 to 1, etc). Mutation rate is the probability of doing mutation, and typically is low (e.g., lower than 0.1 or 10\% chance).
 \end{enumerate}
 
-\paragraph{GA Tempalte} The following is a template for GA:
+\paragraph{GA Template} The following is a template for GA:
 \begin{lstlisting}
 
     def ga(...):
