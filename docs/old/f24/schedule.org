@@ -1,0 +1,2079 @@
+#+TITLE: SWE 619 Course Schedule and Assignments
+#+OPTIONS: ^:nil toc:1
+
+#+HTML_HEAD: <link rel="stylesheet" href="https://dynaroars.github.io/files/org.css">
+#+HTML_HEAD: <link rel="alternative stylesheet" href="https://dynaroars.github.io/files/org-orig.css">
+
+* Notes:
+- [[./notes.html][notes.html]]:  Older, more details, but not very polished
+- [[./notes.ipynb][notes.ipynb]]: Python notebook format, you can download the file and load in VS Code or some other editor/viewer.
+
+* Schedule
+  
+  - *Notes*: Except for the first class, students are expected to complete the reading *prior to class* on listed meeting. Quizzes may occasionally take advantage of this expectation. Homework assignments are *due* on the date listed.
+
+
+  | Topic                                      | Reading                       |  Assignment   | In-Class Exercise |
+  |                                            | <l>                           |      <c>      |        <c>        |
+  |--------------------------------------------+-------------------------------+---------------+-------------------|
+  | +Class Overview+                           | Liskov 1--2                   |               |       IC [[#ic1][1]]        |
+  | +Procedural Abstraction; Exceptions+       | Liskov 3--4, Bloch 10         |    [[#a1][A1 Due]]     |     IC 2 [[#ic2A][A]] [[#ic2B][B]]      |
+  | +Imperative Program Verification+          | [[https://github.com/dynaroars/dynaroars.github.io/wiki/notes-hoare-logic][Hoare logic notes]]             |    [[#a2][A2 Due]]     |                   |
+  | +Imperative Program verification+          | [[https://github.com/dynaroars/dynaroars.github.io/wiki/notes-hoare-logic][Hoare logic notes]]             | NO ASSIGNMENT |       IC [[#ic4][4]]        |
+  | +Data Abstraction; Mutability+             | Liskov 5.1--5.10,             |    [[#a4][A4 Due]]     |     IC 5 [[#ic5A][A]] [[#ic5B][B]]      |
+  | +Iteration Abstraction; Method Guidelines+ | Liskov 6, Bloch 8             |    [[#a5][A5 Due]]     |     IC 7 [[#ic7A][A]] [[#ic7B][B]]      |
+  | +Type Abstraction+                         | Liskov 7                      |    [[#a6][A6 Due]]     |    IC 8 [[#ic8A][A]] [[#ic8B][B]] [[#ic8C][C]]     |
+  | +Research Talk+ (slides: [[./files/swe619-dig.pdf][DIG]], [[./files/swe619-neuralsat.pdf][NeuralSAT]])   | /No New Material/             | NO ASSIGNMENT |       IC [[#ic9][9]]        |
+  | +Polymorphic Abstract; Lambdas+            | Liskov 8, Bloch 7 (Item 42)   |    [[#a8][A8 Due]]     |       IC [[#ic10][10]]       |
+  | +Generics+                                 | Bloch 5                       |    [[#a9][A9 Due]]     |    IC 11 [[#ic11A][A]] [[#ic11B][B]] [[#ic11C][C]]    |
+  | +Common Java Contracts+                    | Bloch 3                       |    [[#a10][A10 Due]]    |     IC 12 [[#ic12A][A]] [[#ic12B][B]]     |
+  | +Classes and Inheritance+                  | Bloch 4                       |    [[#a11][A11 Due]]    |    IC 13 [[#ic13A][A]] [[#ic13B][B]] [[#ic13C][C]]    |
+  | +Contract Model in Testing+                | Advanced JUnit ([[./files/Ch03-automation.pptx ][slides 22-24)]] |    [[#a12][A12 Due]]    |       IC [[#ic14][14]]       |
+  | Final Exam                                 | [[#ic16][example]] (sols in [[./notes.ipynb][Notes]])       |               |                   |
+
+
+* In class Assignments
+
+** In class 1
+   :PROPERTIES:
+   :CUSTOM_ID: ic1
+   :END:
+   
+   Work with your group and do the following:
+   1. Spend a few minutes getting acquainted. Explain a bit about yourself: full-time student?, working in software development?, why are you taking this class?, favorite/least favorite thing about writing software?, etc.
+   1. Decide on a mechanism for joint communication. Google docs? IDE with screen share? Something else?
+   1. Now address a technical topic. This exercise touches on some of the thorny issues in data abstraction and inheritance. There is a lot going on in this example. Hence don't worry if it seems confusing today. We'll revisit this example several times over the course of the semester.
+
+      Consider the following (textbook) code:
+
+      #+begin_src java
+        public class User {
+            private String name;
+            public User (String name) { this.name = name; }
+            @Override public boolean equals (Object obj) {
+                if (!(obj instanceof User)) return false;
+                return ((User) obj).name.equals(this.name);
+            }
+            // other methods omitted
+        }
+        public class SpecialUser extends User {
+            private int id;
+            public SpecialUser (String name, int id) { super(name); this.id = id; }
+            @Override public boolean equals (Object obj) {
+                if (!(obj instanceof SpecialUser)) return false;
+                return super.equals(obj) && ((SpecialUser) obj).id == this.id;
+            }
+            // other methods omitted
+        }
+      #+end_src
+
+      #+begin_src python
+        class User:
+            def __init__(self, name):
+                self.name = name
+        def __eq__(self, other):
+            if not isinstance(other, User):
+                return False
+            return self.name.__eq__(other.name)
+
+        class SuperUser(User):
+            def __init__(self, name, nid):
+                super().__init__(name)
+                self.nid = nid
+
+            def __eq__(self, other):
+                if not isinstance(other, SuperUser):
+                    return False
+
+                return super().__eq__(other) and self.nid == other.nid
+      #+end_src
+
+_Hint_: also look at the Javadoc for =equals()=
+
+      1. Walk though the execution of the =equals()= method in class =User= for a few well-chosen objects as the parameter. What happens at each point in the execution? 
+      2. What does it mean for an =equals()= implementation to be *correct*? How do you know? Be as concrete as you can. 
+      3. Is the given implementation of =equals()= in class =User= correct? Again, be concrete. If there is a problem, find a specific object (test case!) that demonstrates the problem. 
+      4. How does inheritance complicate the correctness discussion for =equals()= in class =SpecialUser=? 
+      5. What is your assessment of the =equals()= method in the =SpecialUser= class?
+
+** In class 2A
+   :PROPERTIES:
+   :CUSTOM_ID: ic2A
+   :END:
+   
+   Consider the following implementation:
+
+   #+begin_src java
+
+     public static List<Integer> tail (List<Integer> list) {
+
+         // REQUIRES/PRECONDS: ???
+         // EFFECTS/POSTCONDS:  ???
+
+         List<Integer> result = new ArrayList<Integer>(list);
+         result.remove(0);
+         return result;
+     }
+   #+end_src
+
+   #+begin_src python
+
+        def tail(my_list):
+            # REQUIRES/PRECONDS: ???
+            # EFFECTS/POSTCONDS: ???
+
+            result = my_list.copy()
+            result.pop(0)
+            return result
+   #+end_src
+
+
+   _Hint_: also look at the Javadoc (for =remove=) or Python (for =pop=)
+   
+   1. What does the /implementation/ of =tail= do in each of the following cases? How do you know: Running the code or reading an API description?
+      - =list = null=
+      - =list = []=
+      - =list = [1]=
+      - =list = [1, 2, 3]=
+        #+begin_comment
+        - =list = null=   returns NPE, from the docs for remove (No copy for NoneType)
+        - =list = []=   returns IOBE,  from the docs for ArrayList constructor (IndexError, cannot pop from empty list)
+        - =list = [1]=   happy path, return []
+        - =list = [1, 2, 3]=  happy path, return [2, 3]
+        #+end_comment
+   1. Write a *partial* specification that matches the "happy path" part of the implementation's behavior.
+      #+begin_comment
+      Requires:  non-empty and non-null list 
+      Effects: removes first element of the list and returns the rest (tail)
+      #+end_comment
+   1. Rewrite the specification to be *total*. Use standard exceptions (e.g., as suggested in Bloch's).
+      #+begin_comment
+      Requires:  nothing
+      Effects: removes first element of the list and returns the rest (tail); throws NPE if list is null and IOBE if list is empty
+      #+end_comment
+   1. The resulting specification has a problem. What is it? (hint: specification should be more general and not tied to the implementation)
+      #+begin_comment
+      should return IllegalArgumentException instead of IndexOfOfBound/IndexError (which is tied into this specific implementation).
+      #+end_comment
+   1. /Rewrite/ the specification to address this problem. /Rewrite/ the code to match the new specification.
+      #+begin_comment
+      Requires:  nothing
+      Effects: removes first element of the list and returns the rest (tail); throws NPE if list is null and IAE (illegal argument exception) if list is empty
+
+      if (list.size() == 0) throw IAE
+      // no need null checking as the remove(0) will throw that
+
+      Also, possible to do if list is [], return [],  but then needs to update the contract.  In general, as long as you satisfy the contract, you're fine.
+      #+end_comment
+
+      
+** In class 2B
+   :PROPERTIES:
+   :CUSTOM_ID: ic2B
+   :END:
+   
+   *Goal*: Understanding Contracts
+
+   Consider the 3 methods =hasNext= , =next=, and =remove= in the Java [[https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html][Iterator]] interface:
+   
+   - For each method, identify all preconditions and postconditions.
+   - For each precondition, identify a specific input that violates the precondition.
+   - For each postcondition, identify an input specific to that postcondition.
+
+** In class 4
+   :PROPERTIES:
+   :CUSTOM_ID: ic4
+   :END:
+   #+begin_src java
+     // {N >= 0}   # P
+     i = 0;
+     while (i < N){
+         i = i + 1;
+     }
+
+     //{i == N}  # Q
+   #+end_src
+
+   - Identify the loop invariants for the loop in this program
+   - Use a sufficiently strong invariant to prove the program is correct
+   - Attemp to prove the program using an insufficiently strong invariant, describe what happens and why.
+
+** In class 5A
+   :PROPERTIES:
+   :CUSTOM_ID: ic5A
+   :END:
+   
+   Consider a simple generic =Queue= implementation.
+   #+begin_src java
+
+     public class Queue <E> {
+
+         private List<E> elements;
+         private int size;
+
+         public Queue() {
+             this.elements = new ArrayList<E>();
+             this.size = 0;
+         }
+
+         public void enQueue (E e) {
+             elements.add(e);
+             size++;
+         }
+
+         public E deQueue () {
+             if (size == 0) throw new IllegalStateException("Queue.deQueue");
+             E result = elements.get(0);
+             elements.remove(0);
+             size--;
+             return result;
+         }
+
+         public boolean isEmpty() {
+             return size == 0;
+         }
+     }
+
+   #+end_src
+
+   1. Rewrite =Queue= to be *immutable*. Keep the representation variables =elements= and =size=.
+   1. Do the right thing with =enQueue()=.
+   1. Do the right thing with =deQueue()=.
+
+** COMMENT In class 5B
+   :PROPERTIES:
+   :CUSTOM_ID: ic5B
+   :END:
+   
+   Consider Liskov's Poly example, where an abstract Poly is defined as $c_0 + c_1x + c_2x^2 + \dots$, and is implemented with two variables:
+   #+begin_src java
+     private int deg;
+     private int[] trms;
+   #+end_src
+
+   #+begin_src text
+     Fill in example values that are mapped by the abstraction function.
+     Abstract Poly State:
+     What is a "state"?
+
+
+
+     AF
+     /|\
+     |
+     |
+     |
+     |----------------------------------------------------------
+     |
+     |
+     |
+     |
+
+
+
+
+
+
+     Representation State: (deg, trms)
+   #+end_src
+  
+   1. Identify representation states that should not be mapped.
+   1. Try to capture these states with a rule (that is, a rep-invariant).
+   1. Devise a representation that is suitable for a mutable version of Poly.
+   1. Develop a rep-invariant for that representation.
+
+# ** In class 6A
+#    :PROPERTIES:
+#    :CUSTOM_ID: ic6A
+#    :END:
+
+
+#    Consider Liskov's immutable =Poly= example, where an abstract =Poly= is defined as $c_0 + c_1x + c_2x^2 + \dots$, and is implemented with one variable:
+
+#    #+begin_src java
+#      private Map<Integer, Integer> map;
+#    #+end_src
+   
+
+#    Fill in example values that are mapped by the abstraction function.
+
+#    #+begin_src text
+
+#      Abstract State: Poly
+
+#      AF
+#      /|\
+#      |
+#      |
+#      |
+#      |----------------------------------------------------------
+#      |
+#      |
+#      |
+#      |
+
+
+
+#      Representation State: map
+
+#    #+end_src
+
+#    1. Identify representation states that should not be mapped.
+#    1. Try to capture these states with a rule (that is, a rep-invariant).
+#    1. Consider implementing the =degree()= method. What code would do the job? What more specific type of map would make the implementation simpler?
+
+** In class 5B
+   :PROPERTIES:
+   :CUSTOM_ID: ic5B
+   :END:
+
+   Consider the code:
+
+   #+begin_src java
+
+     public class Members {
+         // Members is a mutable record of organization membership
+         // AF: Collect the list as a set
+         // rep-inv1: members != null
+         // rep-inv2: members != null && no duplicates in members
+         // for simplicity, assume null can be a member...
+
+         List<Person> members;   // the representation
+
+         //  Post: person becomes a member
+         public void join (Person person) { members.add   (person);}
+
+         //  Post: person is no longer a member
+         public void leave(Person person) { members.remove(person);}
+
+   #+end_src
+
+
+   1. Analyze these 4 questions for rep-inv 1.
+      1. Does =join()= maintain rep-inv?
+      1. Does =join()= satisfy contract?
+      1. Does =leave()= maintain rep-inv?
+      1. Does =leave()= satisfy contract? 
+   1. Repeat for rep-inv 2.
+   1. Recode =join()= to make the verification go through. Which rep-invariant do you use?
+   1. Recode =leave()= to make the verification go through. Which rep-invariant do you use? 
+
+
+** In class 7A
+   :PROPERTIES:
+   :CUSTOM_ID: ic7A
+   :END:
+
+   Consider the Java =Iterator<E>= interface:
+
+   #+begin_src java
+     public boolean hasNext();
+     public E next() throws NoSuchElementException
+                            public void remove() throws IllegalStateException
+   #+end_src
+
+   1. Work through an example using =next()= iterating over a list of strings: =["bat", "cat", "dog"]=
+      - Example means a a sequence of =next()= calls
+      - clearly indicate the concrete and abstract states after each call
+   1. Do the same thing but with a =prev()= method (combination of =next= and =prev=)?
+   1. Do the same thing but with a =remove()= method (combination of =next= and =remove=)?
+   # 1. Design an immutable version of the iterator.
+   #    1. How is =hasNext()= handled?
+   #    1. How is =next()= handled?
+   #    1. How is =remove()= handled?
+   # 1. Exercise the immutable iterator with some sample client code.
+
+** In class 7B
+   :PROPERTIES:
+   :CUSTOM_ID: ic7B
+   :END:
+
+   Consider the =Period= example in Bloch's Item 50 (3rd Edition):
+
+   #+begin_src java
+
+     // Broken “immutable” time period class
+     public final class Period {               // Question 3
+         private final Date start;
+         private final Date end;
+
+         /**
+          ,* @param start the beginning of the period
+          ,* @param end the end of the period; must not precede start
+          ,* @throws IAE if start is after end
+          ,* @throws NPE if start or end null
+          ,*/
+
+         public Period (Date start, Date end) {
+             if (start.compareTo(end) > 0) throw new IAE();
+             this.start = start; this.end = end;  // Question 1
+         }
+         public Date start() { return start;}    // Question 2
+         public Date end()   { return end;}      // Question 2
+     }
+   #+end_src
+
+
+   1. Write code that shows the problem the line marked // Question 1.
+   1. Write code that shows the problem the lines marked // Question 2.
+   1. Suppose that the class declaration were:
+      #+begin_src java
+        public class Period { // Question 3
+      #+end_src
+      - Think of a scenario and write code that shows the problem.
+   # 1. Bloch fixes the constructor as follows:
+   #    #+begin_src java
+   #      public Period (Date start, Date end) {
+   #          this.start = new Date(start.getTime());  // Defensive copy
+   #          this.end   = new Date(end.getTime());    // Defensive copy
+
+   #          if (this.start.compareTo(end) > 0) throw new IAE();
+   #    #+end_src
+      # 1. Bloch states that =clone()= would be inappropriate for copying the dates. Write code that shows the problem.
+      # 1. Bloch defers the exception check until the end, which seems to violate normal practice. What's the problem with checking early?
+
+** In class 8A
+   :PROPERTIES:
+   :CUSTOM_ID: ic8A
+   :END:
+
+   *Goal*: Understanding dynamic dispatching
+
+   Consider Liskov's =MaxIntSet= example with explicit =repOk()= calls: (Really, we'd need assertions on these calls...)
+
+   #+begin_src java
+
+     public class IntSet {
+         public void insert(int x) {...; repOk();}
+         public void remove(int x) {...; repOk();}
+         public boolean repOk() {...}
+     }
+     public class MaxIntSet extends IntSet {
+         public void insert(int x) {...; super.insert(x); repOk();}
+         public void remove(int x) {super.remove(x); ...; repOk();}
+         public boolean repOk() {super.repOk(); ...;}
+     }
+
+     MaxIntSet s = {3, 5}; s.remove(5);  // repOk()????
+   #+end_src
+  
+   # 1. What does the default constructor in =MaxIntSet= do?
+
+   3. What do the ="..."= bits do?
+   4. How does the call work out?
+   5. What is the abstract state of a =MaxIntSet=? There are two options. What are they, and what are the consequences of each choice?
+
+** In class 8B
+   :PROPERTIES:
+   :CUSTOM_ID: ic8B
+   :END:
+
+   Consider the following:
+
+   #+begin_src java
+
+     class A:
+         public void reduce (Reducer x)
+             // Effects: if x is null throw NPE
+             // else if x is not appropriate for this throw IAE
+             // else reduce this by x
+
+      class B:
+          public void reduce (Reducer x)
+             // Requires: x is not null
+             // Effects: if x is not appropriate for this throw IAE
+             // else reduce this by x
+
+      class C:
+           public void reduce (Reducer x)
+             // Effects: if x is null return (normally) with no change to this
+             // else if x is not appropriate for this throw IAE
+             // else reduce this by x
+   #+end_src
+
+   Analyze the "methods rule" for =reduce()= in each of these cases: Note: Some analysis may not be necessary. If so, indicate that.
+
+   #+begin_src text
+
+     B extends A.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
+     C extends A.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
+     A extends B.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
+     C extends B.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
+     A extends C.
+     Precondition Part:
+     Postcondition Part:
+     -----------------------------------
+   #+end_src
+
+** In class 8C
+   :PROPERTIES:
+   :CUSTOM_ID: ic8C
+   :END:
+
+   Consider the following:
+   #+begin_src java
+    public class Counter{   // Liskov 7.8
+         public Counter()     //EFF: Makes this contain 0
+             public int get()     //EFF: Returns the value of this
+             public void incr()   //MOD: this //EFF: makes this larger
+         }
+     public class Counter2 extends Counter { // Liskov 7.9
+         public Counter2()         //EFF: Makes this contain 0
+             public void incr()       // MOD: this //EFF: double this
+         }
+     public class Counter3 extends Counter {  // Liskov 7.10
+         public Counter3(int n)   //EFF: Makes this contain n
+             public void incr(int n)  // MOD: this //EFF: if n>0 add n to this
+         }
+   #+end_src
+
+   1. Is there a constraint about negative/zero values for this? How do we know?
+   1. What methods are in the =Counter2= API?
+   1. Is =Counter2= a valid subtype of Counter?
+   1. What methods are in the =Counter3= API?
+
+      # 1. Is =Counter3= a valid subtype of =Counter=? In particular, does =incr(int n)= have to be consistent with =incr()=? 
+
+** In class 9
+   :PROPERTIES:
+   :CUSTOM_ID: ic9
+   :END:
+
+   This is a recap exercise.
+
+   #+begin_src java
+     public class BoundedQueue {
+         private Object rep[];
+         private int front = 0;
+         private int back = -1;
+         private int size = 0;
+         private int count = 0;
+
+         public BoundedQueue(int size) {
+             if (size > 0) {
+                 this.size = size;
+                 rep = new Object[size];
+                 back = size - 1;
+             }  }
+
+         public boolean isEmpty() { return (count == 0); }
+         public boolean isFull() { return (count == size); }
+         public int getCount() { return count; }
+
+         public void put(Object e) {
+             if (e != null && !isFull()) {
+                 back++;
+                 if (back >= size)
+                     back = 0;
+                 rep[back] = e;
+                 count++;
+             } }
+
+         public Object get() {
+             Object result = null;
+             if (!isEmpty()) {
+                 result = rep[front];
+                 rep[front] = null;
+                 front++;
+                 if (front >= size)
+                     front = 0;
+                 count--;
+             }
+             return result;
+         }
+         @Override public String toString() {
+             String result = "front = " + front;
+             result += "; back = " + back;
+             result += "; size = " + size;
+             result += "; count = " + count;
+             result += "; rep = [";
+             for (int i = 0; i < rep.length; i++) {
+                 if (i < rep.length-1)
+                     result = result + rep[i] + ", ";
+                 else
+                     result = result + rep[i];
+             }
+             return result + "]";
+         }
+     }
+
+   #+end_src
+  
+
+   1. What is wrong with =toString()=? What needs to be done to fix it? Make it so.
+   1. Write some sample client code to exercise the data structure. Include some non-happy-path cases.
+      # Would Bloch likely change the behavior? If so, how?
+   1. Write contracts for each method (as written), including the constructor.
+   1. Build a rep-invariant. Focus on the code in =get()=. There are also lots of constraints on the array indices; these are quite tricky to get right. The constructor also introduces some complexity.
+   1. Suppose we removed the line
+      #+begin_src java
+        rep[front] = null;
+      #+end_src
+      from =get()=.
+      1. Informally, why is this wrong?
+      1. Formally, where does the correctness proof break down?
+      1. Could a client ever see the problem?
+   1. Now that we've done some AF/RI analysis, what changes make the implementation better? btw - this is code straight out of a textbook.
+   1. Could this data structure be made immutable? If so, what would change in the contracts and method headers? What would likely change in the implementation? 
+
+** In class 10
+   :PROPERTIES:
+   :CUSTOM_ID: ic10
+   :END:
+
+   #+begin_src java
+     public class Person {
+
+         public enum Sex {
+             MALE, FEMALE
+         }
+
+         String name;
+         Sex gender;
+         String emailAddress;
+
+         public int getAge() {
+             // ...
+         }
+
+         public void printPerson() {
+             // ...
+         }
+     }
+
+   #+end_src
+**** Approach 1: Create Methods That Search for Members That Match One Characteristic.
+
+     One simplistic approach is to create several methods; each method searches for members that match one characteristic, such as gender or age. *Create a method that prints members that are older than a specified age*.
+     
+     Limitation: This approach can potentially make your application brittle, which is the likelihood of an application not working because of the introduction of updates (such as newer data types). Suppose that you upgrade your application and change the structure of the Person class such that it contains different member variables; perhaps the class records and measures ages with a different data type or algorithm. You would have to rewrite a lot of your API to accommodate this change. In addition, this approach is unnecessarily restrictive; what if you wanted to print members younger than a certain age, for example?
+   
+**** Approach 2: Create More Generalized Search Methods.
+
+     Create a method is more generic than the one in the previous approach. It prints members within a specified range of ages.
+     
+     Limitation: What if you want to print members of a specified sex, or a combination of a specified gender and age range? What if you decide to change the Person class and add other attributes such as relationship status or geographical location? Although this method is more generic, trying to create a separate method for each possible search query can still lead to brittle code. You can instead separate the code that specifies the criteria for which you want to search in a different class.
+   
+**** Approach 3: Specify Search Criteria Code in a Local Class
+
+     Instead of writing filtering functions, use a new interface and class for each search you plan. Use the following filtering criteria for example:  filters members that are eligible for Selective Service in the United States: those who are male and between the ages of 18 and 25:
+     
+     Limtation: Although this approach is less brittle—you don't have to rewrite methods if you change the structure of the Person—you still have additional code: a new interface and a local class for each search you plan to perform in your application. Because one of the class implements an interface, you can use an anonymous class instead of a local class and bypass the need to declare a new class for each search.
+     
+**** Approach 4: Specify Search Criteria Code in an Anonymous Class
+     Use an anonymous class to address the issue with Approach 3.
+
+     Limtation: This approach reduces the amount of code required because you don't have to create a new class for each search that you want to perform. However, the syntax of anonymous classes is bulky considering that the CheckPerson interface contains only one method. In this case, you can use a lambda expression instead of an anonymous class, as described in the next section.
+
+**** Approach 5: Specify Search Criteria Code with a Lambda Expression
+
+     Use lambda expression to address the limitation the previous approach.
+
+** In class 11A
+   :PROPERTIES:
+   :CUSTOM_ID: ic11A
+   :END:
+
+   Given the following variable declarations, independently consider the given 6 sequences of Java instructions.
+   #+begin_src java
+
+     String           string = "bat";
+     Integer          x = 7;
+     Object[]         objects;
+     List             rawList;
+     List < Object >  objectList;
+     List < String >  stringList;
+
+   #+end_src
+
+   Identify any code that results in a compiler error or warning.
+   Identify any code that raises a runtime exception.
+   Once a compiler error is noted, you do not need to analyze the sequence further.
+
+   1.
+      #+begin_src java
+        objects = new String[1];
+        objects[0] = string;
+        objects[0] = x;
+      #+end_src
+      //Runtime error
+   1.
+      #+begin_src java
+        objects = new Object[1];
+        objects[0] = string;
+        objects[0] = x;
+      #+end_src
+      //no issue
+   1.
+      #+begin_src java
+        stringList = new ArrayList < String >();
+        stringList.add(string) ;
+      #+end_src
+      //no issue
+   1.
+      #+begin_src java
+        objectList = new ArrayList < String >();
+        objectList.add(string) ;
+      #+end_src
+      Compile error: incompatiable object String and Object
+
+   1.
+      #+begin_src java
+        objectList = new ArrayList < Object >();
+        objectList.add(string) ;
+        objectList.add(x) ;
+      #+end_src
+      No issue
+   6.
+      #+begin_src java
+        rawList = new ArrayList();
+        rawList.add(string) ;
+        rawList.add(x) ;
+      #+end_src
+      Warning
+
+** In class 11B
+   :PROPERTIES:
+   :CUSTOM_ID: ic11B
+   :END:
+
+   #+begin_src java
+     // Chooser - a class badly in need of generics!
+     // Bloch 3rd edition, Chapter 5, Item 28:  Prefer lists to arrays
+
+     public class <E>  Chooser {
+         private final List<E> choiceArray;
+
+         public Chooser (Collection <E> choices) {
+             choiceArray = new ArrayList<E>(choices);
+         }
+
+         public E choose() {
+             Random rnd = ThreadLocalRandom.current();
+             return choiceArray.get(rnd.nextInt(choiceArray.size()));
+         }
+     }
+   #+end_src
+
+
+   - First, simply generify by adding a type to the Chooser class. What is the compiler error with this approach?
+   - How can you turn the compiler error into a compiler warning?
+   - Can this warning be suppressed? Should it?
+   - How can you adopt Bloch's advice about arrays and lists to get a typesafe Chooser class without doing anything else that is complicated?
+
+   - Add rep invariants and contracts (e.g., throw exceptions in unwanted cases); check if code satisfies these; and if not modify code to satisfy them. This question will take the most time!
+   - Add a =addChoice= method to the API and write appropriate contracts for it
+
+   #+begin_comment
+   #+begin_src java
+   public class Chooser {
+   private final List<T> choiceArray;
+
+   //RepInv: choicearray is not Null and not empty
+
+   //POST: @throw IAE if choices is empty
+   //POST: @throw NPE if choice contains null
+   //Post: create a chooser with choices
+   public Chooser (Collection<T> choices) {
+   if (choices.size() == 0)  throw new IllegalArgumentException(); // ADD
+   if (choices.contains(null)) throw new NullPointerExeption();//ADD
+   choiceArray = new ArrayList<>();
+   }
+
+   //POST: @throws ISE if empty, else return random choice
+   //CHECK: choiceArray never changed so RI maintained,
+   public Object choose() {
+   if(choiceList.size() == 0) throw IllegalStateException(); // NEW CODE
+   Random rnd = ThreadLocalRandom.current();
+   return choiceArray [rnd.nextInt(choiceArray.length)];
+   }
+
+   //Post @throw NPE if choice is null
+   //POST: add choice to this
+   public void addChoice(T choice){
+   if (choice == null) throw new NullPointerException();
+   choiceList.add(choice);
+   }
+   }
+   #+end_src
+   #+end_comment
+     
+** In class 11C
+   :PROPERTIES:
+   :CUSTOM_ID: ic11C
+   :END:
+   
+   #+begin_src java
+     public class BoundedQueue {
+
+         private Object rep[];
+         protected int front = 0;
+         protected int back = -1;
+         private int size = 0;
+         protected int count = 0;
+
+         public BoundedQueue(int size) {
+             if (size > 0) {
+                 this.size = size;
+                 rep = new Object[size];
+                 back = size - 1;
+             }  }
+
+         public boolean isEmpty() { return (count == 0); }
+
+         public boolean isFull() { return (count == size); }
+
+         public int getCount() { return count; }
+
+         public void put(Object e) {
+             if (e != null && !isFull()) {
+                 back++;
+                 if (back >= size)
+                     back = 0;
+                 rep[back] = e;
+                 count++;
+             }  }
+
+         public Object get() {
+             Object result = null;
+             if (!isEmpty()) {
+                 result = rep[front];
+                 rep[front] = null;
+                 front++;
+                 if (front >= size)
+                     front = 0;
+                 count--;
+             }
+             return result;
+         }
+     }
+
+   #+end_src
+
+
+   *Generify*!
+   - Can you add a ~putAll()~ method? A ~getAll()~ method?
+   - Recall that we used this same example in in-class 6 as a vehicle for applying Liskov's ideas to make code easier to understand.
+
+** In class 12A
+   :PROPERTIES:
+   :CUSTOM_ID: ic12A
+   :END:
+   
+   Consider Bloch's =Point/ColorPoint= example. For today, ignore the =hashCode()= issue.
+
+   #+begin_src java
+
+     public class Point {  // routine code
+         private int x; private int y;
+         ...
+             @Override public boolean equals(Object obj) {  // Standard recipe
+             if (!(obj instanceof Point)) return false;
+
+             Point p = (Point) obj;
+             return p.x == x && p.y == y;
+         }
+     }
+
+     public class ColorPoint extends Point {  // First attempt: Standard recipe
+         private COLOR color;
+         ...
+             @Override public boolean equals(Object obj) {
+             if (!(obj instanceof ColorPoint)) return false;
+
+             ColorPoint cp = (ColorPoint) obj;
+             return super.equals(obj) && cp.color == color;
+         }
+     }
+
+     public class ColorPoint extends Point {  // Second attempt: DON'T DO THIS!
+         private COLOR color;
+         ...
+             @Override public boolean equals(Object obj) {
+             if (!(o instance of Point)) return false;
+
+             // If obj is a normal Point, be colorblind
+             if (!(obj instanceof ColorPoint)) return obj.equals(this);
+
+             ColorPoint cp = (ColorPoint) obj;
+             return super.equals(obj) && cp.color == color;
+         }
+     }
+   #+end_src
+
+   1. What is the =equals()= contract? What is the standard recipe?
+      #+begin_comment
+      reflexive, symmetry, transitivity, liskov substitution variable
+      Standard receipt:
+      @Override public boolean equals(Object obj) {
+      if (obj == this) return true
+      if (!(obj instanceof ColorPoint)) return false;
+      ColorPoint cp = (ColorPoint) obj;
+      return super.equals(obj) && cp.color == color;
+      #+end_comment
+   1. Why does Bloch use the =instanceof= operator in the standard recipe?
+      #+begin_comment
+      preserve type hierchy
+      #+end_comment
+   1. Write client code that shows a contract problem with the first attempt at =ColorPoint= (i.e., what contract does it break?)
+      #+begin_comment
+      #+begin_src java
+      Point a = new Point(1,2)
+      ColorPoint b = new ColorPoint(1,2, Color.Red)
+      a.equals(b); // return true
+      b.equals(a); // return false  , break symmetry
+      #+end_src
+      #+end_comment
+   1. Write client code that shows a contract problem with the second attempt at =ColorPoint= (i.e., what contract does it break?).
+      #+begin_comment
+      Point a = new Point(1,2)
+      ColorPoint b = new ColorPoint(1,2, Color.Red)
+      ColorPoint c = new ColorPoint(1,2, Color.Blue)
+      a.equals(b); // return true
+      a.equals(c); // return true
+      b.equals(c); // return false; break transitivity
+      #+end_comment
+   1. Some authors recommend solving this problem by using a different standard recipe for =equals()=.
+        #+begin_src java
+          boolean equals(Object o){
+              if (o == null | o.getClass() != getClass()) return false;
+              Point p = (Point)o;
+              return p.x == x && p.y == y;
+          }
+        #+end_src
+
+
+      - What's the key difference?
+      - Which approach do you want in the following code:
+        #+begin_src java
+          public class CounterPoint extends Point
+                                            private static final AtomicInteger counter =
+                                            new AtomicInteger();
+
+          public CounterPoint(int x, int y) {
+              super (x, y);
+              counter.incrementAndGet();
+          }
+          public int numberCreated() { return counter.get(); }
+
+          @Override public boolean equals (Object obj) { ??? }
+          }
+
+
+          // Client code:
+
+          Point p = PointFactory.getPoint();   // either a Point or a CounterPoint
+          Set<Point> importantPoints =   // a set of important points
+              boolean b = PointUtilities.isImportant(p);  // value?
+
+        #+end_src
+        #+begin_comment
+        just leave it alone,  counter is a class variable , not of each object
+        The client code demonstrates, client doesn't care whether it's a point or CounterPont as only x,y are the main things
+
+        getclass approach is wrong
+        if(obj == null || obj.getClass() != this.getClass()) return false;
+        Point p = (Point) obj;
+        return p.x = x && y .y == y;
+
+        client code:  breaks Liskov's example  as we can have a Point and CounterPoint with same x,y but both show up in importantPoints
+        #+end_comment
+
+** In class 12B
+   :PROPERTIES:
+   :CUSTOM_ID: ic12B
+   :END:
+   
+   Consider a variation of Liskov's =IntSet= example (Figure 5.10, page 97)
+
+   #+begin_src java
+
+     public class IntSet implements Cloneable {
+         private List<Integer> els;
+         public IntSet () { els = new ArrayList<Integer>(); }
+         ...
+             @Override
+             public boolean equals(Object obj) {
+             if (!(obj instanceof IntSet)) return false;
+
+             IntSet s = (IntSet) obj;
+             return ???
+                 }
+
+         @Override
+         public int hashCode() {
+             // see below
+         }
+
+         // adding a private constructor
+         private IntSet (List<Integer> list) { els = list; }
+
+         @Override
+         public IntSet clone() {
+             return new IntSet ( new ArrayList<Integer>(els));
+         }
+
+     }
+   #+end_src
+
+   1. How should the =equals()= method be completed?
+      #+begin_comment
+      - 2 iterations,  1 check that obj contains everything this has,  the other check that this contains everything obj has
+      - converting obj to IntSet doesn't work because repr is implemented on top of ArrayList and [1,2] != [2,1], but they should be since they are used as set
+      #+end_comment
+   1. Analyze the following ways to implement =hashCode()=? If there is a problem, give a test case that shows the problem.
+      1. not overridden at all
+      #+begin_comment
+      return diff number for diff objects (regardless if their contents are the same)
+      #+end_comment
+      1. return 42;
+      #+begin_comment
+      same hash for everything,  so degrade into a linked list
+      #+end_comment
+      1. return =els.hashCode()=;
+      #+begin_comment
+      order now matters
+      #+end_comment
+      1. ~int sum = 0; for (Integer i : els) sum += i.hashCode(); return sum;~
+      #+begin_comment
+      sum(1,3)  == sum(0,4)
+      #+end_comment
+   1. What's the problem with =clone()= here (something with subtyping)? Give a test case that shows the problem.
+      #+begin_comment
+      just create a subclass IntSet2 of IntSet (doesn't do anything, just a subclass)
+
+      # prob with using superclass clone
+      IS2 i = new IS2();
+      IS2 i2 = i.clone();    //use clone of superclass IS,  return IS as a type,  so bad typing
+
+      # another way, closer, but still wrong
+      public IntSet2 clone() {
+      return (IntSet2)super.clone();   // just like constructor, called super to do it
+      }                                  // but this has a CCE, because cannot convert IntSet to InSet2 (cannot cast supertype to subtype)
+      #+end_comment
+   1. Fix =clone()= in two very different ways.
+      #+begin_comment
+
+      #1
+      @Override
+      public IntSet clone() {
+      IntSet result = (Intset) super.clone();
+      results.els = new ArrayList<Intenger>els;
+      return result;
+      }
+
+      #2 disable subtypes (put final in there)
+      @Override
+      public final class IntSet ... {
+      }
+      #+end_comment
+
+** In class 13A
+   :PROPERTIES:
+   :CUSTOM_ID: ic13A
+   :END:
+
+   Consider Bloch's ~InstrumentedHashSet~, ~InstrumentedSet~, and ~ForwardingSet~ examples:
+
+   #+begin_src java
+     public class InstrumentedHashSet<E> extends HashSet<E>{
+         private int addCount = 0;
+         public InstrumentedHashSet() {}
+
+         @Override public boolean add(E e){
+             addCount++;
+             return super.add(e);
+         }
+         @Override public boolean addAll(Collection<? extends E> c){
+             // What to do with addCount?
+             return super.addAll(c);
+         }
+         public int getAddCount(){ return addCount; }
+     }
+
+     public class InstrumentedSet<E> extends ForwardingSet<E>{
+         private int addCount = 0;
+
+         public InstrumentedSet(Set<E> s){ super(s); }
+         @Override public boolean add(E e){ addCount++; return super.add(e); }
+         public int getAddCount(){ return addCount; }
+     }
+
+     public class ForwardingSet<E> implements Set<E> {
+         private final Set<E> s;
+
+         public ForwardingSet(Set<E> s){ this.s = s; }
+         public           boolean add(E e)        { return s.add(e);     }
+         public           boolean remove(Object o){ return s.remove(o);  }
+         @Override public boolean equals(Object o){ return s.equals(o);  }
+         @Override public int     hashCode()      { return s.hashCode(); }
+         @Override public String  toString()      { return s.toString(); }
+         // Other forwarded methods from Set interface omitted
+     }
+   #+end_src
+
+   Consider also the following client code:
+
+   #+begin_src java
+     Set<String> r = new HashSet<String>();
+     r.add("ant"); r.add("bee");
+
+     Set<String> sh = new InstrumentedHashSet<String>();
+     sh.addAll(r);
+
+     Set<String> s =  new InstrumentedSet<String>(r);
+     s.add("ant"); s.add("cat");
+
+     Set<String> t = new InstrumentedSet<String>(s);
+     t.add("dog");
+
+     r.remove("bee");
+     s.remove("ant");
+   #+end_src
+
+   1. How do you think the ~addCount~ variable should be updated in the ~addAll()~ method in ~InstrumentedHashSet~?
+      1. Why is this a hard question?
+      1. What does the answer say about inheritance?
+      1. Does =equals()= behave correctly in =InstrumentedHashSet?=
+   1. Given your previous answer, what is the value of =sh.addCount= at the end of the computation?
+   1. Consider the =InstrumentedSet= solution. Besides being correct (always a plus!) why is it more general than the =InstrumentedHashSet= solution?
+   1. At the end of the computation, what are the values of: =r=, =s=, and =t=?
+   1. What would a call to =s.getAddCount()= return at the end of the computation?
+   1. At the end of the computation, what are the values of: =r.equals(s)=, =s.equals(t)=, and =t.equals(s)=?
+      - Are there any problems with the =equals()= contract?
+   # 1. Would this still work if you globally replaced sets with lists?
+   #    #+begin_comment
+   #    yes, because javadoc for list (e.g., equal) tells us
+   #    #+end_comment
+   # 1. Would this still work if you globally replaced sets with collections?
+   #    #+begin_comment
+   #    no, because javadoc for collections (e.g., equal) doesn't give anything
+   #    #+end_comment
+*Note*: There is a lot going on in this example. I highly recommend that you play with the code until you understand it.    
+
+** In class 13B
+   :PROPERTIES:
+   :CUSTOM_ID: ic13B
+   :END:
+
+   #+begin_src java
+     public class Super {
+         public Super() {
+             overrideMe();
+         }
+
+         public void overrideMe () {
+         }
+     }
+     public final class Sub extends Super {
+
+         private final Date date;  // filled in by constructor
+
+         public Sub() {
+             date = new Date();
+         }
+         @Override public void overrideMe () {
+             System.out.println(date);
+         }
+
+         public static void main (String[] args) {
+             Sub sub = new Sub();
+             sub.overrideMe();
+         }
+     }
+   #+end_src
+
+   1. What is the pattern, and how common is it?
+   1. What does the main method do, and why?
+   1. Which of Bloch's rules does this example break?
+   1. What does this example mean for =Cloneable= interface and the =clone()= method?
+   1. What does this example mean for =Serializable= interface and the =readObject()= method?
+   1. To what extent does this rule generalize to producer methods?
+
+** In class 13C
+   :PROPERTIES:
+   :CUSTOM_ID: ic13C
+   :END:
+
+   Consider a mutable complex number class:
+
+   #+begin_src java
+     public class MComplex {
+         double re; protected double im;
+
+         public MComplex (double re, double im) { this.re = re; this.im = im; }
+
+         public double getReal()      { return re; }
+         public double getImaginary() { return im; }
+
+         public void setReal(double re)      { this.re = re; }
+         public void setImaginary(double im) { this.im = im; }
+
+         public void add (MComplex c) { re += c.re; im += c.im; }
+
+         public void subtract (MComplex c) { re -= c.re; im -= c.im; }
+
+         public void multiply (MComplex c) {
+             double r = re * c.re - im * c.im;
+             double i = re * c.im + im * c.re;
+             re = r; im = i;
+         }
+
+         public void divide (MComplex c) {
+             double den = c.re * c.re + c.im * c.im;
+             double r = (re * c.re - im * c.im) / den;
+             double i = (re * c.im + im * c.re) / den;
+             re = r; im = i;
+         }
+
+         @Override public boolean equals (Object o) {
+             if (o == this)               return true;
+             if (!(o instanceof MComplex)) return false;
+             MComplex c = (MComplex) o;
+
+             // See Bloch page 43 to find out why to use compare() instead of ==
+             return Double.compare(re, c.re) == 0 &&
+                 Double.compare(im, c.im) == 0;
+         }
+
+         @Override public int hashCode () {
+             int result = 17 + hashDouble(re);
+             result = 31 * result + hashDouble(im);
+             return result;
+         }
+
+         private int hashDouble (double val) {
+             long longBits = Double.doubleToLongBits(val);
+             return (int) (longBits ^ (longBits >>>32));
+         }
+
+         @Override public String toString() { return "(" + re + " + " + im + "i)"; }
+     }
+
+   #+end_src
+
+   Before we get to immutability, consider the method contracts. Where do the various contracts "come from", and is there anything in the (missing) JavaDoc that might require a bit of research?
+
+   Apply each of Bloch's 5 rules for making a class immutable:
+   1. Don't provide any methods that modify the object's state. How do you handle the mutators?
+   2. Ensure that no methods can be overridden.
+      - Why is this a problem? Show me!
+      - Fix the problem:
+        - Change the class declaration, or
+        - Change the method declarations, or
+        - Change the constructor visibility.
+   1. Make all fields final.
+   1. Make all fields private.
+      - Is there a significant difference in visibility between re and im?
+   1. Ensure exclusive access to any mutable components.
+
+** In class 14
+   :PROPERTIES:
+   :CUSTOM_ID: ic14
+   :END:
+
+   This is a JUnit theory exercise.
+
+   1. Write a JUnit theory that captures the symmetry property of the =equals()= method.
+      1. Create =@DataPoints= from Bloch's =Point=, =ColorPoint= classes. So that we're all on the same page, create 1 =null= reference, 1 =Point= object and 2 =ColorPoint= objects.
+      1. Given this set of data points:
+         - How many combinations are considered by the theory?
+         - How many combinations make it past the preconditions of the theory?
+         - How many combinations make it to the postcondition of the theory? 
+      # 1. What happens to this theory and the accompanying data points when favoring composition over inheritance?
+   1. Repeat the exercise for the transitive property for =equals()=.
+   1. Recall the =equals()= and =hashCode()= discussion in Bloch. Write a JUnit theory that encodes the consistency property between =equals()= and =hashCode()=.
+      # 1. Build a toy example that violates the theory. Fix the toy example so that the theory is no longer violated.
+   # 1. Consider the =Comparable= interface: what properties should be checked with theories?
+
+** In class 15A
+   :PROPERTIES:
+   :CUSTOM_ID: ic15A
+   :END:
+
+   Consider the following (bad) Java, implementing the "C style" enum pattern:
+
+   #+begin_src java
+     public class Coins {
+         public static final int PENNY = 1;
+         public static final int NICKLE = 5;
+         public static final int DIME = 10;
+         public static final int QUARTER = 25;
+     }
+
+   #+end_src
+
+   1. Give example code that illustrates a type safety problem with =Coins=. Work through a range of expressions from "probably ok" to "clearly wrong".
+   1. What code would you need to turn a nickel into a string? Explain how this could go wrong at runtime.
+   1. What code would you need to iterate through the coins?
+   1. Would extensions to this particular enum be likely to require recompilation of client code? Explain.
+   1. Write a decent Java Enum for coins.
+   1. Turn a nickle into a string.
+   1. Iterate though the coins.
+
+
+   Consider Bloch's example:
+
+   #+begin_src java
+     // Abuse of ordinal to derive an associated value – DON’T DO THIS
+     public enum Ensemble {
+         SOLO,   DUET,   TRIO,  QUARTET, QUINTET, 
+         SEXTET, SEPTET, OCTET, NONET,   DECTET;
+
+         public int numberOfMusicians() { return ordinal() + 1; }
+     }
+   #+end_src
+
+   Explain why it's wrong, fix it, and add another enum with an overlapping number of musicians.
+
+** In class 15B
+   :PROPERTIES:
+   :CUSTOM_ID: ic15B
+   :END:
+
+   This is a recap exercise based on the map-based implementation of Liskov's polynomial example: [[./files/MapPoly.java][MapPoly]]
+
+   1. How are the following polynomials represented?
+      - $0$
+      - $3-7x^4$
+      #+begin_comment
+      - empty map
+      - 2 pairs  : (0,3),  (4,-7)
+      #+end_comment
+   1. Bloch would not accept that the ~MapPoly~ class is immutable. Why not? Show how it would be possible to provide mutable behavior with the class if Bloch's problem isn't fixed. Fix the problem, and implement any other changes Bloch suggests, even if they don't compromise immutability in this particular example.
+      #+begin_comment
+      Serious: overridable problems are problems,  so we can extend this and override whatever (make the class final, ...)
+      Not-Serious (just a Bloch's rule): ~trms~ variable should be final too 
+      #+end_comment
+   1. Write a reasonable rep-invariant for ~MapPoly~. 
+      #+begin_comment
+      - ~trms~ != null
+      - ~keys()~ (representing exponents) are nonnegative
+      - ~keys()~ should not contain ~null~,  also no 0's  (i.e., don't store terms with 0 coefficients)
+      #+end_comment
+   1. Provide reasonable implementations of ~equals()~ and ~hashCode()~. Explain why you believe your implemetations are appropriate.
+      #+begin_comment
+      - Take advantage of the fact that every polynomial has exactly 1 representation, one map, so just rely on equal of map (i.e., the TreeMap of ~trms~)
+      - same thing with hashcode, just use the hashcode of ~trms~
+      #+end_comment
+   1. As written, the *contract* for the ~coeff()~ method is inconsistent with other contracts in the class.
+      - What is the inconsistency with the contract?
+      - Fix the inconsistency with the contract.
+      - Fix the code to match the revised contract.
+      #+begin_comment
+      contract of coeff allows negative exp input
+      to fix it, just add:  if d < 0 throws IllegalArgumentException
+      #+end_comment
+   1. Argue that the implementation of the ~coeff()~ method is correct (with respect to your repaired contract, of course.)
+      #+begin_comment
+      - this is an observer, so repr inv is maintainted
+      - and this thing satisfies the contract (e.g., IAE raised when d < 0 ,  return the coeficient val of exponent d)
+      #+end_comment
+   1. Consider implementing ~Cloneable~ for this class. Decide whether Bloch would think this is a good idea and provide justification for your answer. Note: You don't have to actually implement anything for this question.
+      #+begin_comment
+      No, because this class is supposed to be immutable,  so no need to clone it,  just share it.
+      #+end_comment
+   1. See if you can come up with a theory about ~Polys~ and implement it in JUnit. (~Polys~ are math objects, so there should be properties that you can specified as theories to test!) Here's a suggestion: Think about the relationship between the degrees of two Polys being multiplied and the resulting degree.
+      #+begin_comment
+      @DataPoints
+      public static Object[] test1 = {new MapPOly(2,5), new MapPoly(2,2)}
+      #+begin_src java
+      @Theory
+      public void test(MapPOly x, MapPoly y){
+      assumeTrue(x!=null);
+      assumeTrue(x!=null);
+      MapPoly z = x.mul(y)
+      assertTrue(z.degree() == x.degree() + y.degree())
+      }
+      #+end_src
+      #+end_comment
+      
+
+
+
+** In class 16
+   :PROPERTIES:
+   :CUSTOM_ID: ic16
+   :END:
+
+   How well are you prepared for the final? This exercise should help you find out. Piazza discussions encouraged!
+
+   #+begin_src java
+
+     public class Stack {
+         private Object[] elements; private int size = 0;
+
+         public Stack() { this.elements = new Object[0]; }
+
+         public void push (Object e) {
+             if (e == null) throw new NullPointerException("Stack.push");
+             ensureCapacity(); elements[size++] = e;  
+         }
+
+         public void pushAll (Object[] collection) { for (Object obj: collection) { push(obj); } }
+
+         public Object pop () {
+             if (size == 0) throw new IllegalStateException("Stack.pop");
+             Object result = elements[--size];
+             elements[size] = null;
+             return result;
+         }
+
+         @Override public String toString() {
+             String result = "size = " + size;
+             result += "; elements = [";
+             for (int i = 0; i < elements.length; i++) {
+                 if (i < elements.length-1)
+                     result = result + elements[i] + ", ";
+                 else
+                     result = result + elements[i];
+             }
+             return result + "]";
+         }
+     }
+
+
+   #+end_src
+
+   1. Write a contract for =push(Object e)=.
+   1. What is wrong with =toString()?= Fix it.
+   1. What rep-invariant is likely broken? Fix it. This includes writing a suitable rep-invariant.
+   1. How would Bloch's Item 25: /Prefer Lists to Arrays/ apply here? Would it make the rep-invariant simpler?
+   1. How would you argue that that =pop()= is correct (or not)?
+   1. What is the problem with =pushAll()= ?  write a contract for it.  What would Bloch suggest as an alternative?
+   1. Override =equals()= (for both cases when elements is Array and ArrayList). What else do you have to do? Do that too.
+   # 1. Generify. What should happen to the parameter for =pushAll()=? Why?
+   # 1. Suppose we decide to implement the =Cloneable()= interface. In what ways would Bloch think we would likely get it wrong? What would Bloch recommend instead?
+
+* HW Assignments
+** Assignment 1
+   :PROPERTIES:
+   :CUSTOM_ID: a1
+   :END:
+
+*** Goal
+    - Getting started on Piazza.
+    - Getting your group together. 
+
+    There are two parts to this assignment:
+
+    - Post a brief intro about yourself on the course Piazza page. For any credit, the posting must:
+      - be a follow-up to my introduction. In other words, all intros need to be in the same thread.
+      - Include a photo appropriate in size, content, and orientation. 
+    - Your *group* should communicate the composition of your group to me (and the GTA) on Piazza.
+
+*** Grading Criteria
+    - Your individual Piazza post adheres to my instructions. (That is, no sideways pictures, no oversize pictures, etc.)
+    - You are in a group.
+
+** Assignment 2 
+   :PROPERTIES:
+   :CUSTOM_ID: a2
+   :END:
+
+*** Goals: Contracts
+
+    For the second assignment, you'll build a /very/ small piece of Java for a contract with preconditions, transform the contract so that all preconditions become postconditions (i.e., make it a /total/ contract), and then re-implement appropriately.
+
+    - Consider a method that calculates the number of months needed to pay off a loan of a given size at a fixed /annual/ interest rate and a fixed /monthly/ payment. For instance, a $100,000 loan at an 8% annual rate would take 166 months to discharge at a monthly payment of $1,000, and 141 months to discharge at a monthly payment of $1,100. (In both of these cases, the final payment is smaller than the others; I rounded 165.34 up to 166 and 140.20 up to 141.) Continuing the example, the loan would never be paid off at a monthly payment of $100, since the principal would grow rather than shrink.
+
+    Define a Java class called =Loan=. In that class, write a method that satisfies the following specification:
+
+    #+begin_src java
+      /*
+        @param principal:  Amount of the initial principal
+        @param rate:       Annual interest rate  (8% rate expressed as rate = 0.08)
+        @param payment:    Amount of the monthly payment
+      ,*/
+      public static int months (int principal, double rate, int payment)
+      // Requires: principal, rate, and payment all positive and payment is sufficiently large to drive the principal to zero.
+      // Effects:  return the number of months required to pay off the principal
+    #+end_src
+
+
+    Note that the precondition is quite strong, which makes implementing the method easy. You should use double precision arithmetic internally, but the final result is an integer, not a floating point value. The key step in your calculation is to change the principal on each iteration with the following formula (which amounts to monthly compounding):
+
+    #+begin_src java
+      newPrincipal = oldPrincipal * (1 + monthlyInterestRate) - payment;
+    #+end_src
+
+    #+begin_comment
+
+    monthlyInterestRate = rate / 12
+
+    if (principle <= 0 || rate <= 0 || payment <= 0) throw new IllegalArgumentException("...");
+
+    if (payment < principle * rate / 12) throw new IllegalArgumentException("...");
+
+    int month = 0;
+
+    while(principle > 0){
+      principle = principle * (1 + rate / 12) - payment;
+      month++;
+    }
+    #+end_comment
+
+
+    The variable names here are explanatory, not required. You may want to use different variables, which is fine.
+
+    *To make sure you understand the point about preconditions, your code is required to be minimal. Specifically, if it possible to delete parts of your implementation and still have it satisfy the requirements, you'll earn less than full credit.*
+
+    - Now modify =months= so that it handles *all* of its preconditions with exceptions. Use the standard exceptions recommended by Bloch. Document this with a revised contract. You can use JavaDoc or you can simply identify the postconditions.
+
+*** Grading Criteria
+
+    - Adherence to instructions.
+    - Minimal implementation.
+    - Preconditions are correctly converted to exceptions.
+    - Syntax: Java compiles and runs.
+
+
+** Assignment 4
+   :PROPERTIES:
+   :CUSTOM_ID: a4
+   :END:
+*** Goals: Understanding Program Verification through Hoare Logic
+  
+1. Do the [[#ic4][in-class exercise]] with your group and submit it on BB. More specifically, you will do the below two tasks:
+    1. Prove the program using the following the loop invariant:  ~i <= N~.
+       1. Clearly reason why this is a loop invariant
+       1. Compute the weakest precondition =wp= of the program wrt the post conditiong =Q=
+       1. Compute the verification condition =vc (P => wp(..))=, and
+       1. Analyze the =vc= to dertermine whether the program is proved or not
+    1. Repeat the above task a different loop invariant:  ~N >= 0~
+2. Given the program
+   #+begin_src java
+     // {x <= 1}   # P1
+     // {x <= 11}  # P2
+
+     while (x != 10){
+         x := x + 1;
+     }
+
+     //{x == 10}  # Q
+   #+end_src
+   1. Informally reason that this program is correct with the given =P1= and =Q=.
+   1. This program *is correct* with respect to the given precondition =P1= and postcondition =Q=.  Prove it by finding a loop invariant and verify the verification condition (show your work, i.e., generate the =wp= and the =vc= of the program, and reason about these)
+   2. Now, consider a different precondition =P2=.
+      1. Recompute the VC of the program with respect to =P2=.
+      1. is the VC  =P2 -> WP ..=  valid?  if yes, what does that mean,  if not, what does that mean?
+
+*** Grading Criteria
+  
+    - Correctness of solution
+    Note: If your group had trouble with the assignment, feel free to appeal to your classmates to post a sample solution on Piazza.
+
+** Assignment 5
+   :PROPERTIES:
+   :CUSTOM_ID: a5
+   :END:
+*** Goals: Data Abstraction / Mutability
+
+    Rewrite [[./files/MapPoly.java][MapPoly]], my map-based version Liskov's Poly so that it is /mutable/. Keep the same representation.
+
+    Rewrite the overview, the method signatures, the method specifications, and the methods themselves. You do not need to rewrite the abstraction function and representation invariant for this exercise.
+
+    Turn in a *story*. This means that it is possible to grade your assignment simply by reading it, as if it were part of a textbook. In particular, every place you make a decision to change something in the code (or not), you should have a description of what you did (or didn't do) and why you did (or didn't do) it.
+
+    Remember that part of your group is responsible for synthesizing a solution, and part of your group is responsible for checking the result.
+
+*** Grading Criteria
+    - Correct transformation of Poly
+    - Clarity of your story.
+    - Reasonable division of synthesis vs. checking.
+
+** Assignment 6
+   :PROPERTIES:
+   :CUSTOM_ID: a6
+   :END:
+*** Goals: Rep-Invariants, contracts, tests
+  
+    Revisit the mutable Poly example from [[#a5][assignment 5]]. That is, use the one based on a map, not an array.
+  
+    1. Implement =repOk()=.
+    1. Introduce a fault (i.e. "bug") that breaks the rep-invariant. Try to do this with a small (conceptual) change to the code. Show that the rep-invariant is broken with a JUnit test.
+    1. Analyzed your bug with respect to the various contracts/methods in Poly. Are all/some/none of the contracts violated?
+    1. Do you think your fault is realistic? Why or why not?
+
+    As in assignment 3, your deliverable is a *story*, with exactly the same rationale. Take screenshots (e.g. of failing JUnit tests) as necessary to make your case.
+
+*** Grading Criteria
+  
+    - Correctness of solution
+    - Clarity of story
+    Note: If your group had trouble with the previous assignment, feel free to appeal to your classmates to post a sample solution on Piazza.
+
+** COMMENT Assignment 7
+   :PROPERTIES:
+   :CUSTOM_ID: a7
+   :END:
+*** Goals: Immutablity via Bloch Item 50
+
+    Revisit the [[#ic7B][Period example]].
+
+    Implement a satisfying solution to question 3. That is, you should not only break the immutability of the =Period= class by writing a suitable sublcass, but you should also develop a plausible case where a client ends up "in trouble" due to the loss of immutability.
+
+    Turn in a *story*.
+
+*** Grading Criteria
+
+    Grading is in part the technical aspect of breaking immutability, and in part that your client case is plausible.
+
+** Assignment 8
+   :PROPERTIES:
+   :CUSTOM_ID: a8
+   :END:
+
+*** Goals: Type Abstraction
+
+    Consider the following =Market= class.
+  
+    #+begin_src java
+
+      class Market {
+          private Set<Item> wanted;           // items for which prices are of interest
+          private Bag<Item, Money> offers;    // offers to sell items at specific prices
+          // Note:  Bag isn't a Java data type.  Here, the bag entries are pairs.
+
+          public void offer (Item item, Money price)
+          // Requires: item is an element of wanted
+          // Effects:  add (item, price) to offers
+
+              public Money buy(Item item)
+          // Requires: item is an element of the domain of offers
+          // Effects: choose and remove some (arbitrary) pair (item, price) from
+          //          offers and return the chosen price
+              }
+
+    #+end_src
+
+    1. Suppose that offers are only accepted if they are lower than previous offers.
+       #+begin_src java
+         class Low_Bid_Market extends Market {
+             public void offer (Item item, Money price)
+             // Requires: item is an element of wanted
+             // Effects:  if (item, price) is not cheaper than any existing pair
+             //           (item, existing_price) in offers do nothing
+             //           else add (item, price) to offers
+
+       #+end_src
+       Is =Low_Bid_Market= a valid subtype of =Market=? Appeal to the methods rule to back up your answer.
+
+    1. Suppose that the =buy()= method always chooses the lowest price on an item.
+       #+begin_src java
+         class Low_Offer_Market extends Market {
+             public Money buy(Item item)
+             // Requires: item is an element the domain of offers
+             // Effects: choose and remove pair (item, price) with the 
+             //          lowest price from offers and return the chosen price
+       #+end_src
+       Is =Low_Offer_Market= a valid subtype of =Market=? Appeal to the methods rule to back up your answer.
+       
+*** Grading Criteria
+
+    This is purely a "paper and pencil" exercise. No code is required. Write your answer so that it is easily understandable by someone with only a passing knowledge of Liskov's rules for subtypes.
+
+** Assignment 9
+   :PROPERTIES:
+   :CUSTOM_ID: a9
+   :END:
+
+*** Goals: Polymorphic Abstraction.
+
+    A =Comparator= based on absolute values is problematic. Code up the comparator and then write client code that illustrates the problem. Use a /lambda function/ to implement the comparator. Explain what is wrong in a brief summary statement. Your explanation of the problem must be phrased in terms of a violation of the contract for =Comparator=.
+
+    To emphasize that this contract problem is real, your code should create two Java sets, one a =HashSet=, and the other a =TreeSet=. The =TreeSet= should order items with your absolute value comparator. Your example should add the same integers to both sets, yet still end up with sets that are different. Your summary statement should explain why.
+
+*** Grading Criteria
+    As for other recent assignments, your deliverable is a clear, concise story that demonstrates completion of the assignment.
+
+    #+begin_comment
+    abs(x).CompareTo(abs(y))    :  (-3, 3) = 0, (-10,3)   = 1,  add(1,-3,-10,5,3) => {1,-3,5,-10}
+    x.CompareTo(y):  -3,3  = -1;  (-10,3) = -1, add(1,-3,-10,5,3) => {1,-3,-10,5,3}
+    #+end_comment
+    
+** Assignment 10
+   :PROPERTIES:
+   :CUSTOM_ID: a10
+   :END:
+
+*** Goals: Generics
+
+    Consider the [[./files/BoundedQueue.java][BoundedQueue]] example from the in-class exercise given [[#ic11C]].
+
+    Complete the generic part of the exercise: The result should be fully generic, and there should not be any compiler warnings. You should adopt Bloch's advice about lists vs. arrays; doing so will eliminate the need for many of the instance variables.
+
+    Keep the same methods, but update the behavior (and document with contracts!) to include exception handling for all cases not on the happy path.
+
+    Include the constructor in your considerations. In particular, consider whether you think a zero-sized buffer is a reasonable possibility. Document your reasoning. This is less about a right vs. wrong answer than a careful consideration of the consequences of the decision.
+
+    Add =putAll()= and =getAll()=. Define the method signatures carefully. Use exception-handling consistent with that for =get()= and =put()=. Use bounded wildcards as appropriate. Note that =putAll()= has a special case where there isn't sufficient space in the bounded queue. Adopt a solution you think Bloch and/or Liskov would approve of. In particular, Bloch prefers that when methods throw exceptions, there is no change to the state of the object.
+
+*** Grading Criteria
+    As before, turn in a clear, concise story demonstrating completion of the assignment.
+
+    #+begin_comment
+    public class BoundedQueue<T> {
+
+    private List<T> rep;
+    private int size = 0;
+    
+    public BoundedQueue(int size) {
+    if (size > 0) {
+    this.size = size;
+    rep = new ArrayList<>(size);
+    }
+    }
+
+    public boolean isEmpty() { return (rep.size() == 0); }
+
+    public boolean isFull() { return (count == size); }
+
+    public int getCount() { return count; }
+
+    /*
+    if not full and e is not null, put e to the back of queue
+    */
+    public void put(Object e) {
+    if (e != null && !isFull()) {
+    rep.add(e);
+    }
+    }
+
+    
+    public void putAll(Collections <? extends T> l){
+    for (T t: l){
+    put(t); // not optimized,  more optimized would be if full, then just break
+    }
+    }
+
+    public void getAll(List<T> l){
+    while(!isEmpty()){
+    l.add(get());
+    }
+    }
+    public Object get() {
+    Object result = null;
+    if (!isEmpty()) {
+    result = rep[front];
+    rep[front] = null;
+    front++;
+    if (front >= size)
+    front = 0;
+    count--;
+    }
+    return result;
+    }
+    }
+    #+end_comment    
+
+** Assignment 11
+   :PROPERTIES:
+   :CUSTOM_ID: a11
+   :END:
+
+*** Goals: =Object= class contracts.
+
+    As it happens, Liskov's implementation of =clone()= for the =IntSet= class (see figure 5.10, page 97) is wrong.
+
+    1. Use the [[./files/IntSet.java][version]] of =IntSet= from the in-class exercise. Implement a subtype of =IntSet= to demonstrate the problem. Your solution should include appropiate executable code in the form of JUnit tests.
+    1. Provide a correct implementation of =clone()= for =IntSet=. Again, give appropriate JUnit tests.
+    1. Correctly override =hashCode()= and =equals()=. Note that the standard recipe is not appropriate in this (unusual) case (why?).
+
+*** Grading Criteria
+    In addititon to code and tests, your deliverable is a story. Explain what is going on at each stage of the exercise. The GTA will primarily grade your story.
+
+** Assignment 12
+   :PROPERTIES:
+   :CUSTOM_ID: a12
+   :END:
+*** Goals: Favoring composition over inheritance. Bloch, Item 18.
+
+    Consider the ~InstrumentedSet~ example from Bloch Item 18 (as well as in-class exercise [[#ic13A][in-class 13A]]).
+    1. Replace ~Set~ with ~List~. There is no problem with ~equals()~. Why not?
+    1. Replace =Set= with =Collection=. Now =equals()= does not satisfy its contract.
+       - Explain why there is a problem.
+       - Demonstrate the problem with a suitable JUnit test.
+
+
+
+*** Grading Criteria
+    The GTA will look for correct responses, appropriate JUnit tests, and plausible explanations when doing the grading.
+
+** Assignment 13
+   :PROPERTIES:
+   :CUSTOM_ID: a13
+   :END:
+
+*** Goals: Applying lessons learned. 
+
+    You have a choice of possible assignments:
+
+    1. Consider one of the =copyOf()= methods in the Java [[https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html][Arrays]] utility class. Bloch uses this method in his =Stack= example. Code a corresponding method in C++, changing the argument list as necessary. Provide a specification for the C++ code by translating the JavaDoc and adding preconditions as necessary. Explain what this exercise demonstrates about C++ type safety.
+
+    1. For most of the semester, we have focused on design considerations for constructing software that does something we want it to do. For this last assignment, I would like students to appreciate just how vulnerable software is to malicious parties intent on attacking their software.
+       # Students who find this assignment amusing might wish to take ISA/SWE 681: Secure Software Design and Programming.
+
+       There are two attacks documented in Bloch's Item 88: /Write =readObject()= methods defensively/. One is called =BogusPeriod=, and the other is called =MutablePeriod=. Implement either (your choice) of these attacks (basically involves typing in code from Bloch) and verify that the attack takes place.
+
+    1. A different source of security vulnerabilities in Java also involve serialization. Bloch (and others) recommend "cross-platform structured data representations" (e.g. JSON or Protocol Buffers) as safe alternatives. Develop a simple serialization example in Java and convert it into a safe alternative (probably, JSON is easier to use, since it is text-based). To make the example more interesting, use some objects types that are not directly supported.
+
+    1. Find some existing (Java) code that uses the "int enum pattern" and refactor it to use Java =Enums= instead. Identify any type-safety issue you uncover in the existing code. To make the exercise interesting, extend your enums beyond simple named-constants in one of the ways discussed by Bloch in Item 34. 
+
+    1. Where appropriate, code up, as JUnit theories, constraints for classes that implement the Java =Comparable= interface. Note that there is significant overlap with the in-class exercise. Note also that the Comparable interface is generic; hence, you should use generics in your JUnit test class.
+
+    1. Gain experience with one of the property-based testing tools. I suggest a Java-based one (such as [[https://jqwik.net][jqwik]]). One way to do this is work through one of the articles linked on the jqwik site.
+
+
+*** Grading Criteria
+    In each case, the deliverable is a story. Write a brief report, and include enough evidence (output, screen shots, etc.) that the GTA can figure out that you actually completed the assignment.
+
+
+* COMMENT Quiz Guides
+  *Note*: it's possible that your quiz involves last week's topic. Be prepared for both!
+** Guide 1
+   :PROPERTIES:
+   :CUSTOM_ID: g1
+   :END:
+   
+   Quiz 1 will revisit the example from In-Class Exercise 0. I'll ask you about the *first* of the two given =equals()= methods, as well as "corner" cases where this method might do something odd.
+
+   This won't be a deep-dive; that comes later. But you should be able to identify specific inputs that lead to corner case behavior. You should be able to assess code behavior on specific inputs.
+
+   Quiz 1 may also include items from the syllabus and from the readings. Please read both carefully!
+   
+** Guide 2
+   :PROPERTIES:
+   :CUSTOM_ID: g2
+   :END:
+
+   Quiz 2 will focus on Liskov, Chapters 3-4 and Bloch 10. Specifically, you should be able to explain the code and the contracts for in-Class exercise 1A. As part of this, you should be able to transform preconditions into postconditions via the exception handling mechanism, and you should be able to incorporate Bloch's advice on exceptions into this transformation.
+
+** Guide 3
+   :PROPERTIES:
+   :CUSTOM_ID: g3
+   :END:
+   
+   Quiz 3 will focus on the first part of Liskov 5. You should be able to manipulate the IntSet and Poly examples. You should understand basic mutability - that is, the specification of mutators in mutable classes and producers in immutable classes. You should be able to convert the specification of a simple mutable class to an immutable one, and vice versa.
+
+** Guide 4-1
+   :PROPERTIES:
+   :CUSTOM_ID: g4-1
+   :END:   
+
+   Quiz 4-1 will focus on program verification using Hoare tripple. You should understand and able to do examples we have discussed in class. In particular, I'd suggest modifying the examples or specifications or invariants and see if the verification process still works or fails.
+
+
+** Guide 4
+   :PROPERTIES:
+   :CUSTOM_ID: g4
+   :END:   
+
+   Quiz 4 will focus on abstraction functions, rep-invariants, and verification. You should understand, evaluate, and modify the abstraction functions and rep-invariants for simple variations on examples we have discussed in class. You should also understand the verification of methods with respect to their specifications. If I give you a specification, and a Java implementation, you should be able to analyze (informally) whether the method is correct. In particular, I'd suggest studying the verification of the Members example, which we covered in the in-class exercise.
+
+
+
+   # # This guide covers oral assessments administered between Monday, February 22 and Friday, February 26.
+   
+** Guide 5
+   :PROPERTIES:
+   :CUSTOM_ID: g5
+   :END:
+
+   Iteration abstraction is the focus of Quiz 5. You should understand the abstraction functions for iterators, as well as the examples Liskov covers.
+
+   Also on the agenda is Bloch 3rd edition, Chapter 8 (Methods).
+
+
+   # This guide covers oral assessments administered between Monday, March 1 and Friday, March 5.
+
+** Guide 6
+   :PROPERTIES:
+   :CUSTOM_ID: g6
+   :END:
+   
+   Type abstraction is the focus of Quiz 6. In addition to the basic Java mechanisms for implementing type abstraction, you should understand section 7.9, particularly the "signature" rule, the role of preconditions and postconditions in the "methods" rule, and simple applications of the "properties" rule. You should be prepared to analyze example specifications for overridden methods.
+
+** Guide 7
+   :PROPERTIES:
+   :CUSTOM_ID: g7
+   :END:   
+
+   Two possible foci for Quiz 7:
+   Java's lambda expressions as explored in the in-class exercise.
+   The element subtype vs. related subtype approaches to polymorphism and how they are implemented in Comparable vs. Comparator.
+
+** Guide 8
+   :PROPERTIES:
+   :CUSTOM_ID: g8
+   :END:   
+
+   Quiz 8 will focus both Liskov's treatment of polymorphism and Bloch's treatment of lambda expressions.
+
+   To make this concrete, we'll focus on the =Comparator= interface. You should be prepared to evaluate various implementations of this interface against the contract for the interface, with the ability to explain why certain violations of the contract could lead to trouble (e.g. when used in a collection framework such as =TreeSet=). You should also be prepared to manipulate this interface via lambda expressions (e.g. when used in a collection framework such as =TreeSet=).
+
+   This homework should be excellent preparation.
+
+
+   # This guide covers oral assessments administered between Monday, March 22 and Friday, March 26.
+
+** Guide 9
+   :PROPERTIES:
+   :CUSTOM_ID: g9
+   :END:
+
+   Quiz 9 will focus on Bloch's Chooser example. There is a lot going on in this example. Not only does it illustrate many of the points Bloch makes about generics, but it is also a good place to apply what we learned in Liskov about analyzing data types. Note that =Chooser= is very similar to Liskov's =IntSet= class.
+
+
+   # This guide covers oral assessments administered between Monday, March 29 and Friday, April 2. 
+
+** Guide 10
+   :PROPERTIES:
+   :CUSTOM_ID: g10
+   :END:   
+
+   Quiz 10 will focus on the Bloch's treatment of =Object= class methods.
+
+   In particular, you should be able to identify defective implementations of =equals()=, =hashCode()=, and =clone()=, explain what's wrong, and repair appropriately. The assessments will be based on the examples we study in class.
+
+
+   # This guide covers oral assessments administered between Monday, April 5 and Friday, April 9. 
+
+** Guide 11
+   :PROPERTIES:
+   :CUSTOM_ID: g11
+   :END:
+   
+   Quiz 11 will focus on the Bloch Chapter 4 with special emphasis on Item 17: Minimize mutability and Item 18: Favor composition over inheritance. In particular, you should be prepared to apply Bloch's rules for making a class immutable to a simple example and you should understand the various aspects of Bloch's InstrumentedSet example (code on page 90).
+
+
+   # This guide covers oral assessments administered between Monday, April 12 and Friday, April 16.
+
+** Guide 12
+   :PROPERTIES:
+   :CUSTOM_ID: g12
+   :END:
+   
+   Quiz 12 will focus on the contract model in JUnit theories. The specific examples will be variations from In-Class 11.
+
+
+   # This guide covers oral assessments administered between Monday, April 19 and Friday, April 23.
+
+
+* Reflection
+  
+  For each of the following, answer these two questions first:
+  1. List the names of students in your group.
+  1. Did everyone in your group contribute to the discussion of your solutions to this reading quiz? If not, who did not?
+
+** Reflection 1
+   1. Much of the material explores the connection between preconditions and exception handling. Were there any aspects of this connection that surprised or confused anyone in your group? If so, explain. If not, where did you learn this material?
+   1. Liskov and Bloch have different advice with respect to checked vs. unchecked exceptions. Which approach do you find more persuasive, and why?
+   1. Preconditions are often characterized as "bad" from a security perspective. If you think you know why this is, please explain. If you are unsure, say so and try to explain why the you find the connection between preconditions and security confusing.
+
+** Reflection 2
+
+   1. If you sat down to design a new class, would the result likely be mutable or immutable? Why?
+   1. In her presentation, Liskov doesn't cover all the requirements for immutability. (In fairness, these requirements weren't well understood at the time she wrote her text.) Do you know what she's missing and why it's important? If so, briefly explain. (We'll cover those requirements later in the semester.)
+   1. Based on your experience, what do you think the major advantage is of immutability over mutability? mutability over immutability?
+
+
+** Reflection 3
+   1. Have you ever explicitly considered invariants when deciding how to implement a Java class? If so, can you give an example?
+   1. Please explain what you think it means to to correctly override the toString() method. Base your answer on your understanding *before* enrolling in SWE 619.
+   1. How do you decide whether you have implemented a Java method correctly? Again, base your answer on your understanding *before* enrolling in SWE 619.
+
+
+** Reflection 4 (reflection 3 redo)
+   Answer these questions based on your new knowledge on invariants and correctness analysis from class lectures and reading assignment.
+   1. Have you ever implicitly or explicitly considered invariants when writing code?
+   1. How do you decide whether you have implemented a program or method correctly?
+        
+** Reflection 5
+   1. Iteration is a basic concept, yet Liskov devotes an entire chapter to it. What, if anything, did you find in Liskov's presentation of iteration abstraction that is new to you?
+   1. Bloch's ~Period~ class (Item 50) has a lot going on in it. We'll revisit the this example in an in-class exercise. What, if anything, did you find confusing in this example?
+
+      # 1. Defensive copies are an important, yet error-prone, obligation of using mutable objects in a public setting. Was there anything about Bloch's discussion that you found confusing? (Note that I have posted a video for Bloch Item 50 on the course schedule page.)
+
+** Reflection 6
+
+   1. Liskov 7 develops rules for assessing the correctness of subtypes. What do you think the connection is between these rules and the rules for verification addressed in Chapter 5?
+   # 1. In-class exercise 5C goes through a concrete exercise from Liskov. Which aspects of this of this exercise are clear, and which aspects are confusing?
+   1. Consider the Java Set interface and two subtypes: HashSet and TreeSet. Do you think the abstract state for these three interfaces/classes are identical or different? (You might want to spend some time in the JavaDoc before jumping to a conclusion; there is a specific answer in there!)
+
+
+** Reflection 7
+
+   1. Explain why Java has both a Comparable interface and a Comparator interface.
+   1. How familiar is your group with the Java "anonymous class" and "lambda" constructs?
+   1. Can you explain the connection between anonymous classes and lambda expressions?
+
+
+** Reflection 8
+
+
+   1. Explain the basic role of generics in the Java language
+   1. Do you have experience generifying Java classes? Explain.
+   1. Bloch explains how bounded wildcards can address certain limitations in the use of generics in inheritance settings. If you can, give a brief description of how this works. (If not, that's fine; we'll address in class.)
+
+
+   #+begin_comment
+   Basic role of generics: type safety, avoid CCE; also have certain cosntraint mechanism
+
+   Bound wildcards:
+   f is invariant if neither of the above holds   
+   f is covariant if A ≤ B implies that f(A) ≤ f(B)
+   f is contravariant if A ≤ B implies that f(B) ≤ f(A)
+   https://stackoverflow.com/questions/8481301/covariance-invariance-and-contravariance-explained-in-plain-english
+   #+end_comment
+      
+
+** Reflection 9
+
+
+   1. Have you overridden the equals() or the hashCode() methods? In light of Bloch's discussion of both methods, do you think your implementations were correct?
+   1. Have you overridden the clone() method? Do you understand why inheritance is a particular concern for overridding this method?
+   1. What similarities and differences do you see between how Liskov and Bloch treat the toString() method?
+
+
+** Reflection 10
+
+   1. Bloch discusses specific rules for making a class immutable. Did you find any of these rules confusing?
+   1. Bloch's InstrumentedHashSet example demonstrates how inheritance can break encapsulation. Does the JavaDoc for HashSet, Set and/or Collection follow the Bloch's Item 19 advice for documenting for inheritances?
+   1. Bloch's InstrumentedSet example has a lot going on in it. What aspects, if any, of this example did you find confusing?
+
+
+** Reflection 11
+
+
+   1. How would you rate your experience with writing (ordinary) tests in the JUnit framework? Use a scale from "A few times for class" to "I do that professionally".
+   1. JUnit theories are the JUnit implementation of "property-based" testing. Have you every written a property-based test?
+   1. JUnit theories are included on the syllabus because they show how the precondition/postcondition model applies beyond method contracts. Does the pre/post model for JUnit theories make sense to you?
+
+
+** Reflection 11
+
+
+   1. Is there anything about property based testing that you still find confusing?
+   1. Have you ever used a "C style" enum? If so, at the time, did this seem reasonable or ridiculous?
+   1. This week's in-class exercise is a recap. Is there a topic (or two) we've covered that you think you need more practice with?
+
+* Files
+  - [[file:./files/LiskovSet.java][LiskovSet.java]]
+  - [[./files/Poly.java][Poly.java]]   
+* Links
+  - [[./index.html][Syllabus]]
+  - [[./schedule.html][Schedule]]
+

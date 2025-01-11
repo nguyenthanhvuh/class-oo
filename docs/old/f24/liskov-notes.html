@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-07-05 Mon 20:58 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="ThanhVu (Vu) Nguyen" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgf0c1fb2">1. Procedural Abstraction and Design by Contract</a>
+<ul>
+<li><a href="#org50dd040">1.1. Benefits of Abstraction</a></li>
+<li><a href="#orgfd2728b">1.2. Abstraction by Specification</a></li>
+<li><a href="#orgd4250dd">1.3. Specifications</a></li>
+<li><a href="#org5e86183">1.4. Parts of a Procedural Specification</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf0c1fb2" class="outline-2">
+<h2 id="orgf0c1fb2"><span class="section-number-2">1</span> Procedural Abstraction and Design by Contract</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org50dd040" class="outline-3">
+<h3 id="org50dd040"><span class="section-number-3">1.1</span> Benefits of Abstraction</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Locality
+<ul class="org-ul">
+<li>The implementation of an abstraction can be read or written without needing to examine the implementations of any other abstractions</li>
+</ul></li>
+<li>Modifiability
+<ul class="org-ul">
+<li>An abstraction can be reimplemented without requiring changes to any abstractions that use it</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfd2728b" class="outline-3">
+<h3 id="orgfd2728b"><span class="section-number-3">1.2</span> Abstraction by Specification</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Abstraction \(\mapsto\) Implementation 1 \(\dots\) Implementation N
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgd4250dd" class="outline-3">
+<h3 id="orgd4250dd"><span class="section-number-3">1.3</span> Specifications</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>Way to Define Abstractions</li>
+<li>Formality
+<ul class="org-ul">
+<li>As much as is useful</li>
+<li>More than just English</li>
+<li>Typically less than a language with a formal semantics</li>
+<li>We will be close to industry standard (ie Javadoc)</li>
+<li>Not intended to be a programming language!</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org5e86183" class="outline-3">
+<h3 id="org5e86183"><span class="section-number-3">1.4</span> Parts of a Procedural Specification</h3>
+<div class="outline-text-3" id="text-1-4">
+<div class="org-src-container">
+<pre class="src src-java">
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">sortedSearch</span> (<span style="color: #986801;">int</span>[]<span style="color: #6a1868;">a</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>)
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Requires:  a is sorted in ascending order</span>
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects:   if x is in a returns an index where </span>
+<span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">x is stored; otherwise, returns -1</span>
+
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Precondition (Requires): Anything missing? What happens in other languages?  (e.g., C++)</li>
+<li>Postcondition (Effects)</li>
+</ul>
+
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Another example</span>
+<span style="color: #e45649;">public</span> <span style="color: #e45649;">static</span> <span style="color: #986801;">int</span> <span style="color: #a626a4;">search</span> (<span style="color: #986801;">int</span>[]<span style="color: #6a1868;">a</span>, <span style="color: #986801;">int</span> <span style="color: #6a1868;">x</span>)
+<span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Effects:   if x is in a returns an index where </span>
+<span style="color: #9ca0a4;">//  </span><span style="color: #9ca0a4;">x is stored; otherwise, returns -1</span>
+</pre>
+</div>
+
+
+<ul class="org-ul">
+<li>Precondition: None (i.e., <code>True</code>)</li>
+<li>Underdetermined – what happens if <code>x</code> is in <code>a</code> more than once?</li>
+</ul>
+
+
+
+<p>
+Yet Another Example
+</p>
+
+
+<p>
+Yet Another Example
+</p>
+
+
+<p>
+Specifications and Implementations
+Minimality
+minimal means fewer constraints on behavior (what does this say about the postcondition?)
+Underdetermined behavior
+More than one possible result per input allowed
+Deterministic implementation
+Only one result per input produced
+Generality
+More general if specification can handle a large class of inputs.  (What does this say about the precondition?)
+</p>
+
+
+<p>
+Total vs. Partial Procedures
+A procedure is total if its behavior is specified for all possible inputs. 
+A partial procedure always has a precondition.
+Partial procedures are less safe than total procedures.
+Exception handling can be used to eliminate preconditions (more in next lecture…).
+</p>
+
+
+<p>
+Bertrand Meyer’s View: Design by Contract
+A programmer’s job is to produce solutions, not programs.
+Software should be reliable.
+Type safety, garbage collection, etc…
+These are good
+But they are not enough
+Correctness is a relative notion
+A program is correct relative to a specification
+</p>
+
+<p>
+What does a Contract Look Like?
+Consider the triple:  {P} S {Q}
+P is the precondition (Requires clause)
+Q is the postcondition (Effects clause)
+S is the program text
+The Customer (client) is obligated to establish P.
+The Implementor (service) may assume P
+The Customer is entitled to Q
+The Implementor is obligated to provide Q
+That’s it!
+What happens when a Contract Breaks?
+If everyone does their job, there is no problem!
+If the precondition is not satisfied, the Customer is wrong!  (The client has a bug).
+If the precondition is satisfied, but the postcondition is not, then the Service is wrong (The service has a bug).
+The Client can’t do the Service’s job!
+The Service can’t do the Client’s job!
+Application of Contract Model to Debugging
+Suppose you are fixing a fault in a program.
+What justification is there for a proposed change?
+ Example Context:
+code considered correct
+&#x2026;..
+code identifed as wrong vs. proposed correct code
+&#x2026;..
+more code considered correct
+Example
+//Effects:  if arr is null throw NPE else return the number of occurrences of 0 in arr
+public static in numZero (int[] arr) {
+   int count = 0;
+</p>
+
+<p>
+for (int i=1; i &lt; arr.length; i++) {
+</p>
+
+<p>
+      if (arr[i] == 0) {count++}
+   }
+   return count;
+}
+What does the Client like?
+Since preconditions are Client obligations, the Client would prefer not to have any!
+From the Client’s perspective, “true” is the best precondition.  In general, weaker preconditions are better.
+The Client is happy to have any postcondition that is strong enough to meet the Client’s needs.
+What does the Server like?
+Since preconditions are Server benefits, the Server would prefer to have lots of them!
+From the Server’s perspective, “false” is the best precondition.  In general, stronger preconditions mean an easier job with the implementation.
+The Server prefers weak postconditions.  Each additional constraint in a postcondition is an additional obligation on the Server.
+Who should get preference?
+In Business, the Customer is thought to be “always right”   This is a good model for software as well:
+Tradeoffs should generally be made in favor of the client.  That is
+minimize preconditions
+provide usefully strong postconditions
+But there are limits…
+Problems with Eliminating Preconditions
+Forcing the Server to handle “weird” cases can lead to inefficient, bulky (read “error prone”) code.
+For “local” use, therefore, preconditions can be extremely powerful (and appropriate).
+Example:  Consider the “partition” method in a quicksort routine (Liskov p. 49).  It would be weird to handle the case where the array indices were out of bounds.
+More Problems with Eliminating Preconditions
+What if the Implementer can’t provide a good “default” (ie Defensive Programming)?
+Consider the following (horrible) code:
+</p>
+
+<p>
+Dissecting the Square Root Example
+What could possibly be a correct “default”?
+Printing an error message?
+Not a comforting thought to certain end users (ie pilots).
+What could possibly be a reasonable return value?
+The Lesson:  The Server is not in a position to define behavior.  That’s the Client’s job. (through the contract mechanism).
+Meyer’s Perspective on Defensive Programming
+Defensive programming:
+leads to duplicate checks on preconditions and therefore code bloat.
+leads to implementers checking preconditions when they have no idea what to do if the precondition is false.
+leads to confusion over responsibility for ensuring certain constraints.
+So, Meyer’s advice is, “Don’t do it!”
+Your mileage may vary
+Think about this in the context of preconditions and exception handling.
+What are the implications for security?
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
