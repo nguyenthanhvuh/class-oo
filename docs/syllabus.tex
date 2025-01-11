@@ -16,27 +16,26 @@
 
 \begin{document}
 \begin{center}
-{\Large \textsc{SWE-419 (Fall '24): OO Software Design and Implementation}}
+{\Large \textsc{SWE-619 (Spring '25): OO Software Specification and Construction}}
 \end{center}
 \begin{center}
 Course Page \url{https://nguyenthanhvuh.github.io/class-oo}
 \end{center}
 
 
-
 \begin{minipage}[t]{.75\textwidth}
     \centering
 \begin{tabular}{llcccll}
   \toprule
-  \textbf{Meetings:} & Fri 10:30PM -- 1:10PM  & & & & \textbf{Place:} & Horizon 2010 and \href{https://piazza.com/gmu/fall2024/swe419nguyen}{Piazza} (code \textbf{fhbkh})\\
+  \textbf{Meetings:} & Wed 4:30PM -- 7:10PM  & & & & \textbf{Place: TBD} & \href{https://piazza.com/gmu/spring2025/swe619nguyen}{Piazza} (code \textbf{TBD})\\
 \textbf{Instructor:} & \href{https://go.gmu.edu/tvn}{ThanhVu Nguyen} & & &  & \textbf{Email:} &  \href{mailto:tvn@gmu.edu}{tvn@gmu.edu} (Piazza is preferred)\\
 \textbf{Office Hr:} & Mon 2:00PM -- 3:00PM & & & & \textbf{Place:} & ENGR 4430\\
                      &(email first)&&&&&\\
   \hline
-\textbf{GTA:} & Hamaad Ullah Zuberi & & &  & \textbf{Email:} &  \href{mailto:hzuberi@gmu.edu}{hzuberi@gmu.edu}\\
-\textbf{Office Hr:} & Wed 1:00PM -- 3:00PM & & & & \textbf{Place:} & BUCH 215 D1 \\
-  \hline
-\textbf{UTA:} & Josabeth Zelalem Hailu & & &  & \textbf{Email:} &  \href{mailto:jhailu2@gmu.edu}{jhailu2@gmu.edu}\\
+\textbf{GTA:} & TBD & & &  & \textbf{Email:} &  \href{mailto:tbd@gmu.edu}{tbd@gmu.edu}\\
+\textbf{Office Hr:} & TBD & & & & \textbf{Place:} & TBD \\
+%  \hline
+%\textbf{UTA:} & Josabeth Zelalem Hailu & & &  & \textbf{Email:} &  \href{mailto:jhailu2@gmu.edu}{jhailu2@gmu.edu}\\
 \bottomrule
 \end{tabular}
 \end{minipage}
@@ -54,9 +53,9 @@ By the end of the course, students will gain a solid understanding of the princi
 \item Write and Use Specifications: Develop precise specifications for functions and data types to specify their behaviors.
 \item Using Mutable and Immutable Types: Understand and differentiate between mutable and immutable data types and make informed design decisions based on the trade-offs.
 \item Apply OOP techniques: Use OOP design principles, such as inheritance, polymorphism, Liskov Substitution Principle, to effectively structure programs.
-\item Prove Program Correctness: Use formal method concepts and techniques, including assertions, loop invariants, pre/post-conditions, weakest preconditions, Hoare logic, to reason about the correctness of a program.
-\item Test and Debug Software: Develop strategies for testing and debugging systems to ensure reliability and correctness.
-
+\item Test and Debug Software: Blackbox testing techniques and debugging strategies to find and fix bugs in software.
+\item Verify Program: Use formal method concepts and techniques, including assertions, loop invariants, pre/post-conditions, weakest preconditions, Hoare logic, to reason about the correctness of a program.
+\item Concurrent Programming: Use multithreads, locks, and synchronization concepts for parallel computing.
 \end{itemize}
 
 \subsection{Prerequisite}
@@ -68,16 +67,18 @@ By the end of the course, students will gain a solid understanding of the princi
 
 \subsection{Course Materials}
 \begin{itemize}
-  \item Barbara Liskov with John Guttag. \href{https://www.amazon.com/Program-Development-Java-Specification-Object-Oriented/dp/0201657686/ref=sr_1_2?dchild=1&qid=1626231221&refinements=p_27\%3ABarbara+Liskov&s=books&sr=1-2&text=Barbara+Liskov}{\emph{Program
-  Development in Java: Abstraction, Specification, and Object-Oriented  Design}}. Addison Wesley, 2001.  (\textbf{Required}, free through \href{https://learning.oreilly.com/library/view/program-development-in/9780768685299/}{ O'Reilly})\footnote{Don't worry about the publication date of Liskov, which is basically a math book and therefore ages well.}
+    \item ThanhVu Nguyen. \href{https://nguyenthanhvuh.github.io/class-oo/oop.pdf}{\emph{Formal Software Specification and Reasoning}} (\textbf{Required}, free)
 
 
-\item Luciano Ramalho. \href{https://www.amazon.com/Fluent-Python-Concise-Effective-Programming-dp-1492056359/dp/1492056359/ref=dp_ob_title_bk}{\emph{Fluent Python}}. O'Reilly Media, 2015. (\textbf{Recommended}, free through \href{https://learning.oreilly.com/library/view/fluent-python/9781492056348/}{O'Reilly})
+    \item Barbara Liskov with John Guttag. \href{https://www.amazon.com/Program-Development-Java-Specification-Object-Oriented/dp/0201657686/ref=sr_1_2?dchild=1&qid=1626231221&refinements=p_27\%3ABarbara+Liskov&s=books&sr=1-2&text=Barbara+Liskov}{\emph{Program
+  Development in Java: Abstraction, Specification, and Object-Oriented  Design}}. Addison Wesley, 2001.  (\textbf{Recommend}, free through \href{https://learning.oreilly.com/library/view/program-development-in/9780768685299/}{ O'Reilly})\footnote{Don't worry about the publication date of Liskov, which is basically a math book and therefore ages well.}
 
-\item Joshua Bloch.
-\href{https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=sr_1_1?dchild=1&keywords=effective+java&qid=1626231154&sr=8-1}{\emph{Effective
-  Java}}. Third Edition. Addison Wesley, 2017. (\textbf{Recommended}, free through
-        \href{https://learning.oreilly.com/library/view/effective-java-3rd/9780134686097/}{O'Reilly})
+    \item Luciano Ramalho. \href{https://www.amazon.com/Fluent-Python-Concise-Effective-Programming-dp-1492056359/dp/1492056359/ref=dp_ob_title_bk}{\emph{Fluent Python}}. O'Reilly Media, 2015. (\textbf{Recommended}, free through \href{https://learning.oreilly.com/library/view/fluent-python/9781492056348/}{O'Reilly})
+
+%     \item Joshua Bloch.
+% \href{https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=sr_1_1?dchild=1&keywords=effective+java&qid=1626231154&sr=8-1}{\emph{Effective
+%   Java}}. Third Edition. Addison Wesley, 2017. (\textbf{Recommended}, free through
+%         \href{https://learning.oreilly.com/library/view/effective-java-3rd/9780134686097/}{O'Reilly})
 
 \end{itemize}
 
@@ -144,12 +145,14 @@ Weekly Quizzes (individual) & 35\% \\
 
 \begin{center}
     \begin{tabular}{ll|ll|ll}
-    A+ & $\ge$ 96\% & A & $\ge$  92\% & A- & $\ge$ 89\% \\
-    B+ & $\ge$  86\% & B & $\ge$  82\% & B- & $\ge$ 79\% \\
-    C & $\ge$  70\% & D & $\ge$  60\% & F & $<$ 60\% \\
+    A+ & $\ge$ 97\% & A & $\ge$  93\% & A- & $\ge$
+    90\% \\
+    B+ & $\ge$  87\% & B & $\ge$  83\% & B- & $\ge$
+    80\% \\
+    C & $\ge$  70\% & D & $\ge$  60\% & F & $<$
+    60\% \\
     \end{tabular}
-\end{center}
-    
+    \end{center}
 
 \subsection{Group Functioning}\label{group-functioning}
 
@@ -202,11 +205,9 @@ We will have a quiz every week. The quiz will be based on the material covered i
 \item \textbf{Scheduling}: contact the GTA and schedule a make-up quiz (likely will be offered during TA office hours). The make-up can be different from the quiz given in class, but focuses on the same topics.
 \item
   The make-up must be taken promptly and within a week of the quiz.
-
 \item
   All quizzes count towards the final grade. Each quiz is scored on a 10
-  point scale. Missed quizzes score 0/10. Students who miss a quiz or
-  perform badly on a quiz may choose to take the make-up.
+  point scale. Missed quizzes score 0/10.
 \item
   The maximum possible score on the make-up is 8/10. (Example: your quiz
   grade is 5/10. You take the make-up and correctly answer 9 of 10
@@ -218,17 +219,12 @@ We will have a quiz every week. The quiz will be based on the material covered i
   make-up and correctly answer 5 of 10 equally weighted questions. Your
   final score declines from 7/10 to 5/10.)
 
-  \item  Each quiz only has one make-up, and you can only attempt that make-up
-  once. However, you are free to use the make-up mechanism on as many
-  different quizzes as you wish.
-\item
-  Quizzes are generally returned one week after the quiz is taken.
-  Make-ups are returned after the window has closed.
 \end{itemize}
 
 \subsection{Final Exam}\label{final-exam}
 
-There will be a final exam at the time specified by the university's \href{https://registrar.gmu.edu/calendars/}{final exam schedule}.
+There will be a final exam at the time specified by the
+university's final exam schedule.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
