@@ -264,9 +264,9 @@
 \tableofcontents
 
 
-\chapter{Introduction}\label{sec:intro}
+% \chapter{Introduction}\label{sec:intro}
 
-This book will show you the fundamentals of developing high-quality software using a modern \textbf{object-oriented programming} (OOP) approach.  The goal is to develop programs that are reliable, efficient, and easy to understand and maintain.  We will use \emph{Python} for demonstration, but the concepts can be applied to any object-oriented programming language. 
+% This book will show you the fundamentals of developing high-quality software using a modern \textbf{object-oriented programming} (OOP) approach.  The goal is to develop programs that are reliable, efficient, and easy to understand and maintain.  We will use \emph{Python} for demonstration, but the concepts can be applied to any object-oriented programming language such as Java, C++, and Rust.
 
 
 % \section{Decomposition}\label{sec:decomposition}
@@ -319,48 +319,52 @@ This book will show you the fundamentals of developing high-quality software usi
 % \end{figure}
 
 
-A large part of this book focuses on \emph{abstraction}, a key concept in OOP that allows programmers to hide the implementation details and focus on the essential features. By decoupling the \textbf{what} (the  behavior specification) from the \textbf{how} (the actual implementation), programmers could focus on higher-level design and reuse code more effectively.
-% In an OOP language such as Python, you can abstract problems by creating functions, classes, and modules that hide the underlying implementation details.
-
-\paragraph{Example} \autoref{ex:mammal} demonstrates an abstraction for different types of mammals. Mammals such as Dog and Cat share common behaviors such as making noise (speak). We can create a class \code{Mammal} that defines these common behaviors, and then subclasses \code{Dog} and \code{Cat} that inherit from \code{Mammal} and define their own unique behaviors.  These are abstract data types that allow us to work with mammals. Also notice the specification (e.g., \code{REQUIRES}) in the comments that describe what the method does, not how it does it.
-
-\begin{figure}[t]
-\begin{lstlisting}[multicols=2]
-class Mammal:
-    def __init__(self, name):
-        self.name = name
-
-    def speak(self): pass
-
-class Dog(Mammal):
-    def speak(self): 
-        """
-        EFFECTS: Return the sound of a dog.
-        """
-        return "Woof!"
+% A large part of this book focuses on \emph{abstraction}, a key concept in OOP that allows programmers to hide the implementation details and focus on the essential features. By decoupling the \textbf{what} (the  behavior specification) from the \textbf{how} (the actual implementation), programmers could focus on higher-level design and reuse code more effectively.
+% % In an OOP language such as Python, you can abstract problems by creating functions, classes, and modules that hide the underlying implementation details.
 
 
-class Cat(Mammal):
-    def speak(self):
-        """
-        EFFECTS: Return the sound of a dog.
-        """
-        return "Meow!"
+% \begin{figure}[t]
+% \begin{lstlisting}
+% class Mammal:
+%     def __init__(self, name):
+%         self.name = name
+
+%     def speak(self): pass
+
+% class Dog(Mammal):
+%     def speak(self): 
+%         """
+%         EFFECTS: Return the sound of a dog.
+%         """
+%         return "Woof!"
+
+% class Cat(Mammal):
+%     def speak(self):
+%         """
+%         EFFECTS: Return the sound of a dog.
+%         """
+%         return "Meow!"
     
 
-\end{lstlisting}
- \caption{Decomposition example: Mergesort}\label{ex:mammal}
-\end{figure}
+% \end{lstlisting}
+%  \caption{Decomposition example: Mergesort}\label{ex:mammal}
+% \end{figure}
+
+
+% \paragraph{Example} \autoref{ex:mammal} demonstrates an abstraction for different types of mammals. Mammals such as Dog and Cat share common behaviors such as making noise (speak). We can create a class \code{Mammal} that defines these common behaviors, and then subclasses \code{Dog} and \code{Cat} that inherit from \code{Mammal} and define their own unique behaviors.  These classes are abstract data types (ADT) that allow us to work with mammals. Also notice the specification (e.g., \code{EFFECTS}) in the comments that describe what the method does, not how it does it.
+
+
+
 
 \part{Abstraction and Specification}
 
-In this part of the book, we will focus on program abstraction using specifications. Specifications allow developers to describe the behavior of a program without revealing its implementation details, thus making the program easier to understand and maintain and also more general, i.e., can use different algorithms or data structures.
+In this part of the book, we will focus on program specifications. Specifications allow developers to describe the behavior of a program without revealing its implementation details, thus making the program easier to understand and maintain and also more general, i.e., can use different algorithms or data structures.
 
 We will start with \emph{procedural abstraction} (\autoref{chap:procedural-abstraction}), which is on the specification of functions and methods. We will then move on to \emph{data abstraction} (\autoref{chap:adt}),  which is on the specification of abstract data types (ADTs) that encapsulate data and operations on that data.
 
 \chapter{Procedural Abstraction and Specification}\label{chap:procedural-abstraction}
 
-\emph{Procedural abstraction} hides implementation details from program functions or procedures. This makes the function more general and reusable, and the program easier to understand and maintain. The most common kind of abstraction that is familiar to all programmers is \emph{parameterization}, which allows a function to take in different input values. For example, the \code{cal\_area} function in \autoref{ex:abs-parameterization} calculates the area of a rectangle given its length and width, which are passed as parameters.
+\emph{Procedural abstraction} hides implementation details from program functions or procedures. This makes the function more general and reusable, and the program easier to understand and maintain. The most common kind of abstraction that is familiar to all programmers is \emph{parameterization}, which allows a function to take in different input values. For example, the \code{cal\_area} function in \autoref{ex:abs-parameterization} calculates the area of a rectangle given its length and width, which are passed as parameters. 
 
 
 \begin{figure}[h]
@@ -372,10 +376,9 @@ We will start with \emph{procedural abstraction} (\autoref{chap:procedural-abstr
     area1 = cal_area(5, 10)
     area2 = cal_area(7, 3)
 \end{lstlisting}
-\caption{Example: Abstract Parameterization}\label{ex:abs-parameterization}
+\caption{Example: Abstraction by Parameterization}\label{ex:abs-parameterization}
 \end{figure}
 
-\paragraph{Abstraction by Specification} 
 Another type of abstraction is through \emph{specification}, which is less common  but is crucial for creating and maintaining high-quality software (e.g., for API documentation). Specification defines what the function does (e.g., sorting), instead of how it does it (e.g., using quicksort or mergsort algorithms, implemented in C++). For example, from its specification in the comment, we know that the \code{exists} function in \autoref{ex:abs-specification} returns true if the \code{target} item is found in a list of sorted \code{items}. We do not need to know or care about the search algorithm used.
 \begin{figure}
 \begin{lstlisting}
@@ -383,8 +386,8 @@ Another type of abstraction is through \emph{specification}, which is less commo
         """
         Find an item in a list of sorted items.
 
-        Pre: List of sorted items
-        Post: True if the target is found, False otherwise.
+        Requires: List of sorted items
+        Effects: Returns True if the target is found, False otherwise.
         """
         ...
 \end{lstlisting}
@@ -392,7 +395,7 @@ Another type of abstraction is through \emph{specification}, which is less commo
 \end{figure}
 
 
-By defining a function's behavior through specifications, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details. We will focus on specification and how construct and formalize specifications.
+By defining a function's behavior through specifications, developers can implement the function in different ways as long as it fulfills the specifications. Similarly, the user can use the function without knowing the implementation details. In this chapter, we will focus on procedural specification and how construct and formalize specifications for functions and methods\footnote{We use the terms \emph{function}, \emph{method}, and \emph{procedures} interchangeably.}.
 
 \section{Specifications}\label{sec:specifications}
 
@@ -411,14 +414,20 @@ The specification of a function consists of a \emph{header} and a \emph{descript
 The header gives the signature of the function, including its name, parameters, and return type. The description describes the function's behavior, including its preconditions and postconditions.
 
 \subsection{Header} 
-Function header, also called the \emph{signature} of a function, is the first line of the function definition. It provides the \emph{name} of the function, the number, order, and types of its \emph{parameters} (inputs), and the type of its return value (output). For instance, the headers for the \code{sort\_items} function in \autoref{ex:abs-specification} and the \code{cal\_area} function in \autoref{ex:abs-parameterization} are as follows
+Function header, also called the \emph{signature} of a function, is the first line of the function definition. It provides the \emph{name} of the function, the number, order, and types of its \emph{parameters} (inputs), and the type of its return value (output). For instance, the headers for functions \code{cal\_area} in \autoref{ex:abs-parameterization} and \code{exist} in \autoref{ex:abs-specification} are: 
 
 \begin{lstlisting}
 def exists(items: list) -> bool: ...
 def calc_area(length: float, width: float) -> float: ...
 \end{lstlisting}
 
-Note that in a language like Java, the header also indicates \emph{exceptions} that the function may throw, e.g., 
+
+\begin{commentbox}{\textbf{Type Hinting}: }
+    Python does not require specifying the types of parameters and return values. However, in more recent versions of Python, you can use \emph{type hinting} to specify the types of parameters and return values as shown above. While type hinting is not enforced by Python, it is useful for documentation and code readability. We will use type hinting in this book to make the code more readable. 
+\end{commentbox}
+
+
+Note that in a language like Java, the header can also indicate \emph{exceptions} that the method may throw, e.g., 
 
 \begin{lstlisting}[language=Java]
 public boolean exists(List<Integer> items) throws Exception { ... }
@@ -426,12 +435,9 @@ public boolean exists(List<Integer> items) throws Exception { ... }
 
 \subsection{Preconditions and Postconditions}
 
-The specification of a function typically includes: \emph{preconditions} (also called the ``requires'' clause) and \emph{postconditions} (also called the ``effects'' clause). Preconditions describe the conditions that must be true before the function is called. These state the constraints or assumptions about the input parameters. If there are no preconditions, the clause is often written as \code{None}.
+The specification of a function typically includes: \emph{preconditions} (also called the ``Requires'' clause) and \emph{postconditions} (also called the ``Effects'' clause). Preconditions describe the conditions that must be true before the function is called. Often these are constraints or assumptions about the input parameters. If there are no preconditions, the clause is often written as \code{None}.
 
 Postconditions, under the assumption that the preconditions are satisfied, describe the conditions that will be true after the function is called. Postconditions state the expected results or outcomes of the function. Moreover, they often describe the relationship between the inputs and outputs.
-
-
-The clauses are usually written as \emph{comments} above the function definition, making them easily accessible within the code.
 
 
 \begin{lstlisting}
@@ -439,39 +445,73 @@ def calc_area(length: float, width: float) -> float:
     """
     Calculates the area of a rectangle given its length and width.
 
-    Pre: None
-    Post: The area of the rectangle.
+    Reqires: None
+    Effects: The area of the rectangle which is the product of the length and width.
     """
     ...
 \end{lstlisting}
 
-For example, the specification of the \code{calc\_area} function in \autoref{ex:abs-parameterization} has (i) no preconditions and (ii) the postcondition that the function returns the area of a rectangle given its length and width.  Similarly, the \code{exists} function in \autoref{ex:abs-specification} has the specification that given a list of sorted items (precondition), it returns true if the item is found in the list, and false otherwise (postcondition).  Note how the specification is written in plain English, making it easy to understand for both developers and users of the function.
+The clauses are usually written as \emph{comments} above the function definition. For example, the specification of the \code{calc\_area} function in \autoref{ex:abs-parameterization} has (i) no preconditions and (ii) the postcondition that the function returns the area of a rectangle given its length and width.  Similarly, the \code{exists} function in \autoref{ex:abs-specification} has the specification that given a list of sorted items (precondition), it returns true if the item is found in the list, and false otherwise (postcondition).  Notice how the specification is written in plain English, making it easy to understand for both developers and users of the function.
 
 
-\subsubsection{Modifies} In addition to pre and post condition, another clause that might appear in a function specification is \emph{modifies}, which describes the inputs that the function modifies. This is particularly useful for functions that modify their input parameters.
+\subsection{Modifies} In addition to pre and post conditions, another clause that might appear in a function specification is \emph{modifies}, which describes the inputs that the function modifies. This is particularly useful for functions that modify their input parameters, i.e., have \emph{side effects}. For example, the \code{add\_to\_list} function below modifies the input list by adding a value to it.
 
 \begin{lstlisting}
-def add_to_list(input_list, value):
+def add_to_list(input_list: List[int], value: int) -> None:
     """
     Adds a value to the input list.
 
-    Pre: None
-    Post: Value is added to the input list.
+    Requires: None
+    Effects: Value is added to the input list.
     Modifies: the input list
     """
     ...
 \end{lstlisting}
 
+\subsection{Invariants}\label{sec:invariants}
+Another way to specify the behavior of a function, often at a more 
+detail level than pre and postconditions, is through \emph{invariants}. An invariant is a logical formula, often over program variables, that must be true at all times during the execution of the function. For example, the \code{calc\_area} function in \autoref{ex:abs-parameterization} can have an invariant that the length and width are always positive. 
 
-\subsection{Assertions} TBD
+Common invariants include loop invariants, which are conditions that must be true at the beginning and end of each iteration of a loop (\autoref{chap:loop-invariants}), and representation invariants, which are conditions that must be true for the internal state of an class (\autoref{chap:adt}).
 
+Like pre- and postconditions, invariants are often written as comments. However, they can be checked during program execution, i.e., runtime checking, as assertions described in \autoref{sec:assertions}.
+\subsection{Assertions}\label{sec:assertions}
+
+Assertions are a common way to check at the runtime constraints (code \texttt{expressions}) that should be true at a certain point in the program. Unlike pre and postconditions and invariants that are written as comments, assertions are often written as code and are checked during program execution. For example, the \code{calc\_area} function in \autoref{ex:abs-parameterization} can have several assertions as follows:
+
+\begin{lstlisting}
+def calc_area(length: float, width: float) -> float:
+    """
+    Requires: ... 
+    Effects: ...
+    """
+    ...
+    assert length > 0 and width > 0  # check preconditions
+
+    # calculate the area and store it in res
+    ... 
+
+    assert res > 0  
+    return res 
+\end{lstlisting}
+
+
+
+Assertions can be used to check the preconditions, postconditions, invariants, or any other conditions that the programmer believes should be true.  If an assertion is false, an exception is raised, indicating a bug in the program (e.g., see~\autoref{fig:assertion}). Thus, assertions are useful for debugging and testing the program. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.55\textwidth]{figs/assertions.jpg}
+    \caption{Assertion violation. The expression \code{format!=NULL} fails on line 91 of the file \code{vsprintf.c}.}\label{fig:assertion}
+    \caption{The expression }
+\end{figure}
 
 \subsection{API} 
 
 \section{Designing Specifications}\label{sec:design-specifications}
 %Liskov 3.5
 
-When designing specifications, it is important to consider several factors to ensure that the function is well-defined. These factors include the \emph{strength} of the pre- and post-conditions, whether the function is \emph{total} or \emph{partial}, and \emph{avoiding implementation details} in the specification.
+To have well-designed and effective specifications, it is important to consider several factors. These include the \emph{strength} of the pre- and post-conditions, whether the function is \emph{total} or \emph{partial}, and \emph{avoiding implementation details} in the specification.
 
 \subsection{Weakest Pre-conditions}\label{sec:weakest-preconditions}
 For pre-conditions, we want as weak a constraint as possible to make the function more versatile, allowing it to handle a larger class of inputs.
@@ -4392,7 +4432,7 @@ Provide a specification for an IntBag abstraction that is sufficiently restricti
 
 \chapter{Suggested Schedule and Assignment}
 
-The following is a suggested schedule and assignment for the course over a semester (~14 weeks).
+The following is a suggested schedule and assignment for the course over a semester (about 12--14 weeks).
 
 \begin{itemize}
     \item \textbf{Week 1}
@@ -4555,15 +4595,9 @@ The following is a suggested schedule and assignment for the course over a semes
 
     \item \textbf{Week 14}
     \begin{itemize}
-        \item Review for final exam
-        \item In-class: Review
-        \item Quiz: TBD
+        \item TBD
     \end{itemize}
 
-    \item \textbf{Week 15}
-    \begin{itemize}
-        \item Final Exam.
-    \end{itemize}
 \end{itemize}
 
 \chapter{Logics and Proofs}
