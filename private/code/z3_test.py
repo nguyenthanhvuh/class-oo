@@ -1,3 +1,6 @@
+# Z3 
+
+
 from z3 import *    # import all Z3 functions
 
 # some good examples here https://hanielbarbosa.com/papers/fm2024.pdf
@@ -47,15 +50,12 @@ s.add(Not(b))       #but b is false
 print('modus ponens', s.check())  #unsat -> not possible
 
 
-
-
 # VARIOUS EXAMPLES
 
 ### Equivalence
 prove(x ==x)   ### reflexivity
 prove(Implies(a == b,b == a)) ### symmetric
 prove(Implies(And(a == b, b == c), a == c)) ### transitive
-
 
 # Arithmetic (first order logic)
 x, y = Ints('x y')
@@ -64,7 +64,7 @@ prove(Implies(x > 10, x > 5)) # stronger
 prove(Implies(x==3, Or(x == 5, x == 3)))
 prove(Implies(x*x == 25, Or(x == 5, x == -5)))
 
-# If all humans are mortal and Soacrates is human, then Socrates is mortal
+# If all humans are mortal and Socrates is human, then Socrates is mortal
 Human = DeclareSort('Human')
 x = Const('x', Human)
 Socrates = Const('Socrates', Human)
@@ -72,4 +72,3 @@ Mortal = Function('Mortal', Human, BoolSort()) # function that takes a human and
 
 s = solver()
 s.add(ForAll(x, Implies(Mortal(x), True))) # all humans are mortal
-s.add 
