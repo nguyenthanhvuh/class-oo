@@ -1765,9 +1765,8 @@ A \emph{type} specifies the set of possible values that a variable or expression
 
 This chapter covers key concepts in the type system of OOP languages. We will review topics like polymorphism, inheritance, dynamic dispatching, and explore Lispov's principle of substitution, which is essential for understanding how types work in OOP.
 
-
 \begin{historybox}
-In 1999, NASA's Mars Climate Orbiter mission ended in failure due to a simple yet catastrophic software error. The spacecraft, which cost \$125 million to build and launch, was launched on December 11, 1998 to study Mars. After a 9-month journey, the spacecraft approached Mars on September 23, 1999, and was supposed to enter a stable orbit around Mars at an altitude of about 226 kilometers (140 miles) above the planet’s surface. However, the spacecraft instead plunged much deeper into the Martian atmosphere, to an estimated altitude of 57 kilometers (35 miles), causing it to either burn up or crash on the surface and resulting in a complete loss of the mission.
+In 1999, NASA's Mars Climate Orbiter mission ended in failure due to a simple yet catastrophic software error. The spacecraft, which costs \$125 million to build and launch, was launched on December 11, 1998 to study Mars. After a 9-month journey, the spacecraft approached Mars on September 23, 1999, and was supposed to enter a stable orbit around Mars at an altitude of about 226 kilometers (140 miles) above the planet’s surface. However, the spacecraft instead plunged much deeper into the Martian atmosphere, to an estimated altitude of 57 kilometers (35 miles), causing it to either burn up or crash on the surface and resulting in a complete loss of the mission.
 
 The cause of the failure was a software error involving typing mismatch between imperial units (pounds-force) and metric units (newtons) in the software that controlled the spacecraft's thrusters. The software expected data in metric units, but the thruster data was provided in imperial units, leading to the incorrect trajectory calculations. This mismatch was not caught during testing. This failure not only cost NASA a significant financial investment but also set back the Mars exploration program. 
 \end{historybox}
@@ -1966,7 +1965,7 @@ If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be repla
 For the example in \autoref{ex:polymorphism}, \code{Dog} and \code{Cat} have the same \code{make\_sound} method as \code{Mammal}, but they also have additional methods specific to dogs and cats.
 In~\autoref{ex:bankaccount}, \code{BonusBankAccount} has the same methods as \code{BankAccount}.
 
-\item[\textbf{Method Rule}] The specification of \code{f'} strengthens that of \code{f}. This means that the preconditions of \code{f'} must be weaker or equal to the preconditions of \code{f}, i.e.,  \code{f'} accepts more inputs than \code{f}.  The postconditions of \code{f} must be stronger or equal to that of \code{f}. This means that \code{f'} is more precise and specific than \code{f}.
+\item[\textbf{Method Rule}] The specification of \code{f'} strengthens that of \code{f}. This means that the preconditions of \code{f'} must be weaker or equal to the preconditions of \code{f}, i.e.,  \code{f'} accepts more inputs than \code{f}.  The postconditions of \code{f'} must be stronger or equal to that of \code{f}. This means that \code{f'} is more precise than \code{f}.
 
 In~\autoref{ex:bankaccount} the \code{deposit} of \code{BonusBankAccount} has a stronger postcondition than \code{deposit} of \code{BankAccount} as it adds bonus interest to the deposit.
 
@@ -2061,11 +2060,11 @@ class BonusBankAccount(BankAccount):
 
 \subsection{LSP: Market subtype}\label{exercise:market}
 
-Determine whether the below \code{LowBidMarket} and \code{LowOfferMarket} classes are proper subtypes of \code{Market}. Specifically, for each method, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP holds.
+Determine whether the \code{LowBidMarket} and \code{LowOfferMarket} classes in~\autoref{ex:lsp-market} are proper subtypes of \code{Market}. Specifically, for each method, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP holds.
 
 Note that this is purely a ``paper and pencil'' exercise. No code is required. Write your answer so that it is easily understandable by someone with only a passing knowledge of LSP.
 
-
+\begin{figure}
 \begin{lstlisting}
 class Market:
     def __init__(self):
@@ -2121,7 +2120,8 @@ class LowOfferMarket(Market):
             return lowest_price
         return None                
 \end{lstlisting}
-
+\caption{LSP Market Exercise}\label{ex:lsp-market}
+\end{figure}
 
 \subsection{Polymorphism concepts: Vehicle}\label{exercise:vehicle}
 
@@ -5767,138 +5767,6 @@ WP(while[T] i < N do i:= i + 1, {i = N})
 
 
 
-
-
-
-      \section{The Liskov Substitution Principle (LSP)}
-      
-      The Liskov Substitution Principle is a cornerstone of OOP design. It states that if \(S\) is a subtype of \(T\), then objects of type \(T\) should be replaceable with objects of type \(S\) without affecting the correctness of the program. In specification terms, a subtype must:
-      
-      \begin{itemize}
-          \item Not strengthen the preconditions required by the supertype.
-          \item Not weaken the postconditions or invariants guaranteed by the supertype.
-      \end{itemize}
-      
-      \subsection{Example: Rectangle and Square}
-      
-      A classic example involves the \texttt{Rectangle} and \texttt{Square} classes. One might be tempted to let \texttt{Square} inherit from \texttt{Rectangle}, but this can violate LSP if the behavioral contracts (e.g., invariants about width and height) are not preserved.
-      
-      \begin{lstlisting}[language=Java, caption=Rectangle and Square Example]
-      class Rectangle {
-          protected int width, height;
-          
-          public void setWidth(int w) { width = w; }
-          public void setHeight(int h) { height = h; }
-          
-          // Invariant: width and height can be different
-          public int getArea() { return width * height; }
-      }
-      
-      class Square extends Rectangle {
-          @Override
-          public void setWidth(int w) {
-              width = w;
-              height = w; // Invariant: width == height
-          }
-          
-          @Override
-          public void setHeight(int h) {
-              height = h;
-              width = h; // Invariant: width == height
-          }
-      }
-      \end{lstlisting}
-      
-      In this design, a \texttt{Square} imposes a stricter invariant than \texttt{Rectangle} (namely, that width and height must be equal). If a client code expects a \texttt{Rectangle} that can have different width and height values, substituting a \texttt{Square} might break that assumption—thus violating LSP.
-      
-      \section{Polymorphism and Inheritance as Specifications}
-      
-      Polymorphism and inheritance allow us to define abstract interfaces that capture essential behavioral contracts. When a class implements an interface or inherits from a superclass, it implicitly promises to meet the specified behavior.
-      
-      \subsection{Polymorphism}
-      
-      Polymorphism lets a function operate on objects of various classes that share the same interface. Consider an interface \texttt{Shape}:
-      
-      \begin{lstlisting}[language=Java, caption=Polymorphic Shape Interface]
-      interface Shape {
-          // The area must always be non-negative
-          double getArea();
-      }
-      
-      class Circle implements Shape {
-          private double radius;
-          public Circle(double r) { radius = r; }
-          public double getArea() { return Math.PI * radius * radius; }
-      }
-      
-      class Rectangle implements Shape {
-          private double width, height;
-          public Rectangle(double w, double h) { width = w; height = h; }
-          public double getArea() { return width * height; }
-      }
-      \end{lstlisting}
-      
-      Here, the type \texttt{Shape} acts as a specification. Any class that implements \texttt{Shape} must provide an implementation of \texttt{getArea()} that returns a non-negative value. The compiler enforces this interface, ensuring that all polymorphic uses of \texttt{Shape} adhere to this contract.
-      
-      \subsection{Inheritance}
-      
-      Inheritance extends the idea of polymorphism by allowing new classes to be built on top of existing ones. The inherited behavior is part of the specification that subclasses must satisfy. For example:
-      
-      \begin{lstlisting}[language=Java, caption=Inheritance with Class Invariants]
-      class Account {
-          protected double balance;
-          
-          public Account(double initial) {
-              // Invariant: balance >= 0
-              balance = initial;
-          }
-          
-          public void deposit(double amount) {
-              // Precondition: amount > 0
-              balance += amount;
-          }
-          
-          public void withdraw(double amount) {
-              // Precondition: amount > 0 and amount <= balance
-              balance -= amount;
-          }
-      }
-      
-      class SavingsAccount extends Account {
-          private double interestRate;
-          
-          public SavingsAccount(double initial, double rate) {
-              super(initial);
-              interestRate = rate;
-          }
-          
-          // Additional behavior: apply interest at the end of the period
-          public void applyInterest() {
-              balance += balance * interestRate;
-              // Postcondition: balance remains non-negative
-          }
-      }
-      \end{lstlisting}
-      
-      In this example, the class \texttt{Account} defines an invariant (balance must always be non-negative) and preconditions for its operations. \texttt{SavingsAccount}, as a subtype, inherits these specifications. It must maintain the invariant and respect the preconditions of the \texttt{Account} methods it overrides or extends.
-      
-      \subsection{Dynamic Dispatch}
-      
-      Dynamic dispatch ensures that the correct method implementation is called based on an object's runtime type, while the static type system guarantees that all possible implementations adhere to the specified contract. Consider:
-      
-      \begin{lstlisting}[language=Java, caption=Dynamic Dispatch Example]
-      public void printArea(Shape s) {
-          // The contract of Shape guarantees that getArea() returns a valid, non-negative value.
-          System.out.println("Area: " + s.getArea());
-      }
-      
-      public static void main(String[] args) {
-          Shape circle = new Circle(5);
-          Shape rect = new Rectangle(4, 6);
-          printArea(circle);  // Dynamically dispatches to Circle.getArea()
-          printArea(rect);    // Dynamically dispatches to Rectangle.getArea()
-      }
-      \end{lstlisting}
-      
-      Even though the concrete type is determined at runtime, the compiler ensures that any object of type \texttt{Shape} meets the specification for \texttt{getArea()}.
-      
+- AI Specifications
+- How do we even specify what we want in an AI systems.
+- Loop invariants
