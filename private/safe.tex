@@ -3893,7 +3893,7 @@ The weakest precondition (WP) of a program $S$ with respect to a postcondition $
         }
         \Case{\(S\) is a loop \texttt{while \(B\) do \(S\)}}{
             \tcp*[h]{Require a loop invariant $I$}\\
-            \Return $I \land (I \land B \implies \WP(S,I) \land (I\neg B \implies Q)$
+            \Return $I \land (I \land B \implies \WP(S,I) \land (\neg I \land B \implies Q)$
         }
         \Case{otherwise}{
              \Return \textbf{error: unsupported statement}
