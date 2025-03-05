@@ -1445,7 +1445,7 @@ Define the algebraic axioms for the \code{IntSet} ADT in \autoref{ex:intset}. Yo
 \end{itemize}
 
 
-\subsection{Algebraic Axioms for BankAccount}\label{exercise:bank-account}
+\subsection{Algebraic Axioms for BankAccount}\label{exercise:algebraic-axioms-bank-account}
 
 \code{BankAccount} is an ADT that models a real-world financial system where users can deposit, withdraw, transfer money, and check their account balance.
 
@@ -1464,7 +1464,11 @@ Define the algebraic axioms for these operations. You can invent shortcuts like 
 
 \begin{itemize}
     \item Properties of \code{deposit}
+    %balance(deposit(A, x ))= balance(A) + x
+    %deposit(deposit(A, x), y) = deposit(A, x + y)
     \item Properties of \code{withdraw}
+    %balance(withdraw(A, x)) = balance(A) - x
+    %withdraw(withdraw(A, x), y) = withdraw(A, x + y)
     \item Properties of \code{balance}
     \item Properties of \code{transfer}
 \end{itemize}
@@ -1772,15 +1776,18 @@ The cause of the failure was a software error involving typing mismatch between 
 
 Programming languages leverage typing not only to prevent errors but also to encode expected behavior properties. In a sense typing serves a lightweight form of specification that is explicitly supported by the language and checked by the compiler.
 
-Consider the function \code{f(x: int, y: int) -> int}. The input types \code{int} are precondition requiring that the inputs are integers. The output type \code{int} is a postcondition ensuring that the output is an integer. A type checker would verify that \code{f} adheres to these type specifications and returns an error if \code{f}'s uage violates its specification, e.g., \code{f(3,4) + ``hello''} would be an error.
 
+Consider the function \code{f(x: int, y: int) -> int}. The input types \code{int} are precondition requiring that the inputs are integers. The output type \code{int} is a postcondition ensuring that the output is an integer. A type checker would verify that \code{f} adheres to these type specifications and returns an error if \code{f}'s uage violates its specification, e.g., \code{f(3,4) + ``hello''} would be an error.
 
 
 \section{Fundamental OOP Concepts}
 
-\subsection{Polymorphism} Polymorphism is a cornerstone of OOP that allows objects of different types to be treated as objects of a common type. This improves programming flexibility and code reuse.
+\subsection{Polymorphism} Polymorphism is a cornerstone of OOP that allows objects of different classes to be treated as objects of a common superclass.  
+Polymorphism allows for flexibility and extensibility in the design of software systems.
 
-\autoref{ex:polymorphism} shows an example of polymorphism, where the class \code{Mammal} has two subclasses, \code{Dog} and \code{Cat}, each implementing the \code{speak} method differently. The \code{make\_mammal\_speak} function can then be used to make any mammal speak, regardless of its specific type.
+
+\autoref{ex:polymorphism} shows an example of polymorphism, where the class \code{Mammal} has two subclasses, \code{Dog} and \code{Cat}. 
+Since a \code{Dog} and a \code{Cat} are both \code{Mammals}, they can be treated as \code{Mammals} when needed. For example, they both can \code{make\_sound}, even though they make different sounds. This ability to treat objects of different classes in a uniform way is the core of polymorphism.
 
 \begin{figure}
 \begin{lstlisting}
@@ -1793,25 +1800,25 @@ class Mammal(ABC):
     """
     
     @abstractmethod
-    def speak(self):
+    def make_sound(self):
         raise NotImplementedError("Subclasses should implement this!")
 
 class Dog(Mammal):
-    def speak(self):
+    def make_sound(self):
         return "Woof!"
 
     def bark(self):
         return "Bark!"
 
 class Cat(Mammal):
-    def speak(self): return "Meow!"
+    def make_sound(self): return "Meow!"
         
 # Using polymorphism
-def make_animal_speak(mammal: Mammal): return mammal.speak()
+def mammal_make_sound(mammal: Mammal): return mammal.make_sound()
 
 mammals = [Dog(), Cat()]
 for m in mammals:
-    print(make_animal_speak(m))
+    print(mammal_make_sound(m))
 \end{lstlisting}
 \caption{Polymorphism}\label{ex:polymorphism}
 \end{figure}
@@ -1822,27 +1829,34 @@ Inheritance creates a hierarchical relationship between classes and allows a cla
 In \autoref{ex:polymorphism},
 \code{Mammal} is the superclass of \code{Dog} and \code{Cat}.
 \code{Dog} and \code{Cat} are the subclasses of \code{Mammal}, which is the superclass of both \code{Dog} and \code{Cat}.
-They override \code{speak} to provide a specific implementation.
-In addition to \emph{overriding} the \code{speak} method in \code{Mammal}, \code{Dog} defines a new method \code{bark} that is specific to dogs.
+
+Subclasses can override methods defined in the superclass and can also define new methods. For example, \code{Dog} overrides the
+\code{make\_sound} to provide a specific implementation, and defines a new method \code{bark} that is specific to dogs.
 
 This is an example of single inheritance, where a subclass can inherit from only one superclass. Python also supports multiple inheritance, where a subclass can inherit from multiple superclasses. For example, an \code{HybridVehicle} class could inherit from both \code{Car} and \code{BatteryVehicle} classes. However, multiple inheritance can lead to complex hierarchies and potential conflicts, so it should be used judiciously.
 
+The difference between inheritence and polymorphism is that inheritance is a mechanism for code reuse and defining relationships between classes, while polymorphism is a mechanism for treating objects of different classes in a uniform way. 
 \subsection{Abstract Class}
-OOP has two types of classes: \emph{concrete} and \emph{abstract} classes. Concrete classes provide a full implementation of the type while abstract classes provide at most a partial implementation of the type. Abstract classes cannot be instantiated (no objects) since some of their methods are not yet implemented (abstract methods). Abstract classes can have both abstract (to be implemented by subclasses) and concrete methods (already implemented or partially implemented). 
+OOP has two types of classes: \emph{concrete} and \emph{abstract} classes. Concrete classes provide a full implementation of the type while abstract classes provide at most a partial implementation of the type. 
+Abstract classes cannot be instantiated (no objects) since some of their methods are not yet implemented (abstract methods). 
+Thus, abstract classes act as a specification (that any subclass must adhere to) while concrete classes act as an implementation.
+
+
+%Abstract classes can have both abstract (to be implemented by subclasses) and concrete methods (already implemented or partially implemented). 
 
 In Python abstract classes are defined using the \code{abc} module, which provides the \code{ABC} class and the \code{abstractmethod} decorator. The \code{ABC} class is used as a base class for abstract classes, and the \code{abstractmethod} decorator is used to mark methods as abstract. In \autoref{ex:polymorphism},
-\code{Mammal} is an abstract class and contains an abstract method \code{speak} that its subclasses must implement.
-In Java, abstract classes and methods are defined using the \code{abstract} keyword, e.g., \code{public abstract class Mammal} and \code{public abstract void speak();}.
+\code{Mammal} is an abstract class and contains an abstract method \code{make\_sound} that its subclasses must implement.
+In Java, abstract classes and methods are defined using the \code{abstract} keyword, e.g., \code{public abstract class Mammal} and \code{public abstract void make\_sound();}.
 
-\subsection{Interface}
+\paragraph{Interface}
 
 Interface is a special type of abstract classes that contains only abstract methods (no concrete methods). They define a specification that classes must adhere to, providing the methods that must be implemented by any class that implements the interface. Multiple classes can implement the same interface, allowing for polymorphism and flexibility in the design.
 
-In Python, interfaces are not explicitly defined, but the concept can be implemented using abstract classes with only abstract methods. For example, the abstract class \code{Mammal} in \autoref{ex:polymorphism} acts as an interface that specifies the \code{speak} method that all mammals must implement.
-In Java, interfaces are explicitly defined using the \code{interface} keyword, e.g., \code{interface Mammal}, and methods are declared without a body, e.g., \code{public void speak();}. A class can implement multiple interfaces, allowing for more flexibility in defining contracts between classes.
+In Python, interfaces are not explicitly defined, but the concept can be implemented using abstract classes with only abstract methods. For example, the abstract class \code{Mammal} in \autoref{ex:polymorphism} acts as an interface that specifies the \code{make\_sound} method that all mammals must implement.
+In Java, interfaces are explicitly defined using the \code{interface} keyword, e.g., \code{interface Mammal}, and methods are declared without a body, e.g., \code{public void make\_sound();}. A class can implement multiple interfaces, allowing for more flexibility in defining contracts between classes.
 
 
-\subsection{Comparable interface} A good example of an interface is \code{Comparable}, which defines a single method \code{compare\_to} that allows objects to be compared to each other. Any class that implements \code{Comparable} can be compared to other objects of the same type, enabling sorting and other operations that require comparison.
+\paragraph{Example Interface: Comparable} A good example of an interface is \code{Comparable}, which defines a single method \code{compare\_to} that allows objects to be compared to each other. Any class that implements \code{Comparable} can be compared to other objects of the same type, enabling sorting and other operations that require comparison.
 
 The code below demonstrates the use of the \code{Comparable} interface in Python. The \code{Number} class implements the \code{Comparable} interface by defining the \code{compare\_to} method, which compares two \code{Number} objects based on their values. The \code{sort} function uses the \code{compare\_to} method to sort a list of \code{Number} objects.
 
@@ -1909,20 +1923,20 @@ price_comparators = [PriceComparable(p) for p in prices]
 sorted_prices = sort(price_comparators)
 \end{lstlisting}
 
-\subsection{Dynamic Dispatching}
+\subsection{Dynamic Dispatching}\label{sec:dynamic-dispatching}
 
-Dynamic dispatching refers to how a program selects which method to invoke when a method is called on an object.  It allows the correct method to be invoked based on the \emph{runtime type} of the object, even if the reference to the object is of a more general (superclass) type. This is particularly useful when working with inheritance and polymorphism, where subclasses override methods from a superclass.
+Dynamic dispatching is the fundamental technique that enables polymorphism in OOP. It refers to how a program selects which method to invoke when a method is called on an object.  It allows the correct method to be invoked based on the \emph{runtime type} of the object, even if the reference to the object is of a more general (superclass) type. This is particularly useful when working with inheritance and polymorphism, where subclasses override methods from a superclass.
 The distinction between dynamic dispatching and static dispatching lies in when the decision about which method to invoke is made—either at runtime (dynamic) or compile-time (static).
 
-In \autoref{ex:polymorphism} the \code{make\_mammal\_speak} method will invoke the \code{speak} method of the correct subclass based on the runtime type of the object. This is dynamic dispatching in action, where the method \code{speak} to be called is determined at runtime based on the actual type of the object.  However, if we explicitly create a \code{Dog} instance and call \code{speak} on it, the method is statically dispatched, as the compiler knows the type of the object at compile-time and can directly call the correct method.
+In \autoref{ex:polymorphism} the \code{mammal\_make\_sound} method will invoke the \code{make\_sound} method of the correct subclass based on the runtime type of the object. This is dynamic dispatching in action, where the method \code{make\_sound} to be called is determined at runtime based on the actual type of the object.  However, if we explicitly create a \code{Dog} instance and call \code{make\_sound} on it, the method is statically dispatched, as the compiler knows the type of the object at compile-time and can directly call the correct method.
 
 The code below demonstrates the difference between static and dynamic dispatching. The \code{Dog} object \code{d} is statically dispatched, while the \code{Mammal} object \code{m} is dynamically dispatched.
 \begin{lstlisting}
     Dog d = Dog();
-    d.speak();  # Static dispatching
+    d.make\_sound();  # Static dispatching
 
     Mammal m = Dog();
-    m.speak();  # Dynamic dispatching
+    m.make\_sound();  # Dynamic dispatching
 \end{lstlisting}    
 
 \subsection{Encapsulation}
@@ -1940,8 +1954,8 @@ In the \code{BankAccount} class in \autoref{ex:bankaccount}, the \code{\_balance
 The Liskov Substitution Principle (LSP) is a fundamental concept of object-oriented design, which ensures that objects of a subclass should be able to replace objects of the superclass without altering the correctness of the program. LSP promotes proper design and enforces correct use of inheritance.
 Violating LSP can lead to unexpected behavior and errors in the program, as the assumptions made about the superclass may no longer hold for the subclass. 
 
-The main idea of LSP is that a subclass \emph{is-a} superclass and can do everything the superclass can do, and can also do more. For example, a \code{Dog} is a \code{Mammal} and can speak like any mammal, but it can also bark, which is specific to dogs.
-This enables substitution of objects of the subclass for objects of the superclass, allowing for polymorphism and dynamic dispatching to work correctly. The \code{make\_animal\_speak} function in \autoref{ex:polymorphism} demonstrates LSP by accepting any \code{Mammal} object and making it speak, regardless of its specific type.
+The main idea of LSP is that a subclass \emph{is-a} superclass and can do everything the superclass can do, and can also do more. For example, a \code{Dog} is a \code{Mammal} and can make sound like any mammal, but it can also bark, which is specific to dogs.
+This enables substitution of objects of the subclass for objects of the superclass, allowing for polymorphism and dynamic dispatching to work correctly. The \code{mammal\_make\_sound} function in \autoref{ex:polymorphism} demonstrates LSP by accepting any \code{Mammal} object and having it make sound, regardless of its specific type.
 
 
 \subsection{Rules} 
@@ -1949,21 +1963,26 @@ If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be repla
 \begin{itemize}
 \item[\textbf{Signature Rule}] The signatures of methods of \code{S} must strengthen methods of \code{T}. In other words, the methods of \code{S} are a superset of the methods of \code{T}. Thus, if \code{T} has \code{n} methods, \code{S} also has \code{n} methods and additional ones (methods specific to \code{S}). 
 
+For the example in \autoref{ex:polymorphism}, \code{Dog} and \code{Cat} have the same \code{make\_sound} method as \code{Mammal}, but they also have additional methods specific to dogs and cats.
+In~\autoref{ex:bankaccount}, \code{BonusBankAccount} has the same methods as \code{BankAccount}.
+
 \item[\textbf{Method Rule}] The specification of \code{f'} strengthens that of \code{f}. This means that the preconditions of \code{f'} must be weaker or equal to the preconditions of \code{f}, i.e.,  \code{f'} accepts more inputs than \code{f}.  The postconditions of \code{f} must be stronger or equal to that of \code{f}. This means that \code{f'} is more precise and specific than \code{f}.
 
+In~\autoref{ex:bankaccount} the \code{deposit} of \code{BonusBankAccount} has a stronger postcondition than \code{deposit} of \code{BankAccount} as it adds bonus interest to the deposit.
+
 \item[\textbf{Property Rule}] The subtype must preserve all properties of the supertype.  For example, the rep-invariant of the subtpe \code{S} must be stronger or equal to that of the supertype \code{T}. This means \code{S} should maintain or strengthen the properties (including rep invariants) of \code{T}
+
+
+The rep-inv, captured in the \code{repOK} method, of \code{BonusBankAccount} in \autoref{ex:bankaccount} is stronger than that of \code{BankAccount} as it includes the rep-inv of \code{BankAccount} and the constraint on the bonus interest.
+
 \end{itemize}
 
 
 
 
-\section{Exercise}
 
 
 
-
-
-\subsection{Bank Account}\label{exercise:bankaccount}
 
 
 \begin{figure}
@@ -1980,7 +1999,7 @@ class BankAccount:
         REQUIRES: amount must be positive
         EFFECTS: balance is the original balance plus deposited amount
         """
-        if amount \le 0:
+        if amount < 0:
             return False
         self._balance += amount
         # check_repOK()
@@ -1990,7 +2009,7 @@ class BankAccount:
         # REQUIRES: amount must be positive and less than or equal to balance
         # EFFECTS: balance is the original balance minus withdrawn amount
 
-        if amount \le 0 or amount > self._balance:
+        if amount < 0 or amount > self._balance:
             return False
         self._balance -= amount
         self.check_repOK()
@@ -2036,6 +2055,8 @@ class BonusBankAccount(BankAccount):
     \end{lstlisting}
 \caption{Liskov Substitution Principle demonstration}\label{ex:bankaccount}
 \end{figure}
+
+\section{Exercise}
 
 
 \subsection{LSP: Market subtype}\label{exercise:market}
@@ -5881,102 +5902,3 @@ WP(while[T] i < N do i:= i + 1, {i = N})
       
       Even though the concrete type is determined at runtime, the compiler ensures that any object of type \texttt{Shape} meets the specification for \texttt{getArea()}.
       
-      \section{Types as Built-In, Lightweight Specifications}
-      
-      The perspective that types are lightweight specifications can be further reinforced by comparing them to formal methods concepts.
-      
-      \subsection{Preconditions and Postconditions}
-      
-      In formal verification, we often use Hoare logic to specify preconditions and postconditions. Types do something similar but in an automated way. For instance:
-      
-      \begin{itemize}
-          \item A function signature in a strongly typed language enforces a precondition by stating the required type of its arguments.
-          \item The return type acts as a postcondition, assuring that the function's result adheres to a specific type.
-      \end{itemize}
-      
-      Consider the function:
-      
-      \begin{lstlisting}[language=Java, caption=Function Signature as a Specification]
-      public List<String> tokenize(String input) {
-          // Precondition: input != null
-          // Postcondition: returns a non-null list of strings
-          // (The type system, along with annotations, can enforce these properties.)
-          // Implementation omitted...
-      }
-      \end{lstlisting}
-      
-      Here, the type system ensures that the contract of \texttt{tokenize} is maintained.
-      
-      \subsection{Invariants}
-      
-      Class invariants are conditions that must hold for an object at all times. They are akin to formal invariants in a specification, maintained throughout an object's lifetime. Languages like Eiffel have built-in support for class invariants, while in Java these are usually documented and enforced through careful design:
-      
-      \begin{lstlisting}[language=Java, caption=Documenting Invariants in a Class]
-      public class BankAccount {
-          private double balance;
-          
-          // Invariant: balance >= 0
-          public BankAccount(double initial) {
-              if(initial < 0)
-                  throw new IllegalArgumentException("Negative balance not allowed");
-              balance = initial;
-          }
-          
-          public void deposit(double amount) {
-              if(amount <= 0)
-                  throw new IllegalArgumentException("Deposit must be positive");
-              balance += amount;
-          }
-          
-          public void withdraw(double amount) {
-              if(amount <= 0 || amount > balance)
-                  throw new IllegalArgumentException("Invalid withdrawal amount");
-              balance -= amount;
-          }
-          
-          public double getBalance() {
-              return balance;
-          }
-      }
-      \end{lstlisting}
-      
-      Even without full formal verification, these invariants guide the design of the system, similar to how pre- and postconditions do in a formal specification.
-      
-      \section{Integrating Formal Specifications with Type Systems}
-      
-      While type systems provide a lightweight form of specification, they can be augmented with additional annotations to express more detailed contracts. Languages such as Dafny, Spec\#, and even modern Java (with annotations) allow developers to specify invariants, preconditions, and postconditions explicitly.
-      
-      \subsection{Annotated Example: Using Contracts in Code}
-      
-      \begin{lstlisting}[language=Java, caption=Using Annotations for Contracts]
-      import org.contract4j5.*;
-      
-      public class SortedList<T extends Comparable<T>> {
-          private List<T> list = new ArrayList<>();
-      
-          @Requires("element != null")
-          @Ensures("list.size() == old(list.size()) + 1")
-          public void addElement(T element) {
-              // Add element while preserving the sorted invariant.
-              list.add(element);
-              Collections.sort(list);
-          }
-      
-          @Invariant("list != null")
-          @Invariant("isSorted(list)")
-          private boolean isSorted(List<T> list) {
-              for (int i = 0; i < list.size() - 1; i++) {
-                  if (list.get(i).compareTo(list.get(i + 1)) > 0)
-                      return false;
-              }
-              return true;
-          }
-      }
-      \end{lstlisting}
-      
-      In this annotated example, contracts serve as an extra layer of specification. The type system checks that \texttt{element} is not \texttt{null} (a weak precondition), while the postcondition and invariants ensure that the list remains sorted after insertion.
-      
-
-
-      
- 
