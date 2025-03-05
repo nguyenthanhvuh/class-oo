@@ -1410,7 +1410,7 @@ Use the Poly ADT in \autoref{ex:poly} to answer the following questions. Use the
 
 \subsection{Algebraic Axioms for IntSet}\label{ex:algebraic-intset}
 
-Define the algebraic axioms for the \code{IntSet} ADT in \autoref{ex:intset}. You can look at~\autoref{ex:intset} to get ideas on how these operations work (e.g., \code{find\_idx} returns an index of a given element). But \textbf{do not} include any implementation details in your algebraic axioms. For example, do not assume that \code{choose()} always return the last element in the list (even though the implementation in~\autoref{ex:intset} does that).
+Define the algebraic axioms for the \code{IntSet} ADT in \autoref{ex:intset}. You can look at~\autoref{ex:intset} to get ideas on how these operations work (e.g., \code{find\_idx} returns an index of a given element). \textbf{Do not} include any implementation details in your algebraic axioms. For example, do not assume that \code{choose()} always return the last element in the list (even though the implementation in~\autoref{ex:intset} does that).
 
 \begin{itemize}
     \item Sort: \code{IntSet}
@@ -1460,7 +1460,7 @@ Define the algebraic axioms for the \code{IntSet} ADT in \autoref{ex:intset}. Yo
     \end{itemize}
 \end{itemize}    
 
-Come up with algebraic axioms to define the behavior of these operations. Note that something like \code{balance(transfer(A1, A2, amount))} means that we first transfer money from A1 to A2 and get A1' and A2', and take the balance of A1' and balance of A2', i.e., \code{balance(transfer(A1, A2, amount)=(balance(A1'), balance(A2'))}.
+Define the algebraic axioms for these operations. You can invent shortcuts like \code{balance(transfer(A1, A2, amount))} to mean that we first \code{transfer} \code{amount} from \code{A1} to \code{A2} and get \code{A1'} and \code{A2'}, and then take the \code{balance} of \code{A1'} and the \code{balance} of \code{A2'}, i.e., \code{balance(transfer(A1, A2, amount)) = (balance(A1'), balance(A2'))}.
 
 \begin{itemize}
     \item Properties of \code{deposit}
@@ -1757,30 +1757,30 @@ class Immutable2:
 
 \chapter{Types}\label{chap:types}
 
+A \emph{type} specifies the set of possible values that a variable or expression can hold, and defines the operations that are valid for those values. In OOP, types are used to define ADTs through classes and interfaces. A well-designed type system can detect many errors at compile time and allow the compiler to generate optimized code.
+
+This chapter covers key concepts in the type system of OOP languages. We will review topics like polymorphism, inheritance, dynamic dispatching, and explore Lispov's principle of substitution, which is essential for understanding how types work in OOP.
+
+
 \begin{historybox}
 In 1999, NASA's Mars Climate Orbiter mission ended in failure due to a simple yet catastrophic software error. The spacecraft, which cost \$125 million to build and launch, was launched on December 11, 1998 to study Mars. After a 9-month journey, the spacecraft approached Mars on September 23, 1999, and was supposed to enter a stable orbit around Mars at an altitude of about 226 kilometers (140 miles) above the planet’s surface. However, the spacecraft instead plunged much deeper into the Martian atmosphere, to an estimated altitude of 57 kilometers (35 miles), causing it to either burn up or crash on the surface and resulting in a complete loss of the mission.
 
 The cause of the failure was a software error involving typing mismatch between imperial units (pounds-force) and metric units (newtons) in the software that controlled the spacecraft's thrusters. The software expected data in metric units, but the thruster data was provided in imperial units, leading to the incorrect trajectory calculations. This mismatch was not caught during testing. This failure not only cost NASA a significant financial investment but also set back the Mars exploration program. 
 \end{historybox}
 
-\section{Type Systems in OOP}
+\section{Type as Specification}
 
-In OOP, the type system forms the foundation for defining how ADT (\autoref{chap:adt}) is represented and manipulated in a language. Type systems provide rules for assigning types to variables, expressions, functions, and objects, enabling the development of reliable and efficient software. A well-defined type system also enforces contracts between components, ensuring that data is used appropriately.
+Programming languages leverage typing not only to prevent errors but also to encode expected behavior properties. In a sense typing serves a lightweight form of specification that is explicitly supported by the language and checked by the compiler.
 
-This chapter covers key concepts in the type system of OOP languages, particularly in the context of Python, where both static and dynamic typing coexist. We will explore topics like polymorphism, inheritance, dynamic dispatching, and more, discussing their motivation, core concepts. 
-
-
-
-% We can enhance ADT (\autoref{chap:adt}) by defining families of related ADTs, where all members share similar behavior through common methods. These type families are structured in a hierarchy, with a base class (\emph{supertype}) defining the core behavior, and subclasses (\emph{subtypes}) extending or adding to this behavior. For example, Cars and Buses as subtypes of Vehicle, or program-specific hierarchies like a bufedReader as a subtype of Reader. 
+Consider the function \code{f(x: int, y: int) -> int}. The input types \code{int} are precondition requiring that the inputs are integers. The output type \code{int} is a postcondition ensuring that the output is an integer. A type checker would verify that \code{f} adheres to these type specifications and returns an error if \code{f}'s uage violates its specification, e.g., \code{f(3,4) + ``hello''} would be an error.
 
 
-% A key concept in typing is that the \emph{Liskov's principle of substitution}, which ensures that any subtype object can be substituted for a supertype object without breaking the program. This principle allows code written for the supertype (e.g., Reader) to work seamlessly with any subtype (e.g., bufedReader), enabling abstraction by focusing on commonalities while still supporting specific behaviors at different levels of the hierarchy.
 
-\section{Polymorphism}
+\section{Fundamental OOP Concepts}
 
-Polymorphism is a cornerstone of OOP that allows objects of different types to be treated as objects of a common supertype. This facilitates flexibility in programming by enabling the use of a unified interface for different types of objects, reducing redundancy and increasing code reuse.
+\subsection{Polymorphism} Polymorphism is a cornerstone of OOP that allows objects of different types to be treated as objects of a common type. This improves programming flexibility and code reuse.
 
-\autoref{ex:polymorphism} shows an example of subtype polymorphism, where a \code{Mammal} class has two subclasses, \code{Dog} and \code{Cat}, each implementing the \code{speak} method differently. The \code{make\_mammal\_speak} function can then be used to make any mammal speak, regardless of its specific type.
+\autoref{ex:polymorphism} shows an example of polymorphism, where the class \code{Mammal} has two subclasses, \code{Dog} and \code{Cat}, each implementing the \code{speak} method differently. The \code{make\_mammal\_speak} function can then be used to make any mammal speak, regardless of its specific type.
 
 \begin{figure}
 \begin{lstlisting}
@@ -1816,26 +1816,25 @@ for m in mammals:
 \caption{Polymorphism}\label{ex:polymorphism}
 \end{figure}
 
-\section{Inheritance}
+\subsection{Inheritance} 
 
-Inheritance creates a hierarchical relationship between classes and allows a class to be a \emph{subclass} or \emph{subtype} of one other class (its \emph{superclass} or \emph{supertype}).
-\autoref{ex:polymorphism} shows an example of inheritance.
+Inheritance creates a hierarchical relationship between classes and allows a class to be a \emph{subclass} (or subtype) of one other class (the \emph{superclass} or supertype)
+In \autoref{ex:polymorphism},
 \code{Mammal} is the superclass of \code{Dog} and \code{Cat}.
-\code{Dog} and \code{Cat} are the subclasses of \code{Mammal}
+\code{Dog} and \code{Cat} are the subclasses of \code{Mammal}, which is the superclass of both \code{Dog} and \code{Cat}.
 They override \code{speak} to provide a specific implementation.
 In addition to \emph{overriding} the \code{speak} method in \code{Mammal}, \code{Dog} defines a new method \code{bark} that is specific to dogs.
 
-
 This is an example of single inheritance, where a subclass can inherit from only one superclass. Python also supports multiple inheritance, where a subclass can inherit from multiple superclasses. For example, an \code{HybridVehicle} class could inherit from both \code{Car} and \code{BatteryVehicle} classes. However, multiple inheritance can lead to complex hierarchies and potential conflicts, so it should be used judiciously.
 
-\section{Abstract Class}
+\subsection{Abstract Class}
 OOP has two types of classes: \emph{concrete} and \emph{abstract} classes. Concrete classes provide a full implementation of the type while abstract classes provide at most a partial implementation of the type. Abstract classes cannot be instantiated (no objects) since some of their methods are not yet implemented (abstract methods). Abstract classes can have both abstract (to be implemented by subclasses) and concrete methods (already implemented or partially implemented). 
 
 In Python abstract classes are defined using the \code{abc} module, which provides the \code{ABC} class and the \code{abstractmethod} decorator. The \code{ABC} class is used as a base class for abstract classes, and the \code{abstractmethod} decorator is used to mark methods as abstract. In \autoref{ex:polymorphism},
 \code{Mammal} is an abstract class and contains an abstract method \code{speak} that its subclasses must implement.
 In Java, abstract classes and methods are defined using the \code{abstract} keyword, e.g., \code{public abstract class Mammal} and \code{public abstract void speak();}.
 
-\section{Interface}
+\subsection{Interface}
 
 Interface is a special type of abstract classes that contains only abstract methods (no concrete methods). They define a specification that classes must adhere to, providing the methods that must be implemented by any class that implements the interface. Multiple classes can implement the same interface, allowing for polymorphism and flexibility in the design.
 
@@ -1843,7 +1842,7 @@ In Python, interfaces are not explicitly defined, but the concept can be impleme
 In Java, interfaces are explicitly defined using the \code{interface} keyword, e.g., \code{interface Mammal}, and methods are declared without a body, e.g., \code{public void speak();}. A class can implement multiple interfaces, allowing for more flexibility in defining contracts between classes.
 
 
-\paragraph{Comparable interface} A good example of an interface is \code{Comparable}, which defines a single method \code{compare\_to} that allows objects to be compared to each other. Any class that implements \code{Comparable} can be compared to other objects of the same type, enabling sorting and other operations that require comparison.
+\subsection{Comparable interface} A good example of an interface is \code{Comparable}, which defines a single method \code{compare\_to} that allows objects to be compared to each other. Any class that implements \code{Comparable} can be compared to other objects of the same type, enabling sorting and other operations that require comparison.
 
 The code below demonstrates the use of the \code{Comparable} interface in Python. The \code{Number} class implements the \code{Comparable} interface by defining the \code{compare\_to} method, which compares two \code{Number} objects based on their values. The \code{sort} function uses the \code{compare\_to} method to sort a list of \code{Number} objects.
 
@@ -1881,9 +1880,11 @@ sorted_numbers = sort(numbers)
 print(sorted_numbers)  # Output: [1, 2, 3, 4]
 \end{lstlisting}    
 
-\subsection{Element Subtype vs Related Subtype} There are two types of subtypes: \emph{element subtype} and \emph{related subtype}. Element subtype relies on a common interface or abstract class, e.g., \code{Number} is an element subtype of \code{Comparable}. While this common approach allows for polymorphism, it requires all potential types must be pre-planned to fit the hierarchy. 
+\subsection{Element Subtype vs Related Subtype} There are two types of subtypes: \emph{element subtype} and \emph{related subtype}. They differ in how they define the relationship between types.
 
-On the other hand, a related subtype does not directly rely on a common interface or abstract class (which might be designed much later). Instead, this approach creates a related subtype that implement the desired interface and then adapts it to the existing hierarchy. The code below demonstrates the use of a related subtype, where \code{Price} is adapted to \code{PriceComparable}, which implements \code{Comparable}, to allow sorting of \code{Price} objects.
+\emph{Element subtype} relies on a common interface or abstract class, e.g., \code{Number} is an  subtype of \code{Comparable}. While this common approach allows for polymorphism, it requires all potential types must be pre-planned to fit the hierarchy. 
+
+On the other hand, a \emph{related subtype} does not directly rely on a common interface or abstract class (which might be designed much later). Instead, this approach creates a related subtype that implement the desired interface and then adapts it to the existing hierarchy. The code below demonstrates the use of a related subtype, where \code{Price} is adapted to \code{PriceComparable}, which implements \code{Comparable}, to allow sorting of \code{Price} objects.
 
 \begin{lstlisting}
 class Price:
@@ -1908,7 +1909,7 @@ price_comparators = [PriceComparable(p) for p in prices]
 sorted_prices = sort(price_comparators)
 \end{lstlisting}
 
-\section{Dynamic Dispatching}
+\subsection{Dynamic Dispatching}
 
 Dynamic dispatching refers to how a program selects which method to invoke when a method is called on an object.  It allows the correct method to be invoked based on the \emph{runtime type} of the object, even if the reference to the object is of a more general (superclass) type. This is particularly useful when working with inheritance and polymorphism, where subclasses override methods from a superclass.
 The distinction between dynamic dispatching and static dispatching lies in when the decision about which method to invoke is made—either at runtime (dynamic) or compile-time (static).
@@ -1923,6 +1924,17 @@ The code below demonstrates the difference between static and dynamic dispatchin
     Mammal m = Dog();
     m.speak();  # Dynamic dispatching
 \end{lstlisting}    
+
+\subsection{Encapsulation}
+Encapsulation is a fundamental concept in OOP that allows the class to control access to its data and methods. It helps ensure that the internal representation of the class is not exposed to the outside world and prevents unintended modifications to the internal state of the class.
+
+Encapsulation is achieved through the use of access modifiers, which specify the level of access to class members. In Java, access modifiers are enforced by the language, and there are four levels of access: \emph{private}, \emph{protected}, \emph{package-private} (default), and \emph{public}.  In Python, access modifiers are not enforced by the language, but conventions are used to indicate the intended level of access. For example, underscore (\_) is used to indicate private or protected attribute (variable). %, and a double underscore (\_\_) is used to indicate a private attribute. 
+
+Encapsulation avoids direct access to the internal representation of a class, e.g., rep-invariants, which can lead to unintended side effects and break the class's invariants. Instead, access to the class's data should be controlled through methods, such as \code{getters} and \code{setters} methods.
+
+In the \code{BankAccount} class in \autoref{ex:bankaccount}, the \code{\_balance} attribute is a private member, and access to it is controlled through the \code{deposit} and \code{withdraw} methods. This ensures that the balance is updated correctly and that the rep-invariant is maintained (\code{repOK}). The \code{BonusBankAccount} class extends \code{BankAccount} and adds a \code{\_bonus\_interest} attribute, which is also a private member that is not exposed directly. 
+
+
 
 \section{Liskov Substitution Principle (LSP)}
 The Liskov Substitution Principle (LSP) is a fundamental concept of object-oriented design, which ensures that objects of a subclass should be able to replace objects of the superclass without altering the correctness of the program. LSP promotes proper design and enforces correct use of inheritance.
@@ -1941,16 +1953,6 @@ If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be repla
 
 \item[\textbf{Property Rule}] The subtype must preserve all properties of the supertype.  For example, the rep-invariant of the subtpe \code{S} must be stronger or equal to that of the supertype \code{T}. This means \code{S} should maintain or strengthen the properties (including rep invariants) of \code{T}
 \end{itemize}
-
-
-\section{Encapsulation}
-Encapsulation is a fundamental concept in OOP that combines data and methods into a single unit called a class. Encapsulation allows the class to control access to its data and methods, ensuring that they are used correctly and consistently. This helps to prevent misuse and errors, and promotes good design practices such as information hiding and modularity.
-
-Encapsulation is achieved through the use of access modifiers, which specify the level of access to class members. In Java, access modifiers are enforced by the language, and there are four levels of access: \emph{private}, \emph{protected}, \emph{package-private} (default), and \emph{public}.  In Python, access modifiers are not enforced by the language, but conventions are used to indicate the intended level of access. For example, underscore (\_) is used to indicate private or protected attribute (variable). %, and a double underscore (\_\_) is used to indicate a private attribute. 
-
-Encapsulation avoids direct access to the internal representation of a class, e.g., rep-invariants, which can lead to unintended side effects and break the class's invariants. Instead, access to the class's data should be controlled through methods, such as \code{getters} and \code{setters} methods.
-
-In the \code{BankAccount} class in \autoref{ex:bankaccount}, the \code{\_balance} attribute is a private member, and access to it is controlled through the \code{deposit} and \code{withdraw} methods. This ensures that the balance is updated correctly and that the rep-invariant is maintained (\code{repOK}). The \code{BonusBankAccount} class extends \code{BankAccount} and adds a \code{\_bonus\_interest} attribute, which is also a private member that is not exposed directly. 
 
 
 
@@ -5744,3 +5746,237 @@ WP(while[T] i < N do i:= i + 1, {i = N})
 
 
 
+
+
+
+      \section{The Liskov Substitution Principle (LSP)}
+      
+      The Liskov Substitution Principle is a cornerstone of OOP design. It states that if \(S\) is a subtype of \(T\), then objects of type \(T\) should be replaceable with objects of type \(S\) without affecting the correctness of the program. In specification terms, a subtype must:
+      
+      \begin{itemize}
+          \item Not strengthen the preconditions required by the supertype.
+          \item Not weaken the postconditions or invariants guaranteed by the supertype.
+      \end{itemize}
+      
+      \subsection{Example: Rectangle and Square}
+      
+      A classic example involves the \texttt{Rectangle} and \texttt{Square} classes. One might be tempted to let \texttt{Square} inherit from \texttt{Rectangle}, but this can violate LSP if the behavioral contracts (e.g., invariants about width and height) are not preserved.
+      
+      \begin{lstlisting}[language=Java, caption=Rectangle and Square Example]
+      class Rectangle {
+          protected int width, height;
+          
+          public void setWidth(int w) { width = w; }
+          public void setHeight(int h) { height = h; }
+          
+          // Invariant: width and height can be different
+          public int getArea() { return width * height; }
+      }
+      
+      class Square extends Rectangle {
+          @Override
+          public void setWidth(int w) {
+              width = w;
+              height = w; // Invariant: width == height
+          }
+          
+          @Override
+          public void setHeight(int h) {
+              height = h;
+              width = h; // Invariant: width == height
+          }
+      }
+      \end{lstlisting}
+      
+      In this design, a \texttt{Square} imposes a stricter invariant than \texttt{Rectangle} (namely, that width and height must be equal). If a client code expects a \texttt{Rectangle} that can have different width and height values, substituting a \texttt{Square} might break that assumption—thus violating LSP.
+      
+      \section{Polymorphism and Inheritance as Specifications}
+      
+      Polymorphism and inheritance allow us to define abstract interfaces that capture essential behavioral contracts. When a class implements an interface or inherits from a superclass, it implicitly promises to meet the specified behavior.
+      
+      \subsection{Polymorphism}
+      
+      Polymorphism lets a function operate on objects of various classes that share the same interface. Consider an interface \texttt{Shape}:
+      
+      \begin{lstlisting}[language=Java, caption=Polymorphic Shape Interface]
+      interface Shape {
+          // The area must always be non-negative
+          double getArea();
+      }
+      
+      class Circle implements Shape {
+          private double radius;
+          public Circle(double r) { radius = r; }
+          public double getArea() { return Math.PI * radius * radius; }
+      }
+      
+      class Rectangle implements Shape {
+          private double width, height;
+          public Rectangle(double w, double h) { width = w; height = h; }
+          public double getArea() { return width * height; }
+      }
+      \end{lstlisting}
+      
+      Here, the type \texttt{Shape} acts as a specification. Any class that implements \texttt{Shape} must provide an implementation of \texttt{getArea()} that returns a non-negative value. The compiler enforces this interface, ensuring that all polymorphic uses of \texttt{Shape} adhere to this contract.
+      
+      \subsection{Inheritance}
+      
+      Inheritance extends the idea of polymorphism by allowing new classes to be built on top of existing ones. The inherited behavior is part of the specification that subclasses must satisfy. For example:
+      
+      \begin{lstlisting}[language=Java, caption=Inheritance with Class Invariants]
+      class Account {
+          protected double balance;
+          
+          public Account(double initial) {
+              // Invariant: balance >= 0
+              balance = initial;
+          }
+          
+          public void deposit(double amount) {
+              // Precondition: amount > 0
+              balance += amount;
+          }
+          
+          public void withdraw(double amount) {
+              // Precondition: amount > 0 and amount <= balance
+              balance -= amount;
+          }
+      }
+      
+      class SavingsAccount extends Account {
+          private double interestRate;
+          
+          public SavingsAccount(double initial, double rate) {
+              super(initial);
+              interestRate = rate;
+          }
+          
+          // Additional behavior: apply interest at the end of the period
+          public void applyInterest() {
+              balance += balance * interestRate;
+              // Postcondition: balance remains non-negative
+          }
+      }
+      \end{lstlisting}
+      
+      In this example, the class \texttt{Account} defines an invariant (balance must always be non-negative) and preconditions for its operations. \texttt{SavingsAccount}, as a subtype, inherits these specifications. It must maintain the invariant and respect the preconditions of the \texttt{Account} methods it overrides or extends.
+      
+      \subsection{Dynamic Dispatch}
+      
+      Dynamic dispatch ensures that the correct method implementation is called based on an object's runtime type, while the static type system guarantees that all possible implementations adhere to the specified contract. Consider:
+      
+      \begin{lstlisting}[language=Java, caption=Dynamic Dispatch Example]
+      public void printArea(Shape s) {
+          // The contract of Shape guarantees that getArea() returns a valid, non-negative value.
+          System.out.println("Area: " + s.getArea());
+      }
+      
+      public static void main(String[] args) {
+          Shape circle = new Circle(5);
+          Shape rect = new Rectangle(4, 6);
+          printArea(circle);  // Dynamically dispatches to Circle.getArea()
+          printArea(rect);    // Dynamically dispatches to Rectangle.getArea()
+      }
+      \end{lstlisting}
+      
+      Even though the concrete type is determined at runtime, the compiler ensures that any object of type \texttt{Shape} meets the specification for \texttt{getArea()}.
+      
+      \section{Types as Built-In, Lightweight Specifications}
+      
+      The perspective that types are lightweight specifications can be further reinforced by comparing them to formal methods concepts.
+      
+      \subsection{Preconditions and Postconditions}
+      
+      In formal verification, we often use Hoare logic to specify preconditions and postconditions. Types do something similar but in an automated way. For instance:
+      
+      \begin{itemize}
+          \item A function signature in a strongly typed language enforces a precondition by stating the required type of its arguments.
+          \item The return type acts as a postcondition, assuring that the function's result adheres to a specific type.
+      \end{itemize}
+      
+      Consider the function:
+      
+      \begin{lstlisting}[language=Java, caption=Function Signature as a Specification]
+      public List<String> tokenize(String input) {
+          // Precondition: input != null
+          // Postcondition: returns a non-null list of strings
+          // (The type system, along with annotations, can enforce these properties.)
+          // Implementation omitted...
+      }
+      \end{lstlisting}
+      
+      Here, the type system ensures that the contract of \texttt{tokenize} is maintained.
+      
+      \subsection{Invariants}
+      
+      Class invariants are conditions that must hold for an object at all times. They are akin to formal invariants in a specification, maintained throughout an object's lifetime. Languages like Eiffel have built-in support for class invariants, while in Java these are usually documented and enforced through careful design:
+      
+      \begin{lstlisting}[language=Java, caption=Documenting Invariants in a Class]
+      public class BankAccount {
+          private double balance;
+          
+          // Invariant: balance >= 0
+          public BankAccount(double initial) {
+              if(initial < 0)
+                  throw new IllegalArgumentException("Negative balance not allowed");
+              balance = initial;
+          }
+          
+          public void deposit(double amount) {
+              if(amount <= 0)
+                  throw new IllegalArgumentException("Deposit must be positive");
+              balance += amount;
+          }
+          
+          public void withdraw(double amount) {
+              if(amount <= 0 || amount > balance)
+                  throw new IllegalArgumentException("Invalid withdrawal amount");
+              balance -= amount;
+          }
+          
+          public double getBalance() {
+              return balance;
+          }
+      }
+      \end{lstlisting}
+      
+      Even without full formal verification, these invariants guide the design of the system, similar to how pre- and postconditions do in a formal specification.
+      
+      \section{Integrating Formal Specifications with Type Systems}
+      
+      While type systems provide a lightweight form of specification, they can be augmented with additional annotations to express more detailed contracts. Languages such as Dafny, Spec\#, and even modern Java (with annotations) allow developers to specify invariants, preconditions, and postconditions explicitly.
+      
+      \subsection{Annotated Example: Using Contracts in Code}
+      
+      \begin{lstlisting}[language=Java, caption=Using Annotations for Contracts]
+      import org.contract4j5.*;
+      
+      public class SortedList<T extends Comparable<T>> {
+          private List<T> list = new ArrayList<>();
+      
+          @Requires("element != null")
+          @Ensures("list.size() == old(list.size()) + 1")
+          public void addElement(T element) {
+              // Add element while preserving the sorted invariant.
+              list.add(element);
+              Collections.sort(list);
+          }
+      
+          @Invariant("list != null")
+          @Invariant("isSorted(list)")
+          private boolean isSorted(List<T> list) {
+              for (int i = 0; i < list.size() - 1; i++) {
+                  if (list.get(i).compareTo(list.get(i + 1)) > 0)
+                      return false;
+              }
+              return true;
+          }
+      }
+      \end{lstlisting}
+      
+      In this annotated example, contracts serve as an extra layer of specification. The type system checks that \texttt{element} is not \texttt{null} (a weak precondition), while the postcondition and invariants ensure that the list remains sorted after insertion.
+      
+
+
+      
+ 
