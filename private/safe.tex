@@ -1967,7 +1967,7 @@ In~\autoref{ex:bankaccount} the \code{deposit} of \code{BonusBankAccount} has a 
 \paragraph{Property Rule} The subtype must preserve all properties of the supertype.  For example, the rep-invariant of the subtpe \code{S} must be stronger or equal to that of the supertype \code{T}. This means \code{S} should maintain or strengthen the properties (including rep invariants) of \code{T}
 
 
-The rep-inv, captured in the \code{repOK} method, of \code{BonusBankAccount} in \autoref{ex:bankaccount} is stronger than that of \code{BankAccount} as it includes the rep-inv of \code{BankAccount} and the constraint on the bonus interest.
+The rep-inv, captured in the \code{repOK} method, of \code{BonusBankAccount} in \autoref{ex:bankaccount} is stronger than that of \code{BankAccount} as it includes the rep-inv of \code{BankAccount} \emph{and} the constraint on the bonus interest.
 
 
 
@@ -2018,7 +2018,7 @@ class BonusBankAccount(BankAccount):
 
     def deposit(self, amount: float) -> str:
         # REQUIRES: (same) amount must be positive
-        # EFFECTS: (stronger) deposit and also add bonus interest
+        # EFFECTS: (stronger) same post as deposit of BankAccount and also add bonus interest
 
         stats = super().deposit(amount)
         if stats:
