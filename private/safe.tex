@@ -1460,9 +1460,7 @@ Define the algebraic axioms for the \code{IntSet} ADT in \autoref{ex:intset}. Yo
     \end{itemize}
 \end{itemize}    
 
-Define the algebraic axioms for these operations.
-
-You can invent shortcuts to make the axioms more readable. For example, \code{balance(transfer(A1, A2, amount))} means that we first \code{transfer} \code{amount} from \code{A1} to \code{A2} and get the updated accounts \code{A1'} and \code{A2'}, and then take the \code{balance} of \code{A1'} and the \code{balance} of \code{A2'}, i.e., \code{balance(transfer(A1, A2, amount)) = (balance(A1'), balance(A2'))}.
+Define the algebraic axioms for these operations. You can invent shortcuts to make the axioms more readable. For example, \code{balance(transfer(A1, A2, amount))} means that we first \code{transfer} \code{amount} from \code{A1} to \code{A2} and get the updated accounts \code{A1'} and \code{A2'}, and then take the \code{balance} of \code{A1'} and the \code{balance} of \code{A2'}, i.e., \code{balance(transfer(A1, A2, amount)) = (balance(A1'), balance(A2'))}.
 
     %balance(deposit(A, x ))= balance(A) + x
     %deposit(deposit(A, x), y) = deposit(A, x + y)
@@ -1855,7 +1853,7 @@ In Java, interfaces are explicitly defined using the \code{interface} keyword, e
 The code below demonstrates the use of the \code{Comparable} interface in Python. The \code{Number} class implements the \code{Comparable} interface by defining the \code{compare\_to} method, which compares two \code{Number} objects based on their values. The \code{sort} function uses the \code{compare\_to} method to sort a list of \code{Number} objects.
 
 \begin{lstlisting}
-    from abc import ABC, abstractmethod
+from abc import ABC, abstractmethod
 from typing import List
 
 # Define a Comparable interface using ABC
@@ -1927,10 +1925,10 @@ In \autoref{ex:polymorphism} the \code{mammal\_make\_sound} method will invoke t
 The code below demonstrates the difference between static and dynamic dispatching. The \code{Dog} object \code{d} is statically dispatched, while the \code{Mammal} object \code{m} is dynamically dispatched.
 \begin{lstlisting}
     Dog d = Dog();
-    d.make\_sound();  # Static dispatching
+    d.make_sound();  # Static dispatching
 
     Mammal m = Dog();
-    m.make\_sound();  # Dynamic dispatching
+    m.make_sound();  # Dynamic dispatching
 \end{lstlisting}    
 
 \subsection{Encapsulation}
@@ -1940,7 +1938,7 @@ Encapsulation is achieved through the use of access modifiers, which specify the
 
 Encapsulation avoids direct access to the internal representation of a class, e.g., rep-invariants, which can lead to unintended side effects and break the class's invariants. Instead, access to the class's data should be controlled through methods, such as \code{getters} and \code{setters} methods.
 
-In the \code{BankAccount} class in \autoref{ex:bankaccount}, the \code{\_balance} attribute is a private member, and access to it is controlled through the \code{deposit} and \code{withdraw} methods. This ensures that the balance is updated correctly and that the rep-invariant is maintained (\code{repOK}). The \code{BonusBankAccount} class extends \code{BankAccount} and adds a \code{\_bonus\_interest} attribute, which is also a private member that is not exposed directly. 
+In the \code{BankAccount} class in \autoref{ex:bankaccount}, the \code{\_balance} attribute is a private member, and access to it is controlled through the \code{deposit} and \code{withdraw}. The \code{BonusBankAccount} class extends \code{BankAccount} and adds a \code{\_bonus\_interest} attribute, which is also a private member that is not exposed directly. 
 
 
 
@@ -1954,23 +1952,24 @@ This enables substitution of objects of the subclass for objects of the supercla
 
 \subsection{Rules} 
 If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be replaced with objects of type \code{S} without altering any of the desirable properties of the program. This means whenever you use \code{T}, you can use \code{S} instead. To achieve this, we must follow the following rules:
-\begin{itemize}
-\item[\textbf{Signature Rule}] The signatures of methods of \code{S} must strengthen methods of \code{T}. In other words, the methods of \code{S} are a superset of the methods of \code{T}. Thus, if \code{T} has \code{n} methods, \code{S} also has \code{n} methods and additional ones (methods specific to \code{S}). 
+
+\paragraph{Signature Rule} The signatures of methods of \code{S} must strengthen methods of \code{T}. In other words, the methods of \code{S} are a superset of the methods of \code{T}. Thus, if \code{T} has \code{n} methods, \code{S} also has \code{n} methods and additional ones (methods specific to \code{S}). 
 
 For the example in \autoref{ex:polymorphism}, \code{Dog} and \code{Cat} have the same \code{make\_sound} method as \code{Mammal}, but they also have additional methods specific to dogs and cats.
 In~\autoref{ex:bankaccount}, \code{BonusBankAccount} has the same methods as \code{BankAccount}.
 
-\item[\textbf{Method Rule}] The specification of \code{f'} strengthens that of \code{f}. This means that the preconditions of \code{f'} must be weaker or equal to the preconditions of \code{f}, i.e.,  \code{f'} accepts more inputs than \code{f}.  The postconditions of \code{f'} must be stronger or equal to that of \code{f}. This means that \code{f'} is more precise than \code{f}.
+\paragraph{Method Rule} The specification of \code{f'} strengthens that of \code{f}. This means that the preconditions of \code{f'} must be weaker or equal to the preconditions of \code{f}, i.e.,  \code{f'} accepts more inputs than \code{f}.  The postconditions of \code{f'} must be stronger or equal to that of \code{f}. This means that \code{f'} is more precise than \code{f}.
 
 In~\autoref{ex:bankaccount} the \code{deposit} of \code{BonusBankAccount} has a stronger postcondition than \code{deposit} of \code{BankAccount} as it adds bonus interest to the deposit.
 
-\item[\textbf{Property Rule}] The subtype must preserve all properties of the supertype.  For example, the rep-invariant of the subtpe \code{S} must be stronger or equal to that of the supertype \code{T}. This means \code{S} should maintain or strengthen the properties (including rep invariants) of \code{T}
+\paragraph{Property Rule} The subtype must preserve all properties of the supertype.  For example, the rep-invariant of the subtpe \code{S} must be stronger or equal to that of the supertype \code{T}. This means \code{S} should maintain or strengthen the properties (including rep invariants) of \code{T}
 
 
 The rep-inv, captured in the \code{repOK} method, of \code{BonusBankAccount} in \autoref{ex:bankaccount} is stronger than that of \code{BankAccount} as it includes the rep-inv of \code{BankAccount} and the constraint on the bonus interest.
 
-\end{itemize}
 
+
+Note that LSP is meant to be a \emph{guideline} for designing classes and inheritance hierarchies, and it is not always possible to strictly adhere to it in all cases. The compiler cannot enforce LSP, so it is up to the programmer to ensure that the principle is followed.
 
 
 
