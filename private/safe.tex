@@ -1932,7 +1932,7 @@ The code below demonstrates the difference between static and dynamic dispatchin
 \end{lstlisting}    
 
 \subsection{Encapsulation}
-Encapsulation is a fundamental concept in OOP that allows the class to control access to its data and methods. It helps ensure that the internal representation of the class is not exposed to the outside world and prevents unintended modifications to the internal state of the class.
+Encapsulation is a major OOP idea that allows the class to control access to its data and methods. It helps ensure that the internal representation of the class is not exposed to the outside world and prevents unintended modifications to the internal state of the class.
 
 Encapsulation is achieved through the use of access modifiers, which specify the level of access to class members. In Java, access modifiers are enforced by the language, and there are four levels of access: \emph{private}, \emph{protected}, \emph{package-private} (default), and \emph{public}.  In Python, access modifiers are not enforced by the language, but conventions are used to indicate the intended level of access. For example, underscore (\_) is used to indicate private or protected attribute (variable). %, and a double underscore (\_\_) is used to indicate a private attribute. 
 
@@ -1943,12 +1943,12 @@ In the \code{BankAccount} class in \autoref{ex:bankaccount}, the \code{\_balance
 
 
 \section{Liskov Substitution Principle (LSP)}
-The Liskov Substitution Principle (LSP) is a fundamental concept of object-oriented design, which ensures that objects of a subclass should be able to replace objects of the superclass without altering the correctness of the program. LSP promotes proper design and enforces correct use of inheritance.
+The Liskov Substitution Principle (LSP) is a fundamental concept of object-oriented design.  
+The idea that if $S$ is a subclass of $T$ then objects (or instances) of $S$ can be used in place of objects of $T$ without affecting the correctness of the program. In other words, a subclass \emph{is-a} superclass and can do everything the superclass can do.
+For example, a \code{Dog} is a \code{Mammal} and can make sound like any mammal, but it can also bark, which is specific to dogs.
+
+LSP promotes proper design and enforces correct use of inheritance.
 Violating LSP can lead to unexpected behavior and errors in the program, as the assumptions made about the superclass may no longer hold for the subclass. 
-
-The main idea of LSP is that a subclass \emph{is-a} superclass and can do everything the superclass can do, and can also do more. For example, a \code{Dog} is a \code{Mammal} and can make sound like any mammal, but it can also bark, which is specific to dogs.
-This enables substitution of objects of the subclass for objects of the superclass, allowing for polymorphism and dynamic dispatching to work correctly. The \code{mammal\_make\_sound} function in \autoref{ex:polymorphism} demonstrates LSP by accepting any \code{Mammal} object and having it make sound, regardless of its specific type.
-
 
 \subsection{Rules} 
 If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be replaced with objects of type \code{S} without altering any of the desirable properties of the program. This means whenever you use \code{T}, you can use \code{S} instead. To achieve this, we must follow the following rules:
@@ -1958,7 +1958,9 @@ If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be repla
 For the example in \autoref{ex:polymorphism}, \code{Dog} and \code{Cat} have the same \code{make\_sound} method as \code{Mammal}, but they also have additional methods specific to dogs and cats.
 In~\autoref{ex:bankaccount}, \code{BonusBankAccount} has the same methods as \code{BankAccount}.
 
-\paragraph{Method Rule} The specification of \code{f'} strengthens that of \code{f}. This means that the preconditions of \code{f'} must be weaker or equal to the preconditions of \code{f}, i.e.,  \code{f'} accepts more inputs than \code{f}.  The postconditions of \code{f'} must be stronger or equal to that of \code{f}. This means that \code{f'} is more precise than \code{f}.
+\paragraph{Method Rule} 
+If \code{f} be a method of \code{T} and \code{f'} be a method of \code{S} that overrides \code{f}, then 
+the specification of \code{f'} is the same or strengthen the specification of \code{f}. This means that the preconditions of \code{f'} must be weaker or equal to the preconditions of \code{f}, i.e.,  \code{f'} accepts more inputs than \code{f}.  The postconditions of \code{f'} must be stronger or equal to that of \code{f}. This means that \code{f'} is more precise than \code{f}.
 
 In~\autoref{ex:bankaccount} the \code{deposit} of \code{BonusBankAccount} has a stronger postcondition than \code{deposit} of \code{BankAccount} as it adds bonus interest to the deposit.
 
@@ -2049,10 +2051,14 @@ class BonusBankAccount(BankAccount):
 \caption{Liskov Substitution Principle demonstration}\label{ex:bankaccount}
 \end{figure}
 
+
+
+
+
 \section{Exercise}
 
 
-\subsection{LSP: Market subtype}\label{exercise:market}
+\subsection{LSP: Market}\label{exercise:market}
 
 Determine whether the \code{LowBidMarket} and \code{LowOfferMarket} classes in~\autoref{ex:lsp-market} are proper subtypes of \code{Market}. Specifically, for each method, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP holds.
 
@@ -2173,10 +2179,10 @@ class C:
                  else, reduce this by x.
         """
 \end{lstlisting}
-\caption{LSP Exercise}\label{ex:lsp-exercise}
+\caption{LSP Exercise: Update}\label{ex:lsp-update}
 \end{figure}
 
-For the classes \code{A}, \code{B}, and \code{C} in \autoref{ex:lsp-exercise}, determine whether LSP holds in the following cases. Specifically, for each case, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP holds.
+For the classes \code{A}, \code{B}, and \code{C} in \autoref{ex:lsp-update}, determine whether LSP holds in the following cases. Specifically, for each case, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP holds.
 \begin{enumerate}
     \item \code{B} extends \code{A}.
     \sol{B's pre is stronger than A's because it requires that $x$ is not None while A's has no pre. \textbf{LSP does not hold}. The posts of \code{A} and \code{B} are the same}
@@ -2217,7 +2223,7 @@ class C:
         """
 \end{lstlisting}    
 
-For each case below, determine if LSP holds by checking whether the preconditions are weaker and the postconditions are stronger, and conclude whether LSP holds. Note that as soon as one rule is violated, LSP does not hold.
+For each case below, determine if LSP holds by checking whether the preconditions are weaker and the postconditions are stronger, and conclude whether LSP holds. Note that as soon as one rule is violated, LSP does not hold. Also note that if it is not possible to directly compare the pre/post conditions, make assumptions based on your preference, and determine if LSP holds based on those assumptions. 
 
 \begin{enumerate}
     \item \code{B} extends \code{A}
@@ -5166,8 +5172,8 @@ The following is a suggested schedule and assignment for the course over a semes
         \item Topics: continue with ADT, focus on Algebraic Specifications and Immutability
         \item Reading: \autoref{chap:adt}
         \item In-class: Algebraic Axioms for IntSet (\autoref{ex:algebraic-intset}) and Immutable Queue (\autoref{exercise:immutable-queue}) 
-        \item HW Assignment: Dictionary ADT (\autoref{exercise:dictionary-adt})  \red{\textbf{Due date: Wed 3/5}}
-        \item Quiz: Stack ADT~\autoref{exercise:stack-adt}
+        \item HW Assignment: Dictionary ADT (\autoref{exercise:dictionary-adt})
+        \item Quiz: Stack ADT ()\autoref{exercise:stack-adt})
     \end{itemize}
 
 
@@ -5175,9 +5181,9 @@ The following is a suggested schedule and assignment for the course over a semes
     \begin{itemize}
         \item Topics: Polymorphism, Liskov Substitution Principle
         \item Reading: \autoref{chap:types}
-        \item In-class: Bank Account (\autoref{exercise:bankaccount})
-        \item HW Assignment: LSP: Market subtype (\autoref{exercise:market})
-        %\item Quiz: Immutability (\autoref{exercise:immutability1})
+        \item In-class: LSP Update ()\autoref{ex:lsp-update})
+        \item HW Assignments: (i) Polymorphism Vehicle ()\autoref{exercise:vehicle}) and (ii) LSP: Market (\autoref{exercise:market}) \red{\textbf{Due date: Wed 3/19 (After Spring Break)}}
+        \item Quiz: Algebraic Specifications of Bank Account (\autoref{exercise:algebraic-axioms-bank-account}) 
     \end{itemize}
 
     % \item \textbf{Module 5}
@@ -5764,3 +5770,124 @@ WP(while[T] i < N do i:= i + 1, {i = N})
 - AI Specifications
 - How do we even specify what we want in an AI systems.
 - Loop invariants
+
+
+
+Yes, concepts like covariance and contravariance are directly relevant to type systems, especially in object-oriented languages, and they naturally fit into discussions on subtyping, inheritance, polymorphism, and type safety. They become particularly important when considering how methods, return types, and arguments behave under inheritance or subtyping.
+
+Below is a concise yet thorough explanation of these concepts, written to fit naturally into your chapter on type systems and formal specifications:
+
+⸻
+
+Covariance, Contravariance, and Invariance
+
+When discussing type systems and object-oriented programming (OOP), we frequently encounter notions of how types in subtyping relationships relate to each other, specifically when inheritance and polymorphism are involved. The terms covariance, contravariance, and invariance refer precisely to these relationships between complex types (such as function or method types, generic types, and collection types).
+
+These concepts are deeply connected to formal specifications and the Liskov Substitution Principle (LSP). They influence how we reason about the correctness of object-oriented programs—particularly the invariants and conditions that must be preserved when substituting instances of subtypes for instances of their supertypes.
+
+Covariance
+
+Covariance describes a type relationship where subtyping is preserved in the same direction. More concretely, if we have two types S and T, with S a subtype of T (denoted S <: T), covariance means that some compound type \text{Type}(S) is also a subtype of the corresponding \text{Type}(T). Formally:
+
+S <: T \implies F(S) <: F(T)
+
+In OOP, covariance commonly appears in method return types. For instance, consider:
+
+class Animal {
+    Animal getOffspring() { ... }
+}
+
+class Cat extends Animal {
+    @Override
+    Cat getOffspring() { ... }
+}
+
+Here, method return types are covariant: Cat is a subtype of Animal, and thus it is safe (and natural) for Cat’s overridden method to return a more specific type (Cat) than its superclass.
+
+Covariance aligns naturally with specifications since it ensures that the returned objects maintain or even strengthen the postconditions promised by the supertype’s method.
+
+Contravariance
+
+Contravariance describes an opposite relationship, where subtyping is reversed:
+
+S <: T \implies F(T) <: F(S)
+
+Contravariance is most commonly observed in function parameter types. Intuitively, a function expecting a general type can safely accept subtypes because it will still handle them correctly. Although somewhat less common in OOP, contravariance is critical in scenarios involving function types or event handlers.
+
+For example, assume we have event handlers:
+
+interface Event {}
+class MouseEvent extends Event {}
+
+interface Handler<T> {
+    void handle(T event);
+}
+
+// Contravariance example:
+Handler<Event> generalHandler = ...;
+Handler<MouseEvent> mouseHandler = generalHandler; // Valid if Handler is contravariant in T
+
+Here, a handler that can process general events can safely handle specific events (like mouse events). Thus, contravariance is directly related to weakening preconditions since the handler promises to handle a broader set of inputs safely.
+
+Invariance
+
+Invariance occurs when neither covariance nor contravariance holds. In other words, there is no subtyping relationship:
+
+\[
+S <: T \not\implies F(S) <: F(T) \quad\text{nor}\quad F(T) <: F(S)
+\]
+
+A classic example is Java arrays, which are covariant (leading to runtime type errors if misused) but would ideally be invariant for correctness:
+
+Integer[] integers = new Integer[10];
+Number[] numbers = integers; // Arrays are covariant in Java (this compiles!)
+numbers[0] = 3.14;  // Compiles but fails at runtime
+
+This covariance choice was a design compromise—often cited as problematic—highlighting why invariance or contravariance might sometimes be preferable to maintain correctness guarantees and type safety.
+
+Relating Variance to Preconditions and Postconditions
+
+Variance connects directly to formal specifications, especially in the context of the Liskov Substitution Principle (LSP):
+	•	Covariance (often in return types):
+Subclasses can strengthen or keep the same postconditions as their supertypes but cannot weaken them. A stronger return type naturally ensures stronger postconditions.
+	•	Contravariance (often in parameter types): Corresponds directly to the idea of weakening preconditions. A subtype method can accept more general input, not less, ensuring the superclass’s contract remains valid.
+
+Formally, from the perspective of Hoare Logic specifications:
+	•	Preconditions should be \emph{contravariant}: Subtypes must accept all inputs accepted by the supertypes, potentially more (weaker preconditions).
+	•	Postconditions should be \emph{covariant}: Subtypes must guarantee all postconditions promised by supertypes, potentially more (stronger postconditions).
+
+\[
+\begin{aligned}
+& \text{Preconditions (inputs):} && S <: T \implies pre_T \Rightarrow precondition_S \quad(\text{weaker or equal}) \\
+& \\
+& \text{Postconditions (covariant)}: \text{postcondition}_S \implies \text{postcondition}_T \quad(\text{stronger or equal})
+\]
+
+Example Demonstrating Variance and LSP
+
+Consider classes involving simple preconditions and postconditions:
+
+class NumberProcessor {
+    // Precondition: n >= 0
+    // Postcondition: returns non-negative integer
+    int process(int n) { return n; }
+}
+
+class PositiveProcessor extends NumberProcessor {
+    @Override
+    int process(int n) {
+        // Weaker precondition not possible here (must accept same or broader inputs)
+        // Stronger postcondition possible (e.g., always returns positive int)
+        return Math.abs(n) + 1;
+    }
+}
+
+Here, the subclass method respects the LSP because it does not impose stricter requirements on inputs (contravariant preconditions), and it fulfills at least as strong a guarantee as the superclass (covariant in results).
+
+⸻
+
+Conclusion
+
+Variance concepts (covariance, contravariance, and invariance) are fundamental to understanding and designing sound object-oriented systems. They dictate how subtypes relate to supertypes, particularly regarding their contracts. Viewed through the lens of formal specifications, variance directly influences how we formulate invariants, preconditions, and postconditions in OOP, providing an essential link between practical type systems and rigorous program verification.
+
+These insights further emphasize the role of types as lightweight specifications, embedded directly into language design and enforced by the compiler, significantly reducing runtime errors and enhancing software reliability.
