@@ -1455,24 +1455,19 @@ Define the algebraic axioms for the \code{IntSet} ADT in \autoref{ex:intset}. Yo
     \begin{itemize}
         \item \code{balance(account)} $\rightarrow$ float: return the balance of the account.        
         \item \code{deposit(account:BankAccount, amount:float)} $\rightarrow$ BankAccount: deposit amount into the account and return the updated account.
-        \item \code{withdraw(account:BankAccount, amount:float)} $\rightarrow$ (BankAccount): if there is not sufficient funds, return the original account, otherwise return the updated account.        
+        \item \code{withdraw(account:BankAccount, amount:float)} $\rightarrow$ BankAccount: if there is not sufficient funds, return the original account, otherwise return the updated account.        
         \item \code{transfer(account1, account2, amount)} $\rightarrow$ (BankAccount, BankAccount): transfer amount from account1 to account2. If there is not sufficient funds, return the original accounts, otherwise return the updated accounts.
     \end{itemize}
 \end{itemize}    
 
-Define the algebraic axioms for these operations. You can invent shortcuts like \code{balance(transfer(A1, A2, amount))} to mean that we first \code{transfer} \code{amount} from \code{A1} to \code{A2} and get \code{A1'} and \code{A2'}, and then take the \code{balance} of \code{A1'} and the \code{balance} of \code{A2'}, i.e., \code{balance(transfer(A1, A2, amount)) = (balance(A1'), balance(A2'))}.
+Define the algebraic axioms for these operations.
 
-\begin{itemize}
-    \item Properties of \code{deposit}
+You can invent shortcuts to make the axioms more readable. For example, \code{balance(transfer(A1, A2, amount))} means that we first \code{transfer} \code{amount} from \code{A1} to \code{A2} and get the updated accounts \code{A1'} and \code{A2'}, and then take the \code{balance} of \code{A1'} and the \code{balance} of \code{A2'}, i.e., \code{balance(transfer(A1, A2, amount)) = (balance(A1'), balance(A2'))}.
+
     %balance(deposit(A, x ))= balance(A) + x
     %deposit(deposit(A, x), y) = deposit(A, x + y)
-    \item Properties of \code{withdraw}
     %balance(withdraw(A, x)) = balance(A) - x
     %withdraw(withdraw(A, x), y) = withdraw(A, x + y)
-    \item Properties of \code{balance}
-    \item Properties of \code{transfer}
-\end{itemize}
-
 
 
 
