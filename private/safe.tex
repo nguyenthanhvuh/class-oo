@@ -1985,12 +1985,11 @@ dog.set_age(-2)  # Print an invalid age message
 
 \end{lstlisting}
 
-\section{Parametric Typing}
-Parametric typing or parametric polymorphism is a powerful feature of OOP that allows functions or methods written without specifying the exact type of the input. This form of generic programming promotes code reusability and type safety, as the same code can work with different types without modification.
-\subsection{Generics}
+\section{Parametric Typing with Generics}\label{sec:generics}
+Parametric typing or parametric polymorphism is a powerful feature of OOP that allows functions or methods written without specifying the exact type of the input.  It is a feature that enables \emph{generic programming}, a programming paradigm focusing on resuability and abstraction. 
 
-Generics provide a way to define parametric types, allowing functions, data structures, and algorithms to work with any type. 
-In Java, generics are implemented using angle brackets (\texttt{<>}), e.g., \texttt{List<T>}, where \texttt{T} is a type parameter that can be replaced with any type.  Python does not have built-in support for generics like Java, but it has a similar concept using type hints and the \texttt{typing} module.
+
+\textbf{Generics} is the main mechanism for parametric typing in OOP. It allows us to define classes, interfaces, and methods with type parameters, which can be replaced with actual types when the class or method is instantiated or called. In Java, generics are implemented using angle brackets (\texttt{<>}), e.g., \texttt{List<T>}, where \texttt{T} is a type parameter that can be replaced with any type.  Python does not have built-in support for generics like Java, but it has a similar concept using type hints and the \texttt{typing} module as illustrated below.
 
 \paragraph{Generic Functions} For example, \code{identity} is a generic function that takes an input of any type \code{T} and returns the same input. This function can be used with any type, such as \code{int}, \code{str}, or even custom classes.
 
@@ -2070,6 +2069,120 @@ print(m1.mammal_make_sound())  # Output: Woof!
 print(m2.mammal_make_sound())  # Output: Meow!
 \end{lstlisting}
 
+\section{Iterators}\label{sec:iterators}
+Iterators and generators are powerful ADTs in OOP that enable efficient traversal and on-the-fly computation of sequences of data. They allow developers to handle large datasets, abstract complex data traversal patterns, and create custom iterators for any type of object. Iterators and generators are also good examples of generics (\autoref{sec:generics}) as they can work with any type of data.
+
+\begin{historybox}[History]
+    The idea of iterators in OOP was pioneered by the CLU language in the 1970s, developed by Barbara Liskov. CLU introduced iterators as a core language feature, allowing traversal of collections without exposing internal structures. This innovation laid the foundation for modern iterator designs and showed how encapsulating traversal could lead to cleaner, more maintainable code. C++ in the 1980s introduces iterators through its STL. Iterators was further solidified by the Design Patterns book by the Gang of Four (GoF) in 1994, which formalized iterator patterns, emphasizing the separation of traversal from data structure.\\
+    
+    Java, released in 1995, built on these ideas through its Iterator interface, standardizing the way collections were traversed across the language. Java's approach unified data traversal, promoting encapsulation and abstraction in OO. Python introduces generators in 2001 and allowed functions to produce values lazily, one at a time, without storing the entire sequence in memory.  This enables efficient data processing for large or infinite sequences and emphasizes efficient iteration over data in modern languages.
+\end{historybox}
+\paragraph{Motivation} Let’s consider a scenario where you need to generate Fibonacci numbers. A common but inefficient approach is to generate Fibonacci numbers up to a certain limit and store all them in a list, which consumes a lot of memory.
+
+\begin{lstlisting}
+def generate_fib_list(n: int) -> list[int]:
+    fib_sequence = [0, 1]
+    for _ in range(2, n):
+        fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
+    return fib_sequence
+
+# Create the first 100K Fibs; consume lots of memory for storing all numbers
+fib_numbers = generate_fib_list(10**6)  
+print(fib_numbers[:10])  # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34] # only use first 10
+\end{lstlisting}
+
+This approach is inefficient because it generates all Fibonacci numbers up to a certain limit and stores them in a list, which consumes a lot of memory, especially for large sequences. Also, this approach is wasteful because it generates all Fibonacci numbers at once, even if only a few are needed.
+A more efficient approach is to use an iterator or generator to produce Fibonacci numbers on the fly, only when needed.
+
+\begin{lstlisting}
+# Efficient generator function that yields Fibonacci numbers on demand
+def fib_generator(n: int):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+print(list(fib_generator(10))) # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+\end{lstlisting}
+
+Using generator functions, we can efficiently generate Fibonacci numbers on demand, reducing memory consumption and improving performance. Generators produce values one at a time, only when needed, making them ideal for large datasets or infinite sequences.
+
+
+\subsection{Iterators}
+
+An iterator is an ADT that allows you to traverse through all the elements of a collection, such as a list, tuple, or custom data structure, without exposing the underlying details of the collection (i.e., encapsulation). 
+
+Key Concepts of Iterators:
+\begin{itemize}
+\item Iteration Methods: An iterator object implements two key methods: \code{\_\_iter\_\_()} and \code{\_\_next\_\_()}.
+\begin{itemize}
+    \item \code{\_\_iter\_\_()}: Returns the iterator object itself and is implicitly called at the start of loops.
+	\item \code{\_\_next\_\_()}: Returns the next element in the sequence and raises a StopIteration exception when there are no more elements.
+\end{itemize}
+\item State Management: Iterators manage their own state, allowing them to keep track of the current position in the collection.
+\end{itemize}
+
+\begin{lstlisting}[multicols=2]
+class Countdown:
+    def __init__(self, start: int):
+        self.current = start
+
+    def __iter__(self): 
+        return self
+
+    def __next__(self):
+        if self.current \le 0:
+            raise StopIteration 
+        else:
+            current_value = self.current
+            self.current -= 1
+            return current_value
+
+# Usage of the custom iterator
+countdown = Countdown(5)
+for number in countdown:
+    print(number)
+
+# Output: 5, 4, 3, 2, 1
+\end{lstlisting}
+
+In the example above, the \code{Countdown} class implements iteration by defining the \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods. The \code{\_\_iter\_\_()} method returns the iterator object itself, while \code{\_\_next\_\_()} manages the countdown state by returning the next element in the countdown sequence and stopping the iteration by raising the \code{StopIteration} exception when the countdown reaches zero.
+
+
+\paragraph{Benefits of Iterators}
+\begin{itemize}
+\item Memory Efficiency: Iterators retrieve elements one at a time, reducing memory usage compared to loading all elements at once.
+\item Encapsulation: Iterators hide the internal structure of the collection, providing a clean, consistent interface for traversal.
+\item Flexibility: Custom iterators can be defined for any object, making them adaptable to a wide range of data structures.
+\end{itemize}
+
+
+\subsection{Generator}
+A generator is a special iterator that uses the \code{yield} keyword. Generators allow you to turn a method into one that behaves like an iterator, without having to create a separate iterator class. Generator thus has the same benefits as iterators, such as memory efficiency and encapsulation, and does not require the explicit implementation of the \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods.
+
+\begin{lstlisting}
+# Generator function for a countdown
+def countdown(start: int):
+    while start > 0:
+        yield start
+        start -= 1
+
+# Usage of the generator
+for number in countdown(5):
+    print(number)
+# Output: 5, 4, 3, 2, 1
+\end{lstlisting}
+
+Instead of defining the \code{Countdown} class as an iterator, the \code{countdown} function is defined as a generator that yields the countdown sequence.
+Each call to \code{yield} returns the current value of \code{start} and saves the function's state, allowing it to resume where it left off when called again.
+
+\paragraph{Benefits of Generators}
+\begin{itemize}
+    \item Conciseness: Generators provide a more straightforward syntax for creating iterators.
+	\item Performance: They generate values on demand, reducing memory consumption compared to traditional lists.
+	\item Enhanced Readability: Generator functions are typically easier to understand and maintain compared to an iterator class.    
+\end{itemize}   
+
 \section{Exercise}
 
 
@@ -2101,6 +2214,186 @@ You will design a system that models different types of vehicles (e.g., cars, bi
     \end{enumerate}
 
 \end{enumerate}
+
+% class PrimeNumberIterator:
+%     def __init__(self, limit):
+%         self.limit = limit
+%         self.current = 2
+
+%     def __iter__(self):
+%         return self
+
+%     def __next__(self):
+%         while self.current \le self.limit:
+%             if self.is_prime(self.current):
+%                 prime = self.current
+%                 self.current += 1
+%                 return prime
+%             self.current += 1
+%         raise StopIteration
+
+%     @staticmethod
+%     def is_prime(n):
+%         if n < 2:
+%             return False
+%         for i in range(2, int(n**0.5) + 1):
+%             if n % i == 0:
+%                 return False
+%         return True
+
+
+\subsection{Prime Number}\label{exercise:prime-number}
+
+A \emph{prime number} is a natural number greater than 1 that has no positive divisors other than 1 and itself. In this exercise, you will implement three different approaches to generate prime numbers: a non-iterator method, a custom iterator class, and a generator function. You will compare the performance of these approaches and observe the benefits of using iterators and generators.
+
+\begin{enumerate}
+    
+    \item Write a non-iterator and non-generator method \code{gen\_prime} that generates prime numbers up to a specified limit.
+    \begin{enumerate}
+    \item Test the iterator by printing all prime numbers that is less than 50.
+    \item Measure the performance of the iterator by generating all prime numbers that your computer can handle (in Python, use \code{time(...)}).  Try various limits and measure the time.
+    \end{enumerate}
+
+\item Write a custom iterator called \code{PrimeNumberIterator} that generates prime numbers up to a specified limit.
+\begin{enumerate}
+    \item The class needs to have \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods.
+    \item Use a helper function to check for prime numbers (reuse the code in \code{gen\_prime}).
+    \item Raise \code{StopIteration} when the current number exceeds the limit.
+    \item Test the iterator by printing all prime numbers that is less than 50.
+    \item Measure the performance of the iterator by generating all prime numbers that your computer can handle like before.  Try various limits and measure the time.
+\end{enumerate}
+\item Write a generator function called \code{gen\_prime\_generator} that yields prime numbers up to a specified limit (this means using the \code{yield} keyword).
+\begin{enumerate}
+    \item Test the generator by printing all prime numbers that is less than 50.
+    \item Measure the performance of the generator by generating all prime numbers that your computer can handle like before.  Try various limits and measure the time.
+\end{enumerate}
+\end{enumerate}
+\subsection{Perfect Number Generation}\label{exercise:perfect-number}
+
+A \emph{perfect number} is a positive integer that is equal to the sum of its proper divisors, excluding itself (e.g., 6, 28). You will implement three different approaches to find perfect numbers up to a given limit, comparing their performance and resource usage.  
+
+For this exercise, you can use either Python or Java. You need to submit your code with \emph{clear documentation} on how to run and test your code. That is, you must explicitly state the commands to run your code and the expected output. You will also need to provide screenshots or logs of the execution results, including the time taken and memory usage.  
+
+If you do not provide clear documentation, you will not receive credit. If we cannot run your code, you will not receive credit. If we do not see the results you claim, you will not receive credit. 
+
+\begin{enumerate}
+\item Part 1: Generate Perfect Numbers Without Iterators or Generators.  Write a method \code{gen\_perfect} that generates perfect numbers up to a given positive value \code{n}, i.e., generate perfect numbers less than or equal to \code{n}.  You will not use iterators or generators and store all perfect numbers in a list.
+\begin{enumerate}
+    \item Play around with different \code{n} (e.g., 10,000, 100,000) to see how the program performs. Aim for about 20 seconds of execution time.
+    \item Print out the first 5 perfect numbers generated. Note that if this takes too long, print out the first \code{n} numbers that seems to take reasonable time.  Be sure to document and explain your choice of \code{n}.
+    \item Measure execution time and memory usage, which should be relatively high due to high computational demands and storage of all perfect numbers.  For Python, use \code{timeit} and \code{tracemalloc} modules to measure time and memory usage.
+\end{enumerate}
+
+\item Part 2: Implement a custom iterator called \code{PowerNumberIterator} for perfect numbers. You can reuse the code from part 1.  After that, do exactly the analysis that you did in Part 1, i.e., play with different \code{n} values, print out the first 5 numbers generated, and measure the performance of the iterator.  You should see a significant improvement in memory usage and execution time compared to the non-iterator approach.
+\item Part 3: Use a generator function \code{gen\_power\_generator} to yield perfect numbers.  Reuse the code from part 1 and make changes to it to use generator.  Then do the same analysis as in Part 1 and Part 2.
+\item Part 4: Write a short report comparing the performance of the three approaches.  Include the time taken, memory usage, and ease of implementation.  Discuss the benefits of using iterators and generators over the non-iterator approach.
+\end{enumerate}
+
+\subsection{Iterator and Generator Multiple Choice}\label{exercise:iterator-generator-mc}
+
+
+\begin{enumerate}
+\item What does this class represent?
+\begin{lstlisting}
+    class Counter:
+        def __init__(self, start, end):
+            self.current = start
+            self.end = end
+    
+        def __iter__(self):
+            return self
+    
+        def __next__(self):
+            if self.current > self.end:
+                raise StopIteration
+            else:
+                self.current += 1
+                return self.current - 1
+    \end{lstlisting}
+\begin{enumerate}
+    \item A list that can be iterated through once.
+    \item An infinite loop.
+    \item An iterator that generates numbers between \texttt{start} and \texttt{end}, inclusive.
+    \item A generator that yields values on demand.
+\end{enumerate}
+
+%\textbf{Correct Answer:} C
+
+
+
+\item What is main advantage of using a generator in this example?
+\begin{lstlisting}
+    def count_down(n):
+        while n > 0:
+            yield n
+            n -= 1
+    \end{lstlisting}
+
+\begin{enumerate}
+    \item It stores all the countdown numbers in mem at once.
+    \item It allows for lazy evaluation, producing numbers one at a time without storing in memory.
+\end{enumerate}
+
+
+\item What is returned by \texttt{fibonacci}?
+
+\begin{lstlisting}
+    def fibonacci(n):
+        a, b = 0, 1
+        for _ in range(n):
+            yield a
+            a, b = b, a + b
+\end{lstlisting}
+
+\begin{enumerate}
+    \item The sum of all Fib numbers up to \texttt{n}.
+    \item Fib numbers up to \texttt{n}, one by one, using lazy evaluation.
+    \item The first \texttt{n} Fib numbers.
+    \item The Fibonacci sequence stored as a tuple.
+\end{enumerate}
+
+%\textbf{Correct Answer:} B
+
+\item What happens if you try to convert the generator \texttt{generate\_squares} to a list?
+
+\begin{lstlisting}
+    def generate_squares(limit):
+        for i in range(limit):
+            yield i ** 2
+    \end{lstlisting}
+
+\begin{enumerate}
+    \item It yields values 1-by-1 instead of storing in memory.
+    \item It returns an error.
+    \item It gets exhausted and returns an empty list.
+    \item It will create a list of square numbers up to \code{limit - 1}.
+\end{enumerate}
+
+%\textbf{Correct Answer:} D
+
+
+\item What is the purpose of this generator?
+\begin{lstlisting}
+    def infinite_numbers():
+        num = 0
+        while True:
+            yield num
+            num += 1
+    \end{lstlisting}
+\begin{enumerate}
+    \item It generates numbers up to a fixed limit.
+    \item It produces numbers starting from 0, but stops after a certain point.
+    \item It generates an infinite sequence of numbers, one at a time.
+    \item It returns numbers in ascending order.
+\end{enumerate}
+
+%\textbf{Correct Answer:} C
+\end{enumerate}
+
+
+
+
+
 
 
 \chapter{Subtyping}
@@ -2398,300 +2691,6 @@ For each case below, determine if LSP holds by checking whether the precondition
 	% •	A’s postcondition is weaker because it does nothing when value is invalid, while C still performs a default update.
 	% •	LSP Conclusion:
 	% •	LSP does not hold because A provides weaker behavior than C and fails to maintain the expected outcome set by C.
-
-\chapter{Iterators}\label{chap:iterators}
-Iterators and generators are powerful concepts in OOP that enable efficient traversal and on-the-fly computation of sequences of data. They allow developers to handle large datasets, abstract complex data traversal patterns, and create custom iterators for any type of object. 
-
-\begin{historybox}[History]
-    The idea of iterators in OOP was pioneered by the CLU language in the 1970s, developed by Barbara Liskov. CLU introduced iterators as a core language feature, allowing traversal of collections without exposing internal structures. This innovation laid the foundation for modern iterator designs and showed how encapsulating traversal could lead to cleaner, more maintainable code. C++ in the 1980s introduces iterators through its STL. Iterators was further solidified by the Design Patterns book by the Gang of Four (GoF) in 1994, which formalized iterator patterns, emphasizing the separation of traversal from data structure.\\
-    
-    Java, released in 1995, built on these ideas through its Iterator interface, standardizing the way collections were traversed across the language. Java's approach unified data traversal, promoting encapsulation and abstraction in OO. Python introduces generators in 2001 and allowed functions to produce values lazily, one at a time, without storing the entire sequence in memory.  This enables efficient data processing for large or infinite sequences and emphasizes efficient iteration over data in modern languages.
-\end{historybox}
-\section{Motivation}
-Let’s consider a scenario where you need to generate Fibonacci numbers. A common but inefficient approach is to generate Fibonacci numbers up to a certain limit and store all them in a list, which consumes a lot of memory.
-
-\begin{lstlisting}
-def generate_fib_list(n: int) -> list[int]:
-    fib_sequence = [0, 1]
-    for _ in range(2, n):
-        fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
-    return fib_sequence
-
-# Create the first 100K Fibs; consume lots of memory for storing all numbers
-fib_numbers = generate_fib_list(10**6)  
-print(fib_numbers[:10])  # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34] # only use first 10
-\end{lstlisting}
-
-This approach is inefficient because it generates all Fibonacci numbers up to a certain limit and stores them in a list, which consumes a lot of memory, especially for large sequences. Also, this approach is wasteful because it generates all Fibonacci numbers at once, even if only a few are needed.
-A more efficient approach is to use an iterator or generator to produce Fibonacci numbers on the fly, only when needed.
-
-\begin{lstlisting}
-# Efficient generator function that yields Fibonacci numbers on demand
-def fib_generator(n: int):
-    a, b = 0, 1
-    for _ in range(n):
-        yield a
-        a, b = b, a + b
-
-print(list(fib_generator(10))) # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
-\end{lstlisting}
-
-Using generator functions, we can efficiently generate Fibonacci numbers on demand, reducing memory consumption and improving performance. Generators produce values one at a time, only when needed, making them ideal for large datasets or infinite sequences.
-
-
-\section{Iterators}
-
-An iterator is an ADT that allows you to traverse through all the elements of a collection, such as a list, tuple, or custom data structure, without exposing the underlying details of the collection (i.e., encapsulation). 
-
-Key Concepts of Iterators:
-\begin{itemize}
-\item Iteration Methods: An iterator object implements two key methods: \code{\_\_iter\_\_()} and \code{\_\_next\_\_()}.
-\begin{itemize}
-    \item \code{\_\_iter\_\_()}: Returns the iterator object itself and is implicitly called at the start of loops.
-	\item \code{\_\_next\_\_()}: Returns the next element in the sequence and raises a StopIteration exception when there are no more elements.
-\end{itemize}
-\item State Management: Iterators manage their own state, allowing them to keep track of the current position in the collection.
-\end{itemize}
-
-\begin{lstlisting}[multicols=2]
-class Countdown:
-    def __init__(self, start: int):
-        self.current = start
-
-    def __iter__(self): 
-        return self
-
-    def __next__(self):
-        if self.current \le 0:
-            raise StopIteration 
-        else:
-            current_value = self.current
-            self.current -= 1
-            return current_value
-
-# Usage of the custom iterator
-countdown = Countdown(5)
-for number in countdown:
-    print(number)
-
-# Output: 5, 4, 3, 2, 1
-\end{lstlisting}
-
-In the example above, the \code{Countdown} class implements iteration by defining the \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods. The \code{\_\_iter\_\_()} method returns the iterator object itself, while \code{\_\_next\_\_()} manages the countdown state by returning the next element in the countdown sequence and stopping the iteration by raising the \code{StopIteration} exception when the countdown reaches zero.
-
-
-\paragraph{Benefits of Iterators}
-\begin{itemize}
-\item Memory Efficiency: Iterators retrieve elements one at a time, reducing memory usage compared to loading all elements at once.
-\item Encapsulation: Iterators hide the internal structure of the collection, providing a clean, consistent interface for traversal.
-\item Flexibility: Custom iterators can be defined for any object, making them adaptable to a wide range of data structures.
-\end{itemize}
-
-
-\section{Generator}
-A generator is a special iterator that uses the \code{yield} keyword. Generators allow you to turn a method into one that behaves like an iterator, without having to create a separate iterator class. Generator thus has the same benefits as iterators, such as memory efficiency and encapsulation, and does not require the explicit implementation of the \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods.
-
-\begin{lstlisting}
-# Generator function for a countdown
-def countdown(start: int):
-    while start > 0:
-        yield start
-        start -= 1
-
-# Usage of the generator
-for number in countdown(5):
-    print(number)
-# Output: 5, 4, 3, 2, 1
-\end{lstlisting}
-
-Instead of defining the \code{Countdown} class as an iterator, the \code{countdown} function is defined as a generator that yields the countdown sequence.
-Each call to \code{yield} returns the current value of \code{start} and saves the function's state, allowing it to resume where it left off when called again.
-
-\paragraph{Benefits of Generators}
-\begin{itemize}
-    \item Conciseness: Generators provide a more straightforward syntax for creating iterators.
-	\item Performance: They generate values on demand, reducing memory consumption compared to traditional lists.
-	\item Enhanced Readability: Generator functions are typically easier to understand and maintain compared to an iterator class.    
-\end{itemize}   
-
-
-
-% class PrimeNumberIterator:
-%     def __init__(self, limit):
-%         self.limit = limit
-%         self.current = 2
-
-%     def __iter__(self):
-%         return self
-
-%     def __next__(self):
-%         while self.current \le self.limit:
-%             if self.is_prime(self.current):
-%                 prime = self.current
-%                 self.current += 1
-%                 return prime
-%             self.current += 1
-%         raise StopIteration
-
-%     @staticmethod
-%     def is_prime(n):
-%         if n < 2:
-%             return False
-%         for i in range(2, int(n**0.5) + 1):
-%             if n % i == 0:
-%                 return False
-%         return True
-
-\section{Exercise}
-
-\subsection{Prime Number}\label{exercise:prime-number}
-
-A \emph{prime number} is a natural number greater than 1 that has no positive divisors other than 1 and itself. In this exercise, you will implement three different approaches to generate prime numbers: a non-iterator method, a custom iterator class, and a generator function. You will compare the performance of these approaches and observe the benefits of using iterators and generators.
-
-\begin{enumerate}
-    
-    \item Write a non-iterator and non-generator method \code{gen\_prime} that generates prime numbers up to a specified limit.
-    \begin{enumerate}
-    \item Test the iterator by printing all prime numbers that is less than 50.
-    \item Measure the performance of the iterator by generating all prime numbers that your computer can handle (in Python, use \code{time(...)}).  Try various limits and measure the time.
-    \end{enumerate}
-
-\item Write a custom iterator called \code{PrimeNumberIterator} that generates prime numbers up to a specified limit.
-\begin{enumerate}
-    \item The class needs to have \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods.
-    \item Use a helper function to check for prime numbers (reuse the code in \code{gen\_prime}).
-    \item Raise \code{StopIteration} when the current number exceeds the limit.
-    \item Test the iterator by printing all prime numbers that is less than 50.
-    \item Measure the performance of the iterator by generating all prime numbers that your computer can handle like before.  Try various limits and measure the time.
-\end{enumerate}
-\item Write a generator function called \code{gen\_prime\_generator} that yields prime numbers up to a specified limit (this means using the \code{yield} keyword).
-\begin{enumerate}
-    \item Test the generator by printing all prime numbers that is less than 50.
-    \item Measure the performance of the generator by generating all prime numbers that your computer can handle like before.  Try various limits and measure the time.
-\end{enumerate}
-\end{enumerate}
-\subsection{Perfect Number Generation}\label{exercise:perfect-number}
-
-A \emph{perfect number} is a positive integer that is equal to the sum of its proper divisors, excluding itself (e.g., 6, 28). You will implement three different approaches to find perfect numbers up to a given limit, comparing their performance and resource usage.  
-
-For this exercise, you can use either Python or Java. You need to submit your code with \emph{clear documentation} on how to run and test your code. That is, you must explicitly state the commands to run your code and the expected output. You will also need to provide screenshots or logs of the execution results, including the time taken and memory usage.  
-
-If you do not provide clear documentation, you will not receive credit. If we cannot run your code, you will not receive credit. If we do not see the results you claim, you will not receive credit. 
-
-\begin{enumerate}
-\item Part 1: Generate Perfect Numbers Without Iterators or Generators.  Write a method \code{gen\_perfect} that generates perfect numbers up to a given positive value \code{n}, i.e., generate perfect numbers less than or equal to \code{n}.  You will not use iterators or generators and store all perfect numbers in a list.
-\begin{enumerate}
-    \item Play around with different \code{n} (e.g., 10,000, 100,000) to see how the program performs. Aim for about 20 seconds of execution time.
-    \item Print out the first 5 perfect numbers generated. Note that if this takes too long, print out the first \code{n} numbers that seems to take reasonable time.  Be sure to document and explain your choice of \code{n}.
-    \item Measure execution time and memory usage, which should be relatively high due to high computational demands and storage of all perfect numbers.  For Python, use \code{timeit} and \code{tracemalloc} modules to measure time and memory usage.
-\end{enumerate}
-
-\item Part 2: Implement a custom iterator called \code{PowerNumberIterator} for perfect numbers. You can reuse the code from part 1.  After that, do exactly the analysis that you did in Part 1, i.e., play with different \code{n} values, print out the first 5 numbers generated, and measure the performance of the iterator.  You should see a significant improvement in memory usage and execution time compared to the non-iterator approach.
-\item Part 3: Use a generator function \code{gen\_power\_generator} to yield perfect numbers.  Reuse the code from part 1 and make changes to it to use generator.  Then do the same analysis as in Part 1 and Part 2.
-\item Part 4: Write a short report comparing the performance of the three approaches.  Include the time taken, memory usage, and ease of implementation.  Discuss the benefits of using iterators and generators over the non-iterator approach.
-\end{enumerate}
-
-\subsection{Iterator and Generator Multiple Choice}\label{exercise:iterator-generator-mc}
-
-
-\begin{enumerate}
-\item What does this class represent?
-\begin{lstlisting}
-    class Counter:
-        def __init__(self, start, end):
-            self.current = start
-            self.end = end
-    
-        def __iter__(self):
-            return self
-    
-        def __next__(self):
-            if self.current > self.end:
-                raise StopIteration
-            else:
-                self.current += 1
-                return self.current - 1
-    \end{lstlisting}
-\begin{enumerate}
-    \item A list that can be iterated through once.
-    \item An infinite loop.
-    \item An iterator that generates numbers between \texttt{start} and \texttt{end}, inclusive.
-    \item A generator that yields values on demand.
-\end{enumerate}
-
-%\textbf{Correct Answer:} C
-
-
-
-\item What is main advantage of using a generator in this example?
-\begin{lstlisting}
-    def count_down(n):
-        while n > 0:
-            yield n
-            n -= 1
-    \end{lstlisting}
-
-\begin{enumerate}
-    \item It stores all the countdown numbers in mem at once.
-    \item It allows for lazy evaluation, producing numbers one at a time without storing in memory.
-\end{enumerate}
-
-
-\item What is returned by \texttt{fibonacci}?
-
-\begin{lstlisting}
-    def fibonacci(n):
-        a, b = 0, 1
-        for _ in range(n):
-            yield a
-            a, b = b, a + b
-\end{lstlisting}
-
-\begin{enumerate}
-    \item The sum of all Fib numbers up to \texttt{n}.
-    \item Fib numbers up to \texttt{n}, one by one, using lazy evaluation.
-    \item The first \texttt{n} Fib numbers.
-    \item The Fibonacci sequence stored as a tuple.
-\end{enumerate}
-
-%\textbf{Correct Answer:} B
-
-\item What happens if you try to convert the generator \texttt{generate\_squares} to a list?
-
-\begin{lstlisting}
-    def generate_squares(limit):
-        for i in range(limit):
-            yield i ** 2
-    \end{lstlisting}
-
-\begin{enumerate}
-    \item It yields values 1-by-1 instead of storing in memory.
-    \item It returns an error.
-    \item It gets exhausted and returns an empty list.
-    \item It will create a list of square numbers up to \code{limit - 1}.
-\end{enumerate}
-
-%\textbf{Correct Answer:} D
-
-
-\item What is the purpose of this generator?
-\begin{lstlisting}
-    def infinite_numbers():
-        num = 0
-        while True:
-            yield num
-            num += 1
-    \end{lstlisting}
-\begin{enumerate}
-    \item It generates numbers up to a fixed limit.
-    \item It produces numbers starting from 0, but stops after a certain point.
-    \item It generates an infinite sequence of numbers, one at a time.
-    \item It returns numbers in ascending order.
-\end{enumerate}
-
-%\textbf{Correct Answer:} C
-\end{enumerate}
-
 
 
 \chapter{First-Class Functions}\label{chap:first-class-functions}
