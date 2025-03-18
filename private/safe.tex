@@ -2110,7 +2110,7 @@ Using generator functions, we can efficiently generate Fibonacci numbers on dema
 
 \subsection{Iterators}
 
-An iterator is an ADT that allows you to traverse through all the elements of a collection, such as a list, tuple, or custom data structure, without exposing the underlying details of the collection (i.e., encapsulation). 
+An iterator is an ADT that allows us to traverse through all the elements of a collection, such as a list, tuple, or custom data structure, without exposing the underlying details of the collection (i.e., encapsulation). 
 
 Key Concepts of Iterators:
 \begin{itemize}
@@ -2131,7 +2131,7 @@ class Countdown:
         return self
 
     def __next__(self):
-        if self.current \le 0:
+        if self.current > 0:
             raise StopIteration 
         else:
             current_value = self.current
@@ -2158,16 +2158,15 @@ In the example above, the \code{Countdown} class implements iteration by definin
 
 
 \subsection{Generator}
-A generator is a special iterator that uses the \code{yield} keyword. Generators allow you to turn a method into one that behaves like an iterator, without having to create a separate iterator class. Generator thus has the same benefits as iterators, such as memory efficiency and encapsulation, and does not require the explicit implementation of the \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods.
+A generator is a special iterator that uses the \code{yield} keyword. Generators allow us to turn a method into one that behaves like an iterator, without having to create a separate iterator class. Generator thus has the same benefits as iterators, such as memory efficiency and encapsulation, and does not require the explicit implementation of the \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods.
 
-\begin{lstlisting}
+\begin{lstlisting}[multicols=2]
 # Generator function for a countdown
 def countdown(start: int):
     while start > 0:
         yield start
         start -= 1
 
-# Usage of the generator
 for number in countdown(5):
     print(number)
 # Output: 5, 4, 3, 2, 1
@@ -2175,6 +2174,20 @@ for number in countdown(5):
 
 Instead of defining the \code{Countdown} class as an iterator, the \code{countdown} function is defined as a generator that yields the countdown sequence.
 Each call to \code{yield} returns the current value of \code{start} and saves the function's state, allowing it to resume where it left off when called again.
+
+The \code{list\_generator} method below is another example of a generator that yields items from a list one by one. Notice the use of generics to indicate that it works with lists of any type \code{T}.
+
+\begin{lstlisting}
+from typing import Generator
+
+def list_generator(items: List[T]) -> Generator[T, None, None]:
+    """A generic generator that yields items one by one."""
+    for item in items:
+        yield item
+
+for value in list_generator(["apple", "banana", "cherry"]):
+    print(value)
+\end{lstlisting}
 
 \paragraph{Benefits of Generators}
 \begin{itemize}
