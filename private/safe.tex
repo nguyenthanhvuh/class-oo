@@ -1783,17 +1783,37 @@ Since a \code{Dog} and a \code{Cat} are both \code{Mammals}, they can be treated
 
 \begin{figure}
 \begin{lstlisting}
-
 from abc import ABC, abstractmethod
 
 class Mammal(ABC):
     """
-    Abstract class
+    Abstract class representing a Mammal.
     """
-    
+    def __init__(self, name: str): 
+        # private attributes
+        self.__name = name       
+        self.__age = None # private attribute
+
     @abstractmethod
     def make_sound(self):
+        """Abstract method to be implemented by subclasses."""
         raise NotImplementedError("Subclasses should implement this!")
+
+    #getter 
+    def get_name(self) -> str:
+        """Encapsulated method to retrieve the name."""
+        return self.__name
+    #getter
+    def get_age(self) -> int:
+        """Encapsulated method to retrieve the age."""
+        return self.__age
+    #setter
+    def set_age(self, new_age: int):
+        """Encapsulated method to safely modify the age."""
+        if new_age >= 0:
+            self.__age = new_age
+        else:
+            print("Invalid age. Age cannot be negative.")
 
 class Dog(Mammal):
     def make_sound(self):
@@ -1803,14 +1823,20 @@ class Dog(Mammal):
         return "Bark!"
 
 class Cat(Mammal):
-    def make_sound(self): return "Meow!"
-        
-# Using polymorphism
-def mammal_make_sound(mammal: Mammal): return mammal.make_sound()
+    def make_sound(self):
+        return "Meow!"
 
-mammals = [Dog(), Cat()]
+# Using polymorphism
+def mammal_make_sound(mammal: Mammal):
+    return mammal.make_sound()
+
+# Creating objects
+dog = Dog("Buddy")
+cat = Cat("Whiskers")
+
+mammals = [dog, cat]
 for m in mammals:
-    print(mammal_make_sound(m))
+    print(m.get_name(), mammal_make_sound(m))  # Buddy Woof! Whiskers Meow!                                                 
 \end{lstlisting}
 \caption{Polymorphism}\label{ex:polymorphism}
 \end{figure}
@@ -1932,17 +1958,155 @@ The code below demonstrates the difference between static and dynamic dispatchin
 \end{lstlisting}    
 
 \subsection{Encapsulation}
-Encapsulation is a major OOP idea that allows the class to control access to its data and methods. It helps ensure that the internal representation of the class is not exposed to the outside world and prevents unintended modifications to the internal state of the class.
 
-Encapsulation is achieved through the use of access modifiers, which specify the level of access to class members. In Java, access modifiers are enforced by the language, and there are four levels of access: \emph{private}, \emph{protected}, \emph{package-private} (default), and \emph{public}.  In Python, access modifiers are not enforced by the language, but conventions are used to indicate the intended level of access. For example, underscore (\_) is used to indicate private or protected attribute (variable). %, and a double underscore (\_\_) is used to indicate a private attribute. 
+In OOP, encapsulation is used to estrict direct access to an object's internal state and behavior while providing controlled access through public methods. It helps ensure that the internal representation of the class is not exposed to the outside world and prevents unintended modifications to the internal state of the class.
+
+Encapsulation is achieved through the use of access modifiers, which specify the level of access to class members. In Java, access modifiers are enforced by the language, and there are four levels of access: \emph{private}, \emph{protected}, \emph{package-private} (default), and \emph{public}.  In Python, access modifiers are not enforced by the language, but conventions are used to indicate the intended level of access. For example, underscore (\_\_) is used to indicate private or protected attribute (variable). 
 
 Encapsulation avoids direct access to the internal representation of a class, e.g., rep-invariants, which can lead to unintended side effects and break the class's invariants. Instead, access to the class's data should be controlled through methods, such as \code{getters} and \code{setters} methods.
 
-In the \code{BankAccount} class in \autoref{ex:bankaccount}, the \code{\_balance} attribute is a private member, and access to it is controlled through the \code{deposit} and \code{withdraw}. The \code{BonusBankAccount} class extends \code{BankAccount} and adds a \code{\_bonus\_interest} attribute, which is also a private member that is not exposed directly. 
+
+In the \code{Mammal} class in \autoref{ex:polymorphism}, the \code{\_\_name} and \code{\_\_age} attributes are private members. If we attempt to access these private attributes directly, we will get an \code{AttributeError}. Instead, we should use the encapsulated setter and getter methods to access and modify these attributes. Setter methods also allow for validation and other logic to be applied when modifying the attribute, ensuring that the class's invariants are maintained.
+
+\begin{lstlisting}
+dog = Dog("Buddy")
+
+# Attempting direct access to private attributes (this will fail)
+# print(dog.__name)  # AttributeError
+
+# Correct access using encapsulated methods
+print(dog.get_name()) # print Buddy
+
+# Setting a new age safely
+dog.set_age(5) # Buddy is 5
+
+# Trying to set an invalid age
+dog.set_age(-2)  # Print an invalid age message
+
+\end{lstlisting}
+
+\section{Parametric Typing}
+Parametric typing or parametric polymorphism is a powerful feature of OOP that allows functions or methods written without specifying the exact type of the input. This form of generic programming promotes code reusability and type safety, as the same code can work with different types without modification.
+\subsection{Generics}
+
+Generics provide a way to define parametric types, allowing functions, data structures, and algorithms to work with any type. 
+In Java, generics are implemented using angle brackets (\texttt{<>}), e.g., \texttt{List<T>}, where \texttt{T} is a type parameter that can be replaced with any type.  Python does not have built-in support for generics like Java, but it has a similar concept using type hints and the \texttt{typing} module.
+
+\paragraph{Generic Functions} For example, \code{identity} is a generic function that takes an input of any type \code{T} and returns the same input. This function can be used with any type, such as \code{int}, \code{str}, or even custom classes.
+
+\begin{lstlisting}
+    from typing import TypeVar
+    T = TypeVar("T") # generic type T
+    def identity(x: T) -> T:
+        # return input x
+        return x
+
+    print(identity(619))
+    print(identity("SWE"))
+    print(identity([1, 2, 3]))
+\end{lstlisting}
+
+\paragraph{Generic ADTs}  \autoref{ex:generic-stack} shows a generic \code{Stack} class, which can store any type of elements. Note that the specifications are not shown as they are similar to the non-generic \code{Stack} ADT shown in~\autoref{ex:stack} .
+Here, we again use type variable \code{T} to represent a generic type, which allows the stack to be used with any type like \code{int} and \code{str}. The methods \code{push} and \code{pop} are defined to work with the generic type \code{T}.
+
+\begin{figure}
+\begin{lstlisting}
+    from typing import Generic, TypeVar, List
+    T = TypeVar("T")
+    
+    class Stack(Generic[T]):
+        """A generic stack implementation."""
+        def __init__(self):
+            self.__elements: List[T] = []  # priv attribute 
+
+        def push(self, item: T) -> None:
+            self.__elements.append(item)
+    
+        def pop(self) -> T:
+            if self.is_empty():
+                raise Exception("Stack is empty")
+            return self.__elements.pop()
+    
+        def is_empty(self) -> bool:
+            return len(self.__elements) == 0
+    
+    # Usage examples
+    int_stack = Stack[int]()
+    int_stack.push(10)
+    int_stack.push(20)
+    print(int_stack.pop())  # Output: 20
+    
+    str_stack = Stack[str]()
+    str_stack.push("Hello")
+    str_stack.push("World")
+    print(str_stack.pop())  # Output: "World"
+\end{lstlisting}
+\caption{Generic Stack}\label{ex:generic-stack}
+\end{figure}
+
+\paragraph{Generics with Bound} This refers to the ability to restrict the type parameter to a specific type or a subtype of a specific type, e.g., \code{T} is restricted to be a subtype of \code{Animal}. This is useful when we want to ensure that the type parameter has certain properties or methods. In Java, this is done using the \texttt{extends} keyword, while in Python, we can use the \texttt{TypeVar} with a \code{bound}.
+
+Instead of using the \code{mammal\_make\_sound} method in~\autoref{ex:polymorphism} for different mammals, 
+we can use a generic class \code{MammalOnly} that only accepts mammals (subtype of \code{Mammal}) and demonstrates polymorphism by calling the \code{make\_sound} method on the mammal.
 
 
+\begin{lstlisting}
+T = TypeVar("T", bound=Mammal)  # Restricting T to be a subtype of Mammal
+
+class MammalOnly(Generic[T]):
+    """A shelter that only stores animals."""
+    
+    def __init__(self, animal: T):
+        self.animal = animal
+
+    def mammal_make_sound(self):
+        return self.animal.make_sound()
+
+# Usage
+m1 = MamalOnly(Dog())
+m2 = MammalsOnly(Cat())
+
+print(m1.mammal_make_sound())  # Output: Woof!
+print(m2.mammal_make_sound())  # Output: Meow!
+\end{lstlisting}
+
+\section{Exercise}
+
+
+
+\subsection{Polymorphism concepts: Vehicle}\label{exercise:vehicle}
+
+You will design a system that models different types of vehicles (e.g., cars, bicycles). Each vehicle has the ability to start, stop, and display its details. Vehicles should differ in their implementation of these behaviors. You will use abstract classes and interfaces to define the basic structure and ensure that your system adheres to OOP principles.
+
+\begin{enumerate}
+    \item Create an abstract class \code{Vehicle} that has
+    \begin{enumerate}
+        \item An encapsulated attribute for \code{speed}.
+        \item Abstract methods: \code{start()}, \code{stop()}, and \code{display()}.
+    \end{enumerate}
+    \item Define an interface called \code{Refuelable}, with a method \code{refuel(amount:int)}
+    \item Create concrete subclasses
+    \begin{enumerate}
+	    \item Create \code{Car} and \code{Bicycle} classes that inherit from \code{Vehicle}.
+	    \item Car also implements the \code{Refuelable} interface (because it uses fuel).
+	    \item Implement methods to \code{start}, \code{stop}, \code{display}, and \code{refuel} if applicable.
+	    \item Ensure each class encapsulates its specific properties (e.g., \code{fuel\_level} for cars).
+    \end{enumerate}
+    \item Demonstrate Polymorphism and other OOP principles
+    \begin{enumerate}
+        \item Create a function \code{operate\_vehicle(vehicle:Vehicle)} that accepts any vehicle type and calls its \code{start}, \code{stop}, and \code{display} methods. This function demonstrates polymorphism and dynamic dispatching.
+        \item Create test cases to demonstrate LSP by substituting instances of \code{Car} and \code{Bicycle} for \code{Vehicle} in the \code{operate\_vehicle} function. 
+        \item Protect rep data and other attributes and access them through setters and getters methods.
+    \item Provide proper document and specifications for your code (e.g., class Overview, rep-invs, method specifications, AF, \code{repOK}).
+    \end{enumerate}
+
+\end{enumerate}
+
+
+\chapter{Subtyping}
 
 \section{Liskov Substitution Principle (LSP)}
+
 The Liskov Substitution Principle (LSP) is a fundamental concept of object-oriented design.  
 The idea that if $S$ is a subclass of $T$ then objects (or instances) of $S$ can be used in place of objects of $T$ without affecting the correctness of the program. In other words, a subclass \emph{is-a} superclass and can do everything the superclass can do.
 For example, a \code{Dog} is a \code{Mammal} and can make sound like any mammal, but it can also bark, which is specific to dogs.
@@ -2052,12 +2216,7 @@ class BonusBankAccount(BankAccount):
 \end{figure}
 
 
-
-
-
 \section{Exercise}
-
-
 \subsection{LSP: Market}\label{exercise:market}
 
 Determine whether the \code{LowBidMarket} and \code{LowOfferMarket} classes in~\autoref{ex:lsp-market} are proper subtypes of \code{Market}. Specifically, for each method, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP holds.
@@ -2122,34 +2281,6 @@ class LowOfferMarket(Market):
 \end{lstlisting}
 \caption{LSP Market Exercise}\label{ex:lsp-market}
 \end{figure}
-
-\subsection{Polymorphism concepts: Vehicle}\label{exercise:vehicle}
-
-You will design a system that models different types of vehicles (e.g., cars, bicycles). Each vehicle has the ability to start, stop, and display its details. Vehicles should differ in their implementation of these behaviors. You will use abstract classes and interfaces to define the basic structure and ensure that your system adheres to OOP principles.
-
-\begin{enumerate}
-    \item Create an abstract class \code{Vehicle} that has
-    \begin{enumerate}
-        \item An encapsulated attribute for \code{speed}.
-        \item Abstract methods: \code{start()}, \code{stop()}, and \code{display()}.
-    \end{enumerate}
-    \item Define an interface called \code{Refuelable}, with a method \code{refuel(amount:int)}
-    \item Create concrete subclasses
-    \begin{enumerate}
-	    \item Create \code{Car} and \code{Bicycle} classes that inherit from \code{Vehicle}.
-	    \item Car also implements the \code{Refuelable} interface (because it uses fuel).
-	    \item Implement methods to \code{start}, \code{stop}, \code{display}, and \code{refuel} if applicable.
-	    \item Ensure each class encapsulates its specific properties (e.g., \code{fuel\_level} for cars).
-    \end{enumerate}
-    \item Demonstrate Polymorphism and other OOP principles
-    \begin{enumerate}
-        \item Create a function \code{operate\_vehicle(vehicle:Vehicle)} that accepts any vehicle type and calls its \code{start}, \code{stop}, and \code{display} methods. This function demonstrates polymorphism and dynamic dispatching.
-        \item Create test cases to demonstrate LSP by substituting instances of \code{Car} and \code{Bicycle} for \code{Vehicle} in the \code{operate\_vehicle} function. 
-        \item Protect rep data and other attributes and access them through setters and getters methods.
-    \item Provide proper document and specifications for your code (e.g., class Overview, rep-invs, method specifications, AF, \code{repOK}).
-    \end{enumerate}
-
-\end{enumerate}
 
 
 \subsection{LSP: Reducer}
@@ -2267,7 +2398,6 @@ For each case below, determine if LSP holds by checking whether the precondition
 	% •	A’s postcondition is weaker because it does nothing when value is invalid, while C still performs a default update.
 	% •	LSP Conclusion:
 	% •	LSP does not hold because A provides weaker behavior than C and fails to maintain the expected outcome set by C.
-
 
 \chapter{Iterators}\label{chap:iterators}
 Iterators and generators are powerful concepts in OOP that enable efficient traversal and on-the-fly computation of sequences of data. They allow developers to handle large datasets, abstract complex data traversal patterns, and create custom iterators for any type of object. 
