@@ -2649,9 +2649,11 @@ ms:MammalMakeSound = DogMakeSound
 ms.doit(Cat())  # Error: cannot pass a Cat
 \end{lstlisting}    
 
-\subsection{Invariant}
+\subsection{Invariance}
 
-Invariance disallows the use of subtypes and supertypes in place of each other, meaning that the type must be \emph{exactly the same}. This follows the principle of exact type matching of LSP, ensuring that both preconditions and postconditions are exactly the same.
+Invariance disallows the use of subtypes and supertypes, meaning that the type must be \emph{exactly the same}, i.e., subtype cannot be used in place of its supertype as in covariance and supertype cannot be used in place of its subtype as in contravariance.
+
+
 \begin{lstlisting}
 class Mammal:
     def rand_select(self) -> Mammal:
@@ -5471,7 +5473,7 @@ The following is a suggested schedule and assignment for the course over a semes
 
     \item \textbf{Module 5}
     \begin{itemize}
-        \item Topics: Generics,Iterators/Generators, Covariance, Contravariance, and Invariance
+        \item Topics: Generics, Iterators, Generators, Covariance, Contravariance, and Invariance
         \item Reading: \autoref{chap:types} and \autoref{sec:convariance-contravariance-invariance}
         \begin{itemize}
             \item Generics
@@ -5481,7 +5483,7 @@ The following is a suggested schedule and assignment for the course over a semes
         \end{itemize}
         \item Prime Number (\autoref{exercise:prime-number})
         \item HW Assignment: Perfect Number (\autoref{exercise:perfect-number})
-        %\item Quiz: LSP Analysis (\autoref{exercise:lsp-analysis})
+        \item Quiz: LSP Analysis (\autoref{exercise:lsp-analysis})
     \end{itemize}
 
     % \item \textbf{Module 6}
@@ -5933,244 +5935,3 @@ When a loop invariant $I$ for program verification such as proving the validity 
 
 %repr-inv:https://ocw.mit.edu/courses/6-170-laboratory-in-software-engineering-fall-2005/1a1f80fa85176ed3cae09ccd74f902d3_lec8.pdf
 
-
-
-
-# \begin{frame}[fragile]{WP for Loop}
-    #   \begin{center}
-    #   wp(while b do S) = \alert{$I \wedge b \Rightarrow \text{wp}(S,I) ~\wedge~ I \wedge \neg b \Rightarrow Q$}
-    #   \end{center}
-      
-    #     Find/Guess a loop invariant $I$: 
-    #     \begin{itemize}
-    #     - $P \Rightarrow I$: initially I is true wrt P (base case)
-    #     - $I \wedge b  \Rightarrow I$: I is preserved after each execution (inductive case)
-    #     - \alert{$I \wedge \neg B \Rightarrow Q$}: if the loop terminates, the post condition holds (Partial correctness)
-    #     \end{itemize}
-    
-    #       \begin{columns}[T]
-    #       \begin{column}{0.3\textwidth}
-    #   \begin{lstlisting}
-    #     $\{N \ge 0\}$
-    #     i := 0;
-    #     while (i $<$ N)
-    #         i := N;
-    #     $\{i \equiv N\}$
-    #   \end{lstlisting}
-    #   \end{column}
-    #       \begin{column}{0.7\textwidth}
-    #         \begin{itemize}
-    #           - Which ones would be good invariant to find the wp?
-    #             \begin{enumerate}
-    #             - N $\ge$ 0  %no
-    #             - i $\le$ N %yes
-    #             \end{enumerate}
-    #             \pause
-    #         - Find the wp for the loop
-    #         - Prove the program is correct (show that $P \Rightarrow \text{wp}$) 
-    #       \end{itemize}
-    #       \end{column}
-    #       \end{columns}
-    
-    %% \begin{frame}[fragile]{In-Class Exercise}
-    %% 
-        
-    
-    
-    # \begin{frame}[fragile]{Loops}
-    #   \begin{itemize}
-    #   - wp(while b do S) = ??
-    #   - Idea: use \alert{loop invariant}
-    #     \begin{itemize}
-    #     - holds when the loop is entered
-    #     - preserves after the loop body is executed
-    #     \end{itemize}
-    #   \end{itemize}
-    
-    
-    
-    #   \pause
-    #   \begin{exampleblock}{Example}
-    #   \begin{lstlisting}
-    #     $\{N \ge 0\}$
-    #     i := 0;
-    #     while (i $<$ N)
-    #         i := N;
-    #   \end{lstlisting}
-      
-    #   Which ones are loop invariants? For those that are not, explain why
-    #   \begin{enumerate}
-    #   - i $\equiv$ 0 %no
-    #   - i $\equiv$ N %no 
-    #   - N $\ge$ 0  %yes
-    #   - i $\le$ N %yes
-    #   \end{enumerate}
-    #   \end{exampleblock}
-    
-    
-    Consider the loop `while b do S`, the loop invariant can be placed at the follow locations:
-    ```C
-    {I} //1 
-    while b do 
-        {I} //2
-        S
-        {I} //3
-    ```
-
-    
-
-
-WP(while[T] i < N do i:= i + 1, {i = N})
-    =
-      1. T
-      2. (i < N) => WP(i := i+1, T) = 
-         (i < N) => T
-         T 
-
-    
-      3.!(i<N) => i = N
-       i >= N => i = N
-
-    
-      =  N >=0 & (N >=0 & i < N) => i >= 0 & (i>= 0  => i = N)
-    
-    WP(i:=0; {N >=0 & (N >=0 & i < N) => i >= 0 & (i>= 0  => i = N)})
-      = (0 >= 0) & (0 >= 0 & 0 < N => 0 >= 0) & (0>=0 => 0 = N)  #apply WP for assignment and simplify
-      =  TRUE    &      TRUE                  & 0 = N
-      = 0 = N
-    
-
-      (i = 0 & N = -1)  =>  (i >= N  =>  0 = -1)
-      (i = 0 & N = -1)  =>  False
-
-
-
-
-      https://www.cs.cmu.edu/~aldrich/courses/15-819O-13sp/resources/hoare-logic.pdf
-
-
-
-- AI Specifications
-- How do we even specify what we want in an AI systems.
-- Loop invariants
-
-
-
-Yes, concepts like covariance and contravariance are directly relevant to type systems, especially in object-oriented languages, and they naturally fit into discussions on subtyping, inheritance, polymorphism, and type safety. They become particularly important when considering how methods, return types, and arguments behave under inheritance or subtyping.
-
-Below is a concise yet thorough explanation of these concepts, written to fit naturally into your chapter on type systems and formal specifications:
-
-⸻
-
-Covariance, Contravariance, and Invariance
-
-When discussing type systems and object-oriented programming (OOP), we frequently encounter notions of how types in subtyping relationships relate to each other, specifically when inheritance and polymorphism are involved. The terms covariance, contravariance, and invariance refer precisely to these relationships between complex types (such as function or method types, generic types, and collection types).
-
-These concepts are deeply connected to formal specifications and the Liskov Substitution Principle (LSP). They influence how we reason about the correctness of object-oriented programs—particularly the invariants and conditions that must be preserved when substituting instances of subtypes for instances of their supertypes.
-
-Covariance
-
-Covariance describes a type relationship where subtyping is preserved in the same direction. More concretely, if we have two types S and T, with S a subtype of T (denoted S <: T), covariance means that some compound type \text{Type}(S) is also a subtype of the corresponding \text{Type}(T). Formally:
-
-S <: T \implies F(S) <: F(T)
-
-In OOP, covariance commonly appears in method return types. For instance, consider:
-
-class Animal {
-    Animal getOffspring() { ... }
-}
-
-class Cat extends Animal {
-    @Override
-    Cat getOffspring() { ... }
-}
-
-Here, method return types are covariant: Cat is a subtype of Animal, and thus it is safe (and natural) for Cat’s overridden method to return a more specific type (Cat) than its superclass.
-
-Covariance aligns naturally with specifications since it ensures that the returned objects maintain or even strengthen the postconditions promised by the supertype’s method.
-
-Contravariance
-
-Contravariance describes an opposite relationship, where subtyping is reversed:
-
-S <: T \implies F(T) <: F(S)
-
-Contravariance is most commonly observed in function parameter types. Intuitively, a function expecting a general type can safely accept subtypes because it will still handle them correctly. Although somewhat less common in OOP, contravariance is critical in scenarios involving function types or event handlers.
-
-For example, assume we have event handlers:
-
-interface Event {}
-class MouseEvent extends Event {}
-
-interface Handler<T> {
-    void handle(T event);
-}
-
-// Contravariance example:
-Handler<Event> generalHandler = ...;
-Handler<MouseEvent> mouseHandler = generalHandler; // Valid if Handler is contravariant in T
-
-Here, a handler that can process general events can safely handle specific events (like mouse events). Thus, contravariance is directly related to weakening preconditions since the handler promises to handle a broader set of inputs safely.
-
-Invariance
-
-Invariance occurs when neither covariance nor contravariance holds. In other words, there is no subtyping relationship:
-
-\[
-S <: T \not\implies F(S) <: F(T) \quad\text{nor}\quad F(T) <: F(S)
-\]
-
-A classic example is Java arrays, which are covariant (leading to runtime type errors if misused) but would ideally be invariant for correctness:
-
-Integer[] integers = new Integer[10];
-Number[] numbers = integers; // Arrays are covariant in Java (this compiles!)
-numbers[0] = 3.14;  // Compiles but fails at runtime
-
-This covariance choice was a design compromise—often cited as problematic—highlighting why invariance or contravariance might sometimes be preferable to maintain correctness guarantees and type safety.
-
-Relating Variance to Preconditions and Postconditions
-
-Variance connects directly to formal specifications, especially in the context of the Liskov Substitution Principle (LSP):
-	•	Covariance (often in return types):
-Subclasses can strengthen or keep the same postconditions as their supertypes but cannot weaken them. A stronger return type naturally ensures stronger postconditions.
-	•	Contravariance (often in parameter types): Corresponds directly to the idea of weakening preconditions. A subtype method can accept more general input, not less, ensuring the superclass’s contract remains valid.
-
-Formally, from the perspective of Hoare Logic specifications:
-	•	Preconditions should be \emph{contravariant}: Subtypes must accept all inputs accepted by the supertypes, potentially more (weaker preconditions).
-	•	Postconditions should be \emph{covariant}: Subtypes must guarantee all postconditions promised by supertypes, potentially more (stronger postconditions).
-
-\[
-\begin{aligned}
-& \text{Preconditions (inputs):} && S <: T \implies pre_T \Rightarrow precondition_S \quad(\text{weaker or equal}) \\
-& \\
-& \text{Postconditions (covariant)}: \text{postcondition}_S \implies \text{postcondition}_T \quad(\text{stronger or equal})
-\]
-
-Example Demonstrating Variance and LSP
-
-Consider classes involving simple preconditions and postconditions:
-
-class NumberProcessor {
-    // Precondition: n >= 0
-    // Postcondition: returns non-negative integer
-    int process(int n) { return n; }
-}
-
-class PositiveProcessor extends NumberProcessor {
-    @Override
-    int process(int n) {
-        // Weaker precondition not possible here (must accept same or broader inputs)
-        // Stronger postcondition possible (e.g., always returns positive int)
-        return Math.abs(n) + 1;
-    }
-}
-
-Here, the subclass method respects the LSP because it does not impose stricter requirements on inputs (contravariant preconditions), and it fulfills at least as strong a guarantee as the superclass (covariant in results).
-
-⸻
-
-Conclusion
-
-Variance concepts (covariance, contravariance, and invariance) are fundamental to understanding and designing sound object-oriented systems. They dictate how subtypes relate to supertypes, particularly regarding their contracts. Viewed through the lens of formal specifications, variance directly influences how we formulate invariants, preconditions, and postconditions in OOP, providing an essential link between practical type systems and rigorous program verification.
-
-These insights further emphasize the role of types as lightweight specifications, embedded directly into language design and enforced by the compiler, significantly reducing runtime errors and enhancing software reliability.
