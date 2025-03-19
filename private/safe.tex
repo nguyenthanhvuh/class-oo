@@ -2073,7 +2073,7 @@ print(m2.mammal_make_sound())  # Output: Meow!
 
 \paragraph{Compared to Java}
 
-In Python, generics are mainly used for type hinting, which helps with code readability and static analysis tools, but they are not checked or enforced at runtime. This means that Python's type hints are not as strict and do not prevent runtime type errors.
+In Python, generics are mainly used for type hinting, which helps with code readability and static analysis tools (such as \texttt{mypy}), but they are not checked or enforced at runtime. 
 In contrast, generics is a powerful feature in Java that allows for \emph{type checking at compile time} to prevent runtime type errors. 
 
 The following demonstrates the benefits of using generics to prevent runtime errors in Java. In the first example, without generics, a \code{RuntimeError} occurs when trying to compare a \code{Date} object with a \code{str}. However, with generics, the compiler catches this error at compile time, preventing the runtime error.
@@ -2477,7 +2477,7 @@ Violating LSP can lead to unexpected behavior and errors in the program, as the 
 \subsection{Rules} 
 If \code{S} is a subtype of \code{T}, then objects of type \code{T} may be replaced with objects of type \code{S} without altering any of the desirable properties of the program. This means whenever you use \code{T}, you can use \code{S} instead. To achieve this, we must follow the following rules:
 
-\paragraph{Signature Rule} The signatures of methods of \code{S} must strengthen methods of \code{T}. In other words, the methods of \code{S} are a superset of the methods of \code{T}. Thus, if \code{T} has \code{n} methods, \code{S} also has \code{n} methods and additional ones (methods specific to \code{S}). 
+\paragraph{Signature Rule} The signatures of methods of \code{S} must be the same or strengthen methods of \code{T}. In other words, the methods of \code{S} are a superset of the methods of \code{T}. Thus, if \code{T} has \code{n} methods, \code{S} also has \code{n} methods and additional ones (methods specific to \code{S}). We will talk more about the change in the method signature in\autoref{sec:convariance-contravariance-invariance}.
 
 For the example in \autoref{ex:polymorphism}, \code{Dog} and \code{Cat} have the same \code{make\_sound} method as \code{Mammal}, but they also have additional methods specific to dogs and cats.
 In~\autoref{ex:bankaccount}, \code{BonusBankAccount} has the same methods as \code{BankAccount}.
@@ -2586,7 +2586,82 @@ class B:
         """
 \end{lstlisting}
 
+\section{Covariance, Contravariance, and Invariance}\label{sec:convariance-contravariance-invariance}
 
+LSP also applies to the use of subtypes and supertypes in function arguments and return values through the concepts of covariance, contravariance, and invariance.  However, while LSP cannot be enforced by the compiler, these concepts can be enforced by the type system of a language.
+
+\subsection{Covariance}
+Covariance allows a subtype to be used in place of its supertype when it is used as a \emph{return type}. This follows the principle of strengthening postconditions of LSP, ensuring that the returned value (the subtype) provides at least the guarantees of the returned value (the supertype) expected by the caller, or possibly more. 
+
+The code below demonstrates covariance. The \code{rand\_select} method of \code{Dog} returns a \code{Dog} object instead of a \code{Mammal} object, which strengththen the return type and thus satisfies LSP. 
+However, in \code{GermanShephard}, the \code{rand\_select} method incorrectly returns a weaker type (a \code{Mammal} object instead of \code{Dog} or \code{GermanShepard}) and thus violates LSP. This cause issues when we call the \code{bark} method on a \code{GermanShepherd} object, which is not guaranteed to be a dog.
+
+\begin{lstlisting}
+class Mammal:
+    def rand_select() -> Mammal:
+        ...
+    def make_sound(self):
+        ...
+# Covariance OK
+class Dog(Mammal):    
+    def rand_select() -> Dog:
+        return Dog()  #  #OK return subtype (stronger)
+class Cat(Mammal):
+    def rand_select() -> Cat:
+        return Cat()  # OK return subtype (stronger)
+
+
+# Covariance not OK        
+class GermanShepherd(Dog):
+    def rand_select() -> Mammal:
+        return Mammal()  # Not OK return supertype (weaker), violates LSP
+
+gs = GermanShepherd().rand_select()
+gs.bark()  # Error: g can be another Mammal, not a dog
+\end{lstlisting}
+
+\subsection{Contravariance}
+Contravariance is the opposite of covariance and 
+allows a supertype to be used in place of its subtype when it is used as a method parameter type.  This follows the principle of weakening preconditions of LSP, ensuring that a method expecting a specific subtype does not impose stricter requirements on the caller.
+
+The code below demonstrates contravariance. The \code{doit} method of \code{GeneralMakeSound} accepts a weaker type (an \code{object} instead of a \code{Mammal}) and thus satisfies LSP. Notice that \code{GeneralMakeSound} is assigned to \code{ms:MammalMakeSound} and thus can be used in place of \code{MammalMakeSound}, and this is possible because the precondition of \code{doit} of \code{GeneralMakeSound} is weaker than that of \code{MammalMakeSound}.
+
+However, the \code{doit} method of \code{DogMakeSound} incorrectly accepts a stronger type (a \code{Dog} instead of a \code{Mammal}) and thus violates LSP. \code{DogMakeSound} is also assigned to \code{ms:MammalMakeSound} and \emph{but} it is not safe to do so because it doesn't accept all the objects that \code{MammalMakeSound} can accept (e.g., Cat).
+
+\begin{lstlisting}
+class MammalMakeSound:
+    def doit(self, mammal: Mammal):
+        mammal.make_sound()
+
+class GeneralMakeSound(MammalMakeSound):
+    def doit(self, o: object):  # OK, weaker precondition
+        o.make_sound()
+
+ms:MammalMakeSound = GeneralMakeSound
+ms.doit(Dog())  # OK, can pass a Dog
+ms.doit(Cat())  # and Cat
+                
+class DogMakeSound(MammalMakeSound):
+    def doit(self, dog: Dog):  # Not OK, stronger precondition
+        dog.make_sound()  
+
+ms:MammalMakeSound = DogMakeSound
+ms.doit(Cat())  # Error: cannot pass a Cat
+\end{lstlisting}    
+
+\subsection{Invariant}
+
+Invariance disallows the use of subtypes and supertypes in place of each other, meaning that the type must be \emph{exactly the same}. This follows the principle of exact type matching of LSP, ensuring that both preconditions and postconditions are exactly the same.
+\begin{lstlisting}
+class Mammal:
+    def rand_select(self) -> Mammal:
+        ...
+       
+# Invariance OK
+class Dog(Mammal):    
+    def rand_select(self) -> Mammal:  #Must match exactly
+        ...
+\end{lstlisting}
 
 \section{Exercise}
 \subsection{LSP: Market}\label{exercise:market}
@@ -5396,20 +5471,21 @@ The following is a suggested schedule and assignment for the course over a semes
 
     \item \textbf{Module 5}
     \begin{itemize}
-        \item Topics: Generics and Iterators/Generators
-        \item Reading: \autoref{chap:types} 
+        \item Topics: Generics,Iterators/Generators, Covariance, Contravariance, and Invariance
+        \item Reading: \autoref{chap:types} and \autoref{sec:convariance-contravariance-invariance}
         \begin{itemize}
             \item Generics
             \item Interators
             \item Generators
+            \item Covariance, Contravariance, and Invariance
         \end{itemize}
         \item Prime Number (\autoref{exercise:prime-number})
         \item HW Assignment: Perfect Number (\autoref{exercise:perfect-number})
-        \item Quiz: LSP Analysis (\autoref{exercise:lsp-analysis})
+        %\item Quiz: LSP Analysis (\autoref{exercise:lsp-analysis})
     \end{itemize}
 
     % \item \textbf{Module 6}
-    % \begin{itemize}
+,     % \begin{itemize}
     %     \item Topics: Functions as First-class Citizens
     %     \item Reading: \autoref{chap:first-class-functions}
     %     \begin{itemize}
