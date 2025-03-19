@@ -1772,7 +1772,7 @@ Programming languages leverage typing not only to prevent errors but also to enc
 Consider the function \code{f(x: int, y: int) -> int}. The input types \code{int} are precondition requiring that the inputs are integers. The output type \code{int} is a postcondition ensuring that the output is an integer. A type checker would verify that \code{f} adheres to these type specifications and returns an error if \code{f}'s uage violates its specification, e.g., \code{f(3,4) + ``hello''} would be an error.
 
 
-\section{Fundamental OOP Concepts}
+\section{Fundamental OOP Concepts}\label{sec:fundamental-oop-concepts}
 
 \subsection{Polymorphism} Polymorphism is a cornerstone of OOP that allows objects of different classes to be treated as objects of a common superclass.  
 Polymorphism allows for flexibility and extensibility in the design of software systems.
@@ -1985,9 +1985,8 @@ dog.set_age(-2)  # Print an invalid age message
 
 \end{lstlisting}
 
-\section{Parametric Typing with Generics}\label{sec:generics}
-Parametric typing or parametric polymorphism is a powerful feature of OOP that allows functions or methods written without specifying the exact type of the input.  It is a feature that enables \emph{generic programming}, a programming paradigm focusing on resuability and abstraction. 
-
+\subsection{Generics}\label{sec:generics}
+Parametric typing or parametric polymorphism is a powerful feature of OOP that allows functions or methods written without specifying the exact type of the input.  It enables \emph{generic programming}, a programming paradigm focusing on resuability and abstraction. 
 
 \textbf{Generics} is the main mechanism for parametric typing in OOP. It allows us to define classes, interfaces, and methods with type parameters, which can be replaced with actual types when the class or method is instantiated or called. In Java, generics are implemented using angle brackets (\texttt{<>}), e.g., \texttt{List<T>}, where \texttt{T} is a type parameter that can be replaced with any type.  Python does not have built-in support for generics like Java, but it has a similar concept using type hints and the \texttt{typing} module as illustrated below.
 
@@ -2069,13 +2068,17 @@ print(m1.mammal_make_sound())  # Output: Woof!
 print(m2.mammal_make_sound())  # Output: Meow!
 \end{lstlisting}
 
-\section{Iterators}\label{sec:iterators}
-Iterators and generators are powerful ADTs in OOP that enable efficient traversal and on-the-fly computation of sequences of data. They allow developers to handle large datasets, abstract complex data traversal patterns, and create custom iterators for any type of object. Iterators and generators are also good examples of generics (\autoref{sec:generics}) as they can work with any type of data.
+\section{Iterators}\label{sec:iterators-generators}
+
+Iterators and generators are powerful concepts in OOP that enable efficient traversal and on-the-fly computation of sequences, allowing developers to process large datasets, abstract complex traversal patterns, and create custom iterators for any object type. 
+They demonstrate the power of abstraction by allowing users to focus on iteration logic without concerning themselves with the underlying data structure. They incoporate key OOP principles such as polymorphism, inheritance, encapsulation, and generics that we have seen in \autoref{sec:fundamental-oop-concepts}.
+
+
 
 \begin{historybox}[History]
-    The idea of iterators in OOP was pioneered by the CLU language in the 1970s, developed by Barbara Liskov. CLU introduced iterators as a core language feature, allowing traversal of collections without exposing internal structures. This innovation laid the foundation for modern iterator designs and showed how encapsulating traversal could lead to cleaner, more maintainable code. C++ in the 1980s introduces iterators through its STL. Iterators was further solidified by the Design Patterns book by the Gang of Four (GoF) in 1994, which formalized iterator patterns, emphasizing the separation of traversal from data structure.\\
+    The idea of iterators in OOP was pioneered by the CLU language in the 1970s, developed by Barbara Liskov. CLU introduced iterators as a core language feature, allowing traversal of collections without exposing internal structures. This innovation laid the foundation for modern iterator designs and showed how encapsulating traversal could lead to cleaner, more maintainable code. C++ in the 1980s introduces iterators through its STL. Iterators was further solidified by the Design Patterns book by the Gang of Four (GoF) in 1994, which formalized iterator patterns and separated traversal from the underlying data structure.\\
     
-    Java, released in 1995, built on these ideas through its Iterator interface, standardizing the way collections were traversed across the language. Java's approach unified data traversal, promoting encapsulation and abstraction in OO. Python introduces generators in 2001 and allowed functions to produce values lazily, one at a time, without storing the entire sequence in memory.  This enables efficient data processing for large or infinite sequences and emphasizes efficient iteration over data in modern languages.
+    Java, released in 1995, built on these ideas through its \code{Iterator} interface, standardizing the way collections were traversed. Java's approach unified data traversal, promoting encapsulation and abstraction in OO. Python introduces generators in 2001 and allowed functions to produce values lazily, one at a time, without storing the entire sequence in memory. This enables efficient data processing for large or infinite sequences and emphasizes efficient iteration over data in modern OOP.
 \end{historybox}
 \paragraph{Motivation} Let’s consider a scenario where you need to generate Fibonacci numbers. A common but inefficient approach is to generate Fibonacci numbers up to a certain limit and store all them in a list, which consumes a lot of memory.
 
@@ -2108,7 +2111,7 @@ print(list(fib_generator(10))) # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 Using generator functions, we can efficiently generate Fibonacci numbers on demand, reducing memory consumption and improving performance. Generators produce values one at a time, only when needed, making them ideal for large datasets or infinite sequences.
 
 
-\subsection{Iterators}
+\subsection{Iterators}\label{sec:iterators}
 
 An iterator is an ADT that allows us to traverse through all the elements of a collection, such as a list, tuple, or custom data structure, without exposing the underlying details of the collection (i.e., encapsulation). 
 
@@ -2122,7 +2125,9 @@ Key Concepts of Iterators:
 \item State Management: Iterators manage their own state, allowing them to keep track of the current position in the collection.
 \end{itemize}
 
-\begin{lstlisting}[multicols=2]
+\begin{figure}
+    \begin{minipage}[T]{0.50\textwidth}
+\begin{lstlisting}
 class Countdown:
     def __init__(self, start: int):
         self.current = start
@@ -2138,15 +2143,29 @@ class Countdown:
             self.current -= 1
             return current_value
 
-# Usage of the custom iterator
 countdown = Countdown(5)
 for number in countdown:
-    print(number)
+    print(number) # Output: 5, 4, 3, 2, 1
 
-# Output: 5, 4, 3, 2, 1
 \end{lstlisting}
+\caption{Iterator Countdown}\label{fig:iterator-countdown}
+\end{minipage}
+\begin{minipage}{0.50\textwidth}
+    \begin{lstlisting}
+        # Generator function for a countdown
+        def countdown(start: int):
+            while start > 0:
+                yield start
+                start -= 1
+        
+        for number in countdown(5):
+            print(number) # Output: 5, 4, 3, 2, 1        
+    \end{lstlisting}
+    \caption{Generator Countdown}\label{fig:generator-countdown}
+\end{minipage}    
+\end{figure}
 
-In the example above, the \code{Countdown} class implements iteration by defining the \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods. The \code{\_\_iter\_\_()} method returns the iterator object itself, while \code{\_\_next\_\_()} manages the countdown state by returning the next element in the countdown sequence and stopping the iteration by raising the \code{StopIteration} exception when the countdown reaches zero.
+The \code{Countdown} class in~\autoref{fig:iterator-countdown} implements iteration by defining the \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods. The \code{\_\_iter\_\_()} method returns the iterator object itself, while \code{\_\_next\_\_()} manages the countdown state by returning the next element in the countdown sequence and stopping the iteration by raising the \code{StopIteration} exception when the countdown reaches zero.
 
 
 \paragraph{Benefits of Iterators}
@@ -2157,25 +2176,13 @@ In the example above, the \code{Countdown} class implements iteration by definin
 \end{itemize}
 
 
-\subsection{Generator}
-A generator is a special iterator that uses the \code{yield} keyword. Generators allow us to turn a method into one that behaves like an iterator, without having to create a separate iterator class. Generator thus has the same benefits as iterators, such as memory efficiency and encapsulation, and does not require the explicit implementation of the \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods.
+\subsection{Generator}\label{sec:generators}
+Unlike an iterator which is an ADT, a generator is a feature in an OOP language that provides a way to implement iterators. Through keywords such as \code{yield} in Python, generators allow us to turn a method into one that behaves like an iterator, \emph{without} having to create a separate iterator class. Generators thus have the same benefits as iterators, such as memory efficiency and encapsulation, and does not require the explicit implementation of the \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods.
 
-\begin{lstlisting}[multicols=2]
-# Generator function for a countdown
-def countdown(start: int):
-    while start > 0:
-        yield start
-        start -= 1
-
-for number in countdown(5):
-    print(number)
-# Output: 5, 4, 3, 2, 1
-\end{lstlisting}
-
-Instead of defining the \code{Countdown} class as an iterator, the \code{countdown} function is defined as a generator that yields the countdown sequence.
+The \code{countdown} function in~\autoref{fig:generator-countdown} is defined as a generator that yields the countdown sequence.
 Each call to \code{yield} returns the current value of \code{start} and saves the function's state, allowing it to resume where it left off when called again.
 
-The \code{list\_generator} method below is another example of a generator that yields items from a list one by one. Notice the use of generics to indicate that it works with lists of any type \code{T}.
+As another example, the \code{list\_generator} method below yields items from a list one by one. Notice the code uses generics to work with lists of any type \code{T}.
 
 \begin{lstlisting}
 from typing import Generator
@@ -2195,6 +2202,33 @@ for value in list_generator(["apple", "banana", "cherry"]):
 	\item Performance: They generate values on demand, reducing memory consumption compared to traditional lists.
 	\item Enhanced Readability: Generator functions are typically easier to understand and maintain compared to an iterator class.    
 \end{itemize}   
+
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{|l|p{6cm}|p{6cm}|}
+%         \hline
+%         \textbf{Feature} & \textbf{Iterator (ADT)} & \textbf{Generator (Language Feature)} \\
+%         \hline
+%         Definition & An abstract data type (ADT) that provides a standard interface for sequentially traversing elements in a collection. & A function-based mechanism that simplifies iterator creation using the \texttt{yield} keyword. \\
+%         \hline
+%         Implementation & Requires implementing a class with \texttt{\_\_iter\_\_()} and \texttt{\_\_next\_\_()} methods. & Uses \texttt{yield} in a function to produce values lazily. \\
+%         \hline
+%         Memory Usage & Can store the entire sequence in memory unless explicitly designed for lazy evaluation. & Produces values on demand, consuming less memory. \\
+%         \hline
+%         State Management & Manages iteration state manually (e.g., maintaining an index). & Automatically preserves state between function calls. \\
+%         \hline
+%         Reusability & Can be reset and reused by creating a new iterator object. & Cannot be restarted; calling the function again creates a new generator instance. \\
+%         \hline
+%         Conceptual Role & An abstract concept that defines a standard way to iterate over collections. & A syntactic construct that simplifies iterator creation. \\
+%         \hline
+%         Use Case & Used to define custom traversal logic for data structures like lists, trees, and graphs. & Best suited for streaming data, infinite sequences, and lazy evaluation. \\
+%         \hline
+%     \end{tabular}
+%     \caption{Comparison of Iterators (ADT) and Generators (Language Feature)}
+%     \label{tab:iterators_vs_generators}
+% \end{table}
+
+
 
 \section{Exercise}
 
@@ -2441,13 +2475,6 @@ The rep-inv, captured in the \code{repOK} method, of \code{BonusBankAccount} in 
 
 
 
-Note that LSP is meant to be a \emph{guideline} for designing classes and inheritance hierarchies, and it is not always possible to strictly adhere to it in all cases. The compiler cannot enforce LSP, so it is up to the programmer to ensure that the principle is followed.
-
-
-
-
-
-
 
 
 \begin{figure}
@@ -2520,6 +2547,25 @@ class BonusBankAccount(BankAccount):
     \end{lstlisting}
 \caption{Liskov Substitution Principle demonstration}\label{ex:bankaccount}
 \end{figure}
+
+
+Note that LSP is meant to be a \emph{guideline} for designing classes and inheritance hierarchies, and it is not always possible to strictly adhere to it in all cases. The compiler cannot enforce LSP, so it is up to the programmer to ensure that the principle is followed.
+
+Also note that if it is not possible to directly compare the pre/post conditions, make assumptions based on your preference, and determine if LSP holds based on those assumptions. In the below example, if we assume that the \code{f} method of \code{B} has a stronger postcondition than \code{f} of \code{A}, i.e., raising \code{TypeError} is better than returning \code{None}, then \code{B} inherits from \code{A} satisfies LSP. If you assume the opposite, then \code{B} inherits {A} does not satisfy LSP.
+
+\begin{lstlisting}
+class A:
+    def f(self, x):
+        """
+        Effects: Returns the square of x if x is an integer else returns None.
+        """
+class B:
+    def f(self, x):
+        """
+        Effects: Returns the square of x if x is an integer else raise TypeError.
+        """
+\end{lstlisting}
+
 
 
 \section{Exercise}
@@ -2616,10 +2662,10 @@ class C:
                  else, reduce this by x.
         """
 \end{lstlisting}
-\caption{LSP Exercise: Update}\label{ex:lsp-update}
+\caption{LSP Exercise}\label{ex:lsp-reduce}
 \end{figure}
 
-For the classes \code{A}, \code{B}, and \code{C} in \autoref{ex:lsp-update}, determine whether LSP holds in the following cases. Specifically, for each case, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP holds.
+For the classes \code{A}, \code{B}, and \code{C} in \autoref{ex:lsp-reduce}, determine whether LSP holds in the following cases. Specifically, for each case, list whether the precondition is weaker, the postcondition is stronger, and conclude whether LSP holds.
 \begin{enumerate}
     \item \code{B} extends \code{A}.
     \sol{B's pre is stronger than A's because it requires that $x$ is not None while A's has no pre. \textbf{LSP does not hold}. The posts of \code{A} and \code{B} are the same}
@@ -2660,7 +2706,7 @@ class C:
         """
 \end{lstlisting}    
 
-For each case below, determine if LSP holds by checking whether the preconditions are weaker and the postconditions are stronger, and conclude whether LSP holds. Note that as soon as one rule is violated, LSP does not hold. Also note that if it is not possible to directly compare the pre/post conditions, make assumptions based on your preference, and determine if LSP holds based on those assumptions. 
+For each case below, determine if LSP holds by checking whether the preconditions are weaker and the postconditions are stronger, and conclude whether LSP holds. Note that as soon as one rule is violated, LSP does not hold. 
 
 \begin{enumerate}
     \item \code{B} extends \code{A}
@@ -5323,25 +5369,24 @@ The following is a suggested schedule and assignment for the course over a semes
     \begin{itemize}
         \item Topics: Polymorphism, Liskov Substitution Principle
         \item Reading: \autoref{chap:types}
-        \item In-class: LSP Update (\autoref{ex:lsp-update})
+        \item In-class: LSP Update (\autoref{exercise:lsp-analysis})
         \item HW Assignments: (i) Polymorphism Vehicle (\autoref{exercise:vehicle}) and (ii) LSP: Market (\autoref{exercise:market}) \red{\textbf{Due date: Wed 3/19 (After Spring Break)}}
         \item Quiz: Algebraic Specifications of Bank Account (\autoref{exercise:algebraic-axioms-bank-account}) 
     \end{itemize}
 
-    % \item \textbf{Module 5}
-    % \begin{itemize}
-    %     \item Topics: More on Polymorphism and Iterators/Generators
-    %     \item Reading: \autoref{chap:types} and \autoref{chap:iterators}
-    %     \begin{itemize}
-    %         \item Abstract class
-    %         \item Interface
-    %         \item Element vs Related Subtype
-    %         \item Encapsulation
-    %     \end{itemize}
-    %     \item In-class: Vehicle (\autoref{exercise:vehicle}), Prime Number (\autoref{exercise:prime-number})
-    %     \item HW Assignment: Perfect Number (\autoref{exercise:perfect-number})
-    %     %\item Quiz: LSP Analysis (\autoref{exercise:lsp-analysis})
-    % \end{itemize}
+    \item \textbf{Module 5}
+    \begin{itemize}
+        \item Topics: Generics and Iterators/Generators
+        \item Reading: \autoref{chap:types} 
+        \begin{itemize}
+            \item Generics
+            \item Interators
+            \item Generators
+        \end{itemize}
+        \item Prime Number (\autoref{exercise:prime-number})
+        \item HW Assignment: Perfect Number (\autoref{exercise:perfect-number})
+        \item Quiz: LSP Analysis (\autoref{exercise:lsp-analysis})
+    \end{itemize}
 
     % \item \textbf{Module 6}
     % \begin{itemize}
