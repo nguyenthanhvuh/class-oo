@@ -1988,7 +1988,9 @@ dog.set_age(-2)  # Print an invalid age message
 \subsection{Generics}\label{sec:generics}
 Parametric typing or parametric polymorphism is a powerful feature of OOP that allows functions or methods written without specifying the exact type of the input.  It enables \emph{generic programming}, a programming paradigm focusing on resuability and abstraction. 
 
-\textbf{Generics} is the main mechanism for parametric typing in OOP. It allows us to define classes, interfaces, and methods with type parameters, which can be replaced with actual types when the class or method is instantiated or called. In Java, generics are implemented using angle brackets (\texttt{<>}), e.g., \texttt{List<T>}, where \texttt{T} is a type parameter that can be replaced with any type.  Python does not have built-in support for generics like Java, but it has a similar concept using type hints and the \texttt{typing} module as illustrated below.
+\textbf{Generics} is the main mechanism for parametric typing in OOP. It allows us to define classes, interfaces, and methods with type parameters, which can be replaced with actual types when the class or method is instantiated or called. 
+
+In Java, implemented using angle brackets (\texttt{<>}), e.g., \texttt{List<T>}, where \texttt{T} is a type parameter that can be replaced with any type.  Python does not have built-in support for generics like Java, but it has a similar concept using type hints and the \texttt{typing} module as illustrated below.
 
 \paragraph{Generic Functions} For example, \code{identity} is a generic function that takes an input of any type \code{T} and returns the same input. This function can be used with any type, such as \code{int}, \code{str}, or even custom classes.
 
@@ -2066,6 +2068,24 @@ m2 = MammalsOnly(Cat())
 
 print(m1.mammal_make_sound())  # Output: Woof!
 print(m2.mammal_make_sound())  # Output: Meow!
+\end{lstlisting}
+
+
+\paragraph{Compared to Java}
+
+In Python, generics are mainly used for type hinting, which helps with code readability and static analysis tools, but they are not checked or enforced at runtime. This means that Python's type hints are not as strict and do not prevent runtime type errors.
+In contrast, generics is a powerful feature in Java that allows for \emph{type checking at compile time} to prevent runtime type errors. 
+
+The following demonstrates the benefits of using generics to prevent runtime errors in Java. In the first example, without generics, a \code{RuntimeError} occurs when trying to compare a \code{Date} object with a \code{str}. However, with generics, the compiler catches this error at compile time, preventing the runtime error.
+
+\begin{lstlisting}
+// Before Java 5 (No generics)
+Comparable c = new Date();
+c.compareTo("red");  // RUNTIME ERROR
+
+// Java 5+ (With Generics)
+Comparable<Date> c = new Date();
+c.compareTo("red");  // COMPILE ERROR (prevents runtime error)
 \end{lstlisting}
 
 \section{Iterators}\label{sec:iterators-generators}
