@@ -2279,7 +2279,21 @@ You will design a system that models different types of vehicles (e.g., cars, bi
         \item Protect rep data and other attributes and access them through setters and getters methods.
     \item Provide proper document and specifications for your code (e.g., class Overview, rep-invs, method specifications, AF, \code{repOK}).
     \end{enumerate}
-
+    \item Covariance
+    \begin{enumerate}
+        \item create a \code{def get\_driver(self) -> Driver:} method in \code{Vehicle} that returns a \code{Driver} object
+        \item In \code{Car}, override \code{get\_driver} to return an object that is \emph{not} \code{Driver} but satisfies covariance (you might need to create a new class)
+        \item Create a testcase to demonstrate covariance works 
+        \item In \code{Bicycle}, override \code{get\_driver} to return an object that \emph{does not} satisfies covariance (you might need to create a new class), \item Create testcase to demonstrate covariance does not work.
+    \end{enumerate}    
+    \item Contravariance
+    \begin{enumerate}
+        \item Create a method \code{set\_driver(self, driver: Driver)} in \code{Vehicle} that accepts a \code{Driver} object
+        \item In \code{Car}, override \code{set\_driver} to accept an object that is \emph{not} \code{Driver} but satisfies contravariance (you might need to create a new class)
+        \item Create a testcase to demonstrate contravariance works
+        \item In \code{Bicycle}, \code{set\_driver} to accept an object that \emph{does not} satisfies contravariance (you might need to create a new class),
+        \item Create testcase to demonstrate contravariance does not work.
+    \end{enumerate}
 \end{enumerate}
 
 % class PrimeNumberIterator:
