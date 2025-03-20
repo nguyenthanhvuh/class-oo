@@ -2568,10 +2568,12 @@ class BonusBankAccount(BankAccount):
 \caption{Liskov Substitution Principle demonstration}\label{ex:bankaccount}
 \end{figure}
 
+\subsection{Important Notes}\label{sec:lsp-notes}
 
-Note that LSP is meant to be a \emph{guideline} for designing classes and inheritance hierarchies, and it is not always possible to strictly adhere to it in all cases. The compiler cannot enforce LSP, so it is up to the programmer to ensure that the principle is followed.
+Note that if it is not possible to directly compare the pre/post conditions, make assumptions based on your preference, and determine if LSP holds based on those assumptions. In the below example, if we assume that the \code{f} method of \code{B} has a stronger postcondition than \code{f} of \code{A}, i.e., raising \code{TypeError} is better than returning \code{None}, then \code{B} inherits from \code{A} satisfies LSP. If you assume the opposite, then \code{B} inherits {A} does not satisfy LSP.
 
-Also note that if it is not possible to directly compare the pre/post conditions, make assumptions based on your preference, and determine if LSP holds based on those assumptions. In the below example, if we assume that the \code{f} method of \code{B} has a stronger postcondition than \code{f} of \code{A}, i.e., raising \code{TypeError} is better than returning \code{None}, then \code{B} inherits from \code{A} satisfies LSP. If you assume the opposite, then \code{B} inherits {A} does not satisfy LSP.
+
+Note that LSP is meant to be a \emph{guideline} for designing classes and inheritance hierarchies, and it is not always possible to strictly adhere to it in all cases. The compiler cannot enforce LSP entirely, so it is up to the programmer to ensure that the principle is followed. \label{sec:covariance-contravariance-invariance} gives additional LSP concepts that can be enforced by the type system of a language.
 
 \begin{lstlisting}
 class A:
@@ -2591,42 +2593,53 @@ class B:
 LSP also applies to the use of subtypes and supertypes in function arguments and return values through the concepts of covariance, contravariance, and invariance.  However, while LSP cannot be enforced by the compiler, these concepts can be enforced by the type system of a language.
 
 \subsection{Covariance}
-Covariance allows a subtype to be used in place of its supertype when it is used as a \emph{return type}. This follows the principle of strengthening postconditions of LSP, ensuring that the returned value (the subtype) provides at least the guarantees of the returned value (the supertype) expected by the caller, or possibly more. 
+Covariance allows a subtype to be used in place of its supertype when it is used as a \emph{return type}. This follows the principle of strengthening postconditions of LSP and ensures that a method returning a specific subtype can be safely replaced with a method returning a more general supertype without breaking the program.
 
-The code below demonstrates covariance. The \code{rand\_select} method of \code{Dog} returns a \code{Dog} object instead of a \code{Mammal} object, which strengththen the return type and thus satisfies LSP. 
-However, in \code{GermanShephard}, the \code{rand\_select} method incorrectly returns a weaker type (a \code{Mammal} object instead of \code{Dog} or \code{GermanShepard}) and thus violates LSP. This cause issues when we call the \code{bark} method on a \code{GermanShepherd} object, which is not guaranteed to be a dog.
+The code below demonstrates covariance. The \code{rand\_select} method of \code{Dog} returns a \code{Dog} object, which strengththen the return type \code{Mammal} that \code{Dog} subclasses, and thus satisfies LSP. Thus it is safe to apply \code{f} to a \code{Dog} object returned by \code{Dog.rand\_select()} because \code{f} expects a \code{Mammal} and \code{Dog} is a \code{Mammal}.
+
+In contrast, the \code{rand\_select} method of \code{Shepherd} returns a \code{Mammal} object instead of a \code{Dog} object , which weakens the return type \code{Dog} that \code{Sephard} subclasses, and thus violates LSP. Thus it is not safe to apply \code{g} to a \code{Mammal} object returned by \code{Shepherd.rand\_select()} because \code{g} expects a \code{Dog} and a \code{Mammal} is not a \code{Dog}.
 
 \begin{lstlisting}
 class Mammal:
     def rand_select() -> Mammal:
         ...
     def make_sound(self):
-        ...
-# Covariance OK
+        ...    
+
+def f(m:Mammal):
+    m.make_sound()
+    
+# Covariance satisfied
 class Dog(Mammal):    
     def rand_select() -> Dog:
         return Dog()  #  #OK return subtype (stronger)
-class Cat(Mammal):
-    def rand_select() -> Cat:
-        return Cat()  # OK return subtype (stronger)
+    def bark(self):
+        ...
+
+f(Dog.rand_select())  # OK, can apply f on a Dog
 
 
-# Covariance not OK        
-class GermanShepherd(Dog):
+# Covariance violated
+class Shepherd(Dog):
     def rand_select() -> Mammal:
         return Mammal()  # Not OK return supertype (weaker), violates LSP
 
-gs = GermanShepherd().rand_select()
-gs.bark()  # Error: g can be another Mammal, not a dog
+
+def g(d:Dog):
+    d.bark()
+
+g(Shepherd.rand_select())  # Error: cannot apply g on a Mammal
+
+
 \end{lstlisting}
 
 \subsection{Contravariance}
 Contravariance is the opposite of covariance and 
-allows a supertype to be used in place of its subtype when it is used as a method parameter type.  This follows the principle of weakening preconditions of LSP, ensuring that a method expecting a specific subtype does not impose stricter requirements on the caller.
+allows a supertype to be used in place of its subtype when it is used as a method parameter type.  This follows the principle of weakening preconditions of LSP and ensures that a method accepting a specific subtype can be safely replaced with a method accepting a more general supertype without breaking the program.
 
 The code below demonstrates contravariance. The \code{doit} method of \code{GeneralMakeSound} accepts a weaker type (an \code{object} instead of a \code{Mammal}) and thus satisfies LSP. Notice that \code{GeneralMakeSound} is assigned to \code{ms:MammalMakeSound} and thus can be used in place of \code{MammalMakeSound}, and this is possible because the precondition of \code{doit} of \code{GeneralMakeSound} is weaker than that of \code{MammalMakeSound}.
 
-However, the \code{doit} method of \code{DogMakeSound} incorrectly accepts a stronger type (a \code{Dog} instead of a \code{Mammal}) and thus violates LSP. \code{DogMakeSound} is also assigned to \code{ms:MammalMakeSound} and \emph{but} it is not safe to do so because it doesn't accept all the objects that \code{MammalMakeSound} can accept (e.g., Cat).
+However, the \code{doit} method of \code{DogMakeSound} incorrectly accepts a stronger type (a \code{Dog} instead of a \code{Mammal}) and thus violates LSP. \code{DogMakeSound} is also assigned to \code{ms:MammalMakeSound} and \emph{but} it is not safe to do so because it doesn't accept all the objects that \code{MammalMakeSound} can accept (e.g., \code{Cat}).
 
 \begin{lstlisting}
 class MammalMakeSound:
@@ -2661,7 +2674,7 @@ class Mammal:
        
 # Invariance OK
 class Dog(Mammal):    
-    def rand_select(self) -> Mammal:  #Must match exactly
+    def rand_select(self) -> Mammal:  #Violates Invariance: Must match exactly
         ...
 \end{lstlisting}
 
@@ -2848,6 +2861,92 @@ For each case below, determine if LSP holds by checking whether the precondition
 	% •	LSP Conclusion:
 	% •	LSP does not hold because A provides weaker behavior than C and fails to maintain the expected outcome set by C.
 
+% \subsection{Variance}
+
+% \begin{figure}
+% \begin{lstlisting}
+% class Shape:
+%     def area(self) -> float:
+%         raise NotImplementedError()
+
+% class Polygon(Shape):
+%     def area(self) -> float:
+%         return 0.0  # placeholder for polygons
+
+% class Rectangle(Polygon):
+%     def __init__(self, width: float, height: float):
+%         self.width = width
+%         self.height = height
+
+%     def area(self) -> float:
+%         return self.width * self.height
+
+% class Square(Rectangle):
+%     def __init__(self, side: float):
+%         super().__init__(side, side)
+
+
+% # for Covariance exercise        
+% class ShapeProducer:
+%     def produce(self) -> Shape:
+%         return Shape()
+
+% # for Contravariance exercise    
+% class ShapeAreaCalc:
+%     def calc_area(self, shape: Shape) -> float:
+%         return shape.area()
+
+% \end{lstlisting}
+% \caption{Shape hierarchy}\label{ex:shape-hierarchy}    
+% \end{figure}
+
+% Consider the \code{Shape} hierarchy in \autoref{ex:shape-hierarchy}. 
+% \begin{itemize}
+% \item Covariance (return types) 
+% \begin{itemize}
+%     \item s
+% \end{itemize}
+% \item Contravariance (parameter types)
+% \end{itemize}
+
+
+\subsection{Variance Exercise 1}\label{ex:variance1}
+
+\begin{figure}
+    \begin{lstlisting}
+        class A:
+        def doit(self, data: object) -> dict:
+            pass
+    
+    class B(A):
+        def doit(self, data: str) -> dict[str, object]:
+            pass
+    
+    class C(B):
+        def doit(self, data: object) -> dict[str, str]:
+            pass
+    
+    class D(A):
+        def doit(self, data: object) -> dict:
+            pass
+    
+    class E(D):
+        def doit(self, data: int) -> dict[str, object]:
+            pass
+    \end{lstlisting}
+    \caption{Variance Exercise}\label{fig:variance1}    
+\end{figure}
+
+For the classes in~\autoref{fig:variance1}, determine whether (i) covariance (return types), (ii) contravariance (parameter types), or (iii) invariance (no type change) rules are violated. Explain why or why not.
+
+\begin{enumerate}
+    \item B extends A
+	\item C extends B
+    \item C extends A
+	\item E extends A
+	\item A extends C
+\end{enumerate}
+    
 
 \chapter{First-Class Functions}\label{chap:first-class-functions}
 
@@ -5482,7 +5581,12 @@ The following is a suggested schedule and assignment for the course over a semes
             \item Covariance, Contravariance, and Invariance
         \end{itemize}
         \item Prime Number (\autoref{exercise:prime-number})
-        \item HW Assignment: Perfect Number (\autoref{exercise:perfect-number})
+        \item HW Assignment: 
+        \begin{enumerate}
+            \item Variance exercise (\autoref{ex:variance1})
+        %\item Perfect Number (\autoref{exercise:perfect-number}) 
+        \item Polymorphism Vehicle (\autoref{exercise:vehicle}) (if you have done this last week, just copy and paste it in this assignment)
+        \end{enumerate}            
         \item Quiz: LSP Analysis (\autoref{exercise:lsp-analysis})
     \end{itemize}
 
@@ -5935,3 +6039,15 @@ When a loop invariant $I$ for program verification such as proving the validity 
 
 %repr-inv:https://ocw.mit.edu/courses/6-170-laboratory-in-software-engineering-fall-2005/1a1f80fa85176ed3cae09ccd74f902d3_lec8.pdf
 
+
+
+For each case below, determine if LSP holds by checking whether the precon-
+ditions are weaker and the postconditions are stronger, and conclude whether LSP
+holds. Note that as soon as one rule is violated, LSP does not hold.
+
+
+1. B extends A
+2. C extends A
+3. A extends B
+4. C extends B
+5. A extends C
