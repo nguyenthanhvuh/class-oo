@@ -2716,16 +2716,19 @@ class Mammal:
        
 # Invariance OK
 class Dog(Mammal):    
-    def rand_select(self) -> Mammal:
+    def rand_select(self) -> Mammal: # return the same type
         ...
 
 # Invariance Not OK 
 class Cat(Mammal):    
     def rand_select(self) -> Cat:  # Not OK, must be exactly the same type
         ...        
-
-
 \end{lstlisting}
+
+In this example, invariance requires that all subclasses of \code{Mammal} return the same type as \code{Mammal} in the \code{rand\_select} method, which returns \code{Mammal}. Thus, the invariance is satisfied for the \code{rand\_select} for \code{Dog} because it returns a \code{Mammal}. However, the invariance is violated for \code{Cat} because it returns a \code{Cat} object instead of \code{Mammal}.
+
+
+
 
 \section{Exercise}
 \subsection{LSP: Market}\label{exercise:market}
