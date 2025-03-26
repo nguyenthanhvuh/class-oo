@@ -2210,7 +2210,10 @@ def fibonacci_generator(max_count):
 \end{minipage}    
 \end{figure}
 
-The \code{Countdown} class in~\autoref{fig:iterator-countdown} implements iteration by defining the \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods. The \code{\_\_iter\_\_()} method returns the iterator object itself, while \code{\_\_next\_\_()} manages the countdown state by returning the next element in the countdown sequence and stopping the iteration by raising the \code{StopIteration} exception when the countdown reaches zero.
+An Iterator is an object that implements the iterator protocol, which consists of two methods: \code{\_\_iter\_\_()} and \code{\_\_next\_\_()}. The \code{\_\_iter\_\_()} method returns the iterator object itself, while the \code{\_\_next\_\_()} method returns the next value in the sequence. When there are no more values to return, \code{\_\_next\_\_()} raises a \code{StopIteration} exception to end of the iteration.
+
+The FibIterator class in \autoref{fig:fib-iterator} implements the iterator protocol.  
+
 
 
 \paragraph{Benefits of Iterators}
@@ -2713,8 +2716,15 @@ class Mammal:
        
 # Invariance OK
 class Dog(Mammal):    
-    def rand_select(self) -> Mammal:  #Violates Invariance: Must match exactly
+    def rand_select(self) -> Mammal:
         ...
+
+# Invariance Not OK 
+class Cat(Mammal):    
+    def rand_select(self) -> Cat:  # Not OK, must be exactly the same
+        ...        
+
+
 \end{lstlisting}
 
 \section{Exercise}
