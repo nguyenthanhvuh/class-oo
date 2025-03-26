@@ -2170,18 +2170,29 @@ Key Concepts of Iterators:
 \end{itemize}
 
 \begin{figure}
-    \begin{minipage}[T]{0.50\textwidth}
 \begin{lstlisting}
 class FibIterator:
-    def __init__(self, max_count):
+    def __init__(self, max_count:int) -> None:
+        """
+        Pre: max_count > 0
+        """
         self.a, self.b = 0, 1 # Initial values
         self.count = 0
         self.max_count = max_count
 
-    def __iter__(self):
+    def __iter__(self) :
         return self
 
     def __next__(self):
+        """
+        Pre: self.count < self.max_count
+        Post:
+            - increments count by 1
+            - set a and b such that a = b', b = a' + b' where 
+              a' and b' are the stored values of a and b
+            - raises StopIteration if count >= max_count
+            - return the value of a
+        """    
         if self.count >= self.max_count:
             raise StopIteration
         value = self.a
@@ -2190,14 +2201,22 @@ class FibIterator:
             self.b, self.a + self.b  
         self.count += 1
         return value
+    def repOK(self):
+        """
+        Rep inv:
+            - 0 <= count <= max_count
+            - 0 <= a, b
+        """
+        ...
 
 # to use as a (generator) function        
 def fib_iterator(max_count):
     return FibIterator(max_count)
-
 \end{lstlisting}
 \caption{Fibonacci Iterator}\label{fig:fib-iterator}
-\end{minipage}
+\end{figure}
+
+\begin{figure}
 \begin{minipage}{0.50\textwidth}
     \begin{lstlisting}
 def fibonacci_generator(max_count):
@@ -2212,7 +2231,7 @@ def fibonacci_generator(max_count):
 
 An Iterator is an object that implements the iterator protocol, which consists of two methods: \code{\_\_iter\_\_()} and \code{\_\_next\_\_()}. The \code{\_\_iter\_\_()} method returns the iterator object itself, while the \code{\_\_next\_\_()} method returns the next value in the sequence. When there are no more values to return, \code{\_\_next\_\_()} raises a \code{StopIteration} exception to end of the iteration.
 
-The FibIterator class in \autoref{fig:fib-iterator} implements the iterator protocol. The constructor \code(\_\_init\_\_()} initializes the first two Fibonacci numbers and keeps track of the current count. The \code{\_\_iter\_\_()} method returns the iterator object itself, allowing it to be used in a loop or other iterable context (e.g., \code{for x in FibIterator(10)}). The \code{\_\_next\_\_()} method raises a \code{StopIteration} exception when the maximum count is reached or generates the next Fibonacci number in the sequence. 
+The FibIterator class in \autoref{fig:fib-iterator} implements the generation of Fibonaci numbers as an iterator. The constructor \code{\_\_init\_\_()} initializes the first two Fibonacci numbers and keeps track of the current count. The \code{\_\_iter\_\_()} method returns the iterator object itself, allowing it to be used in a loop or other iterable context (e.g., \code{for x in FibIterator(10)}). The \code{\_\_next\_\_()} method raises a \code{StopIteration} exception when the maximum count is reached or generates the next Fibonacci number in the sequence. 
 
 
 \paragraph{Benefits of Iterators}
@@ -3186,7 +3205,7 @@ The \code{make\_multiplier} function in \autoref{ex:closure-example} is an examp
 In this exercise you will demonstrate the concepts of higher-order functions, lambda functions, and closure. Example code are written in Python but you can use Python or any other language that supports these features.
 
 \begin{enumerate}
-\item Part 1: Create a \emph{higher-order} function that applies different operations (addition, subtraction, multiplication) to two numbers.
+\item Create a \emph{higher-order} function that applies different operations (addition, subtraction, multiplication) to two numbers.
 \begin{enumerate}
 \item Create a function called \code{operate\_on\_numbers (operation: function, a: int, b: int) -> int} that takes another function (operation) as an argument and applies that function to two numbers.
 \item Create multiple simple functions \code{add}, \code{subtract}, \code{multiply} that can be passed as arguments to \code{operate\_on\_numbers}.
@@ -3199,14 +3218,14 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 
 \end{enumerate}
 
-\item Part 2: Modify the code from Part 1 to use \emph{lambda functions} 
+\item Modify the code from Part 1 to use \emph{lambda functions} 
 \begin{enumerate}
 \item Replace \code{add}, \code{subtract}, and \code{multiply} with lambda expressions.
 \item Test the function by applying each operation to two numbers and printing the results.
 \item Discuss when you would want to use lambda functions? When would you want to use a name function?
 \end{enumerate}
 
-\item Part 3: Using higher-order functions
+\item Using higher-order functions
 \begin{enumerate}
 \item For each higher-order function \code{map}, \code{filter}, and \code{reduce}, create some code to apply each to a list of \code{str}.
 \item Clearly explain what each function does and print several examples to demonstrate each function.
@@ -3214,7 +3233,7 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 \item Create some code to demonstrate the use of the accumulator in \code{reduce}. DO NOT use the example in the lectures (eg.., sum, product, subtract).
 \end{enumerate}
 
-\item Part 4: Write a function \code{make\_max\_tracker()} that returns a closure that tracks and returns the highest number seen so far. In Python, to access a variable that is not in scope, you might need to use the \code{nonlocal} keyword, e.g., \code{nonlocal var\_name}.
+\item Write a function \code{make\_max\_tracker()} that returns a closure that tracks and returns the highest number seen so far. In Python, to access a variable that is not in scope, you might need to use the \code{nonlocal} keyword, e.g., \code{nonlocal var\_name}.
 \begin{lstlisting}
     def make_max_tracker():
         ...
@@ -5631,7 +5650,7 @@ The following is a suggested schedule and assignment for the course over a semes
             \item Generators
             \item Covariance, Contravariance, and Invariance
         \end{itemize}
-        \item Prime Number (\autoref{exercise:prime-number})
+        \item In-class: Prime Number (\autoref{exercise:prime-number})
         \item HW Assignment: \red{\textbf{Due date: Wed 3/26}}
         \begin{enumerate}
             \item Variance exercise (\autoref{ex:variance1})
@@ -5645,19 +5664,19 @@ The following is a suggested schedule and assignment for the course over a semes
         \item Quiz: LSP Analysis (\autoref{exercise:lsp-analysis})
     \end{itemize}
 
-    % \item \textbf{Module 6}
-,     % \begin{itemize}
-    %     \item Topics: Functions as First-class Citizens
-    %     \item Reading: \autoref{chap:first-class-functions}
-    %     \begin{itemize}
-    %         \item Higher-Order functions
-    %         \item Lambda functions
-    %         \item Closure
-    %     \end{itemize}
-    %     \item In-class: Functions First (\autoref{exercise:functions-first})
-    %     \item HW Assignment: Redo \autoref{exercise:functions-first} 
-    %     %\item Quiz: Iterator and Generator Multiple Choice (\autoref{exercise:iterator-generator-mc})
-    % \end{itemize}
+    \item \textbf{Module 6}
+     \begin{itemize}
+        \item Topics: Functions as First-class Citizens
+        \item Reading: \autoref{chap:first-class-functions}
+        \begin{itemize}
+            \item Higher-Order functions
+            \item Lambda functions
+            \item Closure
+        \end{itemize}
+        \item In-class: Functions First (\autoref{exercise:functions-first})
+        \item HW Assignment: Redo \autoref{exercise:functions-first} 
+        %\item Quiz: Iterator and Generator Multiple Choice (\autoref{exercise:iterator-generator-mc})
+    \end{itemize}
     
     % \item \textbf{Module 7}
     % \begin{itemize}
