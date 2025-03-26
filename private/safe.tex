@@ -2984,7 +2984,7 @@ For each case below, determine if LSP holds by checking whether the precondition
 
 \begin{figure}
     \begin{lstlisting}
-        class A:
+    class A:
         def doit(self, data: object) -> dict:
             pass
     
@@ -3207,7 +3207,7 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 \begin{enumerate}
 \item Create a \emph{higher-order} function that applies different operations (addition, subtraction, multiplication) to two numbers.
 \begin{enumerate}
-\item Create a function called \code{operate\_on\_numbers (operation: function, a: int, b: int) -> int} that takes another function (operation) as an argument and applies that function to two numbers.
+\item Create a function called \code{operate\_on\_numbers (operation, a: int, b: int) -> int} that takes another function (\code{operation}) as an argument and applies that function to two numbers.
 \item Create multiple simple functions \code{add}, \code{subtract}, \code{multiply} that can be passed as arguments to \code{operate\_on\_numbers}.
 \item Test the function by applying each operation to two numbers and printing the results.
 \begin{lstlisting}
