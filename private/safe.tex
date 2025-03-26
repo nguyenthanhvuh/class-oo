@@ -2103,32 +2103,56 @@ They demonstrate the power of abstraction by allowing users to focus on iteratio
 \paragraph{Motivation} Let’s consider a scenario where you need to generate Fibonacci numbers. A common but inefficient approach is to generate Fibonacci numbers up to a certain limit and store all them in a list, which consumes a lot of memory.
 
 \begin{lstlisting}
-def generate_fib_list(n: int) -> list[int]:
+def fib_gen_naive(n: int) -> list[int]:
     fib_sequence = [0, 1]
     for _ in range(2, n):
         fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
     return fib_sequence
 
 # Create the first 100K Fibs; consume lots of memory for storing all numbers
-fib_numbers = generate_fib_list(10**6)  
-print(fib_numbers[:10])  # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34] # only use first 10
+fib_numbers = fib_gen_naive(10**6)  
 \end{lstlisting}
 
-This approach is inefficient because it generates all Fibonacci numbers up to a certain limit and stores them in a list, which consumes a lot of memory, especially for large sequences. Also, this approach is wasteful because it generates all Fibonacci numbers at once, even if only a few are needed.
-A more efficient approach is to use an iterator or generator to produce Fibonacci numbers on the fly, only when needed.
+This approach is inefficient because it generates all Fibonacci numbers up to a certain limit and stores them in a list, which consumes a lot of memory, especially for large sequences. 
+A more efficient approach is to use an \emph{iterator} or \emph{generator} to produce Fibonacci numbers on the fly, only when needed. The code is shown in \autoref{fig:fib-iterator} and \autoref{fig:fib-generator} and discussed later. Here, we just want to show the difference between the two approaches.  
+
+
+By using iterator and generator, we efficiently generate Fibonacci numbers on demand, reducing memory consumption and improving performance. These approaches produce values one at a time, only when needed, making them ideal for large datasets or infinite sequences.
 
 \begin{lstlisting}
-# Efficient generator function that yields Fibonacci numbers on demand
-def fib_generator(n: int):
-    a, b = 0, 1
+def print_memory_usage(note=""):
+    process = psutil.Process(os.getpid())
+    print(f"- [memory] {note} consumes {process.memory_info().rss / (1024 * 1024):.2f} MB")
+    
+def test_me(f, n):
+    print(f"invoking {f.__name__}({n})")
+    st = time.time()
+    result = f(n)
     for _ in range(n):
-        yield a
-        a, b = b, a + b
+        pass
+    print(f"- [Time] {f.__name__} takes {time.time() - st:.3f}s")
+    print_memory_usage(f.__name__)
 
-print(list(fib_generator(10))) # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
-\end{lstlisting}
+n = 10**6
+test_me(fib_generator, n)
+test_me(fib_iterator, n)
+test_me(generate_fib_list,n)
 
-Using generator functions, we can efficiently generate Fibonacci numbers on demand, reducing memory consumption and improving performance. Generators produce values one at a time, only when needed, making them ideal for large datasets or infinite sequences.
+# Output:
+tnguyen@Patriot ~/g/c/c/p/code (main) [SIGKILL]> python3 iterator.py
+invoking fib_generator(1000000)
+- [Time] fib_generator takes 0.013s
+- [memory] fib_generator consumes 13.52 MB
+invoking fib_iterator(1000000)
+- [Time] fib_iterator takes 0.013s
+- [memory] fib_iterator consumes 13.52 MB
+invoking generate_fib_list(1000000) 
+...
+# consume a lot of memory and never finished 
+# as it was automatically killed by the OS
+
+\end{lstlisting}    
+
 
 
 \subsection{Iterators}\label{sec:iterators}
@@ -2148,40 +2172,41 @@ Key Concepts of Iterators:
 \begin{figure}
     \begin{minipage}[T]{0.50\textwidth}
 \begin{lstlisting}
-class Countdown:
-    def __init__(self, start: int):
-        self.current = start
+class FibIterator:
+    def __init__(self, max_count):
+        self.a, self.b = 0, 1 # Initial values
+        self.count = 0
+        self.max_count = max_count
 
-    def __iter__(self): 
+    def __iter__(self):
         return self
 
     def __next__(self):
-        if self.current > 0:
-            raise StopIteration 
-        else:
-            current_value = self.current
-            self.current -= 1
-            return current_value
+        if self.count >= self.max_count:
+            raise StopIteration
+        value = self.a
+        # Advance the sequence
+        self.a, self.b = 
+            self.b, self.a + self.b  
+        self.count += 1
+        return value
 
-countdown = Countdown(5)
-for number in countdown:
-    print(number) # Output: 5, 4, 3, 2, 1
+# to use as a (generator) function        
+def fib_iterator(max_count):
+    return FibIterator(max_count)
 
 \end{lstlisting}
-\caption{Iterator Countdown}\label{fig:iterator-countdown}
+\caption{Fibonacci Iterator}\label{fig:fib-iterator}
 \end{minipage}
 \begin{minipage}{0.50\textwidth}
     \begin{lstlisting}
-        # Generator function for a countdown
-        def countdown(start: int):
-            while start > 0:
-                yield start
-                start -= 1
-        
-        for number in countdown(5):
-            print(number) # Output: 5, 4, 3, 2, 1        
+def fibonacci_generator(max_count):
+    a, b = 0, 1
+    for _ in range(max_count):
+        yield a
+        a, b = b, a + b        
     \end{lstlisting}
-    \caption{Generator Countdown}\label{fig:generator-countdown}
+    \caption{Fibonacci Generator}\label{fig:fib-generator}
 \end{minipage}    
 \end{figure}
 
