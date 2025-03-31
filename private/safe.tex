@@ -802,7 +802,45 @@ def tail(my_list):
 
 \begin{enumerate}
     \item Write the \emph{partial} specifications for the below two functions.
+    
+    \sol {
+        \begin{itemize}
+            \item \code{divide}:
+                \begin{itemize}
+                    \item PRE: \code{b} must be non-zero
+                    \item POST: returns the result of dividing \code{a} by \code{b}
+                \end{itemize}
+            \item \code{get\_average}:
+                \begin{itemize}
+                    \item PRE: \code{numbers} must be non-empty
+                    \item POST: returns the average of the numbers in the list
+                \end{itemize}
+        \end{itemize}
+    }
     \item Modify the specifications to make the functions \emph{total}.
+
+    \sol {
+        \begin{itemize}
+            \item \code{divide}:
+                \begin{itemize}
+                    \item PRE: True
+                    \item POST: 
+                        \begin{itemize}
+                            \item if \code{b} is 0, raise an exception
+                            \item returns the result of dividing \code{a} by \code{b}
+                        \end{itemize}
+                \end{itemize}
+            \item \code{get\_average}:
+                \begin{itemize}
+                    \item PRE: True
+                    \item POST: 
+                        \begin{itemize}
+                            \item if \code{numbers} is empty, raise an exception
+                            \item returns the average of the numbers in the list
+                        \end{itemize}
+                \end{itemize}
+        \end{itemize}
+    }
     \item Modify the \emph{implementations} of the two functions to satisfy the total specifications.
 \end{enumerate}
 
