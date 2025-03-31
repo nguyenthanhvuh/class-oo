@@ -712,6 +712,19 @@ def merge_sorted_lists(lst1: List[int], lst2: List[int]) -> List[int]:
     ...
 \end{lstlisting}
 
+\sol{ 
+    \begin{itemize}
+    \item PRE/REQUIRES:
+        \begin{itemize}
+            \item `lst1` and `lst2` are not null.
+            \item `lst1` and `lst2` contain only numbers
+            \item `lst1` and `lst2` are sorted.
+        \end{itemize}
+    \item POST/EFFECTS: The returned list is a single sorted list in non-decreasing order containing all the elements
+    of `lst1` and `lst2`.
+    \end{itemize}
+}
+
 \subsection{Specification of Binary Search}\label{exercise:specs-binary-search}
 
 Come up with the specification for a \emph{binary search} implementation whose header is given below. Remember for precondition you want something as \emph{weak} as possible and for postcondition as \emph{strong} as possible. Note that binary search returns the \emph{location} (an non-neg integer) of the \code{target} value if found, and returns -1 if \code{target} is not found. 
