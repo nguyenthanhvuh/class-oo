@@ -3034,7 +3034,7 @@ In modern OOP, functions are treated as \emph{first-class} citizens, meaning the
     print(greeting("Alice"))  # Output: Hello, Alice!
 \end{lstlisting}
 
-In this example, the \code{greet} function is assigned to a variable \code{greeting}, which can then be called like a regular function. 
+For example, the function \code{greet} is assigned to a variable \code{greeting}, which can then be called like a regular function. 
 
 \begin{lstlisting}
     def apply(op, a:int, b:int) -> int: return op(a, b)        
@@ -3046,7 +3046,7 @@ In this example, the \code{greet} function is assigned to a variable \code{greet
     result_subtract = apply_op(subtract, 10, 5)  # Output: 5
 \end{lstlisting}
 
-For this example, \code{apply\_op} takes another function \code{op} as an argument and applies it to the given arguments. This allows for dynamic behavior based on the function passed to \code{apply\_op}.
+Here, \code{apply\_op} takes another function \code{op} as an argument and applies it to the given arguments. This allows for dynamic behavior based on the function passed to \code{apply\_op}.
 
 \begin{historybox}[History]
 Lisp, developed by John McCarthy in the late 1950s, was one of the first languages to treat functions as first-class citizens. Lisp's approach to functions was heavily influenced by \emph{lambda calculus}, developed by Alonzo Church in the 1930s, which formalized functions as mathematical expressions. Lisp's support for first-class functions allows for powerful programming techniques, such as higher-order functions (\autoref{sec:higher-order}).  Modern programming languages including Python, JavaScript, and Ruby all treat functions as first-class citizens. 
@@ -3060,7 +3060,7 @@ square = lambda x: x ** 2
 print(square(5))  # Output: 25
 \end{lstlisting}
 
-In the example above, a lambda function is used to define a function that squares a number. The lambda function is assigned to the variable \code{square} and can be called like a regular function.
+In this example, a lambda function is used to define a function that squares a number. The lambda function is assigned to the variable \code{square} and can be called like a regular function.
 Lambda functions are often used in conjunction with higher-order functions like \code{map}, \code{filter}, and \code{reduce}, described in \autoref{sec:higher-order}, to perform operations on collections of data.
 
 \section{Higher-Order Functions}\label{sec:higher-order}
@@ -3071,15 +3071,12 @@ In the world of first-class functions, functions that operate on other functions
     def square(x):
         return x * x
 
-    def cube(x):
-        return x * x * x
-
     def apply_to_list(func, numbers):
         return [func(number) for number in numbers]
 
     numbers = [1, 2, 3, 4, 5]
-    print(apply_to_list(square, numbers))  # Output: [1, 4, 9, 16, 25]
-    print(apply_to_list(cube, numbers))    # Output: [1, 8, 27, 64, 125]
+    print(apply_to_list(square, numbers)) # Output: [1, 4, 9, 16, 25]
+    print(apply_to_list(lambda x: x*x*x, numbers)) # Output: [1, 8, 27, 64, 125]
 
 \end{lstlisting}
 
@@ -3125,7 +3122,7 @@ The MapReduce framework, introduced by Google in 2004, was inspired by \code{map
 \end{historybox}
 
 \section{Closures}
-Closures are a higher-order function that returns a function. It is a powerful feature of first-class functions and allows functions to retain access to variables from their enclosing scope even after the scope has finished executing.
+Closures are a higher-order function that \emph{returns a function}. It is a powerful feature of first-class functions and allows functions to retain access to variables from their enclosing scope even after the scope has finished executing.
 
 \begin{historybox}[Fun fact] 
     Closures are used extensively in Javascript, introduced in the Netscape browser in 1995 by Bredan Eich. Javascript supports closures and first-class functions and enables the development of dynamic and interactive web applications, leading to its widespread adoption and popularity.
@@ -3147,32 +3144,32 @@ numbers = [1, 2, 3, 4, 5]
 multiplied_numbers = list(map(make_multiplier(2), numbers))
 print(multiplied_numbers)  # Output: [2, 4, 6, 8, 10]
 \end{lstlisting}
-\caption{Closure example. Note that this example also illustrate curry, a form of closure (\autoref{sec:curry})}\label{ex:closure-example}
+\caption{Closure example. Note that this example also illustrate curry, a form of closure (\autoref{sec:curry})}\label{fig:closure-example}
 \end{figure}
 
-The above example demonstrates a closure where the \code{make\_multiplier} function returns the \emph{closure} inner function \code{multiplier} that multiplies a number by a given factor. The \code{times\_three} function is created by calling \code{make\_multiplier(3)}, which returns a function that multiplies by 3. The closure allows the \code{multiplier} function to retain access to the \code{factor} variable even after \code{make\_multiplier} has finished executing.
+\autoref{fig:closure-example} demonstrates a closure where the \code{make\_multiplier} function returns the \emph{closure} inner function \code{multiplier} that multiplies a number by a given factor. The \code{times\_three} function is created by calling \code{make\_multiplier(3)}, which returns a function that multiplies by 3. The closure allows the \code{multiplier} function to retain access to the \code{factor} variable even after \code{make\_multiplier} has finished executing.
+
+
+As another example, the \code{make\_average} function below creates a closure that calculates the average of a series of numbers. The \code{average} function \emph{retains} access to the \code{series} list, allowing it to accumulate values and calculate the average over time.
+
 
 \begin{lstlisting}
-    def make_averager():
+    def make_average():
         series = []
 
-        def averager(new_value):
+        def average(new_value):
             series.append(new_value)
             total = sum(series)
             return total / len(series)
 
-        return averager
+        return average
 
-    avg = make_averager()
+    avg = make_average()
     print(avg(10))  # Output: 10.0
     print(avg(11))  # Output: 10.5
     print(avg(12))  # Output: 11.0
     print(avg(13))  # Output: 11.5
 \end{lstlisting}
-
-In the example above, the \code{make\_averager} function creates a closure that calculates the average of a series of numbers. The \code{averager} function retains access to the \code{series} list, allowing it to accumulate values and calculate the average over time.
-
-
 
 % **Example Code**:
 
@@ -3191,7 +3188,7 @@ In the example above, the \code{make\_averager} function creates a closure that 
 
 Currying is a special form of closure. The curried function takes one argument at a time and returns a new function that takes the next argument. In other words, it transforms a function of arity $n$ to $n$ functions of arity $1$.
 
-The \code{make\_multiplier} function in \autoref{ex:closure-example} is an example of currying. The function needs 2 arguments, but it is transformed into a series of 2 function calls where each take 1 argument. For example, \code{make\_multiplier(2)(3)} is equivalent to \code{2*3}.
+The \code{make\_multiplier} function in \autoref{fig:closure-example} is an example of currying. The function needs 2 arguments, but it is transformed into a series of 2 function calls where each take 1 argument. For example, \code{make\_multiplier(2)(3)} is equivalent to \code{2*3}.
 
 
 \begin{historybox}[History] 
