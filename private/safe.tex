@@ -4396,36 +4396,36 @@ valid, we first compute the \emph{weakest precondition} (WP) of the program \cod
 
 The weakest precondition (WP) of a program $S$ with respect to a postcondition $Q$ is the \emph{least restrictive} or weakest condition that ensures $Q$ after executing $S$. The WP is computed by working backwards from $Q$ using the program $S$. 
 
-\begin{algorithm}
-\SetKwInOut{Input}{Input}
-\SetKwInOut{Output}{Output}
-\Input{A program statement $S$ and a postcondition $Q$}
-\Output{The weakest precondition $WP(S,Q)$}
-\BlankLine
-\SetKwFunction{WP}{WP}
-\Switch{\(S\)}{
-        \Case{\(S\) is \texttt{skip}}{
-            \Return \(Q\)
-        }
-        \Case{\(S\) is an assignment \(x:=E\)}{
-            \Return \(Q[x/E]\)
-        }
-        \Case{ $S$ is a sequence $S_1;S_2$}{
-            \Return \WP($S_1$, \WP($S_2$, $Q$)) 
-        }
-        \Case{$S$ is a conditional statement \texttt{if $B$ then $S_1$ else $S_2$}}{
-            \Return $B\implies \WP(S_1, Q) \land (\neg B\implies \WP(S_2, Q))$
-        }
-        \Case{\(S\) is a loop \texttt{while \(B\) do \(S\)}}{
-            \tcp*[h]{Require a loop invariant $I$}\\
-            \Return $I \land (I \land B \implies \WP(S,I) \land (\neg I \land B \implies Q)$
-        }
-        \Case{otherwise}{
-             \Return \textbf{error: unsupported statement}
-        }
-    }
-\caption{Weakest Precondition Computation}
-\end{algorithm}
+% \begin{algorithm}
+% \SetKwInOut{Input}{Input}
+% \SetKwInOut{Output}{Output}
+% \Input{A program statement $S$ and a postcondition $Q$}
+% \Output{The weakest precondition $WP(S,Q)$}
+% \BlankLine
+% \SetKwFunction{WP}{WP}
+% \Switch{\(S\)}{
+%         \Case{\(S\) is \texttt{skip}}{
+%             \Return \(Q\)
+%         }
+%         \Case{\(S\) is an assignment \(x:=E\)}{
+%             \Return \(Q[x/E]\)
+%         }
+%         \Case{ $S$ is a sequence $S_1;S_2$}{
+%             \Return \WP($S_1$, \WP($S_2$, $Q$)) 
+%         }
+%         \Case{$S$ is a conditional statement \texttt{if $B$ then $S_1$ else $S_2$}}{
+%             \Return $B\implies \WP(S_1, Q) \land (\neg B\implies \WP(S_2, Q))$
+%         }
+%         \Case{\(S\) is a loop \texttt{while \(B\) do \(S\)}}{
+%             \tcp*[h]{Require a loop invariant $I$}\\
+%             \Return $I \land (I \land B \implies \WP(S,I) \land (\neg I \land B \implies Q)$
+%         }
+%         \Case{otherwise}{
+%              \Return \textbf{error: unsupported statement}
+%         }
+%     }
+% \caption{Weakest Precondition Computation}
+% \end{algorithm}
 
 
 \autoref{tab:wp} defines the function $\code{wp}(\code{S}, Q)$ that computes the WP, represented as a logical formula, of diferent program statements $S$ with respect to a postcondition $Q$.
@@ -4839,7 +4839,7 @@ else{
 
 \chapter{Abstract Interpretation}
 
-Abstract interpretation is another popular static analysis for proving program correctness.  It computes an overapproximation (an abstraction) of the program behavior to prove that the program satisfies its specification.
+Abstract interpretation is another popular static analysis for proving program correctness.  It computes an \emph{overapproximation}---an abstraction---of the program behavior to prove that the program satisfies its specification.
 
 
 The key difference between Hoare logic and abstract interpretation is that Hoare logic requires the user to provide the loop invariants, which can be challenging and error-prone.  In contrast, abstract interpretation is fully \emph{automatically} computes the loop invariants.  However,  abstract interpretation is an approximation, i.e., it might compute invariants that are too weak, and may not always be able to prove the program as we will see in this chapter.  Nonetheless, abstract interpretation is powerful, automatic, and efficient, and is widely used in practice.
