@@ -3281,23 +3281,23 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 \item Create some code to demonstrate the use of the accumulator in \code{reduce}. DO NOT use the example in the lectures (eg.., sum, product, subtract).
 \end{enumerate}
 
-% \item Write a function \code{make\_max\_tracker()} that returns a closure that tracks and returns the highest number seen so far. In Python, to access a variable that is not in scope, you might need to use the \code{nonlocal} keyword, e.g., \code{nonlocal var\_name}.
-% \begin{lstlisting}
-%     def make_max_tracker():
-%         ...
-%         def tracker(v):
-%            ...
+\item Write a function \code{make\_max\_tracker()} that returns a closure that tracks and returns the highest number seen so far. In Python, to access a variable that is not in scope, you might need to use the \code{nonlocal} keyword, e.g., \code{nonlocal var\_name}.
+\begin{lstlisting}
+    def make_max_tracker():
+        ...
+        def tracker(v):
+           ...
         
-%         return tracker
+        return tracker
 
-%     max_tracker = make_max_tracker()
+    max_tracker = make_max_tracker()
 
-%     # Test closer, notice how it "memorizes" what it has seen so far.
-%     print(max_tracker(5))  # Output: 5
-%     print(max_tracker(3))  # Output: 5
-%     print(max_tracker(8))  # Output: 8
-%     print(max_tracker(7))  # Output: 8
-% \end{lstlisting} 
+    # Test closer, notice how it "memorizes" what it has seen so far.
+    print(max_tracker(5))  # Output: 5
+    print(max_tracker(3))  # Output: 5
+    print(max_tracker(8))  # Output: 8
+    print(max_tracker(7))  # Output: 8
+\end{lstlisting} 
 
 \end{enumerate}
 
@@ -3305,22 +3305,22 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 \begin{enumerate}
     \item Explain the difference between a \emph{higher-order} function and a \emph{closure}. Provide an example of each.
     \item When would you use a \emph{lambda function} over a regular function? Provide an example.
-    \item Write a function \code{make\_min\_tracker()} that returns a closure which tracks and returns the lowest number seen so far.
-    \begin{lstlisting}
-    def make_min_tracker():
-        ...
-        def tracker(v):
-           ...
+    % \item Write a function \code{make\_min\_tracker()} that returns a closure which tracks and returns the lowest number seen so far.
+    % \begin{lstlisting}
+    % def make_min_tracker():
+    %     ...
+    %     def tracker(v):
+    %        ...
         
-        return tracker
+    %     return tracker
 
-    min_tracker = make_min_tracker()
-    print(min_tracker(5))  #  5
-    print(min_tracker(3))  #  3
-    print(min_tracker(8))  #  3
-    print(min_tracker(-1)) # -1
-    print(min_tracker(0))  # -1
-    \end{lstlisting}
+    % min_tracker = make_min_tracker()
+    % print(min_tracker(5))  #  5
+    % print(min_tracker(3))  #  3
+    % print(min_tracker(8))  #  3
+    % print(min_tracker(-1)) # -1
+    % print(min_tracker(0))  # -1
+    % \end{lstlisting}
 \end{enumerate}
 
 \part{Testing and Fault Localization}
