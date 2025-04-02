@@ -3277,8 +3277,8 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 \begin{enumerate}
 \item For each higher-order function \code{map}, \code{filter}, and \code{reduce}, create some code to apply each to a list of \code{str}.
 \item Clearly explain what each function does and print several examples to demonstrate each function.
-\item \code{reduce} also takes a third input called an \emph{accumulator}.  Explain how \code{reduce} works with the accumulator ? e.g., \code{reduce(f,[1,2,3,...,n],acc)} does what?
-\item Create some code to demonstrate the use of the accumulator in \code{reduce}. DO NOT use the example in the lectures (eg.., sum, product, subtract).
+\item \code{reduce} also takes a third input called an \emph{accumulator}.  Explain how \code{reduce} works with the accumulator ? e.g., \code{reduce(f,[1, 2, 3, ..., n],acc)} does what?
+\item Create some code to demonstrate the use of the accumulator in \code{reduce}. DO NOT reuse the examples in the lectures (e.g., \code{sum}, \code{product}, \code{subtract}).
 \end{enumerate}
 
 \item Write a function \code{make\_max\_tracker()} that returns a closure that tracks and returns the highest number seen so far. In Python, to access a variable that is not in scope, you might need to use the \code{nonlocal} keyword, e.g., \code{nonlocal var\_name}.
@@ -3292,7 +3292,7 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 
     max_tracker = make_max_tracker()
 
-    # Test closer, notice how it "memorizes" what it has seen so far.
+    # Test closure, notice how it "memorizes" what it has seen so far.
     print(max_tracker(5))  # Output: 5
     print(max_tracker(3))  # Output: 5
     print(max_tracker(8))  # Output: 8
@@ -3494,11 +3494,10 @@ Property-based testing generates random inputs to check specific \emph{propertie
 This example tests various properties of \code{square} and \code{add} with randomly generated integers \code{x, y}. In Python, you can use the \code{hypothesis} library, which generates random inputs and runs the tests with them. In Java, you can use the \code{jqwik} library for property-based testing.
 
 
-\subsection{Search-Based Software Testing (SBST)}
-SBST searches for inputs to optimize some objective. Examples include maximizing code coverage, causing a crash, or satisfying a specific property. 
-\subsection{Genetic Algorithm}\label{sec:ga}
+\subsection{Search-Based Software Testing (SBST): Genetic Algorithm}\label{sec:ga}
 
-Genetic Algorithm (GA) is an SBST technique that uses biological evolution---Darwin's theory of evolution---to generate test inputs.
+SBST searches for inputs to optimize some objective. Examples include maximizing code coverage, causing a crash, or satisfying a specific property. 
+\paragraph{Genetic Algorithm} Genetic Algorithm (GA) is an SBST technique that uses biological evolution---Darwin's theory of evolution---to generate test inputs.
 GA starts with an initial set or \emph{population} of random inputs (\emph{individuals}) and iteratively evolves them to find the best one that achieves some objective. GA uses a \emph{fitness function} to evaluate the quality of the individuals and \emph{selects} the best ones to survive and reproduce (i.e., survival of the fittest). GA then applies genetic operators to create individuals representing the new population in the next \emph{generation}. This process continues until a \emph{stopping criterion} is met.
 
 The main genetic operators in a GA are
@@ -3538,15 +3537,15 @@ The main genetic operators in a GA are
 \end{lstlisting}
 
 
-\paragraph{Count max 0s} The following is a simple example of using GA to find the input that maximizes the number of 0's in a list of numbers. So obviously the best input is a list of all 0's (but this is not known to the GA). The goal is to "evolve" the input to maximize the number of 0's.  See starter code \href{https://nguyenthanhvuh.github.io/class-oo/files/ga-count-0s.py}{here}
+\paragraph{Example: Count max 0s} Consider the task of using GA to find the input that maximizes the number of 0's in a list of numbers. So obviously the best input is a list of all 0's (but this is not known to the GA). The goal is to "evolve" the input to maximize the number of 0's.  See starter code \href{https://nguyenthanhvuh.github.io/class-oo/files/ga-count-0s.py}{here}
 
 \begin{itemize}
-    \item \textbf{Individual size}: a list of 10 random integers (-10 -- 10). 
+    \item \textbf{Individual}: a list of 10 random integers (e.g., in the range -10 to 10). 
     \item \textbf{Population}: 50 individuals
-    \item \textbf{Fitness function}: the individual with the most 0's is the best (e.g., the more 0s the higher fitness score).
-    \item \textbf{Selection}: tournament selection where we pick 3 random individuals and select the best one.
-    \item \textbf{Crossover}: using the rate of 0.7 to combine two parents. The crossover point is randomly selected, and the offspring is created by combining the first part of the first parent with the second part of the second parent.
-    \item \textbf{Mutation}: for each element in the individual, we randomly change it to random integer (-10 -- 10) with a probability of 0.01. 
+    \item \textbf{Fitness function}: the individual with the most 0's is the best---the more 0s the higher fitness score (closer to 1.0).
+    \item \textbf{Selection}: tournament selection where we pick $k$ (e.g., $k=3$) random individuals and select the best one. We apply tournament selection 50 time to get a new popular of 50 individuals.
+    \item \textbf{Crossover}: use the rate of 0.7 to combine two parents. The crossover point is randomly selected, and the offspring is created by combining the first part of the first parent with the second part of the second parent.
+    \item \textbf{Mutation}: for each element in the individual, we randomly change it to random integer (e.g., in the range -10 to 10) with a probability of 0.01. 
 \end{itemize}
 
 
@@ -3558,7 +3557,7 @@ The main genetic operators in a GA are
 
 \section{Whitebox Testing with Symbolic Execution}\label{sec:symbolic-execution}
 
-In contrast to black-box testing (\autoref{sec:blackbox}) that does not look at the code, \emph{white-box testing} reasons about the program using its source code, allowing it to find bugs that escape black-box testing.  For example, in the \code{square} function in \autoref{sec:blackbox}, by analyzing the code we can see that the program has a bug on input $123$ because it returns $-1$ instead of ${123}^2$. 
+In contrast to black-box testing (\autoref{sec:blackbox}) that does not look at the code---treating the program as a blackbox, \emph{white-box testing} reasons about the program using its source code, allowing it to find bugs that escape black-box testing.  For example, in the \code{square} function in \autoref{sec:blackbox}, by analyzing the code we can see that the program has a bug on input $123$ because it returns $-1$ instead of ${123}^2$. 
 
 
 \emph{Symbolic execution} is a white-box testing technique to find inputs causing the program to take some interesting paths (e.g., that result in a bug). Symbolic execution runs the program with \emph{symbolic inputs} instead of concrete ones (e.g., $x$ instead of $5$) and tracks program's state. It uses constraints or logical formulae to represent the program's \emph{path conditions} (PCs) over symbolic inputs that would reach the interesting paths or locations. It then uses a constraint solver, e.g., a SAT or SMT solver, to find the concrete input that satisfies the path condition (and thus reach the desired path or loc). 
@@ -5748,9 +5747,13 @@ The following is a suggested schedule and assignment for the course over a semes
             \item Fuzzing
             \item Genetic Algorithm
         \end{itemize}
-        \item In-class: List sum GA (\autoref{exercise:list-sum-ga})
-        \item HW Assignment: Do in-class list sum GA (\autoref{exercise:list-sum-ga})
-        %\item Quiz: E1 (\autoref{exercise:e1} higher-order and lambda function, closure)
+        \item In-class: GA Max 0's
+        \item HW Assignment
+        \begin{itemize}
+            \item Finish the GA Max 0's problem.
+            \item Do in-class list sum GA (\autoref{exercise:list-sum-ga}). Hint: You can reuse most of GA Max 0's code. 
+        \end{itemize} 
+        \item Quiz: E1 (\autoref{exercise:e1} higher-order and lambda function)
     \end{itemize}
 
     % \item \textbf{Module 8}
@@ -6175,14 +6178,5 @@ When a loop invariant $I$ for program verification such as proving the validity 
 %repr-inv:https://ocw.mit.edu/courses/6-170-laboratory-in-software-engineering-fall-2005/1a1f80fa85176ed3cae09ccd74f902d3_lec8.pdf
 
 
-
-For each case below, determine if LSP holds by checking whether the precon-
-ditions are weaker and the postconditions are stronger, and conclude whether LSP
-holds. Note that as soon as one rule is violated, LSP does not hold.
-
-
-1. B extends A
-2. C extends A
-3. A extends B
-4. C extends B
-5. A extends C
+Write applications as motivations for each techniques
+- e.g., for GA ,  how it is used to generate new radar design or finding the best network routing path
