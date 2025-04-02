@@ -3545,7 +3545,7 @@ The main genetic operators in a GA are
     \item \textbf{Fitness function}: the individual with the most 0's is the best (e.g., have a highest fitness score).
     \item \textbf{Selection}: tournament selection where we pick 3 random individuals and select the best one.
     \item \textbf{Crossover}: using the rate of 0.7 to combine two parents. The crossover point is randomly selected, and the offspring is created by combining the first part of the first parent with the second part of the second parent.
-    \item \textbf{Mutation}: for each element in the individual, we randomly change it to random integer (-10 -- 10) with a probability of 0.01.
+    \item \textbf{Mutation}: for each element in the individual, we randomly change it to random integer (-10 -- 10) with a probability of 0.01. 
 \end{itemize}
 
 
@@ -3652,7 +3652,7 @@ Thus we essentially want to check if any of the paths can reach the assertion lo
 
 
 \section{Exercise}
-\subsection{Genetic Algorithm: GCD}
+\subsection{Combinatorial and property testing: GCD}
 You are given two implementations that compute the GCD (Greatest Common Divisor) of two numbers\footnote{Recall that the GCD of two numbers is the largest number that divides both of them. For example, \code{gcd(8,12)=4}.}. One of them is correct and the other has a bug.  You will write combinatorial and property tests to find the bug.  
 
 
