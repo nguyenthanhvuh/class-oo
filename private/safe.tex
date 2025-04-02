@@ -3281,23 +3281,23 @@ In this exercise you will demonstrate the concepts of higher-order functions, la
 \item Create some code to demonstrate the use of the accumulator in \code{reduce}. DO NOT use the example in the lectures (eg.., sum, product, subtract).
 \end{enumerate}
 
-\item Write a function \code{make\_max\_tracker()} that returns a closure that tracks and returns the highest number seen so far. In Python, to access a variable that is not in scope, you might need to use the \code{nonlocal} keyword, e.g., \code{nonlocal var\_name}.
-\begin{lstlisting}
-    def make_max_tracker():
-        ...
-        def tracker(v):
-           ...
+% \item Write a function \code{make\_max\_tracker()} that returns a closure that tracks and returns the highest number seen so far. In Python, to access a variable that is not in scope, you might need to use the \code{nonlocal} keyword, e.g., \code{nonlocal var\_name}.
+% \begin{lstlisting}
+%     def make_max_tracker():
+%         ...
+%         def tracker(v):
+%            ...
         
-        return tracker
+%         return tracker
 
-    max_tracker = make_max_tracker()
+%     max_tracker = make_max_tracker()
 
-    # Test closer, notice how it "memorizes" what it has seen so far.
-    print(max_tracker(5))  # Output: 5
-    print(max_tracker(3))  # Output: 5
-    print(max_tracker(8))  # Output: 8
-    print(max_tracker(7))  # Output: 8
-\end{lstlisting} 
+%     # Test closer, notice how it "memorizes" what it has seen so far.
+%     print(max_tracker(5))  # Output: 5
+%     print(max_tracker(3))  # Output: 5
+%     print(max_tracker(8))  # Output: 8
+%     print(max_tracker(7))  # Output: 8
+% \end{lstlisting} 
 
 \end{enumerate}
 
