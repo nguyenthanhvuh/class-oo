@@ -3541,7 +3541,8 @@ The main genetic operators in a GA are
 \paragraph{Count max 0s} The following is a simple example of using GA to find the input that maximizes the number of 0's in a list of numbers. So obviously the best input is a list of all 0's (but this is not known to the GA). The goal is to "evolve" the input to maximize the number of 0's. 
 
 \begin{itemize}
-    \item \textbf{Population}: a list 50 of random integers (-10 -- 10) of size $10$.
+    \item \textbf{Individual size}: a list of 10 random integers (-10 -- 10). 
+    \item \textbf{Population}: 50 individuals
     \item \textbf{Fitness function}: the individual with the most 0's is the best (e.g., have a highest fitness score).
     \item \textbf{Selection}: tournament selection where we pick 3 random individuals and select the best one.
     \item \textbf{Crossover}: using the rate of 0.7 to combine two parents. The crossover point is randomly selected, and the offspring is created by combining the first part of the first parent with the second part of the second parent.
@@ -5463,37 +5464,37 @@ Short questions or Compare and contrast (if applicable also discuss the benefits
 \end{itemize}
 
 
-\chapter{Design Patterns}
+% \chapter{Design Patterns}
 
-\section{Creational Patterns}
-These patterns focuses on creating objects depending on their uses. 
+% \section{Creational Patterns}
+% These patterns focuses on creating objects depending on their uses. 
 
-\subsection{Singleton}
-Each class has only one instance. Examples of singletons include logging (for logging messages) and configuration (for reading configuration files). 
+% \subsection{Singleton}
+% Each class has only one instance. Examples of singletons include logging (for logging messages) and configuration (for reading configuration files). 
 
-\lstinputlisting{code/singleton.py}
+% \lstinputlisting{code/singleton.py}
 
-\subsection{Factory Method}
-
-
-\lstinputlisting[multicols=2]{code/factory.py}
+% \subsection{Factory Method}
 
 
-\subsection{Abstract Factory}
-
-\subsection{Builder}
-
-\subsection{Prototype}
-
-\section{Structural Patterns}
-These focus on how objects are composed or structured.
-
-\subsection{Adapter}
+% \lstinputlisting[multicols=2]{code/factory.py}
 
 
-\section{Behavioral Patterns}
+% \subsection{Abstract Factory}
 
-\section{Composition over Inheritance}
+% \subsection{Builder}
+
+% \subsection{Prototype}
+
+% \section{Structural Patterns}
+% These focus on how objects are composed or structured.
+
+% \subsection{Adapter}
+
+
+% \section{Behavioral Patterns}
+
+% \section{Composition over Inheritance}
 
 % \chapter{Specification}
 

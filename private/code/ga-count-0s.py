@@ -6,7 +6,8 @@ def gen_pop(pop_size, indv_size, min_val, max_val):
             for _ in range(pop_size)]
 
 def eval_fitness(indiv, indv_size):
-    return 1. / (1 + (indv_size - indiv.count(0)))
+    # return 1. / (1 + (indv_size - indiv.count(0)))
+    return indiv.count(0) / indv_size
 
 def select(pop, fscores):
     tournament_size = 3
@@ -59,7 +60,7 @@ def ga(pop_size, indv_size, xover_rate, mut_rate, min_val, max_val):
 
 
 # Parameters
-pop_size = 10
+pop_size = 5
 indv_size = 50
 min_val = -10
 max_val = 10
@@ -74,3 +75,19 @@ etime = time.time() - stime
 print(f"RESULT: Best = {best}, sum = {sum(best)}, fit = {best_fit}, total time = {etime}s")
 
 
+
+# fitness :  returns 0 ... 1   (1 being the best, 0 being the worst)
+
+
+#1. [0,1,4,10,-2]                  fit = 0.2
+
+#2. [-1,-4,0,5,0]   better than 1   fit=.4
+#3. [0,0, 1,0,-1]   better than 2   fit=.6
+
+# => 
+# [-1,-4,1,0,-1]      fit = .2 
+# [0,0,0,5,0]         fit = .8
+
+# [-1,-8,1,1,-1]    #  fit = 0 
+
+# of 0's /  len(input)

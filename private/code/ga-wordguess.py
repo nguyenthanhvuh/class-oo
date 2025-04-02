@@ -6,16 +6,7 @@ DBG = pdb.set_trace
 
 #############################################################################################
 TARGET = '''
-Tomorrow Speculative Fiction was a science fiction magazine
-edited by Algis Budrys (pictured), published in print and
-online in the US from 1992 to 1999. It was launched by Pulphouse
-Publishing, but cash flow problems led Budrys to buy the magazine
-after the first issue and publish it himself.
-There were 24 issues as a print magazine from 1993 to 1997, mostly on a bimonthly schedule. The magazine lost money, and in 1997 Budrys moved to online publishing, rebranding the magazine as tomorrowsf. Readership grew while the magazine was free on the web, but fell when Budrys began charging for subscriptions. In 1998 Budrys stopped acquiring new fiction, only publishing reprints of his own stories, and in 1999 he shut the magazine down. Tomorrow published many new writers, though few of them went on to successful careers. Well-known authors who appeared in the magazine included Gene Wolfe, Ursula K. Le Guin, and Harlan Ellison. Tomorrow was a finalist for the Hugo Award for Best Semiprozine in 1994 and 1995.
-
-(
-te&a!4/n=KVT6JY7[_Wg@`v+^d-C(R{;Q%>?XyjG9}
-Z<D8Npwh
+The 2012 Aston Martin Vanquish was the second generation of the Vanquish, a grand touring car. It was produced between 2012 and 2018 by the British carmaker Aston Martin. It succeeded the DBS, resurrected the name of the 2001–2007 model, and was available as both a coupe and a convertible, the latter known as the Volante. The Vanquish, which is based upon the DB9's architecture, extensively incorporates aluminium throughout its construction. The Vanquish was designed by Marek Reichman and showcased at several events in 2012. It was produced in Gaydon, a village in Warwickshire, England. Aston Martin unveiled the Vanquish Volante in August 2013 and began deliveries late that year. In 2014, they implemented minor modifications to the Vanquish's engine performance. A significantly modified version, the Vanquish S, was launched in 2016; its Volante version was released the following year. The Vanquish S introduced such updates as increased horsepower and torque, and a new body kit. 
 '''
 
 len_target = len(TARGET)
@@ -155,12 +146,12 @@ def genetic_algorithm(chrome_siz, pop_siz, max_gen):
         avg_scores.append(avg_fitness)
         best_scores.append(best_fitness)
 
-        if generation % 100 == 0:
+        if generation % 2 == 0:
             print(f"\n*** Generation: {generation}, "
                   f"avg fit {avg_fitness}, best fit {best_fitness}\n",
                   to_str(best_individual))
 
-        #sleep(0.1)
+        # sleep(0.5)
 
     etime = time() - start_time
     print(f"\nBest individual: fit {best_fitness} in {generation} gens, {etime}s\n",
