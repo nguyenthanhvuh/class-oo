@@ -3495,10 +3495,10 @@ This example tests various properties of \code{square} and \code{add} with rando
 
 
 \subsection{Search-Based Software Testing (SBST)}
-SBST searches for inputs to optimize some objective. Examples include maximizing code coverage, causing a crash, or satisfying a specific property.
+SBST searches for inputs to optimize some objective. Examples include maximizing code coverage, causing a crash, or satisfying a specific property. 
 \subsection{Genetic Algorithm}\label{sec:ga}
 
-Genetic Algorithm (GA) is an SBST technique that uses biological evolution (Darwin's theory of evolution) to generate test inputs.
+Genetic Algorithm (GA) is an SBST technique that uses biological evolution---Darwin's theory of evolution---to generate test inputs.
 GA starts with an initial set or \emph{population} of random inputs (\emph{individuals}) and iteratively evolves them to find the best one that achieves some objective. GA uses a \emph{fitness function} to evaluate the quality of the individuals and \emph{selects} the best ones to survive and reproduce (i.e., survival of the fittest). GA then applies genetic operators to create individuals representing the new population in the next \emph{generation}. This process continues until a \emph{stopping criterion} is met.
 
 The main genetic operators in a GA are
@@ -3538,6 +3538,15 @@ The main genetic operators in a GA are
 \end{lstlisting}
 
 
+\paragraph{Count max 0s} The following is a simple example of using GA to find the input that maximizes the number of 0's in a list of numbers. So obviously the best input is a list of all 0's (but this is not known to the GA). The goal is to "evolve" the input to maximize the number of 0's. 
+
+\begin{itemize}
+    \item \textbf{Population}: a list 50 of random integers (-10 -- 10) of size $10$.
+    \item \textbf{Fitness function}: the individual with the most 0's is the best (e.g., have a highest fitness score).
+    \item \textbf{Selection}: tournament selection where we pick 3 random individuals and select the best one.
+    \item \textbf{Crossover}: using the rate of 0.7 to combine two parents. The crossover point is randomly selected, and the offspring is created by combining the first part of the first parent with the second part of the second parent.
+    \item \textbf{Mutation}: for each element in the individual, we randomly change it to random integer (-10 -- 10) with a probability of 0.01.
+\end{itemize}
 
 
 %\section{Regression Testing}
@@ -3681,10 +3690,8 @@ In this assignment you have two tasks. First, you will \emph{implement a GA} tha
 
 \paragraph{Task 1: GA implementation}
 
- You can use the GA template in \autoref{sec:ga} for this task. You can also use the following \href{https://nguyenthanhvuh.github.io/class-oo/ga-example.py}{GA code for counting 0's} as example. You will likely need to modify this code to fit your needs as the problem and objective are very different.
- 
- 
- Specifically, you will implement the following GA components. The \emph{signatures} below for the functions are just suggestions. You can modify them as needed.
+ You can use the GA template in \autoref{sec:ga} for this task. 
+  Specifically, you will implement the following GA components. The \emph{signatures} below for the functions are just suggestions. You can modify them as needed.
 
 
 \begin{enumerate}
