@@ -1,3 +1,6 @@
+# https://nguyenthanhvuh.github.io/class-oo/files/ga-count-0s.py
+# https://nguyenthanhvuh.github.io/class-oo/safe.pdf
+
 import random
 import time
 
