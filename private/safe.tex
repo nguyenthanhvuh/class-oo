@@ -3538,12 +3538,12 @@ The main genetic operators in a GA are
 \end{lstlisting}
 
 
-\paragraph{Count max 0s} The following is a simple example of using GA to find the input that maximizes the number of 0's in a list of numbers. So obviously the best input is a list of all 0's (but this is not known to the GA). The goal is to "evolve" the input to maximize the number of 0's. 
+\paragraph{Count max 0s} The following is a simple example of using GA to find the input that maximizes the number of 0's in a list of numbers. So obviously the best input is a list of all 0's (but this is not known to the GA). The goal is to "evolve" the input to maximize the number of 0's.  See starter code \href{files/ga-count0s.py}{here}
 
 \begin{itemize}
     \item \textbf{Individual size}: a list of 10 random integers (-10 -- 10). 
     \item \textbf{Population}: 50 individuals
-    \item \textbf{Fitness function}: the individual with the most 0's is the best (e.g., have a highest fitness score).
+    \item \textbf{Fitness function}: the individual with the most 0's is the best (e.g., the more 0s the higher fitness score).
     \item \textbf{Selection}: tournament selection where we pick 3 random individuals and select the best one.
     \item \textbf{Crossover}: using the rate of 0.7 to combine two parents. The crossover point is randomly selected, and the offspring is created by combining the first part of the first parent with the second part of the second parent.
     \item \textbf{Mutation}: for each element in the individual, we randomly change it to random integer (-10 -- 10) with a probability of 0.01. 
