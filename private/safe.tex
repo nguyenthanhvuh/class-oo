@@ -3248,7 +3248,7 @@ The \code{make\_multiplier} function in \autoref{fig:closure-example} is an exam
 
 \section{Exercise}
 
-\section{Functions First}\label{exercise:functions-first}
+\subsection{Functions First}\label{exercise:functions-first}
 
 In this exercise you will demonstrate the concepts of higher-order functions, lambda functions, and closure. Example code are written in Python but you can use Python or any other language that supports these features.
 
@@ -3494,39 +3494,6 @@ Property-based testing generates random inputs to check specific \emph{propertie
 This example tests various properties of \code{square} and \code{add} with randomly generated integers \code{x, y}. In Python, you can use the \code{hypothesis} library, which generates random inputs and runs the tests with them. In Java, you can use the \code{jqwik} library for property-based testing.
 
 
-\section{In-class Exercise: GCD}
-You are given two implementations computing the GCD (Greatest Common Divisor) of two numbers. One of them is correct and the other has a bug.  You will write combinatorial and property tests to find the bug. Recall that the GCD of two numbers is the largest number that divides both of them. For example, \code{gcd(8,12)=4}. 
-
-
-\begin{lstlisting}[multicols=2]
-def gcd_correct(a, b):
-    while b != 0:
-        a, b = b, a % b
-    return abs(a)
-
-def gcd_buggy(a, b):
-    while b != 0:
-        a, b = b, a % b
-    return a
-\end{lstlisting}
-
-\paragraph{Part 1: Using Combinatorial Testing to Find Bugs}
-\begin{itemize} 
-    \item Write code to perform combinatorial testing on \code{gcd\_correct} and \code{gcd\_buggy}. In Python, these would be done by importing the \code{parameterized} module (\autoref{sec:combinatorial-testing})
-    \item Create tests with several positive, negative, and zero numbers.
-    \item Run the tests and show the bug in \code{gcd\_buggy}.  
-    \item Explain how combinatorial testing helped find the bug.
-\end{itemize}
-
-\paragraph{Part 2: Using Property Testing to Find Bugs}
-\begin{itemize}
-\item Identify several properties of GCD (use Wikipedia if you have to). One of these properties should help you detect the bug in \code{gcd\_buggy}.
-\item Write code to perform property-based testing on \code{gcd\_correct} and \code{gcd\_buggy}. In Python, these would be done by importing the \code{hypothesis} module (\autoref{sec:property-based-testing})
-\item Run the tests and show the bug in \code{gcd\_buggy}.
-\item Explain how property-based testing helped find the bug.
-\end{itemize}
-
-
 \subsection{Search-Based Software Testing (SBST)}
 SBST searches for inputs to optimize some objective. Examples include maximizing code coverage, causing a crash, or satisfying a specific property.
 \subsection{Genetic Algorithm}\label{sec:ga}
@@ -3569,46 +3536,6 @@ The main genetic operators in a GA are
         best = select_best(...)
         return best
 \end{lstlisting}
-
-\section{In-class Exercise: GA list sum}\label{exercise:list-sum-ga}
-In this assignment you have two tasks. First, you will \emph{implement a GA} that evolves a population of lists of integers to find a list whose sum is a given target sum. Next, you will write a \emph{short report} that explains your GA and how you tested it.
-
-\paragraph{Task 1: GA implementation}
-
- You can use the GA template in \autoref{sec:ga} for this task. You can also use the following \href{https://nguyenthanhvuh.github.io/class-oo/ga-example.py}{GA code for counting 0's} as example. You will likely need to modify this code to fit your needs as the problem and objective are very different.
- 
- 
- Specifically, you will implement the following GA components. The \emph{signatures} below for the functions are just suggestions. You can modify them as needed.
-
-
-\begin{enumerate}
-    \item \emph{Generate} an initial, random population of lists of integers. The length of the popular and individual lists are given as input.  The integers in the list should be between a specified range (e.g., -100,100)\\
-    \code{gen\_pop(pop\_size:int, indv\_size:int, min\_val:int, max\_val:int) -> list[list[int]]}
-    \item Write a \emph{fitness function} that computes the fitness score based on how close the sum of the list is to the target sum. Closer is better (e.g., if the target is 99, then a list whose sum is 99 should have the ``perfect score'' while a list whose sum is 90 has a better score than a list whose sum is 50). Note that you must also take account of negative numbers and sums.  \\
-    \code{get\_fitness(indiv:list[int], target\_sum:int)}
-    \item Write a \emph{selection function} that selects the best individuals based on their fitness scores. You can use any selection method you like (e.g., roulette wheel, tournament selection). You should look these up to understand how they work.\\
-    \code{select(pop:list[list[int]], fitness:list[int], pop\_size:int) -> list[list[int]]}
-    \item Write a \emph{crossover} function that takes two parents and creates two offsprings using \emph{single-point} crossover (i.e., pick a random point and swap).\\
-    \code{def crossover(parent1: list[int], parent2: list[int], rate:float) -> tuple(list[int], list[int])}
-    \item Write a \emph{mutation} function that randomly changes a few elements of an individual based on a mutation rate.\\
-    \code{def mutate(indiv:list[int], rate:float, min\_val:int, max\_val:int) -> list[int]}
-    \item Write a \emph{stopping criterion} function that stops the GA when it found an individual whose sum is the target number.\\
-    \code{def stopping\_criterion(best\_fitness) -> bool}
-    \item Write the \emph{main} genetic algorithm that uses all the above functions and returns the best individual and its fitness.\\
-    \code{def ga(pop\_size:int, indv\_size:int, xover\_rate:float, mut\_rate:float, min\_val:int, max\_val:int, target:int): -> (list[int], float)}
-    \item Your GA should print out the best individual, its sum, and its fitness score at each generation (iteration).
-    \item Your GA has the various parameters (e.g., inputs to the \code{ga}). You should play with them to find values that work best.  You can start with these values: \code{pop\_size=100, indv\_size=10, xover\_rate=0.8, mut\_rate=0.1, min\_val=-100, max\_val=100, target=1000}.
-    \item Time your GA. You can use Python's \code{time} module for this.
-    \item Submit your code with a clear \code{README} instruction on how to run your GA and test it. You should also submit screenshots of your GA running (you don't need to show all the generations, just a few to show that it is working).
-\end{enumerate}
-
-\paragraph{Task 2: Write and submit a short report}
-\begin{enumerate}
-\item Write a report explaining your GA. More specifically for each of the above task, explain that you did (e.g., how do you generate the population, how do you compute the fitness, etc).
-
-\item Explain the parameters used and how they affect the performance of the GA (e.g., the time it took).  For example, how does the population size affect the performance? crossover and mutation rates? etc.
-
-\end{enumerate}
 
 
 
@@ -3714,6 +3641,80 @@ This allows us to use symbolic execution as usual compute the PC to reach the fa
 
 Thus we essentially want to check if any of the paths can reach the assertion location has $x + y + z = 3$. In this example, according to \autoref{tab:symbolic-execution}, we see that the path reaching $l7$ with PC $\lnot a \land b < 5 \land (\lnot a \land c)$ with PS $\{x\mapsto 0, y \mapsto 1, z \mapsto2\}$ would satisfy $x + y + z = 3$. Using a constraint solver, we can find the a concrete input $(a=0, b=3, c = 1)$ that would reach this path and fail the assertion.
 
+
+\section{Exercise}
+\subsection{Genetic Algorithm: GCD}
+You are given two implementations that compute the GCD (Greatest Common Divisor) of two numbers\footnote{Recall that the GCD of two numbers is the largest number that divides both of them. For example, \code{gcd(8,12)=4}.}. One of them is correct and the other has a bug.  You will write combinatorial and property tests to find the bug.  
+
+
+\begin{lstlisting}[multicols=2]
+def gcd_correct(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return abs(a)
+
+def gcd_buggy(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+\end{lstlisting}
+
+\paragraph{Part 1: Using Combinatorial Testing to Find Bugs}
+\begin{itemize} 
+    \item Write code to perform combinatorial testing on \code{gcd\_correct} and \code{gcd\_buggy}. In Python, these would be done by importing the \code{parameterized} module (\autoref{sec:combinatorial-testing})
+    \item Create tests with several positive, negative, and zero numbers.
+    \item Run the tests and show the bug in \code{gcd\_buggy}.  
+    \item Explain how combinatorial testing helped find the bug.
+\end{itemize}
+
+\paragraph{Part 2: Using Property Testing to Find Bugs}
+\begin{itemize}
+\item Identify several properties of GCD (use Wikipedia if you have to). One of these properties should help you detect the bug in \code{gcd\_buggy}.
+\item Write code to perform property-based testing on \code{gcd\_correct} and \code{gcd\_buggy}. In Python, these would be done by importing the \code{hypothesis} module (\autoref{sec:property-based-testing})
+\item Run the tests and show the bug in \code{gcd\_buggy}.
+\item Explain how property-based testing helped find the bug.
+\end{itemize}
+
+
+\subsection{Genetic algorithm: List sum}\label{exercise:list-sum-ga}
+In this assignment you have two tasks. First, you will \emph{implement a GA} that evolves a population of lists of integers to find a list whose sum is a given target sum. Next, you will write a \emph{short report} that explains your GA and how you tested it.
+
+\paragraph{Task 1: GA implementation}
+
+ You can use the GA template in \autoref{sec:ga} for this task. You can also use the following \href{https://nguyenthanhvuh.github.io/class-oo/ga-example.py}{GA code for counting 0's} as example. You will likely need to modify this code to fit your needs as the problem and objective are very different.
+ 
+ 
+ Specifically, you will implement the following GA components. The \emph{signatures} below for the functions are just suggestions. You can modify them as needed.
+
+
+\begin{enumerate}
+    \item \emph{Generate} an initial, random population of lists of integers. The length of the popular and individual lists are given as input.  The integers in the list should be between a specified range (e.g., -100,100)\\
+    \code{gen\_pop(pop\_size:int, indv\_size:int, min\_val:int, max\_val:int) -> list[list[int]]}
+    \item Write a \emph{fitness function} that computes the fitness score based on how close the sum of the list is to the target sum. Closer is better (e.g., if the target is 99, then a list whose sum is 99 should have the ``perfect score'' while a list whose sum is 90 has a better score than a list whose sum is 50). Note that you must also take account of negative numbers and sums.  \\
+    \code{get\_fitness(indiv:list[int], target\_sum:int)}
+    \item Write a \emph{selection function} that selects the best individuals based on their fitness scores. You can use any selection method you like (e.g., roulette wheel, tournament selection). You should look these up to understand how they work.\\
+    \code{select(pop:list[list[int]], fitness:list[int], pop\_size:int) -> list[list[int]]}
+    \item Write a \emph{crossover} function that takes two parents and creates two offsprings using \emph{single-point} crossover (i.e., pick a random point and swap).\\
+    \code{def crossover(parent1: list[int], parent2: list[int], rate:float) -> tuple(list[int], list[int])}
+    \item Write a \emph{mutation} function that randomly changes a few elements of an individual based on a mutation rate.\\
+    \code{def mutate(indiv:list[int], rate:float, min\_val:int, max\_val:int) -> list[int]}
+    \item Write a \emph{stopping criterion} function that stops the GA when it found an individual whose sum is the target number.\\
+    \code{def stopping\_criterion(best\_fitness) -> bool}
+    \item Write the \emph{main} genetic algorithm that uses all the above functions and returns the best individual and its fitness.\\
+    \code{def ga(pop\_size:int, indv\_size:int, xover\_rate:float, mut\_rate:float, min\_val:int, max\_val:int, target:int): -> (list[int], float)}
+    \item Your GA should print out the best individual, its sum, and its fitness score at each generation (iteration).
+    \item Your GA has the various parameters (e.g., inputs to the \code{ga}). You should play with them to find values that work best.  You can start with these values: \code{pop\_size=100, indv\_size=10, xover\_rate=0.8, mut\_rate=0.1, min\_val=-100, max\_val=100, target=1000}.
+    \item Time your GA. You can use Python's \code{time} module for this.
+    \item Submit your code with a clear \code{README} instruction on how to run your GA and test it. You should also submit screenshots of your GA running (you don't need to show all the generations, just a few to show that it is working).
+\end{enumerate}
+
+\paragraph{Task 2: Write and submit a short report}
+\begin{enumerate}
+\item Write a report explaining your GA. More specifically for each of the above task, explain that you did (e.g., how do you generate the population, how do you compute the fitness, etc).
+
+\item Explain the parameters used and how they affect the performance of the GA (e.g., the time it took).  For example, how does the population size affect the performance? crossover and mutation rates? etc.
+
+\end{enumerate}
 
 
 
@@ -5722,12 +5723,12 @@ The following is a suggested schedule and assignment for the course over a semes
             \item Closure
         \end{itemize}
         \item In-class: Functions First (\autoref{exercise:functions-first})
-        \item HW Assignment: \red{\textbf{Due date: Wed 4/26/2025}}
+        \item HW Assignment: \red{\textbf{Due date: Wed 4/2/2025}}
         \begin{itemize}
         \item Perfect Number Generator (\autoref{exercise:perfect-number}) 
-        \item Redo Function First ()\autoref{exercise:functions-first}) 
+        \item Redo Function First (\autoref{exercise:functions-first}) 
         \end{itemize}
-        \item Quiz: Variance LSP (\autoref{ex:variance1})
+        %\item Quiz: Variance LSP (\autoref{ex:variance1})
     \end{itemize}
     
     \item \textbf{Module 7}
