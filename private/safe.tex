@@ -2263,27 +2263,27 @@ class FibIterator:
 # to use as a (generator) function        
 def fib_iterator(max_count):
     return FibIterator(max_count)
+
+# Usage
+## Using for loop
+fibs = FibIterator(10)
+for num in fibs:
+    print(num)  # Output: 0, 1, 1, 2, 3, 5, 8
+
+## Using next() to get the next value
+fibs = FibIterator(10)
+while True:
+    try:
+        print(next(fibs))  # Output: 0, 1, 1, 2, 3, 5, 8
+    except StopIteration:
+        break    
 \end{lstlisting}
 \caption{Fibonacci Iterator}\label{fig:fib-iterator}
 \end{figure}
 
-\begin{figure}
-\begin{minipage}{0.50\textwidth}
-    \begin{lstlisting}
-def fibonacci_generator(max_count):
-    a, b = 0, 1
-    for _ in range(max_count):
-        yield a
-        a, b = b, a + b        
-    \end{lstlisting}
-    \caption{Fibonacci Generator}\label{fig:fib-generator}
-\end{minipage}    
-\end{figure}
-
 An Iterator is an object that implements the iterator protocol, which consists of two methods: \code{\_\_iter\_\_()} and \code{\_\_next\_\_()}. The \code{\_\_iter\_\_()} method returns the iterator object itself, while the \code{\_\_next\_\_()} method returns the next value in the sequence. When there are no more values to return, \code{\_\_next\_\_()} raises a \code{StopIteration} exception to end of the iteration.
 
-The FibIterator class in \autoref{fig:fib-iterator} implements the generation of Fibonaci numbers as an iterator. The constructor \code{\_\_init\_\_()} initializes the first two Fibonacci numbers and keeps track of the current count. The \code{\_\_iter\_\_()} method returns the iterator object itself, allowing it to be used in a loop or other iterable context (e.g., \code{for x in FibIterator(10)}). The \code{\_\_next\_\_()} method raises a \code{StopIteration} exception when the maximum count is reached or generates the next Fibonacci number in the sequence. 
-
+The \code{FibIterator} class in~\autoref{fig:fib-iterator} implements the generation of Fibonaci numbers as an iterator. The constructor \code{\_\_init\_\_()} initializes the first two Fibonacci numbers and keeps track of the current count. The \code{\_\_iter\_\_()} method returns the iterator object itself, allowing it to be used in a loop or other iterable context (e.g., \code{for x in FibIterator(10)}). The \code{\_\_next\_\_()} method raises a \code{StopIteration} exception when the maximum count is reached or generates the next Fibonacci number in the sequence.  To use \code{FibIterator}, we can use a \code{for} loop or the \code{next()} function to retrieve the next value as follows:
 
 \paragraph{Benefits of Iterators}
 \begin{itemize}
@@ -2296,7 +2296,33 @@ The FibIterator class in \autoref{fig:fib-iterator} implements the generation of
 \subsection{Generator}\label{sec:generators}
 Unlike an iterator which is an ADT, a generator is a feature in an OOP language that provides a way to implement iterators. Through keywords such as \code{yield} in Python, generators allow us to turn a method into one that behaves like an iterator, \emph{without} having to create a separate iterator class. Generators thus have the same benefits as iterators, such as memory efficiency and encapsulation, and does not require the explicit implementation of the \code{\_\_iter\_\_()} and \code{\_\_next\_\_()} methods.
 
-The \code{fib\_generator} function in~\autoref{fig:fib-generator} is defined as a generator that yields the Fibonacci numbers one at a time. Instead of returning \code{a} and exiting, the code \code{yield a} suspends the function's execution, save its state (e.g., local variables \code{a, b}) and returns the value of \code{a} to the caller. The next time the generator is called, it resumes execution from where it left off, continuing to generate the next Fibonacci number.
+
+\begin{figure}
+        \begin{lstlisting}
+def fibonacci_generator(max_count):
+    a, b = 0, 1
+    for _ in range(max_count):
+        yield a
+        a, b = b, a + b
+
+#using for loop    
+fibs = fibonacci_generator(10)
+for num in fibs:
+    print(num)  # Output: 0, 1, 1, 2, 3, 5, 8
+
+# Using next() to get the next value
+fibs = fibonacci_generator(10)
+while True:
+    try:
+        print(next(fibs))  # Output: 0, 1, 1, 2, 3, 5, 8
+    except StopIteration:
+        break
+\end{lstlisting}
+\caption{Fibonacci Generator}\label{fig:fib-generator}
+\end{figure}
+
+The \code{fib\_generator} function in~\autoref{fig:fib-generator} is defined as a generator that yields the Fibonacci numbers one at a time. Instead of returning \code{a} and exiting, the code \code{yield a} suspends the function's execution, save its state (e.g., local variables \code{a, b}) and returns the value of \code{a} to the caller. The next time the generator is called, it resumes execution from where it left off, continuing to generate the next Fibonacci number.  Similarly to iterator, to use the generator, we use a \code {foor} loop or \code{next()} to retrieve the next value as shown. 
+
 
 
 As another example, the \code{list\_generator} method below yields items from a list one by one. Notice the code uses generics to work with lists of any type \code{T}.
