@@ -1359,11 +1359,47 @@ Finally, it is important that while it is possible to convert a mutable ADT to a
 In this exercise, you will implement a \code{Stack} ADT. A stack is a common data structure that follows the Last-In-First-Out (LIFO) principle. You will:
 \begin{enumerate}
 \item Choose a Representation (rep) to represent your stack
+
+    \sol{We can use a list to represent the stack.}
 \item What would be the \emph{representation invariant} (rep-inv) for this rep? 
+
+    \sol{
+        \begin{itemize}
+        \item The list contains zero or more stack elements.
+        \item The top of the stack is the last element of the list
+        \end{itemize}
+    }
 \item Implement the rep-inv in a \code{repOK} method.
+
+    \sol{ Implementation omitted.}
 \item Provide the specifications of basic stack operations (\code{push}, \code{pop}, \code{is\_empty}) and implement these methods accordingly (pseudo code is fine).
+
+    \sol{
+        \begin{itemize}
+            \item Push:
+            \begin{itemize}
+                \item \code{PRE: element is any object}
+                \item \code{POST: element is added to the end of the list.}
+            \end{itemize}
+            \item Pop:
+            \begin{itemize}
+                \item \code{PRE: stack is not empty}
+                \item \code{POST: the last element of the list is removed and returned.}
+            \end{itemize}
+            \item Is\_empty:
+            \begin{itemize}
+                \item \code{PRE: None}
+                \item \code{POST: returns True if the list is empty, otherwise False.}
+            \end{itemize}
+        \end{itemize}
+    }
 \item What would be the abstraction function (AF) for this ADT?
+
+    \sol{The abstraction function maps the concrete state of an object to an abstract state.
+    For this stack implementation, the AF should print the stack represented by the list.}
 \item Implement the AF in a \code{\_\_str\_\_()} method (returns a string representation of the stack based on the AF)
+
+    \sol{ Implementation omitted.}
 \end{enumerate}
 
 \subsection{Polynomial ADT}\label{exercise:poly-adt}
@@ -1517,6 +1553,17 @@ Define the algebraic axioms for these operations. You can invent shortcuts to ma
     %deposit(deposit(A, x), y) = deposit(A, x + y)
     %balance(withdraw(A, x)) = balance(A) - x
     %withdraw(withdraw(A, x), y) = withdraw(A, x + y)
+
+\sol{
+    Some example axioms are shown below. It is not a complete list, but should give you an idea of how to write the axioms.
+    \begin{itemize}
+        \item $balance(deposit(A, x ))= balance(A) + x$
+        \item $deposit(deposit(A, x), y) = deposit(A, x + y)$
+        \item $balance(withdraw(A, x)) = balance(A) - x$
+        \item $withdraw(withdraw(A, x), y) = withdraw(A, x + y)$
+        \item $sum(balance(transfer(A,B,amount))) = sum(balance(A,B))$ where $sum(v_1,v_2)$ gives the sum $v_1+v_2$.
+    \end{itemize}
+}
 
 
 
