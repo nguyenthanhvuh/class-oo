@@ -1,74 +1,44 @@
 # Z3 
 
-
+import z3
 from z3 import *    # import all Z3 functions
 
 # some good examples here https://hanielbarbosa.com/papers/fm2024.pdf
 
 
-# check that Z3 works
+# Declare symbolic variables
 x = Int('x')
 y = Int('y')
-solve(x > 2, y < 10, x + 2*y == 7)
-# [y = 0, x = 7]
+z = Int('z')
 
+# ¬a ∧ b < 5 ∧ ¬a ∧ c 
 
-# Propositional logic
-a, b, c = Bools('a b c')
+f = z3.And(x + y == 150, x * z == 2025) 
 
-solve(a)   # [a = True]
-solve(a == b, a == Not(b)) # [No solution]
-
-prove(a == a) # True
-
-prove(Implies(a, a)) # True (a => a)
-prove (Implies(a, b)) # False (a => b)
-prove(Implies(a, b) == Or(Not(a), b)) # implication a => b  == !a or b
-prove (Not(And(a, b)) == Or(Not(a), Not(b))) # De Morgan !(a and b) == !a or !b
-prove(Implies(a, b) == Implies(Not(b), Not(a))) # contraposition a => b == !b => !a
-
-
-prove(Implies(And(a, Implies(a, b)), b)) # #modus ponens  a, a => b => b
-
-# Using SOLVE instead of PROVE
-# if a is valid, then prove(a) returns True and solve(Not(a)) return unsat
-solve(Not(Implies(a,a)))
-
-
-# if a is invalid, then prove(a) returns False and solve(Not(a)) returns an assignment (or counterexample)
-solve(Not(Implies(a,b)))
-
-
-
-# Using SOLVER 
-# modus ponens
+g = z3.And(y == -1875, x == 2025, z == 1)
 
 s = Solver()
-s.add(a)            #a is true
-s.add(Implies(a,b)) # a => b
-s.add(Not(b))       #but b is false
-print('modus ponens', s.check())  #unsat -> not possible
+s.add(f)
+s.add(z3.Not(g)) 
+
+print(s)
+if (s.check() == z3.sat):
+    print(s.model())
+else:
+    print("unsat")
 
 
-# VARIOUS EXAMPLES
 
-### Equivalence
-prove(x ==x)   ### reflexivity
-prove(Implies(a == b,b == a)) ### symmetric
-prove(Implies(And(a == b, b == c), a == c)) ### transitive
 
-# Arithmetic (first order logic)
-x, y = Ints('x y')
-prove(x + y == y + x) # commutativity
-prove(Implies(x > 10, x > 5)) # stronger
-prove(Implies(x==3, Or(x == 5, x == 3)))
-prove(Implies(x*x == 25, Or(x == 5, x == -5)))
 
-# If all humans are mortal and Socrates is human, then Socrates is mortal
-Human = DeclareSort('Human')
-x = Const('x', Human)
-Socrates = Const('Socrates', Human)
-Mortal = Function('Mortal', Human, BoolSort()) # function that takes a human and returns a boolean
+# # Create a solver
+# s = Solver()
 
-s = solver()
-s.add(ForAll(x, Implies(Mortal(x), True))) # all humans are mortal
+# # Add path constraints based on the nested conditionals
+# s.add(x + y == 150)
+# s.add(x * z == 2025)
+
+# if s.check() == sat:
+#     print(s.model())
+# else:
+#     print('unsat')

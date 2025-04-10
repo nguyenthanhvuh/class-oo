@@ -3627,7 +3627,6 @@ The main genetic operators in a GA are
 %\section{System Testing}
 
 
-
 \section{Whitebox Testing with Symbolic Execution}\label{sec:symbolic-execution}
 
 In contrast to black-box testing (\autoref{sec:blackbox}) that does not look at the code---treating the program as a blackbox, \emph{white-box testing} reasons about the program using its source code, allowing it to find bugs that escape black-box testing.  For example, in the \code{square} function in \autoref{sec:blackbox}, by analyzing the code we can see that the program has a bug on input $123$ because it returns $-1$ instead of ${123}^2$. 
@@ -3656,7 +3655,11 @@ void foo(int a, int b, int c){
         // l6 
     }
     // l7
-    assert(x + y + z != 3);
+    //assert(x + y + z != 3);
+
+    //equiv code to assertion
+    if(x + y + z == 3):
+        //l8 
 }
 \end{lstlisting}
 
@@ -3796,7 +3799,7 @@ In this assignment you have two tasks. First, you will \emph{implement a GA} tha
 
 \end{enumerate}
 
-\subsection{Using the Z3 SMT Solver}\label{exercise:z3-smt-solver}
+\subsection{Z3 SMT Solver and Symbolic Execution}\label{exercise:z3-smt-solver}
 
 Z3 is a theorem prover or SMT constraint solver developed at Microsoft.  It has been employed in various software testing and reasoning tasks. Major tech companies including MS, Google, Amazon (AWS), NASA, etc use Z3 for a wide-range of projects to solve problems in software, security, and AI. For example, Amazon AWS runs \emph{billions} of Z3 queries \emph{everyday}\footnote{https://www.amazon.science/blog/a-billion-smt-queries-a-day}.  In this exercise you will be introduced to Z3 and use it for various reasoning tasks.
 
@@ -4150,7 +4153,7 @@ Consider the following code:
             if x < y:               # line 4
                 m = y               # line 5
             else if x < z:          # line 6
-                m = y               # line 7, %bug, should be z
+                m = y               # line 7, %bug, should be z (x?)
         else:                       # line 8
             if x > y:               # line 9
                 m = z               # line 10, %bug, should be y
@@ -4158,6 +4161,11 @@ Consider the following code:
                 m = x               # line 12 
         print("median is ", m)      # line 13
 \end{lstlisting}
+
+%input 3 3 5 => pass test
+%l1, l2 (m=5), l3, l4, l7 (m=5), l13 (median is 3)
+%input 5 2 6 => fail test 
+% l1, l2(m=6), l3, l4, l6 , l7 (m2) , l13(median is 2)
 
 
 We now run the program on tests and collect the number of times each line was executed when the program failed and when it passed. 
@@ -4309,7 +4317,7 @@ This example does not show the case when the split results in all parts passing.
 
 
 \begin{enumerate}
-    \item Compute the Ochiai score for the lines in the table above.
+    \item Compute the Ochiai score for the lines in the median code in~\autoref{sec:statistical-debugging}.  Use~\autoref{tab:sd} as an example. 
     \item Explain the differences between Tarantula and Ochiai scores. Which one do you think is better? Why?
 \end{enumerate}
 
@@ -5824,7 +5832,7 @@ The following is a suggested schedule and assignment for the course over a semes
             \item Genetic Algorithm
         \end{itemize}
         \item In-class: GA Max 0's
-        \item HW Assignment:  \red{\textbf{Due date: Wed 4/9/2025}}
+        \item HW Assignment:  
         \begin{itemize}
             \item Finish the GA Max 0's problem.
             \item Do list sum GA (\autoref{exercise:list-sum-ga}). Hint: You can reuse most of GA Max 0's code. 
@@ -5835,14 +5843,14 @@ The following is a suggested schedule and assignment for the course over a semes
     \item \textbf{Module 8}
     \begin{itemize}
         \item Topics: Testing and Fault Localization
-        \item Reading: \autoref{tab:symbolic-execution} and~\autoref{chapter:debugging}
+        \item Reading: \autoref{sec:symbolic-execution} and~\autoref{chapter:debugging}
         \begin{itemize}
             \item Symbolic Execution
             \item Statistical Debugging
         \end{itemize}
-        \item In-class: Statistical Debugging Tarantula vs Ochiai metrics (\autoref{exercise:tarantula-ochiai})
-        % \item HW Assignment: NONE
-        %\item Quiz: Names
+        \item %In-class: Statistical Debugging Tarantula vs Ochiai metrics (\autoref{exercise:tarantula-ochiai})
+        \item HW Assignment: Z3 SMT Solver and Symbolic Execution (\autoref{exercise:z3-smt-solver}) and Ochiai Statistical Debugging (\autoref{exercise:tarantula-ochiai}) \red{\textbf{Due date: Wed 4/16/2025}}
+        \item Quiz: Names
     \end{itemize}
 
     % \item \textbf{Module 9}
@@ -6255,3 +6263,102 @@ When a loop invariant $I$ for program verification such as proving the validity 
 
 Write applications as motivations for each techniques
 - e.g., for GA ,  how it is used to generate new radar design or finding the best network routing path
+
+
+
+
+
+def foo(x):
+    //l0
+
+    if x == True:
+        r = 0:
+    else: # x = False
+        r = x
+
+    if (x2) :
+        .. 
+    else:
+        ... 
+
+    ...         
+
+    if (xn) :
+        .. 
+    else:
+        ... 
+
+
+    //lend
+    return r 
+
+
+       x 
+    /      \
+   x2      x2 
+   /\      /\
+ x3  x3   x3 x3 
+ /\  /\   /\  /\ 
+
+1.    x = True and x2 = True and x3 = True
+2.   x = True  and x2 = True and x3 = False
+3.   x = True and x2 = False and x3 = True 
+
+
+
+8  x = False x2 = False and x3 = False 
+
+
+
+i = 0 
+while(rand()): 
+
+x = 10
+
+
+i = 0 
+//l0
+if i = 0:
+  //l1
+  i = i + 1
+else:
+  //l2
+  pass  
+if i = 1:
+   //l3
+  i = i + 1
+else:
+  //l4
+  pass
+if i >= 2:
+  //l5
+  x = 10
+else:
+  //l6
+
+1.  l0 ,   l1, l3  , l5
+1. l2  
+
+
+
+
+l0 :  True    |   ??
+l1 :  True    | x -> 0 , y -> 0 , z ->0
+l2 :  a       | x -> -2,  y -> 0, z -> 0
+l3 :  a       | x -> -2 , y -> 0 , z -> 0
+      !a      | x ->  0,  y -> 0 , z -> 0
+l4:  a & b <5 | x -> -2 , y -> 0 , z -> 0               
+     !a & b <5| x -> 0  , y -> 0 , z -> 0               
+
+
+
+
+def mystery(int x, int y, int z):
+    if x + y == 150:
+        if x * z == 2025:
+            assert False     
+
+
+x = 2025
+y = -1875
+z = 1        
