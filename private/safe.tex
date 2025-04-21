@@ -3493,7 +3493,8 @@ This testing runs the program on special or edge cases to find bugs that are not
 For example, a program like \code{MathStuff.square} in \autoref{sec:unit-testing} should be tested with negative numbers, zero, and positive numbers. Similarly, for a program that takes a list of numbers as input, special cases could include an empty list, with one element, with all 0's, with all negative numbers, etc.
 
 
-\subsection{Fuzz Testing}
+\subsection{Fuzz Testing}\label{sec:fuzz-testing}
+
 This testing generates random and \emph{invalid} inputs to test the program. For example, a program expects a number is tested with a string or a dict.  It has the similar purpose as special cases testing (\autoref{sec:special-case-testing}), but instead of using specific valid inputs, it generates many random and invalid inputs. Fuzz testing is often used to find security vulnerabilities. Many advanced fuzzing techniques generate new inputs from existing or \emph{seed} inputs, e.g., by flipping bits or changing values slightly.
 
 \begin{lstlisting}
@@ -4204,7 +4205,8 @@ Note that scores for lines 1 and line 13, which are always executed, are $4/4 / 
 
 
 
-\section{Delta Debugging (DD)}
+\section{Delta Debugging (DD)}\label{sec:delta-debugging}
+
 While statistical debugging (\autoref{sec:statistical-debugging}) aims to localize faults in the code,  DD focuses on finding the smallest input that triggers the issue. DD aims to \emph{minimize} a \emph{failing} input  (e.g., causing the program to crash or producing some interesting behavior). It is useful for debugging and finding a simpler input that is still interesting. DD works by repeatedly splitting the input into smaller parts and checking if they still trigger the issue. When using DD, you will need to provide an \emph{oracle} that checks if the input $P$ is interesting (e.g., causing a crash). 
 
 \paragraph{Example 1} \emph{Oracle}: program fails (is interesting) whenever input contains an asterisk (*). 
@@ -4336,8 +4338,8 @@ Apply this metrics to compute the suspiciousness scores for the lines in \autore
 
 \subsection{Delta Debugging Practice}\label{exercise:dd-practice}
 \begin{itemize}
-    \item Apply DD to the input string \code{"*hello*world*"} to find the smallest failing input. The oracle is that the input fails whenever it contains \code{"oo"}.
-    \item What is best-case complexity of DD? Give an example of an input that would take the most steps to find the smallest failing input.
+    \item Apply DD to the input string \code{"*hello*world*"} to find the smallest failing input. The oracle is that the input fails whenever it contains \code{"oo"} (fails whenever the input has 2 \code{o}'s).
+    \item What is the best-case complexity of DD? Give an example of an input that would take the least steps to find the smallest failing input.
     \item What is the worst-case complexity of DD? Give an example of an input that would take the most steps to find the smallest failing input.
 \end{itemize}
 
@@ -4379,7 +4381,7 @@ In \autoref{chapter:testing} we focus on testing to find bugs and find counterex
 
 
 
-\chapter{Hoare Logic}\label{sec:hoare-logic}
+\chapter{Hoare Logic}\label{chapter:hoare-logic}
 
 Hoare Logic is a formal system used to reason about the correctness of programs.  
 It was introduced by C.A.R. Hoare in the late 1960s and is a fundamental technique in program verification. 
@@ -5821,7 +5823,7 @@ The following is a suggested schedule and assignment for the course over a semes
         \end{itemize}
         \item Quiz: Variance LSP (\autoref{ex:variance1})
     \end{itemize}
-    
+
     \item \textbf{Module 7}
     \begin{itemize}
         \item Topics: Testing
@@ -5848,23 +5850,22 @@ The following is a suggested schedule and assignment for the course over a semes
             \item Symbolic Execution
             \item Statistical Debugging
         \end{itemize}
-        \item %In-class: Statistical Debugging Tarantula vs Ochiai metrics (\autoref{exercise:tarantula-ochiai})
-        \item HW Assignment: Z3 SMT Solver and Symbolic Execution (\autoref{exercise:z3-smt-solver}) and Ochiai Statistical Debugging (\autoref{exercise:tarantula-ochiai}) \red{\textbf{Due date: Wed 4/16/2025}}
+        % \item In-class: Statistical Debugging Tarantula vs Ochiai metrics (\autoref{exercise:tarantula-ochiai})
+        \item HW Assignment: Z3 SMT Solver and Symbolic Execution (\autoref{exercise:z3-smt-solver}) and Ochiai Statistical Debugging (\autoref{exercise:tarantula-ochiai})
         \item Quiz: Names
     \end{itemize}
 
-    % \item \textbf{Module 9}
-    % \begin{itemize}
-    %     \item Topics: Debugging (Delta Debugging) and Parallel Computing
-    %     \item Reading: \autoref{chapter:debugging} and \autoref{chapter:concurrency}
-    %     \begin{itemize}
-    %         \item Delta Debugging
-    %         \item Parallel computing concepts: processes, threads, locks, semaphores, monitors
-    %     \end{itemize}
-    %     \item In-class: Delta Debugging Practice (\autoref{exercise:dd-practice})
-    %     \item HW Assignment: Delta Debugging Implementation (\autoref{exercise:dd-implementation})
-    %     %\item Quiz: Statistical Debugging using M Metrics (\autoref{exercise:m-metrics})
-    % \end{itemize}
+    \item \textbf{Module 9}
+    \begin{itemize}
+        \item Topics: Debugging (Delta Debugging) and Hoare Logic
+        \begin{itemize}
+            \item Delta Debugging
+            \item Hoare Logic Introduction
+        \end{itemize}
+        \item In-class: Delta Debugging Practice (\autoref{exercise:dd-practice})
+        \item HW Assignment: Delta Debugging Implementation (\autoref{exercise:dd-implementation}) \red{\textbf{Due date: Wed 4/24/2025}}
+        %\item Quiz: Statistical Debugging using M Metrics (\autoref{exercise:m-metrics})
+    \end{itemize}
 
     % \item \textbf{Module 10}
     % \begin{itemize}
@@ -5886,7 +5887,7 @@ The following is a suggested schedule and assignment for the course over a semes
     %     \begin{itemize}
     %         \item Symbolic execution
     %         \item Hoare logic and verification
-    %     \end{itemize}
+    %     \end{itemize}Hoare
     %     \item In-class: None
     %     \item HW Assignment: Z3 SMT Solver (\autoref{exercise:z3-smt-solver})
     %     %\item Quiz: Parallel Computing Concepts (\autoref{exercise:concurrency-concepts})
@@ -6247,118 +6248,31 @@ When a loop invariant $I$ for program verification such as proving the validity 
             """
             # The abstraction function maps the list of elements to a stack view
             return f"Stack({self.elements})"
-    \end{lstlisting}
+     \end{lstlisting}
     \caption{Stack ADT}\label{ex:stack}
 \end{figure}
     
 
 
-\bibliographystyle{abbrv}
+ \bibliographystyle{abbrv}
 
 \end{document}
 
 
 %repr-inv:https://ocw.mit.edu/courses/6-170-laboratory-in-software-engineering-fall-2005/1a1f80fa85176ed3cae09ccd74f902d3_lec8.pdf
 
+*hello*world* :   FAIL
 
-Write applications as motivations for each techniques
-- e.g., for GA ,  how it is used to generate new radar design or finding the best network routing path
-
-
-
-
-
-def foo(x):
-    //l0
-
-    if x == True:
-        r = 0:
-    else: # x = False
-        r = x
-
-    if (x2) :
-        .. 
-    else:
-        ... 
-
-    ...         
-
-    if (xn) :
-        .. 
-    else:
-        ... 
-
-
-    //lend
-    return r 
-
-
-       x 
-    /      \
-   x2      x2 
-   /\      /\
- x3  x3   x3 x3 
- /\  /\   /\  /\ 
-
-1.    x = True and x2 = True and x3 = True
-2.   x = True  and x2 = True and x3 = False
-3.   x = True and x2 = False and x3 = True 
-
-
-
-8  x = False x2 = False and x3 = False 
-
-
-
-i = 0 
-while(rand()): 
-
-x = 10
-
-
-i = 0 
-//l0
-if i = 0:
-  //l1
-  i = i + 1
-else:
-  //l2
-  pass  
-if i = 1:
-   //l3
-  i = i + 1
-else:
-  //l4
-  pass
-if i >= 2:
-  //l5
-  x = 10
-else:
-  //l6
-
-1.  l0 ,   l1, l3  , l5
-1. l2  
-
-
-
-
-l0 :  True    |   ??
-l1 :  True    | x -> 0 , y -> 0 , z ->0
-l2 :  a       | x -> -2,  y -> 0, z -> 0
-l3 :  a       | x -> -2 , y -> 0 , z -> 0
-      !a      | x ->  0,  y -> 0 , z -> 0
-l4:  a & b <5 | x -> -2 , y -> 0 , z -> 0               
-     !a & b <5| x -> 0  , y -> 0 , z -> 0               
-
-
-
-
-def mystery(int x, int y, int z):
-    if x + y == 150:
-        if x * z == 2025:
-            assert False     
-
-
-x = 2025
-y = -1875
-z = 1        
+n=2      *hello/*world*      *hello: PASS  |  *world*: PASS
+n=4      *he/llo*/wor/ld*    *he: FAIL 
+n=2      llo*w/orld*         llo*w :  PASS  | orld*: PASS   
+n=4      llo/*wo/rl/d*       llo :  PASS   |  *wo : PASS  |  rl : FAIL 
+n=2      llo*/wod*           llo* : PASS    |  wod* : PASS
+n=4      ll/o*/wod*          ll : FAIL 
+n=2       o*w/od*            o*w: PASS   |  od*: PASS
+n=4       o/*/wo/d*          o: PASS   | *:  FAIL
+n =2       ow/od*            ow: PASS   |  od* : PASS
+n = 4   o/w/o/d*            o: PASS   |  w: FAIL
+n = 2   oo/d*                oo: PASS |  d*: FAIl 
+n = 2   o/o                  o: PASS | o: PASS 
+n = 4   oo 
