@@ -4881,7 +4881,7 @@ The main limitation of Hoare logic is that it requires the user to provide the c
 
 \subsection{Hoare Triples}\label{exercise:hoare-tripples}
 
-Fill in \texttt{P,S,Q} to make the following Hoare Triples valid. Remember that we want the strongest postcondition \code{Q} and weakest precondition \code{P}.
+Fill in \texttt{P,S,Q} to make the following Hoare Triples \emph{valid}. Remember that we want the strongest postcondition \code{Q} and weakest precondition \code{P}.
 %todo: make more problems esp. with weakest/strongest pre/post
 
 \begin{enumerate}
@@ -4891,9 +4891,8 @@ Fill in \texttt{P,S,Q} to make the following Hoare Triples valid. Remember that 
   $\{P\}$ \code{x:= y - 3} $\{x = 8\}$
 \item
   $\{x = y\}$ \code{S} $\{x = y\}$
-% \item
-%   \texttt{\{x\ \textless{}\ 0\}\ while(x!=0)\ do\ x\ :=\ x\ -\ 1\ \{Q\}}
 \item $\{ x=10 \land y = 10\}$ \code{if x > 0 then y := x + 2 else y := x - 1} $\{ Q\}$
+\item \texttt{\{x\ \textless{}\ 0\}\ while(x!=0)\ do\ x\ :=\ x\ -\ 1\ \{Q\}}
 \end{enumerate}
 
 
@@ -6276,3 +6275,6 @@ n = 4   o/w/o/d*            o: PASS   |  w: FAIL
 n = 2   oo/d*                oo: PASS |  d*: FAIl 
 n = 2   o/o                  o: PASS | o: PASS 
 n = 4   oo 
+
+
+
