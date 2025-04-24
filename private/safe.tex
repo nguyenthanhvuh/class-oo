@@ -4366,12 +4366,12 @@ More specifically, \code{oracle(s:str)->bool} takes in a string \code{s} and ret
         return 0;
     }
     \end{lstlisting}
-    and an \emph{oracle} that checks if the input C program is valid (compiles) and contains the word \code{SWE419}. If so, the oracle returns 0 (Fail) and 1 otherwise (Pass).
+    and an \emph{oracle} that checks if the input C program is valid and contains the word \code{SWE419}. If so, the oracle returns 0 and 1 otherwise.
     \item Describe \emph{in words} how you would apply DD to obtain the minimal C program that fails the oracle.
     \begin{itemize}
-        \item Show what you get at the end. In other words, use DD to get the minimal C code that the oracle would return 0.  
-        \item You \textbf{do not need} to show step by step like we did in class. Instead, just describe the steps you (the DD algorithm) would take to reduce the input,  e.g., \emph{``in the first step you split the program into two parts, then you remove the first part, run the oracle which fails/passes because ..., etc''}.
-        \item Pay attention to the additional requirement of being a \emph{valid} C program (e.g., needs the \code{\#include <stdio.h>}, \code{int main()...} and \code{return 0} statements). 
+        \item Show what you get at the end (i.e., use DD to get the minimal C code that the oracle would return 0).  
+        \item You \textbf{do not} need to show step by step like we did in class with~\autoref{tab:dd1} and~\autoref{tab:dd2}. Instead, just informally describe the steps you (the DD algorithm) would take to reduce the input,  e.g., \emph{``in the first step you split the program into two parts, then you remove the first part, run the oracle which fails/passes because ..., etc''}.
+        \item Pay attention to the additional requirement of being a \emph{valid} C program. This requires the \code{\#include <stdio.h>}, \code{int main()...} and \code{return 0} statements. 
     \end{itemize}    
 \end{itemize}
 
@@ -4824,15 +4824,17 @@ If we pick a good or strong invariant, we can prove the Hoare triple and thus th
 
 
 \section{Verification Condition}\label{sec:verification-condition} 
-
-After computing the WP of a program $S$ with respect to a postcondition $Q$, we check that the given precondition $P$ implies the WP.  This is known as the \emph{verification condition} (VC) and written as 
+To check that a program $S$ satisfies the specification $P, Q$, we check that $P$ implies the computed WP of $S$ with respect to $Q$.  This is known as the \emph{verification condition} (VC) and written as 
 \begin{equation}\label{eq:vc}
     P \implies \code{wp}(\code{S},Q)
 \end{equation}
 
-If the VC is valid, the Hoare triple is valid and the program satisfies its specification.  If the VC is invalid, then the Hoare triple is invalid and we cannot prove that the program is correct.  
+If the VC is valid, the Hoare triple is valid and the program satisfies its specification.  If the VC is invalid, then the Hoare triple is invalid and we cannot prove that the program is correct. Note that the checking of a logical implication---the VC---is done through logical reasoning (e.g., $x \implies T$ is $T$, $x > 5 \implies x > 0$) or using a \emph{SMT solver} (e.g., Z3, CVC4, etc.)
 
-It is important to emphasize that not being able to prove the program is correct (i.e., the VC is invalid) \emph{does not} mean the program is incorrect. It simply means we cannot prove it.  Hoare logic and verification in general only prove program correctness, not incorrectness.  This is in contrast to testing (\autoref{chapter:testing}) which can prove program incorrectness, i.e., by finding a counterexample input causing the bug, but not correctness (because we can't test all inputs).
+
+
+It is important to emphasize that not being able to verify (prove) that the program is correct \emph{does not} mean the program is incorrect. It simply means we cannot prove it.
+Hoare logic and verification in general only prove program correctness, not incorrectness.  This is in contrast to testing (\autoref{chapter:testing}) which can prove program incorrectness---by finding a counterexample input causing the bug, but not correctness---because not able to find a bug does not mean the program is correct.  This is known as the \emph{verification vs. validation} problem.  
 
 \paragraph{Example} 
 
@@ -4895,6 +4897,67 @@ Fill in \texttt{P,S,Q} to make the following Hoare Triples \emph{valid}. Remembe
 \item \texttt{\{x\ \textless{}\ 0\}\ while(x!=0)\ do\ x\ :=\ x\ -\ 1\ \{Q\}}
 \end{enumerate}
 
+\subsection{WP Practices}\label{ex:wp-practices}
+
+
+
+For each program statement $S$ and postcondition $Q$, compute the \textbf{weakest precondition} $wp(S, Q)$.
+
+
+\begin{enumerate}
+    \item $S: \; x := x + 2$, \quad $\{Q: \; x < 10\}$
+    \item $S: \; y := 3 \cdot x - 1$, \quad $\{Q: \; y \geq 5\}$
+
+    \item 
+
+    $S: \; \text{if } (x > 0) \text{ then } y := x + 1 \text{ else } y := -x,$ 
+    \quad $\{Q: \; y \geq 0\}$
+
+    
+    \item 
+    $S: \; \text{if } (x < 5) \text{ then } x := x \cdot 2 \text{ else } x := x - 3,$ 
+    \quad $Q: \; x \neq 0$
+
+    \item 
+    $
+    S: 
+    x := x + 3; 
+    y := x \cdot 2$
+    \quad $\{Q: \; y \leq 20\}$
+
+
+    \item 
+    $ 
+    S:  
+    z := x + y; 
+    x := x - y$
+    \quad $\{Q: \; z \geq 0 \land x \geq 0\}$
+\end{enumerate}
+
+
+
+\subsection{Verification Condition: Prove a program with conditional}\label{ex:vc-conditional}
+
+\begin{lstlisting}
+    {x >= 0}   // P 
+    if (x > 0){
+        y := x + 1
+    }
+    else{
+        y := -x
+    }
+    {y >= 0}  // Q
+    \end{lstlisting}
+
+Prove the above program. In particular, you need to: 
+\begin{enumerate}
+\item Compute the weakest precondition (\autoref{sec:weakest-preconditions})
+\item Forming the verification condition (VC) as shown in~\autoref{sec:verification-condition}
+\item Checking that the VC is valid
+\end{enumerate}
+
+Note that during these steps you need to explaining your reasoning and how you get from one step to the next, e.g., simplification, logical laws, etc.  You can use the logic laws in \autoref{sec:logic-laws} to help you with this.  You can also use the Z3 SMT solver to check the validity of the VC.
+
 
 \subsection{Weakest Precondition and Verification Condition}\label{exercise:wp-vc}
 
@@ -4913,21 +4976,6 @@ Prove the following program using the \emph{two} loop invariants $I_1: i \le 10$
 
 \end{lstlisting}    
 
-
-\subsection{Prove a program with conditional}\label{exercise:conditional}
-
-Prove the following program. You must show your work including computing the weakest precondition, forming and checking verification conditions, and explaining your reasoning (e.g., simplification).
-
-\begin{lstlisting}
-{x >= 0}   // P 
-if (x > 0){
-    y := x + 1
-}
-else{
-    y := -x
-}
-{y >= 0}  // Q
-\end{lstlisting}
 
 
 \chapter{Abstract Interpretation}
@@ -5892,18 +5940,17 @@ The following is a suggested schedule and assignment for the course over a semes
     %     %\item Quiz: Parallel Computing Concepts (\autoref{exercise:concurrency-concepts})
     % \end{itemize}
 
-    % \item \textbf{Module 12}
-    % \begin{itemize}
-    %     \item Topics: Hoare Logic and Weakest Precondition
-    %     \item Reading: \autoref{chapter:verification} (Verification)
-    %     \begin{itemize}
-    %         \item Hoare Triples
-    %         \item Weakest Precondition
-    %     \end{itemize}
-    %     \item In-class: Hoare Triples Exercise
-    %     \item HW Assignment: No Homework
-    %     %\item Quiz: Symbolic Execution (\autoref{exercise:symbolic-execution})
-    % \end{itemize}
+    \item \textbf{Module 10}
+    \begin{itemize}
+        \item Topics: Hoare Logic and Weakest Precondition
+        \item Reading: \autoref{chapter:verification} (Verification)
+        \begin{itemize}
+            \item Hoare Triples
+            \item Weakest Precondition
+        \end{itemize}
+        \item In-class: Hoare Triples Exercise (\autoref{exercise:hoare-tripples})
+        \item HW Assignment: Read Verification Conditions (\autoref{sec:verification-condition}) and do WP practices (\autoref{ex:wp-practices}) and verification condition with conditionals (\autoref{ex:vc-conditional})
+    \end{itemize}
 
     % \item \textbf{Module 13}
     % \begin{itemize}
