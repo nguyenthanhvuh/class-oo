@@ -4690,10 +4690,11 @@ Let's compute the wp of the loop in \autoref{fig:while-loop} using these loop in
         \item $T$ (true) (always a loop invariant, though very weak and likely useless)
  \end{enumerate}
 
-
  \begin{figure}
     \begin{lstlisting}[language=C]
+    {i<=N}
     while(True){
+        //i <= N
       # [I]: loop invariants here
       if(!(i < N)) break;
       i := N;
@@ -4956,9 +4957,9 @@ Prove the above program. In particular, you need to:
 \item Checking that the VC is valid
 \end{enumerate}
 
-Note that during these steps you need to explaining your reasoning and how you get from one step to the next, e.g., simplification, logical laws, etc.  You can use the logic laws in \autoref{sec:logic-laws} to help you with this.  You can also use the Z3 SMT solver to check the validity of the VC.
+Note that during these steps you need to explain your reasoning and how you get from one step to the next, e.g., simplification, logical laws (\autoref{sec:logic-laws}).  You can use the Z3 SMT solver to check the validity of the VC.
 
-\subsection{Finding Weaknest Precondition}\label{exercise:wp-cond}
+\subsection{Finding Weakest Precondition}\label{exercise:wp-cond}
 \begin{lstlisting}
 if (x >= 5) {
     y := 2 * x
@@ -5959,7 +5960,7 @@ The following is a suggested schedule and assignment for the course over a semes
             \item Weakest Precondition
         \end{itemize}
         \item In-class: Hoare Triples Exercise (\autoref{exercise:hoare-tripples})
-        \item HW Assignment: Read Verification Conditions (\autoref{sec:verification-condition}) and do WP practices (\autoref{ex:wp-practices}) and verification condition with conditionals (\autoref{ex:vc-conditional}) \red{\textbf{Due date: Wed 4/30/2025}}
+        \item HW Assignment: Read Verification Conditions (\autoref{sec:verification-condition}) and do WP practices (\autoref{ex:wp-practices}) and verification condition with conditionals (\autoref{ex:vc-conditional}) 
     \end{itemize}
 
     \item \textbf{Module 11}
@@ -5969,7 +5970,8 @@ The following is a suggested schedule and assignment for the course over a semes
         \begin{itemize}
             \item Weakest Precondition with Loops and Loop Invariants
         \end{itemize}
-        \item In-class: Hoare Triples Exercise (\autoref{exercise:hoare-tripples})
+        \item In-class: WPs of Loops
+        \item HW Assignment: WP and VC of Loops (\autoref{exercise:wp-vc}) \red{\textbf{Due date: Wed 5/7/2025}}
 
     \end{itemize}
  
@@ -6330,6 +6332,103 @@ n = 4   oo
 
 
 
-{3 = 8}
 
-- {F}  x := 3   {x == 8}
+
+while(True){
+    //i <= N    :   loop invariant I
+  # [I]: loop invariants here
+  if(!(i < N)) break;
+  i := N;
+}
+
+{i == N} //Q
+
+wp(while[i <= N](i<N){i := N}, i ==N) = 
+
+1. i <= N &
+2. (I & b)  => wp(i:=N, i<=N)
+  i<=N   & i <N   => wp(i:=N, i<=N)
+  i < N          =>  N <= N
+  i < N           =>  True
+        True 
+  
+3. ( I & !b)   =>  Q 
+i <= N &  !(i<N)  =>   i == N 
+i <= N &   i >= N  =>   i == N
+    i == N        =>    i == N 
+         True
+
+i <= N  & True & True   
+
+i <= N  
+
+
+------ 
+while (i<N){ i: = N}
+
+while(True){
+    // T
+  # [I]: loop invariants here
+  if(!(i < N)) break;
+  i := N;
+}
+
+{i == N} //Q
+
+1. T
+2. (T and i < N) => wp(i:= N, T)
+    i < N        =>     T
+          T
+3. (T and i >= N) =>  i == N
+i >= N     =>   i == N 
+
+T & T &  i >= N     =>   i == N  
+
+i >= N     =>   i == N  
+
+
+
+
+
+ i< N  OR  i == N      ==  i <= N 
+ i >= N  =>  i == N      =?     i <= N  
+
+------------------  
+
+ while (i<N){ i: = N}
+
+ while(True){
+     // i >= 0 
+   # [I]: loop invariants here
+   if(!(i < N)) break;
+   i := N;
+ }
+ 
+ {i == N} //Q
+
+1.
+2.
+3.
+
+I  =   i > = 0
+b =    i < N 
+S  =    i := N  
+Q  =   i == N 
+
+1.  i >= 0 
+2.  (I & b) => wp(S, I)
+(i >= 0)  & (i < N)    =>   wp(i:=N,  i >=0)
+(i >= 0)  & (i < N)    =>   N >= 0 
+   N >  i >= 0    
+   N >= 0              =>  N >=0 
+      T
+
+3.  (i>=0 &  i>=N) => i == N 
+    i < 0 or i < N    or   i == N 
+    i < 0  or i <= N 
+
+    i >= 0  & T  &  (i>=0 &  i>=N) => i == N 
+    i >= 0  &  (i>=0 &  i>=N) => i == N  
+
+
+P  => i >= 0  &  (i>=0 &  i>=N) => i == N 
