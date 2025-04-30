@@ -4819,8 +4819,8 @@ Thus, the WP when using the loop invariant $N \ge 0$ is
 \end{split}
 \end{equation*}
 
-Thus, when using different loop invariants, we get different WPs. As we will see in \autoref{sec:verification-condition}, this will affect the validity of the Hoare triple.
-If we pick a good or strong invariant, we can prove the Hoare triple and thus the program.  But if we pick a weak one, we might not be able to do so.  This is why finding good loop invariants is a challenging problem.
+Thus, when using different loop invariants, we get different WPs. 
+If we pick a sufficiently strong invariant, we can calculate a sufficient WP that helps prove the Hoare triple and thus the program.  But if we pick a weak one, we might not be able to do so.  
 
 
 \section{Verification Condition}\label{sec:verification-condition} 
@@ -4958,7 +4958,17 @@ Prove the above program. In particular, you need to:
 
 Note that during these steps you need to explaining your reasoning and how you get from one step to the next, e.g., simplification, logical laws, etc.  You can use the logic laws in \autoref{sec:logic-laws} to help you with this.  You can also use the Z3 SMT solver to check the validity of the VC.
 
+\subsection{Finding Weaknest Precondition}\label{exercise:wp-cond}
+\begin{lstlisting}
+if (x >= 5) {
+    y := 2 * x
+} else {
+    y := x + 3
+}
+{ y >= 10 }
+\end{lstlisting}
 
+Obtain the WP of the above program.  You need to show your work. Try to simplify each step as much as possible as shown in class.  
 \subsection{Weakest Precondition and Verification Condition}\label{exercise:wp-vc}
 
 Prove the following program using the \emph{two} loop invariants $I_1: i \le 10$ and $I_2: i \ge 0$.  You must show your work including computing the weakest precondition, forming and checking verification condition, and explaining your reasoning (e.g., simplification). 
@@ -5952,23 +5962,17 @@ The following is a suggested schedule and assignment for the course over a semes
         \item HW Assignment: Read Verification Conditions (\autoref{sec:verification-condition}) and do WP practices (\autoref{ex:wp-practices}) and verification condition with conditionals (\autoref{ex:vc-conditional}) \red{\textbf{Due date: Wed 4/30/2025}}
     \end{itemize}
 
-    % \item \textbf{Module 13}
-    % \begin{itemize}
-    %     \item Topics: Weakest Precondition and Verification Condition
-    %     \item Reading: \autoref{chapter:verification} (Verification)
-    %     \begin{itemize}
-    %         \item WP for While Loop
-    %         \item Verification Condition
-    %     \end{itemize}
-    %     \item In-class: Verification Conditions, WP for While Loop
-    %     \item HW Assignment: Weakest Precondition and Verification Condition (\autoref{exercise:wp-vc})
-    %     %\item Quiz: Hoare Triples (\autoref{exercise:hoare-tripples})
-    % \end{itemize}
+    \item \textbf{Module 11}
+    \begin{itemize}
+        \item Topics: Hoare Logic and Loop Invariants
+        \item Reading: \autoref{chapter:verification} (Verification)
+        \begin{itemize}
+            \item Weakest Precondition with Loops and Loop Invariants
+        \end{itemize}
+        \item In-class: Hoare Triples Exercise (\autoref{exercise:hoare-tripples})
 
-    % \item \textbf{Module 14}
-    % \begin{itemize}
-    %     \item TBD
-    % \end{itemize}
+    \end{itemize}
+ 
 
 \end{itemize}
 
