@@ -96,6 +96,13 @@
 \newcommand{\notsol}[1]{\nottoggle{usesol}{#1}{}}
 \newcommand{\solite}[2]{\iftoggle{usesol}{#1}{#2}}
 
+\newenvironment{solenv}
+  {\iftoggle{usesol}{\par\medskip\noindent\textbf{Sol:}\par\medskip\begingroup}%
+                  {\comment}} % If toggle is false, begin a comment (skip)
+  {\iftoggle{usesol}{\endgroup}%
+                  {\endcomment}} % Close comment when skipping
+
+
 \usepackage[makeroom]{cancel}
 
 \newtcolorbox{mybox}{
@@ -771,7 +778,35 @@ new_principal = old_principal * (1 + monthly_interest_rate) - payment
 
     \item To make sure you understand the point about preconditions, your code is required to be \emph{minimal}. Specifically, if it is possible to delete parts of your implementation and still have it satisfy the requirements, you'll earn less than full credit.
 \end{itemize}
+\begin{solenv}
+    \begin{lstlisting}
+    def months(principal: int, rate: float, payment: int) -> int:
+        count = 0
+        while principal > 0:
+            principal = principal * (1 + rate ) - payment
+            count += 1
+        return count
+    \end{lstlisting}
+\end{solenv}
+
+
 \item \emph{Total} specification: Now change the specification to \emph{total} in which the postcondition handles violations of the preconditions using \emph{exceptions}. In addition, provide a new implementation \code{month} that satisfies the new specification.
+\begin{solenv}
+    \begin{lstlisting}
+    def months(principal: int, rate: float, payment: int) -> int:
+        if not (principal > 0 and rate > 0 and payment > 0):
+            raise Exception("principal, rate, or payment is not positive")
+        if principal * (1 + rate ) - payment >= principal:
+            raise Exception("payment is not large enough")
+
+        count = 0
+        while principal > 0:
+            principal = principal * (1 + rate ) - payment
+            count += 1
+        return count
+    \end{lstlisting}
+\end{solenv}
+
 \end{itemize}
 
 
