@@ -91,7 +91,7 @@
 \usepackage{etoolbox}
 
 \newtoggle{usesol}
-\settoggle{usesol}{false} % not sol version
+\settoggle{usesol}{true} % not sol version
 \newcommand{\sol}[1]{\iftoggle{usesol}{\textbf{Sol:} #1}{}}
 \newcommand{\notsol}[1]{\nottoggle{usesol}{#1}{}}
 \newcommand{\solite}[2]{\iftoggle{usesol}{#1}{#2}}
@@ -837,45 +837,45 @@ def tail(my_list):
 
 \begin{enumerate}
     \item Write the \emph{partial} specifications for the below two functions.
+
+    \begin{solenv}
+    \begin{lstlisting}
+    def divide(a: float, b: float) -> float:
+        """
+        PRE: b must be non-zero
+        POST: returns the result of dividing a by b
+        """
+    \end{lstlisting}
+    \begin{lstlisting}
+    def get_average(numbers: list[float]) -> float:
+        """
+        PRE: numbers must be non-empty
+        POST: returns the average of the numbers in the list
+        """
+    \end{lstlisting}
+    \end{solenv}
     
-    \sol {
-        \begin{itemize}
-            \item \code{divide}:
-                \begin{itemize}
-                    \item PRE: \code{b} must be non-zero
-                    \item POST: returns the result of dividing \code{a} by \code{b}
-                \end{itemize}
-            \item \code{get\_average}:
-                \begin{itemize}
-                    \item PRE: \code{numbers} must be non-empty
-                    \item POST: returns the average of the numbers in the list
-                \end{itemize}
-        \end{itemize}
-    }
     \item Modify the specifications to make the functions \emph{total}.
 
-    \sol {
-        \begin{itemize}
-            \item \code{divide}:
-                \begin{itemize}
-                    \item PRE: True
-                    \item POST: 
-                        \begin{itemize}
-                            \item if \code{b} is 0, raise an exception
-                            \item returns the result of dividing \code{a} by \code{b}
-                        \end{itemize}
-                \end{itemize}
-            \item \code{get\_average}:
-                \begin{itemize}
-                    \item PRE: True
-                    \item POST: 
-                        \begin{itemize}
-                            \item if \code{numbers} is empty, raise an exception
-                            \item returns the average of the numbers in the list
-                        \end{itemize}
-                \end{itemize}
-        \end{itemize}
-    }
+    \begin{solenv}
+    \begin{lstlisting}
+    def divide(a: float, b: float) -> float:
+        """
+        PRE: True
+        POST: If b is 0, raise an exception.
+              Otherwise, returns the result of dividing a by b
+        """
+    \end{lstlisting}
+    \begin{lstlisting}
+    def get_average(numbers: list[float]) -> float:
+        """
+        PRE: True
+        POST: If numbers is empty, raise an exception.
+              Otherwise, returns the average of the numbers in the list
+        """
+    \end{lstlisting}
+    \end{solenv}
+
     \item Modify the \emph{implementations} of the two functions to satisfy the total specifications.
 \end{enumerate}
 
@@ -899,8 +899,33 @@ def get_average(numbers: list[float]) -> float:
 \end{lstlisting}
 
 
+\begin{solenv}
+For \code{divide}, precond is \code{b} cannot be 0, postcond is the result is the division of \code{a} by \code{b}. For \code{get\_average}, precond is the list cannot be empty (which cause division by 0), postcond is the result is the average of the numbers in the list. To make them total, we throw an exception when the precond is violated.
 
-\sol{For \code{divide}, precond is \code{b} cannot be 0, postcond is the result is the division of \code{a} by \code{b}. For \code{get\_average}, precond is the list cannot be empty (which cause division by 0), postcond is the result is the average of the numbers in the list. To make them total, we throw an exception when the precond is violated.}
+\begin{lstlisting}
+def divide(a:float, b:float) -> float:
+    """
+    PRE: True
+    POST: If b is 0, raise an exception.
+        Otherwise, returns the result of dividing a by b
+    """
+    if b == 0:
+        raise Exception("Division by zero is not allowed")
+    return a / b
+
+def get_average(numbers: list[float]) -> float:
+    """
+    PRE: True
+    POST: If numbers is empty, raise an exception.
+        Otherwise, returns the average of the numbers in the list
+    """
+    if numbers == []:
+        raise Exception("Cannot calculate average of an empty list")
+    total = sum(numbers)
+    return divide(total, len(numbers))
+\end{lstlisting}
+\end{solenv}
+
 
 
 \subsection{Problems with Inheritance in OOP: Equality}\label{exercise:inheritance-equality}
