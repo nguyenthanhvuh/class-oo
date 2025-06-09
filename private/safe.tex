@@ -1512,18 +1512,114 @@ Use the Poly ADT in \autoref{ex:poly} to answer the following questions. Use the
         \item Part 1
 \begin{enumerate}
 \item Write an Overview that describes what \code{Poly} does. You must provide some examples to demonstrate (e.g., \code{Poly(2,3)} means what?).
+    \\ \sol{Poly is a class object that combines terms to create a polynomial.
+        Poly(a, b) creates a term that is a times x to the power of b.
+        Then, the functions within the class will combine the terms in accordance
+        to the operation specified (add, subtract, multiply, divide).
+
+        Example: Poly(2,3) will create a term that is $2x^3$
+    }
 \item Provide the specifications for all methods in the ADT. 
+    \\  \begin{solenv}
+    \begin{lstlisting}
+    def __init__(self, c=0, n=0):
+        """
+        Pre: c is a number, n is an integer
+        Post: If n < 0, raises an error.
+              Else, initializes a polynomial with a single term cx^n,
+              or an empty polynomial if c == 0.
+        """
+    def degree(self):
+        """
+        Pre: True
+        Post: Returns the highest exponent in this polynomial,
+              or 0 if it is empty.
+        """
+    def coeff(self, d):
+        """
+        Pre: d is an integer
+        Post: If d < 0, raises an error.
+              Else, returns the coefficient of x^d,
+              or 0 if there is no such term.
+        """
+    def sub(self, q):
+        """
+        Pre: q is a Poly
+        Post: Raises an error if q is None.
+              Else, returns a new polynomial equal to this - q.
+        """
+    def minus(self):
+        """
+        Pre: True
+        Post: Raises an error if q is None.
+              Else, returns a new polynomial equal to -1 times this polynomial.
+        """
+    def add(self, q):
+        """
+        Pre: q is a Poly
+        Post: Raises an error if q is None.
+              Else, returns a new polynomial equal to this + q.
+        """
+    def mul(self, q):
+        """
+        Pre: q is a Poly
+        Post: Raises an error if q is None.
+              Else, returns a new polynomial equal to this * q.
+        """
+    def __str__(self):
+        """
+        Pre: True
+        Post: Returns a string representation of this polynomial.
+        """
+    \end{lstlisting}
+    \end{solenv}
 \item Write the \textbf{rep} used in this code.  Describe how this rep represents \code{Poly}.
+    \\  \sol{The polynomial is represented through a dictionary.
+        Each key-value pair of the dictionary represents one of the terms of the polynomial, where the key represents the
+        exponent of the term, and the value represents the coefficient of the term.
+    }
 \item Provide the \textbf{rep-inv} for the ADT. Note, this would be the constraints over the rep variable(s).
+    \\  \sol{
+        \begin{itemize}
+        \item \textbf{rep-inv1}: all keys in self.trms must be integers >= 0, i.e. the exponents must be nonnegative integers
+        \item \textbf{rep-inv2}: all values in self.trms must be nonzero numbers, i.e. there is no key-value pair in the dictionary corresponding to terms with zero coefficient
+        \end{itemize}
+    }
 \item Write a \code{repOK} method that checks the rep-inv.
+    \\  \begin{solenv}
+    \begin{lstlisting}
+    def repOK(self):
+        # Check that all exponents are nonnegative integers
+        for n in self.trms.keys():
+        if not isinstance(n, int) or n < 0:
+            return False
+        # Check that all coefficients are nonzero numbers
+        for c in self.trms.values():
+            if not isinstance(c, float) or c == 0:
+            return False
+        return True
+    \end{lstlisting}
+    \end{solenv}
 \item Describe the AF in this code. Use \code{\_\_str\_\_}.
+    \\  \sol{The abstraction function maps the concrete representation (\texttt{self.trms}) 
+    to the abstract concept of a polynomial. \texttt{\_\_str\_\_} returns a string representation of the polynomial 
+    as a sum of $cx^n$ terms . 
+    
+    Example: If \texttt{self.trms = \{2:3, 5:4\}}, the corresponding abstract polynomial 
+    is $3x^2 + 4x^5$. \texttt{\_\_str\_\_} could return something 
+    like \texttt{"Poly: 3x\^{}2 + 4x\^{}5"}.
+    }
+
 \end{enumerate}
 
         \item Part 2
 \begin{enumerate}
         \item Introduce a fault (i.e. "bug") that breaks the \textbf{rep-inv}. Try to do this with a small (conceptual) change to the code. Show that the rep-invariant is broken with a concrete test case.
+            \\ \sol{The \texttt{rep-inv} is broken with the test case \texttt{Poly("a", 0)}. Obviously, the coefficient should not be a character, but the constructor still accepts it because it only checks for $c\neq0$, which any character would pass.}
         \item Analyzed your bug with respect to the method specifications of \code{Poly}. Are all/some/none of the specification violated?
+            \\ \sol{This test case would qualify for the specifications of all methods, as they either do not check for \texttt{c}, or only check if $c\neq0$. Implementation-wise, only the following methods can run the above test case: the constructor \texttt{\_\_init\_\_}, \texttt{degree}, and \texttt{add} (provided both objects have character coefficients).}
         \item Do you think your fault is realistic? Why or why not?
+            \\ \sol{This is a realistic case that can happen because this ADT accepts all inputs, which can lead to cases where inputs are characters, strings, or any objects that implement basic operations like \texttt{\_\_add\_\_}, \texttt{\_\_neg\_\_}, etc.}
 \end{enumerate}
         
 \end{enumerate}
