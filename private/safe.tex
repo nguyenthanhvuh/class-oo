@@ -91,7 +91,7 @@
 \usepackage{etoolbox}
 
 \newtoggle{usesol}
-\settoggle{usesol}{true} % not sol version
+\settoggle{usesol}{false} % not sol version
 \newcommand{\sol}[1]{\iftoggle{usesol}{\textbf{Sol:} #1}{}}
 \newcommand{\notsol}[1]{\nottoggle{usesol}{#1}{}}
 \newcommand{\solite}[2]{\iftoggle{usesol}{#1}{#2}}
@@ -1749,6 +1749,16 @@ A \emph{dictionary ADT} stores key-value pairs, where each key is unique. It has
     \item Try to be as complete as possible. 
     \item Hilight the interesting and complex axioms and describe them. 
 \end{itemize} 
+\begin{solenv}
+    Some example axioms are shown below
+    \begin{itemize}
+        \item $ \text{is\_in}(\text{put}(D, k, v), k) = \text{True} $
+        \item $ \text{is\_in}(\text{remove}(\text{put}(D, k, v)), k) = \text{False} $
+        \item $ \text{get}(\text{put}(D, k, v), k) = v $
+        \item $ \text{is\_in}(D, k) = \text{True} \land \text{remove}(D, k) = (D', v) \Rightarrow \text{size}(D') = \text{size}(D) - 1 $
+    \end{itemize}
+\end{solenv}
+
 
 \item Implement the dictionary ADT in Python using the following \emph{mutable} template (you will convert it to an immutable ADT later). 
 
@@ -1789,6 +1799,86 @@ class Dictionary:
     \item Describe \emph{rep invariant(s)} you use in \code{repOK} as a logical formula over the rep variable.
     \item Describe the \emph{abstraction function} you use as implemented in code{(\_\_str\_\_)}
     \end{itemize}
+\begin{solenv}
+\begin{lstlisting}
+class Dictionary:
+    def __init__(self):
+        """
+        Pre: True
+        Post: Initializes an empty dictionary.
+        """
+        self._data = {}
+    
+    def repOK(self) -> bool:
+        """
+        Check rep-invariants:
+        - All keys are integers.
+        - All values are floats.
+        - All keys are unique.
+        """
+        return all(isinstance(k, int) for k in self._data) and \
+               all(isinstance(v, float) for v in self._data.values()) and \
+               len(self._data) == len(set(self._data))
+    
+    def put(self, k: int, v: float) -> None:
+        """
+        Pre: k is an integer, v is a float.
+        Modifies: self
+        Effects: If k is not present, it is added with value v; 
+                 else the value associated with k is updated to v. 
+        """
+        self._data[k] = v
+    
+    def get(self, k: int) -> float:
+        """
+        Pre: k is an integer.
+        Post: If k is not present, raises an error;
+              else returns the value associated with k.
+        """
+        if k not in self._data:
+            raise KeyError(f"Key {k} not found in the dictionary.")
+        return self._data[k]
+    
+    def remove(self, k: int) -> float:
+        """
+        Pre: k is an integer.
+        Post: If k is not present, raises an error;
+              else removes k and returns the associated value.
+        Modifies: self
+        Effects: Removes the key k from the dictionary.
+        """
+        if k not in self._data:
+            raise KeyError(f"Key {k} not found in the dictionary.")
+        return self._data.pop(k)
+    
+    def is_in(self, k: int) -> bool:
+        """
+        Pre: k is an integer.
+        Post: Returns True if k is in the dictionary, False otherwise.
+        """
+        return k in self._data
+    
+    def size(self) -> int:
+        """
+        Pre: True
+        Post: Returns the number of key-value pairs in the dictionary.
+        """
+        return len(self._data)
+    
+    def __str__(self) -> str:
+        """
+        Pre: True
+        Post: Returns a string representation key-value pairs 
+              in the form {k1: v1, k2: v2, ...}.
+        """
+        return str(self._data)
+\end{lstlisting}
+\begin{itemize}
+    \item Rep: The dictionary \texttt{\_data} is used as the underlying representation to store key-value pairs, where keys are integers and values are floats.
+    \item repOK: Keys must be integers, values must be floats, and keys must be unique.
+    \item Abstraction Function: Converts the\texttt{\_data} dictionary into a string representation, displaying each key-value pair in a format resembling a Python dictionary \texttt{\{k1: v1, k2: v2, ...\}}.
+\end{itemize}
+\end{solenv}
 
 \item Create an \emph{immutable dictionary ADT} by converting the mutable version to an immutable one as learned in class (\autoref{sec:mutability-vs-immutability}). 
 \begin{itemize}
@@ -1796,6 +1886,95 @@ class Dictionary:
     \item Clearly write the specs, reps, rep-invs, af,  of the new methods. Note that most are just copied over from the mutable version, e.g., reps, rep-invs, af should be unchanged.
 
 \end{itemize}
+\begin{solenv}
+\begin{lstlisting}
+class Dictionary:
+    def __init__(self):
+        """
+        Pre: True
+        Post: Initializes an empty dictionary.
+        """
+        self._data = {}
+
+    def repOK(self) -> bool:
+        """
+        Check rep-invariants:
+        - All keys are integers.
+        - All values are floats.
+        - All keys are unique.
+        """
+        return all(isinstance(k, int) for k in self._data) and \
+               all(isinstance(v, float) for v in self._data.values()) and \
+               len(self._data) == len(set(self._data))
+
+    def put(self, k: int, v: float) -> Dictionary:
+        """
+        Pre: k is an integer, v is a float.
+        Post: If k is absent, returns a copy of self with k added and mapped to v;
+              else, returns a copy of self with k's value updated to v.
+        """
+        new_data = self._data.copy()
+        new_data[k] = v
+
+        new_dict = Dictionary()
+        new_dict._data = new_data
+        return new_dict
+
+    def get(self, k: int) -> float:
+        """
+        Pre: k is an integer.
+        Post: If k is not present, raises an error;
+              else returns the value associated with k.
+        """
+        if k not in self._data:
+            raise KeyError(f"Key {k} not found in the dictionary.")
+        return self._data[k]
+
+    def remove(self, k: int) -> (Dictionary, float):
+        """
+        Pre: k is an integer.
+        Post: If k is not present, raises an error;
+              else returns a dictionary with k removed 
+              and the associated value.
+        """
+        if k not in self._data:
+            raise KeyError(f"Key {k} not found in the dictionary.")
+        
+        new_data = self._data.copy()
+        v = new_data.pop(k)
+
+        new_dict = Dictionary()
+        new_dict._data = new_data
+        return (new_dict, v)
+
+    def is_in(self, k: int) -> bool:
+        """
+        Pre: k is an integer.
+        Post: Returns True if k is in the dictionary, False otherwise.
+        """
+        return k in self._data
+
+    def size(self) -> int:
+        """
+        Pre: True
+        Post: Returns the number of key-value pairs in the dictionary.
+        """
+        return len(self._data)
+
+    def __str__(self) -> str:
+        """
+        Pre: True
+        Post: Returns a string representation key-value pairs 
+              in the form {k1: v1, k2: v2, ...}.
+        """
+        return str(self._data)
+\end{lstlisting}
+\begin{itemize}
+    \item Rep: The dictionary \texttt{\_data} is used as the underlying representation to store key-value pairs, where keys are integers and values are floats.
+    \item repOK: Keys must be integers, values must be floats, and keys must be unique.
+    \item Abstraction Function: Converts the \texttt{\_data} dictionary into a string representation, displaying each key-value pair in a format resembling a Python dictionary \texttt{\{k1: v1, k2: v2, ...\}}.
+\end{itemize}
+\end{solenv}
 \end{itemize}
 
 % \begin{align}
